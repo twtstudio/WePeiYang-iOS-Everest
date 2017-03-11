@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		364B83021E74552200007DF3 /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364B83011E74552200007DF3 /* log.swift */; };
+		364B83041E74552B00007DF3 /* TheCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364B83031E74552B00007DF3 /* TheCacheManager.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
 		671E936890C15C748992981C /* Pods_WePeiYangUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */; };
 		B118E9511E73F5BB00735EE5 /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B118E9501E73F5BB00735EE5 /* ClassExtensions.swift */; };
@@ -39,6 +41,8 @@
 
 /* Begin PBXFileReference section */
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		364B83011E74552200007DF3 /* log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = log.swift; sourceTree = SOURCE_ROOT; };
+		364B83031E74552B00007DF3 /* TheCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheCacheManager.swift; sourceTree = SOURCE_ROOT; };
 		49A4CB0C33512BBF9F269C73 /* Pods-WePeiYangUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangUITests/Pods-WePeiYangUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6F6749BFC82CF9191336C6C5 /* Pods_WePeiYangTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8405C859FC95C5E72E0F9BD7 /* Pods-WePeiYang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.release.xcconfig"; sourceTree = "<group>"; };
@@ -91,6 +95,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		364B82FE1E74550300007DF3 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				364B83031E74552B00007DF3 /* TheCacheManager.swift */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		364B83001E74551700007DF3 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				364B83011E74552200007DF3 /* log.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		80B33C5178ED19C33022F16B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +182,8 @@
 		B1AD41131E7412B1005E4508 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				364B83001E74551700007DF3 /* Utilities */,
+				364B82FE1E74550300007DF3 /* Network */,
 				B1AD41141E7412B1005E4508 /* UI_Fundamentals */,
 			);
 			path = Shared;
@@ -468,8 +490,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				364B83041E74552B00007DF3 /* TheCacheManager.swift in Sources */,
 				B19DAB8C1E6EF5C2004A50B5 /* ViewController.swift in Sources */,
 				B118E9511E73F5BB00735EE5 /* ClassExtensions.swift in Sources */,
+				364B83021E74552200007DF3 /* log.swift in Sources */,
 				B19DAB8A1E6EF5C2004A50B5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
