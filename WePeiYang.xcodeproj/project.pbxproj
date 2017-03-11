@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
 		671E936890C15C748992981C /* Pods_WePeiYangUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */; };
+		B118E9511E73F5BB00735EE5 /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B118E9501E73F5BB00735EE5 /* ClassExtensions.swift */; };
 		B19DAB8A1E6EF5C2004A50B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DAB891E6EF5C2004A50B5 /* AppDelegate.swift */; };
 		B19DAB8C1E6EF5C2004A50B5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DAB8B1E6EF5C2004A50B5 /* ViewController.swift */; };
 		B19DAB8F1E6EF5C2004A50B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B19DAB8D1E6EF5C2004A50B5 /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 		8405C859FC95C5E72E0F9BD7 /* Pods-WePeiYang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.release.xcconfig"; sourceTree = "<group>"; };
 		9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.debug.xcconfig"; sourceTree = "<group>"; };
+		B118E9501E73F5BB00735EE5 /* ClassExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassExtensions.swift; sourceTree = "<group>"; };
 		B19DAB861E6EF5C2004A50B5 /* WePeiYang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WePeiYang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B19DAB891E6EF5C2004A50B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B19DAB8B1E6EF5C2004A50B5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -128,11 +130,13 @@
 			isa = PBXGroup;
 			children = (
 				B19DAB891E6EF5C2004A50B5 /* AppDelegate.swift */,
+				B118E9501E73F5BB00735EE5 /* ClassExtensions.swift */,
 				B19DAB8B1E6EF5C2004A50B5 /* ViewController.swift */,
 				B19DAB8D1E6EF5C2004A50B5 /* Main.storyboard */,
 				B19DAB901E6EF5C2004A50B5 /* Assets.xcassets */,
 				B19DAB921E6EF5C2004A50B5 /* LaunchScreen.storyboard */,
 				B19DAB951E6EF5C2004A50B5 /* Info.plist */,
+				B1AD41131E7412B1005E4508 /* Shared */,
 			);
 			path = WePeiYang;
 			sourceTree = "<group>";
@@ -153,6 +157,21 @@
 				B19DABAB1E6EF5C2004A50B5 /* Info.plist */,
 			);
 			path = WePeiYangUITests;
+			sourceTree = "<group>";
+		};
+		B1AD41131E7412B1005E4508 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				B1AD41141E7412B1005E4508 /* UI_Fundamentals */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		B1AD41141E7412B1005E4508 /* UI_Fundamentals */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UI_Fundamentals;
 			sourceTree = "<group>";
 		};
 		D33D5F603943FDFD415D167A /* Frameworks */ = {
@@ -450,6 +469,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B19DAB8C1E6EF5C2004A50B5 /* ViewController.swift in Sources */,
+				B118E9511E73F5BB00735EE5 /* ClassExtensions.swift in Sources */,
 				B19DAB8A1E6EF5C2004A50B5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
