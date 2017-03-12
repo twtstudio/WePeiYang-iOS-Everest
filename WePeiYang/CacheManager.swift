@@ -1,5 +1,5 @@
 //
-//  TheCacheManager.swift
+//  CacheManager.swift
 //  WePeiYang
 //
 //  Created by Halcao on 2017/3/11.
@@ -27,11 +27,11 @@ struct CacheManager {
         toSaveCache.write(toFile: cachePath, atomically: true)
     }
     
-    static func loadCache(withKey keyStr: String, success: (Any)->(), failure: ()->()) {
+    static func loadCache(withKey keyStr: String, success: ((Any)->())?, failure: (()->())?) {
         let cachePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].appending(keyStr)
         let fileManager = FileManager()
         if !fileManager.fileExists(atPath: cachePath) {
-            failure()
+            failure?()
             log.errorMessage("Cache file \(keyStr) doesn't Exist!")/
             return
         } else {
@@ -41,7 +41,7 @@ struct CacheManager {
             let cacheObject = unarchiver.decodeObject(forKey: "data")
             unarchiver.finishDecoding()
             if let cacheObject = cacheObject {
-                success(cacheObject)
+                success?(cacheObject)
                 log.word("Cache data \(keyStr) loaded in block.")/
             } else {
                 log.errorMessage( "Cache data \(keyStr) can't load in block.")/
@@ -77,11 +77,11 @@ struct CacheManager {
         userDefault?.removeObject(forKey: keyStr)
     }
     
-    static func loadGroupCache(withKey keyStr: String, success: (Any)->()) {
+    static func loadGroupCache(withKey keyStr: String, success: ((Any)->())?) {
         let userDefault = UserDefaults(suiteName: "group.WePeiYang")
         let cacheData = userDefault?.object(forKey: keyStr)
         if let cacheData = cacheData {
-            success(cacheData)
+            success?(cacheData)
         } else {
             log.errorMessage("Group Cache file \(keyStr) can't load")/
         }
