@@ -10,10 +10,10 @@
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
 		671E936890C15C748992981C /* Pods_WePeiYangUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */; };
 		B118E9511E73F5BB00735EE5 /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B118E9501E73F5BB00735EE5 /* ClassExtensions.swift */; };
+		B156B78B1E7A857F00A4C500 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B156B78A1E7A857F00A4C500 /* Assets.xcassets */; };
 		B19DAB8A1E6EF5C2004A50B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DAB891E6EF5C2004A50B5 /* AppDelegate.swift */; };
 		B19DAB8C1E6EF5C2004A50B5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DAB8B1E6EF5C2004A50B5 /* ViewController.swift */; };
 		B19DAB8F1E6EF5C2004A50B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B19DAB8D1E6EF5C2004A50B5 /* Main.storyboard */; };
-		B19DAB911E6EF5C2004A50B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B19DAB901E6EF5C2004A50B5 /* Assets.xcassets */; };
 		B19DAB941E6EF5C2004A50B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B19DAB921E6EF5C2004A50B5 /* LaunchScreen.storyboard */; };
 		B19DAB9F1E6EF5C2004A50B5 /* WePeiYangTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DAB9E1E6EF5C2004A50B5 /* WePeiYangTests.swift */; };
 		B19DABAA1E6EF5C2004A50B5 /* WePeiYangUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */; };
@@ -46,11 +46,11 @@
 		9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.debug.xcconfig"; sourceTree = "<group>"; };
 		B118E9501E73F5BB00735EE5 /* ClassExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassExtensions.swift; sourceTree = "<group>"; };
+		B156B78A1E7A857F00A4C500 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B19DAB861E6EF5C2004A50B5 /* WePeiYang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WePeiYang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B19DAB891E6EF5C2004A50B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B19DAB8B1E6EF5C2004A50B5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B19DAB8E1E6EF5C2004A50B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B19DAB901E6EF5C2004A50B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B19DAB931E6EF5C2004A50B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B19DAB951E6EF5C2004A50B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B19DAB9A1E6EF5C2004A50B5 /* WePeiYangTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WePeiYangTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +106,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		B156B7891E7A857F00A4C500 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B156B78A1E7A857F00A4C500 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		B19DAB7D1E6EF5C1004A50B5 = {
 			isa = PBXGroup;
 			children = (
@@ -135,9 +143,9 @@
 				B118E9501E73F5BB00735EE5 /* ClassExtensions.swift */,
 				B19DAB8B1E6EF5C2004A50B5 /* ViewController.swift */,
 				B19DAB8D1E6EF5C2004A50B5 /* Main.storyboard */,
-				B19DAB901E6EF5C2004A50B5 /* Assets.xcassets */,
 				B19DAB921E6EF5C2004A50B5 /* LaunchScreen.storyboard */,
 				B19DAB951E6EF5C2004A50B5 /* Info.plist */,
+				B156B7891E7A857F00A4C500 /* Resources */,
 				B1AD41131E7412B1005E4508 /* Shared */,
 			);
 			path = WePeiYang;
@@ -307,7 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B19DAB941E6EF5C2004A50B5 /* LaunchScreen.storyboard in Resources */,
-				B19DAB911E6EF5C2004A50B5 /* Assets.xcassets in Resources */,
+				B156B78B1E7A857F00A4C500 /* Assets.xcassets in Resources */,
 				B19DAB8F1E6EF5C2004A50B5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
