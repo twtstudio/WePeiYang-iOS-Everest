@@ -54,4 +54,21 @@ class SpringButton: UIButton {
             self.transform = CGAffineTransform.identity
         }, completion: nil)
     }
+    
+    convenience init(title: String, titleColor: UIColor, backgroundColor: UIColor) {
+        self.init()
+        setTitle(title, for: .normal)
+        setTitleColor(titleColor, for: .normal)
+        self.backgroundColor = backgroundColor
+        sizeToFit()
+    }
+    
+    
+}
+
+extension SpringButton: ThemeChanging {
+    // TODO: Conforming to Protocol ThemeChanging
+    func changeInto(theme: Theme) {
+        
+    }
 }
