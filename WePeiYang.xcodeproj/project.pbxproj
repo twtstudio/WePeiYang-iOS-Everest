@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36D39D4F1E83B2C200086BE3 /* TwTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D39D4E1E83B2C200086BE3 /* TwTManager.swift */; };
+		36D39D511E83E3D300086BE3 /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D39D501E83E3D300086BE3 /* TwTKeychain.swift */; };
+		36D39D531E83EF0700086BE3 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D39D521E83EF0700086BE3 /* AccountManager.swift */; };
+		36D39D551E84034F00086BE3 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D39D541E84034F00086BE3 /* JSONParser.swift */; };
 		36E3C2D81E7544860060B8A5 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E3C2D71E7544860060B8A5 /* CacheManager.swift */; };
 		36E3C2DA1E75448E0060B8A5 /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E3C2D91E75448E0060B8A5 /* SolaSessionManager.swift */; };
 		36E3C2DC1E7544970060B8A5 /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E3C2DB1E7544970060B8A5 /* log.swift */; };
@@ -42,6 +46,10 @@
 
 /* Begin PBXFileReference section */
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		36D39D4E1E83B2C200086BE3 /* TwTManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTManager.swift; sourceTree = SOURCE_ROOT; };
+		36D39D501E83E3D300086BE3 /* TwTKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTKeychain.swift; sourceTree = SOURCE_ROOT; };
+		36D39D521E83EF0700086BE3 /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = SOURCE_ROOT; };
+		36D39D541E84034F00086BE3 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = SOURCE_ROOT; };
 		36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WePeiYang-Bridging-Header.h"; sourceTree = "<group>"; };
 		36E3C2D71E7544860060B8A5 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CacheManager.swift; path = WePeiYang/CacheManager.swift; sourceTree = SOURCE_ROOT; };
 		36E3C2D91E75448E0060B8A5 /* SolaSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SolaSessionManager.swift; path = WePeiYang/SolaSessionManager.swift; sourceTree = SOURCE_ROOT; };
@@ -103,6 +111,10 @@
 			children = (
 				36E3C2D91E75448E0060B8A5 /* SolaSessionManager.swift */,
 				36E3C2D71E7544860060B8A5 /* CacheManager.swift */,
+				36D39D4E1E83B2C200086BE3 /* TwTManager.swift */,
+				36D39D541E84034F00086BE3 /* JSONParser.swift */,
+				36D39D501E83E3D300086BE3 /* TwTKeychain.swift */,
+				36D39D521E83EF0700086BE3 /* AccountManager.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -501,7 +513,11 @@
 				B118E9511E73F5BB00735EE5 /* ClassExtensions.swift in Sources */,
 				B19DAB8A1E6EF5C2004A50B5 /* AppDelegate.swift in Sources */,
 				36E3C2DC1E7544970060B8A5 /* log.swift in Sources */,
+				36D39D531E83EF0700086BE3 /* AccountManager.swift in Sources */,
+				36D39D551E84034F00086BE3 /* JSONParser.swift in Sources */,
+				36D39D4F1E83B2C200086BE3 /* TwTManager.swift in Sources */,
 				36E3C2DA1E75448E0060B8A5 /* SolaSessionManager.swift in Sources */,
+				36D39D511E83E3D300086BE3 /* TwTKeychain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

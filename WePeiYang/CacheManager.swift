@@ -10,7 +10,7 @@ import UIKit
 
 struct CacheManager {
     
-    static func save(cacheData data: Any, key keyStr: String) {
+    static func saveCache(cacheData data: Any, key keyStr: String) {
         let cachePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].appending(keyStr)
         let fileManager = FileManager()
         if fileManager.fileExists(atPath: cachePath) {
@@ -60,14 +60,14 @@ struct CacheManager {
         }
     }
     
-    static func cacheDataExists(withKey keyStr: String) -> Bool {
+    static func cacheExists(withKey keyStr: String) -> Bool {
         let cachePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].appending(keyStr)
         return FileManager().fileExists(atPath: cachePath)
     }
     
-    static func save(groupCache data: Any, key keyStr: String) {
+    static func saveGroupCache(with data: Any, key keyStr: String) {
         let userDefault = UserDefaults(suiteName: "group.WePeiYang")
-        removeCache(withKey: keyStr)
+        removeGroupCache(withKey: keyStr)
         userDefault?.set(data, forKey: keyStr)
         userDefault?.synchronize()
     }
@@ -75,6 +75,7 @@ struct CacheManager {
     static func removeGroupCache(withKey keyStr: String) {
         let userDefault = UserDefaults(suiteName: "group.WePeiYang")
         userDefault?.removeObject(forKey: keyStr)
+        userDefault?.synchronize()
     }
     
     static func loadGroupCache(withKey keyStr: String, success: ((Any)->())?) {
@@ -86,4 +87,14 @@ struct CacheManager {
             log.errorMessage("Group Cache file \(keyStr) can't load")/
         }
     }
+    
+    static func groupCacheExists(withKey keyStr: String) -> Bool {
+        let userDefault = UserDefaults(suiteName: "group.WePeiYang")
+        let cacheData = userDefault?.object(forKey: keyStr)
+        if cacheData != nil {
+            return true
+        }
+        return false
+    }
+        
 }

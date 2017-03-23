@@ -17,8 +17,6 @@ enum SessionType {
 
 let TWT_ROOT_URL = "http://open.twtstudio.com/api/v1"
 let DEV_RECORD_SESSION_INFO = "DEV_RECORD_SESSION_INFO"
-let appKey = ""
-let appSecret = ""
 
 struct SolaSessionManager {
     
@@ -35,9 +33,9 @@ struct SolaSessionManager {
         
         let keys = fooPara.keys.sorted()
         // encrypt with sha1
-        let sign = (appKey + keys.reduce("", +) + appSecret).sha1().uppercased()
+        let sign = (TwTKeychain.shared.appKey + keys.reduce("", +) + TwTKeychain.shared.appSecret).sha1().uppercased()
         para["sign"] = sign
-        para["app_key"] = appKey
+        para["app_key"] = TwTKeychain.shared.appKey
         
         let config = URLSessionConfiguration.default
         // FIXME: UserAgent
