@@ -43,11 +43,21 @@ struct AccountManager {
         // TODO: CSSearchable
     }
     
-    static func getToken(with username: String, password: String, success: (Void->Void)?, failure: (Error->Void)?) {
+    static func getToken(withUsername username: String, password: String, success: (()->())?, failure: ((Error)->())?) {
         let para: Dictionary<String, String> = ["twtuname": username, "twtpasswd": password]
-        SolaSessionManager.solaSession(withType: .get, url: "/auth/token/get", token: nil, parameters: para, success: { response in
+        SolaSessionManager.solaSession(withType: .get, url: "/auth/token/get", token: nil, parameters: para, success: { dic in
+            if let dic = dic as? Dictionary<String, AnyObject> {
+                if dic["data"]?["token"] != nil {
+                    let token = dic["data"]!["token"] as! String
+                    UserDefaults.standard.setValue(token, forKey: TOKEN_SAVE_KEY)
+                    UserDefaults.standard.setValue(username, forKey: ID_SAVE_KEY)
+                    TwTKeychain.shared.token = token
+                }
+            }
             
-        }, failure: failure)
+        }, failure: { error in
+            failure?(error)
+        })
         
     }
     

@@ -9,7 +9,7 @@
 import UIKit
 
 struct JSONParser {
-    static func parse(with response: ) -> {
-        
-    }
+//    static func parse(with data: String) -> {
+//        
+//    }
 }
