@@ -43,15 +43,15 @@ struct AccountManager {
         // TODO: CSSearchable
     }
     
-    static func getToken(withUsername username: String, password: String, success: (()->())?, failure: ((Error)->())?) {
+    static func getToken(username: String, password: String, success: (()->())?, failure: ((Error)->())?) {
         let para: Dictionary<String, String> = ["twtuname": username, "twtpasswd": password]
         SolaSessionManager.solaSession(withType: .get, url: "/auth/token/get", token: nil, parameters: para, success: { dic in
-            if let dic = dic as? Dictionary<String, AnyObject> {
-                if dic["data"]?["token"] != nil {
-                    let token = dic["data"]!["token"] as! String
+            if let data = dic["data"] as? Dictionary<String, AnyObject> {
+                if let token = data["token"] as? String {
                     UserDefaults.standard.setValue(token, forKey: TOKEN_SAVE_KEY)
                     UserDefaults.standard.setValue(username, forKey: ID_SAVE_KEY)
                     TwTKeychain.shared.token = token
+                    success?()
                 }
             }
             
@@ -60,5 +60,70 @@ struct AccountManager {
         })
         
     }
+    
+    static func checkToken(success: (()->())?, failure: (()->())?) {
+        guard let token = UserDefaults.standard.object(forKey: TOKEN_SAVE_KEY) as? String else {
+            failure?()
+            log.errorMessage("token不存在")/
+            return
+        }
+        
+        SolaSessionManager.solaSession(withType: .get, url: "/auth/token/check", token: token, parameters: nil, success: { dict in
+            if let error_code = dict["error_code"] as? Int {
+                if error_code == -1 {
+                    success?()
+                } else if error_code == 10003 { // 过期
+                    // refresh token
+                    SolaSessionManager.solaSession(withType: .get, url: "/auth/token/refresh", token: token, parameters: nil, success: { dict in
+                        if let newToken = dict["data"] as? String {
+                            UserDefaults.standard.setValue(newToken, forKey: TOKEN_SAVE_KEY)
+                            success?()
+                            return
+                        }
+                        if let msg = dict["message"] as? String {
+                            log.word(msg)/
+                        }
+                    }, failure: { error in
+                        log.error(error)/
+                        failure?()
+                        self.removeToken()
+                    }) // refresh finished
+
+                } else if let msg = dict["message"] as? String { // check failed
+                    failure?()
+                    log.errorMessage(msg)/
+                    self.removeToken()
+                } else {
+                    failure?()
+                    self.removeToken()
+                }
+            }
+        }, failure: { error in // check request failed
+            // FIXME: 10003 ???
+            log.error(error)/
+            failure?()
+        })
+    }
+    
+    static func bindTju(tjuname: String , tjupwd: String, success: (()->())?, failure: (()->())?) {
+        let para = ["tjuuname": tjuname,
+                    "tjupasswd": tjupwd]
+        SolaSessionManager.solaSession(withType: .get, url: "/auth/bind/tju", token: TwTKeychain.shared.token, parameters: para, success: { dict in
+            if let error_code = dict["error_code"] as? Int {
+                if error_code == -1 {
+                    UserDefaults.standard.set(true, forKey: TJU_BIND_KEY)
+                    success?()
+                } else {
+                    if let msg = dict["message"] as? String {
+                        log.word(msg)/
+                    }
+                }
+            }
+        }, failure: { error in
+            log.error(error)/
+            failure?()
+        })
+    }
+    
     
 }
