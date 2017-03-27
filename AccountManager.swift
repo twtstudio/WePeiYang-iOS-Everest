@@ -125,5 +125,30 @@ struct AccountManager {
         })
     }
     
+    static func unbindTju(tjuname: String , tjupwd: String, success: (()->())?, failure: (()->())?) {
+        SolaSessionManager.solaSession(withType: .get, url: "/auth/unbind/tju", token: TwTKeychain.shared.token, parameters: nil, success: { dict in
+            if let error_code = dict["error_code"] as? Int {
+                if error_code == -1 {
+                    UserDefaults.standard.set(false, forKey: TJU_BIND_KEY)
+                    CacheManager.removeCache(withKey: GPA_CACHE)
+                    CacheManager.removeCache(withKey: GPA_USER_NAME_CACHE)
+                    CacheManager.removeGroupCache(withKey: CLASSTABLE_COLOR_CONFIG_KEY)
+                    CacheManager.removeGroupCache(withKey: CLASSTABLE_CACHE_KEY)
+                    CacheManager.removeGroupCache(withKey: CLASSTABLE_TERM_START_KEY)
+                    // TODO: Spotlight
+
+                    success?()
+                } else {
+                    if let msg = dict["message"] as? String {
+                        log.word(msg)/
+                    }
+                }
+            }
+        }, failure: { error in
+            log.error(error)/
+            failure?()
+        })
+    }
+    
     
 }

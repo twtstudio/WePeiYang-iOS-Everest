@@ -12,16 +12,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        AccountManager.getToken(username: "nyz1500", password: "nyz1500chch6688", success: {
-            AccountManager.bindTju(tjuname: "30150204064", tjupwd: "nyz1", success: {
-                print("yoo")
-            }, failure: {
-                print("failed")
-            })
-        }, failure: { error in
-            log.error(error)/
-            print("already failed")
-        })
         // Do any additional setup after loading the view, typically from a nib.
     }
 
