@@ -5,3 +5,4 @@
 // essential for encryption
 
 #import <CommonCrypto/CommonCrypto.h>
+#include <ifaddrs.h>

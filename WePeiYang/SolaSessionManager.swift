@@ -15,7 +15,7 @@ enum SessionType {
     case duo
 }
 
-let TWT_ROOT_URL = "http://open.twtstudio.com/api/v1"
+let TWT_ROOT_URL = "https://open.twtstudio.com/api/v1"
 let DEV_RECORD_SESSION_INFO = "DEV_RECORD_SESSION_INFO"
 
 struct SolaSessionManager {
@@ -42,8 +42,8 @@ struct SolaSessionManager {
         para["sign"] = sign
         para["app_key"] = TwTKeychain.shared.appKey
         
-        // FIXME: UserAgent
         var headers = HTTPHeaders()
+        headers["User-Agent"] = DeviceStatus.userAgentString()
         
         if type != .duo && token != nil {
             headers["Authorization"] = "Bearer {\(token!)}"

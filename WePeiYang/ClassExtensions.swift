@@ -44,9 +44,15 @@ extension UIView {
         self.init()
         backgroundColor = color
     }
+    
+    func snapshot() -> UIImage? {
+        UIGraphicsBeginImageContext(self.bounds.size)
+        self.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
 }
-
-
 
 extension UIImage {
     

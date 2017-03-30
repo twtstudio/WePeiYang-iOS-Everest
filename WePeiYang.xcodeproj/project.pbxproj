@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		361DC5F51E8D6C7200D6BE9F /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361DC5F41E8D6C7200D6BE9F /* DeviceStatus.swift */; };
 		36D39D511E83E3D300086BE3 /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D39D501E83E3D300086BE3 /* TwTKeychain.swift */; };
 		36D39D531E83EF0700086BE3 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D39D521E83EF0700086BE3 /* AccountManager.swift */; };
 		36E3C2D81E7544860060B8A5 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E3C2D71E7544860060B8A5 /* CacheManager.swift */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		361DC5F41E8D6C7200D6BE9F /* DeviceStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceStatus.swift; sourceTree = SOURCE_ROOT; };
 		36D39D501E83E3D300086BE3 /* TwTKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTKeychain.swift; sourceTree = SOURCE_ROOT; };
 		36D39D521E83EF0700086BE3 /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = SOURCE_ROOT; };
 		36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WePeiYang-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				36E3C2DB1E7544970060B8A5 /* log.swift */,
+				361DC5F41E8D6C7200D6BE9F /* DeviceStatus.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -509,6 +512,7 @@
 				36E3C2DC1E7544970060B8A5 /* log.swift in Sources */,
 				36D39D531E83EF0700086BE3 /* AccountManager.swift in Sources */,
 				36E3C2DA1E75448E0060B8A5 /* SolaSessionManager.swift in Sources */,
+				361DC5F51E8D6C7200D6BE9F /* DeviceStatus.swift in Sources */,
 				36D39D511E83E3D300086BE3 /* TwTKeychain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
