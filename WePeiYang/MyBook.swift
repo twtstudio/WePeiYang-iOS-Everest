@@ -8,6 +8,13 @@
 
 import Foundation
 
-struct MyBook {
-    
+class MyBook {
+    var title = ""
+    var author = ""
+    var id = 0
+    init(title: String, author: String, id: Int) {
+        self.title = title
+        self.author = author
+        self.id = id
+    }
 }
