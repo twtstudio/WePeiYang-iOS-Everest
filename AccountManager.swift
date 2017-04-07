@@ -22,6 +22,10 @@ let ALLOW_SPOTLIGHT_KEY = "allowSpotlightIndex"
 
 struct AccountManager {
     
+    static var token: String? {
+        return UserDefaults.standard.object(forKey: TOKEN_SAVE_KEY) as? String
+    }
+    
     static func tokenExists() -> Bool {
         if UserDefaults.standard.object(forKey: TOKEN_SAVE_KEY) != nil {
             return true
@@ -39,7 +43,6 @@ struct AccountManager {
         CacheManager.removeGroupCache(withKey: CLASSTABLE_TERM_START_KEY)
         CacheManager.removeGroupCache(withKey: CLASSTABLE_CACHE_KEY)
         CacheManager.removeGroupCache(withKey: CLASSTABLE_COLOR_CONFIG_KEY)
-        TwTKeychain.shared.token = ""
         // TODO: CSSearchable
     }
     
@@ -50,7 +53,6 @@ struct AccountManager {
                 if let token = data["token"] as? String {
                     UserDefaults.standard.setValue(token, forKey: TOKEN_SAVE_KEY)
                     UserDefaults.standard.setValue(username, forKey: ID_SAVE_KEY)
-                    TwTKeychain.shared.token = token
                     success?()
                 }
             }
@@ -108,7 +110,7 @@ struct AccountManager {
     static func bindTju(tjuname: String , tjupwd: String, success: (()->())?, failure: (()->())?) {
         let para = ["tjuuname": tjuname,
                     "tjupasswd": tjupwd]
-        SolaSessionManager.solaSession(withType: .get, url: "/auth/bind/tju", token: TwTKeychain.shared.token, parameters: para, success: { dict in
+        SolaSessionManager.solaSession(withType: .get, url: "/auth/bind/tju", token: AccountManager.token, parameters: para, success: { dict in
             if let error_code = dict["error_code"] as? Int {
                 if error_code == -1 {
                     UserDefaults.standard.set(true, forKey: TJU_BIND_KEY)
@@ -126,7 +128,7 @@ struct AccountManager {
     }
     
     static func unbindTju(tjuname: String , tjupwd: String, success: (()->())?, failure: (()->())?) {
-        SolaSessionManager.solaSession(withType: .get, url: "/auth/unbind/tju", token: TwTKeychain.shared.token, parameters: nil, success: { dict in
+        SolaSessionManager.solaSession(withType: .get, url: "/auth/unbind/tju", token: AccountManager.token, parameters: nil, success: { dict in
             if let error_code = dict["error_code"] as? Int {
                 if error_code == -1 {
                     UserDefaults.standard.set(false, forKey: TJU_BIND_KEY)

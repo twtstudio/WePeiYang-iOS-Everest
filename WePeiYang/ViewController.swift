@@ -11,7 +11,31 @@ import UIKit
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+        print(UIDevice.current.systemVersion)
+//        TwTKeychain.shared.token = UserDefaults.standard.object(forKey: TOKEN_SAVE_KEY) as! String
+//        
+//        AccountManager.getToken(username: "nyz1500", password: "nyz1500chch6688", success: {
+//            log.word("hi")/
+//        }, failure: { error in
+//            log.errorMessage("ho")/
+//        })
+//        AccountManager.checkToken(success: {
+//            log.word("check ok!")/
+//        }, failure: {
+//            log.errorMessage("bind failed")/
+//        })
+//        AccountManager.unbindTju(tjuname: "3015204064", tjupwd: "nyz1500", success: {
+//            log.word("unbind ok!")/
+//        }, failure: {
+//            log.errorMessage("unbind failed")/
+//        })
+//        
+//        AccountManager.bindTju(tjuname: "3015204064", tjupwd: "nyz1500", success: {
+//            log.word("bind ok!")/
+//        }, failure: {
+//            log.errorMessage("bind failed")/
+//        })
+//        
         // Do any additional setup after loading the view, typically from a nib.
     }
 

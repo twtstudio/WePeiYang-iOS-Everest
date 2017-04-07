@@ -21,6 +21,7 @@ let DEV_RECORD_SESSION_INFO = "DEV_RECORD_SESSION_INFO"
 struct SolaSessionManager {
     
     static func solaSession(withType type: SessionType, url: String, token: String?, parameters: Dictionary<String, String>?, success: ((Dictionary<String, AnyObject>)->())?, failure: ((Error)->())?) {
+        
         let fullurl = TWT_ROOT_URL + url
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
         var para = parameters ??  Dictionary<String, String>()
@@ -115,5 +116,4 @@ struct SolaSessionManager {
             }
         }
     } // end of function
-    
 }
