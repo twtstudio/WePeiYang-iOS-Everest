@@ -139,7 +139,10 @@ class User {
                         let readToken = data["token"] as? String {
                         UserDefaults.standard.set(readToken, forKey: READ_TOKEN_KEY)
                         success(readToken)
+                        return
                     }
+                    // FIXME: errorMessage/ MsgDisplay
+                    // 身份认证失败
                 case .failure(let error):
                     log.error(error)/
                     if let data = response.result.value as? Dictionary<String, AnyObject> {
