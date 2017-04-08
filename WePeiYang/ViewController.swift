@@ -12,6 +12,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         print(UIDevice.current.systemVersion)
+        PhoneBook.checkVersion {
+            
+        }
 //        TwTKeychain.shared.token = UserDefaults.standard.object(forKey: TOKEN_SAVE_KEY) as! String
 //        
 //        AccountManager.getToken(username: "nyz1500", password: "nyz1500chch6688", success: {

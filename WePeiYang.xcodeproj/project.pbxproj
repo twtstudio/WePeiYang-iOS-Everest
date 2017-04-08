@@ -13,6 +13,8 @@
 		36443A111E97966000EC9EA9 /* MyBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36443A101E97966000EC9EA9 /* MyBook.swift */; };
 		36443A131E97968A00EC9EA9 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36443A121E97968A00EC9EA9 /* Review.swift */; };
 		36443A151E979D8400EC9EA9 /* ReadAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36443A141E979D8400EC9EA9 /* ReadAPI.swift */; };
+		3684085B1E98FF2400CF3766 /* PhoneBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3684085A1E98FF2400CF3766 /* PhoneBook.swift */; };
+		3684085D1E98FF5E00CF3766 /* ClientItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3684085C1E98FF5E00CF3766 /* ClientItem.swift */; };
 		36BD5AA31E97F2F80032F189 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BD5AA21E97F2F80032F189 /* Book.swift */; };
 		36BD5AA51E97F5070032F189 /* Recommender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BD5AA41E97F5070032F189 /* Recommender.swift */; };
 		36BD5AA71E97F5B50032F189 /* ReadBeacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BD5AA61E97F5B50032F189 /* ReadBeacon.swift */; };
@@ -59,6 +61,8 @@
 		36443A101E97966000EC9EA9 /* MyBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBook.swift; sourceTree = "<group>"; };
 		36443A121E97968A00EC9EA9 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		36443A141E979D8400EC9EA9 /* ReadAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadAPI.swift; sourceTree = "<group>"; };
+		3684085A1E98FF2400CF3766 /* PhoneBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneBook.swift; sourceTree = "<group>"; };
+		3684085C1E98FF5E00CF3766 /* ClientItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientItem.swift; sourceTree = "<group>"; };
 		36BD5AA21E97F2F80032F189 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		36BD5AA41E97F5070032F189 /* Recommender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recommender.swift; sourceTree = "<group>"; };
 		36BD5AA61E97F5B50032F189 /* ReadBeacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadBeacon.swift; sourceTree = "<group>"; };
@@ -163,6 +167,23 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
+		368408581E98FF0D00CF3766 /* YellowPage */ = {
+			isa = PBXGroup;
+			children = (
+				368408591E98FF1600CF3766 /* Model */,
+			);
+			name = YellowPage;
+			sourceTree = "<group>";
+		};
+		368408591E98FF1600CF3766 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3684085A1E98FF2400CF3766 /* PhoneBook.swift */,
+				3684085C1E98FF5E00CF3766 /* ClientItem.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		80B33C5178ED19C33022F16B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +230,7 @@
 				B19DAB921E6EF5C2004A50B5 /* LaunchScreen.storyboard */,
 				B19DAB951E6EF5C2004A50B5 /* Info.plist */,
 				36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */,
+				368408581E98FF0D00CF3766 /* YellowPage */,
 				36443A0A1E9792AB00EC9EA9 /* Read */,
 				B1AD41131E7412B1005E4508 /* Shared */,
 			);
@@ -548,12 +570,14 @@
 				36443A151E979D8400EC9EA9 /* ReadAPI.swift in Sources */,
 				B19DAB8C1E6EF5C2004A50B5 /* ViewController.swift in Sources */,
 				36E3C2D81E7544860060B8A5 /* CacheManager.swift in Sources */,
+				3684085D1E98FF5E00CF3766 /* ClientItem.swift in Sources */,
 				B118E9511E73F5BB00735EE5 /* ClassExtensions.swift in Sources */,
 				B19DAB8A1E6EF5C2004A50B5 /* AppDelegate.swift in Sources */,
 				36BD5AA71E97F5B50032F189 /* ReadBeacon.swift in Sources */,
 				36E3C2DC1E7544970060B8A5 /* log.swift in Sources */,
 				36443A0F1E9793FF00EC9EA9 /* User.swift in Sources */,
 				36D39D531E83EF0700086BE3 /* AccountManager.swift in Sources */,
+				3684085B1E98FF2400CF3766 /* PhoneBook.swift in Sources */,
 				36BD5AA31E97F2F80032F189 /* Book.swift in Sources */,
 				36BD5AA51E97F5070032F189 /* Recommender.swift in Sources */,
 				36E3C2DA1E75448E0060B8A5 /* SolaSessionManager.swift in Sources */,
