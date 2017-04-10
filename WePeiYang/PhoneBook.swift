@@ -44,23 +44,6 @@ class PhoneBook: NSObject {
         return dict
     }
     
-    // get sections
-    func getSections() -> [String] {
-        return sections
-    }
-    
-    // get favorite
-    func getFavorite() -> [ClientItem] {
-        let models: [ClientItem] = []
-//        
-//        models.append(ClientItem(with: "学工部本科生教育科", phone: "27407083", isFavorite: true))
-//        models.append(ClientItem(with: "学工部宿舍管理科", phone: "27407032", isFavorite: true))
-//        models.append(ClientItem(with: "学工部研究生教育管理科", phone: "27407011", isFavorite: true))
-//        models.append(ClientItem(with: "学工部学生档案室", phone: "27407023", isFavorite: true))
-        // return favorite
-        return models
-    }
-    
     func addToFavorite(with model: ClientItem, success: ()->()) {
         for m in favorite {
             if m.phone == model.phone && m.name == model.name {
@@ -125,11 +108,13 @@ class PhoneBook: NSObject {
                                         PhoneBook.shared.members[category_name] = [department_name]
                                     }
                                     let items = department["unit_list"] as! Array<Dictionary<String, String>>
+                                    PhoneBook.shared.items.removeAll()
                                     for item in items {
                                         let item_name = item["item_name"]
                                         let item_phone = item["item_phone"]
                                         PhoneBook.shared.items.append(ClientItem(name: item_name!, phone: item_phone!, owner: department_name))
                                     }
+                                    PhoneBook.shared.save()
                                 }
                             }
                         }
