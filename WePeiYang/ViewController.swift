@@ -13,8 +13,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let btn1 = SpringButton(title: "Hola", titleColor: .white, backgroundColor: Metadata.Color.WPYAccentColor)
         
+        let btn1 = SpringButton(title: "Hola", titleColor: .white, backgroundColor: Metadata.Color.WPYAccentColor)
+//        view.backgroundColor = .red
         if #available(iOS 10.0, *) {
             let btn2 = SpringButton(title: "HolaP3", titleColor: .white, backgroundColor: Metadata.Color.WPYAccentColorP3)
             

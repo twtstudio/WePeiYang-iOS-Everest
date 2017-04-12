@@ -16,6 +16,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
+        let tabVC = UITabBarController()
+        
+        let vc1 = ViewController()
+        vc1.tabBarItem.image = #imageLiteral(resourceName: "PersonalSettings")
+        vc1.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        
+        let vc2 = ViewController()
+        vc2.tabBarItem.image = #imageLiteral(resourceName: "Info")
+        
+        vc2.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        tabVC.setViewControllers([vc1, vc2], animated: true)
+        
+        UITabBar.appearance().backgroundColor = Metadata.Color.GlobalTabBarBackgroundColor
+        UITabBar.appearance().tintColor = Metadata.Color.WPYAccentColor
+        
+        
+        tabVC.selectedIndex = 0
+        if #available(iOS 10.0, *) {
+            tabVC.tabBar.unselectedItemTintColor = Metadata.Color.grayIconColor
+        } else {
+            // Fallback on earlier versions
+        }
+//        window?.backgroundColor = .white
+        window?.rootViewController = tabVC
+        window?.makeKeyAndVisible()
+        
         return true
     }
 

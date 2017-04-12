@@ -21,6 +21,14 @@ struct Metadata {
         static let WPYAccentColor = UIColor(hue: 199.0/360.0, saturation: 1.0, brightness: 0.91, alpha: 1.0)
         
         
+        // Global WePeiYang accent color including displayP3. Can be used on buttons, bars, etc
+        // Hex = FFFFFFP3
+        @available(iOS 10.0, *)
+        static let GlobalTabBarBackgroundColorP3 = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
+        static let GlobalTabBarBackgroundColor = UIColor(hue: 0.0, saturation: 0.0, brightness: 1.0, alpha: 1.0)
+        
+        
         // Color for important texts like titles
         // Hex = 333333
         @available(iOS 10.0, *)
