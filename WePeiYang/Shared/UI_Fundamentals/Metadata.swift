@@ -22,7 +22,7 @@ struct Metadata {
         
         
         // Global WePeiYang accent color including displayP3. Can be used on buttons, bars, etc
-        // Hex = FFFFFFP3
+        // Hex = FFFFFF
         @available(iOS 10.0, *)
         static let GlobalTabBarBackgroundColorP3 = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         

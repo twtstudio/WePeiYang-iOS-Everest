@@ -9,10 +9,30 @@
 import UIKit
 
 class WPYTabBarController: UITabBarController {
+    
+    convenience init(viewControllers: [UIViewController]?) {
+        self.init()
+        guard viewControllers != nil else {
+            //TODO: log
+            //log.error
+            return
+        }
+        setViewControllers(viewControllers, animated: true)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        selectedIndex = 0
+        tabBar.backgroundColor = Metadata.Color.GlobalTabBarBackgroundColor
+        tabBar.tintColor = Metadata.Color.WPYAccentColor
+        if #available(iOS 10.0, *) {
+            tabBar.unselectedItemTintColor = Metadata.Color.grayIconColor
+        } else {
+            // Fallback on earlier versions
+            // Repaint the tabBar item icon image's color and use original color instead of the tintColor
+            
+        }
         
         // Do any additional setup after loading the view.
     }
@@ -34,3 +54,4 @@ class WPYTabBarController: UITabBarController {
     */
 
 }
+
