@@ -149,6 +149,10 @@ extension PhoneBook {
         //将lists以对应Checklist关键字进行编码
         
         archiver.encode(PhoneBook.shared.items, forKey: YELLOWPAGE_SAVE_KEY)
+        archiver.encode(PhoneBook.shared.favorite, forKey: "yp_favorite_key")
+        archiver.encode(PhoneBook.shared.members, forKey: "yp_member_key")
+        archiver.encode(PhoneBook.shared.sections, forKey: "yp_section_key")
+
         //编码结束
         archiver.finishEncoding()
         //数据写入
@@ -170,12 +174,14 @@ extension PhoneBook {
             let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
             //通过归档时设置的关键字Checklist还原lists
             if let array = unarchiver.decodeObject(forKey: YELLOWPAGE_SAVE_KEY) as? Array<ClientItem>,
+                let favorite = unarchiver.decodeObject(forKey: "yp_favorite_key") as? Array<ClientItem>,
                 let members = unarchiver.decodeObject(forKey: "yp_member_key") as? [String: [String]],
                 let sections = unarchiver.decodeObject(forKey: "yp_section_key") as? [String] {
                 guard array.count > 0 else {
                     failure()
                     return
                 }
+                PhoneBook.shared.favorite = favorite
                 PhoneBook.shared.members = members
                 PhoneBook.shared.sections = sections
                 PhoneBook.shared.items = array
