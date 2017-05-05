@@ -120,6 +120,27 @@ extension UIImage {
         return (r, g, b, a)
     }
     
+    
+    func with(color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        color.setFill()
+        
+        let context = UIGraphicsGetCurrentContext()
+        context!.translateBy(x: 0, y: self.size.height)
+        context!.scaleBy(x: 1.0, y: -1.0);
+        context!.setBlendMode(.normal)
+        
+        let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
+        
+        context!.clip(to: rect, mask: self.cgImage!)
+        context!.fill(rect)
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()! as UIImage
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
+    
 }
 
 
@@ -184,3 +205,37 @@ extension String {
     }
 }
 
+
+
+// TODO: from hex to displayP3 and hsb
+extension UIColor {
+    
+//    convenience init?(Hex6: String) {
+//        
+//        guard Hex.characters.count == 6 else {
+//            print("Hex value for a color needs to be a 6-character String. nil Color initialized")
+//            return nil
+//        }
+//    }
+    
+    /**
+     The six-digit hexadecimal representation of color of the form #RRGGBB.
+     
+     - parameter hex6: Six-digit hexadecimal value.
+     */
+    public convenience init(hex6: UInt32, alpha: CGFloat = 1) {
+        let divisor = CGFloat(255)
+        let r = CGFloat((hex6 & 0xFF0000) >> 16) / divisor
+        let g = CGFloat((hex6 & 0x00FF00) >>  8) / divisor
+        let b = CGFloat( hex6 & 0x0000FF       ) / divisor
+        self.init(red: r, green: g, blue: b, alpha: alpha)
+    }
+}
+
+
+//extension of UIViewController to add a property
+extension UIViewController {
+    private struct fooPropertyStruct {
+        var tabBarItemName: String
+    }
+}
