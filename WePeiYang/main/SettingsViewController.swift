@@ -1,21 +1,15 @@
 //
-//  FavViewController.swift
+//  SettingsViewController.swift
 //  WePeiYang
 //
-//  Created by Allen X on 4/28/17.
+//  Created by Allen X on 5/11/17.
 //  Copyright © 2017 twtstudio. All rights reserved.
 //
 
 import UIKit
 
-class FavViewController: UIViewController {
+class SettingsViewController: UIViewController {
 
-    // The below override will not be called if current viewcontroller is controlled by a UINavigationController
-    // We should do self.navigationController.navigationBar.barStyle = UIBarStyleBlack
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return .lightContent
-//    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -23,14 +17,13 @@ class FavViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
         
-        navigationItem.title = "常用"
+        navigationItem.title = "设置"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = Metadata.Color.GlobalViewBackgroundColor
-        
         // Do any additional setup after loading the view.
     }
 

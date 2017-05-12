@@ -191,6 +191,9 @@ extension UIColor {
      - parameter hex6: Six-digit hexadecimal value.
      */
     public convenience init(hex6: UInt32, alpha: CGFloat = 1) {
+        // TODO: below
+        // Store Hex converted UIColours (R, G, B, A) to a persistent file (.plist)
+        // And when initializing the app, read from the plist into the memory as a static struct (Metadata.Color)
         let divisor = CGFloat(255)
         let r = CGFloat((hex6 & 0xFF0000) >> 16) / divisor
         let g = CGFloat((hex6 & 0x00FF00) >>  8) / divisor
@@ -203,6 +206,29 @@ extension UIColor {
 //extension of UIViewController to add a property
 extension UIViewController {
     private struct fooPropertyStruct {
-        var tabBarItemName: String
+        static var desiredStatusBarStyle: UIStatusBarStyle = .lightContent
+        static var desiredNavigationBarTitleColor: UIColor = Metadata.Color.naviTextColor
     }
+    
+    var desiredStatusBarStyle: UIStatusBarStyle {
+        get {
+            return fooPropertyStruct.desiredStatusBarStyle
+        }
+        set {
+            fooPropertyStruct.desiredStatusBarStyle = newValue
+        }
+    }
+    
+    var desiredNavigationBarTitleColor: UIColor {
+        get {
+            return fooPropertyStruct.desiredNavigationBarTitleColor
+        }
+        set {
+            fooPropertyStruct.desiredNavigationBarTitleColor = newValue
+        }
+    }
+    
+
+    
+    
 }

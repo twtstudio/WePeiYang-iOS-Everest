@@ -16,6 +16,10 @@
 		B156B7941E7AC10700A4C500 /* WPYLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B156B7931E7AC10700A4C500 /* WPYLabel.swift */; };
 		B156B7981E7AC3F200A4C500 /* ThemeChanging.swift in Sources */ = {isa = PBXBuildFile; fileRef = B156B7971E7AC3F200A4C500 /* ThemeChanging.swift */; };
 		B17B37261E7E7A730070F0CB /* WPYTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17B37251E7E7A730070F0CB /* WPYTextField.swift */; };
+		B181B94C1EC49C1F00B8198E /* WPYBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B94B1EC49C1F00B8198E /* WPYBaseViewController.swift */; };
+		B181B94E1EC4A64000B8198E /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B94D1EC4A64000B8198E /* NewsViewController.swift */; };
+		B181B9501EC4A64E00B8198E /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B94F1EC4A64E00B8198E /* AllModulesViewController.swift */; };
+		B181B9521EC4A66100B8198E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B9511EC4A66100B8198E /* SettingsViewController.swift */; };
 		B19DAB8A1E6EF5C2004A50B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DAB891E6EF5C2004A50B5 /* AppDelegate.swift */; };
 		B19DAB8C1E6EF5C2004A50B5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DAB8B1E6EF5C2004A50B5 /* ViewController.swift */; };
 		B19DAB941E6EF5C2004A50B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B19DAB921E6EF5C2004A50B5 /* LaunchScreen.storyboard */; };
@@ -59,6 +63,10 @@
 		B156B7931E7AC10700A4C500 /* WPYLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYLabel.swift; sourceTree = "<group>"; };
 		B156B7971E7AC3F200A4C500 /* ThemeChanging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeChanging.swift; sourceTree = "<group>"; };
 		B17B37251E7E7A730070F0CB /* WPYTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYTextField.swift; sourceTree = "<group>"; };
+		B181B94B1EC49C1F00B8198E /* WPYBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYBaseViewController.swift; sourceTree = "<group>"; };
+		B181B94D1EC4A64000B8198E /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		B181B94F1EC4A64E00B8198E /* AllModulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllModulesViewController.swift; sourceTree = "<group>"; };
+		B181B9511EC4A66100B8198E /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B19DAB861E6EF5C2004A50B5 /* WePeiYang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WePeiYang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B19DAB891E6EF5C2004A50B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../AppDelegate.swift; sourceTree = "<group>"; };
 		B19DAB8B1E6EF5C2004A50B5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../ViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +143,9 @@
 				B19DAB951E6EF5C2004A50B5 /* Info.plist */,
 				B19DAB8B1E6EF5C2004A50B5 /* ViewController.swift */,
 				B144FE921EB338AF00C82913 /* FavViewController.swift */,
+				B181B94D1EC4A64000B8198E /* NewsViewController.swift */,
+				B181B94F1EC4A64E00B8198E /* AllModulesViewController.swift */,
+				B181B9511EC4A66100B8198E /* SettingsViewController.swift */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -203,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				B1AD41511E744553005E4508 /* SpringButton.swift */,
+				B181B94B1EC49C1F00B8198E /* WPYBaseViewController.swift */,
 				B1C4BC091E980ED8004F3BF5 /* WPYTabBarController.swift */,
 				B156B7971E7AC3F200A4C500 /* ThemeChanging.swift */,
 				B156B78D1E7A8BF200A4C500 /* Metadata.swift */,
@@ -514,10 +526,14 @@
 				B156B7941E7AC10700A4C500 /* WPYLabel.swift in Sources */,
 				B1C4BC0A1E980ED8004F3BF5 /* WPYTabBarController.swift in Sources */,
 				B144FE931EB338AF00C82913 /* FavViewController.swift in Sources */,
+				B181B9521EC4A66100B8198E /* SettingsViewController.swift in Sources */,
 				B1CDBBE91E8119C800B0D652 /* CardViewAndDelegate.swift in Sources */,
 				B17B37261E7E7A730070F0CB /* WPYTextField.swift in Sources */,
 				B118E9511E73F5BB00735EE5 /* ClassExtensions.swift in Sources */,
 				B156B7921E7AC0ED00A4C500 /* WPYTextView.swift in Sources */,
+				B181B9501EC4A64E00B8198E /* AllModulesViewController.swift in Sources */,
+				B181B94E1EC4A64000B8198E /* NewsViewController.swift in Sources */,
+				B181B94C1EC49C1F00B8198E /* WPYBaseViewController.swift in Sources */,
 				B19DAB8A1E6EF5C2004A50B5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

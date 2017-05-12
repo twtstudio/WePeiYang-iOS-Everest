@@ -22,7 +22,6 @@ class WPYTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         selectedIndex = 0
         tabBar.backgroundColor = Metadata.Color.GlobalTabBarBackgroundColor
         tabBar.tintColor = Metadata.Color.WPYAccentColor
@@ -42,7 +41,7 @@ class WPYTabBarController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
     // MARK: - Navigation
 
@@ -55,3 +54,9 @@ class WPYTabBarController: UITabBarController {
 
 }
 
+
+extension WPYTabBarController: ThemeChanging {
+    func changeInto(theme: Theme) {
+        
+    }
+}

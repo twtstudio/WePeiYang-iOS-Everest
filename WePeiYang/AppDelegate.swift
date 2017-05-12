@@ -20,22 +20,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         mainTabVC = UITabBarController()
         
-        let vc1 = ViewController()
-        vc1.tabBarItem.image = #imageLiteral(resourceName: "PersonalSettings")
-        vc1.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        let favoriteVC = FavViewController()
+        favoriteVC.tabBarItem.image = #imageLiteral(resourceName: "Favored")
+        favoriteVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        let favoriteNavigationController = UINavigationController(rootViewController: favoriteVC)
         
-        let nav1 = UINavigationController(rootViewController: vc1)
-        let vc2 = ViewController()
-        vc2.tabBarItem.image = #imageLiteral(resourceName: "Info")
+        let newsVC = ViewController()
+        newsVC.tabBarItem.image = #imageLiteral(resourceName: "News")
+        newsVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        let infoNavigationController = UINavigationController(rootViewController: newsVC)
         
-        let nav2 = UINavigationController(rootViewController: vc2)
-
-        vc2.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
-        mainTabVC.setViewControllers([nav1, nav2], animated: true)
+        let allModulesVC = AllModulesViewController()
+        allModulesVC.tabBarItem.image = #imageLiteral(resourceName: "AllModules")
+        allModulesVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        let allModulesNavigationController = UINavigationController(rootViewController: allModulesVC)
+        
+        let settingsVC = SettingsViewController()
+        settingsVC.tabBarItem.image = #imageLiteral(resourceName: "Settings")
+        settingsVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        let settingsNavigationController = UINavigationController(rootViewController: settingsVC)
+        
+        
+        
+        mainTabVC.setViewControllers([favoriteNavigationController, infoNavigationController, allModulesNavigationController, settingsNavigationController], animated: true)
+        
+        
+        
         
         UITabBar.appearance().backgroundColor = Metadata.Color.GlobalTabBarBackgroundColor
         UITabBar.appearance().tintColor = Metadata.Color.WPYAccentColor
-        
+//        UITabBar.appearance().isOpaque = true
         
         mainTabVC.selectedIndex = 0
         if #available(iOS 10.0, *) {

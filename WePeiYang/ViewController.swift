@@ -9,13 +9,32 @@
 import UIKit
 import SnapKit
 
+fileprivate let navOffset = 64 // (navigationBarHeight + statusBarHeight)
+
 class ViewController: UIViewController {
     
+    
+//    static func generateCardView() -> CardView {
+//        
+//    }
 
+    // The below override will not be called if current viewcontroller is controlled by a UINavigationController
+    // We should do self.navigationController.navigationBar.barStyle = UIBarStyleBlack
+    //    override var preferredStatusBarStyle: UIStatusBarStyle {
+    //        return .lightContent
+    //    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
         
-        
+        navigationItem.title = "常用"
+                
         let btn1 = SpringButton(title: "Hola", titleColor: .white, backgroundColor: Metadata.Color.WPYAccentColor)
         view.backgroundColor = .white
         if #available(iOS 10.0, *) {
@@ -26,7 +45,7 @@ class ViewController: UIViewController {
             
             btn1.snp.makeConstraints {
                 make in
-                make.top.equalTo(view).offset(50)
+                make.top.equalTo(view).offset(navOffset + 10)
                 make.centerX.equalTo(view)
             }
             

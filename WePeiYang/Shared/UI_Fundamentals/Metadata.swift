@@ -13,6 +13,12 @@ struct Metadata {
     
     struct Color {
         
+        // Global view background color including displayP3. Can be used on general views of some viewcontrollers
+        // Hex = FFFFFF
+        @available(iOS 10.0, *)
+        static let GlobalViewBackgroundColorP3 = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        static let GlobalViewBackgroundColor = UIColor(hue: 0.0, saturation: 0.0, brightness: 1.0, alpha: 1.0)
+        
         // Global WePeiYang accent color including displayP3. Can be used on buttons, bars, etc
         // Hex = 00A1E9
         @available(iOS 10.0, *)
@@ -21,7 +27,7 @@ struct Metadata {
         static let WPYAccentColor = UIColor(hue: 199.0/360.0, saturation: 1.0, brightness: 0.91, alpha: 1.0)
         
         
-        // Global WePeiYang accent color including displayP3. Can be used on buttons, bars, etc
+        // Global tabbar background color including displayP3. Can be used on tabbars
         // Hex = FFFFFF
         @available(iOS 10.0, *)
         static let GlobalTabBarBackgroundColorP3 = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -92,5 +98,18 @@ struct Metadata {
     struct Font {
         
         
+    }
+    
+    struct Size {
+        
+//        struct Screen {
+//            
+//            static let width = UIScreen.main.bounds.width
+//            static let height = UIScreen.main.bounds.height
+//        }
+//        
+//        struct Button {
+//            static let
+//        }
     }
 }
