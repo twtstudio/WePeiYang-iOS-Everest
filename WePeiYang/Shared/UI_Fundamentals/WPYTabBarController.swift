@@ -12,6 +12,7 @@ class WPYTabBarController: UITabBarController {
     
     convenience init(viewControllers: [UIViewController]?) {
         self.init()
+        
         guard viewControllers != nil else {
             //TODO: log
             //log.error
@@ -51,6 +52,14 @@ class WPYTabBarController: UITabBarController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        //TODO: View Controller Transitioning Animation
+        
+        //print("fuck")
+        
+    }
 
 }
 

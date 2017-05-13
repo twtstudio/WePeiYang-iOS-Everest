@@ -1,5 +1,5 @@
 //
-//  AllModulesViewController.swift
+//  SettingsViewController.swift
 //  WePeiYang
 //
 //  Created by Allen X on 5/11/17.
@@ -8,16 +8,23 @@
 
 import UIKit
 
-class AllModulesViewController: UIViewController {
+class SettingsViewController: UIViewController {
 
+    // The below override will not be called if current viewcontroller is controlled by a UINavigationController
+    // We should do self.navigationController.navigationBar.barStyle = UIBarStyleBlack
+    //    override var preferredStatusBarStyle: UIStatusBarStyle {
+    //        return .lightContent
+    //    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
+        //Changing NavigationBar Title color
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
         
-        navigationItem.title = "常用功能"
+        navigationItem.title = "设置"
     }
     
     override func viewDidLoad() {

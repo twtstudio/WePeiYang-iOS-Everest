@@ -16,11 +16,14 @@ class FavViewController: UIViewController {
 //        return .lightContent
 //    }
     
+    var cardTableView: UITableView!
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
+        //Changing NavigationBar Title color
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
         
         navigationItem.title = "常用"
@@ -30,6 +33,25 @@ class FavViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = Metadata.Color.GlobalViewBackgroundColor
+        
+        cardTableView = UITableView()
+        cardTableView.frame = view.frame
+        view = cardTableView
+        
+        cardTableView.delegate = self
+        cardTableView.dataSource = self
+        
+        let fooView = UIView(color: .red)
+        fooView.frame = CGRect(x: 40, y: 40, width: 100, height: 100)
+        view.addSubview(fooView)
+        
+        UIView.animate(withDuration: 1, animations: {
+            fooView.transform = CGAffineTransform(rotationAngle: 90.0)
+        }) { (flag) in
+            print(flag)
+        }
+        
+        
         
         // Do any additional setup after loading the view.
     }
@@ -50,4 +72,30 @@ class FavViewController: UIViewController {
     }
     */
 
+}
+
+
+extension FavViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
+    
+    
+    
+}
+
+extension FavViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
 }
