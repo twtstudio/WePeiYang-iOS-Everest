@@ -44,9 +44,15 @@ extension UIView {
         self.init()
         backgroundColor = color
     }
+    
+    func snapshot() -> UIImage? {
+        UIGraphicsBeginImageContext(self.bounds.size)
+        self.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
 }
-
-
 
 extension UIImage {
     
@@ -169,6 +175,33 @@ extension UIButton {
         foo = UIImage.resizedImage(image: foo, scaledToSize: desiredSize)
         self.init()
         setBackgroundImage(foo, for: .normal)
+    }
+}
+
+extension UIViewController {
+    
+    func topViewController() -> UIViewController? {
+        if let appRootVC = UIApplication.shared.keyWindow?.rootViewController {
+            var topVC: UIViewController? = appRootVC
+            while (topVC?.presentedViewController != nil) {
+                topVC = topVC?.presentedViewController
+            }
+            return topVC
+        }
+        return nil
+    }
+    
+}
+
+extension String {
+    func sha1() -> String {
+        let data = self.data(using: String.Encoding.utf8)!
+        var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
+        data.withUnsafeBytes {
+            _ = CC_SHA1($0, CC_LONG(data.count), &digest)
+        }
+        let hexBytes = digest.map { String(format: "%02hhx", $0) }
+        return hexBytes.joined()
     }
 }
 
