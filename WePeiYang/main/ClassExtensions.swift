@@ -44,9 +44,15 @@ extension UIView {
         self.init()
         backgroundColor = color
     }
+    
+    func snapshot() -> UIImage? {
+        UIGraphicsBeginImageContext(self.bounds.size)
+        self.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
 }
-
-
 
 extension UIImage {
     
@@ -114,6 +120,27 @@ extension UIImage {
         return (r, g, b, a)
     }
     
+    
+    func with(color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        color.setFill()
+        
+        let context = UIGraphicsGetCurrentContext()
+        context!.translateBy(x: 0, y: self.size.height)
+        context!.scaleBy(x: 1.0, y: -1.0);
+        context!.setBlendMode(.normal)
+        
+        let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
+        
+        context!.clip(to: rect, mask: self.cgImage!)
+        context!.fill(rect)
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()! as UIImage
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
+    
 }
 
 
@@ -151,3 +178,90 @@ extension UIButton {
     }
 }
 
+extension UIViewController {
+    
+    func topViewController() -> UIViewController? {
+        if let appRootVC = UIApplication.shared.keyWindow?.rootViewController {
+            var topVC: UIViewController? = appRootVC
+            while (topVC?.presentedViewController != nil) {
+                topVC = topVC?.presentedViewController
+            }
+            return topVC
+        }
+        return nil
+    }
+    
+}
+
+extension String {
+    func sha1() -> String {
+        let data = self.data(using: String.Encoding.utf8)!
+        var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
+        data.withUnsafeBytes {
+            _ = CC_SHA1($0, CC_LONG(data.count), &digest)
+        }
+        let hexBytes = digest.map { String(format: "%02hhx", $0) }
+        return hexBytes.joined()
+    }
+}
+
+
+
+// TODO: from hex to displayP3 and hsb
+extension UIColor {
+    
+//    convenience init?(Hex6: String) {
+//        
+//        guard Hex.characters.count == 6 else {
+//            print("Hex value for a color needs to be a 6-character String. nil Color initialized")
+//            return nil
+//        }
+//    }
+    
+    /**
+     The six-digit hexadecimal representation of color of the form #RRGGBB.
+     
+     - parameter hex6: Six-digit hexadecimal value.
+     */
+    public convenience init(hex6: UInt32, alpha: CGFloat = 1) {
+        // TODO: below
+        // Store Hex converted UIColours (R, G, B, A) to a persistent file (.plist)
+        // And when initializing the app, read from the plist into the memory as a static struct (Metadata.Color)
+        let divisor = CGFloat(255)
+        let r = CGFloat((hex6 & 0xFF0000) >> 16) / divisor
+        let g = CGFloat((hex6 & 0x00FF00) >>  8) / divisor
+        let b = CGFloat( hex6 & 0x0000FF       ) / divisor
+        self.init(red: r, green: g, blue: b, alpha: alpha)
+    }
+}
+
+
+//extension of UIViewController to add a property
+extension UIViewController {
+    private struct fooPropertyStruct {
+        static var desiredStatusBarStyle: UIStatusBarStyle = .lightContent
+        static var desiredNavigationBarTitleColor: UIColor = Metadata.Color.naviTextColor
+    }
+    
+    var desiredStatusBarStyle: UIStatusBarStyle {
+        get {
+            return fooPropertyStruct.desiredStatusBarStyle
+        }
+        set {
+            fooPropertyStruct.desiredStatusBarStyle = newValue
+        }
+    }
+    
+    var desiredNavigationBarTitleColor: UIColor {
+        get {
+            return fooPropertyStruct.desiredNavigationBarTitleColor
+        }
+        set {
+            fooPropertyStruct.desiredNavigationBarTitleColor = newValue
+        }
+    }
+    
+
+    
+    
+}
