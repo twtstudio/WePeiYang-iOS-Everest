@@ -33,6 +33,9 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
         
+        
+        // This is for removing the dark shadows when transitioning
+        navigationController?.navigationBar.isTranslucent = false
         navigationItem.title = "常用"
                 
         let btn1 = SpringButton(title: "Hola", titleColor: .white, backgroundColor: Metadata.Color.WPYAccentColor)

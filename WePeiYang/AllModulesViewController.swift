@@ -23,6 +23,8 @@ class AllModulesViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
         //Changing NavigationBar Title color
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
+        // This is for removing the dark shadows when transitioning
+        navigationController?.navigationBar.isTranslucent = false
         
         navigationItem.title = "更多功能"
     }

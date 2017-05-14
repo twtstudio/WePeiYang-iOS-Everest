@@ -8,28 +8,54 @@
 
 import UIKit
 
+enum TransitionDirection {
+    case left
+    case right
+}
+
+
 class TabVCTransitioningAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
+    private var transitionDirection: TransitionDirection
+    
+    init(direction: TransitionDirection) {
+        self.transitionDirection = direction
+        super.init()
+    }
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.7
+        return 0.4
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
         //Container View
         let inView = transitionContext.containerView
-        
+        var translationX = inView.frame.width
+
         let fromView = transitionContext.view(forKey: .from)
-        fromView?.isUserInteractionEnabled = false
-        
         let toView = transitionContext.view(forKey: .to)
         
+        translationX = transitionDirection == .left ? translationX : -translationX
+        let fromViewTransform = CGAffineTransform(translationX: translationX, y: 0)
+        let toViewTransform = CGAffineTransform(translationX: -translationX, y: 0)
+    
         
-        guard toView != nil else {
-            print("Cannot make displaying transitioning animation because toView is nil")
-            return
-        }
         inView.addSubview(toView!)
+        
+        let duration = transitionDuration(using: transitionContext)
+        
+        toView?.transform = toViewTransform
+        
+        
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: [.allowAnimatedContent, .curveEaseInOut], animations: {
+            fromView?.transform = fromViewTransform
+            toView?.transform = CGAffineTransform.identity
+        }) { (hasFinished) in
+            fromView?.transform = CGAffineTransform.identity
+            toView?.transform = CGAffineTransform.identity
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        }
         
 //        UIView.animate(withDuration: <#T##TimeInterval#>, animations: <#T##() -> Void#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
         

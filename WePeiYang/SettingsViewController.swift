@@ -19,17 +19,28 @@ class SettingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.navigationBar.barStyle = .black
-        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
-        //Changing NavigationBar Title color
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
-        
-        navigationItem.title = "设置"
+//        navigationController?.navigationBar.barStyle = .black
+//        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
+//        //Changing NavigationBar Title color
+//        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
+//        
+//        navigationItem.title = "设置"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
+        //Changing NavigationBar Title color
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
+        // This is for removing the dark shadows when transitioning
+        navigationController?.navigationBar.isTranslucent = false
+        
+        navigationItem.title = "设置"
+        
+        
         view.backgroundColor = Metadata.Color.GlobalViewBackgroundColor
         // Do any additional setup after loading the view.
     }

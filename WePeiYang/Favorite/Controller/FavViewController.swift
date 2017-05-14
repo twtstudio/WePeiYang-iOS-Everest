@@ -19,18 +19,30 @@ class FavViewController: UIViewController {
     var cardTableView: UITableView!
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        navigationController?.navigationBar.barStyle = .black
-        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
-        //Changing NavigationBar Title color
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
-        
-        navigationItem.title = "常用"
+//        super.viewWillAppear(animated)
+//        
+//        navigationController?.navigationBar.barStyle = .black
+//        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
+//        //Changing NavigationBar Title color
+//        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
+//        
+//        navigationItem.title = "常用"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("fuckkk")
+        
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
+        // Changing NavigationBar Title color
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
+        // This is for removing the dark shadows when transitioning
+        navigationController?.navigationBar.isTranslucent = false
+        
+        navigationItem.title = "常用"
+        
         
         view.backgroundColor = Metadata.Color.GlobalViewBackgroundColor
         
@@ -61,6 +73,15 @@ class FavViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIView.animate(withDuration: 0.3) { 
+            //self.navigationController?.navigationItem.titleView?.alpha = 0
+            
+            
+        }
+    }
 
     /*
     // MARK: - Navigation

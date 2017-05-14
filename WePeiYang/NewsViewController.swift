@@ -13,7 +13,17 @@ class NewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        navigationItem.title = ""
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
+        //Changing NavigationBar Title color
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
+        // This is for removing the dark shadows when transitioning
+        navigationController?.navigationBar.isTranslucent = false
+        
+        navigationItem.title = "咨询"
+        
+        
+
         view.backgroundColor = Metadata.Color.GlobalViewBackgroundColor
         // Do any additional setup after loading the view.
     }

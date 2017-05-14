@@ -12,14 +12,13 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var mainTabVC: UITabBarController!
+    var mainTabVC: WPYTabBarController!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         
         mainTabVC = WPYTabBarController()
-        mainTabVC.delegate = self
         
         let favoriteVC = FavViewController()
         favoriteVC.tabBarItem.image = #imageLiteral(resourceName: "Favored")
@@ -88,12 +87,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
-}
-
-
-extension AppDelegate: UITabBarControllerDelegate {
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-//        print(viewController)
-    }
 }
 

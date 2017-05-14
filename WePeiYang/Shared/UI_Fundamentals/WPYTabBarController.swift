@@ -10,6 +10,8 @@ import UIKit
 
 class WPYTabBarController: UITabBarController {
     
+    private let tabBarVCDelegate = WPYTabBarControllerDelegate()
+    
     convenience init(viewControllers: [UIViewController]?) {
         self.init()
         
@@ -23,6 +25,11 @@ class WPYTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tabBar.isTranslucent = false
+        
+        delegate = tabBarVCDelegate
+        
         selectedIndex = 0
         tabBar.backgroundColor = Metadata.Color.GlobalTabBarBackgroundColor
         tabBar.tintColor = Metadata.Color.WPYAccentColor
@@ -67,5 +74,20 @@ class WPYTabBarController: UITabBarController {
 extension WPYTabBarController: ThemeChanging {
     func changeInto(theme: Theme) {
         
+    }
+}
+
+
+class WPYTabBarControllerDelegate: NSObject, UITabBarControllerDelegate {
+    
+    func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        let fromIndex = tabBarController.viewControllers!.index(of: fromVC)!
+        let toIndex = tabBarController.viewControllers!.index(of: toVC)!
+        
+        let tabChangeDirection: TransitionDirection = toIndex < fromIndex ? .left : .right
+    
+        let animator = TabVCTransitioningAnimator(direction: tabChangeDirection)
+        return animator
     }
 }
