@@ -58,7 +58,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Fallback on earlier versions
         }
 //        window?.backgroundColor = .white
-        window?.rootViewController = mainTabVC
+//        window?.rootViewController = mainTabVC
+        let lostFoundVC = LostFoundPageViewController(para: 1)
+        let nvc = UINavigationController(rootViewController: lostFoundVC!)
+        self.window!.rootViewController = nvc
         window?.makeKeyAndVisible()
         
         return true
