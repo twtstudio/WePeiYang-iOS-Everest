@@ -11,44 +11,42 @@ import UIKit
 class LostViewController: UIViewController, UIPageViewControllerDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
 
 
-    var foundView: UICollectionView!
+    var lostView: UICollectionView!
     let layout = UICollectionViewFlowLayout()
     var lostList: [LostFoundModel] = []
     
-    var lost1 = LostFoundModel(title: "我丢东西了", name: "水杯", time: "2017/5/1", picture: "pic1", place:"图书馆二楼")
-    var lost2 = LostFoundModel(title: "我又丢东西了", name: "lala", time:"2017/5/1" , picture: "pic2", place:"图书馆一楼")
-    var lost3 = LostFoundModel(title: "我又又丢东西了", name: "天使", time:"2017/5/1" , picture: "pic2", place:"图书馆一楼")
-    var lost4 = LostFoundModel(title: "我又又又丢东西了", name: "恶魔", time:"2017/5/1" , picture: "pic3", place:"图书馆三楼")
-    var lost5 = LostFoundModel(title: "我又又又又丢东西了", name: "恶魔", time:"2017/5/1" , picture: "pic3", place:"图书馆三楼")
+    var lost1 = LostFoundModel(title: "我丢东西了", mark: "水杯", time: "2017/5/1", picture: "pic1", place:"图书馆二楼")
+    var lost2 = LostFoundModel(title: "我又丢东西了", mark: "lala", time:"2017/5/1" , picture: "pic2", place:"图书馆一楼")
+    var lost3 = LostFoundModel(title: "我又又丢东西了", mark: "天使", time:"2017/5/1" , picture: "pic2", place:"图书馆一楼")
+    var lost4 = LostFoundModel(title: "我又又又丢东西了", mark: "恶魔", time:"2017/5/1" , picture: "pic3", place:"图书馆三楼")
+    var lost5 = LostFoundModel(title: "我又又又又丢东西了", mark: "恶魔", time:"2017/5/1" , picture: "pic3", place:"图书馆三楼")
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        lostList.append(lost1)
-        lostList.append(lost2)
-        lostList.append(lost3)
-        lostList.append(lost4)
-        lostList.append(lost5)
-        
+        lostList = [lost1, lost2, lost3, lost4, lost5]        
 
 
-        foundView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height), collectionViewLayout: layout)
+
         
-        foundView.register(LostFoundCollectionViewCell.self, forCellWithReuseIdentifier: "lostCell")
         
-        foundView.delegate = self
-        foundView.dataSource = self
+        lostView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height), collectionViewLayout: layout)
         
-        foundView.backgroundColor = UIColor(hex6: 0xeeeeee)
+        lostView.register(LostFoundCollectionViewCell.self, forCellWithReuseIdentifier: "lostCell")
+        
+        lostView.delegate = self
+        lostView.dataSource = self
+        
+        lostView.backgroundColor = UIColor(hex6: 0xeeeeee)
+        self.automaticallyAdjustsScrollViewInsets = false
         
 //        layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height:  )
         
 
-        //        layout.minimumInteritemSpacing = 20
+//        layout.minimumInteritemSpacing = 20
 //        layout.headerReferenceSize = CGSize(width: 100, height: 50)         //页眉尺寸
         layout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
-        self.view.addSubview(foundView)
+        self.view.addSubview(lostView)
         
         
         
@@ -57,10 +55,10 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     //    func numberOfSections(in collectionView: UICollectionView) -> Int {
     //        return 2
     //    }
-    func numberOfItemsInSection(section: Int) -> Int{
-        
-        return 2
-    }
+//    func numberOfItemsInSection(section: Int) -> Int{
+//        
+//        return 2
+//    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         
         return lostList.count
@@ -73,7 +71,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         let width: CGFloat = self.view.frame.size.width/2 - 10
         let ratio = imageWidth!/width
         let height = imageHeight!/ratio
-        return CGSize(width: width, height: height + 3*30)
+        return CGSize(width: width, height: height + 4*30)
     }
 
     
@@ -81,12 +79,12 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         
        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "lostCell", for: indexPath) as? LostFoundCollectionViewCell{
         
-        cell.initUI(pic: lostList[indexPath.row].picture, title: lostList[indexPath.row].title ,name: lostList[indexPath.row].name, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+        cell.initUI(pic: lostList[indexPath.row].picture, title: lostList[indexPath.row].title ,mark: lostList[indexPath.row].mark, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
             return cell
         }
 //        cell.title.text = "这里是内容：\(indexPath.row)"
         let cell = LostFoundCollectionViewCell()
-        cell.initUI(pic: lostList[indexPath.row].picture, title: lostList[indexPath.row].title ,name: lostList[indexPath.row].name, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+        cell.initUI(pic: lostList[indexPath.row].picture, title: lostList[indexPath.row].title ,mark: lostList[indexPath.row].mark, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
         
         return cell
         

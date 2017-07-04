@@ -11,13 +11,17 @@ import UIKit
 class MyFoundViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var tableView: UITableView!
-    var virtualArray = ["这是","一个","两个"]
+    var myFound: [MyLoatFoundModel] = []
+    
+    var myLost1 = MyLoatFoundModel(isBack: "未交还", title: "大大捡到了", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic2")
+    var myLost2 = MyLoatFoundModel(isBack: "未交还", title: "大大又捡到了", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic3")
+    var myLost3 = MyLoatFoundModel(isBack: "已交还", title: "大大又捡到了", mark:"钱包" , time: "2017/5/1",place: "图书馆", picture: "pic1")
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "我的"
+        myFound = [myLost1, myLost2, myLost3]
         
         self.tableView = UITableView(frame: self.view.frame, style: .grouped)
         self.tableView.delegate = self
@@ -31,10 +35,13 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         self.view.addSubview(tableView!)
         
     }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.01
+    }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
-        return virtualArray.count
+        return myFound.count
         
     }
     
@@ -42,8 +49,20 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
-        cell.textLabel?.text = virtualArray[indexPath.row]
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell{
+            
+            cell.initMyUI(pic: myFound[indexPath.row].picture, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].mark, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
+            return cell
+            
+            
+            
+        }
+        
+        let cell = MyLostFoundTableViewCell()
+        cell.initMyUI(pic: myFound[indexPath.row].picture, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].mark, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
+        
+        
+        
         return cell
     }
     override func didReceiveMemoryWarning() {

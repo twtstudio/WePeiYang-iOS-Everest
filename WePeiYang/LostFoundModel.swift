@@ -10,16 +10,16 @@ import UIKit
 
 class LostFoundModel {
     
-    var name = ""
+    var mark = ""
     var time = ""
     var picture = ""
     var place = ""
     var title = ""
     
-    init(title: String, name: String, time: String, picture: String, place: String) {
+    init(title: String, mark: String, time: String, picture: String, place: String) {
         
         self.title = title
-        self.name = name
+        self.mark = mark
         self.time = time
         self.picture = picture
         self.place = place
