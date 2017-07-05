@@ -32,7 +32,6 @@ class FavViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("fuckkk")
         
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor

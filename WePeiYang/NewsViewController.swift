@@ -20,7 +20,7 @@ class NewsViewController: UIViewController {
         // This is for removing the dark shadows when transitioning
         navigationController?.navigationBar.isTranslucent = false
         
-        navigationItem.title = "咨询"
+        navigationItem.title = "资讯"
         
         
 

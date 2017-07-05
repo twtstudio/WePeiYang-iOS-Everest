@@ -37,6 +37,7 @@
 		B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254181EC8547E0064373A /* WPYTabBarController.swift */; };
 		B10254231EC8547E0064373A /* WPYTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254191EC8547E0064373A /* WPYTextField.swift */; };
 		B10254241EC8547E0064373A /* WPYTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102541A1EC8547E0064373A /* WPYTextView.swift */; };
+		B13F3AE81F0CEE5C00F820A5 /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13F3AE71F0CEE5C00F820A5 /* FAB.swift */; };
 		B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B9571EC5C21700B8198E /* FavViewController.swift */; };
 		B181B95C1EC5C23400B8198E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95B1EC5C23400B8198E /* SettingsViewController.swift */; };
 		B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */; };
@@ -102,6 +103,7 @@
 		B10254181EC8547E0064373A /* WPYTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYTabBarController.swift; sourceTree = "<group>"; };
 		B10254191EC8547E0064373A /* WPYTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYTextField.swift; sourceTree = "<group>"; };
 		B102541A1EC8547E0064373A /* WPYTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYTextView.swift; sourceTree = "<group>"; };
+		B13F3AE71F0CEE5C00F820A5 /* FAB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAB.swift; sourceTree = "<group>"; };
 		B181B9571EC5C21700B8198E /* FavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavViewController.swift; sourceTree = "<group>"; };
 		B181B95B1EC5C23400B8198E /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllModulesViewController.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 			children = (
 				B10254111EC8547E0064373A /* CardViewAndDelegate.swift */,
 				B10254121EC8547E0064373A /* Metadata.swift */,
+				B13F3AE71F0CEE5C00F820A5 /* FAB.swift */,
 				B10254131EC8547E0064373A /* SpringButton.swift */,
 				B10254141EC8547E0064373A /* TabVCTransitioningAnimator.swift */,
 				B10254151EC8547E0064373A /* ThemeChanging.swift */,
@@ -693,6 +696,7 @@
 				B10254051EC84EE00064373A /* PhoneBook.swift in Sources */,
 				B10254201EC8547E0064373A /* WPYBaseViewController.swift in Sources */,
 				B10253F11EC84ED90064373A /* CacheManager.swift in Sources */,
+				B13F3AE81F0CEE5C00F820A5 /* FAB.swift in Sources */,
 				B10253FC1EC84ED90064373A /* DeviceStatus.swift in Sources */,
 				B10254241EC8547E0064373A /* WPYTextView.swift in Sources */,
 				B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */,

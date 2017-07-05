@@ -177,6 +177,32 @@ extension UIButton {
         setBackgroundImage(foo, for: .normal)
     }
 }
+// Directly add a closure to UIButton instead of addTarget
+extension UIButton {
+    
+    typealias Function = () -> ()
+    typealias Action = (name: String, function: Function)
+    
+    private func actionHandleBlock(function: Function? = nil) {
+        struct __ {
+            static var function: Function?
+        }
+        if function != nil {
+            __.function = function
+        } else {
+            __.function?()
+        }
+    }
+    
+    @objc private func triggerActioinHandleBlock() {
+        self.actionHandleBlock()
+    }
+    
+    func addFunction(_ function: @escaping Function, for controlEvents: UIControlEvents) {
+        self.actionHandleBlock(function: function)
+        self.addTarget(self, action: #selector(triggerActioinHandleBlock), for: controlEvents)
+    }
+}
 
 extension UIViewController {
     

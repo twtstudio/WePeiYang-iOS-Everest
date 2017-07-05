@@ -96,8 +96,7 @@ struct Metadata {
     }
     
     struct Font {
-        
-        
+   
     }
     
     struct Size {
