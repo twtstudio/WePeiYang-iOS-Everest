@@ -32,6 +32,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
+        
         self.view.addSubview(tableView!)
         
     }

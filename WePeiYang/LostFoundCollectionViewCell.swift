@@ -31,7 +31,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
 //        title = UILabel(frame: CGRect(x:30, y: 0, width: UIScreen.main.bounds.width, height: 50))
 //    
 //        title.textColor = UIColor.black
-    
+        self.backgroundColor = UIColor.white
     
         self.addSubview(titleLable)
         self.addSubview(nameLabel)
@@ -50,6 +50,8 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
     }
 
     func initUI(pic: String, title: String, mark: String, time: String, place: String){
+        
+        
         
 //      pictureImage.sd_setImage(with: pic)
         

@@ -21,6 +21,24 @@ class MyLostFoundTableViewCell: UITableViewCell {
     var timeImage = UIImageView()
     var placeImage = UIImageView()
     
+    override var frame: CGRect{
+        
+        didSet{
+            
+            var newFrame = frame;
+            
+            newFrame.origin.x += 10/2;
+            newFrame.size.width -= 10;
+            newFrame.origin.y += 10;
+            newFrame.size.height -= 10;
+            super.frame = newFrame;
+            
+        }
+        
+        
+    }
+
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         

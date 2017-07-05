@@ -10,10 +10,12 @@ import UIKit
 
 class LostViewController: UIViewController, UIPageViewControllerDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
 
-
+    
     var lostView: UICollectionView!
     let layout = UICollectionViewFlowLayout()
     var lostList: [LostFoundModel] = []
+    
+
     
     var lost1 = LostFoundModel(title: "我丢东西了", mark: "水杯", time: "2017/5/1", picture: "pic1", place:"图书馆二楼")
     var lost2 = LostFoundModel(title: "我又丢东西了", mark: "lala", time:"2017/5/1" , picture: "pic2", place:"图书馆一楼")
@@ -28,7 +30,6 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
 
 
 
-        
         
         lostView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height), collectionViewLayout: layout)
         
@@ -48,6 +49,16 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         layout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
         self.view.addSubview(lostView)
         
+        let button = UIButton(type: .contactAdd)
+        button.frame = CGRect(x: 250, y: 400, width: 100, height: 50)
+
+        self.view.addSubview(button)
+        
+        button.setTitle("丢失信息", for: UIControlState.normal)
+        button.setTitle("触摸状态", for: UIControlState.highlighted)
+//        button.setTitle("禁用状态", for: .disabled)
+        button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
+        
         
         
     }
@@ -59,6 +70,13 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
 //        
 //        return 2
 //    }
+    func tapped(){
+        let vc = PublishLostViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+//        self.present(vc, animated: true, completion: nil)
+    
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         
         return lostList.count

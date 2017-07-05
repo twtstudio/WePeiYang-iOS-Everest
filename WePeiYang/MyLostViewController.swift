@@ -30,7 +30,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
+        self.tableView.register(MyLostFoundTableViewCell.self, forCellReuseIdentifier: "MyCell")
         
         self.tableView.estimatedRowHeight = 500
         self.tableView.rowHeight = UITableViewAutomaticDimension

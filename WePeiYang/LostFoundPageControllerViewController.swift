@@ -13,7 +13,7 @@ class LostFoundPageViewController: WMPageController {
 
     convenience init?(para: Int) {
         self.init(viewControllerClasses: [LostViewController.self, FoundViewController.self], andTheirTitles: ["丢失", "捡到"])
-//        self.init(viewControllerClasses: [LostViewController.self, FoundViewController.self], andTheirTitles: ["hi", "a"]）
+//        self.init(viewControllrerClasses: [LostViewController.self, FoundViewController.self], andTheirTitles: ["hi", "a"]）
         
         self.title = "失物招领"
         UIApplication.shared.statusBarStyle = .lightContent
