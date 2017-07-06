@@ -178,30 +178,59 @@ extension UIButton {
     }
 }
 // Directly add a closure to UIButton instead of addTarget
-extension UIButton {
+// Bad Implement
+//extension UIButton {
+//    
+//    typealias Function = () -> ()
+//    typealias Action = (name: String, function: Function)
+//    
+//    private func actionHandleBlock(function: Function? = nil) {
+//        struct __ {
+//            static var function: Function?
+//        }
+//        if function != nil {
+//            __.function = function
+//        } else {
+//            __.function?()
+//        }
+//    }
+//    
+//    @objc private func triggerActioinHandleBlock() {
+//        self.actionHandleBlock()
+//    }
+//    
+//    func addFunction(_ function: @escaping Function, for controlEvents: UIControlEvents) {
+//        self.actionHandleBlock(function: function)
+//        self.addTarget(self, action: #selector(triggerActioinHandleBlock), for: controlEvents)
+//    }
+//}
+
+class ClosureDoer {
+    let closure: ()->()
+    
+    init (_ closure: @escaping ()->()) {
+        self.closure = closure
+    }
+    
+    @objc func invoke () {
+        closure()
+    }
+}
+
+extension UIControl {
     
     typealias Function = () -> ()
     typealias Action = (name: String, function: Function)
     
-    private func actionHandleBlock(function: Function? = nil) {
-        struct __ {
-            static var function: Function?
-        }
-        if function != nil {
-            __.function = function
-        } else {
-            __.function?()
-        }
+    func add (for controlEvents: UIControlEvents, _ closure: @escaping Function) {
+        let doer = ClosureDoer(closure)
+        addTarget(doer, action: #selector(ClosureDoer.invoke), for: controlEvents)
+        objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), doer, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
     }
+}
+
+extension UIControl {
     
-    @objc private func triggerActioinHandleBlock() {
-        self.actionHandleBlock()
-    }
-    
-    func addFunction(_ function: @escaping Function, for controlEvents: UIControlEvents) {
-        self.actionHandleBlock(function: function)
-        self.addTarget(self, action: #selector(triggerActioinHandleBlock), for: controlEvents)
-    }
 }
 
 extension UIViewController {

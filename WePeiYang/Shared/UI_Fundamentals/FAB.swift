@@ -72,7 +72,8 @@ class FAB: UIButton {
         popUp()
         
         if mainAction != nil {
-            addFunction((mainAction?.function)!, for: .touchUpInside)
+//            addFunction((mainAction?.function)!, for: .touchUpInside)
+            add(for: .touchUpInside, (mainAction?.function)!)
             // TODO: finish this
         }
         
@@ -82,7 +83,8 @@ class FAB: UIButton {
         let bottomLineAt = frame.origin.y
         for (index, subAction) in subActions.enumerated() {
             let button = UIButton()
-            button.addFunction(subAction.function, for: .touchUpInside)
+//            button.addFunction(subAction.function, for: .touchUpInside)
+            button.add(for: .touchUpInside, subAction.function)
             button.setTitle(subAction.name, for: .normal)
             
             
@@ -114,7 +116,7 @@ class FAB: UIButton {
     
     
     func popUp() {
-        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
             self.layer.transform = CATransform3DIdentity
         }) { flag in
             
@@ -143,10 +145,10 @@ class FAB: UIButton {
                 didAddOtherViews = true
             }
             
-            UIView.animate(withDuration: 0.7) {
+            UIView.animate(withDuration: 0.5) {
                 self.dimView.alpha = 0.5
                 for (index, subButton) in self.subButtons.enumerated() {
-                    UIView.animate(withDuration: 0.6, delay: 0.1*(TimeInterval(index)+1), usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
+                    UIView.animate(withDuration: 0.4, delay: 0.1*(TimeInterval(index)+1), usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
                         subButton.layer.transform = CATransform3DIdentity
                         subButton.alpha = 1
                     }, completion: nil)
@@ -157,11 +159,11 @@ class FAB: UIButton {
             break
             
         case .expanded:
-            UIView.animate(withDuration: 0.7) {
+            UIView.animate(withDuration: 0.5) {
                 self.dimView.alpha = 0
                 
                 for (index, subButton) in self.subButtons.enumerated() {
-                    UIView.animate(withDuration: 0.6, delay: 0.1*(TimeInterval(index)+1), usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
+                    UIView.animate(withDuration: 0.4, delay: 0.1*(TimeInterval(index)+1), usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
                         subButton.layer.transform = CATransform3DMakeTranslation(0, 6+subButton.bounds.size.height, 0)
                         subButton.alpha = 0
                         
