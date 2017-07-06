@@ -85,18 +85,18 @@ class FAB: UIButton {
             button.addFunction(subAction.function, for: .touchUpInside)
             button.setTitle(subAction.name, for: .normal)
             
-            let fooLabel = UILabel(text: subAction.name)
+            
             // TODO: Change to Metadata.Font
             button.titleLabel?.font = .systemFont(ofSize: 18)
             
-            
+            let fooLabel = UILabel(text: subAction.name, fontSize: 18)
             let width = fooLabel.bounds.size.width + 8
             let height = fooLabel.bounds.size.height + 4
-            
+
             button.frame = CGRect(x: screenWidth-width-30, y: bottomLineAt-CGFloat(index+1)*(6+height), width: width, height: height)
 //            button.frame = CGRect(x: screenWidth-width-30, y: CGFloat(index+1)*(-6-height), width: width, height: height)
             button.layer.cornerRadius = 4
-            button.backgroundColor = .gray
+            button.backgroundColor = Metadata.Color.WPYAccentColor
             
             button.layer.transform = CATransform3DMakeTranslation(0, 6+height, 0)
             button.alpha = 0
@@ -121,6 +121,8 @@ class FAB: UIButton {
         }
     }
     
+    
+    // may need to do scrollView watching?
     func dismissAnimated() {
         
     }
