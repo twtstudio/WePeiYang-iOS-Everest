@@ -72,21 +72,17 @@ class FAB: UIButton {
         popUp()
         
         if mainAction != nil {
-//            addFunction((mainAction?.function)!, for: .touchUpInside)
             add(for: .touchUpInside, (mainAction?.function)!)
             // TODO: finish this
         }
         
         addTarget(self, action: #selector(expandOrCollapse), for: .touchUpInside)
 
-        
         let bottomLineAt = frame.origin.y
         for (index, subAction) in subActions.enumerated() {
             let button = UIButton()
-//            button.addFunction(subAction.function, for: .touchUpInside)
             button.add(for: .touchUpInside, subAction.function)
             button.setTitle(subAction.name, for: .normal)
-            
             
             // TODO: Change to Metadata.Font
             button.titleLabel?.font = .systemFont(ofSize: 18)
@@ -96,10 +92,9 @@ class FAB: UIButton {
             let height = fooLabel.bounds.size.height + 4
 
             button.frame = CGRect(x: screenWidth-width-30, y: bottomLineAt-CGFloat(index+1)*(6+height), width: width, height: height)
-//            button.frame = CGRect(x: screenWidth-width-30, y: CGFloat(index+1)*(-6-height), width: width, height: height)
             button.layer.cornerRadius = 4
             button.backgroundColor = Metadata.Color.WPYAccentColor
-            
+        
             button.layer.transform = CATransform3DMakeTranslation(0, 6+height, 0)
             button.alpha = 0
             
@@ -111,6 +106,15 @@ class FAB: UIButton {
         dimView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height))
         dimView.backgroundColor = .black
         dimView.alpha = 0;
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(collapse))
+        let swipeGestureDown = UISwipeGestureRecognizer(target: self, action: #selector(collapse))
+        swipeGestureDown.direction = .down
+        let swipeGestureUp = UISwipeGestureRecognizer(target: self, action: #selector(collapse))
+        swipeGestureUp.direction = .up
+        dimView.addGestureRecognizer(tapGesture)
+        dimView.addGestureRecognizer(swipeGestureUp)
+        dimView.addGestureRecognizer(swipeGestureDown)
         
     }
     
@@ -148,7 +152,8 @@ class FAB: UIButton {
             UIView.animate(withDuration: 0.5) {
                 self.dimView.alpha = 0.5
                 for (index, subButton) in self.subButtons.enumerated() {
-                    UIView.animate(withDuration: 0.4, delay: 0.1*(TimeInterval(index)+1), usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
+//                    0.1*(TimeInterval(index)+1)
+                    UIView.animate(withDuration: 0.2, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
                         subButton.layer.transform = CATransform3DIdentity
                         subButton.alpha = 1
                     }, completion: nil)
@@ -181,7 +186,6 @@ class FAB: UIButton {
         guard currentState == .expanded else {
             return
         }
-        
         
         UIView.animate(withDuration: 0.7) {
             self.dimView.alpha = 0
