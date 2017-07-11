@@ -46,9 +46,9 @@ struct AccountManager {
         // TODO: CSSearchable
     }
     
-    static func getToken(username: String, password: String, success: (()->())?, failure: ((Error)->())?) {
+    static func getToken(username: String, password: String, success: (()->())?, failure: ((Error?)->())?) {
         let para: Dictionary<String, String> = ["twtuname": username, "twtpasswd": password]
-        SolaSessionManager.solaSession(withType: .get, url: "/auth/token/get", token: nil, parameters: para, success: { dic in
+        SolaSessionManager.solaSession(type: .get, url: "/auth/token/get", token: nil, parameters: para, success: { dic in
             if let data = dic["data"] as? Dictionary<String, AnyObject> {
                 if let token = data["token"] as? String {
                     UserDefaults.standard.setValue(token, forKey: TOKEN_SAVE_KEY)
@@ -70,13 +70,13 @@ struct AccountManager {
             return
         }
         
-        SolaSessionManager.solaSession(withType: .get, url: "/auth/token/check", token: token, parameters: nil, success: { dict in
+        SolaSessionManager.solaSession(type: .get, url: "/auth/token/check", token: token, parameters: nil, success: { dict in
             if let error_code = dict["error_code"] as? Int {
                 if error_code == -1 {
                     success?()
                 } else if error_code == 10003 { // 过期
                     // refresh token
-                    SolaSessionManager.solaSession(withType: .get, url: "/auth/token/refresh", token: token, parameters: nil, success: { dict in
+                    SolaSessionManager.solaSession(type: .get, url: "/auth/token/refresh", token: token, parameters: nil, success: { dict in
                         if let newToken = dict["data"] as? String {
                             UserDefaults.standard.setValue(newToken, forKey: TOKEN_SAVE_KEY)
                             success?()
@@ -86,7 +86,7 @@ struct AccountManager {
                             log.word(msg)/
                         }
                     }, failure: { error in
-                        log.error(error)/
+                        log.error(error!)/
                         failure?()
                         self.removeToken()
                     }) // refresh finished
@@ -102,7 +102,7 @@ struct AccountManager {
             }
         }, failure: { error in // check request failed
             // FIXME: 10003 ???
-            log.error(error)/
+            log.error(error!)/
             failure?()
         })
     }
@@ -110,7 +110,7 @@ struct AccountManager {
     static func bindTju(tjuname: String , tjupwd: String, success: (()->())?, failure: (()->())?) {
         let para = ["tjuuname": tjuname,
                     "tjupasswd": tjupwd]
-        SolaSessionManager.solaSession(withType: .get, url: "/auth/bind/tju", token: AccountManager.token, parameters: para, success: { dict in
+        SolaSessionManager.solaSession(type: .get, url: "/auth/bind/tju", token: AccountManager.token, parameters: para, success: { dict in
             if let error_code = dict["error_code"] as? Int {
                 if error_code == -1 {
                     UserDefaults.standard.set(true, forKey: TJU_BIND_KEY)
@@ -122,13 +122,13 @@ struct AccountManager {
                 }
             }
         }, failure: { error in
-            log.error(error)/
+            log.error(error!)/
             failure?()
         })
     }
     
     static func unbindTju(tjuname: String , tjupwd: String, success: (()->())?, failure: (()->())?) {
-        SolaSessionManager.solaSession(withType: .get, url: "/auth/unbind/tju", token: AccountManager.token, parameters: nil, success: { dict in
+        SolaSessionManager.solaSession(type: .get, url: "/auth/unbind/tju", token: AccountManager.token, parameters: nil, success: { dict in
             if let error_code = dict["error_code"] as? Int {
                 if error_code == -1 {
                     UserDefaults.standard.set(false, forKey: TJU_BIND_KEY)
@@ -147,7 +147,7 @@ struct AccountManager {
                 }
             }
         }, failure: { error in
-            log.error(error)/
+            log.error(error!)/
             failure?()
         })
     }

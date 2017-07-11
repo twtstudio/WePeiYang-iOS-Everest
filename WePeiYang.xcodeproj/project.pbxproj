@@ -148,6 +148,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3679DFC71F14C43C002687CD /* GPA */ = {
+			isa = PBXGroup;
+			children = (
+				3679DFCA1F14C470002687CD /* Controller */,
+				3679DFC91F14C468002687CD /* View */,
+				3679DFC81F14C461002687CD /* Model */,
+			);
+			name = GPA;
+			sourceTree = "<group>";
+		};
+		3679DFC81F14C461002687CD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		3679DFC91F14C468002687CD /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		3679DFCA1F14C470002687CD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		80B33C5178ED19C33022F16B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -295,7 +326,8 @@
 			children = (
 				B1C4BC071E980BD8004F3BF5 /* Assets.xcassets */,
 			);
-			path = Resources;
+			name = Resources;
+			path = WePeiYang/Resources;
 			sourceTree = "<group>";
 		};
 		B181B9551EC5C21700B8198E /* Favorite */ = {
@@ -334,6 +366,7 @@
 			isa = PBXGroup;
 			children = (
 				B19DAB881E6EF5C2004A50B5 /* WePeiYang */,
+				B156B7891E7A857F00A4C500 /* Resources */,
 				B19DAB9D1E6EF5C2004A50B5 /* WePeiYangTests */,
 				B19DABA81E6EF5C2004A50B5 /* WePeiYangUITests */,
 				B19DAB871E6EF5C2004A50B5 /* Products */,
@@ -362,10 +395,10 @@
 				B10253DE1EC84ED90064373A /* Shared */,
 				B19DAB921E6EF5C2004A50B5 /* LaunchScreen.storyboard */,
 				36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */,
-				B156B7891E7A857F00A4C500 /* Resources */,
 				B181B9551EC5C21700B8198E /* Favorite */,
 				B10253CA1EC84ED20064373A /* Read */,
 				B10253FE1EC84EE00064373A /* YellowPage */,
+				3679DFC71F14C43C002687CD /* GPA */,
 			);
 			path = WePeiYang;
 			sourceTree = "<group>";

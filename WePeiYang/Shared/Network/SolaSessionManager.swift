@@ -20,9 +20,18 @@ let DEV_RECORD_SESSION_INFO = "DEV_RECORD_SESSION_INFO"
 
 struct SolaSessionManager {
     
-    static func solaSession(withType type: SessionType, url: String, token: String?, parameters: Dictionary<String, String>?, success: ((Dictionary<String, AnyObject>)->())?, failure: ((Error)->())?) {
-        
-        let fullurl = TWT_ROOT_URL + url
+    /// A primary package of Alamofire
+    ///
+    /// - Parameters:
+    ///   - type: A specific http method including get/post/duo. The default value is get
+    ///   - baseURL: The base url of a set of URLs, if is not specified, the default value is "https://open.twtstudio.com/api/v1"
+    ///   - url: The left part of a URL
+    ///   - token: <#token description#>
+    ///   - parameters: <#parameters description#>
+    ///   - success: <#success description#>
+    ///   - failure: <#failure description#>
+    static func solaSession(type: SessionType = .get, baseURL: String = TWT_ROOT_URL, url: String, token: String?, parameters: Dictionary<String, String>? = nil, success: ((Dictionary<String, AnyObject>)->())?, failure: ((Error?)->())? = nil) {
+        let fullurl = baseURL + url
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
         var para = parameters ??  Dictionary<String, String>()
         para["t"] = timeStamp
@@ -39,12 +48,12 @@ struct SolaSessionManager {
             tmpSign += (key + fooPara[key]!)
         }
 
-        let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1().uppercased()
+        let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1.uppercased()
         para["sign"] = sign
         para["app_key"] = TwTKeychain.shared.appKey
         
         var headers = HTTPHeaders()
-        headers["User-Agent"] = DeviceStatus.userAgentString()
+        headers["User-Agent"] = DeviceStatus.userAgent
         
         if type != .duo && token != nil {
             headers["Authorization"] = "Bearer {\(token!)}"
