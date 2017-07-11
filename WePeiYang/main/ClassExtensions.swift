@@ -23,6 +23,20 @@ extension UILabel {
         self.sizeToFit()
     }
     
+    /// A convenience initializer of UILabel
+    ///
+    /// - Parameters:
+    ///   - text: The content of your label
+    ///   - color: Text color
+    ///   - fontSize: Text font size
+    convenience init(text: String, color: UIColor, fontSize: CGFloat) {
+        self.init()
+        self.text = text
+        textColor = color
+        self.font = UIFont.systemFont(ofSize: fontSize)
+        self.sizeToFit()
+    }
+    
     convenience init(text: String?) {
         self.init()
         self.text = text
@@ -52,6 +66,43 @@ extension UIView {
         UIGraphicsEndImageContext()
         return image
     }
+    
+    var x: CGFloat {
+        set(newValue) {
+            frame.origin.x = newValue
+        }
+        get {
+            return frame.origin.x
+        }
+    }
+    
+    var y: CGFloat {
+        set(newValue) {
+            frame.origin.y = newValue
+        }
+        get {
+            return frame.origin.y
+        }
+    }
+    
+    var height: CGFloat {
+        set(newValue) {
+            frame.size.height = newValue
+        }
+        get {
+            return frame.size.height
+        }
+    }
+    
+    var width: CGFloat {
+        set(newValue) {
+            frame.size.width = newValue
+        }
+        get {
+            return frame.size.width
+        }
+    }
+
 }
 
 extension UIImage {

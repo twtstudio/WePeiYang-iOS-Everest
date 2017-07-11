@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Fallback on earlier versions
         }
 //        window?.backgroundColor = .white
-        window?.rootViewController = mainTabVC
+        window?.rootViewController = GPAViewController()
         window?.makeKeyAndVisible()
         
         return true

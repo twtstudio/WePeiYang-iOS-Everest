@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3679DFDD1F14CFFD002687CD /* ScoreRadarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3679DFDC1F14CFFD002687CD /* ScoreRadarView.swift */; };
+		3679DFE11F14D207002687CD /* GPAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3679DFE01F14D207002687CD /* GPAViewController.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
 		671E936890C15C748992981C /* Pods_WePeiYangUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */; };
 		B10253D61EC84ED20064373A /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CD1EC84ED20064373A /* Book.swift */; };
@@ -68,6 +70,8 @@
 
 /* Begin PBXFileReference section */
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3679DFDC1F14CFFD002687CD /* ScoreRadarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreRadarView.swift; sourceTree = "<group>"; };
+		3679DFE01F14D207002687CD /* GPAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAViewController.swift; sourceTree = "<group>"; };
 		36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WePeiYang-Bridging-Header.h"; sourceTree = "<group>"; };
 		49A4CB0C33512BBF9F269C73 /* Pods-WePeiYangUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangUITests/Pods-WePeiYangUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6F6749BFC82CF9191336C6C5 /* Pods_WePeiYangTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +154,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3679DFDA1F14CFDA002687CD /* GPA */ = {
+			isa = PBXGroup;
+			children = (
+				3679DFDF1F14D15D002687CD /* Model */,
+				3679DFDE1F14D158002687CD /* Controller */,
+				3679DFDB1F14CFED002687CD /* View */,
+			);
+			name = GPA;
+			sourceTree = "<group>";
+		};
+		3679DFDB1F14CFED002687CD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3679DFDC1F14CFFD002687CD /* ScoreRadarView.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		3679DFDE1F14D158002687CD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3679DFE01F14D207002687CD /* GPAViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		3679DFDF1F14D15D002687CD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		80B33C5178ED19C33022F16B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -367,6 +404,7 @@
 				36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */,
 				B156B7891E7A857F00A4C500 /* Resources */,
 				B181B9551EC5C21700B8198E /* Favorite */,
+				3679DFDA1F14CFDA002687CD /* GPA */,
 				B10253CA1EC84ED20064373A /* Read */,
 				B10253FE1EC84EE00064373A /* YellowPage */,
 			);
@@ -570,7 +608,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		433FB015B3FA922FE8E29B31 /* [CP] Copy Pods Resources */ = {
@@ -600,7 +638,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7316241FF6AF7BC5AE9ED302 /* [CP] Embed Pods Frameworks */ = {
@@ -675,7 +713,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -706,11 +744,13 @@
 				B102541D1EC8547E0064373A /* SpringButton.swift in Sources */,
 				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
 				B10253D61EC84ED20064373A /* Book.swift in Sources */,
+				3679DFE11F14D207002687CD /* GPAViewController.swift in Sources */,
 				B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */,
 				B10253DC1EC84ED20064373A /* Review.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
+				3679DFDD1F14CFFD002687CD /* ScoreRadarView.swift in Sources */,
 				B10253D71EC84ED20064373A /* Librarian.swift in Sources */,
 				B10254211EC8547E0064373A /* WPYLabel.swift in Sources */,
 				B10253FD1EC84ED90064373A /* log.swift in Sources */,
