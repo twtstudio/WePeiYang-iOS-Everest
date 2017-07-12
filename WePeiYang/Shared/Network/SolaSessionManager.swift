@@ -24,7 +24,7 @@ struct SolaSessionManager {
         
         let fullurl = TWT_ROOT_URL + url
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
-        var para = parameters ??  Dictionary<String, String>()
+        var para = parameters ?? Dictionary<String, String>()
         para["t"] = timeStamp
         var fooPara = para
         
