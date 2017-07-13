@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.backgroundColor = .white
         window?.rootViewController = UINavigationController(rootViewController: GPAViewController())
         window?.makeKeyAndVisible()
-        
+            
         return true
     }
 
