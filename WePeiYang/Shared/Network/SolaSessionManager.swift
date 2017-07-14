@@ -20,7 +20,17 @@ let DEV_RECORD_SESSION_INFO = "DEV_RECORD_SESSION_INFO"
 
 struct SolaSessionManager {
     
-    static func solaSession(withType type: SessionType, url: String, token: String?, parameters: Dictionary<String, String>?, success: ((Dictionary<String, AnyObject>)->())?, failure: ((Error)->())?) {
+    
+    /// A primary package of Alamofire, the foundation of network module of WePeiyang
+    ///
+    /// - Parameters:
+    ///   - type: http method: get/post/duo
+    ///   - url: url of your request
+    ///   - token: default value is twt token
+    ///   - parameters: http parameters
+    ///   - success: callback if request succeeds
+    ///   - failure: callback if request fails
+    static func solaSession(withType type: SessionType = .get, url: String, token: String? = nil, parameters: Dictionary<String, String>? = nil, success: ((Dictionary<String, AnyObject>)->())? = nil, failure: ((Error)->())? = nil) {
         
         let fullurl = TWT_ROOT_URL + url
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
