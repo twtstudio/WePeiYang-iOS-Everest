@@ -18,9 +18,9 @@ struct GPAStatModel: Mappable {
     init?(map: Map) {}
     
     mutating func mapping(map: Map) {
-        year <- map["year"]
         score <- map["score"]
         gpa <- map["gpa"]
         credit <- map["credit"]
+        year <- map["year"]
     }
 }

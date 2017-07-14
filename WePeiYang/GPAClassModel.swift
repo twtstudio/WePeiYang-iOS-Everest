@@ -14,8 +14,8 @@ struct GPAClassModel: Mappable {
     var no: Int = 0
     var name: String = ""
     var type: Int = 0
-    var credit: Int = 0
-    var score: Int = 0
+    var credit: Double = 0
+    var score: Double = 0
     var reset: Int = 0
     
     init?(map: Map) {}
@@ -26,6 +26,7 @@ struct GPAClassModel: Mappable {
         type <- map["type"]
         score <- map["score"]
         reset <- map["reset"]
+        credit <- map["credit"]
     }
 }
 

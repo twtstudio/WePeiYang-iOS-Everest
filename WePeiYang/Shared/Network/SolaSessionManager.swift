@@ -24,7 +24,7 @@ struct SolaSessionManager {
     /// A primary package of Alamofire, the foundation of network module of WePeiyang
     ///
     /// - Parameters:
-    ///   - type: http method: get/post/duo
+    ///   - type: http method: get/post/duo, default value is get
     ///   - url: url of your request
     ///   - token: default value is twt token
     ///   - parameters: http parameters
