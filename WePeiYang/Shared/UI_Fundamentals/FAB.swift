@@ -16,16 +16,15 @@ private enum FABState {
     case collapsed
 }
 
-class FAB: UIButton {
-    
-    /*
-     // Only override draw() if you perform custom drawing.
-     // An empty implementation adversely affects performance during animation.
-     override func draw(_ rect: CGRect) {
-     // Drawing code
-     }
-     */
+open class FAB: UIButton {
 
+    
+    // Because usually a FAB is added as a subview of one of the top-most view like navigationController.view or tabBarController.view
+    // You'll need to dismiss the FAB otherwise it'll appear forever as long as you're in the navigation stack
+    // Setting this property to true makes the FAB aware of its context and know when it should go or appear after you add it as a subview
+    // Setting this property to false makes the FAB not aware of its context so you should call FAB.dismiss(animated: Bool) and FAB.showUp() manually
+    // Default being true
+    public var contextAware: Bool = true
     
     private var mainButton: UIButton!
     private var dimView: UIView!
@@ -40,36 +39,48 @@ class FAB: UIButton {
     
     private var didAddOtherViews = false
     
-    // Different frames for different orientations and screen sizes
-    private var buttonWidth: CGFloat = {
+    // Different button size for different orientations and screen sizes
+    public var buttonWidth: CGFloat = {
         return screenWidth > Metadata.Size.smallPhonePortraitWidth ? 80 : 60
     }()
     
-    private var buttonHeight: CGFloat {
+    public var buttonHeight: CGFloat {
         get {
             return buttonWidth
         }
     }
     
-    var buttonSize: CGSize {
+    public var buttonSize: CGSize {
         get {
             return CGSize(width: buttonWidth, height: buttonWidth)
         }
     }
     
+    // Different font size for different screen sizes
+    private var titleLabelFont: UIFont = {
+        return screenWidth > Metadata.Size.smallPhonePortraitWidth ? UIFont.systemFont(ofSize: 42) : UIFont.systemFont(ofSize: 32)
+    }()
+    
+    
     convenience init(mainAction: Action? = nil, subActions: [Action]) {
         self.init()
-    
+        setTitle("+", for: .normal)
+        titleLabel?.font = titleLabelFont
         backgroundColor = .red
     
         if UIDeviceOrientationIsPortrait(.portrait) {
             frame = CGRect(x: screenWidth-buttonWidth-30, y: screenHeight-buttonHeight-30, width: buttonWidth, height: buttonHeight)
             layer.cornerRadius = buttonWidth / 2
-            layer.transform = CATransform3DMakeTranslation(0, (buttonHeight+40), 0)
+            // FIXME: fix this rotating animation
+            // Seems two animations cannot be performed simultaneously
+            // Gotta find a way out because the rotating animation is important
+            layer.transform = CATransform3DMakeRotation(2/3*CGFloat.pi, 0, 0, 1)
+            layer.transform = CATransform3DMakeScale(0.2, 0.2, 0.2)
+            
         }
         
         
-        popUp()
+        showUp()
         
         if mainAction != nil {
             add(for: .touchUpInside, (mainAction?.function)!)
@@ -99,7 +110,6 @@ class FAB: UIButton {
             button.alpha = 0
             
             subButtons.append(button)
-            
         }
         
         
@@ -119,8 +129,8 @@ class FAB: UIButton {
     }
     
     
-    func popUp() {
-        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
+    public func showUp() {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
             self.layer.transform = CATransform3DIdentity
         }) { flag in
             
@@ -129,60 +139,58 @@ class FAB: UIButton {
     
     
     // may need to do scrollView watching?
-    func dismissAnimated() {
-        
+    public func dismiss(animated: Bool) {
+        if animated {
+            expandOrCollapse()
+        } else {
+            
+        }
     }
     
 
     // Expand the subButtons
-    func expandOrCollapse() {
-        
+    internal func expandOrCollapse() {
         switch currentState {
         case .collapsed:
-            if !didAddOtherViews {
-                containerView?.insertSubview(dimView, belowSubview: self)
-                for subButton in subButtons {
-                    containerView?.insertSubview(subButton, aboveSubview: dimView)
-                    log.any(subButton.frame)/
-                    log.word((subButton.titleLabel?.text)!)/
-                }
-                didAddOtherViews = true
-            }
-            
-            UIView.animate(withDuration: 0.5) {
-                self.dimView.alpha = 0.5
-                for (index, subButton) in self.subButtons.enumerated() {
-//                    0.1*(TimeInterval(index)+1)
-                    UIView.animate(withDuration: 0.2, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
-                        subButton.layer.transform = CATransform3DIdentity
-                        subButton.alpha = 1
-                    }, completion: nil)
-                }
-                
-            }
-            currentState = .expanded
+            expand()
             break
             
         case .expanded:
-            UIView.animate(withDuration: 0.5) {
-                self.dimView.alpha = 0
-                
-                for (index, subButton) in self.subButtons.enumerated() {
-                    UIView.animate(withDuration: 0.4, delay: 0.1*(TimeInterval(index)+1), usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
-                        subButton.layer.transform = CATransform3DMakeTranslation(0, 6+subButton.bounds.size.height, 0)
-                        subButton.alpha = 0
-                        
-                    }, completion: nil)
-                }
-            }
-            
-            currentState = .collapsed
+            collapse()
         }
 
     }
     
+    internal func expand() {
+        if !didAddOtherViews {
+            containerView?.insertSubview(dimView, belowSubview: self)
+            for subButton in subButtons {
+                containerView?.insertSubview(subButton, aboveSubview: dimView)
+            }
+            didAddOtherViews = true
+        }
+        
+        UIView.animate(withDuration: 0.5) {
+            self.dimView.alpha = 0.5
+            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
+                self.layer.transform = CATransform3DMakeRotation(0.25*CGFloat.pi, 0, 0, 1)
+            }, completion: nil)
+            
+            for (_, subButton) in self.subButtons.enumerated() {
+                //                    0.1*(TimeInterval(index)+1)
+                UIView.animate(withDuration: 0.2, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
+                    subButton.layer.transform = CATransform3DIdentity
+                    subButton.alpha = 1
+                }, completion: nil)
+            }
+            
+        }
+        currentState = .expanded
+    }
+    
     // Collapse the list the subButtons
-    func collapse() {
+    internal func collapse() {
+        
         guard currentState == .expanded else {
             return
         }
@@ -199,8 +207,6 @@ class FAB: UIButton {
                 }, completion: nil)
             }
         }
-        
-        
         
         currentState = .collapsed
     }
