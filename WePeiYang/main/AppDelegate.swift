@@ -18,6 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         
+        // TWTUser.shared.load() // load token and so on
+        AccountManager.checkToken(failure: {
+            // 让他重新登录
+        })
+        
         mainTabVC = WPYTabBarController()
         
         let favoriteVC = FavViewController()
@@ -58,9 +63,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Fallback on earlier versions
         }
 //        window?.backgroundColor = .white
-        window?.rootViewController = mainTabVC
+        window?.rootViewController = UINavigationController(rootViewController: GPAViewController())
         window?.makeKeyAndVisible()
-        
+            
         return true
     }
 

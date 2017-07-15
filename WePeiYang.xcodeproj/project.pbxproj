@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3631D5001F18FA8C0078816D /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D4FF1F18FA8C0078816D /* ScoreHeaderView.swift */; };
+		3631D5021F18FD210078816D /* GPAClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5011F18FD210078816D /* GPAClassModel.swift */; };
+		3631D5041F18FED30078816D /* GPAStatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5031F18FED30078816D /* GPAStatModel.swift */; };
+		3631D5061F1902590078816D /* GPATermModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5051F1902590078816D /* GPATermModel.swift */; };
+		3631D5081F19033F0078816D /* GPASessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5071F19033F0078816D /* GPASessionManager.swift */; };
+		3631D50A1F1903D70078816D /* TwTUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5091F1903D70078816D /* TwTUser.swift */; };
+		3679DFE11F14D207002687CD /* GPAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3679DFE01F14D207002687CD /* GPAViewController.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
 		671E936890C15C748992981C /* Pods_WePeiYangUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */; };
 		B10253D61EC84ED20064373A /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CD1EC84ED20064373A /* Book.swift */; };
@@ -37,6 +44,7 @@
 		B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254181EC8547E0064373A /* WPYTabBarController.swift */; };
 		B10254231EC8547E0064373A /* WPYTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254191EC8547E0064373A /* WPYTextField.swift */; };
 		B10254241EC8547E0064373A /* WPYTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102541A1EC8547E0064373A /* WPYTextView.swift */; };
+		B13F3AE81F0CEE5C00F820A5 /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13F3AE71F0CEE5C00F820A5 /* FAB.swift */; };
 		B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B9571EC5C21700B8198E /* FavViewController.swift */; };
 		B181B95C1EC5C23400B8198E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95B1EC5C23400B8198E /* SettingsViewController.swift */; };
 		B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */; };
@@ -67,6 +75,13 @@
 
 /* Begin PBXFileReference section */
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3631D4FF1F18FA8C0078816D /* ScoreHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
+		3631D5011F18FD210078816D /* GPAClassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAClassModel.swift; sourceTree = "<group>"; };
+		3631D5031F18FED30078816D /* GPAStatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAStatModel.swift; sourceTree = "<group>"; };
+		3631D5051F1902590078816D /* GPATermModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPATermModel.swift; sourceTree = "<group>"; };
+		3631D5071F19033F0078816D /* GPASessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPASessionManager.swift; sourceTree = "<group>"; };
+		3631D5091F1903D70078816D /* TwTUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTUser.swift; sourceTree = "<group>"; };
+		3679DFE01F14D207002687CD /* GPAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAViewController.swift; sourceTree = "<group>"; };
 		36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WePeiYang-Bridging-Header.h"; sourceTree = "<group>"; };
 		49A4CB0C33512BBF9F269C73 /* Pods-WePeiYangUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangUITests/Pods-WePeiYangUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6F6749BFC82CF9191336C6C5 /* Pods_WePeiYangTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +117,7 @@
 		B10254181EC8547E0064373A /* WPYTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYTabBarController.swift; sourceTree = "<group>"; };
 		B10254191EC8547E0064373A /* WPYTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYTextField.swift; sourceTree = "<group>"; };
 		B102541A1EC8547E0064373A /* WPYTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYTextView.swift; sourceTree = "<group>"; };
+		B13F3AE71F0CEE5C00F820A5 /* FAB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAB.swift; sourceTree = "<group>"; };
 		B181B9571EC5C21700B8198E /* FavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavViewController.swift; sourceTree = "<group>"; };
 		B181B95B1EC5C23400B8198E /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllModulesViewController.swift; sourceTree = "<group>"; };
@@ -148,35 +164,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3679DFC71F14C43C002687CD /* GPA */ = {
+		3679DFDA1F14CFDA002687CD /* GPA */ = {
 			isa = PBXGroup;
 			children = (
-				3679DFCA1F14C470002687CD /* Controller */,
-				3679DFC91F14C468002687CD /* View */,
-				3679DFC81F14C461002687CD /* Model */,
+				3679DFDF1F14D15D002687CD /* Model */,
+				3679DFDE1F14D158002687CD /* Controller */,
+				3679DFDB1F14CFED002687CD /* View */,
 			);
 			name = GPA;
+			path = ..;
 			sourceTree = "<group>";
 		};
-		3679DFC81F14C461002687CD /* Model */ = {
+		3679DFDB1F14CFED002687CD /* View */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
-		3679DFC91F14C468002687CD /* View */ = {
-			isa = PBXGroup;
-			children = (
+				3631D4FF1F18FA8C0078816D /* ScoreHeaderView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
 		};
-		3679DFCA1F14C470002687CD /* Controller */ = {
+		3679DFDE1F14D158002687CD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3679DFE01F14D207002687CD /* GPAViewController.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		3679DFDF1F14D15D002687CD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3631D5011F18FD210078816D /* GPAClassModel.swift */,
+				3631D5031F18FED30078816D /* GPAStatModel.swift */,
+				3631D5051F1902590078816D /* GPATermModel.swift */,
+				3631D5071F19033F0078816D /* GPASessionManager.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		80B33C5178ED19C33022F16B /* Pods */ = {
@@ -237,6 +260,7 @@
 				B10254101EC8547E0064373A /* UI_Fundamentals */,
 				B10253DF1EC84ED90064373A /* Network */,
 				B10253ED1EC84ED90064373A /* Utilities */,
+				3679DFDA1F14CFDA002687CD /* GPA */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -248,6 +272,7 @@
 				B10253E11EC84ED90064373A /* CacheManager.swift */,
 				B10253E21EC84ED90064373A /* SolaSessionManager.swift */,
 				B10253E31EC84ED90064373A /* TwTKeychain.swift */,
+				3631D5091F1903D70078816D /* TwTUser.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -309,6 +334,7 @@
 			children = (
 				B10254111EC8547E0064373A /* CardViewAndDelegate.swift */,
 				B10254121EC8547E0064373A /* Metadata.swift */,
+				B13F3AE71F0CEE5C00F820A5 /* FAB.swift */,
 				B10254131EC8547E0064373A /* SpringButton.swift */,
 				B10254141EC8547E0064373A /* TabVCTransitioningAnimator.swift */,
 				B10254151EC8547E0064373A /* ThemeChanging.swift */,
@@ -600,7 +626,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		433FB015B3FA922FE8E29B31 /* [CP] Copy Pods Resources */ = {
@@ -630,7 +656,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7316241FF6AF7BC5AE9ED302 /* [CP] Embed Pods Frameworks */ = {
@@ -705,7 +731,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -718,14 +744,19 @@
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
 				B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */,
 				B102541B1EC8547E0064373A /* CardViewAndDelegate.swift in Sources */,
+				3631D5001F18FA8C0078816D /* ScoreHeaderView.swift in Sources */,
 				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
+				3631D50A1F1903D70078816D /* TwTUser.swift in Sources */,
 				B181B95C1EC5C23400B8198E /* SettingsViewController.swift in Sources */,
+				3631D5041F18FED30078816D /* GPAStatModel.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
 				B181B9601EC5C24000B8198E /* NewsViewController.swift in Sources */,
+				3631D5021F18FD210078816D /* GPAClassModel.swift in Sources */,
 				B10254051EC84EE00064373A /* PhoneBook.swift in Sources */,
 				B10254201EC8547E0064373A /* WPYBaseViewController.swift in Sources */,
 				B10253F11EC84ED90064373A /* CacheManager.swift in Sources */,
+				B13F3AE81F0CEE5C00F820A5 /* FAB.swift in Sources */,
 				B10253FC1EC84ED90064373A /* DeviceStatus.swift in Sources */,
 				B10254241EC8547E0064373A /* WPYTextView.swift in Sources */,
 				B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */,
@@ -735,10 +766,12 @@
 				B102541D1EC8547E0064373A /* SpringButton.swift in Sources */,
 				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
 				B10253D61EC84ED20064373A /* Book.swift in Sources */,
+				3679DFE11F14D207002687CD /* GPAViewController.swift in Sources */,
 				B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */,
 				B10253DC1EC84ED20064373A /* Review.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
+				3631D5081F19033F0078816D /* GPASessionManager.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
 				B10253D71EC84ED20064373A /* Librarian.swift in Sources */,
 				B10254211EC8547E0064373A /* WPYLabel.swift in Sources */,
@@ -746,6 +779,7 @@
 				B10253DA1EC84ED20064373A /* ReadBeacon.swift in Sources */,
 				B10253DD1EC84ED20064373A /* User.swift in Sources */,
 				B10253F01EC84ED90064373A /* AccountManager.swift in Sources */,
+				3631D5061F1902590078816D /* GPATermModel.swift in Sources */,
 				B10254041EC84EE00064373A /* ClientItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -97,7 +97,6 @@ struct Metadata {
     
     struct Font {
         
-        
     }
     
     struct Size {
@@ -111,6 +110,8 @@ struct Metadata {
 //        struct Button {
 //            static let
 //        }
+        static let bigPhonePortraitWidth: CGFloat = 414
+        static let smallPhonePortraitWidth: CGFloat = 375
     }
     
     struct Time {

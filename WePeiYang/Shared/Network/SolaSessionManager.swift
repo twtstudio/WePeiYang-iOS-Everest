@@ -20,25 +20,31 @@ let DEV_RECORD_SESSION_INFO = "DEV_RECORD_SESSION_INFO"
 
 struct SolaSessionManager {
     
-    /// A primary package of Alamofire
+    /// A primary package of Alamofire, the foundation of network module of WePeiyang
     ///
     /// - Parameters:
-    ///   - type: A specific http method including get/post/duo. The default value is get
-    ///   - baseURL: The base url of a set of URLs, if is not specified, the default value is "https://open.twtstudio.com/api/v1"
-    ///   - url: The left part of a URL
-    ///   - token: <#token description#>
-    ///   - parameters: <#parameters description#>
-    ///   - success: <#success description#>
-    ///   - failure: <#failure description#>
-    static func solaSession(type: SessionType = .get, baseURL: String = TWT_ROOT_URL, url: String, token: String?, parameters: Dictionary<String, String>? = nil, success: ((Dictionary<String, AnyObject>)->())?, failure: ((Error?)->())? = nil) {
+    ///   - type: http method: get/post/duo, default value is get
+    ///   - baseURL: base url of your request, default value is TWT_ROOT_URL
+    ///   - url: url of your request
+    ///   - token: default value is twt token
+    ///   - parameters: http parameters
+    ///   - success: callback if request succeeds
+    ///   - failure: callback if request fails
+    static func solaSession(type: SessionType = .get, baseURL: String = TWT_ROOT_URL, url: String, token: String? = nil, parameters: Dictionary<String, String>? = nil, success: ((Dictionary<String, AnyObject>)->())? = nil, failure: ((Error)->())? = nil) {
+        
         let fullurl = baseURL + url
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
-        var para = parameters ??  Dictionary<String, String>()
+        var para = parameters ?? Dictionary<String, String>()
         para["t"] = timeStamp
         var fooPara = para
         
-        if type == .duo && token != nil {
-            fooPara["token"] = token!
+        
+        // guard that TwTUserToken is not nil
+        // FIXME: token stuffs
+        if type == .duo {
+            if let token = TwTUser.shared.token {
+                fooPara["token"] = token
+            }
         }
         
         let keys = fooPara.keys.sorted()
@@ -55,74 +61,62 @@ struct SolaSessionManager {
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent
         
-        if type != .duo && token != nil {
-            headers["Authorization"] = "Bearer {\(token!)}"
-        } else if type == .duo && token != nil {
-            if let twtToken = UserDefaults.standard.object(forKey: TOKEN_SAVE_KEY) as? String {
-                headers["Authorization"] = "Bearer {\(twtToken)}"
-            } else {
-                log.errorMessage("can't load twtToken in UserDefaults!")/
-            }
+//        if type == .duo {
+//            if let token = TwTUser.shared.token {
+//                
+//            }
+//        } else {
+//            if let token = TwTUser.shared.token {
+//                headers["Authorization"] = "Bearer {\(twtToken)}"
+//            }
+//        }
+//        
+//        if type != .duo && token != nil {
+//            headers["Authorization"] = "Bearer {\(token!)}"
+//        } else if type != .duo && TwTUser.shared.token != nil {
+//            
+//        } else if type == .duo && token != nil {
+//            if let twtToken = TwTUser.shared.token {
+//                headers["Authorization"] = "Bearer {\(twtToken)}"
+//            } else {
+//                log.errorMessage("can't load twtToken")/
+//            }
+//        }
+        
+        if let token = TwTUser.shared.token {
+            headers["Authorization"] = "Bearer {\(token)}"
+        } else {
+            log.errorMessage("can't load twtToken")/
         }
-
-        if type == .get {
-            Alamofire.request(fullurl, parameters: para, headers: headers).responseJSON { response in
-                switch response.result {
-                case .success:
-                    if let data = response.result.value  {
-                        if let dict = data as? Dictionary<String, AnyObject> {
-                            success?(dict)
-                        }
-                    }
-                case .failure(let error):
-                    failure?(error)
-                    log.error(error)/
-                    if let data = response.result.value  {
-                        if let dict = data as? Dictionary<String, AnyObject> {
-                            log.errorMessage(dict["message"] as! String)/
-                        }
-                    }
-                }
-
-            }
-        } else if type == .post {
-            Alamofire.request(fullurl, method: .post, parameters: para, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
-                switch response.result {
-                case .success:
-                    if let data = response.result.value  {
-                        if let dict = data as? Dictionary<String, AnyObject>, dict["error_code"] as! Int == -1 {
-                            success?(dict)
-                        }
-                    }
-                case .failure(let error):
-                    failure?(error)
-                    log.error(error)/
-                    if let data = response.result.value  {
-                        if let dict = data as? Dictionary<String, AnyObject> {
-                            log.errorMessage(dict["message"] as! String)/
-                        }
-                    }
-                }
-            }
-        } else if type == .duo {
-            Alamofire.request(fullurl, method: .post, parameters: para, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
-                switch response.result {
-                case .success:
-                    if let data = response.result.value  {
-                        if let dict = data as? Dictionary<String, AnyObject>, dict["error_code"] as! Int == -1 {
-                            success?(dict)
-                        }
-                    }
-                case .failure(let error):
-                    failure?(error)
-                    log.error(error)/
-                    if let data = response.result.value  {
-                        if let dict = data as? Dictionary<String, AnyObject> {
-                            log.errorMessage(dict["message"] as! String)/
-                        }
-                    }
-                }
-            }
+        
+        var method: HTTPMethod!
+        switch type {
+        case .get:
+            method = .get
+        case .post:
+            method = .post
+        case .duo:
+            method = .post
         }
-    } // end of function
+        
+        Alamofire.request(fullurl, method: method, parameters: para, headers: headers).responseJSON { response in
+            switch response.result {
+            case .success:
+                if let data = response.result.value  {
+                    if let dict = data as? Dictionary<String, AnyObject> {
+                        success?(dict)
+                    }
+                }
+            case .failure(let error):
+                failure?(error)
+                log.error(error)/
+                if let data = response.result.value  {
+                    if let dict = data as? Dictionary<String, AnyObject> {
+                        log.errorMessage(dict["message"] as! String)/
+                    }
+                }
+            }
+            
+        }
+    }
 }

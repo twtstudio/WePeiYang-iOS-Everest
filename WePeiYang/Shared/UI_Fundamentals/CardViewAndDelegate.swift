@@ -57,7 +57,7 @@ public class CardView: UIView {
 //            return generateCardView()
 //        }
 //        set {
-//            <#code#>
+//            
 //        }
 //    }
 //
