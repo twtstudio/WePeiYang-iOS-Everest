@@ -461,6 +461,14 @@ extension GPAViewController: UITableViewDataSource {
         cell.contentView.addSubview(classNameLabel)
         cell.contentView.addSubview(creditLabel)
         cell.contentView.addSubview(scoreLabel)
+        
+        if `class`.score == -1 {
+            scoreLabel.text = "点这里去评价"
+            cell.isUserInteractionEnabled = true
+        } else {
+            cell.isUserInteractionEnabled = false
+        }
+        
         return cell
     }
 }
@@ -468,6 +476,7 @@ extension GPAViewController: UITableViewDataSource {
 extension GPAViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
