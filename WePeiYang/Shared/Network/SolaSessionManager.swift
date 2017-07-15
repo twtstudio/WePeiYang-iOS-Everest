@@ -38,12 +38,10 @@ struct SolaSessionManager {
         para["t"] = timeStamp
         var fooPara = para
         
-        
-        // guard that TwTUserToken is not nil
-        // FIXME: token stuffs
         if type == .duo {
-            if let token = TwTUser.shared.token {
-                fooPara["token"] = token
+            if let twtToken = TwTUser.shared.token {
+                // twt token
+                fooPara["token"] = twtToken
             }
         }
         
@@ -61,32 +59,14 @@ struct SolaSessionManager {
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent
         
-//        if type == .duo {
-//            if let token = TwTUser.shared.token {
-//                
-//            }
-//        } else {
-//            if let token = TwTUser.shared.token {
-//                headers["Authorization"] = "Bearer {\(twtToken)}"
-//            }
-//        }
-//        
-//        if type != .duo && token != nil {
-//            headers["Authorization"] = "Bearer {\(token!)}"
-//        } else if type != .duo && TwTUser.shared.token != nil {
-//            
-//        } else if type == .duo && token != nil {
-//            if let twtToken = TwTUser.shared.token {
-//                headers["Authorization"] = "Bearer {\(twtToken)}"
-//            } else {
-//                log.errorMessage("can't load twtToken")/
-//            }
-//        }
-        
-        if let token = TwTUser.shared.token {
-            headers["Authorization"] = "Bearer {\(token)}"
+        if let twtToken = TwTUser.shared.token {
+            headers["Authorization"] = "Bearer {\(twtToken)}"
         } else {
             log.errorMessage("can't load twtToken")/
+        }
+        
+        if type == .duo && token != nil{
+            headers["Authorization"] = "Bearer {\(token)}"
         }
         
         var method: HTTPMethod!
