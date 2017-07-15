@@ -17,11 +17,11 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     
 
     
-    var lost1 = LostFoundModel(title: "我丢东西了", mark: "水杯", time: "2017/5/1", picture: "pic1", place:"图书馆二楼")
-    var lost2 = LostFoundModel(title: "我又丢东西了", mark: "lala", time:"2017/5/1" , picture: "pic2", place:"图书馆一楼")
-    var lost3 = LostFoundModel(title: "我又又丢东西了", mark: "天使", time:"2017/5/1" , picture: "pic2", place:"图书馆一楼")
-    var lost4 = LostFoundModel(title: "我又又又丢东西了", mark: "恶魔", time:"2017/5/1" , picture: "pic3", place:"图书馆三楼")
-    var lost5 = LostFoundModel(title: "我又又又又丢东西了", mark: "恶魔", time:"2017/5/1" , picture: "pic3", place:"图书馆三楼")
+    var lost1 = LostFoundModel(title: "我丢东西了", detail_type: 3, time: "2017/5/1", picture: "pic1", place:"图书馆二楼")
+    var lost2 = LostFoundModel(title: "我又丢东西了", detail_type: 2, time:"2017/5/1" , picture: "pic2", place:"图书馆一楼")
+    var lost3 = LostFoundModel(title: "我又又丢东西了", detail_type: 1, time:"2017/5/1" , picture: "pic2", place:"图书馆一楼")
+    var lost4 = LostFoundModel(title: "我又又又丢东西了", detail_type: 3, time:"2017/5/1" , picture: "pic3", place:"图书馆三楼")
+    var lost5 = LostFoundModel(title: "我又又又又丢东西了", detail_type: 4, time:"2017/5/1" , picture: "pic3", place:"图书馆三楼")
     
     
     override func viewDidLoad() {
@@ -41,7 +41,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         lostView.backgroundColor = UIColor(hex6: 0xeeeeee)
         self.automaticallyAdjustsScrollViewInsets = false
         
-//        layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height:  )
+        layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height:  250)
         
 
 //        layout.minimumInteritemSpacing = 20
@@ -58,6 +58,13 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         button.setTitle("触摸状态", for: UIControlState.highlighted)
 //        button.setTitle("禁用状态", for: .disabled)
         button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
+        
+//        let lostAPI = LostAPI()
+//        lostAPI.request(success: {
+//            self.lostList = lostAPI.lostList
+//            self.lostView.reloadData()
+//        })
+        
         
         
         
@@ -82,27 +89,37 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         return lostList.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let image = UIImage(named: lostList[indexPath.row].picture)
-        let imageHeight = image?.size.height
-        let imageWidth = image?.size.width
-        let width: CGFloat = self.view.frame.size.width/2 - 10
-        let ratio = imageWidth!/width
-        let height = imageHeight!/ratio
-        return CGSize(width: width, height: height + 4*30)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let image = UIImage(named: lostList[indexPath.row].picture)
+//        let imageHeight = image?.size.height
+//        let imageWidth = image?.size.width
+//        let width: CGFloat = self.view.frame.size.width/2 - 10
+//        let ratio = imageWidth!/width
+//        let height = imageHeight!/ratio
+//        return CGSize(width: width, height: height + 4*30)
+//        
+//    }
 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         
+        
+        
        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "lostCell", for: indexPath) as? LostFoundCollectionViewCell{
         
-        cell.initUI(pic: lostList[indexPath.row].picture, title: lostList[indexPath.row].title ,mark: lostList[indexPath.row].mark, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+
+        
+        
+        
+        let picURL = lostList[indexPath.row].picture
+        
+        cell.initUI(pic: URL(string: picURL)!, title: lostList[indexPath.row].title ,mark: lostList[indexPath.row].detail_type, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
             return cell
         }
 //        cell.title.text = "这里是内容：\(indexPath.row)"
         let cell = LostFoundCollectionViewCell()
-        cell.initUI(pic: lostList[indexPath.row].picture, title: lostList[indexPath.row].title ,mark: lostList[indexPath.row].mark, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+        let picURL = lostList[indexPath.row].picture
+        cell.initUI(pic: URL(string: picURL)!, title: lostList[indexPath.row].title ,mark: lostList[indexPath.row].detail_type, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
         
         return cell
         

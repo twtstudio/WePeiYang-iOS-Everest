@@ -39,6 +39,14 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.view.addSubview(tableView!)
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let detailView = DetailViewController()
+        self.navigationController?.pushViewController(detailView, animated: true)
+    }
+    
+
 //    func numberOfSections(in tableView: UITableView) -> Int {
 //        return myLost.count
 //    }

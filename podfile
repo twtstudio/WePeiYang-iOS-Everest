@@ -6,7 +6,11 @@ target 'WePeiYang' do
   use_frameworks!
   pod 'Alamofire'
   pod 'SnapKit'
+  pod 'WMPageController'
+  pod 'SDWebImage'
+	
   # Pods for WePeiYang
+
 
   target 'WePeiYangTests' do
     inherit! :search_paths

@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 class LostFoundCollectionViewCell: UICollectionViewCell {
     
@@ -49,29 +50,65 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func initUI(pic: String, title: String, mark: String, time: String, place: String){
+    func initUI(pic: URL, title: String, mark: Int, time: String, place: String){
         
         
         
-//      pictureImage.sd_setImage(with: pic)
+//     pictureImage.sd_setImage(with: pic)
+        pictureImage.sd_setImage(with: pic) { (image, error, type, url) in
+            if let image = image{
+                let imageHeight = image.size.height ?? 200
+                let imageWidth = image.size.width ?? 200
+                let width: CGFloat = UIScreen.main.bounds.size.width/2-10
+                let ratio = imageWidth/width
+                let height = imageHeight/ratio
+                self.pictureImage.contentMode = .scaleAspectFit
+                self.pictureImage.snp.makeConstraints{
+                    make in
+                    make.top.equalToSuperview().offset(0.1)
+                    make.left.equalToSuperview()//.offset(10)
+                    make.right.equalToSuperview()//.offset(-5)
+                    make.height.equalTo(height)
+                    //            make.wi
+                    //            make.bottom.equalTo(titleLable.snp.top).offset(-50)
+                    //            make.width.height.equalTo(contentView.bounds.width*(3/5))
+                    
+                }
+                self.titleLable.text = title
+                self.titleLable.numberOfLines = 0
+                //        titleLable.preferredMaxLayoutWidth = contentView.bounds.width
+                //        titleLable.font = UIFont.italicSystemFont(ofSize: 10)
+                self.titleLable.snp.makeConstraints{
+                    make in
+                    make.top.equalToSuperview().offset(height+10)
+                    make.left.equalToSuperview().offset(10)
+                    make.right.equalToSuperview().offset(-5)
+                    make.bottom.equalTo(self.markImage.snp.top).offset(-5)
+                    
+                }
+                
+                
+
+            
+            }
+        }
         
-        
-        let image = UIImage(named: pic)
-        pictureImage.image = image
-        
-        let imageHeight = image?.size.height ?? 200
-        let imageWidth = image?.size.width ?? 200
-        let width: CGFloat = UIScreen.main.bounds.size.width/2-10
-        let ratio = imageWidth/width
-        let height = imageHeight/ratio
-        pictureImage.contentMode = .scaleAspectFit
+//        let image = UIImage(named: URL(string: pic))
+//        pictureImage.image = image
+//        
+//        let imageHeight = image?.size.height ?? 200
+//        let imageWidth = image?.size.width ?? 200
+//        let width: CGFloat = UIScreen.main.bounds.size.width/2-10
+//        let ratio = imageWidth/width
+//        let height = imageHeight/ratio
+//        pictureImage.contentMode = .scaleAspectFit
 
         pictureImage.snp.makeConstraints{
             make in
             make.top.equalToSuperview().offset(0.1)
             make.left.equalToSuperview()//.offset(10)
             make.right.equalToSuperview()//.offset(-5)
-            make.height.equalTo(height)
+            make.height.equalTo(200)
 //            make.wi
 //            make.bottom.equalTo(titleLable.snp.top).offset(-50)
 //            make.width.height.equalTo(contentView.bounds.width*(3/5))
@@ -84,14 +121,14 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
 //        titleLable.font = UIFont.italicSystemFont(ofSize: 10)
         titleLable.snp.makeConstraints{
             make in
-            make.top.equalToSuperview().offset(height+10)
+            make.top.equalToSuperview().offset(pictureImage.frame.height+10)
             make.left.equalToSuperview().offset(10)
             make.right.equalToSuperview().offset(-5)
             make.bottom.equalTo(markImage.snp.top).offset(-5)
             
         }
         
-        nameLabel.text = mark
+        nameLabel.text = "\(mark)"
         nameLabel.numberOfLines = 0
         nameLabel.snp.makeConstraints{
             

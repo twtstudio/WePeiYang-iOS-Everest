@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "BFF333689257219C3C8F0E57A3C6A2F2FC8D6DE9",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "18F6BE23FA0E5D5DDCF195BAC16DEFDE66456693" : 9223372036854775807,
+    "E26468C9F880F9CFA2EC28D0DD61917CC37FAAF2" : 9223372036854775807,
+    "BFF333689257219C3C8F0E57A3C6A2F2FC8D6DE9" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7351D437-8917-4C97-9448-D5DA5F8F5E04",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "18F6BE23FA0E5D5DDCF195BAC16DEFDE66456693" : "..\/Desktop\/TWT%20STUDIO\/WEPEIYANG%20V3.0.1\/WePeiYang-iOS",
+    "E26468C9F880F9CFA2EC28D0DD61917CC37FAAF2" : "..\/Desktop\/TWT%20STUDIO\/IOScell",
+    "BFF333689257219C3C8F0E57A3C6A2F2FC8D6DE9" : "WePeiYang-iOS-Everest\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "WePeiYang",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "WePeiYang.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/twtstudio\/WePeiYang-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "18F6BE23FA0E5D5DDCF195BAC16DEFDE66456693"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/twtstudio\/WePeiYang-iOS-Everest.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BFF333689257219C3C8F0E57A3C6A2F2FC8D6DE9"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/HadoZhang\/weipeiyang3.0.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E26468C9F880F9CFA2EC28D0DD61917CC37FAAF2"
+    }
+  ]
+}

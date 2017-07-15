@@ -9,8 +9,18 @@
 import UIKit
 import SnapKit
 
-class PublishCustomCell: UITableViewCell {
+class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
     
+    var delegate: PublishLostViewController?
+    
+    var cellkey:String?
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        delegate?.means(input: textField.text!, key: cellkey!)
+        textField.resignFirstResponder()
+        
+        return true
+    }
     
     var textField = UITextField()
     
@@ -27,22 +37,34 @@ class PublishCustomCell: UITableViewCell {
             super.frame = newFrame;
 
 //            textField.placeholder = "请输入";
-            textField.adjustsFontSizeToFitWidth = true;  //当文字超出文本框宽度时，自动调整文字大小
+            textField.adjustsFontSizeToFitWidth = true;
+            //当文字超出文本框宽度时，自动调整文字大小
             textField.minimumFontSize = 14;
+            
+            textField.textAlignment = NSTextAlignment.right
+            textField.clearButtonMode = UITextFieldViewMode.unlessEditing 
+
             self.addSubview(textField);
+            
+            
+
             
             textField.snp.makeConstraints{
             
                 make in
-                make.top.equalToSuperview().offset(5)
-                make.right.equalToSuperview().offset(-5)
+                make.top.equalToSuperview().offset(10)
+                make.right.equalToSuperview().offset(-10)
+                make.left.equalToSuperview().offset(80)
             }
         }
         
-        
-        
+
     
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        textField.resignFirstResponder()
     }
 
 
 }
+
