@@ -167,12 +167,22 @@ class GPAViewController: UIViewController {
                 guard index > 0 && index < self.terms.count else {
                     return
                 }
-                self.currentTerm = self.terms[index-1]
+//                self.currentTerm = self.terms[index-1]
                 self.rightButton.isHidden = false
                 if index-1 == 0 {
                     self.leftButton.isHidden = true
                 }
-                self.load()
+                self.lineChartView.highlightValue(x: Double(index-1), dataSetIndex: 0, callDelegate: true)
+
+//                self.load()
+//                let highlight = self.getHightlight(index: index-1)
+//                if let highlight = highlight {
+//                    let fooHighlight = Highlight(x: highlight.x, y: highlight.y, xPx: highlight.xPx, yPx: highlight.yPx, dataSetIndex: 0, axis: highlight.axis)
+//                    self.chartValueSelected(self.lineChartView, entry: ChartDataEntry(x: highlight.x, y: highlight.y), highlight: fooHighlight)
+////                    self.lineChartView.highlightValue(x: highlight.x, y: highlight.y, dataSetIndex: 0, callDelegate: true)
+//                }
+
+//                self.lineChartView.highlightValue(highlight, callDelegate: true)
             }
         })
         rightButton.add(for: .touchUpInside, {
@@ -180,12 +190,20 @@ class GPAViewController: UIViewController {
                 guard index >= 0 && index < self.terms.count-1 else {
                     return
                 }
-                self.currentTerm = self.terms[index+1]
+//                self.currentTerm = self.terms[index+1]
                 self.leftButton.isHidden = false
                 if index+1 == self.terms.count-1 {
                     self.rightButton.isHidden = true
                 }
-                self.load()
+//                self.load()
+                self.lineChartView.highlightValue(x: Double(index+1), dataSetIndex: 0, callDelegate: true)
+//                let highlight = self.getHightlight(index: index+1)
+//                if let highlight = highlight {
+//                    let fooHighlight = Highlight(x: highlight.x, y: highlight.y, xPx: highlight.xPx, yPx: highlight.yPx, dataSetIndex: 0, axis: highlight.axis)
+//                    self.chartValueSelected(self.lineChartView, entry: ChartDataEntry(x: highlight.x, y: highlight.y), highlight: fooHighlight)
+////                    self.lineChartView.highlightValue(x: highlight.x, y: highlight.y, dataSetIndex: 0, callDelegate: true)
+//                }
+//                self.lineChartView.highlightValue(highlight, callDelegate: true)
             }
         })
         leftButton.setImage(UIImage(named: "leftArrow"), for: .normal)
@@ -205,7 +223,11 @@ class GPAViewController: UIViewController {
         // set paddingView 
         paddingView.backgroundColor = UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00)
 
+        // CGRect(x: 0, y: -44, width: self.view.width, height: UIScreen.main.bounds.height)
         tableView = UITableView(frame: self.view.bounds, style: .plain)
+//        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 44, 0);
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 64, right: 0)
+        
         tableView.delegate = self
         tableView.dataSource = self
         self.view.backgroundColor = .white
@@ -222,10 +244,8 @@ class GPAViewController: UIViewController {
         GPASessionManager.getGPA(success: { (terms, stat) in
             self.terms = terms
             self.stat = stat
-            self.segmentView.selectedSegmentIndex = 0
             if terms.count > 0 {
                 self.currentTerm = terms[0]
-                self.tableView.reloadData()
             } else {
                 // TODO: 没有成绩的界面
                 print("没有成绩")
@@ -233,10 +253,29 @@ class GPAViewController: UIViewController {
             }
             self.load()
 //            let point = CGPoint(x: self.view.width/CGFloat(terms.count), y: 100)
-//            let highlight =
+//            let highlight = self.getHightlight(index: 0)
+//            self.lineChartView.highlightValue(highlight, callDelegate: true)
+            self.lineChartView.highlightValue(x: Double(0), dataSetIndex: 0, callDelegate: true)
         }, failure: { error in
             print(error)
         })
+    }
+    
+    
+    func getHightlight(index: Int) -> Highlight? {
+        guard terms.count > 0 else {
+            return nil
+        }
+        let point = CGPoint(x: CGFloat(index*2+1)*self.view.width/CGFloat(terms.count*2), y: 200)
+        let high = (lineChartView.highlighter as? ChartHighlighter)?.getHighlight(xValue: Double(index), x: CGFloat(index*2+1)*self.view.width/CGFloat(terms.count*2), y: 150)
+        if let high = high {
+            return high
+        }
+//        let entry = lineChartView.data?.dataSets[0].entryForXValue(Double(index), closestToY: terms[index].stat.score, rounding: .closest)
+//        let px = chart.getTransformer(forAxis: set.axisDependency).pixelForValues(x: e.x, y: e.y)
+//        let p = lineChartView.getTransformer(forAxis: lineChartView.data!.dataSets[0].axisDependency).pixelForValues(x: Double(index), y: terms[index].stat.score)
+        let highlight = lineChartView.getHighlightByTouchPoint(point)
+        return highlight
     }
     
     func load() {
@@ -262,6 +301,10 @@ class GPAViewController: UIViewController {
         summaryView.totalCreditLabel.text = "\(stat?.credit ?? 0)"
         setupLineChartView()
         setupRadarChartView()
+        
+        // keep the sorting method, and refresh the tableView
+        segmentValueChanged(sender: segmentView)
+        tableView.reloadData()
 //        lineChartView.highlightValue(x: 0, dataSetIndex: 0)
     }
     
@@ -406,7 +449,7 @@ extension GPAViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 100))
         cell.backgroundColor = .white
         let `class` = currentTerm!.classes[indexPath.row]
         let classNameLabel = UILabel(text: `class`.name, color: UIColor(red:0.32, green:0.32, blue:0.32, alpha:1.00), fontSize: 14)
@@ -532,15 +575,10 @@ extension GPAViewController: ChartViewDelegate {
         load()
         
         if let dataSets = chartView.data?.dataSets, dataSets.count > 1 {
-            // remove the old selected value, and set a new one
-            if let oldEntry = dataSets[1].entryForIndex(0) {
-                let _ = dataSets[0].addEntry(oldEntry)
-                let _ = dataSets[1].removeFirst()
-            }
+            let _ = dataSets[1].removeFirst()
             let _ = dataSets[1].addEntry(entry)
         } else {
             // add another dataSet for the only selected entry
-            let _ = chartView.data?.dataSets[0].removeEntry(entry)
             let dataSetSelected = LineChartDataSet(values: [entry], label: nil)
             dataSetSelected.circleRadius = 11
             dataSetSelected.setCircleColor(.white)
@@ -554,12 +592,19 @@ extension GPAViewController: ChartViewDelegate {
         for view in chartView.subviews {
             view.removeFromSuperview()
         }
+        
+//        let point = lineChartView.getTransformer(forAxis: lineChartView.data!.dataSets[0].axisDependency).pixelForValues(x: Double(index), y: terms[index].stat.score)
+
+        let point = lineChartView.getTransformer(forAxis: lineChartView.data!.dataSets[0].axisDependency).pixelForValues(x: entry.x, y: entry.y)
+        
         let image = UIImage(named: "bubble")!
         let bubbleView = UIImageView(image: image)
         bubbleView.width = 115
         bubbleView.height = 115
-        bubbleView.y = highlight.yPx + 10
-        bubbleView.center.x = highlight.xPx
+//        bubbleView.y = highlight.yPx + 10
+        bubbleView.y = point.y + 10
+        bubbleView.center.x = point.x
+//        bubbleView.center.x = highlight.xPx
         bubbleView.contentMode = .scaleToFill
         
         var upsidedownOffset: CGFloat = 0
