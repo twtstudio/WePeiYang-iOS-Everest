@@ -24,6 +24,8 @@ class GPAViewController: UIViewController {
     
     var stat: GPAStatModel?
     
+    var session: String!
+    
     fileprivate var sortMethod: GPASortMethod = .scoreFirst {
         didSet {
             if sortMethod == .scoreFirst {
@@ -126,13 +128,6 @@ class GPAViewController: UIViewController {
     let segmentContentView: UIView = {
         let contentView = UIView()
         contentView.backgroundColor = UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00)
-        contentView.layer.masksToBounds = false
-        contentView.layer.shadowOpacity = 0.5
-        contentView.layer.shadowRadius = 2
-        contentView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        contentView.layer.shadowColor = UIColor.black.cgColor
-        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: contentView.height, width: contentView.width, height: 2)).cgPath
-        contentView.layer.shadowPath = shadowPath
         return contentView
     }()
     
@@ -167,22 +162,12 @@ class GPAViewController: UIViewController {
                 guard index > 0 && index < self.terms.count else {
                     return
                 }
-//                self.currentTerm = self.terms[index-1]
                 self.rightButton.isHidden = false
                 if index-1 == 0 {
                     self.leftButton.isHidden = true
                 }
                 self.lineChartView.highlightValue(x: Double(index-1), dataSetIndex: 0, callDelegate: true)
 
-//                self.load()
-//                let highlight = self.getHightlight(index: index-1)
-//                if let highlight = highlight {
-//                    let fooHighlight = Highlight(x: highlight.x, y: highlight.y, xPx: highlight.xPx, yPx: highlight.yPx, dataSetIndex: 0, axis: highlight.axis)
-//                    self.chartValueSelected(self.lineChartView, entry: ChartDataEntry(x: highlight.x, y: highlight.y), highlight: fooHighlight)
-////                    self.lineChartView.highlightValue(x: highlight.x, y: highlight.y, dataSetIndex: 0, callDelegate: true)
-//                }
-
-//                self.lineChartView.highlightValue(highlight, callDelegate: true)
             }
         })
         rightButton.add(for: .touchUpInside, {
@@ -190,20 +175,11 @@ class GPAViewController: UIViewController {
                 guard index >= 0 && index < self.terms.count-1 else {
                     return
                 }
-//                self.currentTerm = self.terms[index+1]
                 self.leftButton.isHidden = false
                 if index+1 == self.terms.count-1 {
                     self.rightButton.isHidden = true
                 }
-//                self.load()
                 self.lineChartView.highlightValue(x: Double(index+1), dataSetIndex: 0, callDelegate: true)
-//                let highlight = self.getHightlight(index: index+1)
-//                if let highlight = highlight {
-//                    let fooHighlight = Highlight(x: highlight.x, y: highlight.y, xPx: highlight.xPx, yPx: highlight.yPx, dataSetIndex: 0, axis: highlight.axis)
-//                    self.chartValueSelected(self.lineChartView, entry: ChartDataEntry(x: highlight.x, y: highlight.y), highlight: fooHighlight)
-////                    self.lineChartView.highlightValue(x: highlight.x, y: highlight.y, dataSetIndex: 0, callDelegate: true)
-//                }
-//                self.lineChartView.highlightValue(highlight, callDelegate: true)
             }
         })
         leftButton.setImage(UIImage(named: "leftArrow"), for: .normal)
@@ -217,6 +193,15 @@ class GPAViewController: UIViewController {
         radarChartView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: self.view.width)
         // set segmentView
         segmentContentView.frame =  CGRect(x: 0, y: 0, width: self.view.width, height: 50)
+        segmentContentView.layer.masksToBounds = false
+        segmentContentView.layer.shadowOpacity = 0.5
+        segmentContentView.layer.shadowRadius = 2
+        segmentContentView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        segmentContentView.layer.shadowColor = UIColor.black.cgColor
+        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: segmentContentView.height, width: segmentContentView.width, height: 2)).cgPath
+        segmentContentView.layer.shadowPath = shadowPath
+        
+        
         segmentView.center = segmentContentView.center
         segmentContentView.addSubview(segmentView)
         segmentView.addTarget(self, action: #selector(self.segmentValueChanged(sender:)), for: .valueChanged)
@@ -241,9 +226,10 @@ class GPAViewController: UIViewController {
     }
     
     func refresh() {
-        GPASessionManager.getGPA(success: { (terms, stat) in
+        GPASessionManager.getGPA(success: { (terms, stat, session) in
             self.terms = terms
             self.stat = stat
+            self.session = session
             if terms.count > 0 {
                 self.currentTerm = terms[0]
             } else {
@@ -252,31 +238,12 @@ class GPAViewController: UIViewController {
                 return
             }
             self.load()
-//            let point = CGPoint(x: self.view.width/CGFloat(terms.count), y: 100)
-//            let highlight = self.getHightlight(index: 0)
-//            self.lineChartView.highlightValue(highlight, callDelegate: true)
             self.lineChartView.highlightValue(x: Double(0), dataSetIndex: 0, callDelegate: true)
         }, failure: { error in
             print(error)
         })
     }
     
-    
-    func getHightlight(index: Int) -> Highlight? {
-        guard terms.count > 0 else {
-            return nil
-        }
-        let point = CGPoint(x: CGFloat(index*2+1)*self.view.width/CGFloat(terms.count*2), y: 200)
-        let high = (lineChartView.highlighter as? ChartHighlighter)?.getHighlight(xValue: Double(index), x: CGFloat(index*2+1)*self.view.width/CGFloat(terms.count*2), y: 150)
-        if let high = high {
-            return high
-        }
-//        let entry = lineChartView.data?.dataSets[0].entryForXValue(Double(index), closestToY: terms[index].stat.score, rounding: .closest)
-//        let px = chart.getTransformer(forAxis: set.axisDependency).pixelForValues(x: e.x, y: e.y)
-//        let p = lineChartView.getTransformer(forAxis: lineChartView.data!.dataSets[0].axisDependency).pixelForValues(x: Double(index), y: terms[index].stat.score)
-        let highlight = lineChartView.getHighlightByTouchPoint(point)
-        return highlight
-    }
     
     func load() {
         termLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
@@ -327,44 +294,20 @@ class GPAViewController: UIViewController {
             entrys.append(entry)
         }
 
-        if entrys.count > 1 {
-            // 不要交换下面两个插入的顺序 因为第一个依赖entry.count
-
-            if entrys[entrys.count-2].y < entrys[entrys.count-1].y {
-                // let entry = ChartDataEntry(x: Double(entrys.count), y: entrys[entrys.count-1].y+2)
-                let entry = ChartDataEntry(x: Double(entrys.count), y: entrys[entrys.count-1].y)
-                entrys.append(entry)
-            } else {
-                // let entry = ChartDataEntry(x: Double(entrys.count), y: max(entrys[entrys.count-1].y-2, 0))
-                let entry = ChartDataEntry(x: Double(entrys.count), y: entrys[entrys.count-1].y)
-                entrys.append(entry)
-            }
-            
-            if entrys[0].y < entrys[1].y { // 成绩在上升
-                 // 营造出一种ta在进步的假象
-//                let entry = ChartDataEntry(x: -1, y: max(entrys[0].y-2, 0))
-                let entry = ChartDataEntry(x: -1, y: entrys[0].y)
-                entrys.insert(entry, at: 0)
-            } else { // 成绩没有上升
-                // 营造出一种ta在退步的假象
-//                let entry = ChartDataEntry(x: -1, y: entrys[0].y+2)
-                let entry = ChartDataEntry(x: -1, y: entrys[0].y)
-                entrys.insert(entry, at: 0)
-            }
+        if entrys.count > 0 {
+                let fakeLastEntry = ChartDataEntry(x: Double(entrys.count), y: entrys[entrys.count-1].y)
+                entrys.append(fakeLastEntry)
+                let fakeFirstEntry = ChartDataEntry(x: -1, y: entrys[0].y)
+                entrys.insert(fakeFirstEntry, at: 0)
         }
         
         let dataSet = LineChartDataSet(values: entrys, label: nil)
         dataSet.mode = .cubicBezier
         dataSet.drawCirclesEnabled = true
-//        dataSet.circleRadius = 11
-//        dataSet.setCircleColor(.white)
-//        dataSet.circleHoleRadius = 8
-//        dataSet.circleHoleColor = UIColor(red:0.98, green:0.44, blue:0.35, alpha:1.00)
         dataSet.circleRadius = 8
         dataSet.setCircleColor(UIColor(red:0.98, green:0.44, blue:0.35, alpha:1.00))
 
         dataSet.drawValuesEnabled = false
-//        dataSet.drawCircleHoleEnabled = true
         dataSet.drawCircleHoleEnabled = false
         dataSet.drawFilledEnabled = true
         dataSet.setDrawHighlightIndicators(false)
@@ -372,7 +315,6 @@ class GPAViewController: UIViewController {
         dataSet.fillAlpha = 1
         dataSet.lineWidth = 2
         dataSet.setColor(UIColor(red:0.98, green:0.49, blue:0.41, alpha:1.00))
-        lineChartView.data?.dataSets.removeAll()
         lineChartView.data = LineChartData(dataSet: dataSet)
         lineChartView.zoomOut()
         lineChartView.zoomToCenter(scaleX: 1.15, scaleY: 1)
@@ -461,12 +403,11 @@ extension GPAViewController: UITableViewDataSource {
         cell.contentView.addSubview(classNameLabel)
         cell.contentView.addSubview(creditLabel)
         cell.contentView.addSubview(scoreLabel)
-        
+        // stands for normal state
+        cell.tag = 0
         if `class`.score == -1 {
             scoreLabel.text = "点这里去评价"
-            cell.isUserInteractionEnabled = true
-        } else {
-            cell.isUserInteractionEnabled = false
+            cell.tag = -1
         }
         
         return cell
@@ -476,7 +417,13 @@ extension GPAViewController: UITableViewDataSource {
 extension GPAViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+        if let cell = tableView.cellForRow(at: indexPath), cell.tag == -1 {
+            let `class` = currentTerm!.classes[indexPath.row]
+            let appraiseVC = CourseAppraiseViewController()
+            appraiseVC.data = `class`
+            appraiseVC.GPASession = session
+            self.navigationController?.pushViewController(appraiseVC, animated: true)
+        }
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -484,7 +431,6 @@ extension GPAViewController: UITableViewDelegate {
             switch type {
             case .summary:
                 return summaryView
-//            case .termSwitch:
             case .lineChart:
                 let contentView = UIView()
                 contentView.width = self.view.width
@@ -493,11 +439,7 @@ extension GPAViewController: UITableViewDelegate {
                 lineChartView.y = 60
                 contentView.addSubview(termSwitchView)
                 contentView.addSubview(lineChartView)
-                //                return termSwitchView
                 return contentView
-
-//                return nil
-//                return lineChartView
             case .padding:
                 return paddingView
             case .radarChart:
@@ -515,13 +457,8 @@ extension GPAViewController: UITableViewDelegate {
             switch type {
             case .summary:
                 return 111
-//            case .termSwitch:
-//                return 60
-//            case .termSwitch:
-//                return 260
             case .lineChart:
                 return 260
-//                return 200
             case .padding:
                 return 50
             case .radarChart:
@@ -543,14 +480,11 @@ extension GPAViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y - 80
         if offset > 0 {
-//            UIAppearance.
             self.navigationItem.rightBarButtonItem?.tintColor = .white
             self.navigationController?.navigationBar.barStyle = .black
             self.title = currentTerm?.name
             if offset > 530 {
-//                0.1-1
                 self.navigationController?.navigationBar.alpha = 1
-//                min(max(0.1, (offset-530)/60), 1)
                 self.navigationController?.navigationBar.isTranslucent = false
                 return
             }
@@ -567,7 +501,6 @@ extension GPAViewController: UIScrollViewDelegate {
             self.navigationController?.navigationBar.barStyle = .default
             self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
             self.navigationController?.navigationBar.shadowImage = UIImage()
-//            self.navigationController?.navigationBar.isTranslucent = false
             self.navigationController?.navigationBar.isTranslucent = true
         }
     }
@@ -602,18 +535,14 @@ extension GPAViewController: ChartViewDelegate {
             view.removeFromSuperview()
         }
         
-//        let point = lineChartView.getTransformer(forAxis: lineChartView.data!.dataSets[0].axisDependency).pixelForValues(x: Double(index), y: terms[index].stat.score)
-
         let point = lineChartView.getTransformer(forAxis: lineChartView.data!.dataSets[0].axisDependency).pixelForValues(x: entry.x, y: entry.y)
         
         let image = UIImage(named: "bubble")!
         let bubbleView = UIImageView(image: image)
         bubbleView.width = 115
         bubbleView.height = 115
-//        bubbleView.y = highlight.yPx + 10
         bubbleView.y = point.y + 10
         bubbleView.center.x = point.x
-//        bubbleView.center.x = highlight.xPx
         bubbleView.contentMode = .scaleToFill
         
         var upsidedownOffset: CGFloat = 0
@@ -625,7 +554,6 @@ extension GPAViewController: ChartViewDelegate {
             upsidedownOffset = -10
         }
         
-//        let scoreLabel = UILabel(text: "加权: \(term.stat.score)", color: UIColor(red:0.32, green:0.32, blue:0.32, alpha:1.00), fontSize: 12)
         let scoreLabel = UILabel(text: "加权: \(term.stat.score)", color: .black, fontSize: 12)
         scoreLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
         let GPALabel = UILabel(text: "绩点: \(term.stat.gpa)", color: .black, fontSize: 12)
