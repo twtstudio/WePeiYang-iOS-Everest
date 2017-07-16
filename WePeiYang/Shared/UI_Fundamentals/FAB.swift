@@ -65,17 +65,27 @@ open class FAB: UIButton {
     convenience init(mainAction: Action? = nil, subActions: [Action]) {
         self.init()
         setTitle("+", for: .normal)
+//        titleLabel?.baselineAdjustment = .none
+        contentVerticalAlignment = .top
+        contentHorizontalAlignment = .center
+        titleEdgeInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         titleLabel?.font = titleLabelFont
         backgroundColor = .red
     
         if UIDeviceOrientationIsPortrait(.portrait) {
             frame = CGRect(x: screenWidth-buttonWidth-30, y: screenHeight-buttonHeight-30, width: buttonWidth, height: buttonHeight)
             layer.cornerRadius = buttonWidth / 2
+            layer.shadowOpacity = 0.5
+            layer.shadowRadius = 6
+            layer.shadowOffset = CGSize(width: 0, height: 0)
+            
+            
             // FIXME: fix this rotating animation
             // Seems two animations cannot be performed simultaneously
             // Gotta find a way out because the rotating animation is important
-            layer.transform = CATransform3DMakeRotation(2/3*CGFloat.pi, 0, 0, 1)
+//            layer.transform = CATransform3DMakeRotation(2/3*CGFloat.pi, 0, 0, 1)
             layer.transform = CATransform3DMakeScale(0.2, 0.2, 0.2)
+            
             
         }
         
@@ -102,11 +112,13 @@ open class FAB: UIButton {
             let width = fooLabel.bounds.size.width + 8
             let height = fooLabel.bounds.size.height + 4
 
-            button.frame = CGRect(x: screenWidth-width-30, y: bottomLineAt-CGFloat(index+1)*(6+height), width: width, height: height)
+            button.frame = CGRect(x: screenWidth-width-30, y: bottomLineAt-CGFloat(index+1)*(20+height), width: width, height: height)
             button.layer.cornerRadius = 4
-            button.backgroundColor = Metadata.Color.WPYAccentColor
-        
-            button.layer.transform = CATransform3DMakeTranslation(0, 6+height, 0)
+            button.layer.backgroundColor = Metadata.Color.WPYAccentColor.cgColor
+            button.layer.shadowOpacity = 0.35
+            button.layer.shadowRadius = 6
+            button.layer.shadowOffset = CGSize(width: 0, height: 7)
+            button.layer.transform = CATransform3DMakeScale(0.4, 0.4, 0.4)
             button.alpha = 0
             
             subButtons.append(button)
@@ -114,7 +126,7 @@ open class FAB: UIButton {
         
         
         dimView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height))
-        dimView.backgroundColor = .black
+        dimView.backgroundColor = .white
         dimView.alpha = 0;
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(collapse))
@@ -170,15 +182,15 @@ open class FAB: UIButton {
             didAddOtherViews = true
         }
         
-        UIView.animate(withDuration: 0.5) {
-            self.dimView.alpha = 0.5
-            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
+        UIView.animate(withDuration: 0.3) {
+            self.dimView.alpha = 0.9
+            
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
                 self.layer.transform = CATransform3DMakeRotation(0.25*CGFloat.pi, 0, 0, 1)
             }, completion: nil)
             
-            for (_, subButton) in self.subButtons.enumerated() {
-                //                    0.1*(TimeInterval(index)+1)
-                UIView.animate(withDuration: 0.2, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
+            for (index, subButton) in self.subButtons.enumerated() {
+                UIView.animate(withDuration: 0.24, delay: 0.04*TimeInterval(index), usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
                     subButton.layer.transform = CATransform3DIdentity
                     subButton.alpha = 1
                 }, completion: nil)
@@ -195,13 +207,16 @@ open class FAB: UIButton {
             return
         }
         
-        UIView.animate(withDuration: 0.7) {
+        UIView.animate(withDuration: 0.3) {
             self.dimView.alpha = 0
             
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
+                self.layer.transform = CATransform3DIdentity
+            }, completion: nil)
             
-            for (index, subButton) in self.subButtons.enumerated() {
-                UIView.animate(withDuration: 0.6, delay: 0.1*(TimeInterval(index)+1), usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
-                    subButton.layer.transform = CATransform3DMakeTranslation(0, 6+subButton.bounds.size.height, 0)
+            for (index, subButton) in self.subButtons.reversed().enumerated() {
+                UIView.animate(withDuration: 0.35, delay: 0.04*TimeInterval(index), usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
+                    subButton.layer.transform = CATransform3DMakeScale(0.4, 0.4, 0.4)
                     subButton.alpha = 0
                     
                 }, completion: nil)

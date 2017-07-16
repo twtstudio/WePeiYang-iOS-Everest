@@ -155,6 +155,8 @@ extension UIImageView {
         self.init()
         image = foo
     }
+    
+    
 }
 
 
@@ -177,6 +179,7 @@ extension UIButton {
         setBackgroundImage(foo, for: .normal)
     }
 }
+
 // Directly add a closure to UIButton instead of addTarget
 // Bad Implement
 //extension UIButton {
@@ -227,10 +230,6 @@ extension UIControl {
         addTarget(doer, action: #selector(ClosureDoer.invoke), for: controlEvents)
         objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), doer, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
     }
-}
-
-extension UIControl {
-    
 }
 
 extension UIViewController {
