@@ -69,12 +69,18 @@ class FavViewController: UIViewController {
         fooView.addGestureRecognizer(swipe)
         
         let fab = FAB(subActions: [
-            ("print1", {print(1)}),
+            ("print1", {
+                let vc = UIViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }),
             ("print2", {print(2)}),
             ("print3", {print(3)})
             
         ])
-        tabBarController?.view.addSubview(fab)
+        
+        view.addSubview(fab)
+        
+        fab.rectify()
         let tap = UITapGestureRecognizer(target: fab, action: #selector(FAB.dismissAnimated))
         
         fooView.addGestureRecognizer(tap)
@@ -134,7 +140,7 @@ extension FavViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 30
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

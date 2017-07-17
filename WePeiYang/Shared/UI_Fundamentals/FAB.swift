@@ -8,8 +8,8 @@
 
 import UIKit
 
-fileprivate let screenWidth = UIScreen.main.bounds.size.width
-fileprivate let screenHeight = UIScreen.main.bounds.size.height
+fileprivate var screenWidth = UIScreen.main.bounds.size.width
+fileprivate var screenHeight = UIScreen.main.bounds.size.height
 
 fileprivate enum FABState {
     case expanded
@@ -17,7 +17,7 @@ fileprivate enum FABState {
 }
 
 open class FAB: UIButton {
-
+    
     
     // Because usually a FAB is added as a subview of one of the top-most view like navigationController.view or tabBarController.view
     // You'll need to dismiss the FAB otherwise it'll appear forever as long as you're in the navigation stack
@@ -25,6 +25,8 @@ open class FAB: UIButton {
     // Setting this property to false makes the FAB not aware of its context so you should call FAB.dismiss(animated: Bool) and FAB.showUp() manually
     // Default being true
     public var contextAware: Bool = true
+    public var edgePaddingX: CGFloat = 26
+    public var edgePaddingY: CGFloat = 26
     
     fileprivate var mainButton: UIButton!
     fileprivate var dimView: UIView!
@@ -39,8 +41,22 @@ open class FAB: UIButton {
         }
     }
     
+    fileprivate var contextViewSize: CGSize {
+        return (containerView?.bounds.size)!
+    }
+    
     fileprivate var didAddOtherViews = false
     fileprivate var currentState: FABState = .collapsed
+    
+    fileprivate var parentViewController: UIViewController? {
+        get {
+            if let result = traverseResponderChainForViewController() {
+                return result as? UIViewController
+            }
+            // actually this part won't be needed
+            return nil
+        }
+    }
     
     // Different button size for different orientations and screen sizes
     public var buttonWidth: CGFloat = {
@@ -59,12 +75,14 @@ open class FAB: UIButton {
         }
     }
     
-    // Different font size for different screen sizes
-    fileprivate var titleLabelFont: UIFont = {
-        return screenWidth > Metadata.Size.smallPhonePortraitWidth ? UIFont.systemFont(ofSize: 42) : UIFont.systemFont(ofSize: 32)
-    }()
+    public var cornerRadius: CGFloat {
+        return buttonWidth / 2
+    }
+    
+    
     
     fileprivate func plusSignBezierPath() -> UIBezierPath {
+        
         if _plusSignBezierPath == nil {
             _plusSignBezierPath = UIBezierPath()
             _plusSignBezierPath.move(to: CGPoint(x: buttonWidth/2, y: buttonHeight/3))
@@ -92,70 +110,47 @@ open class FAB: UIButton {
     fileprivate func tintLayer(origin: CGPoint) -> CAShapeLayer {
         if _tintLayer == nil {
             _tintLayer = CAShapeLayer()
-            _tintLayer.cornerRadius = buttonWidth/4
-            _tintLayer.frame = CGRect(origin: origin, size: CGSize(width: buttonWidth/2, height: buttonHeight/2))
+            _tintLayer.cornerRadius = buttonWidth/2.5
+            _tintLayer.frame = CGRect(origin: origin, size: CGSize(width: buttonWidth/1.25, height: buttonHeight/1.25))
             _tintLayer.backgroundColor = UIColor.white.withAlphaComponent(0.2).cgColor
             
         } else {
             _tintLayer.position = origin
         }
-    
+        
         return _tintLayer
     }
     
     convenience init(mainAction: Action? = nil, subActions: [Action]) {
         self.init()
-
+        
         layer.addSublayer(plusSignLayer())
         backgroundColor = .red
-    
+        
         if UIDeviceOrientationIsPortrait(.portrait) {
-            frame = CGRect(x: screenWidth-buttonWidth-30, y: screenHeight-buttonHeight-30, width: buttonWidth, height: buttonHeight)
-            layer.cornerRadius = buttonWidth / 2
+            layer.cornerRadius = cornerRadius
             layer.shadowOpacity = 0.5
             layer.shadowRadius = 6
             layer.shadowOffset = CGSize(width: 0, height: 7)
-            
-            
-            // FIXME: fix this rotating animation
-            // Seems two animations cannot be performed simultaneously
-            // Gotta find a way out because the rotating animation is important
-            plusSignLayer().transform = CATransform3DMakeRotation(2/3*CGFloat.pi, 0, 0, 1)
-            layer.transform = CATransform3DMakeScale(0.2, 0.2, 0.2)
-            
-            
         }
-        
-        
-        showUp()
         
         if mainAction != nil {
             add(for: .touchUpInside, (mainAction?.function)!)
             // TODO: finish this
         }
         
-//        addTarget(self, action: #selector(expandOrCollapse), for: .touchUpInside)
 
-        let bottomLineAt = frame.origin.y
-        for (index, subAction) in subActions.enumerated() {
+        for subAction in subActions {
             let button = UIButton()
             button.add(for: .touchUpInside, subAction.function)
             button.setTitle(subAction.name, for: .normal)
-            
-            // TODO: Change to Metadata.Font
             button.titleLabel?.font = .systemFont(ofSize: 18)
             
-            let fooLabel = UILabel(text: subAction.name, fontSize: 18)
-            let width = fooLabel.bounds.size.width + 8
-            let height = fooLabel.bounds.size.height + 4
-
-            button.frame = CGRect(x: screenWidth-width-30, y: bottomLineAt-CGFloat(index+1)*(20+height), width: width, height: height)
             button.layer.cornerRadius = 4
             button.layer.backgroundColor = Metadata.Color.WPYAccentColor.cgColor
             button.layer.shadowOpacity = 0.35
             button.layer.shadowRadius = 6
             button.layer.shadowOffset = CGSize(width: 0, height: 7)
-            button.layer.transform = CATransform3DMakeScale(0.4, 0.4, 0.4)
             button.alpha = 0
             
             subButtons.append(button)
@@ -186,17 +181,18 @@ open class FAB: UIButton {
             
         }
         
-//        Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(spinScaleAnim), userInfo: nil, repeats: false)
+        //        Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(spinScaleAnim), userInfo: nil, repeats: false)
         
     }
     
+    // FIXME: this group animation is weird
     @objc fileprivate func spinScaleAnim() {
         let spinAnim = CASpringAnimation(keyPath: "transform.rotation.z")
         spinAnim.fromValue = CGFloat.pi * 270 / 360
         spinAnim.toValue = 0
         spinAnim.damping = 0.7
         let scaleAnim = CASpringAnimation(keyPath: "transform.scale")
-//        scaleAnim.fromValue = 0.2
+        //        scaleAnim.fromValue = 0.2
         scaleAnim.toValue = 1
         scaleAnim.damping = 0.7
         let animGroup = CAAnimationGroup()
@@ -219,22 +215,8 @@ open class FAB: UIButton {
         }, completion: nil)
     }
     
-    // may need to do scrollView watching?
-    public func dismiss(animated: Bool) {
-        if animated {
-            expandOrCollapse()
-            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseOut], animations: {
-                self.layer.transform = CATransform3DMakeScale(0.2, 0.2, 0.2)
-                self.plusSignLayer().transform = CATransform3DMakeRotation(270/360*CGFloat.pi, 0, 0, 1)
-                self.alpha = 0
-                
-            }, completion: nil)
-        } else {
-            
-        }
-    }
     
-
+    
     @objc fileprivate func expandOrCollapse() {
         switch currentState {
         case .collapsed:
@@ -244,7 +226,7 @@ open class FAB: UIButton {
         case .expanded:
             collapse()
         }
-
+        
     }
     
     // Expand the subButtons
@@ -291,7 +273,7 @@ open class FAB: UIButton {
             
             for (index, subButton) in self.subButtons.reversed().enumerated() {
                 UIView.animate(withDuration: 0.35, delay: 0.04*TimeInterval(index), usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
-                    subButton.layer.transform = CATransform3DMakeScale(0.4, 0.4, 0.4)
+                    subButton.layer.transform = CATransform3DMakeScale(0.2, 0.2, 0.2)
                     subButton.alpha = 0
                     
                 }, completion: nil)
@@ -303,6 +285,7 @@ open class FAB: UIButton {
     
 }
 
+// MARK: Touch event handling
 extension FAB {
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -319,6 +302,98 @@ extension FAB {
         _tintLayer.removeFromSuperlayer()
         if touches.count == 1 && touches.first?.tapCount == 1 && touches.first?.location(in: self) != nil {
             expandOrCollapse()
+        }
+    }
+    
+
+}
+
+// MARK: Rectify method for some misuses
+extension FAB {
+    // Call this after you add FAB as a subview **ONLY** if you're having some frame issues (like it's not placed at the right_bottom of the screen)
+    // Calling rectify() will solve the frame problem in most cases (no promise though)
+    public func rectify() {
+        let topVC = UIViewController.topViewController()
+        if parentViewController != topVC {
+            log.errorMessage("You're not adding your fab into a topmost view, which might lead to a wrong position for the fab")/
+            
+            if topVC is UITabBarController {
+                removeFromSuperview()
+                topVC?.view.addSubview(self)
+                for subButton in subButtons {
+                    subButton.removeFromSuperview()
+                    topVC?.view.addSubview(subButton)
+                }
+                dimView.removeFromSuperview()
+                topVC?.view.addSubview(dimView)
+                log.errorMessage("FAB has rectified itself. Now your fab's superview has changed into the \(String(describing: topVC!))")/
+                log.errorMessage("BTW, you should not add a FAB when there's a TabBar on the bottom of your screen")/
+                return
+            }
+            
+            if topVC is UINavigationController && !(parentViewController is UITableViewController) {
+                let navHeight = parentViewController!.navigationController != nil ? parentViewController!.navigationController!.navigationBar.frame.size.height : 0
+                let rectifyingHeight = UIApplication.shared.statusBarFrame.height + navHeight
+                
+                frame = CGRect(x: screenWidth-buttonWidth-edgePaddingX, y: screenHeight-buttonHeight-edgePaddingY-rectifyingHeight, width: buttonWidth, height: buttonHeight)
+                let bottomLineAt = frame.origin.y
+                for (index, subButton) in subButtons.enumerated() {
+                    let width = subButton.bounds.size.width
+                    let height = subButton.bounds.size.height
+                    subButton.frame = CGRect(x: screenWidth-width-30, y: bottomLineAt-CGFloat(index+1)*(20+height), width: width, height: height)
+                }
+                log.errorMessage("FAB has rectified itself, its position has been elevated by \(rectifyingHeight) in the yAxis")/
+                
+                return
+            }
+        }
+    }
+}
+
+// MARK: stay sticky even in scrollViews
+extension FAB {
+    fileprivate func setObserver() {
+//        NotificationCenter.default.addObserver(self, selector: <#T##Selector#>, name: <#T##NSNotification.Name?#>, object: <#T##Any?#>)
+    }
+    
+    override open func willMove(toSuperview newSuperview: UIView?) {
+        if UIDeviceOrientationIsPortrait(.portrait) {
+            frame = CGRect(x: screenWidth-buttonWidth-edgePaddingX, y: screenHeight-buttonHeight-edgePaddingY, width: buttonWidth, height: buttonHeight)
+            let bottomLineAt = frame.origin.y
+            // FIXME: fix this rotating animation
+            plusSignLayer().transform = CATransform3DMakeRotation(2/3*CGFloat.pi, 0, 0, 1)
+            layer.transform = CATransform3DMakeScale(0.2, 0.2, 0.2)
+            
+            
+            for (index, subButton) in subButtons.enumerated() {
+                let fooLabel = UILabel(text: (subButton.titleLabel?.text)!, fontSize: 18)
+                let width = fooLabel.bounds.size.width + 8
+                let height = fooLabel.bounds.size.height + 4
+                subButton.frame = CGRect(x: screenWidth-width-30, y: bottomLineAt-CGFloat(index+1)*(20+height), width: width, height: height)
+                subButton.layer.transform = CATransform3DMakeScale(0.2, 0.2, 0.2)
+            }
+        }
+        
+    }
+    
+    override open func didMoveToSuperview() {
+        showUp()
+    }
+}
+
+
+fileprivate extension UIResponder {
+    func traverseResponderChainForViewController() -> UIResponder? {
+        guard !(self is UIViewController) else {
+            return self
+        }
+        
+        if next is UIViewController {
+            return next
+        } else if next is UIView {
+            return next?.traverseResponderChainForViewController()
+        } else {
+            return nil
         }
     }
 }

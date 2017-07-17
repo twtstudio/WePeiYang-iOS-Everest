@@ -234,7 +234,7 @@ extension UIControl {
 
 extension UIViewController {
     
-    func topViewController() -> UIViewController? {
+    static func topViewController() -> UIViewController? {
         if let appRootVC = UIApplication.shared.keyWindow?.rootViewController {
             var topVC: UIViewController? = appRootVC
             while (topVC?.presentedViewController != nil) {
