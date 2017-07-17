@@ -23,6 +23,20 @@ extension UILabel {
         self.sizeToFit()
     }
     
+    /// A convenience initializer of UILabel
+    ///
+    /// - Parameters:
+    ///   - text: The content of your label
+    ///   - color: Text color
+    ///   - fontSize: Text font size
+    convenience init(text: String, color: UIColor, fontSize: CGFloat) {
+        self.init()
+        self.text = text
+        textColor = color
+        self.font = UIFont.systemFont(ofSize: fontSize)
+        self.sizeToFit()
+    }
+    
     convenience init(text: String?) {
         self.init()
         self.text = text
@@ -52,6 +66,43 @@ extension UIView {
         UIGraphicsEndImageContext()
         return image
     }
+    
+    var x: CGFloat {
+        set(newValue) {
+            frame.origin.x = newValue
+        }
+        get {
+            return frame.origin.x
+        }
+    }
+    
+    var y: CGFloat {
+        set(newValue) {
+            frame.origin.y = newValue
+        }
+        get {
+            return frame.origin.y
+        }
+    }
+    
+    var height: CGFloat {
+        set(newValue) {
+            frame.size.height = newValue
+        }
+        get {
+            return frame.size.height
+        }
+    }
+    
+    var width: CGFloat {
+        set(newValue) {
+            frame.size.width = newValue
+        }
+        get {
+            return frame.size.width
+        }
+    }
+
 }
 
 extension UIImage {
@@ -141,6 +192,18 @@ extension UIImage {
         return newImage
     }
     
+    //pure color image
+    convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
+        let rect = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+        color.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        guard let cgImage = image?.cgImage else { return nil }
+        self.init(cgImage: cgImage)
+    }
 }
 
 
@@ -248,14 +311,16 @@ extension UIViewController {
 }
 
 extension String {
-    func sha1() -> String {
-        let data = self.data(using: String.Encoding.utf8)!
-        var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
-        data.withUnsafeBytes {
-            _ = CC_SHA1($0, CC_LONG(data.count), &digest)
+    var sha1: String {
+        get {
+            let data = self.data(using: String.Encoding.utf8)!
+            var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
+            data.withUnsafeBytes {
+                _ = CC_SHA1($0, CC_LONG(data.count), &digest)
+            }
+            let hexBytes = digest.map { String(format: "%02hhx", $0) }
+            return hexBytes.joined()
         }
-        let hexBytes = digest.map { String(format: "%02hhx", $0) }
-        return hexBytes.joined()
     }
 }
 

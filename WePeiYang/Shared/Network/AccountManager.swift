@@ -22,37 +22,25 @@ let ALLOW_SPOTLIGHT_KEY = "allowSpotlightIndex"
 
 struct AccountManager {
     
-    static var token: String? {
-        return UserDefaults.standard.object(forKey: TOKEN_SAVE_KEY) as? String
-    }
+//    static func removeToken() {
+//        UserDefaults.standard.removeObject(forKey: TOKEN_SAVE_KEY)
+//        UserDefaults.standard.removeObject(forKey: ID_SAVE_KEY)
+//        UserDefaults.standard.removeObject(forKey: "readToken")
+//
+//        CacheManager.removeCache(withKey: GPA_CACHE)
+//        CacheManager.removeGroupCache(withKey: CLASSTABLE_TERM_START_KEY)
+//        CacheManager.removeGroupCache(withKey: CLASSTABLE_CACHE_KEY)
+//        CacheManager.removeGroupCache(withKey: CLASSTABLE_COLOR_CONFIG_KEY)
+//        // TODO: CSSearchable
+//    }
     
-    static func tokenExists() -> Bool {
-        if UserDefaults.standard.object(forKey: TOKEN_SAVE_KEY) != nil {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    static func removeToken() {
-        UserDefaults.standard.removeObject(forKey: TOKEN_SAVE_KEY)
-        UserDefaults.standard.removeObject(forKey: ID_SAVE_KEY)
-        UserDefaults.standard.removeObject(forKey: "readToken")
-
-        CacheManager.removeCache(withKey: GPA_CACHE)
-        CacheManager.removeGroupCache(withKey: CLASSTABLE_TERM_START_KEY)
-        CacheManager.removeGroupCache(withKey: CLASSTABLE_CACHE_KEY)
-        CacheManager.removeGroupCache(withKey: CLASSTABLE_COLOR_CONFIG_KEY)
-        // TODO: CSSearchable
-    }
-    
-    static func getToken(username: String, password: String, success: (()->())?, failure: ((Error)->())?) {
+    static func getToken(username: String, password: String, success: (()->())?, failure: ((Error?)->())?) {
         let para: Dictionary<String, String> = ["twtuname": username, "twtpasswd": password]
-        SolaSessionManager.solaSession(withType: .get, url: "/auth/token/get", token: nil, parameters: para, success: { dic in
+        SolaSessionManager.solaSession(type: .get, url: "/auth/token/get", token: nil, parameters: para, success: { dic in
             if let data = dic["data"] as? Dictionary<String, AnyObject> {
                 if let token = data["token"] as? String {
-                    UserDefaults.standard.setValue(token, forKey: TOKEN_SAVE_KEY)
-                    UserDefaults.standard.setValue(username, forKey: ID_SAVE_KEY)
+                    TwTUser.shared.token = token
+                    TwTUser.shared.save()
                     success?()
                 }
             }
@@ -63,22 +51,19 @@ struct AccountManager {
         
     }
     
-    static func checkToken(success: (()->())?, failure: (()->())?) {
-        guard let token = UserDefaults.standard.object(forKey: TOKEN_SAVE_KEY) as? String else {
-            failure?()
-            log.errorMessage("token不存在")/
-            return
-        }
-        
-        SolaSessionManager.solaSession(withType: .get, url: "/auth/token/check", token: token, parameters: nil, success: { dict in
+    static func checkToken(success: (()->())? = nil, failure: (()->())?) {
+        SolaSessionManager.solaSession(type: .get, url: "/auth/token/check", parameters: nil, success: { dict in
             if let error_code = dict["error_code"] as? Int {
                 if error_code == -1 {
+                    //啥都不用做
                     success?()
                 } else if error_code == 10003 { // 过期
                     // refresh token
-                    SolaSessionManager.solaSession(withType: .get, url: "/auth/token/refresh", token: token, parameters: nil, success: { dict in
+                    SolaSessionManager.solaSession(type: .get, url: "/auth/token/refresh", parameters: nil, success: { dict in
                         if let newToken = dict["data"] as? String {
-                            UserDefaults.standard.setValue(newToken, forKey: TOKEN_SAVE_KEY)
+                            TwTUser.shared.token = newToken
+                            TwTUser.shared.save()
+                            //啥都不用做
                             success?()
                             return
                         }
@@ -88,16 +73,17 @@ struct AccountManager {
                     }, failure: { error in
                         log.error(error)/
                         failure?()
-                        self.removeToken()
+                        // FIXME 获取失败我也不知道怎么做 难道要重新登录
+                        TwTUser.shared.delete()
                     }) // refresh finished
 
                 } else if let msg = dict["message"] as? String { // check failed
                     failure?()
                     log.errorMessage(msg)/
-                    self.removeToken()
+//                    self.removeToken()
                 } else {
                     failure?()
-                    self.removeToken()
+//                    self.removeToken()
                 }
             }
         }, failure: { error in // check request failed
@@ -110,10 +96,12 @@ struct AccountManager {
     static func bindTju(tjuname: String , tjupwd: String, success: (()->())?, failure: (()->())?) {
         let para = ["tjuuname": tjuname,
                     "tjupasswd": tjupwd]
-        SolaSessionManager.solaSession(withType: .get, url: "/auth/bind/tju", token: AccountManager.token, parameters: para, success: { dict in
+        SolaSessionManager.solaSession(type: .get, url: "/auth/bind/tju", parameters: para, success: { dict in
             if let error_code = dict["error_code"] as? Int {
                 if error_code == -1 {
-                    UserDefaults.standard.set(true, forKey: TJU_BIND_KEY)
+                    TwTUser.shared.tjuBindingState = true
+                    TwTUser.shared.save()
+//                    UserDefaults.standard.set(true, forKey: TJU_BIND_KEY)
                     success?()
                 } else {
                     if let msg = dict["message"] as? String {
@@ -128,17 +116,18 @@ struct AccountManager {
     }
     
     static func unbindTju(tjuname: String , tjupwd: String, success: (()->())?, failure: (()->())?) {
-        SolaSessionManager.solaSession(withType: .get, url: "/auth/unbind/tju", token: AccountManager.token, parameters: nil, success: { dict in
+        SolaSessionManager.solaSession(type: .get, url: "/auth/unbind/tju", parameters: nil, success: { dict in
             if let error_code = dict["error_code"] as? Int {
                 if error_code == -1 {
-                    UserDefaults.standard.set(false, forKey: TJU_BIND_KEY)
-                    CacheManager.removeCache(withKey: GPA_CACHE)
-                    CacheManager.removeCache(withKey: GPA_USER_NAME_CACHE)
-                    CacheManager.removeGroupCache(withKey: CLASSTABLE_COLOR_CONFIG_KEY)
-                    CacheManager.removeGroupCache(withKey: CLASSTABLE_CACHE_KEY)
-                    CacheManager.removeGroupCache(withKey: CLASSTABLE_TERM_START_KEY)
+                    TwTUser.shared.tjuBindingState = false
+                    TwTUser.shared.save()
+//                    UserDefaults.standard.set(false, forKey: TJU_BIND_KEY)
+//                    CacheManager.removeCache(withKey: GPA_CACHE)
+//                    CacheManager.removeCache(withKey: GPA_USER_NAME_CACHE)
+//                    CacheManager.removeGroupCache(withKey: CLASSTABLE_COLOR_CONFIG_KEY)
+//                    CacheManager.removeGroupCache(withKey: CLASSTABLE_CACHE_KEY)
+//                    CacheManager.removeGroupCache(withKey: CLASSTABLE_TERM_START_KEY)
                     // TODO: Spotlight
-
                     success?()
                 } else {
                     if let msg = dict["message"] as? String {

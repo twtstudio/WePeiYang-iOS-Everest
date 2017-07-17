@@ -6,6 +6,8 @@ target 'WePeiYang' do
   use_frameworks!
   pod 'Alamofire'
   pod 'SnapKit'
+  pod 'Charts'
+  pod 'ObjectMapper'
   # Pods for WePeiYang
 
   target 'WePeiYangTests' do
