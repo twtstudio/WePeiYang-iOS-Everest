@@ -16,6 +16,7 @@ class FavViewController: UIViewController {
 //        return .lightContent
 //    }
     
+    var fooView: UIView!
     var cardTableView: UITableView!
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,28 +53,57 @@ class FavViewController: UIViewController {
         cardTableView.delegate = self
         cardTableView.dataSource = self
         
-        let fooView = UIView(color: .red)
-        fooView.frame = CGRect(x: 40, y: 40, width: 100, height: 100)
+        fooView = UIView(color: .red)
+        fooView.frame = CGRect(x: 125, y: 200, width: 100, height: 100)
         view.addSubview(fooView)
         
-        UIView.animate(withDuration: 1, animations: {
-            fooView.transform = CGAffineTransform(rotationAngle: 90.0)
-        }) { (flag) in
-            print(flag)
-        }
+        fooView.layer.cornerRadius = 30
+        fooView.layer.shadowRadius = 8
+        fooView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        fooView.layer.shadowRadius = 10
+        fooView.layer.shadowOpacity = 0.5
+        
+        
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(shrink))
+        swipe.direction = .up
+        fooView.addGestureRecognizer(swipe)
         
         let fab = FAB(subActions: [
-            ("print1", {print(1)}),
+            ("print1", {
+                let vc = UIViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }),
             ("print2", {print(2)}),
             ("print3", {print(3)})
             
         ])
+        
         tabBarController?.view.addSubview(fab)
         
+        
+        let tap = UITapGestureRecognizer(target: fab, action: #selector(FAB.dismissAnimated))
+        
+        fooView.addGestureRecognizer(tap)
         
         // Do any additional setup after loading the view.
     }
 
+    func expand() {
+        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
+            self.fooView.frame = CGRect(x: 75, y: 150, width: 200, height: 200)
+            self.fooView.layer.cornerRadius = 0
+            self.fooView.layer.shadowOpacity = 0
+        }, completion: nil)
+    }
+    
+    func shrink() {
+        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
+            self.fooView.frame = CGRect(x: 125, y: 200, width: 100, height: 100)
+            self.fooView.layer.cornerRadius = 30
+            self.fooView.layer.shadowOpacity = 0.5
+        }, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -110,7 +140,7 @@ extension FavViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 30
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
