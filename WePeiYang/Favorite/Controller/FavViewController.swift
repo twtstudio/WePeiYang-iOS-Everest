@@ -63,8 +63,6 @@ class FavViewController: UIViewController {
         fooView.layer.shadowRadius = 10
         fooView.layer.shadowOpacity = 0.5
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(expand))
-        fooView.addGestureRecognizer(tap)
         
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(shrink))
         swipe.direction = .up
@@ -77,7 +75,9 @@ class FavViewController: UIViewController {
             
         ])
         tabBarController?.view.addSubview(fab)
+        let tap = UITapGestureRecognizer(target: fab, action: #selector(FAB.dismissAnimated))
         
+        fooView.addGestureRecognizer(tap)
         
         // Do any additional setup after loading the view.
     }

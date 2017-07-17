@@ -8,10 +8,10 @@
 
 import UIKit
 
-private let screenWidth = UIScreen.main.bounds.size.width
-private let screenHeight = UIScreen.main.bounds.size.height
+fileprivate let screenWidth = UIScreen.main.bounds.size.width
+fileprivate let screenHeight = UIScreen.main.bounds.size.height
 
-private enum FABState {
+fileprivate enum FABState {
     case expanded
     case collapsed
 }
@@ -26,22 +26,25 @@ open class FAB: UIButton {
     // Default being true
     public var contextAware: Bool = true
     
-    private var mainButton: UIButton!
-    private var dimView: UIView!
-    private var subButtons: [UIButton] = []
-    private var currentState: FABState = .collapsed
+    fileprivate var mainButton: UIButton!
+    fileprivate var dimView: UIView!
+    fileprivate var subButtons: [UIButton] = []
+    fileprivate var _plusSignBezierPath: UIBezierPath!
+    fileprivate var _plusSignLayer: CAShapeLayer!
+    fileprivate var _tintLayer: CAShapeLayer!
     
-    private var containerView: UIView? {
+    fileprivate var containerView: UIView? {
         get {
             return superview
         }
     }
     
-    private var didAddOtherViews = false
+    fileprivate var didAddOtherViews = false
+    fileprivate var currentState: FABState = .collapsed
     
     // Different button size for different orientations and screen sizes
     public var buttonWidth: CGFloat = {
-        return screenWidth > Metadata.Size.smallPhonePortraitWidth ? 80 : 60
+        return screenWidth > Metadata.Size.smallPhonePortraitWidth ? 76 : 56
     }()
     
     public var buttonHeight: CGFloat {
@@ -57,19 +60,53 @@ open class FAB: UIButton {
     }
     
     // Different font size for different screen sizes
-    private var titleLabelFont: UIFont = {
+    fileprivate var titleLabelFont: UIFont = {
         return screenWidth > Metadata.Size.smallPhonePortraitWidth ? UIFont.systemFont(ofSize: 42) : UIFont.systemFont(ofSize: 32)
     }()
     
+    fileprivate func plusSignBezierPath() -> UIBezierPath {
+        if _plusSignBezierPath == nil {
+            _plusSignBezierPath = UIBezierPath()
+            _plusSignBezierPath.move(to: CGPoint(x: buttonWidth/2, y: buttonHeight/3))
+            _plusSignBezierPath.addLine(to: CGPoint(x: buttonWidth/2, y: buttonHeight - buttonHeight/3))
+            _plusSignBezierPath.move(to: CGPoint(x: buttonWidth/3, y: buttonHeight/2))
+            _plusSignBezierPath.addLine(to: CGPoint(x: buttonWidth - buttonWidth/3, y: buttonHeight/2))
+        }
+        
+        return _plusSignBezierPath
+    }
+    
+    fileprivate func plusSignLayer() -> CAShapeLayer {
+        if _plusSignLayer == nil {
+            _plusSignLayer = CAShapeLayer()
+            _plusSignLayer.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: buttonHeight)
+            _plusSignLayer.lineCap = kCALineCapRound
+            _plusSignLayer.strokeColor = UIColor.white.cgColor
+            _plusSignLayer.lineWidth = 2.0
+            _plusSignLayer.path = plusSignBezierPath().cgPath
+        }
+        
+        return _plusSignLayer
+    }
+    
+    fileprivate func tintLayer(origin: CGPoint) -> CAShapeLayer {
+        if _tintLayer == nil {
+            _tintLayer = CAShapeLayer()
+            _tintLayer.cornerRadius = buttonWidth/4
+            _tintLayer.frame = CGRect(origin: origin, size: CGSize(width: buttonWidth/2, height: buttonHeight/2))
+            _tintLayer.backgroundColor = UIColor.white.withAlphaComponent(0.2).cgColor
+            
+        } else {
+            _tintLayer.position = origin
+        }
+    
+        return _tintLayer
+    }
     
     convenience init(mainAction: Action? = nil, subActions: [Action]) {
         self.init()
-        setTitle("+", for: .normal)
-//        titleLabel?.baselineAdjustment = .none
-        contentVerticalAlignment = .top
-        contentHorizontalAlignment = .center
-        titleEdgeInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
-        titleLabel?.font = titleLabelFont
+
+        layer.addSublayer(plusSignLayer())
         backgroundColor = .red
     
         if UIDeviceOrientationIsPortrait(.portrait) {
@@ -77,13 +114,13 @@ open class FAB: UIButton {
             layer.cornerRadius = buttonWidth / 2
             layer.shadowOpacity = 0.5
             layer.shadowRadius = 6
-            layer.shadowOffset = CGSize(width: 0, height: 0)
+            layer.shadowOffset = CGSize(width: 0, height: 7)
             
             
             // FIXME: fix this rotating animation
             // Seems two animations cannot be performed simultaneously
             // Gotta find a way out because the rotating animation is important
-//            layer.transform = CATransform3DMakeRotation(2/3*CGFloat.pi, 0, 0, 1)
+            plusSignLayer().transform = CATransform3DMakeRotation(2/3*CGFloat.pi, 0, 0, 1)
             layer.transform = CATransform3DMakeScale(0.2, 0.2, 0.2)
             
             
@@ -97,7 +134,7 @@ open class FAB: UIButton {
             // TODO: finish this
         }
         
-        addTarget(self, action: #selector(expandOrCollapse), for: .touchUpInside)
+//        addTarget(self, action: #selector(expandOrCollapse), for: .touchUpInside)
 
         let bottomLineAt = frame.origin.y
         for (index, subAction) in subActions.enumerated() {
@@ -144,24 +181,61 @@ open class FAB: UIButton {
     public func showUp() {
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
             self.layer.transform = CATransform3DIdentity
+            self.plusSignLayer().transform = CATransform3DIdentity
         }) { flag in
             
         }
+        
+//        Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(spinScaleAnim), userInfo: nil, repeats: false)
+        
     }
     
+    @objc fileprivate func spinScaleAnim() {
+        let spinAnim = CASpringAnimation(keyPath: "transform.rotation.z")
+        spinAnim.fromValue = CGFloat.pi * 270 / 360
+        spinAnim.toValue = 0
+        spinAnim.damping = 0.7
+        let scaleAnim = CASpringAnimation(keyPath: "transform.scale")
+//        scaleAnim.fromValue = 0.2
+        scaleAnim.toValue = 1
+        scaleAnim.damping = 0.7
+        let animGroup = CAAnimationGroup()
+        animGroup.animations = [spinAnim, scaleAnim]
+        animGroup.beginTime = 0
+        animGroup.duration = 0.8
+        animGroup.isRemovedOnCompletion = false
+        
+        layer.add(animGroup, forKey: nil)
+        
+    }
+    
+    public func dismissAnimated() {
+        collapse()
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseOut], animations: {
+            self.layer.transform = CATransform3DMakeScale(0.2, 0.2, 0.2)
+            self.plusSignLayer().transform = CATransform3DMakeRotation(270/360*CGFloat.pi, 0, 0, 1)
+            
+            self.alpha = 0
+        }, completion: nil)
+    }
     
     // may need to do scrollView watching?
     public func dismiss(animated: Bool) {
         if animated {
             expandOrCollapse()
+            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseOut], animations: {
+                self.layer.transform = CATransform3DMakeScale(0.2, 0.2, 0.2)
+                self.plusSignLayer().transform = CATransform3DMakeRotation(270/360*CGFloat.pi, 0, 0, 1)
+                self.alpha = 0
+                
+            }, completion: nil)
         } else {
             
         }
     }
     
 
-    // Expand the subButtons
-    internal func expandOrCollapse() {
+    @objc fileprivate func expandOrCollapse() {
         switch currentState {
         case .collapsed:
             expand()
@@ -173,7 +247,8 @@ open class FAB: UIButton {
 
     }
     
-    internal func expand() {
+    // Expand the subButtons
+    @objc fileprivate func expand() {
         if !didAddOtherViews {
             containerView?.insertSubview(dimView, belowSubview: self)
             for subButton in subButtons {
@@ -186,7 +261,7 @@ open class FAB: UIButton {
             self.dimView.alpha = 0.9
             
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
-                self.layer.transform = CATransform3DMakeRotation(0.25*CGFloat.pi, 0, 0, 1)
+                self.plusSignLayer().transform = CATransform3DMakeRotation(0.25*CGFloat.pi, 0, 0, 1)
             }, completion: nil)
             
             for (index, subButton) in self.subButtons.enumerated() {
@@ -201,7 +276,7 @@ open class FAB: UIButton {
     }
     
     // Collapse the list the subButtons
-    internal func collapse() {
+    @objc fileprivate func collapse() {
         
         guard currentState == .expanded else {
             return
@@ -211,7 +286,7 @@ open class FAB: UIButton {
             self.dimView.alpha = 0
             
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseIn], animations: {
-                self.layer.transform = CATransform3DIdentity
+                self.plusSignLayer().transform = CATransform3DIdentity
             }, completion: nil)
             
             for (index, subButton) in self.subButtons.reversed().enumerated() {
@@ -226,4 +301,24 @@ open class FAB: UIButton {
         currentState = .collapsed
     }
     
+}
+
+extension FAB {
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        if touches.count == 1 && touches.first?.tapCount == 1 && touches.first?.location(in: self) != nil {
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            layer.addSublayer(tintLayer(origin: (touches.first?.location(in: self))!))
+            CATransaction.commit()
+        }
+    }
+    
+    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        _tintLayer.removeFromSuperlayer()
+        if touches.count == 1 && touches.first?.tapCount == 1 && touches.first?.location(in: self) != nil {
+            expandOrCollapse()
+        }
+    }
 }
