@@ -48,7 +48,7 @@ class FavViewController: UIViewController {
         
         cardTableView = UITableView()
         cardTableView.frame = view.frame
-//        view = cardTableView
+        view = cardTableView
         
         cardTableView.delegate = self
         cardTableView.dataSource = self
@@ -78,9 +78,9 @@ class FavViewController: UIViewController {
             
         ])
         
-        view.addSubview(fab)
+        tabBarController?.view.addSubview(fab)
         
-        fab.rectify()
+        
         let tap = UITapGestureRecognizer(target: fab, action: #selector(FAB.dismissAnimated))
         
         fooView.addGestureRecognizer(tap)

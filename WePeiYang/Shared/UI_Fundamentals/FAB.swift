@@ -350,7 +350,7 @@ extension FAB {
     }
 }
 
-// MARK: stay sticky even in scrollViews
+
 extension FAB {
     fileprivate func setObserver() {
 //        NotificationCenter.default.addObserver(self, selector: <#T##Selector#>, name: <#T##NSNotification.Name?#>, object: <#T##Any?#>)
