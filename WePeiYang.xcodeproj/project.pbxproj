@@ -17,6 +17,14 @@
 		3637FCDE1F1A34B200FA8549 /* CourseAppraiseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637FCDD1F1A34B200FA8549 /* CourseAppraiseManager.swift */; };
 		3637FCE01F1A37B300FA8549 /* CourseAppraiseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637FCDF1F1A37B300FA8549 /* CourseAppraiseCell.swift */; };
 		3637FCE21F1A3FBD00FA8549 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637FCE11F1A3FBD00FA8549 /* StarView.swift */; };
+		365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936681F1E2CCF003CE578 /* YellowPageCell.swift */; };
+		3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */; };
+		3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659366C1F1E3637003CE578 /* CommonUsedView.swift */; };
+		3659366F1F1E37B8003CE578 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659366E1F1E37B8003CE578 /* SearchView.swift */; };
+		365936711F1E38B8003CE578 /* YellowPageSearchHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936701F1E38B8003CE578 /* YellowPageSearchHistoryCell.swift */; };
+		3659367B1F1E5FAE003CE578 /* YellowPageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936781F1E5FAE003CE578 /* YellowPageDetailViewController.swift */; };
+		3659367C1F1E5FAE003CE578 /* YellowPageMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936791F1E5FAE003CE578 /* YellowPageMainViewController.swift */; };
+		3659367D1F1E5FAE003CE578 /* YellowPageSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659367A1F1E5FAE003CE578 /* YellowPageSearchViewController.swift */; };
 		3679DFE11F14D207002687CD /* GPAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3679DFE01F14D207002687CD /* GPAViewController.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
 		671E936890C15C748992981C /* Pods_WePeiYangUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */; };
@@ -89,6 +97,14 @@
 		3637FCDD1F1A34B200FA8549 /* CourseAppraiseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseManager.swift; sourceTree = "<group>"; };
 		3637FCDF1F1A37B300FA8549 /* CourseAppraiseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseCell.swift; sourceTree = "<group>"; };
 		3637FCE11F1A3FBD00FA8549 /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
+		365936681F1E2CCF003CE578 /* YellowPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageCell.swift; sourceTree = "<group>"; };
+		3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedButton.swift; sourceTree = "<group>"; };
+		3659366C1F1E3637003CE578 /* CommonUsedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUsedView.swift; sourceTree = "<group>"; };
+		3659366E1F1E37B8003CE578 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		365936701F1E38B8003CE578 /* YellowPageSearchHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageSearchHistoryCell.swift; sourceTree = "<group>"; };
+		365936781F1E5FAE003CE578 /* YellowPageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YellowPageDetailViewController.swift; path = Controller/YellowPageDetailViewController.swift; sourceTree = "<group>"; };
+		365936791F1E5FAE003CE578 /* YellowPageMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YellowPageMainViewController.swift; path = Controller/YellowPageMainViewController.swift; sourceTree = "<group>"; };
+		3659367A1F1E5FAE003CE578 /* YellowPageSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YellowPageSearchViewController.swift; path = Controller/YellowPageSearchViewController.swift; sourceTree = "<group>"; };
 		3679DFE01F14D207002687CD /* GPAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAViewController.swift; sourceTree = "<group>"; };
 		36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WePeiYang-Bridging-Header.h"; sourceTree = "<group>"; };
 		49A4CB0C33512BBF9F269C73 /* Pods-WePeiYangUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangUITests/Pods-WePeiYangUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -172,6 +188,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3659367E1F1E5FB2003CE578 /* YellowPage */ = {
+			isa = PBXGroup;
+			children = (
+				365936781F1E5FAE003CE578 /* YellowPageDetailViewController.swift */,
+				365936791F1E5FAE003CE578 /* YellowPageMainViewController.swift */,
+				3659367A1F1E5FAE003CE578 /* YellowPageSearchViewController.swift */,
+			);
+			name = YellowPage;
+			sourceTree = "<group>";
+		};
 		3679DFDA1F14CFDA002687CD /* GPA */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,18 +325,11 @@
 		B10253FE1EC84EE00064373A /* YellowPage */ = {
 			isa = PBXGroup;
 			children = (
-				B10253FF1EC84EE00064373A /* Controller */,
+				3659367E1F1E5FB2003CE578 /* YellowPage */,
 				B10254001EC84EE00064373A /* Model */,
 				B10254031EC84EE00064373A /* View */,
 			);
 			path = YellowPage;
-			sourceTree = "<group>";
-		};
-		B10253FF1EC84EE00064373A /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		B10254001EC84EE00064373A /* Model */ = {
@@ -325,6 +344,10 @@
 		B10254031EC84EE00064373A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				365936681F1E2CCF003CE578 /* YellowPageCell.swift */,
+				3659366C1F1E3637003CE578 /* CommonUsedView.swift */,
+				3659366E1F1E37B8003CE578 /* SearchView.swift */,
+				365936701F1E38B8003CE578 /* YellowPageSearchHistoryCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -353,6 +376,7 @@
 				B10254181EC8547E0064373A /* WPYTabBarController.swift */,
 				B10254191EC8547E0064373A /* WPYTextField.swift */,
 				B102541A1EC8547E0064373A /* WPYTextView.swift */,
+				3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */,
 			);
 			path = UI_Fundamentals;
 			sourceTree = "<group>";
@@ -754,6 +778,7 @@
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
 				B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */,
 				B102541B1EC8547E0064373A /* CardViewAndDelegate.swift in Sources */,
+				365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */,
 				3631D5001F18FA8C0078816D /* ScoreHeaderView.swift in Sources */,
 				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
 				3637FCDC1F1A305700FA8549 /* CourseAppraiseViewController.swift in Sources */,
@@ -764,6 +789,7 @@
 				3631D5041F18FED30078816D /* GPAStatModel.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
 				B181B9601EC5C24000B8198E /* NewsViewController.swift in Sources */,
+				365936711F1E38B8003CE578 /* YellowPageSearchHistoryCell.swift in Sources */,
 				3631D5021F18FD210078816D /* GPAClassModel.swift in Sources */,
 				B10254051EC84EE00064373A /* PhoneBook.swift in Sources */,
 				B10254201EC8547E0064373A /* WPYBaseViewController.swift in Sources */,
@@ -776,21 +802,27 @@
 				B102541C1EC8547E0064373A /* Metadata.swift in Sources */,
 				B10253D91EC84ED20064373A /* ReadAPI.swift in Sources */,
 				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
+				3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */,
 				B102541D1EC8547E0064373A /* SpringButton.swift in Sources */,
+				3659367D1F1E5FAE003CE578 /* YellowPageSearchViewController.swift in Sources */,
+				3659366F1F1E37B8003CE578 /* SearchView.swift in Sources */,
 				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
 				B10253D61EC84ED20064373A /* Book.swift in Sources */,
 				3679DFE11F14D207002687CD /* GPAViewController.swift in Sources */,
 				B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */,
 				3637FCE21F1A3FBD00FA8549 /* StarView.swift in Sources */,
 				B10253DC1EC84ED20064373A /* Review.swift in Sources */,
+				3659367B1F1E5FAE003CE578 /* YellowPageDetailViewController.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
 				3631D5081F19033F0078816D /* GPASessionManager.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
+				3659367C1F1E5FAE003CE578 /* YellowPageMainViewController.swift in Sources */,
 				B10253D71EC84ED20064373A /* Librarian.swift in Sources */,
 				B10254211EC8547E0064373A /* WPYLabel.swift in Sources */,
 				B10253FD1EC84ED90064373A /* log.swift in Sources */,
 				B10253DA1EC84ED20064373A /* ReadBeacon.swift in Sources */,
+				3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */,
 				B10253DD1EC84ED20064373A /* User.swift in Sources */,
 				B10253F01EC84ED90064373A /* AccountManager.swift in Sources */,
 				3631D5061F1902590078816D /* GPATermModel.swift in Sources */,

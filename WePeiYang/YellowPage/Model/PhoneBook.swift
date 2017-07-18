@@ -15,7 +15,7 @@ class PhoneBook: NSObject {
     static let shared = PhoneBook()
     private override init() {}
     
-    static let url = "http://open.twtstudio.com/api/v1/yellowpage/data3"
+    static let url = "/yellowpage/data3"
     var favorite: [ClientItem] = []
     //var phonebook: [String: [String: [ClientItem]]] = [:]
     var sections: [String] = []
@@ -34,17 +34,14 @@ class PhoneBook: NSObject {
     
     // get members with section
     func getMembers(with section: String) -> [String] {
-//        if section == "校级部门" {
-//            return ["计算机学院团委办公室", "信息学院团委办公室", "软件学院团委办公室"]
-//        }
-//        return []
-        guard let dict = members[section] else {
+        guard let array = members[section] else {
             return []
         }
-        return dict
+        return array
+        
     }
     
-    func addToFavorite(with model: ClientItem, success: ()->()) {
+    func addFavorite(with model: ClientItem, success: ()->()) {
         for m in favorite {
             if m.phone == model.phone && m.name == model.name {
                 return
@@ -57,7 +54,7 @@ class PhoneBook: NSObject {
         success()
     }
     
-    func removeFromFavorite(with model: ClientItem, success: ()->()) {
+    func removeFavorite(with model: ClientItem, success: ()->()) {
         for (index, m) in favorite.enumerated() {
             if m.phone == model.phone && m.name == model.name {
                 favorite.remove(at: index)
@@ -80,63 +77,48 @@ class PhoneBook: NSObject {
         }
     }
     
-    func saveToLocal() {
+    func saveFavorite() {
         UserDefaults.standard.set(self.favorite, forKey: "YellowPageFavorite")
     }
     
-    func readFromLocal() {
-        self.favorite = UserDefaults.standard.object(forKey: "YellowPageFavorite") as! [ClientItem]
+    func loadFavorite() {
+        self.favorite = (UserDefaults.standard.object(forKey: "YellowPageFavorite") as? [ClientItem]) ?? []
     }
     
     static func checkVersion(success:@escaping ()->()) {
-        Alamofire.request(PhoneBook.url).responseJSON { response in
-            switch response.result {
-            case .success:
-                // the data sucks!
-                if let data = response.result.value  {
-                    if let dict = data as? Dictionary<String, Any>,
-                        let categories = dict["category_list"] as? Array<Dictionary<String, AnyObject>> {
-                        for category in categories {
-                            let category_name = category["category_name"] as! String
-                            PhoneBook.shared.sections.append(category_name)
-                            if let departments = category["department_list"] as? Array<Dictionary<String, AnyObject>>{
-                                for department in departments {
-                                    let department_name = department["department_name"] as! String
-                                    if PhoneBook.shared.members[category_name] != nil {
-                                        PhoneBook.shared.members[category_name]!.append(department_name)
-                                    } else {
-                                        PhoneBook.shared.members[category_name] = [department_name]
-                                    }
-                                    let items = department["unit_list"] as! Array<Dictionary<String, String>>
-                                    PhoneBook.shared.items.removeAll()
-                                    for item in items {
-                                        let item_name = item["item_name"]
-                                        let item_phone = item["item_phone"]
-                                        PhoneBook.shared.items.append(ClientItem(name: item_name!, phone: item_phone!, owner: department_name))
-                                    }
-                                    PhoneBook.shared.save()
-                                }
+        SolaSessionManager.solaSession(url: PhoneBook.url, success: { dict in
+            if let categories = dict["category_list"] as? Array<Dictionary<String, AnyObject>> {
+                var newItems = [ClientItem]()
+                for category in categories {
+                    let category_name = category["category_name"] as! String
+                    PhoneBook.shared.sections.append(category_name)
+                    if let departments = category["department_list"] as? Array<Dictionary<String, AnyObject>>{
+                        for department in departments {
+                            let department_name = department["department_name"] as! String
+                            if PhoneBook.shared.members[category_name] != nil {
+                                PhoneBook.shared.members[category_name]!.append(department_name)
+                            } else {
+                                PhoneBook.shared.members[category_name] = [department_name]
+                            }
+                            let items = department["unit_list"] as! Array<Dictionary<String, String>>
+                            for item in items {
+                                let item_name = item["item_name"]
+                                let item_phone = item["item_phone"]
+                                newItems.append(ClientItem(name: item_name!, phone: item_phone!, owner: department_name))
                             }
                         }
                     }
                 }
-            case .failure(let error):
-                log.error(error)/
-                if let data = response.result.value  {
-                    if let dict = data as? Dictionary<String, AnyObject> {
-                        log.errorMessage("网络开小差啦...")/
-                        log.any(dict)/
-                    }
-                }
+                PhoneBook.shared.items = newItems
+                PhoneBook.shared.save()
             }
-        }
+        })
     }
-        
 }
 
 extension PhoneBook {
     func save() {
-        let path = self.dataFilePath()
+        let path = self.dataFilePath
         //声明文件管理器
         let defaultManager = FileManager()
         if defaultManager.fileExists(atPath: path) {
@@ -156,13 +138,13 @@ extension PhoneBook {
         //编码结束
         archiver.finishEncoding()
         //数据写入
-        data.write(toFile: dataFilePath(), atomically: true)
+        data.write(toFile: self.dataFilePath, atomically: true)
     }
     
     //读取数据
     func load(success: ()->(), failure: ()->()) {
         //获取本地数据文件地址
-        let path = self.dataFilePath()
+        let path = self.dataFilePath
         //声明文件管理器
         let defaultManager = FileManager()
         //通过文件地址判断数据文件是否存在
@@ -196,9 +178,11 @@ extension PhoneBook {
     }
     
     //获取数据文件地址
-    func dataFilePath() -> String{
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let documentsDirectory = paths.first!
-        return documentsDirectory.appendingFormat("/YellowPage.plist")
+    var dataFilePath: String {
+        get {
+            let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+            let documentsDirectory = paths.first!
+            return documentsDirectory.appendingFormat("/YellowPage.plist")
+        }
     }
 }
