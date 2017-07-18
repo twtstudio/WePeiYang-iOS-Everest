@@ -7,16 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3631D5001F18FA8C0078816D /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D4FF1F18FA8C0078816D /* ScoreHeaderView.swift */; };
-		3631D5021F18FD210078816D /* GPAClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5011F18FD210078816D /* GPAClassModel.swift */; };
-		3631D5041F18FED30078816D /* GPAStatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5031F18FED30078816D /* GPAStatModel.swift */; };
-		3631D5061F1902590078816D /* GPATermModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5051F1902590078816D /* GPATermModel.swift */; };
-		3631D5081F19033F0078816D /* GPASessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5071F19033F0078816D /* GPASessionManager.swift */; };
 		3631D50A1F1903D70078816D /* TwTUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5091F1903D70078816D /* TwTUser.swift */; };
-		3637FCDC1F1A305700FA8549 /* CourseAppraiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637FCDB1F1A305700FA8549 /* CourseAppraiseViewController.swift */; };
-		3637FCDE1F1A34B200FA8549 /* CourseAppraiseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637FCDD1F1A34B200FA8549 /* CourseAppraiseManager.swift */; };
-		3637FCE01F1A37B300FA8549 /* CourseAppraiseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637FCDF1F1A37B300FA8549 /* CourseAppraiseCell.swift */; };
-		3637FCE21F1A3FBD00FA8549 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637FCE11F1A3FBD00FA8549 /* StarView.swift */; };
 		365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936681F1E2CCF003CE578 /* YellowPageCell.swift */; };
 		3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */; };
 		3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659366C1F1E3637003CE578 /* CommonUsedView.swift */; };
@@ -25,7 +16,16 @@
 		3659367B1F1E5FAE003CE578 /* YellowPageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936781F1E5FAE003CE578 /* YellowPageDetailViewController.swift */; };
 		3659367C1F1E5FAE003CE578 /* YellowPageMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936791F1E5FAE003CE578 /* YellowPageMainViewController.swift */; };
 		3659367D1F1E5FAE003CE578 /* YellowPageSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659367A1F1E5FAE003CE578 /* YellowPageSearchViewController.swift */; };
-		3679DFE11F14D207002687CD /* GPAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3679DFE01F14D207002687CD /* GPAViewController.swift */; };
+		3659368D1F1E60A9003CE578 /* CourseAppraiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936811F1E60A9003CE578 /* CourseAppraiseViewController.swift */; };
+		3659368E1F1E60A9003CE578 /* GPAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936821F1E60A9003CE578 /* GPAViewController.swift */; };
+		3659368F1F1E60A9003CE578 /* CourseAppraiseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936841F1E60A9003CE578 /* CourseAppraiseManager.swift */; };
+		365936901F1E60A9003CE578 /* GPAClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936851F1E60A9003CE578 /* GPAClassModel.swift */; };
+		365936911F1E60A9003CE578 /* GPASessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936861F1E60A9003CE578 /* GPASessionManager.swift */; };
+		365936921F1E60A9003CE578 /* GPAStatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936871F1E60A9003CE578 /* GPAStatModel.swift */; };
+		365936931F1E60A9003CE578 /* GPATermModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936881F1E60A9003CE578 /* GPATermModel.swift */; };
+		365936941F1E60A9003CE578 /* CourseAppraiseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659368A1F1E60A9003CE578 /* CourseAppraiseCell.swift */; };
+		365936951F1E60A9003CE578 /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659368B1F1E60A9003CE578 /* ScoreHeaderView.swift */; };
+		365936961F1E60A9003CE578 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659368C1F1E60A9003CE578 /* StarView.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
 		671E936890C15C748992981C /* Pods_WePeiYangUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */; };
 		B10253D61EC84ED20064373A /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CD1EC84ED20064373A /* Book.swift */; };
@@ -87,16 +87,7 @@
 
 /* Begin PBXFileReference section */
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3631D4FF1F18FA8C0078816D /* ScoreHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
-		3631D5011F18FD210078816D /* GPAClassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAClassModel.swift; sourceTree = "<group>"; };
-		3631D5031F18FED30078816D /* GPAStatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAStatModel.swift; sourceTree = "<group>"; };
-		3631D5051F1902590078816D /* GPATermModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPATermModel.swift; sourceTree = "<group>"; };
-		3631D5071F19033F0078816D /* GPASessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPASessionManager.swift; sourceTree = "<group>"; };
 		3631D5091F1903D70078816D /* TwTUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTUser.swift; sourceTree = "<group>"; };
-		3637FCDB1F1A305700FA8549 /* CourseAppraiseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseViewController.swift; sourceTree = "<group>"; };
-		3637FCDD1F1A34B200FA8549 /* CourseAppraiseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseManager.swift; sourceTree = "<group>"; };
-		3637FCDF1F1A37B300FA8549 /* CourseAppraiseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseCell.swift; sourceTree = "<group>"; };
-		3637FCE11F1A3FBD00FA8549 /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		365936681F1E2CCF003CE578 /* YellowPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageCell.swift; sourceTree = "<group>"; };
 		3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedButton.swift; sourceTree = "<group>"; };
 		3659366C1F1E3637003CE578 /* CommonUsedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUsedView.swift; sourceTree = "<group>"; };
@@ -105,7 +96,16 @@
 		365936781F1E5FAE003CE578 /* YellowPageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YellowPageDetailViewController.swift; path = Controller/YellowPageDetailViewController.swift; sourceTree = "<group>"; };
 		365936791F1E5FAE003CE578 /* YellowPageMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YellowPageMainViewController.swift; path = Controller/YellowPageMainViewController.swift; sourceTree = "<group>"; };
 		3659367A1F1E5FAE003CE578 /* YellowPageSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YellowPageSearchViewController.swift; path = Controller/YellowPageSearchViewController.swift; sourceTree = "<group>"; };
-		3679DFE01F14D207002687CD /* GPAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAViewController.swift; sourceTree = "<group>"; };
+		365936811F1E60A9003CE578 /* CourseAppraiseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseViewController.swift; sourceTree = "<group>"; };
+		365936821F1E60A9003CE578 /* GPAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAViewController.swift; sourceTree = "<group>"; };
+		365936841F1E60A9003CE578 /* CourseAppraiseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseManager.swift; sourceTree = "<group>"; };
+		365936851F1E60A9003CE578 /* GPAClassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAClassModel.swift; sourceTree = "<group>"; };
+		365936861F1E60A9003CE578 /* GPASessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPASessionManager.swift; sourceTree = "<group>"; };
+		365936871F1E60A9003CE578 /* GPAStatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAStatModel.swift; sourceTree = "<group>"; };
+		365936881F1E60A9003CE578 /* GPATermModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPATermModel.swift; sourceTree = "<group>"; };
+		3659368A1F1E60A9003CE578 /* CourseAppraiseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseCell.swift; sourceTree = "<group>"; };
+		3659368B1F1E60A9003CE578 /* ScoreHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
+		3659368C1F1E60A9003CE578 /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WePeiYang-Bridging-Header.h"; sourceTree = "<group>"; };
 		49A4CB0C33512BBF9F269C73 /* Pods-WePeiYangUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangUITests/Pods-WePeiYangUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6F6749BFC82CF9191336C6C5 /* Pods_WePeiYangTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,45 +198,46 @@
 			name = YellowPage;
 			sourceTree = "<group>";
 		};
-		3679DFDA1F14CFDA002687CD /* GPA */ = {
+		3659367F1F1E60A9003CE578 /* GPA */ = {
 			isa = PBXGroup;
 			children = (
-				3679DFDF1F14D15D002687CD /* Model */,
-				3679DFDE1F14D158002687CD /* Controller */,
-				3679DFDB1F14CFED002687CD /* View */,
+				365936801F1E60A9003CE578 /* Controller */,
+				365936831F1E60A9003CE578 /* Model */,
+				365936891F1E60A9003CE578 /* View */,
 			);
 			name = GPA;
+			path = YellowPage/GPA;
 			sourceTree = "<group>";
 		};
-		3679DFDB1F14CFED002687CD /* View */ = {
+		365936801F1E60A9003CE578 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				3631D4FF1F18FA8C0078816D /* ScoreHeaderView.swift */,
-				3637FCDF1F1A37B300FA8549 /* CourseAppraiseCell.swift */,
-				3637FCE11F1A3FBD00FA8549 /* StarView.swift */,
+				365936811F1E60A9003CE578 /* CourseAppraiseViewController.swift */,
+				365936821F1E60A9003CE578 /* GPAViewController.swift */,
 			);
-			name = View;
+			path = Controller;
 			sourceTree = "<group>";
 		};
-		3679DFDE1F14D158002687CD /* Controller */ = {
+		365936831F1E60A9003CE578 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3679DFE01F14D207002687CD /* GPAViewController.swift */,
-				3637FCDB1F1A305700FA8549 /* CourseAppraiseViewController.swift */,
+				365936841F1E60A9003CE578 /* CourseAppraiseManager.swift */,
+				365936851F1E60A9003CE578 /* GPAClassModel.swift */,
+				365936861F1E60A9003CE578 /* GPASessionManager.swift */,
+				365936871F1E60A9003CE578 /* GPAStatModel.swift */,
+				365936881F1E60A9003CE578 /* GPATermModel.swift */,
 			);
-			name = Controller;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		3679DFDF1F14D15D002687CD /* Model */ = {
+		365936891F1E60A9003CE578 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3631D5011F18FD210078816D /* GPAClassModel.swift */,
-				3637FCDD1F1A34B200FA8549 /* CourseAppraiseManager.swift */,
-				3631D5031F18FED30078816D /* GPAStatModel.swift */,
-				3631D5051F1902590078816D /* GPATermModel.swift */,
-				3631D5071F19033F0078816D /* GPASessionManager.swift */,
+				3659368A1F1E60A9003CE578 /* CourseAppraiseCell.swift */,
+				3659368B1F1E60A9003CE578 /* ScoreHeaderView.swift */,
+				3659368C1F1E60A9003CE578 /* StarView.swift */,
 			);
-			name = Model;
+			path = View;
 			sourceTree = "<group>";
 		};
 		80B33C5178ED19C33022F16B /* Pods */ = {
@@ -457,8 +458,8 @@
 				36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */,
 				B181B9551EC5C21700B8198E /* Favorite */,
 				B10253CA1EC84ED20064373A /* Read */,
+				3659367F1F1E60A9003CE578 /* GPA */,
 				B10253FE1EC84EE00064373A /* YellowPage */,
-				3679DFDA1F14CFDA002687CD /* GPA */,
 			);
 			path = WePeiYang;
 			sourceTree = "<group>";
@@ -776,24 +777,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
+				365936901F1E60A9003CE578 /* GPAClassModel.swift in Sources */,
+				365936961F1E60A9003CE578 /* StarView.swift in Sources */,
 				B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */,
+				3659368D1F1E60A9003CE578 /* CourseAppraiseViewController.swift in Sources */,
 				B102541B1EC8547E0064373A /* CardViewAndDelegate.swift in Sources */,
 				365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */,
-				3631D5001F18FA8C0078816D /* ScoreHeaderView.swift in Sources */,
 				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
-				3637FCDC1F1A305700FA8549 /* CourseAppraiseViewController.swift in Sources */,
-				3637FCE01F1A37B300FA8549 /* CourseAppraiseCell.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
 				3631D50A1F1903D70078816D /* TwTUser.swift in Sources */,
+				365936941F1E60A9003CE578 /* CourseAppraiseCell.swift in Sources */,
 				B181B95C1EC5C23400B8198E /* SettingsViewController.swift in Sources */,
-				3631D5041F18FED30078816D /* GPAStatModel.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
 				B181B9601EC5C24000B8198E /* NewsViewController.swift in Sources */,
 				365936711F1E38B8003CE578 /* YellowPageSearchHistoryCell.swift in Sources */,
-				3631D5021F18FD210078816D /* GPAClassModel.swift in Sources */,
 				B10254051EC84EE00064373A /* PhoneBook.swift in Sources */,
 				B10254201EC8547E0064373A /* WPYBaseViewController.swift in Sources */,
-				3637FCDE1F1A34B200FA8549 /* CourseAppraiseManager.swift in Sources */,
 				B10253F11EC84ED90064373A /* CacheManager.swift in Sources */,
 				B13F3AE81F0CEE5C00F820A5 /* FAB.swift in Sources */,
 				B10253FC1EC84ED90064373A /* DeviceStatus.swift in Sources */,
@@ -801,21 +800,24 @@
 				B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */,
 				B102541C1EC8547E0064373A /* Metadata.swift in Sources */,
 				B10253D91EC84ED20064373A /* ReadAPI.swift in Sources */,
+				3659368F1F1E60A9003CE578 /* CourseAppraiseManager.swift in Sources */,
+				3659368E1F1E60A9003CE578 /* GPAViewController.swift in Sources */,
+				365936911F1E60A9003CE578 /* GPASessionManager.swift in Sources */,
+				365936931F1E60A9003CE578 /* GPATermModel.swift in Sources */,
 				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
 				3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */,
 				B102541D1EC8547E0064373A /* SpringButton.swift in Sources */,
+				365936951F1E60A9003CE578 /* ScoreHeaderView.swift in Sources */,
 				3659367D1F1E5FAE003CE578 /* YellowPageSearchViewController.swift in Sources */,
 				3659366F1F1E37B8003CE578 /* SearchView.swift in Sources */,
 				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
 				B10253D61EC84ED20064373A /* Book.swift in Sources */,
-				3679DFE11F14D207002687CD /* GPAViewController.swift in Sources */,
 				B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */,
-				3637FCE21F1A3FBD00FA8549 /* StarView.swift in Sources */,
 				B10253DC1EC84ED20064373A /* Review.swift in Sources */,
+				365936921F1E60A9003CE578 /* GPAStatModel.swift in Sources */,
 				3659367B1F1E5FAE003CE578 /* YellowPageDetailViewController.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
-				3631D5081F19033F0078816D /* GPASessionManager.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
 				3659367C1F1E5FAE003CE578 /* YellowPageMainViewController.swift in Sources */,
 				B10253D71EC84ED20064373A /* Librarian.swift in Sources */,
@@ -825,7 +827,6 @@
 				3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */,
 				B10253DD1EC84ED20064373A /* User.swift in Sources */,
 				B10253F01EC84ED90064373A /* AccountManager.swift in Sources */,
-				3631D5061F1902590078816D /* GPATermModel.swift in Sources */,
 				B10254041EC84EE00064373A /* ClientItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
