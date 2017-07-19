@@ -12,6 +12,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var tableView: UITableView!
     var myLost: [MyLostFoundModel] = []
+    let TWT_URL = "http://open.twtstudio.com/"
     
 //    var myLost1 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic2")
 //    var myLost2 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic3")
@@ -56,29 +57,18 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+    
+        tableView.deselectRow(at: indexPath, animated: true)
         let detailView = DetailViewController()
         self.navigationController?.pushViewController(detailView, animated: true)
     }
     
 
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return myLost.count
-//    }
-    
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 100
-//    }
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.01
     }
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headView = UIView()
-//        headView.backgroundColor = UIColor(hex6: 0xeeeeee)
-//        return headView
-//        
-//    }
-//    
+   
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         return myLost.count
@@ -91,7 +81,18 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell{
             
-            cell.initMyUI(pic: myLost[indexPath.row].picture, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
+            cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton:)), for: .touchUpInside)
+            
+            var picURL = ""
+            
+            if myLost[indexPath.row].picture != "" {
+                picURL = TWT_URL + myLost[indexPath.row].picture
+ 
+            } else {
+                picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
+            }
+            cell.initMyUI(pic: URL(string: picURL)!, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
+            
             return cell
             
             
@@ -99,12 +100,26 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
 
         let cell = MyLostFoundTableViewCell()
-        cell.initMyUI(pic: myLost[indexPath.row].picture, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
+        var picURL = ""
+        
+        if myLost[indexPath.row].picture != "" {
+            picURL = TWT_URL + myLost[indexPath.row].picture
+            
+        } else {
+            picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
+        }
+        cell.initMyUI(pic: URL(string: picURL)!, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
 
         
         
         return cell
     }
+    func editButtonTapped(editButton: UIButton) {
+        let vc = PublishLostViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

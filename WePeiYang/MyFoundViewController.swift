@@ -52,7 +52,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell{
             
-            cell.initMyUI(pic: myFound[indexPath.row].picture, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
+            cell.initMyUI(pic: URL(string: "")!, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
             return cell
             
             
@@ -60,7 +60,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         
         let cell = MyLostFoundTableViewCell()
-        cell.initMyUI(pic: myFound[indexPath.row].picture, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
+        cell.initMyUI(pic: URL(string: "")!, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
         
         
         

@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 class MyLostFoundTableViewCell: UITableViewCell {
     
@@ -20,7 +21,10 @@ class MyLostFoundTableViewCell: UITableViewCell {
     var markImage = UIImageView()
     var timeImage = UIImageView()
     var placeImage = UIImageView()
-    
+    var editButton = UIButton()
+    var reversalButton = UIButton()
+    var reversal = ""
+
     override var frame: CGRect{
         
         didSet{
@@ -51,15 +55,21 @@ class MyLostFoundTableViewCell: UITableViewCell {
         contentView.addSubview(markLabel)
         contentView.addSubview(timeLabel)
         contentView.addSubview(placeLabel)
+        contentView.addSubview(editButton)
+        contentView.addSubview(reversalButton)
+
+
+
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func initMyUI(pic: String, title: String, isBack: Int, mark: Int, time: String, place: String){
+    func initMyUI(pic: URL, title: String, isBack: Int, mark: Int, time: String, place: String){
         
-        let image = UIImage(named: pic)
-        pictureImage.image = image
+//        let image = UIImage(named: pic)
+//        pictureImage.image = image
+        pictureImage.sd_setImage(with: pic)
         pictureImage.snp.makeConstraints{
             make in
             make.top.equalToSuperview().offset(10)
@@ -69,9 +79,9 @@ class MyLostFoundTableViewCell: UITableViewCell {
         
         }
         if isBack == 0{
-            isBackLabel.text = "未交还!"
+            isBackLabel.text = "未找到!"
         } else {
-            isBackLabel.text = "已交还!"
+            isBackLabel.text = "已找到!"
         }
         isBackLabel.numberOfLines = 1
         isBackLabel.font = UIFont.italicSystemFont(ofSize: 20)
@@ -179,7 +189,36 @@ class MyLostFoundTableViewCell: UITableViewCell {
             make.left.equalTo(placeImage.snp.right).offset(3)
             make.bottom.equalToSuperview().offset(-15)
         }
+        
+        editButton.setBackgroundImage(UIImage(named: "笔"), for: .normal)
+        editButton.snp.makeConstraints {
+            make in
+            make.top.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-15)
+            make.width.height.equalTo(contentView.bounds.width*(100/2024))
+        }
+        
+        
+        if isBack == 0 {
+            reversal = "灰勾"
+        }
+        else {
+            reversal = "蓝勾"
+        }
+        reversalButton.setBackgroundImage(UIImage(named: reversal), for: .normal)
+        reversalButton.snp.makeConstraints {
+            make in
+            make.top.equalToSuperview().offset(20)
+            make.left.equalTo(isBackLabel.snp.right).offset(10)
+            make.bottom.equalTo(titleLabel.snp.top).offset(-5)
+            make.width.height.equalTo(contentView.bounds.width*(100/2024))
+            
+        }
+
+
     }
+    
+
     
     override func awakeFromNib() {
         super.awakeFromNib()

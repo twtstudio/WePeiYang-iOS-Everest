@@ -114,7 +114,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
             let picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
             cell.initUI(pic: URL(string:picURL)!, title: lostList[indexPath.row].title, mark: lostList[indexPath.row].detail_type, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
             
-        
+           
         }
             return cell
 

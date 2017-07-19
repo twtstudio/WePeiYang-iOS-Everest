@@ -17,6 +17,7 @@ class MarkCustomCell: UITableViewCell {
     
     let buttonArray = ["身份证","饭卡","手机","钥匙","书包","手表&饰品","U盘&硬盘","水杯","钱包","银行卡","书","伞","其他"]
     let types = ["1", "2", "3","4","5","6","7","8","9","10","11","12","13"]
+    var buttonAllArray:[UIButton] = []
     let label = UILabel()
     
     let currenWidth: CGFloat = 40
@@ -53,7 +54,7 @@ class MarkCustomCell: UITableViewCell {
                 button.backgroundColor = UIColor(hex6: 0xd9d9d9)
                 button.setTitleColor(UIColor.black, for: .normal)
                 button.setTitleColor(UIColor.init(hex6: 0x00a1e9), for: .selected)
-                
+                buttonAllArray.append(button)
 
                 button.sizeToFit()
 
@@ -81,6 +82,8 @@ class MarkCustomCell: UITableViewCell {
 
                 button.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
                 self.addSubview(button)
+                buttonAllArray.append(button)
+                button.tag = index
 
                 button.sizeToFit()
                 button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
@@ -106,28 +109,37 @@ class MarkCustomCell: UITableViewCell {
     }
  
     func buttonTapped(sender: UIButton) {
-        var buttonCount = 0
-        buttonSeccen += 1
-        buttonCount = buttonSeccen % 2
+//        var buttonCount = 0
+//        buttonSeccen += 1
+//        buttonCount = buttonSeccen % 2
         
         if let title = sender.titleLabel?.text {
         
             if let index =  buttonArray.index(of: title) {
+
                 
                 print(types[index])
                 
                 self.delegate?.means(input: types[index], key: "detail_type")
                 
-                if buttonCount != 0 {
-                sender.backgroundColor = UIColor(hex6: 0x00a1e9)
-                sender.setTitleColor(.white, for: .normal)
-                    
-                }else {
-                    sender.backgroundColor = UIColor(hex6: 0xd9d9d9)
-                    sender.setTitleColor(.black, for: .normal)
+                for indexAll in buttonAllArray
+                {
+                    indexAll.backgroundColor = UIColor(hex6: 0xd9d9d9)
+                    indexAll.setTitleColor(.black, for: .normal)
                     
                 
                 }
+                
+//                if buttonCount != 0 {
+                sender.backgroundColor = UIColor(hex6: 0x00a1e9)
+                sender.setTitleColor(.white, for: .normal)
+                    
+//                }else {
+//                    sender.backgroundColor = UIColor(hex6: 0xd9d9d9)
+//                    sender.setTitleColor(.black, for: .normal)
+//                    
+                
+//                }
             }
         }
         

@@ -261,7 +261,8 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         //        })
         PostLostAPI.postLost(markDic: markDic, success: {
             dic in
-            print(dic)
+            let successVC = PublishSuccessViewController()
+            self.navigationController?.pushViewController(successVC, animated: true)
         }, failure: { error in
             print(error) })
         
