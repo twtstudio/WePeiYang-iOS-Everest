@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class LostViewController: UIViewController, UIPageViewControllerDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
 
@@ -14,23 +15,13 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     var lostView: UICollectionView!
     let layout = UICollectionViewFlowLayout()
     var lostList: [LostFoundModel] = []
+    let TWT_URL = "http://open.twtstudio.com/"
     
-
-    
-    var lost1 = LostFoundModel(title: "我丢东西了", detail_type: 3, time: "2017/5/1", picture: "pic1", place:"图书馆二楼")
-    var lost2 = LostFoundModel(title: "我又丢东西了", detail_type: 2, time:"2017/5/1" , picture: "pic2", place:"图书馆一楼")
-    var lost3 = LostFoundModel(title: "我又又丢东西了", detail_type: 1, time:"2017/5/1" , picture: "pic2", place:"图书馆一楼")
-    var lost4 = LostFoundModel(title: "我又又又丢东西了", detail_type: 3, time:"2017/5/1" , picture: "pic3", place:"图书馆三楼")
-    var lost5 = LostFoundModel(title: "我又又又又丢东西了", detail_type: 4, time:"2017/5/1" , picture: "pic3", place:"图书馆三楼")
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        lostList = [lost1, lost2, lost3, lost4, lost5]        
 
-
-
-        
         lostView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height), collectionViewLayout: layout)
         
         lostView.register(LostFoundCollectionViewCell.self, forCellWithReuseIdentifier: "lostCell")
@@ -41,11 +32,9 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         lostView.backgroundColor = UIColor(hex6: 0xeeeeee)
         self.automaticallyAdjustsScrollViewInsets = false
         
-        layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height:  250)
+        layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height:  270)
         
 
-//        layout.minimumInteritemSpacing = 20
-//        layout.headerReferenceSize = CGSize(width: 100, height: 50)         //页眉尺寸
         layout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
         self.view.addSubview(lostView)
         
@@ -58,30 +47,37 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         button.setTitle("触摸状态", for: UIControlState.highlighted)
 //        button.setTitle("禁用状态", for: .disabled)
         button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
-        
-//        let lostAPI = LostAPI()
-//        lostAPI.request(success: {
-//            self.lostList = lostAPI.lostList
-//            self.lostView.reloadData()
-//        })
-        
-        
-        
-        
+        refresh()
+
+        }
+    
+    
+    func refresh() {
+         GetLostAPI.getLost(success: { (losts) in
+            self.lostList = losts
+            self.lostView.reloadData()
+        }
+            
+            
+            , failure: { error in
+                print(error)
+            } )
     }
     
-    //    func numberOfSections(in collectionView: UICollectionView) -> Int {
-    //        return 2
-    //    }
-//    func numberOfItemsInSection(section: Int) -> Int{
-//        
-//        return 2
-//    }
+
     func tapped(){
         let vc = PublishLostViewController()
         self.navigationController?.pushViewController(vc, animated: true)
 //        self.present(vc, animated: true, completion: nil)
     
+    }
+    
+    //某个Cell被选择的事件处理
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        let detailVC = DetailViewController()
+        self.navigationController?.pushViewController(detailVC, animated: true)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
@@ -108,18 +104,38 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "lostCell", for: indexPath) as? LostFoundCollectionViewCell{
         
 
+        if lostList[indexPath.row].picture != "" {
+            
+
+            let picURL = lostList[indexPath.row].picture
+            cell.initUI(pic: URL(string: TWT_URL + picURL)!, title: lostList[indexPath.row].title ,mark: lostList[indexPath.row].detail_type, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+        } else {
+
+            let picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
+            cell.initUI(pic: URL(string:picURL)!, title: lostList[indexPath.row].title, mark: lostList[indexPath.row].detail_type, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+            
         
-        
-        
-        let picURL = lostList[indexPath.row].picture
-        
-        cell.initUI(pic: URL(string: picURL)!, title: lostList[indexPath.row].title ,mark: lostList[indexPath.row].detail_type, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+        }
             return cell
+
         }
 //        cell.title.text = "这里是内容：\(indexPath.row)"
         let cell = LostFoundCollectionViewCell()
-        let picURL = lostList[indexPath.row].picture
-        cell.initUI(pic: URL(string: picURL)!, title: lostList[indexPath.row].title ,mark: lostList[indexPath.row].detail_type, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+        if lostList[indexPath.row].picture != "" {
+            
+
+            
+            
+            let picURL = lostList[indexPath.row].picture
+            cell.initUI(pic: URL(string: TWT_URL + picURL)!, title: lostList[indexPath.row].title ,mark: lostList[indexPath.row].detail_type, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+        } else {
+            
+            let picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
+            cell.initUI(pic: URL(string: picURL)!, title: lostList[indexPath.row].title, mark: lostList[indexPath.row].detail_type, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+            
+            
+        }
+
         
         return cell
         

@@ -8,16 +8,12 @@ target 'WePeiYang' do
   pod 'SnapKit'
   pod 'WMPageController'
   pod 'SDWebImage'
-	
+  pod 'Charts'
+  pod 'ObjectMapper'
+
   # Pods for WePeiYang
 
-
   target 'WePeiYangTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'WePeiYangUITests' do
     inherit! :search_paths
     # Pods for testing
   end

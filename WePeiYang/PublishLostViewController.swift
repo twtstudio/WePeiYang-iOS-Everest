@@ -11,7 +11,7 @@ import UIKit
 class PublishLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate{
     
     var tableView: UITableView!;
-    var markdic:[String: String] = [:]
+    var markDic:[String: String] = [:]
     
     var function = [
         0: ["添加图片"],
@@ -23,7 +23,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     ]
     
     var text = [
-    
+        
         0: [""],
         1: ["(不超过11个字)","请填写详细时间","请填写校区及详细地点"],
         2: ["",""],
@@ -33,14 +33,14 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     ]
     
     var header = [
-    
+        
         0: ["发布图片"],
         1: ["详细信息"],
         2: ["类型"],
         3: ["联系方式"],
         4: ["附加信息"],
         5: ["发布时间"],
-    ]
+        ]
     
     var returnKeys = [
         0: ["pic[]"],
@@ -48,24 +48,24 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         2: ["card_number","card_name"],
         3: ["name","phone"],
         4: ["item_description"],
-        5: ["diuration"]
+        5: ["duration"]
     ]
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         
         self.title = "捡到物品"
         self.tableView = UITableView(frame: self.view.frame, style: .grouped)
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.backgroundColor = UIColor(hex6:  0xeeeeee);
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PublishLostCell");
+//        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PublishLostCell");
         
-//        self.tableView.register(SectionCell.self, forHeaderFooterViewReuseIdentifier: "Section")
-//
-//        self.tableView.register(MarkCustomCell.self, forHeaderFooterViewReuseIdentifier: "Mark")
+        //        self.tableView.register(SectionCell.self, forHeaderFooterViewReuseIdentifier: "Section")
+        //
+        //        self.tableView.register(MarkCustomCell.self, forHeaderFooterViewReuseIdentifier: "Mark")
         
         self.tableView.estimatedRowHeight = 500;
         self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -74,11 +74,11 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = UIColor(hex6: 0x00a1e9)
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).font = UIFont.systemFont(ofSize: 15)
         
-
-
+        
+        
         
     }
-
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         let data = self.function[section];
@@ -89,13 +89,13 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         return 6
     }
     
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-
+        
         let header = SectionCell()
-
-
+        
+        
         switch section {
         case 0:
             header.label.text = "发布图片"
@@ -116,9 +116,9 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         default:
             break
         }
-            return header
+        return header
     }
-
+    
     
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -140,8 +140,8 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-
-
+    
+    
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
         
@@ -154,35 +154,37 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             return cell
             
         default:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "PublishLostCell", for: indexPath) as? PublishCustomCell{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "PublishLostCell" + "\(indexPath)") {
+//                tableView.dequeueReusableCell(withIdentifier: , for: indexPath) as? PublishCustomCell {
+                return cell
+            } else {
+                let cell = PublishCustomCell(style: .default, reuseIdentifier: "PublishLostCell" + "\(indexPath)")
+                cell.selectionStyle = UITableViewCellSelectionStyle.none;
+                cell.textField.placeholder = text[indexPath.section]?[indexPath.row]
+                cell.textField.becomeFirstResponder();
+                cell.textField.returnKeyType = .done;
+                cell.textField.adjustsFontSizeToFitWidth = true;
+                cell.textField.minimumFontSize = 14;
+                cell.textField.delegate = cell;
+                cell.textField.resignFirstResponder();
+                
+                cell.delegate = self
+                
+                cell.cellkey = returnKeys[indexPath.section]?[indexPath.row]
                 
                 
-            cell.selectionStyle = UITableViewCellSelectionStyle.none;
-            cell.textField.placeholder = text[indexPath.section]?[indexPath.row]
-            cell.textField.becomeFirstResponder();
-            cell.textField.returnKeyType = .done;
-            cell.textField.adjustsFontSizeToFitWidth = true;
-            cell.textField.minimumFontSize = 14;
-            cell.textField.delegate = cell;
-            cell.textField.resignFirstResponder();
-
-            cell.delegate = self
-            
-            cell.cellkey = returnKeys[indexPath.section]?[indexPath.row]
-            
-            
-            
-            
-            
-            
-            
-//             cell.delegate?.fangfa(input: cell.textField.text, key: cell.cellkey)
-            
-            
-            
-            cell.textLabel?.text = function[indexPath.section]?[indexPath.row];
-            
-            return cell;
+                
+                
+                
+                
+                
+                //             cell.delegate?.fangfa(input: cell.textField.text, key: cell.cellkey)
+                
+                
+                
+                cell.textLabel?.text = function[indexPath.section]?[indexPath.row];
+                
+                return cell;
             }
             
             let cell = PublishCustomCell()
@@ -214,9 +216,9 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             
             
         }
-
         
-
+        
+        
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -228,7 +230,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             button.setTitleColor(UIColor.black,for: .normal)
             button.sizeToFit()
             button.isUserInteractionEnabled = true
-
+            
             button.frame = CGRect(x: self.view.frame.width/2, y: 80, width: 300, height: 40)
             button.center = CGPoint(x: self.view.frame.width/2, y: 60)
             button.backgroundColor = UIColor(hex6: 0x00a1e9)
@@ -251,48 +253,55 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tapped(){
-       print("yyyy")
-        print(markdic)
-        LostAPI.fabu(markdic: markdic, success: {
-            _ in
-        })
- 
+        
+        print("yyyy")
+        print(markDic)
+        //        LostAPI.fabu(markdic: markdic, success: {
+        //            _ in
+        //        })
+        PostLostAPI.postLost(markDic: markDic, success: {
+            dic in
+            print(dic)
+        }, failure: { error in
+            print(error) })
+        
+        
     }
     
-
-
+    
+    
     
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-
+        
     }
-//
-//
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
-//        
-//        textField.resignFirstResponder();
-//        return true;
-//    
-//    }
+    //
+    //
+    //    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+    //
+    //        textField.resignFirstResponder();
+    //        return true;
+    //    
+    //    }
     
     func comfirmButtonTapped() {
-//        LostAPI.fabu(name: )
+        //        LostAPI.fabu(name: )
     }
-
+    
     func means(input:String,key:String){
-//        var markdic:[String: String] = [:]
+        //        var markdic:[String: String] = [:]
         
         
         
-        markdic[key] = input
-//        markdic["detail_type"] = "2"
+        markDic[key] = input
+        //        markdic["detail_type"] = "2"
         
-}
+    }
     
     
     
-
-
-
+    
+    
+    
 }

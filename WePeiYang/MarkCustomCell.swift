@@ -19,7 +19,7 @@ class MarkCustomCell: UITableViewCell {
     let types = ["1", "2", "3","4","5","6","7","8","9","10","11","12","13"]
     let label = UILabel()
     
-    let width: CGFloat = 40
+    let currenWidth: CGFloat = 40
     
     var totalLength: CGFloat = 0
     var currentLength: CGFloat = 0
@@ -45,7 +45,7 @@ class MarkCustomCell: UITableViewCell {
             totalLength = currentLength
             if totalLength <= self.frame.size.width-80{
             
-                let button = UIButton(frame: CGRect(x: currentX, y: currentY, width: width ,  height: 30))
+                let button = UIButton(frame: CGRect(x: currentX, y: currentY, width: currenWidth ,  height: 30))
                 
                 button.setTitle(name, for: .normal)
                 button.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)

@@ -56,7 +56,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func initMyUI(pic: String, title: String, isBack: String, mark: String, time: String, place: String){
+    func initMyUI(pic: String, title: String, isBack: Int, mark: Int, time: String, place: String){
         
         let image = UIImage(named: pic)
         pictureImage.image = image
@@ -68,8 +68,11 @@ class MyLostFoundTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-10)
         
         }
-        
-        isBackLabel.text = isBack
+        if isBack == 0{
+            isBackLabel.text = "未交还!"
+        } else {
+            isBackLabel.text = "已交还!"
+        }
         isBackLabel.numberOfLines = 1
         isBackLabel.font = UIFont.italicSystemFont(ofSize: 20)
         isBackLabel.snp.makeConstraints{
@@ -95,8 +98,38 @@ class MyLostFoundTableViewCell: UITableViewCell {
             make.left.equalTo(pictureImage.snp.right).offset(10)
             make.width.height.equalTo(contentView.bounds.width*(100/2024))
         }
-        
-        markLabel.text = mark
+
+        switch mark {
+        case 1:
+            markLabel.text = "身份证"
+        case 2:
+            markLabel.text = "饭卡"
+        case 3:
+            markLabel.text = "手机"
+        case 4:
+            markLabel.text = "钥匙"
+        case 5:
+            markLabel.text = "书包"
+        case 6:
+            markLabel.text = "手表&饰品"
+        case 7:
+            markLabel.text = "水杯"
+        case 8:
+            markLabel.text = "U盘&硬盘"
+        case 9:
+            markLabel.text = "钱包"
+        case 10:
+            markLabel.text = "银行卡"
+        case 11:
+            markLabel.text = "书"
+        case 12:
+            markLabel.text = "伞"
+        case 13:
+            markLabel.text = "其他"
+        default:
+            markLabel.text = ""
+        }
+//        markLabel.text = mark
         markLabel.font = UIFont.italicSystemFont(ofSize: 14)
         markLabel.textColor = UIColor(hex6: 0x999999)
         markLabel.numberOfLines = 1

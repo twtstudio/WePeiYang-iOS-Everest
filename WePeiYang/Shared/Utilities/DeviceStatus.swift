@@ -75,12 +75,16 @@ struct DeviceStatus {
         return addresses
     }
     
-    static func deviceOSVersion() -> String {
-        return UIDevice.current.systemVersion
+    static var deviceOSVersion: String {
+        get {
+            return UIDevice.current.systemVersion
+        }
     }
     
-    static func userAgentString() -> String {
-        return "\(appName())/\(appVersion())(\(deviceModel()); iOS \(deviceOSVersion()))"
+    static var userAgent: String {
+        get {
+            return "\(appName())/\(appVersion())(\(deviceModel()); iOS \(deviceOSVersion))"
+        }
     }
     
     static func getIPAddress(preferIPv4 preference: Bool) -> String {

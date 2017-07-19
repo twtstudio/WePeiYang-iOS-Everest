@@ -11,17 +11,17 @@ import UIKit
 class MyFoundViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var tableView: UITableView!
-    var myFound: [MyLoatFoundModel] = []
+    var myFound: [MyLostFoundModel] = []
     
-    var myLost1 = MyLoatFoundModel(isBack: "未交还", title: "大大捡到了", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic2")
-    var myLost2 = MyLoatFoundModel(isBack: "未交还", title: "大大又捡到了", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic3")
-    var myLost3 = MyLoatFoundModel(isBack: "已交还", title: "大大又捡到了", mark:"钱包" , time: "2017/5/1",place: "图书馆", picture: "pic1")
+//    var myLost1 = MyLoatFoundModel(isBack: "未交还", title: "大大捡到了", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic2")
+//    var myLost2 = MyLoatFoundModel(isBack: "未交还", title: "大大又捡到了", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic3")
+//    var myLost3 = MyLoatFoundModel(isBack: "已交还", title: "大大又捡到了", mark:"钱包" , time: "2017/5/1",place: "图书馆", picture: "pic1")
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        myFound = [myLost1, myLost2, myLost3]
+//        myFound = [myLost1, myLost2, myLost3]
         
         self.tableView = UITableView(frame: self.view.frame, style: .grouped)
         self.tableView.delegate = self
@@ -52,7 +52,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell{
             
-            cell.initMyUI(pic: myFound[indexPath.row].picture, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].mark, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
+            cell.initMyUI(pic: myFound[indexPath.row].picture, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
             return cell
             
             
@@ -60,7 +60,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         
         let cell = MyLostFoundTableViewCell()
-        cell.initMyUI(pic: myFound[indexPath.row].picture, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].mark, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
+        cell.initMyUI(pic: myFound[indexPath.row].picture, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
         
         
         

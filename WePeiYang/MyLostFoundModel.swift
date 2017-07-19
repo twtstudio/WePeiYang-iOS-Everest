@@ -8,22 +8,28 @@
 
 import UIKit
 
-class MyLoatFoundModel{
+class MyLostFoundModel{
 
-    var isBack = ""
+    var isBack = 0
     var title = ""
-    var mark = ""
     var time = ""
     var place = ""
     var picture = ""
+    var id = 0;
+    var name = ""
+    var phone = ""
+    var detail_type = 0
     
-    init(isBack: String,title: String, mark: String, time: String, place: String, picture: String) {
+    init(isBack: Int,title: String, detail_type : Int, time: String, place: String, picture: String, id:Int, name: String, phone: String) {
         
         self.isBack = isBack
         self.title = title
-        self.mark = mark
+        self.detail_type = detail_type
         self.time = time
         self.place = place
         self.picture = picture
+        self.id = id
+        self.name = name
+        self.phone = phone
     }
 }

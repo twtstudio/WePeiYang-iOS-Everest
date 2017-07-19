@@ -117,7 +117,7 @@ class User {
     
     func getToken(success: @escaping (String)->(Void)) {
         
-        guard let token = AccountManager.token else {
+        guard let token = TwTUser.shared.token else {
             // FIXME: MsgDisplay
             // FIXME: LoginViewController
             return
@@ -127,31 +127,23 @@ class User {
             success(readToken)
         } else {
             var headers = HTTPHeaders()
-            headers["User-Agent"] = DeviceStatus.userAgentString()
+            headers["User-Agent"] = DeviceStatus.userAgent
             headers["Authorization"] = "Bearer {\(token)}"
-            Alamofire.request(ReadAPI.tokenURL+"?wpy_token=\(token)", parameters: nil, headers: headers).responseJSON { response in
-                switch response.result {
-                case .success:
-                    if let value = response.result.value,
-                        let dict = value as? Dictionary<String, AnyObject>,
-                        dict["error_code"] as! Int == -1,
-                        let data = dict["data"] as? Dictionary<String, AnyObject>,
-                        let readToken = data["token"] as? String {
-                        UserDefaults.standard.set(readToken, forKey: READ_TOKEN_KEY)
-                        success(readToken)
-                        return
-                    }
-                    // FIXME: errorMessage/ MsgDisplay
-                    // 身份认证失败
-                case .failure(let error):
-                    log.error(error)/
-                    if let data = response.result.value as? Dictionary<String, AnyObject> {
-                        // FIXME: errorMessage/ MsgDisplay
-                        log.errorMessage(data["message"] as! String)/
-                        // 网络开小差啦
-                    }
+            
+            SolaSessionManager.solaSession(type: .get, baseURL: ReadAPI.tokenURL, url: "?wpy_token=\(token)", parameters: nil, success: { dict in
+                if let data = dict["data"] as? Dictionary<String, AnyObject>,
+                    let readToken = data["token"] as? String {
+                    UserDefaults.standard.set(readToken, forKey: READ_TOKEN_KEY)
+                    success(readToken)
                 }
-            }
+            }, failure: { error in
+                log.error(error)/
+////                if let data = response.result.value as? Dictionary<String, AnyObject> {
+//                    // FIXME: errorMessage/ MsgDisplay
+//                    log.errorMessage(data["message"] as! String)/
+//                    // 网络开小差啦
+//                }
+            })
         }
         
     }

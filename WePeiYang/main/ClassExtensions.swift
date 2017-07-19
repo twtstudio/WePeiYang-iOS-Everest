@@ -23,6 +23,20 @@ extension UILabel {
         self.sizeToFit()
     }
     
+    /// A convenience initializer of UILabel
+    ///
+    /// - Parameters:
+    ///   - text: The content of your label
+    ///   - color: Text color
+    ///   - fontSize: Text font size
+    convenience init(text: String, color: UIColor, fontSize: CGFloat) {
+        self.init()
+        self.text = text
+        textColor = color
+        self.font = UIFont.systemFont(ofSize: fontSize)
+        self.sizeToFit()
+    }
+    
     convenience init(text: String?) {
         self.init()
         self.text = text
@@ -52,6 +66,43 @@ extension UIView {
         UIGraphicsEndImageContext()
         return image
     }
+    
+    var x: CGFloat {
+        set(newValue) {
+            frame.origin.x = newValue
+        }
+        get {
+            return frame.origin.x
+        }
+    }
+    
+    var y: CGFloat {
+        set(newValue) {
+            frame.origin.y = newValue
+        }
+        get {
+            return frame.origin.y
+        }
+    }
+    
+    var height: CGFloat {
+        set(newValue) {
+            frame.size.height = newValue
+        }
+        get {
+            return frame.size.height
+        }
+    }
+    
+    var width: CGFloat {
+        set(newValue) {
+            frame.size.width = newValue
+        }
+        get {
+            return frame.size.width
+        }
+    }
+
 }
 
 extension UIImage {
@@ -141,6 +192,18 @@ extension UIImage {
         return newImage
     }
     
+    //pure color image
+    convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
+        let rect = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+        color.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        guard let cgImage = image?.cgImage else { return nil }
+        self.init(cgImage: cgImage)
+    }
 }
 
 
@@ -177,6 +240,61 @@ extension UIButton {
         setBackgroundImage(foo, for: .normal)
     }
 }
+// Directly add a closure to UIButton instead of addTarget
+// Bad Implement
+//extension UIButton {
+//    
+//    typealias Function = () -> ()
+//    typealias Action = (name: String, function: Function)
+//    
+//    private func actionHandleBlock(function: Function? = nil) {
+//        struct __ {
+//            static var function: Function?
+//        }
+//        if function != nil {
+//            __.function = function
+//        } else {
+//            __.function?()
+//        }
+//    }
+//    
+//    @objc private func triggerActioinHandleBlock() {
+//        self.actionHandleBlock()
+//    }
+//    
+//    func addFunction(_ function: @escaping Function, for controlEvents: UIControlEvents) {
+//        self.actionHandleBlock(function: function)
+//        self.addTarget(self, action: #selector(triggerActioinHandleBlock), for: controlEvents)
+//    }
+//}
+
+class ClosureDoer {
+    let closure: ()->()
+    
+    init (_ closure: @escaping ()->()) {
+        self.closure = closure
+    }
+    
+    @objc func invoke () {
+        closure()
+    }
+}
+
+extension UIControl {
+    
+    typealias Function = () -> ()
+    typealias Action = (name: String, function: Function)
+    
+    func add (for controlEvents: UIControlEvents, _ closure: @escaping Function) {
+        let doer = ClosureDoer(closure)
+        addTarget(doer, action: #selector(ClosureDoer.invoke), for: controlEvents)
+        objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), doer, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+    }
+}
+
+extension UIControl {
+    
+}
 
 extension UIViewController {
     
@@ -194,14 +312,16 @@ extension UIViewController {
 }
 
 extension String {
-    func sha1() -> String {
-        let data = self.data(using: String.Encoding.utf8)!
-        var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
-        data.withUnsafeBytes {
-            _ = CC_SHA1($0, CC_LONG(data.count), &digest)
+    var sha1: String {
+        get {
+            let data = self.data(using: String.Encoding.utf8)!
+            var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
+            data.withUnsafeBytes {
+                _ = CC_SHA1($0, CC_LONG(data.count), &digest)
+            }
+            let hexBytes = digest.map { String(format: "%02hhx", $0) }
+            return hexBytes.joined()
         }
-        let hexBytes = digest.map { String(format: "%02hhx", $0) }
-        return hexBytes.joined()
     }
 }
 

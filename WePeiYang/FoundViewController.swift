@@ -14,24 +14,20 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
     var foundView: UICollectionView!
     let layout = UICollectionViewFlowLayout()
     var foundList: [LostFoundModel] = []
+    let TWT_URL = "http://open.twtstudio.com/"
     
-    var found1 = LostFoundModel(title: "我捡东西了", detail_type: 0, time:
-        "2017/5/1", picture: "pic1", place:"图书馆二楼")
-    var found2 = LostFoundModel(title: "我又捡到东西了", detail_type: 0, time:"2017/5/1" , picture: "pic2", place:"图书馆一楼")
-    var found3 = LostFoundModel(title: "我又又捡到东西了", detail_type: 0, time:"2017/5/1" , picture: "pic2", place:"图书馆一楼")
-    var found4 = LostFoundModel(title: "我又又又丢东西了", detail_type: 0, time:"2017/5/1" , picture: "pic3", place:"图书馆三楼")
-    var found5 = LostFoundModel(title: "我又又又又捡到丢东西了", detail_type: 0, time:"2017/5/1" , picture: "pic3", place:"图书馆三楼")
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        foundList.append(found2)
-        foundList.append(found4)
-        foundList.append(found3)
-        foundList.append(found1)
-        foundList.append(found5)
         
-        
+//        layout.estimatedItemSize = CGSize(width: self.view.frame.size.width/2-10, height: 270)
+        //        layout.itemSize =
+        layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height:  270)
+        //        layout.minimumInteritemSpacing = 20
+        layout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
+
         foundView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height), collectionViewLayout: layout)
         
         foundView.register(LostFoundCollectionViewCell.self, forCellWithReuseIdentifier: "foundCell")
@@ -41,34 +37,39 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         foundView.backgroundColor = UIColor(hex6: 0xeeeeee)
         
-//        layout.estimatedItemSize = CGSize(width: self.view.frame.size.width/2-20, height: 150)
-//        layout.itemSize =
-//        layout.itemSize = CGSize(width: self.view.frame.size.width/2-30, height: 150)
-        //        layout.minimumInteritemSpacing = 20
-        layout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
         self.view.addSubview(foundView)
+        refresh()
         
         
         
     }
     
-    //    func numberOfSections(in collectionView: UICollectionView) -> Int {
-    //        return 2
-    //    }
-//    func numberOfItemsInSection(section: Int) -> Int{
+    func refresh() {
+        GetFoundAPI.getFound(success: { (founds) in
+            self.foundList = founds
+            self.foundView.reloadData()
+        
+        }, failure: { error in
+            print(error)
+        
+        })
+    }
+    
+
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        
-//        return 2
+//        let image = UIImage(named: foundList[indexPath.row].picture)
+//        let imageHeight = image?.size.height
+//        let imageWidth = image?.size.width
+//        let width = self.view.frame.size.width/2 - 10
+//        let ratio = imageWidth!/width
+//        let height = imageHeight!/ratio
+//        return CGSize(width: width, height: height + 4*30)
+//        
 //    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let image = UIImage(named: foundList[indexPath.row].picture)
-        let imageHeight = image?.size.height
-        let imageWidth = image?.size.width
-        let width = self.view.frame.size.width/2 - 10
-        let ratio = imageWidth!/width
-        let height = imageHeight!/ratio
-        return CGSize(width: width, height: height + 4*30)
-        
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
@@ -81,14 +82,27 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "foundCell", for: indexPath) as? LostFoundCollectionViewCell{
 //        cell.title.text = "这里是内容：\(indexPath.row)"
+            
+            if foundList[indexPath.row].picture != ""{
             let picURL = foundList[indexPath.row].picture
-            cell.initUI(pic: URL(string: picURL)!, title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detail_type, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
+            cell.initUI(pic: URL(string: TWT_URL + picURL)!, title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detail_type, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
+            } else {
+                let picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
+                cell.initUI(pic: URL(string: picURL)!, title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detail_type, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
+            
+            }
             return cell
         
         }
         let cell = LostFoundCollectionViewCell()
-        let picURL = foundList[indexPath.row].picture
-        cell.initUI(pic: URL(string: picURL)!, title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detail_type, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
+        if foundList[indexPath.row].picture != ""{
+            let picURL = foundList[indexPath.row].picture
+            cell.initUI(pic: URL(string: TWT_URL + picURL)!, title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detail_type, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
+        } else {
+            let picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
+            cell.initUI(pic: URL(string: picURL)!, title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detail_type, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
+            
+        }
         
         return cell
         

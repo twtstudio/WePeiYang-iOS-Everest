@@ -11,18 +11,18 @@ import UIKit
 class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     var tableView: UITableView!
-    var myLost: [MyLoatFoundModel] = []
+    var myLost: [MyLostFoundModel] = []
     
-    var myLost1 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic2")
-    var myLost2 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic3")
-    var myLost3 = MyLoatFoundModel(isBack: "已找到", title: "求大大", mark:"钱包" , time: "2017/5/1",place: "图书馆", picture: "pic1")
+//    var myLost1 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic2")
+//    var myLost2 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic3")
+//    var myLost3 = MyLoatFoundModel(isBack: "已找到", title: "求大大", mark:"钱包" , time: "2017/5/1",place: "图书馆", picture: "pic1")
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        myLost.append(myLost1)
-        myLost.append(myLost2)
-        myLost.append(myLost3)
+//        myLost.append(myLost1)
+//        myLost.append(myLost2)
+//        myLost.append(myLost3)
         
         self.title = "我的"
         
@@ -37,7 +37,22 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        self.automaticallyAdjustsScrollViewInsets = false
         
         self.view.addSubview(tableView!)
+        refresh()
         
+    }
+    
+    func refresh() {
+    
+        GetMyLostAPI.getMyLostAPI(success: { (myLosts) in
+            self.myLost = myLosts
+            self.tableView.reloadData()
+        
+        
+        }, failure: {error in
+            print(error)
+        
+        })
+    
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -76,7 +91,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell{
             
-            cell.initMyUI(pic: myLost[indexPath.row].picture, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].mark, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
+            cell.initMyUI(pic: myLost[indexPath.row].picture, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
             return cell
             
             
@@ -84,7 +99,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
 
         let cell = MyLostFoundTableViewCell()
-        cell.initMyUI(pic: myLost[indexPath.row].picture, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].mark, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
+        cell.initMyUI(pic: myLost[indexPath.row].picture, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
 
         
         
