@@ -297,8 +297,29 @@ extension UIControl {
 }
 
 extension UIViewController {
+    private func findBest(_ vc: UIViewController) -> UIViewController {
+        if let next = vc.presentedViewController {
+            return findBest(next)
+        } else if let svc = vc as? UISplitViewController, let last = svc.viewControllers.last {
+            return findBest(last)
+        } else if let svc = vc as? UINavigationController, let top = svc.viewControllers.last {
+            return findBest(top)
+        } else if let svc = vc as? UITabBarController, let selected = svc.selectedViewController {
+            return findBest(selected)
+        } else {
+            return vc
+        }
+    }
     
-    func topViewController() -> UIViewController? {
+    var current: UIViewController? {
+        if let vc = UIApplication.shared.keyWindow?.rootViewController {
+            return findBest(vc)
+        } else {
+            return nil
+        }
+    }
+    
+    var top: UIViewController? {
         if let appRootVC = UIApplication.shared.keyWindow?.rootViewController {
             var topVC: UIViewController? = appRootVC
             while (topVC?.presentedViewController != nil) {
@@ -308,6 +329,7 @@ extension UIViewController {
         }
         return nil
     }
+    
     
 }
 

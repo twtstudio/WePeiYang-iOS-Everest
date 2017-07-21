@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFD1F223FC1001317A7 /* BookDetailViewControllerTempView.swift */; };
+		36073D081F223FC1001317A7 /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFE1F223FC1001317A7 /* CoverView.swift */; };
+		36073D091F223FC1001317A7 /* RateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFF1F223FC1001317A7 /* RateView.swift */; };
+		36073D0A1F223FC1001317A7 /* ReadStarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D001F223FC1001317A7 /* ReadStarCell.swift */; };
+		36073D0B1F223FC1001317A7 /* RecommendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D011F223FC1001317A7 /* RecommendCell.swift */; };
+		36073D0C1F223FC1001317A7 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D021F223FC1001317A7 /* ReviewCell.swift */; };
+		36073D0D1F223FC1001317A7 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D031F223FC1001317A7 /* Search.swift */; };
+		36073D0E1F223FC1001317A7 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D041F223FC1001317A7 /* SearchResultCell.swift */; };
+		36073D0F1F223FC1001317A7 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D051F223FC1001317A7 /* StarView.swift */; };
+		36073D101F223FC1001317A7 /* StatusInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D061F223FC1001317A7 /* StatusInfoCell.swift */; };
 		3631D50A1F1903D70078816D /* TwTUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5091F1903D70078816D /* TwTUser.swift */; };
 		365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936681F1E2CCF003CE578 /* YellowPageCell.swift */; };
 		3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */; };
@@ -87,6 +97,16 @@
 
 /* Begin PBXFileReference section */
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		36073CFD1F223FC1001317A7 /* BookDetailViewControllerTempView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailViewControllerTempView.swift; sourceTree = "<group>"; };
+		36073CFE1F223FC1001317A7 /* CoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
+		36073CFF1F223FC1001317A7 /* RateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateView.swift; sourceTree = "<group>"; };
+		36073D001F223FC1001317A7 /* ReadStarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadStarCell.swift; sourceTree = "<group>"; };
+		36073D011F223FC1001317A7 /* RecommendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendCell.swift; sourceTree = "<group>"; };
+		36073D021F223FC1001317A7 /* ReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
+		36073D031F223FC1001317A7 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		36073D041F223FC1001317A7 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		36073D051F223FC1001317A7 /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
+		36073D061F223FC1001317A7 /* StatusInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusInfoCell.swift; sourceTree = "<group>"; };
 		3631D5091F1903D70078816D /* TwTUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTUser.swift; sourceTree = "<group>"; };
 		365936681F1E2CCF003CE578 /* YellowPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageCell.swift; sourceTree = "<group>"; };
 		3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedButton.swift; sourceTree = "<group>"; };
@@ -188,6 +208,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		36073CFC1F223FC1001317A7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				36073CFD1F223FC1001317A7 /* BookDetailViewControllerTempView.swift */,
+				36073CFE1F223FC1001317A7 /* CoverView.swift */,
+				36073CFF1F223FC1001317A7 /* RateView.swift */,
+				36073D001F223FC1001317A7 /* ReadStarCell.swift */,
+				36073D011F223FC1001317A7 /* RecommendCell.swift */,
+				36073D021F223FC1001317A7 /* ReviewCell.swift */,
+				36073D031F223FC1001317A7 /* Search.swift */,
+				36073D041F223FC1001317A7 /* SearchResultCell.swift */,
+				36073D051F223FC1001317A7 /* StarView.swift */,
+				36073D061F223FC1001317A7 /* StatusInfoCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		3659367E1F1E5FB2003CE578 /* YellowPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,9 +293,9 @@
 		B10253CA1EC84ED20064373A /* Read */ = {
 			isa = PBXGroup;
 			children = (
+				36073CFC1F223FC1001317A7 /* View */,
 				B10253CB1EC84ED20064373A /* Controller */,
 				B10253CC1EC84ED20064373A /* Model */,
-				B10253D51EC84ED20064373A /* View */,
 			);
 			path = Read;
 			sourceTree = "<group>";
@@ -283,13 +320,6 @@
 				B10253D41EC84ED20064373A /* User.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		B10253D51EC84ED20064373A /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		B10253DE1EC84ED90064373A /* Shared */ = {
@@ -778,7 +808,10 @@
 			files = (
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
 				365936901F1E60A9003CE578 /* GPAClassModel.swift in Sources */,
+				36073D081F223FC1001317A7 /* CoverView.swift in Sources */,
+				36073D0C1F223FC1001317A7 /* ReviewCell.swift in Sources */,
 				365936961F1E60A9003CE578 /* StarView.swift in Sources */,
+				36073D0D1F223FC1001317A7 /* Search.swift in Sources */,
 				B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */,
 				3659368D1F1E60A9003CE578 /* CourseAppraiseViewController.swift in Sources */,
 				B102541B1EC8547E0064373A /* CardViewAndDelegate.swift in Sources */,
@@ -786,7 +819,9 @@
 				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
 				3631D50A1F1903D70078816D /* TwTUser.swift in Sources */,
+				36073D0A1F223FC1001317A7 /* ReadStarCell.swift in Sources */,
 				365936941F1E60A9003CE578 /* CourseAppraiseCell.swift in Sources */,
+				36073D0B1F223FC1001317A7 /* RecommendCell.swift in Sources */,
 				B181B95C1EC5C23400B8198E /* SettingsViewController.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
 				B181B9601EC5C24000B8198E /* NewsViewController.swift in Sources */,
@@ -805,19 +840,24 @@
 				365936911F1E60A9003CE578 /* GPASessionManager.swift in Sources */,
 				365936931F1E60A9003CE578 /* GPATermModel.swift in Sources */,
 				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
+				36073D0E1F223FC1001317A7 /* SearchResultCell.swift in Sources */,
 				3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */,
 				B102541D1EC8547E0064373A /* SpringButton.swift in Sources */,
 				365936951F1E60A9003CE578 /* ScoreHeaderView.swift in Sources */,
 				3659367D1F1E5FAE003CE578 /* YellowPageSearchViewController.swift in Sources */,
 				3659366F1F1E37B8003CE578 /* SearchView.swift in Sources */,
 				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
+				36073D091F223FC1001317A7 /* RateView.swift in Sources */,
+				36073D0F1F223FC1001317A7 /* StarView.swift in Sources */,
 				B10253D61EC84ED20064373A /* Book.swift in Sources */,
 				B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */,
 				B10253DC1EC84ED20064373A /* Review.swift in Sources */,
 				365936921F1E60A9003CE578 /* GPAStatModel.swift in Sources */,
+				36073D101F223FC1001317A7 /* StatusInfoCell.swift in Sources */,
 				3659367B1F1E5FAE003CE578 /* YellowPageDetailViewController.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
+				36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
 				3659367C1F1E5FAE003CE578 /* YellowPageMainViewController.swift in Sources */,
 				B10253D71EC84ED20064373A /* Librarian.swift in Sources */,
