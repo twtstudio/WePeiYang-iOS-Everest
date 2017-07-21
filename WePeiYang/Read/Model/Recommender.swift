@@ -18,7 +18,7 @@ class Recommender {
     var finishFlag = FinishFlag()
     var dataDidRefresh = false
     
-    static let sharedInstance = Recommender()
+    static let shared = Recommender()
     private init() {}
     
     struct Banner {

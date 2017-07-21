@@ -16,6 +16,13 @@
 		36073D0D1F223FC1001317A7 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D031F223FC1001317A7 /* Search.swift */; };
 		36073D0E1F223FC1001317A7 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D041F223FC1001317A7 /* SearchResultCell.swift */; };
 		36073D101F223FC1001317A7 /* StatusInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D061F223FC1001317A7 /* StatusInfoCell.swift */; };
+		36073D1A1F225D2A001317A7 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D121F225D2A001317A7 /* BookDetailViewController.swift */; };
+		36073D1B1F225D2A001317A7 /* BookShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D131F225D2A001317A7 /* BookShelfViewController.swift */; };
+		36073D1C1F225D2A001317A7 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D141F225D2A001317A7 /* InfoViewController.swift */; };
+		36073D1E1F225D2A001317A7 /* RecommendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D171F225D2A001317A7 /* RecommendedViewController.swift */; };
+		36073D1F1F225D2A001317A7 /* ReviewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D181F225D2A001317A7 /* ReviewListViewController.swift */; };
+		36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D191F225D2A001317A7 /* SearchViewController.swift */; };
+		36073D241F22713B001317A7 /* ReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D231F22713B001317A7 /* ReadViewController.swift */; };
 		3631D50A1F1903D70078816D /* TwTUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5091F1903D70078816D /* TwTUser.swift */; };
 		365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936681F1E2CCF003CE578 /* YellowPageCell.swift */; };
 		3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */; };
@@ -105,6 +112,13 @@
 		36073D031F223FC1001317A7 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Search.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		36073D041F223FC1001317A7 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		36073D061F223FC1001317A7 /* StatusInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StatusInfoCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36073D121F225D2A001317A7 /* BookDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
+		36073D131F225D2A001317A7 /* BookShelfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookShelfViewController.swift; sourceTree = "<group>"; };
+		36073D141F225D2A001317A7 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		36073D171F225D2A001317A7 /* RecommendedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendedViewController.swift; sourceTree = "<group>"; };
+		36073D181F225D2A001317A7 /* ReviewListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewListViewController.swift; sourceTree = "<group>"; };
+		36073D191F225D2A001317A7 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		36073D231F22713B001317A7 /* ReadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadViewController.swift; sourceTree = "<group>"; };
 		3631D5091F1903D70078816D /* TwTUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTUser.swift; sourceTree = "<group>"; };
 		365936681F1E2CCF003CE578 /* YellowPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageCell.swift; sourceTree = "<group>"; };
 		3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedButton.swift; sourceTree = "<group>"; };
@@ -222,6 +236,20 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		36073D111F225D2A001317A7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				36073D121F225D2A001317A7 /* BookDetailViewController.swift */,
+				36073D131F225D2A001317A7 /* BookShelfViewController.swift */,
+				36073D141F225D2A001317A7 /* InfoViewController.swift */,
+				36073D231F22713B001317A7 /* ReadViewController.swift */,
+				36073D171F225D2A001317A7 /* RecommendedViewController.swift */,
+				36073D181F225D2A001317A7 /* ReviewListViewController.swift */,
+				36073D191F225D2A001317A7 /* SearchViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		3659367E1F1E5FB2003CE578 /* YellowPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,18 +318,11 @@
 		B10253CA1EC84ED20064373A /* Read */ = {
 			isa = PBXGroup;
 			children = (
+				36073D111F225D2A001317A7 /* Controller */,
 				36073CFC1F223FC1001317A7 /* View */,
-				B10253CB1EC84ED20064373A /* Controller */,
 				B10253CC1EC84ED20064373A /* Model */,
 			);
 			path = Read;
-			sourceTree = "<group>";
-		};
-		B10253CB1EC84ED20064373A /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		B10253CC1EC84ED20064373A /* Model */ = {
@@ -807,11 +828,14 @@
 				365936901F1E60A9003CE578 /* GPAClassModel.swift in Sources */,
 				36073D081F223FC1001317A7 /* CoverView.swift in Sources */,
 				36073D0C1F223FC1001317A7 /* ReviewCell.swift in Sources */,
+				36073D1E1F225D2A001317A7 /* RecommendedViewController.swift in Sources */,
 				365936961F1E60A9003CE578 /* StarView.swift in Sources */,
 				36073D0D1F223FC1001317A7 /* Search.swift in Sources */,
+				36073D1A1F225D2A001317A7 /* BookDetailViewController.swift in Sources */,
 				B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */,
 				3659368D1F1E60A9003CE578 /* CourseAppraiseViewController.swift in Sources */,
 				B102541B1EC8547E0064373A /* CardViewAndDelegate.swift in Sources */,
+				36073D1B1F225D2A001317A7 /* BookShelfViewController.swift in Sources */,
 				365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */,
 				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
@@ -843,6 +867,7 @@
 				365936951F1E60A9003CE578 /* ScoreHeaderView.swift in Sources */,
 				3659367D1F1E5FAE003CE578 /* YellowPageSearchViewController.swift in Sources */,
 				3659366F1F1E37B8003CE578 /* SearchView.swift in Sources */,
+				36073D241F22713B001317A7 /* ReadViewController.swift in Sources */,
 				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
 				36073D091F223FC1001317A7 /* RateView.swift in Sources */,
 				B10253D61EC84ED20064373A /* Book.swift in Sources */,
@@ -852,6 +877,8 @@
 				36073D101F223FC1001317A7 /* StatusInfoCell.swift in Sources */,
 				3659367B1F1E5FAE003CE578 /* YellowPageDetailViewController.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
+				36073D1F1F225D2A001317A7 /* ReviewListViewController.swift in Sources */,
+				36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */,
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
 				36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
@@ -863,6 +890,7 @@
 				3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */,
 				B10253DD1EC84ED20064373A /* User.swift in Sources */,
 				B10253F01EC84ED90064373A /* AccountManager.swift in Sources */,
+				36073D1C1F225D2A001317A7 /* InfoViewController.swift in Sources */,
 				B10254041EC84EE00064373A /* ClientItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

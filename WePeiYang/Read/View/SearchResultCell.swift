@@ -46,7 +46,7 @@ class SearchResultCell: UITableViewCell {
         cover.contentMode = .scaleAspectFit
         cover.sizeToFit()
 //        cover = {
-//            $0.contentMode = .ScaleAspectFit
+//            $0.contentMode = .scaleAspectFit
 //            return $0
 //        }(UIImageView())
         cover.snp.makeConstraints { make in

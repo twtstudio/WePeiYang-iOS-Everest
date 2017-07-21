@@ -170,7 +170,7 @@ class Search: UIView, UITableViewDelegate, UITableViewDataSource, UITextFieldDel
         return true
     }
     
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         self.result.removeAll()
         self.tableView.reloadData()
         self.notFoundView.frame = .zero
@@ -200,7 +200,8 @@ class Search: UIView, UITableViewDelegate, UITableViewDataSource, UITextFieldDel
         //print(self.tableView.contentOffset)
         // only push once
         if !(UIViewController.current?.navigationController?.topViewController is BookDetailViewController) {
-            UIViewController.current?.navigationController?.showViewController(vc, sender: nil)
+            UIViewController.current?.navigationController?.show(vc, sender: nil)
+//            UIViewController.current?.navigationControllershower(vc, sender: nil)
         }
     }
     

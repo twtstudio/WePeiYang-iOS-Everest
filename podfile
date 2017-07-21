@@ -8,6 +8,7 @@ target 'WePeiYang' do
   pod 'SnapKit'
   pod 'Charts'
   pod 'ObjectMapper'
+  pod 'WMPageController', '2.3.0'
   # Pods for WePeiYang
 
   target 'WePeiYangTests' do

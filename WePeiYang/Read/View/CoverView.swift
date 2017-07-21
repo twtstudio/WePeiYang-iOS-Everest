@@ -385,7 +385,7 @@ extension CoverView: UIWebViewDelegate {
     
     func tapAgainToDismiss() {
         for fooView in (UIViewController.current?.view.subviews)! {
-            if fooView.isKindOfClass(UIVisualEffectView) {
+            if fooView is UIVisualEffectView {
                 UIView.animate(withDuration: 0.7, animations: {
                     fooView.alpha = 0
                     }, completion: { (_) in
