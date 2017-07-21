@@ -6,9 +6,7 @@
 //  Copyright © 2016 Kyrie Wei. All rights reserved.
 //
 
-import Foundation
 import UIKit
-import SnapKit
 
 class StatusInfoCell: UITableViewCell {
     
@@ -23,9 +21,9 @@ class StatusInfoCell: UITableViewCell {
         let callnoLabel:UILabel = {
             let callnoLabel = UILabel()
             callnoLabel.text = callno
-            callnoLabel.textColor = UIColor.darkGrayColor()
-            callnoLabel.textAlignment = .Center
-            callnoLabel.font = UIFont.systemFontOfSize(13)
+            callnoLabel.textColor = .darkGray
+            callnoLabel.textAlignment = .center
+            callnoLabel.font = UIFont.systemFont(ofSize: 13)
             callnoLabel.sizeToFit()
             return callnoLabel
         }()
@@ -33,9 +31,9 @@ class StatusInfoCell: UITableViewCell {
         let locationLabel:UILabel = {
             let locationLabel = UILabel()
             locationLabel.text = location
-            locationLabel.textColor = UIColor.darkGrayColor()
-            locationLabel.textAlignment = .Center
-            locationLabel.font = UIFont.systemFontOfSize(13)
+            locationLabel.textColor = .darkGray
+            locationLabel.textAlignment = .center
+            locationLabel.font = UIFont.systemFont(ofSize: 13)
             locationLabel.sizeToFit()
             return locationLabel
         }()
@@ -45,38 +43,38 @@ class StatusInfoCell: UITableViewCell {
             
             if status == "在馆" {
                 statusLabel.text = "在馆"
-                statusLabel.textColor = UIColor.redColor()
+                statusLabel.textColor = .red
             } else {
                 statusLabel.text = "借出"
-                statusLabel.textColor = UIColor.lightGrayColor()
+                statusLabel.textColor = .lightGray
             }
             statusLabel.sizeToFit()
-            statusLabel.textAlignment = .Center
-            statusLabel.font = UIFont.systemFontOfSize(13)
+            statusLabel.textAlignment = .center
+            statusLabel.font = UIFont.systemFont(ofSize: 13)
             return statusLabel
         }()
         
         contentView.addSubview(callnoLabel)
-        callnoLabel.snp_makeConstraints {
+        callnoLabel.snp.makeConstraints {
             make in
             make.left.equalTo(contentView).offset(16)
-            make.centerY.equalTo(contentView.snp_centerY)
+            make.centerY.equalTo(contentView.snp.centerY)
         }
         
         contentView.addSubview(statusLabel)
-        statusLabel.snp_makeConstraints{
+        statusLabel.snp.makeConstraints{
             make in
-            make.right.equalTo(contentView.snp_right).offset(-16)
-            make.centerY.equalTo(callnoLabel.snp_centerY)
+            make.right.equalTo(contentView.snp.right).offset(-16)
+            make.centerY.equalTo(callnoLabel.snp.centerY)
         }
         
         contentView.addSubview(locationLabel)
-        locationLabel.snp_makeConstraints {
+        locationLabel.snp.makeConstraints {
             make in
-            make.left.greaterThanOrEqualTo(callnoLabel.snp_left).offset(10)
-            make.right.lessThanOrEqualTo(statusLabel.snp_right).offset(-10)
+            make.left.greaterThanOrEqualTo(callnoLabel.snp.left).offset(10)
+            make.right.lessThanOrEqualTo(statusLabel.snp.right).offset(-10)
             make.centerX.equalTo(contentView)
-            make.centerY.equalTo(callnoLabel.snp_centerY)
+            make.centerY.equalTo(callnoLabel.snp.centerY)
         }
         
         if status == "借出" {
@@ -87,14 +85,14 @@ class StatusInfoCell: UITableViewCell {
                 let dueTimeLabel = UILabel()
                 // dueTimeLabel.text = "应还时间：\(dueTimeForMatter.stringFromDate(duetime))"
                 dueTimeLabel.text = "应还时间：\(duetime)"
-                dueTimeLabel.textColor = UIColor.grayColor()
-                dueTimeLabel.textAlignment = .Center
-                dueTimeLabel.font = UIFont.systemFontOfSize(10)
+                dueTimeLabel.textColor = .gray
+                dueTimeLabel.textAlignment = .center
+                dueTimeLabel.font = UIFont.systemFont(ofSize: 10)
                 return dueTimeLabel
             }()
             
             contentView.addSubview(dueTimeLabel)
-            dueTimeLabel.snp_makeConstraints{
+            dueTimeLabel.snp.makeConstraints{
                 make in
                 make.bottom.equalTo(contentView).offset(-2)
                 make.right.equalTo(contentView).offset(-16)

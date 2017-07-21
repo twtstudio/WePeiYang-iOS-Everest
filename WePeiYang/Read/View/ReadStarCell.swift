@@ -16,7 +16,7 @@ class ReadStarCell: UITableViewCell {
         // Initialization code
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
@@ -26,7 +26,7 @@ class ReadStarCell: UITableViewCell {
         self.init()
         
         //print(model)
-        let width = UIScreen.mainScreen().bounds.width
+        let width = UIScreen.main.bounds.width
         //let height = contentView.frame.size.height
         let avatarLength = 72
         var avatar = [UIImageView]()
@@ -34,19 +34,20 @@ class ReadStarCell: UITableViewCell {
         var nameLabel = [UILabel]()
         var infoLabel = [UILabel]()
         
-        for (i, star) in model.enumerate() {
+        for (i, star) in model.enumerated() {
            
             
             //Avatar
             avatar.append(UIImageView())
-            avatar[i].setImageWithURL(NSURL(string: star.avatar)!, placeholderImage: UIImage(named: "readerAvatar\(i)"))
+            // FIXME: image
+//            avatar[i].setImageWithURL(NSURL(string: star.avatar)!, placeholderImage: UIImage(named: "readerAvatar\(i)"))
             contentView.addSubview(avatar[i])
             avatar[i].clipsToBounds = true
             avatar[i].layer.cornerRadius = CGFloat(avatarLength/2)
             for subview in avatar[i].subviews {
                 subview.layer.cornerRadius = CGFloat(avatarLength/2)
             }
-            avatar[i].snp_makeConstraints {
+            avatar[i].snp.makeConstraints {
                 make in
                 make.width.equalTo(avatarLength)
                 make.height.equalTo(avatarLength)
@@ -58,29 +59,29 @@ class ReadStarCell: UITableViewCell {
             badge.append(UIImageView(imageName: "badge\(i+1)", desiredSize: CGSize(width: 13.5, height: 20))!)
             contentView.addSubview(badge[i])
             badge[i].alpha = 1 - 0.2*CGFloat(i)
-            badge[i].snp_makeConstraints {
+            badge[i].snp.makeConstraints {
                 make in
-                make.right.equalTo(avatar[i].snp_left)
+                make.right.equalTo(avatar[i].snp.left)
                 make.top.equalTo(avatar[i])
             }
 
             //Name
             nameLabel.append(UILabel(text: star.name))
             contentView.addSubview(nameLabel[i])
-            nameLabel[i].snp_makeConstraints {
+            nameLabel[i].snp.makeConstraints {
                 make in
                 make.centerX.equalTo(avatar[i])
-                make.top.equalTo(avatar[i].snp_bottom).offset(8)
+                make.top.equalTo(avatar[i].snp.bottom).offset(8)
             }
             
             //Infomation
             infoLabel.append(UILabel())
             contentView.addSubview(infoLabel[i])
-            infoLabel[i].attributedText = infoString("\(star.reviewCount)")
-            infoLabel[i].snp_makeConstraints {
+            infoLabel[i].attributedText = infoString(count: "\(star.reviewCount)")
+            infoLabel[i].snp.makeConstraints {
                 make in
                 make.centerX.equalTo(avatar[i])
-                make.top.equalTo(nameLabel[i].snp_bottom).offset(2)
+                make.top.equalTo(nameLabel[i].snp.bottom).offset(2)
                 //For Auto Height Table View Cell
                 make.bottom.equalTo(contentView).offset(-8)
                 
@@ -139,77 +140,77 @@ class ReadStarCell: UITableViewCell {
 //        badge3?.alpha = 0.6
 //        
 //        
-//        avatar1?.snp_makeConstraints {
+//        avatar1?.snp.makeConstraints {
 //            make in
 //            make.top.equalTo(contentView).offset(16)
 //            make.centerX.equalTo(contentView).offset(-width/3)
 //        }
 //        
-//        avatar2?.snp_makeConstraints {
+//        avatar2?.snp.makeConstraints {
 //            make in
 //            make.top.equalTo(contentView).offset(16)
 //            make.centerX.equalTo(contentView)
 //        }
 //        
-//        avatar3?.snp_makeConstraints {
+//        avatar3?.snp.makeConstraints {
 //            make in
 //            make.top.equalTo(contentView).offset(16)
 //            make.centerX.equalTo(contentView).offset(width/3)
 //        }
 //        
-//        badge1?.snp_makeConstraints {
+//        badge1?.snp.makeConstraints {
 //            make in
-//            make.right.equalTo((avatar1?.snp_left)!)
+//            make.right.equalTo((avatar1?.snp.left)!)
 //            make.top.equalTo(avatar1!)
 //        }
 //        
-//        badge2?.snp_makeConstraints {
+//        badge2?.snp.makeConstraints {
 //            make in
-//            make.right.equalTo((avatar2?.snp_left)!)
+//            make.right.equalTo((avatar2?.snp.left)!)
 //            make.top.equalTo(avatar2!)
 //        }
 //        
-//        badge3?.snp_makeConstraints {
+//        badge3?.snp.makeConstraints {
 //            make in
-//            make.right.equalTo((avatar3?.snp_left)!)
+//            make.right.equalTo((avatar3?.snp.left)!)
 //            make.top.equalTo(avatar3!)
 //        }
 //        
-//        nameLabel1.snp_makeConstraints {
+//        nameLabel1.snp.makeConstraints {
 //            make in
 //            make.centerX.equalTo(avatar1!)
-//            make.top.equalTo((avatar1?.snp_bottom)!).offset(8)
+//            make.top.equalTo((avatar1?.snp.bottom)!).offset(8)
 //        }
 //        
-//        nameLabel2.snp_makeConstraints {
+//        nameLabel2.snp.makeConstraints {
 //            make in
 //            make.centerX.equalTo(avatar2!)
-//            make.top.equalTo((avatar2?.snp_bottom)!).offset(8)
+//            make.top.equalTo((avatar2?.snp.bottom)!).offset(8)
 //        }
 //        
-//        nameLabel3.snp_makeConstraints {
+//        nameLabel3.snp.makeConstraints {
 //            make in
 //            make.centerX.equalTo(avatar3!)
-//            make.top.equalTo((avatar3?.snp_bottom)!).offset(8)
+//            make.top.equalTo((avatar3?.snp.bottom)!).offset(8)
 //        }
 //        
-//        infoLabel1.snp_makeConstraints {
+//        infoLabel1.snp.makeConstraints {
 //            make in
 //            make.centerX.equalTo(avatar1!)
-//            make.top.equalTo(nameLabel1.snp_bottom).offset(2)
+//            make.top.equalTo(nameLabel1.snp.bottom).offset(2)
 //            make.bottom.equalTo(contentView).offset(-8)
 //        }
 //        
-//        infoLabel2.snp_makeConstraints {
+//        infoLabel2.snp.makeConstraints {
 //            make in
 //            make.centerX.equalTo(avatar2!)
-//            make.top.equalTo(nameLabel2.snp_bottom).offset(2)
+//            make.top.equalTo(nameLabel2.snp.bottom).offset(2)
 //        }
 //        
-//        infoLabel3.snp_makeConstraints {
+//        infoLabel3.snp.makeConstraints {
 //            make in
 //            make.centerX.equalTo(avatar3!)
-//            make.top.equalTo(nameLabel3.snp_bottom).offset(2)
+//            make.top.equalTo(nameLabel3.snp.bottom).offset(2)
 //            
 //        }
         
@@ -218,9 +219,9 @@ class ReadStarCell: UITableViewCell {
     func infoString(count: String) -> NSMutableAttributedString {
         let fooString = "写过 \(count) 条评论"
         let mutableAttributedString = NSMutableAttributedString(string: fooString)
-        mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.grayColor(), range: NSRange(location:0, length: 2))
-        mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(),range: NSRange(location:3, length: count.characters.count+2))
-        mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.grayColor(), range: NSRange(location:count.characters.count+4, length:3))
+        mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.gray, range: NSRange(location:0, length: 2))
+        mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.red,range: NSRange(location:3, length: count.characters.count+2))
+        mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.gray, range: NSRange(location:count.characters.count+4, length:3))
         mutableAttributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "Arial", size: 14.0)!, range: NSRange(location: 0, length: fooString.characters.count))
         
         return mutableAttributedString

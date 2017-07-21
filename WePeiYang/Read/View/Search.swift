@@ -28,36 +28,36 @@ class Search: UIView, UITableViewDelegate, UITableViewDataSource, UITextFieldDel
     
     
     let statusView: UIView = {
-        let st = UIView.init(frame: UIApplication.sharedApplication().statusBarFrame)
-        st.backgroundColor = UIColor.blackColor()
+        let st = UIView.init(frame: UIApplication.shared.statusBarFrame)
+        st.backgroundColor = .black
         st.alpha = 0.15
         return st
     }()
     
     lazy var searchView: UIView = {
        let sv = UIView.init(frame: CGRect.init(x: 0, y: 0, width: self.frame.width, height: 68))
-        sv.backgroundColor = UIColor.whiteColor()
+        sv.backgroundColor = .white
         sv.alpha = 0
         return sv
     }()
     lazy var backgroundView: UIView = {
         let bv = UIView.init(frame: self.frame)
-        bv.backgroundColor = UIColor.blackColor()
+        bv.backgroundColor = .black
         bv.alpha = 0
         return bv
     }()
     lazy var backButton: UIButton = {
        let bb = UIButton.init(frame: CGRect.init(x: 0, y: 20, width: 48, height: 48))
-        bb.setBackgroundImage(UIImage.init(named: "back"), forState: [])
-        bb.addTarget(self, action: #selector(Search.dismiss), forControlEvents: .TouchUpInside)
+        bb.setBackgroundImage(UIImage.init(named: "back"), for: [])
+        bb.addTarget(self, action: #selector(Search.dismiss), for: .touchUpInside)
         return bb
     }()
     lazy var searchField: UITextField = {
         let sf = UITextField.init(frame: CGRect.init(x: 48, y: 20, width: self.frame.width - 50, height: 48))
         sf.placeholder = "查询书籍在馆记录"
-        sf.autocapitalizationType = .None
+        sf.autocapitalizationType = .none
         sf.clearsOnBeginEditing = true
-        sf.returnKeyType = .Go
+        sf.returnKeyType = .go
         // sf.keyboardAppearance = UIKeyboardAppearance.Dark
         return sf
     }()
@@ -79,7 +79,7 @@ class Search: UIView, UITableViewDelegate, UITableViewDataSource, UITextFieldDel
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.tableFooterView = UIView()
-        self.tableView.backgroundColor = UIColor.clearColor()
+        self.tableView.backgroundColor = .clear
         self.searchField.delegate = self
         self.addSubview(self.statusView)
         self.addSubview(self.tableView)
@@ -87,12 +87,12 @@ class Search: UIView, UITableViewDelegate, UITableViewDataSource, UITextFieldDel
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
         notFoundView = UIView(frame: CGRect.init(x: 0, y: 68, width: self.frame.width, height: 50))
-        notFoundView.backgroundColor = UIColor.whiteColor()
+        notFoundView.backgroundColor = .white
         notFoundView.addSubview(self.label)
         self.addSubview(notFoundView)
         //UIApplication.sharedApplication().keyWindow?.addSubview(notFoundView)
         self.label.sizeToFit()
-        self.label.snp_makeConstraints { make in
+        self.label.snp.makeConstraints { make in
             make.center.equalTo(notFoundView)
         }
         self.refreshLabel()
@@ -100,10 +100,10 @@ class Search: UIView, UITableViewDelegate, UITableViewDataSource, UITextFieldDel
     
     func refreshLabel() {
         
-        let date = NSDate()
-        let timeFormatter = NSDateFormatter()
+        let date = Date()
+        let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH"
-        let strNowTime = timeFormatter.stringFromDate(date) as String
+        let strNowTime = timeFormatter.string(from: date) as String
         let hour = Int(strNowTime)!
         var str: LabelContent = .Morning
         switch hour {
@@ -120,7 +120,7 @@ class Search: UIView, UITableViewDelegate, UITableViewDataSource, UITextFieldDel
     }
     
     func animate()  {
-        UIView.animateWithDuration(0.2, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.backgroundView.alpha = 0.5
             self.searchView.alpha = 1
         //    self.searchField.becomeFirstResponder()
@@ -140,25 +140,25 @@ class Search: UIView, UITableViewDelegate, UITableViewDataSource, UITextFieldDel
             self.searchView.removeFromSuperview()
             self.removeFromSuperview()
       //      }, completion: {(Bool) in
-                self.delegate?.hideSearchView(true)
+                self.delegate?.hideSearchView(status: true)
      //   })
     }
     
     //MARK: 搜索
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let str = textField.text else {
             return true
         }
         //self.notFoundView.removeFromSuperview()
         result.removeAll()
         self.tableView.reloadData()
-        Librarian.searchBook(withString: str) { searchResult in
+        Librarian.search(string: str) { searchResult in
             self.result = searchResult
-            self.delegate?.saveResult(self.result)
+            self.delegate?.saveResult(result: self.result)
             if self.result.count == 0 {
                 self.tableView.tableHeaderView = self.notFoundView
                 self.label.text = LabelContent.NotFound.rawValue
-                self.notFoundView.frame = CGRectMake(0, 68, self.frame.width, 50)
+                self.notFoundView.frame = CGRect(x: 0, y: 68, width: self.frame.width, height: 50)
                 //self.addSubview(self.notFoundView)
             }
             self.searchField.resignFirstResponder()
@@ -173,37 +173,37 @@ class Search: UIView, UITableViewDelegate, UITableViewDataSource, UITextFieldDel
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         self.result.removeAll()
         self.tableView.reloadData()
-        self.notFoundView.frame = CGRectMake(0, 0, 0, 0)
+        self.notFoundView.frame = .zero
         label.text = ""
         return true
     }
     
     //MARK: TableView Delegates and Datasources
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       // 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return result.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = SearchResultCell(model: result[indexPath.row])
         return cell
     }
-
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.searchField.resignFirstResponder()
+
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let vc = BookDetailViewController(bookID: "\(result[indexPath.row].bookID)")
         self.removeFromSuperview()
         //print(self.tableView.contentOffset)
         // only push once
-        if !(UIViewController.currentViewController().navigationController?.topViewController is BookDetailViewController){
-            UIViewController.currentViewController().navigationController?.showViewController(vc, sender: nil)
+        if !(UIViewController.current?.navigationController?.topViewController is BookDetailViewController) {
+            UIViewController.current?.navigationController?.showViewController(vc, sender: nil)
         }
-      //  UIViewController.currentViewController().navigationController?.pushViewController(vc, animated: true)
     }
+    
     
     
     //MARK: Inits

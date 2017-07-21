@@ -21,7 +21,7 @@ class RecommendCell: UITableViewCell {
         // Initialization code
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
@@ -35,7 +35,7 @@ class RecommendCell: UITableViewCell {
         var titleLabelArray = [UILabel]()
         var authorLabelArray = [UILabel]()
         
-        scrollView.backgroundColor = UIColor.whiteColor()
+        scrollView.backgroundColor = .white
         scrollView.contentSize = CGSize(width: 112*model.count, height: 200)
         //关闭滚动条显示
         scrollView.showsHorizontalScrollIndicator = false
@@ -43,7 +43,7 @@ class RecommendCell: UITableViewCell {
         
         contentView.addSubview(scrollView)
         
-        scrollView.snp_makeConstraints {
+        scrollView.snp.makeConstraints {
             make in
             make.height.equalTo(200)
             make.top.equalTo(contentView)
@@ -76,13 +76,14 @@ class RecommendCell: UITableViewCell {
             fooView[i].addSubview(authorLabelArray[i])
             
             authorLabelArray[i].font = UIFont(name: "Arial", size: 14)
-            authorLabelArray[i].textColor = UIColor.grayColor()
+            authorLabelArray[i].textColor = .gray
             
-            imageViewArray[i].contentMode = .ScaleAspectFit
-            imageViewArray[i].setImageWithURL(NSURL(string: "\(model[i].cover)")!)
+            imageViewArray[i].contentMode = .scaleAspectFit
+            // FIXME: image
+//            imageViewArray[i].setImageWithURL(NSURL(string: "\(model[i].cover)")!)
             
 //            if i == 0 {
-//                imageViewArray[i].snp_makeConstraints {
+//                imageViewArray[i].snp.makeConstraints {
 //                    make in
 //                    make.top.equalTo(scrollView).offset(16)
 //                    make.left.equalTo(scrollView).offset(16)
@@ -90,10 +91,10 @@ class RecommendCell: UITableViewCell {
 //                    make.height.equalTo(120)
 //                }
 //            } else {
-//                imageViewArray[i].snp_makeConstraints {
+//                imageViewArray[i].snp.makeConstraints {
 //                    make in
 //                    make.top.equalTo(scrollView).offset(16)
-//                    make.left.equalTo(imageViewArray[i-1].snp_right).offset(32)
+//                    make.left.equalTo(imageViewArray[i-1].snp.right).offset(32)
 //                    make.width.equalTo(80)
 //                    make.height.equalTo(120)
 //                }
@@ -101,7 +102,7 @@ class RecommendCell: UITableViewCell {
 
             fooView[i].tag = model[i].id
             if i == 0 {
-                fooView[i].snp_makeConstraints {
+                fooView[i].snp.makeConstraints {
                     make in
                     make.top.equalTo(scrollView).offset(8)
                     make.left.equalTo(scrollView).offset(8)
@@ -109,17 +110,17 @@ class RecommendCell: UITableViewCell {
                     make.height.equalTo(186)
                 }
             } else {
-                fooView[i].snp_makeConstraints {
+                fooView[i].snp.makeConstraints {
                     make in
                     make.top.equalTo(scrollView).offset(8)
-                    make.left.equalTo(fooView[i-1].snp_right).offset(0)
+                    make.left.equalTo(fooView[i-1].snp.right).offset(0)
                     make.width.equalTo(112)
                     make.height.equalTo(186)
                 }
             }
 
             
-            imageViewArray[i].snp_makeConstraints {
+            imageViewArray[i].snp.makeConstraints {
                 make in
                 make.top.equalTo(fooView[i]).offset(8)
                 make.left.equalTo(fooView[i]).offset(8)
@@ -127,16 +128,16 @@ class RecommendCell: UITableViewCell {
                 make.height.equalTo(120)
             }
             
-            titleLabelArray[i].snp_makeConstraints {
+            titleLabelArray[i].snp.makeConstraints {
                 make in
-                make.top.equalTo(imageViewArray[i].snp_bottom).offset(8)
+                make.top.equalTo(imageViewArray[i].snp.bottom).offset(8)
                 make.centerX.equalTo(imageViewArray[i])
                 make.width.lessThanOrEqualTo(100)
             }
             
-            authorLabelArray[i].snp_makeConstraints {
+            authorLabelArray[i].snp.makeConstraints {
                 make in
-                make.top.equalTo(titleLabelArray[i].snp_bottom).offset(2 )
+                make.top.equalTo(titleLabelArray[i].snp.bottom).offset(2 )
                 make.centerX.equalTo(imageViewArray[i])
                 make.width.lessThanOrEqualTo(100)
             }
@@ -156,7 +157,7 @@ class RecommendBookView: UIView {
     
     func pushDetailViewController() {
 //        print("fafa")
-        delegate?.pushDetailViewController("\(self.tag)")
+        delegate?.pushDetailViewController(bookID: "\(self.tag)")
     }
 }
 

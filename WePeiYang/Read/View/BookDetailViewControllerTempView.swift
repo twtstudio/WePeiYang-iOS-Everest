@@ -10,18 +10,8 @@ import UIKit
 
 class BookDetailViewControllerTempView: UIView {
     override func willRemoveSubview(_ subview: UIView) {
-        if let _ = subview as? RateView, let _ = subview as? UIVisualEffectView {
-            // FIXME: ????????? ALWAYS FAIL
-//            UIViewController.current.
+        if subview is RateView || subview is UIVisualEffectView {
+            UIViewController.current?.navigationItem.setHidesBackButton(false, animated: true)
         }
     }
-//    override func removeFromSuperview() {
-//        
-//    }
-//    
-//    override func willRemoveSubview(subview: UIView) {
-//        if subview.isKindOfClass(RateView) || subview.isKindOfClass(UIVisualEffectView) {
-//            UIViewController.currentViewController().navigationItem.setHidesBackButton(false, animated: true)
-//        }
-//    }
 }

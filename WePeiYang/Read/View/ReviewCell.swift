@@ -8,7 +8,6 @@
 //
 
 import UIKit
-import SnapKit
 
 class ReviewCell: UITableViewCell {
     var avatar: UIImageView = UIImageView()
@@ -27,14 +26,15 @@ class ReviewCell: UITableViewCell {
     
     convenience init(model: Review) {
         self.init()
-        self.content.attributedText = attributedString(model.bookName, content: model.content)
-        self.avatar.setImageWithURL(NSURL(string: model.avatarURL)!, placeholderImage: UIImage(named: "readerAvatar1"))
+        self.content.attributedText = attributedString(title: model.bookName, content: model.content)
+        // FIXME: image
+//        self.avatar.setImageWithURL(NSURL(string: model.avatarURL)!, placeholderImage: UIImage(named: "readerAvatar1"))
         //self.like.text = model.like
         self.timestamp.text = model.updateTime
 
         self.rateView = StarView(rating: model.rating, height: 15, tappable: false)
 
-        self.username.text = model.userName
+        self.username.text = model.username
         
         // 用like的tag存储点赞个数
         like.tag = model.like
@@ -64,7 +64,7 @@ class ReviewCell: UITableViewCell {
         self.contentView.backgroundColor = UIColor(red:0.99, green:0.99, blue:1.00, alpha:1.00)
         // let frame = avatar.frame
         // avatar.frame = CGRectMake(frame.origin.x, frame.origin.y, 45, 45)
-        avatar.snp_makeConstraints { make in
+        avatar.snp.makeConstraints { make in
             make.left.equalTo(contentView).offset(20)
             make.top.equalTo(contentView).offset(15)
             make.height.equalTo(kAVATAR_HEIGHT)
@@ -74,62 +74,62 @@ class ReviewCell: UITableViewCell {
         avatar.layer.cornerRadius = CGFloat(kAVATAR_HEIGHT/2)
         avatar.layer.masksToBounds = true
         
-        username.font = UIFont.systemFontOfSize(14)
+        username.font = UIFont.systemFont(ofSize: 14)
         username.textColor = UIColor.init(red: 151/255, green: 152/255, blue: 153/255, alpha: 1)
         username.sizeToFit()
-        username.snp_makeConstraints { make in
-            make.left.equalTo(avatar.snp_right).offset(10)
+        username.snp.makeConstraints { make in
+            make.left.equalTo(avatar.snp.right).offset(10)
             make.top.equalTo(contentView).offset(15)
         }
         
-        rateView.snp_makeConstraints { make in
-            make.top.equalTo(username.snp_bottom).offset(3)
-            make.left.equalTo(avatar.snp_right).offset(10)
+        rateView.snp.makeConstraints { make in
+            make.top.equalTo(username.snp.bottom).offset(3)
+            make.left.equalTo(avatar.snp.right).offset(10)
         }
         
-        let width = UIScreen.mainScreen().bounds.size.width
+        let width = UIScreen.main.bounds.size.width
         
         if width >= bigiPhoneWidth {
-            content.font = UIFont.systemFontOfSize(16)
+            content.font = UIFont.systemFont(ofSize: 16)
         } else {
-            content.font = UIFont.systemFontOfSize(14)
+            content.font = UIFont.systemFont(ofSize: 14)
         }
         
         content.preferredMaxLayoutWidth = width - 40;
-        content.lineBreakMode = NSLineBreakMode.ByWordWrapping
-        // content.font = UIFont.systemFontOfSize(16)
+        content.lineBreakMode = .byWordWrapping
+        // content.font = UIFont.systemFont(ofSize: 16)
         content.numberOfLines = 0
         //content.textColor = UIColor(red:0, green:0, blue:0, alpha:0.8)
         content.sizeToFit()
-        content.snp_makeConstraints { make in
+        content.snp.makeConstraints { make in
             make.left.equalTo(contentView).offset(20)
-            make.top.equalTo(avatar.snp_bottom).offset(10)
+            make.top.equalTo(avatar.snp.bottom).offset(10)
             make.right.equalTo(contentView).offset(-20)
             //make.bottom.equalTo(contentView).offset(-40)
         }
         
         timestamp.textColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
         if #available(iOS 8.2, *) {
-            timestamp.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+            timestamp.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
         } else {
             // Fallback on earlier versions
         }
         timestamp.sizeToFit()
-        timestamp.snp_makeConstraints { make in
+        timestamp.snp.makeConstraints { make in
             make.left.equalTo(contentView).offset(20)
-            make.top.equalTo(content.snp_bottom).offset(10)
+            make.top.equalTo(content.snp.bottom).offset(10)
             make.bottom.equalTo(contentView).offset(-20)
         }
         
         if #available(iOS 8.2, *) {
-            like.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+            like.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
         } else {
             // Fallback on earlier versions
         }
         
         
-        fooView.snp_makeConstraints { make in
-            make.centerY.equalTo(timestamp.snp_centerY)
+        fooView.snp.makeConstraints { make in
+            make.centerY.equalTo(timestamp.snp.centerY)
             make.right.equalTo(contentView).offset(-12)
             make.width.equalTo(50)
             make.height.equalTo(30)
@@ -138,17 +138,17 @@ class ReviewCell: UITableViewCell {
        // fooView.userInteractionEnabled = model.liked ? false : true
         fooView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.likeTapped)))
         like.textColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
-        like.snp_makeConstraints { make in
+        like.snp.makeConstraints { make in
             make.top.equalTo(fooView).offset(8)
             make.left.equalTo(fooView).offset(12)
             
         }
         
         heartView.image = UIImage(named: model.liked ? "red_heart" : "grey_heart")
-        heartView.snp_makeConstraints { make in
-            make.right.equalTo(like.snp_left).offset(-3)
+        heartView.snp.makeConstraints { make in
+            make.right.equalTo(like.snp.left).offset(-3)
             // make.top.equalTo(contentView).offset(16)
-            make.centerY.equalTo(like.snp_centerY)
+            make.centerY.equalTo(like.snp.centerY)
             //make.height.equalTo(14)
             //make.width.equalTo(15)
             make.height.equalTo(12)
@@ -157,7 +157,7 @@ class ReviewCell: UITableViewCell {
         
         
         separator.backgroundColor = UIColor.init(red: 227/255, green: 227/255, blue: 229/255, alpha: 1)
-        separator.snp_makeConstraints { make in
+        separator.snp.makeConstraints { make in
             make.height.equalTo(1)
             make.left.equalTo(contentView).offset(20)
             make.right.equalTo(contentView).offset(-20)
@@ -172,13 +172,13 @@ class ReviewCell: UITableViewCell {
         
         if self.heartView.tag == 0 {
 
-            User.sharedInstance.like(.Like, reviewID: "\(contentView.tag)") {
+            User.shared.like(method: .like, reviewID: "\(contentView.tag)") {
                 self.like.tag += 1
                 let frame = self.heartView.frame
                 let width = frame.size.width
                 let height = frame.size.height
                 self.heartView.frame = CGRect(x: self.heartView.frame.origin.x - width/2 , y: self.heartView.frame.origin.y - height/2, width: self.heartView.frame.size.width*2, height: self.heartView.frame.size.height*2)
-                UIView.animateWithDuration(0.25, animations: {
+                UIView.animate(withDuration: 0.25, animations: {
                 self.heartView.image = UIImage(named: "red_heart")
                 self.like.text = String(format: "%02d", self.like.tag)
                 self.heartView.frame = frame
@@ -187,7 +187,7 @@ class ReviewCell: UITableViewCell {
                 })
             }
         } else if self.heartView.tag == 1 {
-            User.sharedInstance.like(.CancelLike, reviewID: "\(contentView.tag)") {
+            User.shared.like(method: .cancel, reviewID: "\(contentView.tag)") {
                 self.like.tag -= 1
                 self.like.text = String(format: "%02d", self.like.tag)
                 self.heartView.image = UIImage(named: "grey_heart")
@@ -202,14 +202,14 @@ class ReviewCell: UITableViewCell {
         let mutableAttributedString = NSMutableAttributedString(string: fooString)
         let bookTitleColor = UIColor(red:0.87, green:0.31, blue:0.22, alpha:1.00)
         mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: bookTitleColor,range: NSRange(location:0, length: title.characters.count+2))
-        mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.grayColor(), range: NSRange(location:title.characters.count+2, length: content.characters.count))
+        mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.gray, range: NSRange(location:title.characters.count+2, length: content.characters.count))
         mutableAttributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "Arial", size: 14.0)!, range: NSRange(location: 0, length: fooString.characters.count))
         
         return mutableAttributedString
     }
     
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
