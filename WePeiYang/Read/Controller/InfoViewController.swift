@@ -8,28 +8,16 @@
 
 import UIKit
 
-class InfoViewController: UITableViewController {
+class InfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     private let bigiPhoneWidth: CGFloat = 414.0
     var headerArr: [String] = ["我的收藏", "我的点评"]
     var bookShelf: [MyBook] = []
     var reviewArr: [Review] = []
-
-    override func viewDidAppear(_ animated: Bool) {
-        tableView.reloadData()
-    }
+    let tableView = UITableView(frame: CGRect(x: 0, y: 108, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-108) , style: .grouped)
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableView.frame = CGRect(x: self.tableView.frame.origin.x, y: 108, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-108)
-        User.shared.getBookShelf(success: {
-            self.bookShelf = User.shared.bookShelf
-            self.tableView.reloadData()
-        })
-        User.shared.getReviews {
-            self.reviewArr = User.shared.reviews
-            self.tableView.reloadData()
-        }
     }
     
     override func viewDidLoad() {
@@ -39,6 +27,17 @@ class InfoViewController: UITableViewController {
         self.tableView.estimatedRowHeight = 60
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorStyle = .none
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.view.addSubview(tableView)
+        User.shared.getBookShelf(success: {
+            self.bookShelf = User.shared.bookShelf
+            self.tableView.reloadData()
+        })
+        User.shared.getReviews {
+            self.reviewArr = User.shared.reviews
+            self.tableView.reloadData()
+        }
     }
     
 // MARK: push to viewcontroller
@@ -69,11 +68,11 @@ class InfoViewController: UITableViewController {
     }
     
 // Mark: UITableViewDataSource
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return (bookShelf.count > 2) ? 2 : bookShelf.count
@@ -84,7 +83,7 @@ class InfoViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
             let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell1")
@@ -107,7 +106,7 @@ class InfoViewController: UITableViewController {
                     make.height.equalTo(1)
                     make.left.equalTo(cell).offset(20)
                     make.right.equalTo(cell).offset(-20)
-                    make.bottom.equalTo(cell).offset(0)
+                    make.bottom.equalTo(cell)
                 }
             }
             return cell
@@ -122,54 +121,87 @@ class InfoViewController: UITableViewController {
         }
     }
     
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if indexPath.section == 0 {
+            return .delete
+        } else {
+            return .none
+        }
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
             // FIXME: 删除的时候section也会动
-//            if editingStyle == .Delete {
-//                User.shared.delFromFavourite(with: "\(self.bookShelf[indexPath.row].id)") {
-//                    self.bookShelf.removeAtIndex(indexPath.row)
-//                    User.shared.bookShelf = self.bookShelf
-//                    self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-//                    self.tableView.reloadData()
-//                }
-//            }
+            if editingStyle == .delete {
+                User.shared.delFavorite(id: "\(self.bookShelf[indexPath.row].id)") {
+                    DispatchQueue.main.async {
+                        self.bookShelf.remove(at: indexPath.row)
+                        User.shared.bookShelf = self.bookShelf
+                        self.tableView.deleteRows(at: [indexPath], with: .fade)
+                        self.tableView.reloadData()
+                    }
+                }
+            }
             break
         default:
             return
         }
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
     
 // MARK: HeaderView delegate
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = UITableViewCell()
-        header.contentView.backgroundColor = UIColor.init(red: 254/255, green: 255/255, blue: 255/255, alpha: 1)
-        header.textLabel?.textColor = UIColor.init(red: 136/255, green: 137/255, blue: 138/255, alpha: 1)
-        header.detailTextLabel?.textColor = UIColor.init(red: 163/255, green: 163/255, blue: 163/255, alpha: 1)
-        header.textLabel!.text = headerArr[section]
-        header.detailTextLabel?.font = UIFont.systemFont(ofSize: 16)
-        header.accessoryType = .disclosureIndicator
-        header.backgroundColor = UIColor.white
-        header.isUserInteractionEnabled = true
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.width = self.view.width
+        headerView.height = 50
+        headerView.backgroundColor = .white
+        let label = UILabel(text: headerArr[section], fontSize: 16)
+        label.textColor = UIColor.init(red: 136/255, green: 137/255, blue: 138/255, alpha: 1)
+        label.sizeToFit()
+        label.x = 15
+        label.center.y = headerView.center.y
+        headerView.addSubview(label)
+        
+        let arrowView = UIImageView(image: UIImage(named: "rightArrow"))
+        arrowView.width = 20
+        arrowView.height = 20
+        arrowView.x = headerView.width - 40
+        arrowView.center.y = label.center.y
+        headerView.addSubview(arrowView)
+//        arrowView.snp.makeConstraints { make in
+//            make.height.width.equalTo(20)
+//            make.right.equalToSuperview()
+//        }
+//        let header = UITableViewCell(style: .default, reuseIdentifier: "section")
+//        header.contentView.backgroundColor = UIColor.init(red: 254/255, green: 255/255, blue: 255/255, alpha: 1)
+//        header.textLabel?.textColor = UIColor.init(red: 136/255, green: 137/255, blue: 138/255, alpha: 1)
+//        header.detailTextLabel?.textColor = UIColor.init(red: 163/255, green: 163/255, blue: 163/255, alpha: 1)
+//        header.textLabel!.text = headerArr[section]
+//        header.detailTextLabel?.font = UIFont.systemFont(ofSize: 16)
+//        header.accessoryType = .disclosureIndicator
+//        header.backgroundColor = UIColor.white
+//        header.isUserInteractionEnabled = true
         // tag 作为点击事件的索引 跳转到相关控制器
-        header.tag = section
+        headerView.tag = section
         let tap = UITapGestureRecognizer(target: self, action: #selector(sectionTapped(sender:)))
-        header.addGestureRecognizer(tap)
+        headerView.addGestureRecognizer(tap)
         let 🌚 = UIView()
-        header.addSubview(🌚)
+        headerView.addSubview(🌚)
         🌚.backgroundColor = UIColor.init(red: 245/255, green: 246/255, blue: 247/255, alpha: 1)
         🌚.snp.makeConstraints { make in
             make.height.equalTo(2)
-            make.left.equalTo(header).offset(0)
-            make.right.equalTo(header).offset(0)
-            make.bottom.equalTo(header).offset(0)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
-        return header
+        return headerView
     }
     
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         switch section {
         case 0:
             if bookShelf.count == 0 {
@@ -177,6 +209,8 @@ class InfoViewController: UITableViewController {
                 let 🤓 = UITableViewCell(style: .default, reuseIdentifier: "footer")
                 🤓.backgroundColor = UIColor.white
                 🤓.textLabel?.text = "暂时还没有收藏，快去收藏吧！"
+                🤓.textLabel?.font = UIFont.systemFont(ofSize: 15)
+                🤓.textLabel?.textColor = .gray
                 🤓.textLabel?.sizeToFit()
                 🤓.textLabel?.snp.makeConstraints { make in
                     make.centerX.equalTo(🤓.contentView.snp.centerX)
@@ -188,9 +222,9 @@ class InfoViewController: UITableViewController {
                 🌚.backgroundColor = UIColor.init(red: 245/255, green: 246/255, blue: 247/255, alpha: 1)
                 🌚.snp.makeConstraints { make in
                     make.height.equalTo(2)
-                    make.left.equalTo(🤓).offset(0)
-                    make.right.equalTo(🤓).offset(0)
-                    make.bottom.equalTo(🤓).offset(0)
+                    make.left.equalTo(🤓)
+                    make.right.equalTo(🤓)
+                    make.bottom.equalTo(🤓)
                 }
                 return 🤓
             }
@@ -200,21 +234,13 @@ class InfoViewController: UITableViewController {
                 let 🤓 = UITableViewCell(style: .default, reuseIdentifier: "footer")
                 🤓.backgroundColor = UIColor.white
                 🤓.textLabel?.text = "暂时还没有评论，快去评论吧！"
+                🤓.textLabel?.font = UIFont.systemFont(ofSize: 15)
+                🤓.textLabel?.textColor = .gray
                 🤓.textLabel?.sizeToFit()
                 🤓.textLabel?.snp.makeConstraints { make in
                     make.centerX.equalTo(🤓.contentView.snp.centerX)
                     make.centerY.equalTo(🤓.contentView.snp.centerY)
                 }
-//                // 🌚 stands for separator
-//                let 🌚 = UIView()
-//                🤓.addSubview(🌚)
-//                🌚.backgroundColor = UIColor.init(red: 245/255, green: 246/255, blue: 247/255, alpha: 1)
-//                🌚.snp.makeConstraints { make in
-//                    make.height.equalTo()
-//                    make.left.equalTo(🤓).offset(0)
-//                    make.right.equalTo(🤓).offset(0)
-//                    make.bottom.equalTo(🤓).offset(0)
-//                }
                 return 🤓
             }
         default:
@@ -225,16 +251,16 @@ class InfoViewController: UITableViewController {
     
     
 // MARK: Select Row at IndexPath
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
             let vc = BookDetailViewController(bookID: "\(self.bookShelf[indexPath.row].id)")
-            self.navigationController?.present(vc, animated: true, completion: nil)
+            self.navigationController?.pushViewController(vc, animated: true)
             break
         case 1:
             print("Push Detail View Controller, bookID: \(reviewArr[indexPath.row].bookID)")
             let vc = BookDetailViewController(bookID: "\(self.reviewArr[indexPath.row].bookID)")
-            self.navigationController?.present(vc, animated: true, completion: nil)
+            self.navigationController?.pushViewController(vc, animated: true)
 
         default:
             break
@@ -242,25 +268,24 @@ class InfoViewController: UITableViewController {
         self.tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
     
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch section {
         case 0:
             if bookShelf.count == 0 {
-                return 70
+                return 40
             }
             return 10;
         case 1:
             if reviewArr.count == 0 {
-                return 70
+                return 40
             }
         default:
             return 0;
         }
         return 0;
     }
-    
 }

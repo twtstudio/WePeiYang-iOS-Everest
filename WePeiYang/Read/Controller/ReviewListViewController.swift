@@ -11,35 +11,19 @@ import UIKit
 class ReviewListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var reviewArr: [Review] = []
-    let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height) , style: .grouped)
+    let tableView = UITableView(frame: CGRect.zero , style: .grouped)
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let titleLabel = UILabel(text: "我的评论", fontSize: 17)
-        titleLabel.backgroundColor = UIColor.clear
-        titleLabel.textAlignment = .center
-        titleLabel.textColor = UIColor.white
-        self.navigationItem.titleView = titleLabel;
-        
-        //NavigationBar 的背景，使用了View
-        self.navigationController?.navigationBar.alpha = 0
-//        self.navigationController!.jz_navigationBarBackgroundAlpha = 0;
-        let bgView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height))
-        
-        bgView.backgroundColor = UIColor(colorLiteralRed: 234.0/255.0, green: 74.0/255.0, blue: 70/255.0, alpha: 1.0)
-        self.view.addSubview(bgView)
-        
-        //        //改变 statusBar 颜色
-        self.navigationController?.navigationBar.barStyle = .black
-//        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
-        
         if self.reviewArr.count == 0 {
             let label = UILabel(text: "你还没有点评哦，去评论吧！")
+            label.textColor = UIColor(red:0.80, green:0.80, blue:0.80, alpha:1.00)
+            label.font = UIFont.boldSystemFont(ofSize: 19)
             label.sizeToFit()
             self.view.addSubview(label)
             label.snp.makeConstraints { make in
-                make.center.equalTo(self.view.snp.center)
+                make.centerX.equalToSuperview()
+                make.centerY.equalToSuperview().offset(-40)
             }
         }
         
@@ -49,6 +33,7 @@ class ReviewListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         //Add TableView
+        self.title = "我的评论"
         view.addSubview(tableView)
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -57,8 +42,11 @@ class ReviewListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableView.estimatedRowHeight = 130
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.separatorStyle = .none
-
+        self.tableView.snp.makeConstraints { make in
+            make.left.right.bottom.top.equalToSuperview()
+        }
     }
+    
     
     // Mark: UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -78,11 +66,17 @@ class ReviewListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
         let vc = BookDetailViewController(bookID: "\(reviewArr[indexPath.row].bookID)")
         self.navigationController?.pushViewController(vc, animated: true)
         print("Push Detail View Controller, bookID: \(reviewArr[indexPath.row].bookID)")
-        self.tableView.deselectRow(at: indexPath, animated: true)
 //        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+//        self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+//        self.navigationController?.navigationBar.shadowImage = nil
     }
     
 }

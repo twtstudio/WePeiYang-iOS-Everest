@@ -16,7 +16,8 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
     let sectionList = ["热门推荐", "热门书评", "阅读之星"]
     var headerScrollView = UIScrollView()
     let pageControl = UIPageControl()
-    var loadingView = UIView()
+    let loadingView = UIRefreshControl(frame: CGRect(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2, width: 20, height: 20))
+//    var loadingView = UIView()
     
 //    let bannerList = ["http://www.twt.edu.cn/upload/banners/hheZnqd196Te76SDF9Ww.png", "http://www.twt.edu.cn/upload/banners/ZPQqmajzKOI3A6qE7gIR.png", "http://www.twt.edu.cn/upload/banners/gJjWSlAvkGjZmdbuFtXT.jpeg"]
     
@@ -25,7 +26,6 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.navigationController?.isNavigationBarHidden = false
     }
     
     
@@ -46,9 +46,10 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func initLoadingView() {
-        loadingView = UIView(frame: CGRect(x: 0, y: 108, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-108))
+//        loadingView = UIView(frame: CGRect(x: 0, y: 108, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-108))
         loadingView.backgroundColor = .white
 //        view.addSubview(loadingView)
+//        loadingView.beginRefreshing()
 //        MsgDisplay.showLoading()
     }
     
@@ -56,7 +57,8 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
         if Recommender.shared.finishFlag.isFinished() {
             Recommender.shared.dataDidRefresh = true
             Recommender.shared.finishFlag.reset()
-            loadingView.removeFromSuperview()
+//            loadingView.endRefreshing()
+//            loadingView.removeFromSuperview()
 //            MsgDisplay.dismiss()
         }
         tableView.reloadData()
@@ -79,6 +81,10 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
 //                ])
 //            reviewList.append(foo)
 //        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -232,7 +238,8 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             let detailVC = BookDetailViewController(bookID: "\(Recommender.shared.reviewList[indexPath.row].bookID)")
-            self.navigationController?.present(detailVC, animated: true, completion: nil)
+            self.navigationController?.pushViewController(detailVC, animated: true)
+
             print("Push Detail View Controller, bookID: \(Recommender.shared.reviewList[indexPath.row].bookID)")
         }
         tableView.deselectRow(at: indexPath, animated: true)
@@ -258,7 +265,7 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
     
     func pushDetailViewController(bookID: String) {
         let detailVC = BookDetailViewController(bookID: bookID)
-        self.navigationController?.present(detailVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(detailVC, animated: true)
 //        self.navigationController?.navigationBarHidden = true
         print("Push Detail View Controller, bookID: \(bookID)")
     }

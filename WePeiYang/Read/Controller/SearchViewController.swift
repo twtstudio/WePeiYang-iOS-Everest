@@ -9,7 +9,7 @@
 
 import UIKit
 
-@objc class SearchViewController: UIViewController, SearchDelegate {
+class SearchViewController: UIViewController, SearchDelegate {
     lazy var searchView: Search = {
         return Search(frame: self.view.bounds)
     }()
@@ -22,6 +22,9 @@ import UIKit
         // self.view.addSubview(searchView)
         searchView.animate()
         searchView.delegate = self
+        self.view.backgroundColor = .black
+        self.view.alpha = 0.5
+        self.navigationController?.navigationBar.barStyle = .default
         UIApplication.shared.keyWindow?.addSubview(self.searchView)
         if self.result.count > 0 {
             searchView.result = self.result
@@ -33,12 +36,13 @@ import UIKit
     override func viewDidLoad() {
         super.viewDidLoad()
         self.searchView.searchField.becomeFirstResponder()
-        self.view.backgroundColor = UIColor.groupTableViewBackground
+//        self.view.backgroundColor = UIColor.groupTableViewBackground
     }
     
     func hideSearchView(status: Bool) {
         if status == true {
-            let _ = self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: false, completion: nil)
+//            let _ = self.navigationController?.popViewController(animated: true)
         }
     }
     

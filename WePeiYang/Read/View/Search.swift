@@ -29,31 +29,31 @@ class Search: UIView, UITableViewDelegate, UITableViewDataSource, UITextFieldDel
     
     let statusView: UIView = {
         let st = UIView.init(frame: UIApplication.shared.statusBarFrame)
-        st.backgroundColor = .black
+        st.backgroundColor = .clear
         st.alpha = 0.15
         return st
     }()
     
     lazy var searchView: UIView = {
-       let sv = UIView.init(frame: CGRect.init(x: 0, y: 0, width: self.frame.width, height: 68))
+       let sv = UIView.init(frame: CGRect.init(x: 0, y: 20, width: self.frame.width, height: 48))
         sv.backgroundColor = .white
-        sv.alpha = 0
+//        sv.alpha = 0
         return sv
     }()
     lazy var backgroundView: UIView = {
         let bv = UIView.init(frame: self.frame)
-        bv.backgroundColor = .black
-        bv.alpha = 0
+        bv.backgroundColor = .clear
+        bv.alpha = 0.5
         return bv
     }()
     lazy var backButton: UIButton = {
-       let bb = UIButton.init(frame: CGRect.init(x: 0, y: 20, width: 48, height: 48))
+       let bb = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 48, height: 48))
         bb.setBackgroundImage(UIImage.init(named: "back"), for: [])
         bb.addTarget(self, action: #selector(Search.dismiss), for: .touchUpInside)
         return bb
     }()
     lazy var searchField: UITextField = {
-        let sf = UITextField.init(frame: CGRect.init(x: 48, y: 20, width: self.frame.width - 50, height: 48))
+        let sf = UITextField.init(frame: CGRect.init(x: 48, y: 0, width: self.frame.width - 50, height: 48))
         sf.placeholder = "查询书籍在馆记录"
         sf.autocapitalizationType = .none
         sf.clearsOnBeginEditing = true
@@ -81,7 +81,7 @@ class Search: UIView, UITableViewDelegate, UITableViewDataSource, UITextFieldDel
         self.tableView.tableFooterView = UIView()
         self.tableView.backgroundColor = .clear
         self.searchField.delegate = self
-        self.addSubview(self.statusView)
+//        self.addSubview(self.statusView)
         self.addSubview(self.tableView)
         self.tableView.estimatedRowHeight = 80
         self.tableView.rowHeight = UITableViewAutomaticDimension

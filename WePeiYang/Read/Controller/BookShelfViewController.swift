@@ -11,49 +11,51 @@ import UIKit
 
 let bigiPhoneWidth: CGFloat = 375.0
 
-class BookShelfViewController: UITableViewController {
+class BookShelfViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var bookShelf: [MyBook] = []
     var label = UILabel()
+    let tableView = UITableView()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        //        self.navigationController?.navigationBar.backgroundColor = UIColor(colorLiteralRed: 234.0/255.0, green: 74.0/255.0, blue: 70/255.0, alpha: 1.0)
-        //        //titleLabel设置
-        let titleLabel = UILabel(text: "我的收藏", fontSize: 17)
-        titleLabel.backgroundColor = UIColor.clear
-        titleLabel.textAlignment = .center
-        titleLabel.textColor = UIColor.white
-        self.navigationItem.titleView = titleLabel;
-        
-        //NavigationBar 的背景，使用了View
-//        self.navigationController!.jz_navigationBarBackgroundAlpha = 0;
-        let bgView = UIView(frame: CGRect(x: 0, y: -664, width: self.view.frame.size.width, height: self.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height+600))
-        
-        bgView.backgroundColor = UIColor(colorLiteralRed: 234.0/255.0, green: 74.0/255.0, blue: 70/255.0, alpha: 1.0)
-        self.view.addSubview(bgView)
-        
-        //        //改变 statusBar 颜色
-        self.navigationController?.navigationBar.barStyle = .black
-//        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
-        self.bookShelf = User.shared.bookShelf
-        addNoBookLabel()
-
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "我的收藏"
+        self.view.addSubview(tableView)
+        self.tableView.snp.makeConstraints { make in
+            make.left.right.bottom.top.equalToSuperview()
+        }
+        tableView.delegate = self
+        tableView.dataSource = self
         self.tableView.tableFooterView = UIView()
         self.tableView.separatorStyle = .none
+        self.bookShelf = User.shared.bookShelf
+        addNoBookLabel()
+        let rightItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(self.editingStateOnChange(sender:)))
+        self.navigationItem.rightBarButtonItem = rightItem
     }
     
+    func editingStateOnChange(sender: UIBarButtonItem) {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        if tableView.isEditing {
+            self.navigationItem.rightBarButtonItem?.title = "完成"
+        } else {
+            self.navigationItem.rightBarButtonItem?.title = "编辑"
+        }
+    }
+
     func addNoBookLabel() {
         if self.bookShelf.count == 0 {
             label.text = "你还没有收藏哦，快去添加收藏吧！"
+            label.textColor = UIColor(red:0.80, green:0.80, blue:0.80, alpha:1.00)
+            label.font = UIFont.boldSystemFont(ofSize: 19)
             label.sizeToFit()
             self.view.addSubview(label)
             label.snp.makeConstraints { make in
-                make.center.equalTo(self.view.snp.center)
+                make.centerX.equalToSuperview()
+                make.centerY.equalToSuperview().offset(-40)
             }
         } else {
             label.removeFromSuperview()
@@ -61,15 +63,15 @@ class BookShelfViewController: UITableViewController {
     }
     
     // Mark: UITableViewDataSource
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return bookShelf.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell1")
         cell.textLabel?.text = self.bookShelf[indexPath.row].title
 //        cell.textLabel?.font = UIFont.systemFont(ofSize: 13)
@@ -102,7 +104,7 @@ class BookShelfViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             User.shared.delFavorite(id: "\(self.bookShelf[indexPath.row].id)") {
                 self.bookShelf.remove(at: indexPath.row)
@@ -114,15 +116,19 @@ class BookShelfViewController: UITableViewController {
     }
     
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = BookDetailViewController(bookID: "\(self.bookShelf[indexPath.row].id)")
-        self.navigationController?.show(vc, sender: nil)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let vc = BookDetailViewController(bookID: "\(self.bookShelf[indexPath.row].id)")
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
 }
 

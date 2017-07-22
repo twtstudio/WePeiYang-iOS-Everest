@@ -27,7 +27,7 @@ class ReviewCell: UITableViewCell {
     convenience init(model: Review) {
         self.init()
         // bookName
-        self.content.attributedText = attributedString(title: model.bookName, content: model.content)
+        self.content.attributedText = attributedString(title: model.title, content: model.content)
         // FIXME: image
 //        self.avatar.setImageWithURL(NSURL(string: model.avatarURL)!, placeholderImage: UIImage(named: "readerAvatar1"))
         //self.like.text = model.like

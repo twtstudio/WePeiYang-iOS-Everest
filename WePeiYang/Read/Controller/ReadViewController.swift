@@ -10,16 +10,15 @@ import UIKit
 import WMPageController
 
 class ReadViewController: WMPageController {
-    
-//    init() {
-//        super.init(viewControllerClasses: [RecommendedViewController.self, InfoViewController.self], andTheirTitles: ["推荐", "我的"])
-//    }
-//    let classes = [RecommendedViewController.self, InfoViewController.self]
     let readTitles = ["推荐", "我的"]
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .readRed), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.barStyle = .black
     }
     
     override func viewDidLoad() {
@@ -45,13 +44,16 @@ class ReadViewController: WMPageController {
         
         let item = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(pushSearchViewController))
         self.navigationItem.rightBarButtonItem = item
+        
+        title = "阅读"
         // Do any additional setup after loading the view.
     }
     
     func pushSearchViewController() {
         let svc = SearchViewController()
         svc.view.bounds = self.view.bounds
-        self.navigationController?.pushViewController(svc, animated: true)
+        svc.modalPresentationStyle = .overCurrentContext
+        self.present(svc, animated: false, completion: nil)
     }
 
     override func numbersOfChildControllers(in pageController: WMPageController) -> Int {
@@ -70,6 +72,7 @@ class ReadViewController: WMPageController {
         }
     }
     
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -77,6 +80,10 @@ class ReadViewController: WMPageController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.barStyle = .default
+        self.navigationController?.navigationBar.isTranslucent = UINavigationBar.appearance().isTranslucent
+        self.navigationController?.navigationBar.shadowImage = UINavigationBar.appearance().shadowImage
+//        self.navigationController?.navigationBar.barStyle = .default
+//        self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+//        self.navigationController?.navigationBar.shadowImage = nil
     }
 }
