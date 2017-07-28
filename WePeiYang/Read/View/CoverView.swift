@@ -113,7 +113,7 @@ class CoverView: UIView {
         
 //        let fuckStr = book.coverURL.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
         let fuckStr = book.coverURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let fuckURL = URL(string: fuckStr)
+        _ = URL(string: fuckStr)
 //        let imageRequest = NSURLRequest(url: fuckURL!)
         
         // FIXME: image

@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Fallback on earlier versions
         }
 //        window?.backgroundColor = .white
-        window?.rootViewController = UINavigationController(rootViewController: ReadViewController())
+        window?.rootViewController = mainTabVC //UINavigationController(rootViewController: mainTabVC)
         window?.makeKeyAndVisible()
             
         return true
