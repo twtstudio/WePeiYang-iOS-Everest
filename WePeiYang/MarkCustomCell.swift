@@ -17,6 +17,7 @@ class MarkCustomCell: UITableViewCell {
     
     let buttonArray = ["身份证","饭卡","手机","钥匙","书包","手表&饰品","U盘&硬盘","水杯","钱包","银行卡","书","伞","其他"]
     let types = ["1", "2", "3","4","5","6","7","8","9","10","11","12","13"]
+    var functionDic:[Int : Array<String>] = [:]
     var buttonAllArray:[UIButton] = []
     let label = UILabel()
     
@@ -109,39 +110,48 @@ class MarkCustomCell: UITableViewCell {
     }
  
     func buttonTapped(sender: UIButton) {
-//        var buttonCount = 0
-//        buttonSeccen += 1
-//        buttonCount = buttonSeccen % 2
+        
         
         if let title = sender.titleLabel?.text {
-        
+            
             if let index =  buttonArray.index(of: title) {
-
                 
+                print(index)
                 print(types[index])
                 
                 self.delegate?.means(input: types[index], key: "detail_type")
+                switch types[index] {
+                case "1":
+                    self.delegate?.function[2] = ["卡号","姓名"]
+                case "2":
+                    self.delegate?.function[2] = ["卡号","姓名"]
+                case "10":
+                    self.delegate?.function[2] = ["卡号","姓名"]
+                default:
+                    self.delegate?.function[2] = []
+                    
+                }
+                
+                //                functionDic = (self.delegate?.function)!
+                //                print(functionDic)
+                
+                print(self.delegate?.function)
                 
                 for indexAll in buttonAllArray
                 {
                     indexAll.backgroundColor = UIColor(hex6: 0xd9d9d9)
                     indexAll.setTitleColor(.black, for: .normal)
                     
-                
+                    
                 }
                 
-//                if buttonCount != 0 {
                 sender.backgroundColor = UIColor(hex6: 0x00a1e9)
                 sender.setTitleColor(.white, for: .normal)
-                    
-//                }else {
-//                    sender.backgroundColor = UIColor(hex6: 0xd9d9d9)
-//                    sender.setTitleColor(.black, for: .normal)
-//                    
                 
-//                }
+                
             }
         }
+        self.delegate?.tableView.reloadData()
         
     }
 

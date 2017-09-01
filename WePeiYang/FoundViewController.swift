@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 
 class FoundViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
@@ -15,6 +16,10 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
     let layout = UICollectionViewFlowLayout()
     var foundList: [LostFoundModel] = []
     let TWT_URL = "http://open.twtstudio.com/"
+    let footer = MJRefreshAutoNormalFooter()
+    let header = MJRefreshNormalHeader()
+    var curPage : Int = 1
+    
     
 
     
@@ -28,7 +33,7 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         //        layout.minimumInteritemSpacing = 20
         layout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
 
-        foundView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height), collectionViewLayout: layout)
+        foundView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height-110), collectionViewLayout: layout)
         
         foundView.register(LostFoundCollectionViewCell.self, forCellWithReuseIdentifier: "foundCell")
         
@@ -39,13 +44,16 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         self.view.addSubview(foundView)
         refresh()
+        self.foundView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
+        self.foundView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
+        self.foundView.mj_footer.isAutomaticallyHidden = true
         
         
         
     }
     
     func refresh() {
-        GetFoundAPI.getFound(success: { (founds) in
+        GetFoundAPI.getFound(page: curPage, success: { (founds) in
             self.foundList = founds
             self.foundView.reloadData()
         
@@ -55,6 +63,47 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         })
     }
     
+    //底部上拉加载
+    func footerLoad() {
+        print("上拉加载")
+        self.curPage += 1
+        GetFoundAPI.getFound(page: curPage, success: { (losts) in
+            self.foundList += losts
+            
+            self.foundView.mj_footer.endRefreshing()
+            self.foundView.reloadData()
+            
+        }, failure: { error in
+            print(error)
+            
+            
+        })
+        self.foundView.reloadData()
+    }
+    
+    //顶部下拉刷新
+    func headerRefresh(){
+        print("下拉刷新.")
+        
+        self.curPage = 1
+        GetFoundAPI.getFound(page: 1, success: { (losts) in
+            self.foundList = losts
+            print(self.foundList)
+            
+            //结束刷新
+            self.foundView.mj_header.endRefreshing()
+            self.foundView.reloadData()
+            
+            
+            
+        }, failure: { error in
+            print(error)
+            
+        })
+        
+        
+        
+    }
 
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        
@@ -70,6 +119,15 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
+    }
+    //某个Cell被选择的事件处理
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        let id = foundList[indexPath.row].id
+        let detailVC = DetailViewController()
+        detailVC.id = id
+        self.navigationController?.pushViewController(detailVC, animated: true)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{

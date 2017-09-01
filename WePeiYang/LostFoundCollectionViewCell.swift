@@ -15,7 +15,7 @@ import SDWebImage
 class LostFoundCollectionViewCell: UICollectionViewCell {
     
     var titleLabel = UILabel()
-    var nameLabel = UILabel()
+    var markLabel = UILabel()
     var timeLabel = UILabel()
     var placeLabel = UILabel()
     var pictureImage = UIImageView()
@@ -35,7 +35,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
         self.backgroundColor = UIColor.white
         
         self.addSubview(titleLabel)
-        self.addSubview(nameLabel)
+        self.addSubview(markLabel)
         self.addSubview(timeLabel)
         self.addSubview(placeLabel)
         self.addSubview(pictureImage)
@@ -77,12 +77,41 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
             make.bottom.equalTo(markImage.snp.top).offset(-5)
             
         }
-        
-        nameLabel.text = "\(mark)"
-        nameLabel.numberOfLines = 0
-        nameLabel.font = UIFont.systemFont(ofSize: 13)
-        nameLabel.textColor = UIColor(hex6: 0x999999)
-        nameLabel.snp.makeConstraints{
+        switch mark {
+        case 1:
+            markLabel.text = "身份证"
+        case 2:
+            markLabel.text = "饭卡"
+        case 3:
+            markLabel.text = "手机"
+        case 4:
+            markLabel.text = "钥匙"
+        case 5:
+            markLabel.text = "书包"
+        case 6:
+            markLabel.text = "手表&饰品"
+        case 7:
+            markLabel.text = "水杯"
+        case 8:
+            markLabel.text = "U盘&硬盘"
+        case 9:
+            markLabel.text = "钱包"
+        case 10:
+            markLabel.text = "银行卡"
+        case 11:
+            markLabel.text = "书"
+        case 12:
+            markLabel.text = "伞"
+        case 13:
+            markLabel.text = "其他"
+        default:
+            markLabel.text = ""
+        }
+//        markLabel.text = "\(mark)"
+        markLabel.numberOfLines = 0
+        markLabel.font = UIFont.systemFont(ofSize: 13)
+        markLabel.textColor = UIColor(hex6: 0x999999)
+        markLabel.snp.makeConstraints{
             
             make in
             make.top.equalTo(titleLabel.snp.bottom).offset(5)
@@ -90,6 +119,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
             make.bottom.equalTo(timeLabel.snp.top).offset(-5)
             
         }
+        
         markImage.image = #imageLiteral(resourceName: "物品")
         markImage.snp.makeConstraints{
             
@@ -117,7 +147,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
         timeLabel.snp.makeConstraints{
             
             make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(5)
+            make.top.equalTo(markLabel.snp.bottom).offset(5)
             make.left.equalTo(timeImage.snp.right).offset(10)
         }
         

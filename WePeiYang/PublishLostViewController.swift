@@ -12,14 +12,23 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     
     var tableView: UITableView!;
     var markDic:[String: String] = [:]
+    var mark: MarkCustomCell!
     
+//    var function = [
+//        0: ["添加图片"],
+//        1: ["标题","时间","地点"],
+//        2: [],
+//        3: ["姓名","联系电话"],
+//        4: ["物品描述"],
+//        5: ["刊登时长"]
+//    ]
     var function = [
-        0: ["添加图片"],
-        1: ["标题","时间","地点"],
-        2: ["卡号","姓名"],
-        3: ["姓名","联系电话"],
-        4: ["物品描述"],
-        5: ["刊登时长"]
+        ["添加图片"],
+        ["标题","时间","地点"],
+        [],
+        ["姓名","联系电话"],
+        ["物品描述"],
+        ["刊登时长"]
     ]
     
     var text = [
@@ -75,14 +84,17 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).font = UIFont.systemFont(ofSize: 15)
         
         
-        
-        
+        let headerMark = MarkCustomCell()
+        headerMark.enumerated()
+        headerMark.label.text = "类型"
+        headerMark.delegate = self
+        mark = headerMark
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         let data = self.function[section];
-        return data!.count;
+        return data.count;
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -102,11 +114,10 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         case 1:
             header.label.text = "详细信息"
         case 2:
-            let headerMark = MarkCustomCell()
-            headerMark.enumerated()
-            headerMark.label.text = "类型"
-            headerMark.delegate = self
-            return headerMark
+            
+            
+            
+            return mark
         case 3:
             header.label.text = "联系方式"
         case 4:
@@ -154,9 +165,22 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             return cell
             
         default:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "PublishLostCell" + "\(indexPath)") {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "PublishLostCell" + "\(indexPath)") as? PublishCustomCell {
 //                tableView.dequeueReusableCell(withIdentifier: , for: indexPath) as? PublishCustomCell {
+                cell.selectionStyle = UITableViewCellSelectionStyle.none;
+                cell.textField.placeholder = text[indexPath.section]?[indexPath.row]
+                cell.textField.becomeFirstResponder();
+                cell.textField.returnKeyType = .done;
+                cell.textField.adjustsFontSizeToFitWidth = true;
+                cell.textField.minimumFontSize = 14;
+                cell.textField.delegate = cell;
+                cell.textField.resignFirstResponder();
+                cell.delegate = self
+                
+                cell.cellkey = returnKeys[indexPath.section]?[indexPath.row]
+                cell.textLabel?.text = function[indexPath.section][indexPath.row];
                 return cell
+                
             } else {
                 let cell = PublishCustomCell(style: .default, reuseIdentifier: "PublishLostCell" + "\(indexPath)")
                 cell.selectionStyle = UITableViewCellSelectionStyle.none;
@@ -182,37 +206,37 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
                 
                 
                 
-                cell.textLabel?.text = function[indexPath.section]?[indexPath.row];
+                cell.textLabel?.text = function[indexPath.section][indexPath.row];
                 
                 return cell;
             }
             
-            let cell = PublishCustomCell()
-            cell.selectionStyle = UITableViewCellSelectionStyle.none;
-            cell.textField.placeholder = text[indexPath.section]?[indexPath.row]
-            cell.textField.becomeFirstResponder();
-            cell.textField.returnKeyType = .done;
-            cell.textField.adjustsFontSizeToFitWidth = true;
-            cell.textField.minimumFontSize = 14;
-            cell.textField.delegate = cell;
-            cell.textField.resignFirstResponder();
-            cell.delegate = self
-            
-            cell.cellkey = returnKeys[indexPath.section]?[indexPath.row]
-            
-            
-            
+//            let cell = PublishCustomCell()
+//            cell.selectionStyle = UITableViewCellSelectionStyle.none;
+//            cell.textField.placeholder = text[indexPath.section]?[indexPath.row]
+//            cell.textField.becomeFirstResponder();
+//            cell.textField.returnKeyType = .done;
+//            cell.textField.adjustsFontSizeToFitWidth = true;
+//            cell.textField.minimumFontSize = 14;
+//            cell.textField.delegate = cell;
+//            cell.textField.resignFirstResponder();
+//            cell.delegate = self
+//            
+//            cell.cellkey = returnKeys[indexPath.section]?[indexPath.row]
+
             
             
             
             
-            //             cell.delegate?.fangfa(input: cell.textField.text, key: cell.cellkey)
+            
+            
+//             cell.delegate?.fangfa(input: cell.textField.text, key: cell.cellkey)
             
             
             
-            cell.textLabel?.text = function[indexPath.section]?[indexPath.row];
-            
-            return cell;
+//            cell.textLabel?.text = function[indexPath.section][indexPath.row];
+//            
+//            return cell;
             
             
         }
@@ -220,6 +244,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         
         
     }
+    
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
@@ -254,7 +279,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tapped(){
         
-        print("yyyy")
+        print("Release success")
         print(markDic)
         //        LostAPI.fabu(markdic: markdic, success: {
         //            _ in
@@ -264,7 +289,8 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             let successVC = PublishSuccessViewController()
             self.navigationController?.pushViewController(successVC, animated: true)
         }, failure: { error in
-            print(error) })
+            print(error)
+        })
         
         
     }

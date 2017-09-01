@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import MJRefresh
 
 class LostViewController: UIViewController, UIPageViewControllerDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
 
@@ -16,13 +17,17 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     let layout = UICollectionViewFlowLayout()
     var lostList: [LostFoundModel] = []
     let TWT_URL = "http://open.twtstudio.com/"
+    let footer = MJRefreshAutoNormalFooter()
+    let header = MJRefreshNormalHeader()
+    var curPage: Int = 1
+
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        lostView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height), collectionViewLayout: layout)
+        lostView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height-110), collectionViewLayout: layout)
         
         lostView.register(LostFoundCollectionViewCell.self, forCellWithReuseIdentifier: "lostCell")
         
@@ -48,12 +53,19 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
 //        button.setTitle("禁用状态", for: .disabled)
         button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
         refresh()
-
+//        header.setRefreshingTarget(self, refreshingAction: #selector(LostViewController.headerRefresh))
+//        
+//        footer.setRefreshingTarget(self, refreshingAction: #selector(LostViewController.footerLoad))
+//        footer.isAutomaticallyHidden = true
+        self.lostView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
+        self.lostView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
+        self.lostView.mj_footer.isAutomaticallyHidden = true
+        
         }
     
     
     func refresh() {
-         GetLostAPI.getLost(success: { (losts) in
+        GetLostAPI.getLost(page: curPage, success: { (losts) in
             self.lostList = losts
             self.lostView.reloadData()
         }
@@ -72,10 +84,56 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     
     }
     
+    //底部上拉加载
+    func footerLoad() {
+        print("上拉加载")
+        self.curPage += 1
+        GetLostAPI.getLost(page: curPage, success: { (losts) in
+            self.lostList += losts
+
+            self.lostView.mj_footer.endRefreshing()
+            self.lostView.reloadData()
+        
+        }, failure: { error in
+            print(error)
+        
+        
+        })
+            self.lostView.reloadData()
+    }
+    
+    //顶部下拉刷新
+    func headerRefresh(){
+        print("下拉刷新.")
+        
+        self.curPage = 1
+        GetLostAPI.getLost(page: 1, success: { (losts) in
+            self.lostList = losts
+            print(self.lostList)
+
+            //结束刷新
+            self.lostView.mj_header.endRefreshing()
+            self.lostView.reloadData()
+            
+            
+        
+        }, failure: { error in
+            print(error)
+        
+        })
+
+
+
+    }
+    
+    
+    
     //某个Cell被选择的事件处理
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
+        let id = lostList[indexPath.row].id
         let detailVC = DetailViewController()
+        detailVC.id = id
         self.navigationController?.pushViewController(detailVC, animated: true)
         
     }

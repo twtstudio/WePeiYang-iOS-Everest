@@ -21,9 +21,11 @@ class GetLostAPI{
 //
 //    
 //} 
-   static func getLost(success: @escaping ([LostFoundModel])->(), failure: (Error)->()) {
-    SolaSessionManager.solaSession(url: "/lostfound/lost",success: {
+    static func getLost(page: Int, success: @escaping ([LostFoundModel])->(), failure: (Error)->()) {
+    SolaSessionManager.solaSession(url: "/lostfound/lost?page=\(page)",success: {
         dic in
+        
+        print(page)
         if let lostData = dic["data"] as? [[String : Any]]
         {
             var losts = [LostFoundModel]()
@@ -57,9 +59,10 @@ class GetLostAPI{
 
 class GetFoundAPI {
     
-    static func getFound(success: @escaping ([LostFoundModel])->(), failure: (Error)->()) {
-        SolaSessionManager.solaSession(url: "/lostfound/found",success: {
+    static func getFound(page: Int, success: @escaping ([LostFoundModel])->(), failure: (Error)->()) {
+        SolaSessionManager.solaSession(url: "/lostfound/found?page=\(page)",success: {
             dic in
+            print(page)
             if let foundData = dic["data"] as? [[String : Any]]
             {
                 var founds = [LostFoundModel]()
@@ -123,6 +126,54 @@ class GetMyLostAPI {
         })
     }
 }
+
+class DetailAPI {
+//    var id = 0
+    var detailDisplay: [Any] = []
+    func getDetail(id: Int, success: @escaping ([LostFoundDetailModel])->(), failure: (Error)->()) {
+        SolaSessionManager.solaSession(url: ("/lostfound/"+"\(id)"),success: {
+            dic in
+            print(dic)
+            if let detailData = dic["data"] as? [String : Any] {
+                
+                var details = [LostFoundDetailModel]()
+                for (key, value) in detailData {
+                    
+                    let detail_type = detailData["detail_type"] as? Int ?? 0
+                    let time = detailData["time"] as? String ?? ""
+                    let title = detailData["title"] as? String ?? ""
+                    let picture =  detailData["picture"] as? String ?? ""
+                    let place = detailData["place"] as? String ?? ""
+                    let id = detailData["id"] as? Int ?? 0
+                    let name = detailData["name"] as? String ?? ""
+                    let phone = detailData["phone"] as? String ?? ""
+                    let item_description = detailData["item_description"] as? String ?? ""
+                    let card_name = detailData["card_name"] as? String ?? ""
+                    let card_number = detailData["card_number"] as? Int ?? 0
+                    let publish_start = detailData["publish_start"] as? String ?? ""
+                    let publish_end = detailData["publish_end"] as? String ?? ""
+                    let other_tag = detailData["other_tag"] as? String ?? ""
+                    let type = detailData["type"] as? Int ?? 0
+                    
+                    
+                    
+                    let lostFoundDetailModel = LostFoundDetailModel(id: id, name: name, title: title, place: place, phone: phone, time: time, picture: picture, item_description: item_description, card_name: card_name, card_number: card_number, publish_start: publish_start, publish_end: publish_end, other_tag: other_tag, type: type, detail_type: detail_type)
+                    self.detailDisplay = [time, place, detail_type, name, phone, item_description ]
+                    print(self.detailDisplay)
+                    details.append(lostFoundDetailModel)
+
+                    
+                }
+                success(details)
+            }
+            
+        } ,failure: { err in
+            print(err)
+            
+        })
+    }
+}
+
 
 
 class PostLostAPI {
