@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Photos
+
 
 class PublishLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate{
     
@@ -151,6 +153,52 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            self.modalPresentationStyle = .overCurrentContext
+            let alertVC = UIAlertController()
+            alertVC.view.tintColor = UIColor.black
+            let pictureAction = UIAlertAction(title: "从相册中选择图片", style: .default) { _ in
+                if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+                    
+                let imagePicker = UIImagePickerController()
+                    imagePicker.delegate = self
+                    imagePicker.allowsEditing = true
+                    imagePicker.sourceType = .savedPhotosAlbum
+                    self.present(imagePicker, animated: true) {
+                    
+                    }
+                }
+            }
+            let photoAction = UIAlertAction(title: "拍照", style: .destructive) { _ in
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    
+                    let imagePicker = UIImagePickerController()
+                    imagePicker.delegate = self
+                    imagePicker.allowsEditing = true
+                    imagePicker.sourceType = .camera
+                    self.present(imagePicker, animated: true) {
+                    
+                    }
+                }
+            }
+            let detailAction = UIAlertAction(title: "查看大图", style: .default) { _ in
+                
+            }
+            let cencelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+            alertVC.addAction(photoAction)
+            alertVC.addAction(pictureAction)
+            alertVC.addAction(cencelAction)
+            self.present(alertVC, animated: true) {
+                print("foo")
+                }
+            
+        default:
+            break
+        }
+    }
+    
     
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
@@ -159,6 +207,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         switch (indexPath.section) {
         case 0:
             let cell = UpLoadingPicCell()
+            
             
             
             
@@ -322,13 +371,16 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         
         
         markDic[key] = input
-        //        markdic["detail_type"] = "2"
+        markDic["other_tag"] = ""
         
     }
     
     
-    
-    
-    
-    
+}
+extension PublishLostViewController: UIImagePickerControllerDelegate {
+
+}
+
+extension PublishLostViewController: UINavigationControllerDelegate {
+
 }

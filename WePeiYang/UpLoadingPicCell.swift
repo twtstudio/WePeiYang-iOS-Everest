@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class UpLoadingPicCell: UITableViewCell {
     
@@ -22,6 +23,20 @@ class UpLoadingPicCell: UITableViewCell {
             newFrame.size.width = newFrame.size.height + 5;
 
             super.frame = newFrame;
+            
+            let addPictureImage = UIImageView()
+            self.addSubview(addPictureImage)
+            addPictureImage.image = UIImage(named: "add")
+            addPictureImage.snp.makeConstraints {
+                make in
+                make.top.equalToSuperview().offset(0.1)
+                make.left.equalToSuperview().offset(0.1)
+                make.bottom.equalToSuperview().offset(-0.1)
+                make.right.equalToSuperview().offset(-0.1)
+                make.width.height.equalTo(contentView.bounds.width*(1/10))
+            
+            }
+            
         }
         // Initialization code
     }
