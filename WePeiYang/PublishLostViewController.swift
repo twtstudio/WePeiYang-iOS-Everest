@@ -208,6 +208,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         case 0:
             let cell = UpLoadingPicCell()
             
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
             
             
             
@@ -374,10 +375,20 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         markDic["other_tag"] = ""
         
     }
-    
+ 
     
 }
 extension PublishLostViewController: UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+
+            
+        }
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
 
 }
 

@@ -63,7 +63,13 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         textField.resignFirstResponder()
+
+    
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.endEditing(true)
+    }
+
 
 
 }
