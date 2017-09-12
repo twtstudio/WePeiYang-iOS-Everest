@@ -47,7 +47,7 @@ class MarkCustomCell: UITableViewCell {
 //            totalLength = currentLength
             // 50 margin
         
-            if currentLength + buttonWidth <= self.frame.size.width-50 {
+            if currentLength  <= self.frame.size.width-80 {
             
                 let button = UIButton(frame: CGRect(x: currentX, y: currentY, width: currenWidth, height: 30))
                 

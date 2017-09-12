@@ -161,6 +161,7 @@ class DetailViewController: UIViewController {
         
         let vc = UIActivityViewController(activityItems: [UIImage(named: "暂无图片")!, "[失物招领]", URL(string: "https://open.twtstudio.com/lostfound/detail.html#\(id)")!], applicationActivities: [])
         present(vc, animated: true, completion: nil)
+        print("https://open.twtstudio.com/lostfound/detail.html#\(id)")
     }
     
     override func didReceiveMemoryWarning() {

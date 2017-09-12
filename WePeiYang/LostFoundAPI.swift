@@ -176,9 +176,13 @@ class DetailAPI {
 
 class GetSearchAPI {
     
-    static func getSearch(inputText: String, page: Int,success: @escaping ([LostFoundModel])->(), failure: (Error)->()) {
+
     
-        SolaSessionManager.solaSession(type: .get, url: "/lostfound/search?keyword=\(inputText)&page=\(page)", success: { dic in
+    static func getSearch(inputText: String, page: Int,success: @escaping ([LostFoundModel])->(), failure: (Error)->()) {
+        
+        let utf8Text = "/lostfound/search?keyword=\(inputText)&page=\(page)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        print(utf8Text)
+        SolaSessionManager.solaSession(type: .get, url: utf8Text, success: { dic in
             print(dic)
             if let searchData = dic["data"] as? [[String: Any]] {
                 
@@ -221,4 +225,23 @@ class PostLostAPI {
     
     }
 
+}
+
+class GetInverseAPI {
+    
+    static func getInverse(id: Int, success: @escaping (String)->(), failure: (Error)->()){
+        SolaSessionManager.solaSession(type: .get, url: "/lostfound/inverse/\(id)", success: { dic in
+            print(dic)
+            
+        
+        
+        }, failure: { err in
+            print(err)
+        
+        
+        })
+
+    }
+    
+    
 }
