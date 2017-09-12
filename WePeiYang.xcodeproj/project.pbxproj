@@ -27,6 +27,7 @@
 		0C2FECDE1F1A50870062087E /* SectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2FECCA1F1A50870062087E /* SectionCell.swift */; };
 		0C2FECDF1F1A50870062087E /* UpLoadingPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2FECCB1F1A50870062087E /* UpLoadingPicCell.swift */; };
 		0CD6691A1F1F35C9004893F7 /* PublishSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD669191F1F35C9004893F7 /* PublishSuccessViewController.swift */; };
+		0CE6293C1F66ABE8001E06BB /* SearchedResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE6293B1F66ABE8001E06BB /* SearchedResultViewController.swift */; };
 		0CFBCD571F1CD24F00F024D8 /* LostFoundCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFBCD561F1CD24F00F024D8 /* LostFoundCollectionViewCell.swift */; };
 		3631D5001F18FA8C0078816D /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D4FF1F18FA8C0078816D /* ScoreHeaderView.swift */; };
 		3631D5021F18FD210078816D /* GPAClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5011F18FD210078816D /* GPAClassModel.swift */; };
@@ -118,6 +119,7 @@
 		0C2FECCA1F1A50870062087E /* SectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionCell.swift; sourceTree = "<group>"; };
 		0C2FECCB1F1A50870062087E /* UpLoadingPicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpLoadingPicCell.swift; sourceTree = "<group>"; };
 		0CD669191F1F35C9004893F7 /* PublishSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishSuccessViewController.swift; sourceTree = "<group>"; };
+		0CE6293B1F66ABE8001E06BB /* SearchedResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedResultViewController.swift; sourceTree = "<group>"; };
 		0CFBCD561F1CD24F00F024D8 /* LostFoundCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundCollectionViewCell.swift; sourceTree = "<group>"; };
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3631D4FF1F18FA8C0078816D /* ScoreHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
@@ -213,15 +215,16 @@
 		0CFBCD511F1B606100F024D8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0CE6293B1F66ABE8001E06BB /* SearchedResultViewController.swift */,
 				0C2FECC81F1A50870062087E /* SearchViewController.swift */,
-				0C2FECC71F1A50870062087E /* PublishLostViewController.swift */,
-				0C2FECC51F1A50870062087E /* MyLostViewController.swift */,
 				0C2FECC31F1A50870062087E /* MyLostFoundPageViewController.swift */,
-				0C2FECBF1F1A50870062087E /* LostViewController.swift */,
+				0C2FECC51F1A50870062087E /* MyLostViewController.swift */,
+				0C2FECC11F1A50870062087E /* MyFoundViewController.swift */,
 				0C2FECBE1F1A50870062087E /* LostFoundPageControllerViewController.swift */,
+				0C2FECBF1F1A50870062087E /* LostViewController.swift */,
 				0C2FECB91F1A50870062087E /* FoundViewController.swift */,
 				0C2FECB81F1A50870062087E /* DetailViewController.swift */,
-				0C2FECC11F1A50870062087E /* MyFoundViewController.swift */,
+				0C2FECC71F1A50870062087E /* PublishLostViewController.swift */,
 				0CD669191F1F35C9004893F7 /* PublishSuccessViewController.swift */,
 			);
 			name = Controller;
@@ -630,7 +633,7 @@
 				TargetAttributes = {
 					B19DAB851E6EF5C2004A50B5 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = TYRRVX7RWJ;
+						DevelopmentTeam = 3H9L8F5742;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
@@ -842,6 +845,7 @@
 				B10253DC1EC84ED20064373A /* Review.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
 				0C2FECCF1F1A50870062087E /* LostFoundCollectionViewCellDemo.swift in Sources */,
+				0CE6293C1F66ABE8001E06BB /* SearchedResultViewController.swift in Sources */,
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
 				3631D5081F19033F0078816D /* GPASessionManager.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
@@ -1002,11 +1006,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
+				DEVELOPMENT_TEAM = 3H9L8F5742;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WePeiYang;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WePeiYang.Hado;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYang/WePeiYang-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1020,11 +1024,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
+				DEVELOPMENT_TEAM = 3H9L8F5742;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WePeiYang;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WePeiYang.Hado;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYang/WePeiYang-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

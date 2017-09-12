@@ -59,7 +59,7 @@ struct SolaSessionManager {
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent
         
-        TwTUser.shared.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjc4NjksImlzcyI6Imh0dHA6XC9cL29wZW4udHd0c3R1ZGlvLmNvbVwvYXBpXC92MVwvYXV0aFwvdG9rZW5cL2dldCIsImlhdCI6MTUwNDIzNDQyMCwiZXhwIjoxNTA0ODM5MjIwLCJuYmYiOjE1MDQyMzQ0MjAsImp0aSI6IjE2ZDM4NTU1NDU0MWM1ZGU1MTk2NGUwNmY0MzI3OWQ4In0.5gF3nye2DwIoFm3ShuTwZDv7lBZq5MsKlxFSOJPg-8c"
+        TwTUser.shared.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjc4NjksImlzcyI6Imh0dHA6XC9cL29wZW4udHd0c3R1ZGlvLmNvbVwvYXBpXC92MVwvYXV0aFwvdG9rZW5cL3JlZnJlc2giLCJpYXQiOjE1MDQyMzQ0MjAsImV4cCI6MTUwNTQ2MTcxNCwibmJmIjoxNTA0ODU2OTE0LCJqdGkiOiJmZjgwZmIxNDMxMGRiNzRhN2ExNTRiM2ZlODYxZjRlYiJ9.T6ynlh9Oe-7Z-V3o2XNi7I1foYwfdlshOsU6QgdJ58E"
         if let twtToken = TwTUser.shared.token {
             headers["Authorization"] = "Bearer {\(twtToken)}"
         } else {

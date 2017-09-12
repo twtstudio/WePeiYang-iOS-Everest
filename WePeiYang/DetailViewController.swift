@@ -43,6 +43,7 @@ class DetailViewController: UIViewController {
 //        detailImageView.image = UIImage(named: dic["time"]!)
 //        detailTitleLabel.backgroundColor = .black
         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
         self.view.addSubview(detailImageView)
         self.view.addSubview(detailTitleLabel)
         print(id)
@@ -155,6 +156,13 @@ class DetailViewController: UIViewController {
 //        }
 //        
 //    }
+    // Mark - Share
+    func share() {
+        
+        let vc = UIActivityViewController(activityItems: [UIImage(named: "暂无图片")!, "[失物招领]", URL(string: "https://open.twtstudio.com/lostfound/detail.html#\(id)")!], applicationActivities: [])
+        present(vc, animated: true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

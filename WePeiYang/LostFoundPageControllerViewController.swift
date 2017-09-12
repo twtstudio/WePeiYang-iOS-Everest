@@ -82,10 +82,10 @@ class LostFoundPageViewController: WMPageController {
     }
     
     func searchButton(item: UIBarButtonItem) {
-//        let vc = SearchViewController()
-//        self.navigationController?.pushViewController(vc, animated: true)
-        let successVC = PublishSuccessViewController()
-        self.navigationController?.pushViewController(successVC, animated: true)
+        let vc = SearchViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+//        let successVC = PublishSuccessViewController()
+//        self.navigationController?.pushViewController(successVC, animated: true)
     }
     
     

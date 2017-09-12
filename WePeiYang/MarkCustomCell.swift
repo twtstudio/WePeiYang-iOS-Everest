@@ -23,7 +23,7 @@ class MarkCustomCell: UITableViewCell {
     
     let currenWidth: CGFloat = 40
     
-    var totalLength: CGFloat = 0
+//    var totalLength: CGFloat = 0
     var currentLength: CGFloat = 0
     
     var buttonSeccen = 0
@@ -40,14 +40,16 @@ class MarkCustomCell: UITableViewCell {
 
         func enumerated(){
         
-        for (index, name) in buttonArray.enumerated(){
+        for (index, name) in buttonArray.enumerated() {
         
             
 
-            totalLength = currentLength
-            if totalLength <= self.frame.size.width-80{
+//            totalLength = currentLength
+            // 50 margin
+        
+            if currentLength + buttonWidth <= self.frame.size.width-50 {
             
-                let button = UIButton(frame: CGRect(x: currentX, y: currentY, width: currenWidth ,  height: 30))
+                let button = UIButton(frame: CGRect(x: currentX, y: currentY, width: currenWidth, height: 30))
                 
                 button.setTitle(name, for: .normal)
                 button.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
@@ -60,7 +62,7 @@ class MarkCustomCell: UITableViewCell {
                 button.sizeToFit()
 
                 currentLength = currentLength + button.frame.size.width+25
-                currentX =  currentX + button.frame.size.width+25
+                currentX = currentX + button.frame.size.width+25
                button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
                 
                 
@@ -88,9 +90,9 @@ class MarkCustomCell: UITableViewCell {
 
                 button.sizeToFit()
                 button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-                totalLength = 0
+//                totalLength = 0
                 currentLength = 0
-                currentX =  currentX + button.frame.size.width+20
+                currentX =  currentX + button.frame.size.width+25
                 
 //                print(button.frame.size.width)
             

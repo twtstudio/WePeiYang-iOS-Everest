@@ -12,7 +12,7 @@ import Photos
 
 class PublishLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate{
     
-    var tableView: UITableView!;
+    var tableView: UITableView!
     var markDic:[String: String] = [:]
     var mark: MarkCustomCell!
     
@@ -85,12 +85,22 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = UIColor(hex6: 0x00a1e9)
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).font = UIFont.systemFont(ofSize: 15)
         
+        hide()
+        // UIGestureRecognizer截获了touch事件，导致didSelectorRowAtIndexPath无法响应，需要重写UIGestureRecognizerDelegate,在extension中有写到！
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.delegate = self
+        self.tableView.addGestureRecognizer(tap)
         
         let headerMark = MarkCustomCell()
         headerMark.enumerated()
         headerMark.label.text = "类型"
         headerMark.delegate = self
         mark = headerMark
+    }
+    
+    func dismissKeyboard() {
+        self.tableView.endEditing(true)
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -183,9 +193,9 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
                     }
                 }
             }
-            let detailAction = UIAlertAction(title: "查看大图", style: .default) { _ in
-                
-            }
+//            let detailAction = UIAlertAction(title: "查看大图", style: .default) { _ in
+//                
+//            }
             let cencelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
             alertVC.addAction(photoAction)
             alertVC.addAction(pictureAction)
@@ -381,9 +391,22 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
 extension PublishLostViewController: UIImagePickerControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
-
+        let aAny = info[UIImagePickerControllerEditedImage]
+        if let imageView = aAny as? UIImage {
+            let imageCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
+//            let cell = UpLoadingPicCell()
+            if let cell = imageCell as? UpLoadingPicCell {
+                cell.addPictureImage.image = imageView
+            }
+//            cell.addPictureImage.image = image
+//            var v: UIView?
+//            v = UIImageView()
+//            if let v = v as? UIImageView {
+//            }
             
+//            self.tableView.reloadData()
+
+            picker.dismiss(animated: true, completion: nil)
         }
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -394,4 +417,22 @@ extension PublishLostViewController: UIImagePickerControllerDelegate {
 
 extension PublishLostViewController: UINavigationControllerDelegate {
 
+}
+    // 点击键盘外弹掉键盘，重写UIGestureRecognizerDelegate
+extension PublishLostViewController: UIGestureRecognizerDelegate {
+
+    func touchOutsideTextField() {
+        let aSelector: Selector = "closeKeyboard"
+        let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
+        tapGesture.delegate = self
+        tapGesture.numberOfTapsRequired = 1
+        view.addGestureRecognizer(tapGesture)
+    }
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if NSStringFromClass(touch.view!.classForCoder) == "UITableViewCellContentView" {
+        
+            return false
+        }
+        return true
+    }
 }

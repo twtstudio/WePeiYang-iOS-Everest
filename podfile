@@ -10,6 +10,7 @@ target 'WePeiYang' do
   pod 'SDWebImage'
   pod 'Charts'
   pod 'ObjectMapper'
+  pod 'MJRefresh', '~> 3.1.12'
 
   # Pods for WePeiYang
 

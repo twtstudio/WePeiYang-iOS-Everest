@@ -174,6 +174,40 @@ class DetailAPI {
     }
 }
 
+class GetSearchAPI {
+    
+    static func getSearch(inputText: String, page: Int,success: @escaping ([LostFoundModel])->(), failure: (Error)->()) {
+    
+        SolaSessionManager.solaSession(type: .get, url: "/lostfound/search?keyword=\(inputText)&page=\(page)", success: { dic in
+            print(dic)
+            if let searchData = dic["data"] as? [[String: Any]] {
+                
+                var searchs = [LostFoundModel]()
+                for search in searchData {
+                    
+                    let detail_type = search["detail_type"] as? Int ?? 0
+                    let time = search["time"] as? String ?? ""
+                    let title = search["title"] as? String ?? ""
+                    let picture = search["picture"] as? String ?? ""
+                    let place = search["place"] as? String ?? ""
+                    let id = search["id"] as? Int ?? 0
+                    let isback = search["isback"] as? Int ?? 0
+                    let name = search["name"] as? String ?? ""
+                    let phone = search["phone"] as? String ?? ""
+                    
+                    
+                    let searchModel = LostFoundModel(id: id, title: title, detail_type: detail_type, time: time, picture: picture, place: place, phone: phone, isback: isback, name: name)
+                    searchs.append(searchModel)
+                }
+        success(searchs)
+            }
+        } ,failure: { err in
+            
+        })
+    }
+    
+}
+
 
 
 class PostLostAPI {

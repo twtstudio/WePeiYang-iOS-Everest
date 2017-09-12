@@ -15,7 +15,6 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
     var foundView: UICollectionView!
     let layout = UICollectionViewFlowLayout()
     var foundList: [LostFoundModel] = []
-    let TWT_URL = "http://open.twtstudio.com/"
     let footer = MJRefreshAutoNormalFooter()
     let header = MJRefreshNormalHeader()
     var curPage : Int = 1

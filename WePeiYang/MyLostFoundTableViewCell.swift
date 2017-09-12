@@ -195,7 +195,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
             make in
             make.top.equalToSuperview().offset(20)
             make.right.equalToSuperview().offset(-15)
-            make.width.height.equalTo(contentView.bounds.width*(100/2024))
+            make.width.height.equalTo(contentView.bounds.width*(100/1560))
         }
         
         

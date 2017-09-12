@@ -63,6 +63,7 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         textField.resignFirstResponder()
+        
 
     
     }
@@ -72,5 +73,21 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
 
 
 
+}
+
+extension UIViewController {
+    
+    func hide() {
+        
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismiss))
+        let tapGestureRecognizerKey = UITapGestureRecognizer(target: self, action: #selector(dismissKey))
+        
+    }
+    
+    func dismissKey() {
+        
+        view.endEditing(true)
+    }
+    
 }
 

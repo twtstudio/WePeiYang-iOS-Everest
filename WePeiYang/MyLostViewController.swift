@@ -7,12 +7,13 @@
 //
 
 import UIKit
+    let TWT_URL = "http://open.twtstudio.com/"
 
 class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     var tableView: UITableView!
     var myLost: [MyLostFoundModel] = []
-    let TWT_URL = "http://open.twtstudio.com/"
+//    let TWT_URL = "http://open.twtstudio.com/"
     
 //    var myLost1 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic2")
 //    var myLost2 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic3")
