@@ -99,4 +99,66 @@ struct SolaSessionManager {
             
         }
     }
+    
+    static func upload(dictionay: [String : Any], url: String, method: HTTPMethod = .put, progressBlock: ((Progress)->())? = nil, failure: ((Error)->())? = nil, success: (([String : Any])->())?) {
+    
+        var dataDict = [String: Data]()
+        var paraDict = [String: String]()
+        for item in dictionay {
+            if let value = item.value as? UIImage {
+                let data = UIImageJPEGRepresentation(value, 1.0)!
+                dataDict[item.key] = data
+            } else if let value = item.value as? String {
+                paraDict[item.key] = value
+            }
+        }
+        
+        let timeStamp = String(Int64(Date().timeIntervalSince1970))
+        paraDict["t"] = timeStamp
+        var fooPara = paraDict
+        
+        let keys = fooPara.keys.sorted()
+        // encrypt with sha1
+        var tmpSign = ""
+        for key in keys {
+            tmpSign += (key + fooPara[key]!)
+        }
+        
+        let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1.uppercased()
+        paraDict["sign"] = sign
+        paraDict["app_key"] = TwTKeychain.shared.appKey
+        
+        var headers = HTTPHeaders()
+        headers["User-Agent"] = DeviceStatus.userAgent
+        
+        if let twtToken = TwTUser.shared.token {
+            headers["Authorization"] = "Bearer {\(twtToken)}"
+        } else {
+            log.errorMessage("can't load twtToken")/
+        }
+
+        if method == .post {
+            Alamofire.upload(multipartFormData: { formdata in
+                for item in dataDict {
+                    formdata.append(item.value, withName: item.key, mimeType: "image/jpeg")
+                }
+                for item in paraDict {
+                    formdata.append(item.value.data(using: .utf8)!, withName: item.key)
+                }
+            }, to: url, method: .put, headers: headers, encodingCompletion: { response in
+                switch response {
+                case .success(let upload, _, _):
+                    upload.responseJSON { response in
+                        success?([:])
+                    }
+                    upload.uploadProgress { progress in
+                        progressBlock?(progress)
+                    }
+                case .failure(let error):
+                    failure?(error)
+                    print(error)
+                }
+            })
+        }
+    }
 }
