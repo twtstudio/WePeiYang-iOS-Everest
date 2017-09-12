@@ -9,9 +9,9 @@
 import ObjectMapper
 
 struct GPASessionManager {
-    static func getGPA(success: @escaping ([GPATermModel], GPAStatModel)->(), failure: (Error)->()) {
+    static func getGPA(success: @escaping ([GPATermModel], GPAStatModel, String)->(), failure: (Error)->()) {
         SolaSessionManager.solaSession(url: "/gpa", success: { dic in
-            if let data = dic["data"] as? [String : Any], let termsData = data["data"] as? [[String : Any]], let statData = (data["stat"] as? [String : Any])?["total"] as? [String : Any] {
+            if let data = dic["data"] as? [String : Any], let termsData = data["data"] as? [[String : Any]], let statData = (data["stat"] as? [String : Any])?["total"] as? [String : Any], let session = data["session"] as? String {
                 // stat of a year is used
                 let stat = Mapper<GPAStatModel>().map(JSON: statData)
                 var terms = [GPATermModel]()
@@ -28,7 +28,7 @@ struct GPASessionManager {
                         terms.append(termModel)
                     }
                 }
-                success(terms, stat!)
+                success(terms, stat!, session)
             }
         }, failure: { err in
             
