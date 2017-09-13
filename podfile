@@ -12,6 +12,7 @@ target 'WePeiYang' do
   pod 'ObjectMapper'
   pod 'MJRefresh', '~> 3.1.12'
 
+  pod 'WMPageController', '2.3.0'
   # Pods for WePeiYang
 
   target 'WePeiYangTests' do

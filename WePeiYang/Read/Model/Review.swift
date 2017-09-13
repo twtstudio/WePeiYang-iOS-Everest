@@ -19,7 +19,10 @@ class Review {
     var updateTime = ""
     var liked = false
     var like = 0
-    // reviewID: reviewID, bookID: bookID, bookName: title, userName: username, avatarURL: avatar, rating: score, like: like, content: content, updateTime: updateTime, liked: liked
+    var rating: Double = 3
+    // FIXME: bookName ???
+    let bookName: String = ""
+//     reviewID: reviewID, bookID: bookID, bookName: title, userName: username, avatarURL: avatar, rating: score, like: like, content: content, updateTime: updateTime, liked: liked
     init(reviewID: Int, bookID: Int, title: String, username: String, avatarURL: String, rating: Double, like: Int, content: String, updateTime: String, liked: Bool) {
         self.reviewID = reviewID
         self.bookID = bookID
@@ -31,7 +34,6 @@ class Review {
         self.updateTime = updateTime
         self.like = like
         self.liked = liked
-        
     }
 }
 

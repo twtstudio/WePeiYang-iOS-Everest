@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WMPageController
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -63,6 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Fallback on earlier versions
         }
 //        window?.backgroundColor = .white
+
 //        window?.rootViewController = mainTabVC
         let lostFoundVC = LostFoundPageViewController(para: 1)
         let nvc = UINavigationController(rootViewController: lostFoundVC!)

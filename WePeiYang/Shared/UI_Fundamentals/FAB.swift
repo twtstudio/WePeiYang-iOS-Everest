@@ -313,7 +313,7 @@ extension FAB {
     // Call this after you add FAB as a subview **ONLY** if you're having some frame issues (like it's not placed at the right_bottom of the screen)
     // Calling rectify() will solve the frame problem in most cases (no promise though)
     public func rectify() {
-        let topVC = UIViewController.topViewController()
+        let topVC = UIViewController.top
         if parentViewController != topVC {
             log.errorMessage("You're not adding your fab into a topmost view, which might lead to a wrong position for the fab")/
             
