@@ -97,22 +97,15 @@ class DetailViewController: UIViewController {
             
             print(self.detailArray[0].picture)
             if self.detailArray[0].picture == "" {
-                self.imageURL = "uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
-            
+//                self.imageURL = "uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg" //暂无图片
+                self.detailImageView.image = UIImage(named: "暂无图片")
             } else {
                 self.imageURL = self.detailArray[0].picture
+                self.detailImageView.sd_setImage(with: URL(string: self.TWT_URL + self.imageURL))
             }
-            self.detailImageView.sd_setImage(with: URL(string: self.TWT_URL + self.imageURL))
-            self.detailImageView.snp.makeConstraints{
-                make in
-                make.left.equalToSuperview().offset(-5)
-                make.top.equalToSuperview().offset(0)
-                make.right.equalToSuperview().offset(5)
-                make.width.equalTo(self.view.frame.width)
-                make.height.equalTo(320)
-                
-                
-            }
+//            self.detailImageView.sd_setImage(with: URL(string: self.TWT_URL + self.imageURL))
+            self.detailImageView.contentMode = .scaleAspectFit
+            self.detailImageView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 320)
             self.detailTitleLabel.text = self.detailArray[0].title
             self.detailTitleLabel.textAlignment = .center
             self.detailTitleLabel.snp.makeConstraints{
@@ -156,10 +149,12 @@ class DetailViewController: UIViewController {
 //        }
 //        
 //    }
+    
     // Mark - Share
+    
     func share() {
         
-        let vc = UIActivityViewController(activityItems: [UIImage(named: "暂无图片")!, "[失物招领]", URL(string: "https://open.twtstudio.com/lostfound/detail.html#\(id)")!], applicationActivities: [])
+        let vc = UIActivityViewController(activityItems: [UIImage(named: "暂无图片")!, "[失物招领]\(self.detailArray[0].title)", URL(string: "http://open.twtstudio.com/lostfound/detail.html#\(id)")!], applicationActivities: [])
         present(vc, animated: true, completion: nil)
         print("https://open.twtstudio.com/lostfound/detail.html#\(id)")
     }

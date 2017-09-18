@@ -15,12 +15,16 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
     
     var cellkey:String?
     
+    
+
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         delegate?.means(input: textField.text!, key: cellkey!)
         textField.resignFirstResponder()
         
         return true
     }
+    
     
     var textField = UITextField()
     
@@ -52,42 +56,43 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
             textField.snp.makeConstraints{
             
                 make in
-                make.top.equalToSuperview().offset(10)
-                make.right.equalToSuperview().offset(-10)
+                make.top.equalToSuperview().offset(5)
+                make.right.equalToSuperview().offset(-5)
                 make.left.equalToSuperview().offset(80)
+                make.bottom.equalToSuperview().offset(-5)
+                make.height.equalTo(30)
             }
         }
         
-
-    
-    }
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        textField.resignFirstResponder()
         
-
     
     }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.endEditing(true)
+
+    func addTargetMethod() {
+        
+        self.textField.addTarget(self, action: #selector(self.textFieldTextChange(sender:)), for: .allEditingEvents)
     }
-
-
-
+    func textFieldTextChange(sender: UITextField) {
+    
+        delegate?.means(input: textField.text!, key: cellkey!)
+    }
 }
 
-extension UIViewController {
-    
-    func hide() {
-        
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismiss))
-        let tapGestureRecognizerKey = UITapGestureRecognizer(target: self, action: #selector(dismissKey))
-        
-    }
-    
-    func dismissKey() {
-        
-        view.endEditing(true)
-    }
-    
-}
+
+
+//extension UIViewController {
+//    
+//    func hide() {
+//        
+////        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismiss))
+//        let tapGestureRecognizerKey = UITapGestureRecognizer(target: self, action: #selector(dismissKey))
+//        
+//    }
+//    
+//    func dismissKey() {
+//        
+//        view.endEditing(true)
+//    }
+//    
+//}
 

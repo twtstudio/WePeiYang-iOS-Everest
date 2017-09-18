@@ -71,7 +71,19 @@ class LostFoundPageViewController: WMPageController {
         //设置按钮
         self.navigationItem.rightBarButtonItems = [spacer, mineBarButton , gap, searchBarButton]
 
-        
+//        let fab = FAB(subActions: [
+//            (name: "fuck", function: {
+//                
+//                let vc = PublishLostViewController()
+//                self.navigationController?.pushViewController(vc, animated: true)
+//            }),
+//            (name: "fs", function: {
+//                
+//                let vc = PublishLostViewController()
+//                self.navigationController?.pushViewController(vc, animated: true)
+//                
+//            })
+//            ])
         
         super.viewDidLoad()
 
@@ -82,7 +94,7 @@ class LostFoundPageViewController: WMPageController {
     }
     
     func searchButton(item: UIBarButtonItem) {
-        let vc = SearchViewController()
+        let vc = LostFoundSearchViewController()
         self.navigationController?.pushViewController(vc, animated: true)
 //        let successVC = PublishSuccessViewController()
 //        self.navigationController?.pushViewController(successVC, animated: true)

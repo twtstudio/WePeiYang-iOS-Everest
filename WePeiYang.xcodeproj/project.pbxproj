@@ -126,8 +126,8 @@
 /* Begin PBXFileReference section */
 		0C3ADF1C1F697EE100388C19 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0C3ADF1D1F697EE100388C19 /* FoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundViewController.swift; sourceTree = "<group>"; };
-		0C3ADF1E1F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundCollectionViewCellDemo.swift; sourceTree = "<group>"; };
-		0C3ADF1F1F697EE100388C19 /* LostFoundDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundDetailModel.swift; sourceTree = "<group>"; };
+		0C3ADF1E1F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LostFoundCollectionViewCellDemo.swift; path = ../Controller/LostFoundCollectionViewCellDemo.swift; sourceTree = "<group>"; };
+		0C3ADF1F1F697EE100388C19 /* LostFoundDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LostFoundDetailModel.swift; path = ../Controller/LostFoundDetailModel.swift; sourceTree = "<group>"; };
 		0C3ADF201F697EE100388C19 /* LostFoundPageControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundPageControllerViewController.swift; sourceTree = "<group>"; };
 		0C3ADF211F697EE100388C19 /* LostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostViewController.swift; sourceTree = "<group>"; };
 		0C3ADF221F697EE100388C19 /* MyFoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFoundViewController.swift; sourceTree = "<group>"; };
@@ -139,7 +139,7 @@
 		0C3ADF2A1F697EE100388C19 /* LostFoundAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundAPI.swift; sourceTree = "<group>"; };
 		0C3ADF2B1F697EE100388C19 /* LostFoundModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundModel.swift; sourceTree = "<group>"; };
 		0C3ADF2C1F697EE100388C19 /* MyLostFoundModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostFoundModel.swift; sourceTree = "<group>"; };
-		0C3ADF2D1F697EE100388C19 /* PublishLostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishLostViewController.swift; sourceTree = "<group>"; };
+		0C3ADF2D1F697EE100388C19 /* PublishLostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublishLostViewController.swift; path = ../Model/PublishLostViewController.swift; sourceTree = "<group>"; };
 		0C3ADF2F1F697EE100388C19 /* LostFoundCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundCollectionViewCell.swift; sourceTree = "<group>"; };
 		0C3ADF301F697EE100388C19 /* MarkCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkCustomCell.swift; sourceTree = "<group>"; };
 		0C3ADF311F697EE100388C19 /* MyLostFoundTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostFoundTableViewCell.swift; sourceTree = "<group>"; };
@@ -265,9 +265,9 @@
 		0C3ADF1A1F697EE100388C19 /* LostFound */ = {
 			isa = PBXGroup;
 			children = (
-				0C3ADF1B1F697EE100388C19 /* Controller */,
 				0C3ADF291F697EE100388C19 /* Model */,
 				0C3ADF2E1F697EE100388C19 /* View */,
+				0C3ADF1B1F697EE100388C19 /* Controller */,
 			);
 			path = LostFound;
 			sourceTree = "<group>";
@@ -275,18 +275,17 @@
 		0C3ADF1B1F697EE100388C19 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0C3ADF1C1F697EE100388C19 /* DetailViewController.swift */,
-				0C3ADF1D1F697EE100388C19 /* FoundViewController.swift */,
-				0C3ADF1E1F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift */,
-				0C3ADF1F1F697EE100388C19 /* LostFoundDetailModel.swift */,
 				0C3ADF201F697EE100388C19 /* LostFoundPageControllerViewController.swift */,
 				0C3ADF211F697EE100388C19 /* LostViewController.swift */,
-				0C3ADF221F697EE100388C19 /* MyFoundViewController.swift */,
-				0C3ADF231F697EE100388C19 /* MyLostFoundPageViewController.swift */,
-				0C3ADF241F697EE100388C19 /* MyLostViewController.swift */,
-				0C3ADF251F697EE100388C19 /* PublishSuccessViewController.swift */,
-				0C3ADF261F697EE100388C19 /* SearchedResultViewController.swift */,
+				0C3ADF1D1F697EE100388C19 /* FoundViewController.swift */,
 				0C3ADF271F697EE100388C19 /* LostFoundSearchViewController.swift */,
+				0C3ADF261F697EE100388C19 /* SearchedResultViewController.swift */,
+				0C3ADF231F697EE100388C19 /* MyLostFoundPageViewController.swift */,
+				0C3ADF221F697EE100388C19 /* MyFoundViewController.swift */,
+				0C3ADF241F697EE100388C19 /* MyLostViewController.swift */,
+				0C3ADF2D1F697EE100388C19 /* PublishLostViewController.swift */,
+				0C3ADF251F697EE100388C19 /* PublishSuccessViewController.swift */,
+				0C3ADF1C1F697EE100388C19 /* DetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -295,9 +294,9 @@
 			isa = PBXGroup;
 			children = (
 				0C3ADF2A1F697EE100388C19 /* LostFoundAPI.swift */,
+				0C3ADF1F1F697EE100388C19 /* LostFoundDetailModel.swift */,
 				0C3ADF2B1F697EE100388C19 /* LostFoundModel.swift */,
 				0C3ADF2C1F697EE100388C19 /* MyLostFoundModel.swift */,
-				0C3ADF2D1F697EE100388C19 /* PublishLostViewController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -305,6 +304,7 @@
 		0C3ADF2E1F697EE100388C19 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0C3ADF1E1F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift */,
 				0C3ADF2F1F697EE100388C19 /* LostFoundCollectionViewCell.swift */,
 				0C3ADF301F697EE100388C19 /* MarkCustomCell.swift */,
 				0C3ADF311F697EE100388C19 /* MyLostFoundTableViewCell.swift */,

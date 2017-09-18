@@ -20,7 +20,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //    var myLost2 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic3")
 //    var myLost3 = MyLoatFoundModel(isBack: "已找到", title: "求大大", mark:"钱包" , time: "2017/5/1",place: "图书馆", picture: "pic1")
     
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 //        myLost.append(myLost1)
@@ -115,15 +115,15 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.reversalButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton:)), for: .touchUpInside)
             
             var picURL = ""
-            
-            if myLost[indexPath.row].picture != "" {
-                picURL = TWT_URL + myLost[indexPath.row].picture
+            picURL = TWT_URL + myLost[indexPath.row].picture
+            if let picURL = URL(string: picURL), myLost[indexPath.row].picture != "" {
+            cell.initMyUI(pic: picURL, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
  
             } else {
                 picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
-            }
-            cell.initMyUI(pic: URL(string: picURL)!, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
             
+            cell.initMyUI(pic: URL(string: picURL)!, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
+            }
             return cell
             
             

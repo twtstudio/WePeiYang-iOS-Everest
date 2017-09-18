@@ -59,7 +59,8 @@ struct SolaSessionManager {
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent
         
-        TwTUser.shared.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjc4NjksImlzcyI6Imh0dHA6XC9cL29wZW4udHd0c3R1ZGlvLmNvbVwvYXBpXC92MVwvYXV0aFwvdG9rZW5cL3JlZnJlc2giLCJpYXQiOjE1MDQyMzQ0MjAsImV4cCI6MTUwNTQ2MTcxNCwibmJmIjoxNTA0ODU2OTE0LCJqdGkiOiJmZjgwZmIxNDMxMGRiNzRhN2ExNTRiM2ZlODYxZjRlYiJ9.T6ynlh9Oe-7Z-V3o2XNi7I1foYwfdlshOsU6QgdJ58E"
+        TwTUser.shared.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjc4NjksImlzcyI6Imh0dHA6XC9cL29wZW4udHd0c3R1ZGlvLmNvbVwvYXBpXC92MVwvYXV0aFwvdG9rZW5cL2dldCIsImlhdCI6MTUwNTQ2ODM3MiwiZXhwIjoxNTA2MDczMTcyLCJuYmYiOjE1MDU0NjgzNzIsImp0aSI6ImFiOTAxZmU4ZDZmNTU4YTgxYzA3OTYyMGU0OThkOWYzIn0.djRM24ZDMvZCigUbwHqu5iYv3ggcFcefWS4oDEdGCew"
+
         if let twtToken = TwTUser.shared.token {
             headers["Authorization"] = "Bearer {\(twtToken)}"
         } else {
@@ -100,7 +101,7 @@ struct SolaSessionManager {
         }
     }
     
-    static func upload(dictionay: [String : Any], url: String, method: HTTPMethod = .put, progressBlock: ((Progress)->())? = nil, failure: ((Error)->())? = nil, success: (([String : Any])->())?) {
+    static func upload(dictionay: [String : Any], url: String, method: HTTPMethod = .post, progressBlock: ((Progress)->())? = nil, failure: ((Error)->())? = nil, success: (([String : Any])->())?) {
     
         var dataDict = [String: Data]()
         var paraDict = [String: String]()
@@ -136,16 +137,17 @@ struct SolaSessionManager {
         } else {
             log.errorMessage("can't load twtToken")/
         }
-
+        let fullURL = TWT_ROOT_URL + url
         if method == .post {
             Alamofire.upload(multipartFormData: { formdata in
                 for item in dataDict {
-                    formdata.append(item.value, withName: item.key, mimeType: "image/jpeg")
+                    formdata.append(item.value, withName: item.key, fileName: "avatar.jpg", mimeType: "image/jpeg")
+//                    formdata.append(item.value, withName: item.key, mimeType: "image/jpg")
                 }
                 for item in paraDict {
                     formdata.append(item.value.data(using: .utf8)!, withName: item.key)
                 }
-            }, to: url, method: .put, headers: headers, encodingCompletion: { response in
+            }, to: fullURL, method: .post, headers: headers, encodingCompletion: { response in
                 switch response {
                 case .success(let upload, _, _):
                     upload.responseJSON { response in
@@ -154,6 +156,12 @@ struct SolaSessionManager {
                     upload.uploadProgress { progress in
                         progressBlock?(progress)
                     }
+                    upload.response(completionHandler: { response in
+                        print(response)
+                    })
+                    upload.responseString(completionHandler: { string in
+                        print(string)
+                    })
                 case .failure(let error):
                     failure?(error)
                     print(error)

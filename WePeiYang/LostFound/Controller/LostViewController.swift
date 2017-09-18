@@ -177,12 +177,18 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         
        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "lostCell", for: indexPath) as? LostFoundCollectionViewCell{
         
-
-        if lostList[indexPath.row].picture != "" {
+//        var a: String? = "a"
+//        if let a = a {
+//        
+//        }
+        let picURL = lostList[indexPath.row].picture
+        
+        if let picURL = URL(string: TWT_URL + picURL), lostList[indexPath.row].picture != "" {
             
 
-            let picURL = lostList[indexPath.row].picture
-            cell.initUI(pic: URL(string: TWT_URL + picURL)!, title: lostList[indexPath.row].title ,mark: lostList[indexPath.row].detail_type, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+//            let picURL = lostList[indexPath.row].picture
+
+            cell.initUI(pic: picURL, title: lostList[indexPath.row].title ,mark: lostList[indexPath.row].detail_type, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
         } else {
 
             let picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
@@ -214,6 +220,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         return cell
         
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

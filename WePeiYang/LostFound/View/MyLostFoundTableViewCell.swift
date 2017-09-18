@@ -65,7 +65,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func initMyUI(pic: URL, title: String, isBack: Int, mark: Int, time: String, place: String){
+    func initMyUI(pic: URL, title: String, isBack: Int, mark: Int, time: String, place: String) {
         
 //        let image = UIImage(named: pic)
 //        pictureImage.image = image

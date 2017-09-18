@@ -219,13 +219,16 @@ class GetSearchAPI {
 
 class PostLostAPI {
 
-    static func postLost(markDic: [String : String] , success: @escaping (Dictionary<String, AnyObject>)->(),failure: (Error)->()) {
-    SolaSessionManager.solaSession(type: .post, url: "/lostfound/lost", parameters: markDic, success: success, failure: { err in
-    print(err)
-    
-    
-    })
-    
+    static func postLost(markDic: [String : Any], success: @escaping (Dictionary<String, Any>)->(),failure: (Error)->()) {
+//        SolaSessionManager.solaSession(type: .post, url: "/lostfound/lost", parameters: markDic, success: success, failure: { err in
+//    print(err)
+//    
+//    
+//    })
+        SolaSessionManager.upload(dictionay: markDic, url: "/lostfound/lost", method: .post, progressBlock: nil, failure: { err in
+            print(err)
+        
+        }, success: success )
     }
 
 }

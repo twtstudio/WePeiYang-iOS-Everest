@@ -27,33 +27,33 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         super.viewDidLoad()
         
         searchBar.placeholder = "搜索"
-//        var leftNavBarButton = UIBarButtonItem(customView:searchBar)
-//        self.navigationItem.leftBarButtonItem = leftNavBarButton
-    
+        //        var leftNavBarButton = UIBarButtonItem(customView:searchBar)
+        //        self.navigationItem.leftBarButtonItem = leftNavBarButton
+        
         let tabelViewFrame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         self.tableView = UITableView(frame: tabelViewFrame, style: .plain)
         self.tableView!.delegate = self
         self.tableView!.dataSource = self
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "searchCell")
         self.view.addSubview(self.tableView)
-//        self.searchController = ({
-//        let controller = UISearchController(searchResultsController: nil)
-//            controller.searchBar.delegate = self
-////            controller.hidesNavigationBarDuringPresentation = false
-//            controller.dimsBackgroundDuringPresentation = false
-////            controller.definesPresentationContext = true
-//            controller.definesPresentationContext = true
-//            
-//            controller.searchBar.searchBarStyle = .minimal
-//            controller.searchBar.sizeToFit()
-//            controller.searchBar.placeholder = "可以直接搜索卡号哟！"
-//            self.tableView.tableHeaderView = controller.searchBar
-//            
-//            return controller
-//        })()
+        //        self.searchController = ({
+        //        let controller = UISearchController(searchResultsController: nil)
+        //            controller.searchBar.delegate = self
+        ////            controller.hidesNavigationBarDuringPresentation = false
+        //            controller.dimsBackgroundDuringPresentation = false
+        ////            controller.definesPresentationContext = true
+        //            controller.definesPresentationContext = true
+        //
+        //            controller.searchBar.searchBarStyle = .minimal
+        //            controller.searchBar.sizeToFit()
+        //            controller.searchBar.placeholder = "可以直接搜索卡号哟！"
+        //            self.tableView.tableHeaderView = controller.searchBar
+        //
+        //            return controller
+        //        })()
         self.searchController = UISearchController(searchResultsController: nil)
         self.searchController.searchBar.delegate = self
-        self.searchController.hidesNavigationBarDuringPresentation = false
+        self.searchController.hidesNavigationBarDuringPresentation = true
         self.searchController.dimsBackgroundDuringPresentation = false
         self.definesPresentationContext = true
         self.searchController.searchBar.searchBarStyle = .minimal
@@ -61,18 +61,18 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         self.tableView.tableHeaderView = self.searchController.searchBar
         self.searchController.searchBar.placeholder = "  可以直接搜索卡号哟！"
         
-    
+        
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
-//        if self.searchController.isActive{
-//            
-//            return self.searchArray.count
-//        } else {
-//            return self.markArray.count
-//        }
-        return searchedListArray.count
+        if self.searchController.isActive{
+            
+            return self.searchArray.count
+        } else {
+            return self.markArray.count
+        }
+        //        return searchedListArray.count
     }
     
     
@@ -83,33 +83,34 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         
         
         let identify:String = "searchCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: identify,for: indexPath) as! MyLostFoundTableViewCell
+        //        let cell = tableView.dequeueReusableCell(withIdentifier: identify,for: indexPath) as! MyLostFoundTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: identify, for: indexPath)
         
-//        if self.searchController.isActive {
-//            cell.textLabel?.text = self.searchArray[indexPath.row]
-//            return cell
-//        } else {
-//            cell.textLabel?.text = self.markArray[indexPath.row]
-//            return cell
-//        }
-        var picURL = ""
-        
-        if searchedListArray[indexPath.row].picture != "" {
-            picURL = TWT_URL + searchedListArray[indexPath.row].picture
-            
+        if self.searchController.isActive {
+            cell.textLabel?.text = self.searchArray[indexPath.row]
+            return cell
         } else {
-            picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
+//            cell.textLabel?.text = self.markArray[indexPath.row]
+            return cell
         }
-       
-        return cell
+        //        var picURL = ""
+        //
+        //        if searchedListArray[indexPath.row].picture != "" {
+        //            picURL = TWT_URL + searchedListArray[indexPath.row].picture
+        //
+        //        } else {
+        //            picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
+        //        }
+        
+        //        return cell
     }
-
+    
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         print(searchText)
         if searchText == "" {
-            self.searchArray = self.markArray
+//            self.searchArray = self.markArray
         } else {
             self.searchArray = []
             for index in markArray {
@@ -130,15 +131,15 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchArray = self.markArray.filter{ (mark) -> Bool in
-                return mark.contains(searchBar.text!)
-            }
+            return mark.contains(searchBar.text!)
+        }
         inputText = self.searchController.searchBar.text!
         print(inputText)
         
         let searchVC = SearchedResultViewController()
         self.navigationController?.pushViewController(searchVC, animated: true)
-
-        }
+        
+    }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.searchArray = self.markArray
