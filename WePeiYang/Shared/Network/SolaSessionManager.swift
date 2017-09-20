@@ -151,17 +151,45 @@ struct SolaSessionManager {
                 switch response {
                 case .success(let upload, _, _):
                     upload.responseJSON { response in
-                        success?([:])
+                        if let data = response.result.value  {
+                            if let dict = data as? Dictionary<String, Any>, dict["error_code"] as? Int == 0 {
+                                success?(dict)
+                            } else {
+//                                HUD.hide()
+//                                HUD.flash(.label((data as? [String: Any])?["data"] as? String), delay: 1.0)
+                            }
+                        }
                     }
                     upload.uploadProgress { progress in
                         progressBlock?(progress)
                     }
                     upload.response(completionHandler: { response in
-                        print(response)
+//                        print(response)
                     })
-                    upload.responseString(completionHandler: { string in
-                        print(string)
-                    })
+//                    upload.responseString(completionHandler: { string in
+//                        guard let data = string.data else {
+//                            //                            HUD.flash(.labeledError(title: errMsg, subtitle: nil), delay: 1.2)
+//                            //                                failure?(Err)
+//                            // FIXME: show call failure
+//                            return
+//                        }
+//                        do {
+//                            let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                            if let dict = json as? Dictionary<String, AnyObject> {
+//                                if let err = dict["err"] as? Int, err == 0 {
+//                                    success?(dict)
+//                                } else {
+////                                    HUD.flash(.label(dict["data"] as? String), delay: 1.0)
+////                                    failure?(BBSError.custom)
+//                                }
+//                            }
+//                        } catch let error {
+//                            let errMsg = String(data: data, encoding: .utf8)
+////                            HUD.flash(.labeledError(title: errMsg, subtitle: nil), delay: 1.2)
+//                            failure?(error)
+//                            // log.error(error)/
+//                        }
+//                    })
                 case .failure(let error):
                     failure?(error)
                     print(error)

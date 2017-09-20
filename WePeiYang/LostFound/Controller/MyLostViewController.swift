@@ -147,6 +147,9 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     func editButtonTapped(editButton: UIButton) {
         let vc = PublishLostViewController()
+        let index = 1
+        vc.index = index
+        
         self.navigationController?.pushViewController(vc, animated: true)
     
     }

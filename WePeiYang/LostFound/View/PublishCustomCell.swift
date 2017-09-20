@@ -20,6 +20,8 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         delegate?.means(input: textField.text!, key: cellkey!)
+        
+//        self.textField.becomeFirstResponder()
         textField.resignFirstResponder()
         
         return true
@@ -75,6 +77,11 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
     func textFieldTextChange(sender: UITextField) {
     
         delegate?.means(input: textField.text!, key: cellkey!)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.textField.resignFirstResponder()
+        self.textField.layoutIfNeeded()
     }
 }
 

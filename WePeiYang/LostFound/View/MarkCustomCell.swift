@@ -124,11 +124,11 @@ class MarkCustomCell: UITableViewCell {
                 self.delegate?.means(input: types[index], key: "detail_type")
                 switch types[index] {
                 case "1":
-                    self.delegate?.function[2] = ["卡号","姓名"]
+                    self.delegate?.function[2] = ["卡号*","姓名*"]
                 case "2":
-                    self.delegate?.function[2] = ["卡号","姓名"]
+                    self.delegate?.function[2] = ["卡号*","姓名*"]
                 case "10":
-                    self.delegate?.function[2] = ["卡号","姓名"]
+                    self.delegate?.function[2] = ["卡号*","姓名*"]
                 default:
                     self.delegate?.function[2] = []
                     

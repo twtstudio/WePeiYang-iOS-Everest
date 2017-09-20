@@ -26,11 +26,11 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     //    ]
     var function = [
         ["添加图片"],
-        ["标题","时间","地点"],
+        ["标题*","时间","地点"],
         [],
-        ["姓名","联系电话"],
+        ["姓名*","联系电话*"],
         ["物品描述"],
-        ["刊登时长"]
+        ["刊登时长*"]
     ]
     
     var text = [
@@ -39,7 +39,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         1: ["(不超过11个字)","请填写详细时间","请填写校区及详细地点"],
         2: ["",""],
         3: ["",""],
-        4: ["请认真填写物品信息","（如果你“类型“一栏选择”其他“,您可以在这里填写具体类型）"],
+        4: ["请认真填写物品信息"],
         5: ["默认时间为7day"]
     ]
     
@@ -155,7 +155,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 5{
-            return 120
+            return 180
         }else if section == 0{
             return 50
         }
@@ -217,29 +217,15 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         
         switch (indexPath.section) {
         case 0:
-            //            if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? UpLoadingPicCell {
-            //
-            //
-            //            cell.selectionStyle = UITableViewCellSelectionStyle.none
-            //
-            //
-            //
-            //            return cell
-            //            } else {
-            //
-            //                let cell = UpLoadingPicCell()
-            //                return cell
-            ////            let cell = UpLoadingPicCell(style: .default, reuseIdentifier: "UpLoadingCell")
-            ////
-            ////
+
             if let cell = tableView.dequeueReusableCell(withIdentifier: "UpLoadingCell" + "\(indexPath)") as? UpLoadingPicCell {
-                //                cell.selectionStyle = UITableViewCellSelectionStyle.none
-                index += 1
+                cell.selectionStyle = UITableViewCellSelectionStyle.none
+
                 
                 return cell
             } else {
                 let cell = UpLoadingPicCell(style: .default, reuseIdentifier: "UpLoadingCell" + "\(indexPath)")
-                index += 1
+
                 return cell
             }
         default:
@@ -258,6 +244,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
                 cell.cellkey = returnKeys[indexPath.section]?[indexPath.row]
                 cell.textLabel?.text = function[indexPath.section][indexPath.row];
                 cell.addTargetMethod()
+                cell.textFieldDidEndEditing(cell.textField)
                 return cell
                 
             } else {
@@ -300,26 +287,45 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         
         if section == 5 {
             let footerView = UIView()
-            let button = UIButton()
-            button.setTitle("确定", for:UIControlState.normal)
-            button.setTitleColor(UIColor.black,for: .normal)
-            button.sizeToFit()
-            button.isUserInteractionEnabled = true
+            let trueButton = UIButton()
+            trueButton.setTitle("确 定", for:UIControlState.normal)
+            trueButton.setTitleColor(UIColor.black,for: .normal)
+            trueButton.sizeToFit()
+            trueButton.isUserInteractionEnabled = true
             
-            button.frame = CGRect(x: self.view.frame.width/2, y: 80, width: 300, height: 40)
-            button.center = CGPoint(x: self.view.frame.width/2, y: 60)
-            button.backgroundColor = UIColor(hex6: 0x00a1e9)
-            button.setTitleColor(.white, for: .normal)
-            button.layer.borderColor = UIColor(hex6: 0x00a1e9).cgColor
-            button.layer.borderWidth = 2
-            button.layer.cornerRadius = 10
+            trueButton.frame = CGRect(x: self.view.frame.width/2, y: 80, width: 300, height: 40)
+            trueButton.center = CGPoint(x: self.view.frame.width/2, y: 60)
+            trueButton.backgroundColor = UIColor(hex6: 0x00a1e9)
+            trueButton.setTitleColor(.white, for: .normal)
+            //为按钮添加圆角
+            trueButton.layer.borderColor = UIColor(hex6: 0x00a1e9).cgColor
+            trueButton.layer.borderWidth = 2
+            trueButton.layer.cornerRadius = 10
             //为按钮添加阴影
-            button.layer.shadowOpacity = 0.8
-            button.layer.shadowColor = UIColor.black.cgColor
-            button.layer.shadowOffset = CGSize(width: 1, height: 1)
+            trueButton.layer.shadowOpacity = 0.8
+            trueButton.layer.shadowColor = UIColor.black.cgColor
+            trueButton.layer.shadowOffset = CGSize(width: 1, height: 1)
             
-            footerView.addSubview(button)
-            button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
+            footerView.addSubview(trueButton)
+            trueButton.addTarget(self, action: #selector(tapped), for: .touchUpInside)
+            
+            print(index)
+            //
+            if index == 1 {
+               let deleteButton = UIButton(frame: CGRect(x: self.view.frame.width/2, y: 80, width: 300, height: 40))
+                deleteButton.center = CGPoint(x: self.view.frame.width/2, y: 120)
+                deleteButton.backgroundColor = .red
+                deleteButton.setTitle("删 除", for: .normal)
+                deleteButton.layer.borderColor = UIColor.red.cgColor
+                deleteButton.layer.borderWidth = 2
+                deleteButton.layer.cornerRadius = 10
+                deleteButton.layer.shadowOpacity = 0.8
+                deleteButton.layer.shadowColor = UIColor.black.cgColor
+                deleteButton.layer.shadowOffset = CGSize(width: 1, height: 1)
+
+                footerView.addSubview(deleteButton)
+            
+            }
             return footerView
         }
         else{
@@ -337,8 +343,12 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         
         //        if let image = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? UpLoadingPicCell)?.addPictureImage.image {
         //            markDic["pic[]"] = image
-        
+//        if (markDic["title"] == "" || markDic["detail_type"] == "" || markDic["name"] == "" || markDic["phone"] == "" || markDic["duration"]) {
+//            
+//            
+//        }
         PostLostAPI.postLost(markDic: markDic, success: {
+            
             dic in
             let successVC = PublishSuccessViewController()
             self.navigationController?.pushViewController(successVC, animated: true)
