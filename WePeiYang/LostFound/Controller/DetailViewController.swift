@@ -11,9 +11,10 @@ import SnapKit
 import SDWebImage
 
 
+
 class DetailViewController: UIViewController {
     
-    var detailView : UIView!
+//    var detailView : UIView!
     var detailImageView = UIImageView()
     var detailTitleLabel = UILabel()
     let detailApi = DetailAPI()
@@ -30,26 +31,35 @@ class DetailViewController: UIViewController {
     var detailDisplayArray: [String] = []
 
  
-    
+    var image = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
 
-        
-        self.detailView = UIView(frame: self.view.bounds)
-        self.view.addSubview(self.detailView)
-        detailView.backgroundColor = .white
+        self.view.backgroundColor = .white
+//        self.detailView = UIView(frame: self.view.bounds)
+//        self.view.addSubview(self.detailView)
+//        detailView.backgroundColor = .white
 //        detailImageView.image = UIImage(named: dic["time"]!)
 //        detailTitleLabel.backgroundColor = .black
+        
+        self.detailImageView.contentMode = .scaleAspectFit
+        self.detailImageView.frame = CGRect(x: 0, y: 62, width: self.view.bounds.width, height: 320)
+        self.detailImageView.isUserInteractionEnabled = true
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
         self.view.addSubview(detailImageView)
         self.view.addSubview(detailTitleLabel)
         print(id)
+
         
         refresh()
-
+        print(image)
+        let tapSingle = UITapGestureRecognizer(target: self, action: #selector(swipeClicked(recogizer:)))
+        tapSingle.numberOfTapsRequired = 1
+        tapSingle.numberOfTouchesRequired = 1
+        detailImageView.addGestureRecognizer(tapSingle)
         
 //        enumeratedImage()
 //        enumeratedLabel()
@@ -58,21 +68,21 @@ class DetailViewController: UIViewController {
         
 //        detailTitleLabel.center.x = self.view.bounds.width/2
         
-        detailImageView.snp.makeConstraints{
-            make in
-            make.left.equalToSuperview().offset(-5)
-            make.top.equalToSuperview().offset(0)
-            make.right.equalToSuperview().offset(5)
-            make.width.equalTo(self.view.frame.width)
-            make.height.equalTo(320)
-
-        
-        }
+//        detailImageView.snp.makeConstraints{
+//            make in
+//            make.left.equalToSuperview().offset(-5)
+//            make.top.equalToSuperview().offset(0)
+//            make.right.equalToSuperview().offset(5)
+//            make.width.equalTo(self.view.frame.width)
+//            make.height.equalTo(320)
+//
+//        
+//        }
 
         print(detailImageView.frame.width)
 
     }
-    // Mark - 更新UI
+    // Mark -- 更新UI
     func refresh() {
         detailApi.getDetail(id: id, success: { (details) in
             self.detailArray = details
@@ -81,13 +91,13 @@ class DetailViewController: UIViewController {
             
             for (index, name) in self.detailImageArray.enumerated(){
                 
-                let imageView = UIImageView(frame: CGRect(x: 50, y: 400+CGFloat(index*self.Y), width: 20, height: 20))
+                let imageView = UIImageView(frame: CGRect(x: 50, y: 440+CGFloat(index*self.Y), width: 20, height: 20))
                 imageView.image = UIImage(named: name)
                 self.view.addSubview(imageView)
             }
             
             for (index, name) in self.detailDisplayArray.enumerated(){
-                let label = UILabel(frame: CGRect(x: 80, y: 400+CGFloat(index*self.Y), width: 200, height: 20))
+                let label = UILabel(frame: CGRect(x: 80, y: 440+CGFloat(index*self.Y), width: 250, height: 20))
                 print(self.detailDisplayArray)
                 
                 label.text = name
@@ -102,17 +112,22 @@ class DetailViewController: UIViewController {
             } else {
                 self.imageURL = self.detailArray[0].picture
                 self.detailImageView.sd_setImage(with: URL(string: self.TWT_URL + self.imageURL))
+                self.image = self.TWT_URL + self.imageURL
+                print(self.image)
             }
 //            self.detailImageView.sd_setImage(with: URL(string: self.TWT_URL + self.imageURL))
-            self.detailImageView.contentMode = .scaleAspectFit
-            self.detailImageView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 320)
+//            self.detailImageView.contentMode = .scaleAspectFit
+//            self.detailImageView.frame = CGRect(x: 0, y: 62, width: self.view.bounds.width, height: 320)
+//            self.detailImageView.isUserInteractionEnabled = true
+            
+            
             self.detailTitleLabel.text = self.detailArray[0].title
             self.detailTitleLabel.textAlignment = .center
             self.detailTitleLabel.snp.makeConstraints{
                 make in
                 make.top.equalTo(self.detailImageView.snp.bottom).offset(10)
                 make.width.equalTo(250)
-                make.height.equalTo(50)
+                make.height.equalTo(40)
                 make.centerX.equalTo(self.view.bounds.width/2)
                 
             }
@@ -126,37 +141,23 @@ class DetailViewController: UIViewController {
         
         })
     }
-//    func enumeratedImage(){
-//    
-//        for (index, name) in detailImageArray.enumerated(){
-//        
-//            let imageView = UIImageView(frame: CGRect(x: 50, y: 400+CGFloat(index*Y), width: 20, height: 20))
-//            imageView.image = UIImage(named: name)
-//            self.view.addSubview(imageView)
-//        }
-//        
-//    }
 
-
-//    func enumeratedLabel(){
-//        for (index, name) in detailDisplayArray.enumerated(){
-//            let label = UILabel(frame: CGRect(x: 80, y: 400+CGFloat(index*Y), width: 200, height: 20))
-//            print(self.detailDisplayArray)
-//            
-//            label.text = name
-//            self.view.addSubview(label)
-//            
-//        }
-//        
-//    }
     
-    // Mark - Share
+    // Mark -— Share
     
     func share() {
         
         let vc = UIActivityViewController(activityItems: [UIImage(named: "暂无图片")!, "[失物招领]\(self.detailArray[0].title)", URL(string: "http://open.twtstudio.com/lostfound/detail.html#\(id)")!], applicationActivities: [])
         present(vc, animated: true, completion: nil)
         print("https://open.twtstudio.com/lostfound/detail.html#\(id)")
+    }
+    
+    func swipeClicked(recogizer: UITapGestureRecognizer) {
+        
+        let previewVC = LFImagePreviewViewController(image: image)
+        self.navigationController?.pushViewController(previewVC, animated: true)
+        
+    
     }
     
     override func didReceiveMemoryWarning() {

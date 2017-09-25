@@ -57,8 +57,8 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
 //     pictureImage.sd_setImage(with: pic)
         pictureImage.sd_setImage(with: pic) { (image, error, type, url) in
             if let image = image{
-                let imageHeight = image.size.height ?? 200
-                let imageWidth = image.size.width ?? 200
+                let imageHeight = image.size.height
+                let imageWidth = image.size.width
                 let width: CGFloat = UIScreen.main.bounds.size.width/2-10
                 let ratio = imageWidth/width
                 let height = imageHeight/ratio

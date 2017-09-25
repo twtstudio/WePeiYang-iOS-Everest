@@ -81,6 +81,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     
     
     func refresh() {
+
         GetLostAPI.getLost(page: curPage, success: { (losts) in
             self.lostList = losts
             self.lostView.reloadData()

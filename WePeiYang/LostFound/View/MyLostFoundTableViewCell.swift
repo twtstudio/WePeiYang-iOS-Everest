@@ -12,15 +12,15 @@ import SDWebImage
 
 class MyLostFoundTableViewCell: UITableViewCell {
     
-    var pictureImage = UIImageView()
+    var pictureImageView = UIImageView()
     var titleLabel = UILabel()
     var isBackLabel = UILabel()
     var timeLabel = UILabel()
     var placeLabel = UILabel()
     var markLabel = UILabel()
-    var markImage = UIImageView()
-    var timeImage = UIImageView()
-    var placeImage = UIImageView()
+    var markImageView = UIImageView()
+    var timeImageView = UIImageView()
+    var placeImageView = UIImageView()
     var editButton = UIButton()
     var reversalButton = UIButton()
     var reversal = ""
@@ -46,12 +46,12 @@ class MyLostFoundTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(pictureImage)
+        contentView.addSubview(pictureImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(isBackLabel)
-        contentView.addSubview(timeImage)
-        contentView.addSubview(placeImage)
-        contentView.addSubview(markImage)
+        contentView.addSubview(timeImageView)
+        contentView.addSubview(placeImageView)
+        contentView.addSubview(markImageView)
         contentView.addSubview(markLabel)
         contentView.addSubview(timeLabel)
         contentView.addSubview(placeLabel)
@@ -69,8 +69,8 @@ class MyLostFoundTableViewCell: UITableViewCell {
         
 //        let image = UIImage(named: pic)
 //        pictureImage.image = image
-        pictureImage.sd_setImage(with: pic)
-        pictureImage.snp.makeConstraints{
+        pictureImageView.sd_setImage(with: pic)
+        pictureImageView.snp.makeConstraints{
             make in
             make.top.equalToSuperview().offset(10)
             make.left.equalToSuperview().offset(15)
@@ -88,7 +88,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
         isBackLabel.snp.makeConstraints{
             make in
             make.top.equalToSuperview().offset(20)
-            make.left.equalTo(pictureImage.snp.right).offset(10)
+            make.left.equalTo(pictureImageView.snp.right).offset(10)
         
         }
         
@@ -97,15 +97,15 @@ class MyLostFoundTableViewCell: UITableViewCell {
         titleLabel.snp.makeConstraints{
             make in
             make.top.equalTo(isBackLabel.snp.bottom).offset(5)
-            make.left.equalTo(pictureImage.snp.right).offset(10)
+            make.left.equalTo(pictureImageView.snp.right).offset(10)
             
         }
         
-        markImage.image = #imageLiteral(resourceName: "物品")
-        markImage.snp.makeConstraints{
+        markImageView.image = #imageLiteral(resourceName: "物品")
+        markImageView.snp.makeConstraints{
             make in
             make.top.equalTo(titleLabel.snp.bottom).offset(5)
-            make.left.equalTo(pictureImage.snp.right).offset(10)
+            make.left.equalTo(pictureImageView.snp.right).offset(10)
             make.width.height.equalTo(contentView.bounds.width*(100/2024))
         }
 
@@ -146,16 +146,16 @@ class MyLostFoundTableViewCell: UITableViewCell {
         markLabel.snp.makeConstraints{
             make in
             make.top.equalTo(titleLabel.snp.bottom).offset(5)
-            make.left.equalTo(markImage.snp.right).offset(3)
+            make.left.equalTo(markImageView.snp.right).offset(3)
     
         
         }
         
-        timeImage.image = #imageLiteral(resourceName: "时间")
-        timeImage.snp.makeConstraints{
+        timeImageView.image = #imageLiteral(resourceName: "时间")
+        timeImageView.snp.makeConstraints{
             make in
-            make.top.equalTo(markImage.snp.bottom).offset(5)
-            make.left.equalTo(pictureImage.snp.right).offset(10)
+            make.top.equalTo(markImageView.snp.bottom).offset(5)
+            make.left.equalTo(pictureImageView.snp.right).offset(10)
             make.width.height.equalTo(contentView.bounds.width*(100/2024))
         }
         
@@ -165,16 +165,16 @@ class MyLostFoundTableViewCell: UITableViewCell {
         timeLabel.numberOfLines = 1
         timeLabel.snp.makeConstraints{
             make in
-            make.top.equalTo(markImage.snp.bottom).offset(5)
-            make.left.equalTo(timeImage.snp.right).offset(3)
+            make.top.equalTo(markImageView.snp.bottom).offset(5)
+            make.left.equalTo(timeImageView.snp.right).offset(3)
         
         }
         
-        placeImage.image = #imageLiteral(resourceName: "地点")
-        placeImage.snp.makeConstraints{
+        placeImageView.image = #imageLiteral(resourceName: "地点")
+        placeImageView.snp.makeConstraints{
             make in
-            make.top.equalTo(timeImage.snp.bottom).offset(5)
-            make.left.equalTo(pictureImage.snp.right).offset(10)
+            make.top.equalTo(timeImageView.snp.bottom).offset(5)
+            make.left.equalTo(pictureImageView.snp.right).offset(10)
             make.width.height.equalTo(contentView.bounds.width*(100/2024))
             make.bottom.equalToSuperview().offset(-15)
         }
@@ -185,8 +185,8 @@ class MyLostFoundTableViewCell: UITableViewCell {
         placeLabel.numberOfLines = 1
         placeLabel.snp.makeConstraints{
             make in
-            make.top.equalTo(timeImage.snp.bottom).offset(5)
-            make.left.equalTo(placeImage.snp.right).offset(3)
+            make.top.equalTo(timeImageView.snp.bottom).offset(5)
+            make.left.equalTo(placeImageView.snp.right).offset(3)
             make.bottom.equalToSuperview().offset(-15)
         }
 

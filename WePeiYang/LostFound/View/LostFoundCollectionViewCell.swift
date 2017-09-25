@@ -18,7 +18,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
     var markLabel = UILabel()
     var timeLabel = UILabel()
     var placeLabel = UILabel()
-    var pictureImage = UIImageView()
+    var pictureImageView = UIImageView()
     var markImage = UIImageView()
     var timeImage = UIImageView()
     var placeImage = UIImageView()
@@ -33,12 +33,14 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
         
         
         self.backgroundColor = UIColor.white
-        
+        pictureImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 170))
+        pictureImageView
+            .clipsToBounds = true
         self.addSubview(titleLabel)
         self.addSubview(markLabel)
         self.addSubview(timeLabel)
         self.addSubview(placeLabel)
-        self.addSubview(pictureImage)
+        self.addSubview(pictureImageView)
         self.addSubview(markImage)
         self.addSubview(timeImage)
         self.addSubview(placeImage)
@@ -52,17 +54,18 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
     
     func initUI(pic: URL, title: String, mark: Int, time: String, place: String){
         
-        
-        pictureImage.sd_setImage(with: pic)
-        pictureImage.snp.makeConstraints{
-            make in
-            make.top.equalToSuperview().offset(0.1)
-            make.left.equalToSuperview()//.offset(10)
-            make.right.equalToSuperview()//.offset(-5)
-            make.height.equalTo(170)
-            
-            
-        }
+        pictureImageView.contentMode = .scaleAspectFill
+        pictureImageView.sd_setImage(with: pic)
+//        pictureImage.snp.makeConstraints{
+//            make in
+//            make.top.equalToSuperview().offset(0.1)
+//            make.left.equalToSuperview().offset(0.1)
+//            make.right.equalToSuperview().offset(-0.1)
+//            make.bottom.equalTo(titleLabel.snp.top).offset(-10)
+////            make.height.equalTo(70)
+//            
+//            
+//        }
         
         titleLabel.text = title
         titleLabel.numberOfLines = 0
@@ -117,6 +120,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(titleLabel.snp.bottom).offset(5)
             make.left.equalTo(markImage.snp.right).offset(10)
             make.bottom.equalTo(timeLabel.snp.top).offset(-5)
+            make.right.equalToSuperview().offset(0.1)
             
         }
         
@@ -128,6 +132,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
             make.left.equalToSuperview().offset(15)
             make.bottom.equalTo(timeImage.snp.top).offset(-5)
             make.width.height.equalTo(contentView.bounds.width*(1/12))
+            
         }
         
         timeImage.image = #imageLiteral(resourceName: "时间")
@@ -149,6 +154,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
             make in
             make.top.equalTo(markLabel.snp.bottom).offset(5)
             make.left.equalTo(timeImage.snp.right).offset(10)
+            make.right.equalToSuperview().offset(0.1)
         }
         
         placeImage.image = #imageLiteral(resourceName: "地点")
@@ -171,6 +177,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(timeLabel.snp.bottom).offset(5)
             make.left.equalTo(placeImage.snp.right).offset(10)
             make.bottom.equalToSuperview().offset(-5)
+            make.right.equalToSuperview().offset(0.1)
         
         }
         

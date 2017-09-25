@@ -30,6 +30,7 @@
 		0C3ADF4A1F697EE100388C19 /* SectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF331F697EE100388C19 /* SectionCell.swift */; };
 		0C3ADF4B1F697EE100388C19 /* UpLoadingPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF341F697EE100388C19 /* UpLoadingPicCell.swift */; };
 		0C3ADF4D1F697FA200388C19 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF4C1F697FA200388C19 /* SettingsViewController.swift */; };
+		0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3B3EB51F777D7C00081A0D /* LFImagePreviewViewController.swift */; };
 		36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFD1F223FC1001317A7 /* BookDetailViewControllerTempView.swift */; };
 		36073D081F223FC1001317A7 /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFE1F223FC1001317A7 /* CoverView.swift */; };
 		36073D091F223FC1001317A7 /* RateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFF1F223FC1001317A7 /* RateView.swift */; };
@@ -147,6 +148,7 @@
 		0C3ADF331F697EE100388C19 /* SectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionCell.swift; sourceTree = "<group>"; };
 		0C3ADF341F697EE100388C19 /* UpLoadingPicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpLoadingPicCell.swift; sourceTree = "<group>"; };
 		0C3ADF4C1F697FA200388C19 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		0C3B3EB51F777D7C00081A0D /* LFImagePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFImagePreviewViewController.swift; sourceTree = "<group>"; };
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36073CFD1F223FC1001317A7 /* BookDetailViewControllerTempView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailViewControllerTempView.swift; sourceTree = "<group>"; };
 		36073CFE1F223FC1001317A7 /* CoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CoverView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -284,8 +286,9 @@
 				0C3ADF241F697EE100388C19 /* MyLostViewController.swift */,
 				0C3ADF221F697EE100388C19 /* MyFoundViewController.swift */,
 				0C3ADF2D1F697EE100388C19 /* PublishLostViewController.swift */,
-				0C3ADF251F697EE100388C19 /* PublishSuccessViewController.swift */,
 				0C3ADF1C1F697EE100388C19 /* DetailViewController.swift */,
+				0C3B3EB51F777D7C00081A0D /* LFImagePreviewViewController.swift */,
+				0C3ADF251F697EE100388C19 /* PublishSuccessViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -934,6 +937,7 @@
 				0C3ADF351F697EE100388C19 /* DetailViewController.swift in Sources */,
 				B10253FC1EC84ED90064373A /* DeviceStatus.swift in Sources */,
 				0C3ADF471F697EE100388C19 /* MarkCustomCell.swift in Sources */,
+				0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */,
 				0C3ADF421F697EE100388C19 /* LostFoundAPI.swift in Sources */,
 				0C3ADF3F1F697EE100388C19 /* SearchedResultViewController.swift in Sources */,
 				B10254241EC8547E0064373A /* WPYTextView.swift in Sources */,
