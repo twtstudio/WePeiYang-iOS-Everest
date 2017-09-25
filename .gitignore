@@ -2,4 +2,6 @@
 Pods/
 Podfile.lock
 WePeiYang.xcworkspace/xcuserdata/
-TwTKeychain.swift
+WePeiYang.xcodeproj/xcuserdata/
+WePeiYang.xcodeproj/project.xcworkspace/xcuserdata/
+WePeiYang/Shared/Network/TwTKeychain.swift
