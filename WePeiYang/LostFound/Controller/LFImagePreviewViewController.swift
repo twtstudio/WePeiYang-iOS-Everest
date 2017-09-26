@@ -28,13 +28,14 @@ class LFImagePreviewViewController: UIViewController {
         super.viewDidLoad()
 
         self.view.backgroundColor = .black
+//        self.automaticallyAdjustsScrollViewInsets = false
         
         scrollView = UIScrollView(frame: self.view.bounds)
         scrollView.backgroundColor = .black
         scrollView.isUserInteractionEnabled = true
-        scrollView.maximumZoomScale = 1.5
+        scrollView.maximumZoomScale = 2.0
         scrollView.minimumZoomScale = 1.0
-        
+        scrollView.delegate = self
         print(image)
         
         imageView = UIImageView()
@@ -52,10 +53,12 @@ class LFImagePreviewViewController: UIViewController {
         scrollView.addSubview(imageView)
         self.view.addSubview(scrollView)
         
+        //单击
         let tapSingle = UITapGestureRecognizer(target: self, action: #selector(tapSingleDid(_:)))
         tapSingle.numberOfTapsRequired = 1
         tapSingle.numberOfTouchesRequired = 1
         
+        //双击
         let tapDouble = UITapGestureRecognizer(target: self, action: #selector(tapDoubleDid(_:)))
         tapDouble.numberOfTapsRequired = 2
         tapDouble.numberOfTouchesRequired = 1
@@ -100,13 +103,26 @@ class LFImagePreviewViewController: UIViewController {
         
         UIView.animate(withDuration: 0.5, animations: {
             if self.scrollView.zoomScale == 1.0 {
-                self.scrollView.zoomScale = 3.0
-            
+                let pointInView = ges.location(in: self.imageView)
+                let newZoomScale: CGFloat = 2.0
+                let scrollViewSize = self.scrollView.bounds.size
+                let w = scrollViewSize.width / newZoomScale
+                let h = scrollViewSize.height / newZoomScale
+                let x = pointInView.x - (w / 2.0)
+                let y = pointInView.y - (h / 2.0)
+                let rectToZoomTo = CGRect(x:x, y:y, width:w, height:h)
+                self.scrollView.zoom(to: rectToZoomTo, animated: true)
             } else {
                 self.scrollView.zoomScale = 1.0
             }
         
         })
+        
+//        if self.scrollView.zoomScale > CGFloat(1.0) {
+//            self.scrollView.setZoomScale(1.0, animated: true)
+//        } else {
+//            self.scrollView.setZoomScale(1.5, animated: true)
+//        }
     }
     
 //    func responderViewController() -> UIViewController? {
@@ -121,6 +137,21 @@ override func didReceiveMemoryWarning() {
 
 }
 extension LFImagePreviewViewController: UIScrollViewDelegate {
-
+    
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.imageView
+    }
+    
+//    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+//        var centerX = scrollView.center.x
+//        var centerY = scrollView.center.y
+//        centerX = scrollView.contentSize.width > scrollView.frame.size.width ? scrollView.contentSize.width/2: centerX
+//        centerY = scrollView.contentSize.height > scrollView.frame.size.height ? scrollView.contentSize.height/2: centerY
+//        print(centerX, centerY)
+//        imageView.center = CGPoint(x: centerX, y: centerY)
+//        
+//    }
+    
 
 }
