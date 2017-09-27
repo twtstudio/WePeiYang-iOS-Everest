@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C2C8D921F7BC48400D3A5E2 /* LFPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2C8D911F7BC48400D3A5E2 /* LFPickerCell.swift */; };
 		0C3ADF351F697EE100388C19 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1C1F697EE100388C19 /* DetailViewController.swift */; };
 		0C3ADF361F697EE100388C19 /* FoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1D1F697EE100388C19 /* FoundViewController.swift */; };
 		0C3ADF371F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1E1F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift */; };
@@ -125,6 +126,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C2C8D911F7BC48400D3A5E2 /* LFPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFPickerCell.swift; sourceTree = "<group>"; };
 		0C3ADF1C1F697EE100388C19 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0C3ADF1D1F697EE100388C19 /* FoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundViewController.swift; sourceTree = "<group>"; };
 		0C3ADF1E1F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LostFoundCollectionViewCellDemo.swift; path = ../Controller/LostFoundCollectionViewCellDemo.swift; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				0C3ADF321F697EE100388C19 /* PublishCustomCell.swift */,
 				0C3ADF331F697EE100388C19 /* SectionCell.swift */,
 				0C3ADF341F697EE100388C19 /* UpLoadingPicCell.swift */,
+				0C2C8D911F7BC48400D3A5E2 /* LFPickerCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -978,6 +981,7 @@
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
 				3659367C1F1E5FAE003CE578 /* YellowPageMainViewController.swift in Sources */,
 				B10253D71EC84ED20064373A /* Librarian.swift in Sources */,
+				0C2C8D921F7BC48400D3A5E2 /* LFPickerCell.swift in Sources */,
 				B10254211EC8547E0064373A /* WPYLabel.swift in Sources */,
 				B10253FD1EC84ED90064373A /* log.swift in Sources */,
 				0C3ADF481F697EE100388C19 /* MyLostFoundTableViewCell.swift in Sources */,

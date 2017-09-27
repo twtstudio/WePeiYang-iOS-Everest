@@ -228,6 +228,16 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
 
                 return cell
             }
+        case 5:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "LFPickerCell" + "\(indexPath)") as? LFPickerCell {
+            
+                return cell
+            } else {
+            
+                let cell = LFPickerCell(style: .default, reuseIdentifier: "LFPickerCell" + "\(indexPath)")
+                
+                return cell
+            }
         default:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "PublishLostCell" + "\(indexPath)") as? PublishCustomCell {
                 //                tableView.dequeueReusableCell(withIdentifier: , for: indexPath) as? PublishCustomCell {

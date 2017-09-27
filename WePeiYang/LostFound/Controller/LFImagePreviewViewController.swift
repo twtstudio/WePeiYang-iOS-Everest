@@ -100,7 +100,7 @@ class LFImagePreviewViewController: UIViewController {
         if let nav = self.navigationController {
             nav.setNavigationBarHidden(true, animated: true)
         }
-        
+        // 在点击处进行缩放
         UIView.animate(withDuration: 0.5, animations: {
             if self.scrollView.zoomScale == 1.0 {
                 let pointInView = ges.location(in: self.imageView)
@@ -125,10 +125,7 @@ class LFImagePreviewViewController: UIViewController {
 //        }
     }
     
-//    func responderViewController() -> UIViewController? {
-//    
-//        for view in sequence(first: self., next: <#T##(T) -> T?#>)
-//    }
+
 
 override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -143,6 +140,7 @@ extension LFImagePreviewViewController: UIScrollViewDelegate {
         return self.imageView
     }
     
+    // image中心缩放
 //    func scrollViewDidZoom(_ scrollView: UIScrollView) {
 //        var centerX = scrollView.center.x
 //        var centerY = scrollView.center.y
