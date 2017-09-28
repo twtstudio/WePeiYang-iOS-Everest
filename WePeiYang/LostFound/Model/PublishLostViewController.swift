@@ -230,12 +230,12 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             }
         case 5:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "LFPickerCell" + "\(indexPath)") as? LFPickerCell {
-            
+            cell.textLabel?.text = function[indexPath.section][indexPath.row]
                 return cell
             } else {
             
                 let cell = LFPickerCell(style: .default, reuseIdentifier: "LFPickerCell" + "\(indexPath)")
-                
+             cell.textLabel?.text = function[indexPath.section][indexPath.row]               
                 return cell
             }
         default:
