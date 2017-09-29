@@ -13,9 +13,10 @@ class LFPickerCell: UITableViewCell {
     
     var pickerView: UIPickerView!
     var textField: UITextField!
+    var delegate: PublishLostViewController?
     
-    
-    let dateArr = ["7天","15天","30天"]
+    let dateArr = ["请选择天数","7天","15天","30天"]
+//    let dateArr = ["7天","15天","30天"]
     override var frame: CGRect{
         
         didSet{
@@ -28,35 +29,37 @@ class LFPickerCell: UITableViewCell {
             
         }
     }
+    
+    // 完成按钮
     override func draw(_ rect: CGRect) {
         
         super.draw(rect)
-        var toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 30))
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 40))
         toolBar.barStyle = UIBarStyle.default
         
-        var btnFished = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 25))
+        let btnFished = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 25))
         
         btnFished.setTitle("完成", for: .normal)
+        btnFished.setTitleColor(UIColor(hex6: 0x13a8df), for: .normal)
         btnFished.addTarget(self, action: #selector(finishTapped(sender:)), for: .touchUpInside)
-        var item2 = UIBarButtonItem(customView: btnFished)
-//        var space = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width - btnFished.frame.width - 30, height: 25)）
-        let space = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width-btnFished.frame.size.width-30, height: 25))
         
-        var item = UIBarButtonItem(customView: space)
+        let item2 = UIBarButtonItem(customView: btnFished)
+        let space = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width-btnFished.frame.size.width-30, height: 25))
+        let item = UIBarButtonItem(customView: space)
         toolBar.setItems([item, item2], animated: true)
-//        self.inputAccessoryView = toolBar
+
         textField.inputAccessoryView = toolBar
         
         
     }
     
-    //    func screenSize() -> CGRect {
-    //    return UIScreen.main.bounds.size
-    //    }
-    
+
     func finishTapped(sender: UIButton) {
         
-        self.resignFirstResponder()
+//        delegate?.means(input: textField.text!, key: "duration")
+        
+//        delegate?.means(input: dateArr[row], key: "duration")
+        textField.resignFirstResponder()
     }
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         
@@ -121,18 +124,26 @@ extension LFPickerCell: UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
         
-        return 100
+        return 200
     }
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 50
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(row)
+
         
         self.textField.text = dateArr[row]
-        //
-        //        let textField = UITextField()
-        //        textField.text = dateArr[row]
+        if row == 0 {
+            print("请选择天数")
+            self.textField.textColor = UIColor(hex6: 0xc8ccd3)
+        } else {
+            let tag = row - 1
+            print(tag)
+        self.textField.textColor = UIColor.black
+
+        delegate?.means(input: "\(tag)", key: "duration")
+        }
+
     }
     
     

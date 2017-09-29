@@ -13,7 +13,7 @@ import Photos
 class PublishLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     var tableView: UITableView!
-    var markDic:[String: Any] = [:]
+    var markDict:[String: Any] = [:]
     var mark: MarkCustomCell!
     var index = 0
     //    var function = [
@@ -217,25 +217,29 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         
         switch (indexPath.section) {
         case 0:
-
+            
             if let cell = tableView.dequeueReusableCell(withIdentifier: "UpLoadingCell" + "\(indexPath)") as? UpLoadingPicCell {
                 cell.selectionStyle = UITableViewCellSelectionStyle.none
-
+                
                 
                 return cell
             } else {
                 let cell = UpLoadingPicCell(style: .default, reuseIdentifier: "UpLoadingCell" + "\(indexPath)")
-
+                
                 return cell
             }
         case 5:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "LFPickerCell" + "\(indexPath)") as? LFPickerCell {
-            cell.textLabel?.text = function[indexPath.section][indexPath.row]
+                cell.textLabel?.text = function[indexPath.section][indexPath.row]
+                cell.delegate = self
+                
+                
                 return cell
             } else {
-            
+                
                 let cell = LFPickerCell(style: .default, reuseIdentifier: "LFPickerCell" + "\(indexPath)")
-             cell.textLabel?.text = function[indexPath.section][indexPath.row]               
+                cell.textLabel?.text = function[indexPath.section][indexPath.row]
+                cell.delegate = self
                 return cell
             }
         default:
@@ -273,14 +277,6 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
                 cell.cellkey = returnKeys[indexPath.section]?[indexPath.row]
                 
                 cell.addTargetMethod()
-                
-                
-                
-                
-                
-                //             cell.delegate?.fangfa(input: cell.textField.text, key: cell.cellkey)
-                
-                
                 
                 cell.textLabel?.text = function[indexPath.section][indexPath.row];
                 
@@ -346,7 +342,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     func tapped(){
         
         print("Release success")
-        print(markDic)
+        print(markDict)
         //        LostAPI.fabu(markdic: markdic, success: {
         //            _ in
         //        })
@@ -357,7 +353,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
 //            
 //            
 //        }
-        PostLostAPI.postLost(markDic: markDic, success: {
+        PostLostAPI.postLost(markDic: markDict, success: {
             
             dic in
             let successVC = PublishSuccessViewController()
@@ -367,7 +363,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             print(error)
         })
         //        }
-        print(markDic)
+        print(markDict)
     }
     
     
@@ -389,8 +385,8 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         
         
         
-        markDic[key] = input
-        markDic["other_tag"] = ""
+        markDict[key] = input
+        markDict["other_tag"] = ""
         
     }
     
@@ -408,7 +404,7 @@ extension PublishLostViewController: UIImagePickerControllerDelegate {
             
             
             if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? UpLoadingPicCell {
-                markDic["pic[]"] = image
+                markDict["pic[]"] = image
                 DispatchQueue.main.async {
                     cell.addPictureImage.image = image
                 }
@@ -458,5 +454,7 @@ extension PublishLostViewController: UIGestureRecognizerDelegate {
         return true
     }
 }
+
+
 
 
