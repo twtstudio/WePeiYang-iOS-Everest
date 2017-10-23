@@ -9,7 +9,7 @@
 import UIKit
 
 class TwTUser {
-    static var shared = TwTUser()
+    static let shared = TwTUser()
     private init() {}
     var token: String?
     var username: String = ""
