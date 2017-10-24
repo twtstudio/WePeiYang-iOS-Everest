@@ -20,18 +20,18 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
     var curPage : Int = 1
     
     
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-//        layout.estimatedItemSize = CGSize(width: self.view.frame.size.width/2-10, height: 270)
+        //        layout.estimatedItemSize = CGSize(width: self.view.frame.size.width/2-10, height: 270)
         //        layout.itemSize =
         layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height:  270)
         //        layout.minimumInteritemSpacing = 20
         layout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
-
+        
         foundView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height-110), collectionViewLayout: layout)
         
         foundView.register(LostFoundCollectionViewCell.self, forCellWithReuseIdentifier: "foundCell")
@@ -55,10 +55,10 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         GetFoundAPI.getFound(page: curPage, success: { (founds) in
             self.foundList = founds
             self.foundView.reloadData()
-        
+            
         }, failure: { error in
             print(error)
-        
+            
         })
     }
     
@@ -103,18 +103,18 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         
     }
-
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        
-//        let image = UIImage(named: foundList[indexPath.row].picture)
-//        let imageHeight = image?.size.height
-//        let imageWidth = image?.size.width
-//        let width = self.view.frame.size.width/2 - 10
-//        let ratio = imageWidth!/width
-//        let height = imageHeight!/ratio
-//        return CGSize(width: width, height: height + 4*30)
-//        
-//    }
+    
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    //
+    //        let image = UIImage(named: foundList[indexPath.row].picture)
+    //        let imageHeight = image?.size.height
+    //        let imageWidth = image?.size.width
+    //        let width = self.view.frame.size.width/2 - 10
+    //        let ratio = imageWidth!/width
+    //        let height = imageHeight!/ratio
+    //        return CGSize(width: width, height: height + 4*30)
+    //
+    //    }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -137,29 +137,18 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "foundCell", for: indexPath) as? LostFoundCollectionViewCell{
-//        cell.title.text = "这里是内容：\(indexPath.row)"
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "foundCell", for: indexPath) as? LostFoundCollectionViewCell {
+            //        cell.title.text = "这里是内容：\(indexPath.row)"
             
-            if foundList[indexPath.row].picture != ""{
             let picURL = foundList[indexPath.row].picture
-            cell.initUI(pic: URL(string: TWT_URL + picURL)!, title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detail_type, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
-            } else {
-                let picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
-                cell.initUI(pic: URL(string: picURL)!, title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detail_type, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
-            
-            }
+            cell.initUI(pic: picURL, title: foundList[indexPath.row].title, mark: Int(foundList[indexPath.row].detail_type)!, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
             return cell
-        
+            
         }
         let cell = LostFoundCollectionViewCell()
-        if foundList[indexPath.row].picture != ""{
-            let picURL = foundList[indexPath.row].picture
-            cell.initUI(pic: URL(string: TWT_URL + picURL)!, title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detail_type, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
-        } else {
-            let picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
-            cell.initUI(pic: URL(string: picURL)!, title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detail_type, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
-            
-        }
+        let picURL = foundList[indexPath.row].picture
+        cell.initUI(pic: picURL, title: foundList[indexPath.row].title, mark: Int(foundList[indexPath.row].detail_type)!, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
+        
         
         return cell
         

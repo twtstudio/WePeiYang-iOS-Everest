@@ -23,6 +23,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
     var timeImageView: UIImageView!
     var placeImageView: UIImageView!
     
+
     
     
     
@@ -61,10 +62,21 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func initUI(pic: URL, title: String, mark: Int, time: String, place: String){
+    
+    
+    func initUI(pic: String, title: String, mark: Int, time: String, place: String){
         
+
+        if pic != "", let picURL = URL(string: TWT_URL + pic) {
+            pictureImageView.sd_setImage(with: picURL)
+        } else {
+            let picURL = "暂无图片"
+            pictureImageView.image = UIImage(named: picURL)
+        }
         pictureImageView.contentMode = .scaleAspectFill
-        pictureImageView.sd_setImage(with: pic)
+//        pictureImageView.sd_setImage(with: pic)
+
+        
 //        pictureImage.snp.makeConstraints{
 //            make in
 //            make.top.equalToSuperview().offset(0.1)

@@ -103,13 +103,7 @@ class LFPickerCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-5)
             make.height.equalTo(30)
         }
-        //        pickerView.snp.makeConstraints {
-        //            make in
-        //            make.left.equalToSuperview().offset(80)
-        //            make.right.equalToSuperview().offset(-5)
-        //            make.top.equalToSuperview().offset(5)
-        //            make.bottom.equalToSuperview().offset(-5)
-        //        }
+
     }
     
     

@@ -130,26 +130,16 @@ class SearchedResultViewController: UIViewController, UICollectionViewDelegate, 
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchedCell", for: indexPath) as? LostFoundCollectionViewCell{
             //        cell.title.text = "这里是内容：\(indexPath.row)"
             
-            if searchedList[indexPath.row].picture != ""{
                 let picURL = searchedList[indexPath.row].picture
-                cell.initUI(pic: URL(string: TWT_URL + picURL)!, title: searchedList[indexPath.row].title, mark: searchedList[indexPath.row].detail_type, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
-            } else {
-                let picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
-                cell.initUI(pic: URL(string: picURL)!, title: searchedList[indexPath.row].title, mark: searchedList[indexPath.row].detail_type, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
-                
-            }
+                cell.initUI(pic: picURL, title: searchedList[indexPath.row].title, mark: Int(searchedList[indexPath.row].detail_type)!, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
+
             return cell
             
         }
         let cell = LostFoundCollectionViewCell()
-        if searchedList[indexPath.row].picture != ""{
+
             let picURL = searchedList[indexPath.row].picture
-            cell.initUI(pic: URL(string: TWT_URL + picURL)!, title: searchedList[indexPath.row].title, mark: searchedList[indexPath.row].detail_type, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
-        } else {
-            let picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
-            cell.initUI(pic: URL(string: picURL)!, title: searchedList[indexPath.row].title, mark: searchedList[indexPath.row].detail_type, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
-            
-        }
+            cell.initUI(pic: picURL, title: searchedList[indexPath.row].title, mark: Int(searchedList[indexPath.row].detail_type)!, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
         
         return cell
         

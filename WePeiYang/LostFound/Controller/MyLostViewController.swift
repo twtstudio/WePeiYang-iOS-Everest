@@ -7,25 +7,25 @@
 //
 
 import UIKit
-    let TWT_URL = "http://open.twtstudio.com/"
-
+let TWT_URL = "http://open.twtstudio.com/"
+var id = ""
 class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
-    var id = 0
+//    var id = ""
     var tableView: UITableView!
     var myLost: [MyLostFoundModel] = []
-//    let TWT_URL = "http://open.twtstudio.com/"
+    //    let TWT_URL = "http://open.twtstudio.com/"
     
-//    var myLost1 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic2")
-//    var myLost2 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic3")
-//    var myLost3 = MyLoatFoundModel(isBack: "已找到", title: "求大大", mark:"钱包" , time: "2017/5/1",place: "图书馆", picture: "pic1")
+    //    var myLost1 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic2")
+    //    var myLost2 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic3")
+    //    var myLost3 = MyLoatFoundModel(isBack: "已找到", title: "求大大", mark:"钱包" , time: "2017/5/1",place: "图书馆", picture: "pic1")
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        myLost.append(myLost1)
-//        myLost.append(myLost2)
-//        myLost.append(myLost3)
+        //        myLost.append(myLost1)
+        //        myLost.append(myLost2)
+        //        myLost.append(myLost3)
         
         self.title = "我的"
         
@@ -37,7 +37,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.tableView.estimatedRowHeight = 500
         self.tableView.rowHeight = UITableViewAutomaticDimension
-//        self.automaticallyAdjustsScrollViewInsets = false
+        //        self.automaticallyAdjustsScrollViewInsets = false
         
         self.view.addSubview(tableView!)
         refresh()
@@ -45,21 +45,21 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func refresh() {
-    
+        
         GetMyLostAPI.getMyLostAPI(success: { (myLosts) in
             self.myLost = myLosts
             self.tableView.reloadData()
-        
-        
+            
+            
         }, failure: {error in
             print(error)
-        
+            
         })
-    
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
+        
         id = myLost[indexPath.row].id
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -70,34 +70,34 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.pushViewController(detailView, animated: true)
     }
     
-
-
+    
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.01
     }
     
-//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//        
-//        
-//        
-//    }
-//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-//        return UITableViewCellEditingStyle.delete
-//    }
-//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-//        return true
-//    }
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        
-//        if editingStyle == UITableViewCellEditingStyle.delete {
-//        
-//            
-//        }
-//    
-//    }
- 
+    //    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    //
+    //
+    //
+    //    }
+    //    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    //        return UITableViewCellEditingStyle.delete
+    //    }
+    //    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    //        return true
+    //    }
+    //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    //
+    //        if editingStyle == UITableViewCellEditingStyle.delete {
+    //
+    //
+    //        }
+    //
+    //    }
     
-   
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         return myLost.count
@@ -111,65 +111,78 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell{
             
-            cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton:)), for: .touchUpInside)
-            cell.reversalButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton:)), for: .touchUpInside)
+
+            cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
+            cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
+//
             
-            var picURL = ""
-            picURL = TWT_URL + myLost[indexPath.row].picture
-            if let picURL = URL(string: picURL), myLost[indexPath.row].picture != "" {
-            cell.initMyUI(pic: picURL, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
- 
-            } else {
-                picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
+            let pic = myLost[indexPath.row].picture
+            print(pic)
+            cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
             
-            cell.initMyUI(pic: URL(string: picURL)!, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
-            }
             return cell
             
             
             
         }
-
-        let cell = MyLostFoundTableViewCell()
-        var picURL = ""
         
-        if myLost[indexPath.row].picture != "" {
-            picURL = TWT_URL + myLost[indexPath.row].picture
-            
-        } else {
-            picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
-        }
-        cell.initMyUI(pic: URL(string: picURL)!, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
+        let cell = MyLostFoundTableViewCell()
+        let pic = TWT_URL + myLost[indexPath.row].picture
+        
 
+             cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
+        
         
         
         return cell
     }
     func editButtonTapped(editButton: UIButton) {
+        
+        let cell = editButton.superView(of: UITableViewCell.self)!
+        let indexPath = tableView.indexPath(for: cell)
+        id = myLost[(indexPath?[1])!].id
+        print(id)
+        
+        print("indexPath：\(indexPath!)")
         let vc = PublishLostViewController()
         let index = 1
         vc.index = index
         
         self.navigationController?.pushViewController(vc, animated: true)
-    
+        
     }
     func inverseButtonTapped(inverseButton: UIButton) {
+//        let cell = superUITableViewCell(of: inverseButton)!
         
-//        id = myLost[indexpath]
+        let cell = inverseButton.superView(of: UITableViewCell.self)!
+        let indexPath = tableView.indexPath(for: cell)
+        id = myLost[(indexPath?[1])!].id
+        print(id)
+        
+    print("indexPath：\(indexPath!)")
+        
         GetInverseAPI.getInverse(id: id, success: { _ in
             
             
             
-            print(self.id)
+
             
             self.refresh()
-        
+            
         }, failure: { error in
             print(error)
         })
         
     }
-
+    
+//    func superUITableViewCell(of: UIButton) -> UITableViewCell? {
+//        for view in sequence(first: of.superview, next: { $0?.superview }) {
+//            if let cell = view as? UITableViewCell {
+//                return cell
+//            }
+//        }
+//        return nil
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -179,4 +192,15 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     
+}
+extension UIView {
+    //返回该view所在的父view
+    func superView<T: UIView>(of: T.Type) -> T? {
+        for view in sequence(first: self.superview, next: { $0?.superview }) {
+            if let father = view as? T {
+                return father
+            }
+        }
+        return nil
+    }
 }

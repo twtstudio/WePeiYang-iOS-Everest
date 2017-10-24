@@ -50,9 +50,11 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell{
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell {
             
-            cell.initMyUI(pic: URL(string: "")!, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
+            let pic = myFound[indexPath.row].picture
+            
+            cell.initMyUI(pic: pic, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
             return cell
             
             
@@ -60,7 +62,8 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         
         let cell = MyLostFoundTableViewCell()
-        cell.initMyUI(pic: URL(string: "")!, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
+        let pic = myFound[indexPath.row].picture
+        cell.initMyUI(pic: pic, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
         
         
         

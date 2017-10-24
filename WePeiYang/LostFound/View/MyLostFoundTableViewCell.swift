@@ -22,7 +22,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
     var timeImageView = UIImageView()
     var placeImageView = UIImageView()
     var editButton = UIButton()
-    var reversalButton = UIButton()
+    var inverseButton = UIButton()
     var reversal = ""
 
     override var frame: CGRect{
@@ -56,7 +56,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
         contentView.addSubview(timeLabel)
         contentView.addSubview(placeLabel)
         contentView.addSubview(editButton)
-        contentView.addSubview(reversalButton)
+        contentView.addSubview(inverseButton)
 
 
 
@@ -65,11 +65,15 @@ class MyLostFoundTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func initMyUI(pic: URL, title: String, isBack: Int, mark: Int, time: String, place: String) {
+    func initMyUI(pic: String, title: String, isBack: Int, mark: Int, time: String, place: String) {
         
-//        let image = UIImage(named: pic)
-//        pictureImage.image = image
-        pictureImageView.sd_setImage(with: pic)
+        if pic != "", let picURL = URL(string: TWT_URL + pic) {
+            pictureImageView.sd_setImage(with: picURL)
+        } else {
+            let picURL = "暂无图片"
+            pictureImageView.image = UIImage(named: picURL)
+        }
+
         pictureImageView.snp.makeConstraints{
             make in
             make.top.equalToSuperview().offset(10)
@@ -215,8 +219,8 @@ class MyLostFoundTableViewCell: UITableViewCell {
         else {
             reversal = "蓝勾"
         }
-        reversalButton.setBackgroundImage(UIImage(named: reversal), for: .normal)
-        reversalButton.snp.makeConstraints {
+        inverseButton.setBackgroundImage(UIImage(named: reversal), for: .normal)
+        inverseButton.snp.makeConstraints {
             make in
             make.top.equalToSuperview().offset(20)
             make.left.equalTo(isBackLabel.snp.right).offset(10)

@@ -33,6 +33,7 @@ struct SolaSessionManager {
     static func solaSession(type: SessionType = .get, baseURL: String = TWT_ROOT_URL, url: String, token: String? = nil, parameters: Dictionary<String, String>? = nil, success: ((Dictionary<String, AnyObject>)->())? = nil, failure: ((Error)->())? = nil) {
         
         let fullurl = baseURL + url
+        print(fullurl)
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
         var para = parameters ?? Dictionary<String, String>()
         para["t"] = timeStamp
@@ -59,7 +60,7 @@ struct SolaSessionManager {
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent
         
-        TwTUser.shared.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjc4NjksImlzcyI6Imh0dHA6XC9cL29wZW4udHd0c3R1ZGlvLmNvbVwvYXBpXC92MVwvYXV0aFwvdG9rZW5cL2dldCIsImlhdCI6MTUwNjA5Njg0OSwiZXhwIjoxNTA2NzAxNjQ5LCJuYmYiOjE1MDYwOTY4NDksImp0aSI6IjQ3MWUyYzQ2MTg4ZDQ0MTRiYjZkNjM5NWQzNDMyZTRmIn0.RilLUafrpRW1ht2GbyAicAifRLu3daGbIgMunbZMX1M"
+        TwTUser.shared.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3ODY5IiwiaXNzIjoiaHR0cHM6XC9cL29wZW4udHd0c3R1ZGlvLmNvbVwvYXBpXC92MVwvYXV0aFwvdG9rZW5cL2dldCIsImlhdCI6MTUwODUxMzMzMSwiZXhwIjoxNTA5MTE4MTMxLCJuYmYiOjE1MDg1MTMzMzEsImp0aSI6IjA0MjU4MDM0NWE2NWU5MzNhNjE1MjBiOTQ3MzQyZDgxIn0.AKb8V7fUl70-hhKmpwrMB0lCe1u4oZsXa8TTo0s7w-k"
 
         if let twtToken = TwTUser.shared.token {
             headers["Authorization"] = "Bearer {\(twtToken)}"
@@ -163,33 +164,34 @@ struct SolaSessionManager {
                     upload.uploadProgress { progress in
                         progressBlock?(progress)
                     }
-                    upload.response(completionHandler: { response in
+//                    upload.response(completionHandler: { response in
 //                        print(response)
-                    })
-//                    upload.responseString(completionHandler: { string in
-//                        guard let data = string.data else {
-//                            //                            HUD.flash(.labeledError(title: errMsg, subtitle: nil), delay: 1.2)
-//                            //                                failure?(Err)
-//                            // FIXME: show call failure
-//                            return
-//                        }
-//                        do {
-//                            let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-//                            if let dict = json as? Dictionary<String, AnyObject> {
-//                                if let err = dict["err"] as? Int, err == 0 {
-//                                    success?(dict)
-//                                } else {
-////                                    HUD.flash(.label(dict["data"] as? String), delay: 1.0)
-////                                    failure?(BBSError.custom)
-//                                }
-//                            }
-//                        } catch let error {
-//                            let errMsg = String(data: data, encoding: .utf8)
-////                            HUD.flash(.labeledError(title: errMsg, subtitle: nil), delay: 1.2)
-//                            failure?(error)
-//                            // log.error(error)/
-//                        }
+//                        
 //                    })
+                    upload.responseString(completionHandler: { string in
+                        guard let data = string.data else {
+                            //                            HUD.flash(.labeledError(title: errMsg, subtitle: nil), delay: 1.2)
+                            //                                failure?(Err)
+                            // FIXME: show call failure
+                            return
+                        }
+                        do {
+                            let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                            if let dict = json as? Dictionary<String, AnyObject> {
+                                if let err = dict["err"] as? Int, err == 0 {
+                                    success?(dict)
+                                } else {
+//                                    HUD.flash(.label(dict["data"] as? String), delay: 1.0)
+//                                    failure?(BBSError.custom)
+                                }
+                            }
+                        } catch let error {
+                            let errMsg = String(data: data, encoding: .utf8)
+//                            HUD.flash(.labeledError(title: errMsg, subtitle: nil), delay: 1.2)
+                            failure?(error)
+                            // log.error(error)/
+                        }
+                    })
                 case .failure(let error):
                     failure?(error)
                     print(error)

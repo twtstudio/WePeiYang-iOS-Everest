@@ -21,7 +21,7 @@ class DetailViewController: UIViewController {
     let TWT_URL = "http://open.twtstudio.com/"
     var imageURL = ""
     
-    var id = 0
+    var id = ""
 //    var detailLabel = UILabel()
     var Y = 30
     

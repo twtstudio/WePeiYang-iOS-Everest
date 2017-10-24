@@ -150,9 +150,12 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     //某个Cell被选择的事件处理
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
+        print(lostList[indexPath.row].id)
         let id = lostList[indexPath.row].id
         let detailVC = DetailViewController()
+//        detailVC.id = 197
         detailVC.id = id
+        print(id)
         self.navigationController?.pushViewController(detailVC, animated: true)
         
     }
@@ -186,38 +189,19 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
 //        }
         let picURL = lostList[indexPath.row].picture
         
-        if let picURL = URL(string: TWT_URL + picURL), lostList[indexPath.row].picture != "" {
-            
 
-//            let picURL = lostList[indexPath.row].picture
-
-            cell.initUI(pic: picURL, title: lostList[indexPath.row].title ,mark: lostList[indexPath.row].detail_type, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
-        } else {
-
-            let picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
-            cell.initUI(pic: URL(string:picURL)!, title: lostList[indexPath.row].title, mark: lostList[indexPath.row].detail_type, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
-            
-           
-        }
+            cell.initUI(pic: picURL, title: lostList[indexPath.row].title ,mark: Int(lostList[indexPath.row].detail_type)!, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+        
             return cell
 
         }
 //        cell.title.text = "这里是内容：\(indexPath.row)"
         let cell = LostFoundCollectionViewCell()
-        if lostList[indexPath.row].picture != "" {
-            
 
             
-            
             let picURL = lostList[indexPath.row].picture
-            cell.initUI(pic: URL(string: TWT_URL + picURL)!, title: lostList[indexPath.row].title ,mark: lostList[indexPath.row].detail_type, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
-        } else {
-            
-            let picURL = "http://open.twtstudio.com/uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg"
-            cell.initUI(pic: URL(string: picURL)!, title: lostList[indexPath.row].title, mark: lostList[indexPath.row].detail_type, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
-            
-            
-        }
+            cell.initUI(pic: picURL, title: lostList[indexPath.row].title ,mark: Int(lostList[indexPath.row].detail_type)!, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+       
 
         
         return cell

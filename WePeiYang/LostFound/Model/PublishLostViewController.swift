@@ -30,7 +30,8 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         [],
         ["姓名*","联系电话*"],
         ["物品描述"],
-        ["刊登时长*"]
+        ["刊登时长*"],
+        []
     ]
     
     var text = [
@@ -51,6 +52,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         3: ["联系方式"],
         4: ["附加信息"],
         5: ["发布时间"],
+        6: ["物品状态"]
         ]
     
     var returnKeys = [
@@ -98,6 +100,10 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         headerMark.label.text = "类型"
         headerMark.delegate = self
         mark = headerMark
+        
+        if index == 1 {
+            function[6] = ["是否交还"]
+        }
     }
     
     func dismissKeyboard() {
@@ -107,11 +113,12 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         let data = self.function[section];
+        print(data.count)
         return data.count;
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 6
+        return 7
     }
     
     
@@ -137,6 +144,12 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             header.label.text = "附加信息"
         case 5:
             header.label.text = "发布时长"
+        case 6:
+            if index == 1 {
+            header.label.text = "物品状态"
+            } else {
+                break
+            }
         default:
             break
         }
@@ -154,7 +167,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 5{
+        if section == 6{
             return 180
         }else if section == 0{
             return 50
@@ -291,7 +304,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
-        if section == 5 {
+        if section == 6 {
             let footerView = UIView()
             let trueButton = UIButton()
             trueButton.setTitle("确 定", for:UIControlState.normal)
@@ -317,21 +330,21 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             
             print(index)
             //
-            if index == 1 {
-               let deleteButton = UIButton(frame: CGRect(x: self.view.frame.width/2, y: 80, width: 300, height: 40))
-                deleteButton.center = CGPoint(x: self.view.frame.width/2, y: 120)
-                deleteButton.backgroundColor = .red
-                deleteButton.setTitle("删 除", for: .normal)
-                deleteButton.layer.borderColor = UIColor.red.cgColor
-                deleteButton.layer.borderWidth = 2
-                deleteButton.layer.cornerRadius = 10
-                deleteButton.layer.shadowOpacity = 0.8
-                deleteButton.layer.shadowColor = UIColor.black.cgColor
-                deleteButton.layer.shadowOffset = CGSize(width: 1, height: 1)
-
-                footerView.addSubview(deleteButton)
-            
-            }
+//            if index == 1 {
+//               let deleteButton = UIButton(frame: CGRect(x: self.view.frame.width/2, y: 80, width: 300, height: 40))
+//                deleteButton.center = CGPoint(x: self.view.frame.width/2, y: 120)
+//                deleteButton.backgroundColor = .red
+//                deleteButton.setTitle("删 除", for: .normal)
+//                deleteButton.layer.borderColor = UIColor.red.cgColor
+//                deleteButton.layer.borderWidth = 2
+//                deleteButton.layer.cornerRadius = 10
+//                deleteButton.layer.shadowOpacity = 0.8
+//                deleteButton.layer.shadowColor = UIColor.black.cgColor
+//                deleteButton.layer.shadowOffset = CGSize(width: 1, height: 1)
+//
+//                footerView.addSubview(deleteButton)
+ 
+//            }
             return footerView
         }
         else{
