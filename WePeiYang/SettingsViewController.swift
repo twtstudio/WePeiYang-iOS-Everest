@@ -45,10 +45,11 @@ class SettingsViewController: UIViewController {
         
     }
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
+        self.navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
         //Changing NavigationBar Title color
@@ -70,10 +71,40 @@ class SettingsViewController: UIViewController {
         
         self.view.addSubview(tableView)
         
-        headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 100))
+        headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 165))
+        let avatarView = UIImageView(frame: .zero)
+        headerView.addSubview(avatarView)
+        avatarView.image = UIImage(named: "ic_account_circle")!.with(color: .gray)
+        avatarView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(20)
+            make.height.width.equalTo(80)
+        }
+        
+        let loginButton = UIButton()
+        loginButton.setTitle("登录", for: .normal)
+        loginButton.setTitleColor(.black, for: .normal)
+        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 33, weight: UIFontWeightRegular)
+        loginButton.titleLabel?.sizeToFit()
+        loginButton.sizeToFit()
+//        loginButton.sizeToFit()
+        headerView.addSubview(loginButton)
+        loginButton.snp.makeConstraints { make in
+            make.left.equalTo(avatarView.snp.right).offset(5)
+            make.top.equalTo(avatarView.snp.top).offset(5)
+        }
+        
+        let signatureLabel = UILabel(text: "登录以使用更多功能", color: .lightGray, fontSize: 15)
+        headerView.addSubview(signatureLabel)
+        signatureLabel.snp.makeConstraints { make in
+            make.left.equalTo(avatarView.snp.right).offset(5)
+            make.bottom.equalTo(avatarView.snp.bottom).offset(-5)
+        }
+
     }
 }
 
+// MARK: UITableViewDataSource
 extension SettingsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -95,18 +126,26 @@ extension SettingsViewController: UITableViewDataSource {
         cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
         cell.textLabel?.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightRegular)
         cell.accessoryType = .disclosureIndicator
+        let x: CGFloat = 15
+        let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))
+        separator.backgroundColor = .gray
+        separator.alpha = 0.25
+        cell.addSubview(separator)
         return cell
     }
 }
 
-// MARK: 
+// MARK: UITableViewDelegate
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return headerView
+        if section == 0 {
+            return headerView
+        }
+        return nil
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 100 : 0
+        return section == 0 ? 165 : 0
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
