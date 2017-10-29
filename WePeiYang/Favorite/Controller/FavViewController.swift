@@ -62,13 +62,13 @@ class FavViewController: UIViewController {
             print(flag)
         }
         
-        let fab = FAB(subActions: [
-            ("print1", {print(1)}),
-            ("print2", {print(2)}),
-            ("print3", {print(3)})
-            
-        ])
-        tabBarController?.view.addSubview(fab)
+//        let fab = FAB(subActions: [
+//            ("print1", {print(1)}),
+//            ("print2", {print(2)}),
+//            ("print3", {print(3)})
+//            
+//        ])
+//        tabBarController?.view.addSubview(fab)
         
         
         // Do any additional setup after loading the view.

@@ -6,3 +6,6 @@
 
 #import <CommonCrypto/CommonCrypto.h>
 #include <ifaddrs.h>
+#import "WXWaveView.h"
+#import "PartyScoreViewController.h"
+#import "PartyCoursesViewController.h"

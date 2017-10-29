@@ -149,6 +149,9 @@ class GPAViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00)
+
+        
         // set termSwitchView
         termSwitchView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: 60)
         termLabel.center = termSwitchView.center

@@ -84,7 +84,7 @@ class SettingsViewController: UIViewController {
         let loginButton = UIButton()
         loginButton.setTitle("登录", for: .normal)
         loginButton.setTitleColor(.black, for: .normal)
-        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 33, weight: UIFontWeightRegular)
+        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 31, weight: UIFontWeightRegular)
         loginButton.titleLabel?.sizeToFit()
         loginButton.sizeToFit()
 //        loginButton.sizeToFit()
@@ -93,14 +93,19 @@ class SettingsViewController: UIViewController {
             make.left.equalTo(avatarView.snp.right).offset(5)
             make.top.equalTo(avatarView.snp.top).offset(5)
         }
+        loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
         
-        let signatureLabel = UILabel(text: "登录以使用更多功能", color: .lightGray, fontSize: 15)
+        let signatureLabel = UILabel(text: "登录以查看更多信息", color: .lightGray, fontSize: 15)
         headerView.addSubview(signatureLabel)
         signatureLabel.snp.makeConstraints { make in
             make.left.equalTo(avatarView.snp.right).offset(5)
             make.bottom.equalTo(avatarView.snp.bottom).offset(-5)
         }
-
+    }
+    
+    func login() {
+        let loginVC = LoginViewController()
+        self.present(loginVC, animated: true, completion: nil)
     }
 }
 
@@ -122,16 +127,31 @@ extension SettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightRegular)
-        cell.accessoryType = .disclosureIndicator
-        let x: CGFloat = 15
-        let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))
-        separator.backgroundColor = .gray
-        separator.alpha = 0.25
-        cell.addSubview(separator)
-        return cell
+        if indexPath.section == 0 {
+            let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+            cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightRegular)
+            cell.accessoryType = .disclosureIndicator
+            let x: CGFloat = 15
+            let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))
+            separator.backgroundColor = .gray
+            separator.alpha = 0.25
+            cell.addSubview(separator)
+            cell.detailTextLabel?.text = services[indexPath.row].status.rawValue
+            return cell
+        } else {
+            let cell = UITableViewCell()
+            cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightRegular)
+            cell.accessoryType = .disclosureIndicator
+            let x: CGFloat = 15
+            let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))
+            separator.backgroundColor = .gray
+            separator.alpha = 0.25
+            cell.addSubview(separator)
+            return cell
+
+        }
     }
 }
 

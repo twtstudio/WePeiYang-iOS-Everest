@@ -9,6 +9,8 @@ target 'WePeiYang' do
   pod 'Charts'
   pod 'ObjectMapper'
   pod 'WMPageController', '2.3.0'
+  pod 'pop'
+  pod 'IGIdenticon'
   # Pods for WePeiYang
 
   target 'WePeiYangTests' do
