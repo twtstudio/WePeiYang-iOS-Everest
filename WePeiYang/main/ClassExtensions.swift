@@ -218,6 +218,8 @@ extension UIImageView {
         self.init()
         image = foo
     }
+    
+    
 }
 
 
@@ -240,6 +242,7 @@ extension UIButton {
         setBackgroundImage(foo, for: .normal)
     }
 }
+
 // Directly add a closure to UIButton instead of addTarget
 // Bad Implement
 //extension UIButton {
@@ -292,10 +295,6 @@ extension UIControl {
     }
 }
 
-extension UIControl {
-    
-}
-
 extension UIViewController {
     private static func findBest(_ vc: UIViewController) -> UIViewController {
         if let next = vc.presentedViewController {
@@ -311,6 +310,7 @@ extension UIViewController {
         }
     }
     
+
     static var current: UIViewController? {
         if let vc = UIApplication.shared.keyWindow?.rootViewController {
             return findBest(vc)
@@ -319,7 +319,8 @@ extension UIViewController {
         }
     }
     
-    var top: UIViewController? {
+    static var top: UIViewController? {
+
         if let appRootVC = UIApplication.shared.keyWindow?.rootViewController {
             var topVC: UIViewController? = appRootVC
             while (topVC?.presentedViewController != nil) {

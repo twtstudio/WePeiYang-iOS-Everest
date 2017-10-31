@@ -6,17 +6,16 @@ target 'WePeiYang' do
   use_frameworks!
   pod 'Alamofire'
   pod 'SnapKit'
+  pod 'WMPageController'
+  pod 'SDWebImage'
   pod 'Charts'
   pod 'ObjectMapper'
+  pod 'MJRefresh', '~> 3.1.12'
+
   pod 'WMPageController', '2.3.0'
   # Pods for WePeiYang
 
   target 'WePeiYangTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'WePeiYangUITests' do
     inherit! :search_paths
     # Pods for testing
   end
