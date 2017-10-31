@@ -148,8 +148,6 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         let cell = LostFoundCollectionViewCell()
         let picURL = foundList[indexPath.row].picture
         cell.initUI(pic: picURL, title: foundList[indexPath.row].title, mark: Int(foundList[indexPath.row].detail_type)!, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
-        
-        
         return cell
         
     }

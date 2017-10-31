@@ -16,6 +16,7 @@ class LostFoundPageViewController: WMPageController {
 //        self.init(viewControllrerClasses: [LostViewController.self, FoundViewController.self], andTheirTitles: ["hi", "a"]）
         
         self.title = "失物招领"
+        
         UIApplication.shared.statusBarStyle = .lightContent
         pageAnimatable = true
         menuViewStyle = .line
@@ -71,19 +72,19 @@ class LostFoundPageViewController: WMPageController {
         //设置按钮
         self.navigationItem.rightBarButtonItems = [spacer, mineBarButton , gap, searchBarButton]
 
-//        let fab = FAB(subActions: [
-//            (name: "fuck", function: {
-//                
-//                let vc = PublishLostViewController()
-//                self.navigationController?.pushViewController(vc, animated: true)
-//            }),
-//            (name: "fs", function: {
-//                
-//                let vc = PublishLostViewController()
-//                self.navigationController?.pushViewController(vc, animated: true)
-//                
-//            })
-//            ])
+        let fab = FAB(subActions: [
+            (name: "fuck", function: {
+                
+                let vc = PublishLostViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }),
+            (name: "fs", function: {
+                
+                let vc = PublishLostViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            })
+            ])
         
         super.viewDidLoad()
 

@@ -41,6 +41,21 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.view.addSubview(tableView!)
         refresh()
+        let fab = FAB(subActions: [
+            (name: "fuck", function: {
+                
+                let vc = PublishLostViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }),
+            (name: "fs", function: {
+                
+                let vc = PublishLostViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            })
+            ])
+        fab.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+        self.view.addSubview(fab)
         
     }
     

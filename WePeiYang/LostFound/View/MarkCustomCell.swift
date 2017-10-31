@@ -38,7 +38,7 @@ class MarkCustomCell: UITableViewCell {
     
     
 
-        func enumerated(){
+        func enumerated() {
         
         for (index, name) in buttonArray.enumerated() {
         
@@ -46,9 +46,9 @@ class MarkCustomCell: UITableViewCell {
 
 //            totalLength = currentLength
             // 50 margin
-        
-            if currentLength  <= self.frame.size.width-80 {
-            
+
+            if currentX  < self.frame.size.width {
+           // currentLengtn 不对，2017/10/26改的currentX
                 let button = UIButton(frame: CGRect(x: currentX, y: currentY, width: currenWidth, height: 30))
                 
                 button.setTitle(name, for: .normal)
@@ -64,11 +64,6 @@ class MarkCustomCell: UITableViewCell {
                 currentLength = currentLength + button.frame.size.width+25
                 currentX = currentX + button.frame.size.width+25
                button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-                
-                
-//                print(self.frame.size.width)
-//                print(totalLength)
-//                print(button.frame.size.width)
             
             }
             
@@ -76,7 +71,8 @@ class MarkCustomCell: UITableViewCell {
                 currentY += 40
                 currentX = 10
                 
-                let button = UIButton(frame: CGRect(x: currentX, y: currentY, width:width, height: 30))
+                let button = UIButton(frame: CGRect(x: currentX, y: currentY, width:
+                    width, height: 30))
                 
                 button.setTitle(name, for: .normal)
                 button.backgroundColor = UIColor(hex6: 0xd9d9d9)
@@ -99,7 +95,7 @@ class MarkCustomCell: UITableViewCell {
             }
             
         }
-            contentView.backgroundColor = UIColor(hex6: 0xeeeeee)
+//            contentView.backgroundColor = UIColor(hex6: 0xeeeeee)
             addSubview(label)
             
             label.font = UIFont.boldSystemFont(ofSize: 15)
@@ -134,8 +130,6 @@ class MarkCustomCell: UITableViewCell {
                     
                 }
                 
-                //                functionDic = (self.delegate?.function)!
-                //                print(functionDic)
                 
                 print(self.delegate?.function)
                 

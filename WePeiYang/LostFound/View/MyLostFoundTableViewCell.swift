@@ -12,6 +12,7 @@ import SDWebImage
 
 class MyLostFoundTableViewCell: UITableViewCell {
     
+    let markArray = ["身份证","饭卡","手机","钥匙","书包","手表&饰品","U盘&硬盘","水杯","钱包","银行卡","书","伞","其他"]
     var pictureImageView = UIImageView()
     var titleLabel = UILabel()
     var isBackLabel = UILabel()
@@ -31,8 +32,8 @@ class MyLostFoundTableViewCell: UITableViewCell {
             
             var newFrame = frame;
             
-            newFrame.origin.x += 10/2;
-            newFrame.size.width -= 10;
+            newFrame.origin.x += 10;
+            newFrame.size.width -= 20;
             newFrame.origin.y += 10;
             newFrame.size.height -= 10;
             super.frame = newFrame;
@@ -78,7 +79,9 @@ class MyLostFoundTableViewCell: UITableViewCell {
             make in
             make.top.equalToSuperview().offset(10)
             make.left.equalToSuperview().offset(15)
-            make.width.height.equalTo(contentView.bounds.width*(100/400)+50)
+//            make.width.height.equalTo(contentView.bounds.width*(100/400)+50)
+            make.width.equalTo(125)
+            make.height.equalTo(125)
             make.bottom.equalToSuperview().offset(-10)
         
         }
@@ -113,36 +116,8 @@ class MyLostFoundTableViewCell: UITableViewCell {
             make.width.height.equalTo(contentView.bounds.width*(100/2024))
         }
 
-        switch mark {
-        case 1:
-            markLabel.text = "身份证"
-        case 2:
-            markLabel.text = "饭卡"
-        case 3:
-            markLabel.text = "手机"
-        case 4:
-            markLabel.text = "钥匙"
-        case 5:
-            markLabel.text = "书包"
-        case 6:
-            markLabel.text = "手表&饰品"
-        case 7:
-            markLabel.text = "水杯"
-        case 8:
-            markLabel.text = "U盘&硬盘"
-        case 9:
-            markLabel.text = "钱包"
-        case 10:
-            markLabel.text = "银行卡"
-        case 11:
-            markLabel.text = "书"
-        case 12:
-            markLabel.text = "伞"
-        case 13:
-            markLabel.text = "其他"
-        default:
-            markLabel.text = ""
-        }
+
+        markLabel.text = markArray[mark]
 //        markLabel.text = mark
         markLabel.font = UIFont.italicSystemFont(ofSize: 14)
         markLabel.textColor = UIColor(hex6: 0x999999)

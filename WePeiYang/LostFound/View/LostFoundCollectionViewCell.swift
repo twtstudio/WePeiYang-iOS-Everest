@@ -22,8 +22,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
     var markImageView: UIImageView!
     var timeImageView: UIImageView!
     var placeImageView: UIImageView!
-    
-
+    var markArray = ["身份证","饭卡","手机","钥匙","书包","手表&饰品","U盘&硬盘","水杯","钱包","银行卡","书","伞","其他"]
     
     
     
@@ -101,37 +100,9 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
             make.bottom.equalTo(markImageView.snp.top).offset(-5)
             
         }
-        switch mark {
-        case 1:
-            markLabel.text = "身份证"
-        case 2:
-            markLabel.text = "饭卡"
-        case 3:
-            markLabel.text = "手机"
-        case 4:
-            markLabel.text = "钥匙"
-        case 5:
-            markLabel.text = "书包"
-        case 6:
-            markLabel.text = "手表&饰品"
-        case 7:
-            markLabel.text = "水杯"
-        case 8:
-            markLabel.text = "U盘&硬盘"
-        case 9:
-            markLabel.text = "钱包"
-        case 10:
-            markLabel.text = "银行卡"
-        case 11:
-            markLabel.text = "书"
-        case 12:
-            markLabel.text = "伞"
-        case 13:
-            markLabel.text = "其他"
-        default:
-            markLabel.text = ""
-        }
-//        markLabel.text = "\(mark)"
+
+        print(mark)
+        markLabel.text = markArray[mark - 1]
         markLabel.numberOfLines = 0
         markLabel.font = UIFont.systemFont(ofSize: 13)
         markLabel.textColor = UIColor(hex6: 0x999999)
