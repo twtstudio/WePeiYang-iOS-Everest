@@ -68,22 +68,10 @@ class FavViewController: UIViewController {
         swipe.direction = .up
         fooView.addGestureRecognizer(swipe)
         
-        let fab = FAB(subActions: [
-            ("print1", {
-                let vc = UIViewController()
-                self.navigationController?.pushViewController(vc, animated: true)
-            }),
-            ("print2", {print(2)}),
-            ("print3", {print(3)})
-            
-        ])
         
-        tabBarController?.view.addSubview(fab)
+//        let tap = UITapGestureRecognizer(target: fab, action: #selector(FAB.dismissAnimated))
         
-        
-        let tap = UITapGestureRecognizer(target: fab, action: #selector(FAB.dismissAnimated))
-        
-        fooView.addGestureRecognizer(tap)
+//        fooView.addGestureRecognizer(tap)
         
         // Do any additional setup after loading the view.
     }

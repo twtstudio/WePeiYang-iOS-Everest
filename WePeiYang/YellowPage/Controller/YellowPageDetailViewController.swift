@@ -29,7 +29,7 @@ class YellowPageDetailViewController: UIViewController {
         
         self.navigationController!.navigationBar.tintColor = UIColor.white
         // FIXME: 改变 statusBar 颜色
-//        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+//        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
         
         tableView.delegate = self
         tableView.dataSource = self

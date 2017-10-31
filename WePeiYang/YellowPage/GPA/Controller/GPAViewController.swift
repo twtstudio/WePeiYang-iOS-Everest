@@ -149,6 +149,8 @@ class GPAViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.tintColor = UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00)
+
         // set termSwitchView
         termSwitchView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: 60)
         termLabel.center = termSwitchView.center
@@ -481,6 +483,7 @@ extension GPAViewController: UIScrollViewDelegate {
         let offset = scrollView.contentOffset.y - 80
         if offset > 0 {
             self.navigationItem.rightBarButtonItem?.tintColor = .white
+            self.navigationController?.navigationBar.tintColor = .white
             self.navigationController?.navigationBar.barStyle = .black
             self.title = currentTerm?.name
             if offset > 530 {
@@ -498,6 +501,7 @@ extension GPAViewController: UIScrollViewDelegate {
             self.title = ""
             self.navigationController?.navigationBar.alpha = 1
             self.navigationItem.rightBarButtonItem?.tintColor = UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00)
+            self.navigationController?.navigationBar.tintColor = UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00)
             self.navigationController?.navigationBar.barStyle = .default
             self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
             self.navigationController?.navigationBar.shadowImage = UIImage()

@@ -42,11 +42,6 @@ class YellowPageMainViewController: UIViewController {
         
         let rightButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(YellowPageMainViewController.searchToggle))
         self.navigationItem.rightBarButtonItem = rightButton
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.1059, green: 0.6352, blue: 0.9019, alpha: 1)
-        self.navigationController!.navigationBar.tintColor = UIColor.white
-        // FIXME: barColor
-//        UIApplication.shared.setStatusBarStyle(.lig, animated: true)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -85,7 +80,11 @@ class YellowPageMainViewController: UIViewController {
                 self.tableView.reloadSections([1], with: .none)
             }
         }
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(red: 0.1059, green: 0.6352, blue: 0.9019, alpha: 1)), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.barStyle = .black
+        self.navigationController!.navigationBar.tintColor = .white
     }
     
     func searchToggle() {
@@ -285,6 +284,8 @@ extension YellowPageMainViewController: UITableViewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // FIXME: setBarColor
+        self.navigationController?.navigationBar.isTranslucent = UINavigationBar.appearance().isTranslucent
+        self.navigationController?.navigationBar.shadowImage = UINavigationBar.appearance().shadowImage
     }
     
     

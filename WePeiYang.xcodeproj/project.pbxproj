@@ -50,6 +50,47 @@
 		36073D241F22713B001317A7 /* ReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D231F22713B001317A7 /* ReadViewController.swift */; };
 		36073D261F231C36001317A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36073D251F231C36001317A7 /* Assets.xcassets */; };
 		3631D50A1F1903D70078816D /* TwTUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5091F1903D70078816D /* TwTUser.swift */; };
+		36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E3E1FA4BA9B0036766B /* TwentyCourseQuiz.swift */; };
+		36449E451FA4BA9B0036766B /* PartyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E3F1FA4BA9B0036766B /* PartyAPI.swift */; };
+		36449E461FA4BA9B0036766B /* Courses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E401FA4BA9B0036766B /* Courses.swift */; };
+		36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E411FA4BA9B0036766B /* Checkbox.swift */; };
+		36449E481FA4BA9B0036766B /* ApplicantTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E421FA4BA9B0036766B /* ApplicantTest.swift */; };
+		36449E491FA4BA9B0036766B /* Applicant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E431FA4BA9B0036766B /* Applicant.swift */; };
+		36449E5E1FA4BABA0036766B /* WXWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 36449E4A1FA4BABA0036766B /* WXWaveView.m */; };
+		36449E5F1FA4BABA0036766B /* TwentyCourseScoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36449E4C1FA4BABA0036766B /* TwentyCourseScoreViewController.xib */; };
+		36449E601FA4BABA0036766B /* TheoryCourseArticleReadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E4D1FA4BABA0036766B /* TheoryCourseArticleReadingView.swift */; };
+		36449E611FA4BABA0036766B /* TextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E4E1FA4BABA0036766B /* TextTableViewCell.swift */; };
+		36449E621FA4BABA0036766B /* SignUpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E4F1FA4BABA0036766B /* SignUpTableViewCell.swift */; };
+		36449E631FA4BABA0036766B /* ScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E501FA4BABA0036766B /* ScoreTableViewCell.swift */; };
+		36449E641FA4BABA0036766B /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E511FA4BABA0036766B /* QuizView.swift */; };
+		36449E651FA4BABA0036766B /* QuizCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E521FA4BABA0036766B /* QuizCell.swift */; };
+		36449E661FA4BABA0036766B /* PersonalStatusLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E531FA4BABA0036766B /* PersonalStatusLabel.swift */; };
+		36449E671FA4BABA0036766B /* PartyHandInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36449E541FA4BABA0036766B /* PartyHandInViewController.xib */; };
+		36449E681FA4BABA0036766B /* PartyComplainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36449E551FA4BABA0036766B /* PartyComplainViewController.xib */; };
+		36449E691FA4BABA0036766B /* HandInDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36449E561FA4BABA0036766B /* HandInDetailViewController.xib */; };
+		36449E6A1FA4BABA0036766B /* GradeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36449E571FA4BABA0036766B /* GradeDetailViewController.xib */; };
+		36449E6B1FA4BABA0036766B /* GradeCheckViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36449E581FA4BABA0036766B /* GradeCheckViewController.xib */; };
+		36449E6C1FA4BABA0036766B /* FunctionListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E591FA4BABA0036766B /* FunctionListTableViewCell.swift */; };
+		36449E6D1FA4BABA0036766B /* FinalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E5A1FA4BABA0036766B /* FinalView.swift */; };
+		36449E6E1FA4BABA0036766B /* CourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E5B1FA4BABA0036766B /* CourseTableViewCell.swift */; };
+		36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E5C1FA4BABA0036766B /* CourseDetailTableViewCell.swift */; };
+		36449E701FA4BABA0036766B /* CourseDetailReadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E5D1FA4BABA0036766B /* CourseDetailReadingView.swift */; };
+		36449E831FA4BAD00036766B /* TwentyCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E711FA4BAD00036766B /* TwentyCourseViewController.swift */; };
+		36449E841FA4BAD10036766B /* TwentyCourseScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E721FA4BAD00036766B /* TwentyCourseScoreViewController.swift */; };
+		36449E851FA4BAD10036766B /* TwentyCourseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E731FA4BAD00036766B /* TwentyCourseDetailViewController.swift */; };
+		36449E861FA4BAD10036766B /* TheoryClassicsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E741FA4BAD00036766B /* TheoryClassicsTableViewController.swift */; };
+		36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E751FA4BAD00036766B /* QuizTakingViewController.swift */; };
+		36449E881FA4BAD10036766B /* PartySignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E761FA4BAD00036766B /* PartySignUpViewController.swift */; };
+		36449E891FA4BAD10036766B /* PartyScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36449E771FA4BAD00036766B /* PartyScoreViewController.m */; };
+		36449E8A1FA4BAD10036766B /* PartyPersonalStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E791FA4BAD00036766B /* PartyPersonalStatusViewController.swift */; };
+		36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E7A1FA4BAD00036766B /* PartyMainViewController.swift */; };
+		36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E7B1FA4BAD00036766B /* PartyHandInViewController.swift */; };
+		36449E8D1FA4BAD10036766B /* PartyCoursesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36449E7C1FA4BAD00036766B /* PartyCoursesViewController.m */; };
+		36449E8E1FA4BAD10036766B /* PartyComplainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E7E1FA4BAD00036766B /* PartyComplainViewController.swift */; };
+		36449E8F1FA4BAD10036766B /* HandInDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E7F1FA4BAD00036766B /* HandInDetailViewController.swift */; };
+		36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E801FA4BAD00036766B /* GradeDetailViewController.swift */; };
+		36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E811FA4BAD00036766B /* GradeCheckViewController.swift */; };
+		36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E821FA4BAD00036766B /* AllQuizViewController.swift */; };
 		365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936681F1E2CCF003CE578 /* YellowPageCell.swift */; };
 		3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */; };
 		3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659366C1F1E3637003CE578 /* CommonUsedView.swift */; };
@@ -69,7 +110,11 @@
 		365936951F1E60A9003CE578 /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659368B1F1E60A9003CE578 /* ScoreHeaderView.swift */; };
 		365936961F1E60A9003CE578 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659368C1F1E60A9003CE578 /* StarView.swift */; };
 		369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369306941F2B976C008E90DC /* ModuleCollectionViewCell.swift */; };
-		36F5BDCC1F9E16FB00CDDF74 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */; };
+		36DA7A5B1FA8A35C000DAF2B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */; };
+		36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13F3AE71F0CEE5C00F820A5 /* FAB.swift */; };
+		36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E11EC84ED90064373A /* CacheManager.swift */; };
+		36DA7A5E1FA8A35C000DAF2B /* WPYBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254161EC8547E0064373A /* WPYBaseViewController.swift */; };
+		36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EE1EC84ED90064373A /* DeviceStatus.swift */; };
 		36F5BDCE1F9E196200CDDF74 /* FlowingColor.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 36F5BDCD1F9E17A600CDDF74 /* FlowingColor.mp4 */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
 		B10253D61EC84ED20064373A /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CD1EC84ED20064373A /* Book.swift */; };
@@ -81,10 +126,8 @@
 		B10253DC1EC84ED20064373A /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253D31EC84ED20064373A /* Review.swift */; };
 		B10253DD1EC84ED20064373A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253D41EC84ED20064373A /* User.swift */; };
 		B10253F01EC84ED90064373A /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E01EC84ED90064373A /* AccountManager.swift */; };
-		B10253F11EC84ED90064373A /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E11EC84ED90064373A /* CacheManager.swift */; };
 		B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E21EC84ED90064373A /* SolaSessionManager.swift */; };
 		B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TwTKeychain.swift */; };
-		B10253FC1EC84ED90064373A /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EE1EC84ED90064373A /* DeviceStatus.swift */; };
 		B10253FD1EC84ED90064373A /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EF1EC84ED90064373A /* log.swift */; };
 		B10254041EC84EE00064373A /* ClientItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254011EC84EE00064373A /* ClientItem.swift */; };
 		B10254051EC84EE00064373A /* PhoneBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254021EC84EE00064373A /* PhoneBook.swift */; };
@@ -95,17 +138,14 @@
 		B102541D1EC8547E0064373A /* SpringButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254131EC8547E0064373A /* SpringButton.swift */; };
 		B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254141EC8547E0064373A /* TabVCTransitioningAnimator.swift */; };
 		B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254151EC8547E0064373A /* ThemeChanging.swift */; };
-		B10254201EC8547E0064373A /* WPYBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254161EC8547E0064373A /* WPYBaseViewController.swift */; };
 		B10254211EC8547E0064373A /* WPYLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254171EC8547E0064373A /* WPYLabel.swift */; };
 		B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254181EC8547E0064373A /* WPYTabBarController.swift */; };
 		B10254231EC8547E0064373A /* WPYTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254191EC8547E0064373A /* WPYTextField.swift */; };
 		B10254241EC8547E0064373A /* WPYTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102541A1EC8547E0064373A /* WPYTextView.swift */; };
-		B13F3AE81F0CEE5C00F820A5 /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13F3AE71F0CEE5C00F820A5 /* FAB.swift */; };
 		B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B9571EC5C21700B8198E /* FavViewController.swift */; };
 		B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */; };
 		B181B9601EC5C24000B8198E /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95E1EC5C24000B8198E /* NewsViewController.swift */; };
 		B19DAB941E6EF5C2004A50B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B19DAB921E6EF5C2004A50B5 /* LaunchScreen.storyboard */; };
-		B19DAB9F1E6EF5C2004A50B5 /* WePeiYangTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DAB9E1E6EF5C2004A50B5 /* WePeiYangTests.swift */; };
 		B19DABAA1E6EF5C2004A50B5 /* WePeiYangUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */; };
 		EC0BD5E699D84DA808327744 /* Pods_WePeiYangTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6749BFC82CF9191336C6C5 /* Pods_WePeiYangTests.framework */; };
 /* End PBXBuildFile section */
@@ -163,7 +203,7 @@
 		36073D031F223FC1001317A7 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Search.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		36073D041F223FC1001317A7 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		36073D061F223FC1001317A7 /* StatusInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StatusInfoCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		36073D121F225D2A001317A7 /* BookDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
+		36073D121F225D2A001317A7 /* BookDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BookDetailViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		36073D131F225D2A001317A7 /* BookShelfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookShelfViewController.swift; sourceTree = "<group>"; };
 		36073D141F225D2A001317A7 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		36073D171F225D2A001317A7 /* RecommendedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendedViewController.swift; sourceTree = "<group>"; };
@@ -172,6 +212,50 @@
 		36073D231F22713B001317A7 /* ReadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadViewController.swift; sourceTree = "<group>"; };
 		36073D251F231C36001317A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3631D5091F1903D70078816D /* TwTUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTUser.swift; sourceTree = "<group>"; };
+		36449E3E1FA4BA9B0036766B /* TwentyCourseQuiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwentyCourseQuiz.swift; path = PartyService/Model/TwentyCourseQuiz.swift; sourceTree = "<group>"; };
+		36449E3F1FA4BA9B0036766B /* PartyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartyAPI.swift; path = PartyService/Model/PartyAPI.swift; sourceTree = "<group>"; };
+		36449E401FA4BA9B0036766B /* Courses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Courses.swift; path = PartyService/Model/Courses.swift; sourceTree = "<group>"; };
+		36449E411FA4BA9B0036766B /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Checkbox.swift; path = PartyService/Model/Checkbox.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36449E421FA4BA9B0036766B /* ApplicantTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApplicantTest.swift; path = PartyService/Model/ApplicantTest.swift; sourceTree = "<group>"; };
+		36449E431FA4BA9B0036766B /* Applicant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Applicant.swift; path = PartyService/Model/Applicant.swift; sourceTree = "<group>"; };
+		36449E4A1FA4BABA0036766B /* WXWaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WXWaveView.m; path = PartyService/View/WXWaveView.m; sourceTree = "<group>"; };
+		36449E4B1FA4BABA0036766B /* WXWaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXWaveView.h; path = PartyService/View/WXWaveView.h; sourceTree = "<group>"; };
+		36449E4C1FA4BABA0036766B /* TwentyCourseScoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TwentyCourseScoreViewController.xib; path = PartyService/View/TwentyCourseScoreViewController.xib; sourceTree = "<group>"; };
+		36449E4D1FA4BABA0036766B /* TheoryCourseArticleReadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TheoryCourseArticleReadingView.swift; path = PartyService/View/TheoryCourseArticleReadingView.swift; sourceTree = "<group>"; };
+		36449E4E1FA4BABA0036766B /* TextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextTableViewCell.swift; path = PartyService/View/TextTableViewCell.swift; sourceTree = "<group>"; };
+		36449E4F1FA4BABA0036766B /* SignUpTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpTableViewCell.swift; path = PartyService/View/SignUpTableViewCell.swift; sourceTree = "<group>"; };
+		36449E501FA4BABA0036766B /* ScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScoreTableViewCell.swift; path = PartyService/View/ScoreTableViewCell.swift; sourceTree = "<group>"; };
+		36449E511FA4BABA0036766B /* QuizView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuizView.swift; path = PartyService/View/QuizView.swift; sourceTree = "<group>"; };
+		36449E521FA4BABA0036766B /* QuizCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuizCell.swift; path = PartyService/View/QuizCell.swift; sourceTree = "<group>"; };
+		36449E531FA4BABA0036766B /* PersonalStatusLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = PersonalStatusLabel.swift; path = PartyService/View/PersonalStatusLabel.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36449E541FA4BABA0036766B /* PartyHandInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PartyHandInViewController.xib; path = PartyService/View/PartyHandInViewController.xib; sourceTree = "<group>"; };
+		36449E551FA4BABA0036766B /* PartyComplainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PartyComplainViewController.xib; path = PartyService/View/PartyComplainViewController.xib; sourceTree = "<group>"; };
+		36449E561FA4BABA0036766B /* HandInDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HandInDetailViewController.xib; path = PartyService/View/HandInDetailViewController.xib; sourceTree = "<group>"; };
+		36449E571FA4BABA0036766B /* GradeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GradeDetailViewController.xib; path = PartyService/View/GradeDetailViewController.xib; sourceTree = "<group>"; };
+		36449E581FA4BABA0036766B /* GradeCheckViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GradeCheckViewController.xib; path = PartyService/View/GradeCheckViewController.xib; sourceTree = "<group>"; };
+		36449E591FA4BABA0036766B /* FunctionListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FunctionListTableViewCell.swift; path = PartyService/View/FunctionListTableViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36449E5A1FA4BABA0036766B /* FinalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FinalView.swift; path = PartyService/View/FinalView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36449E5B1FA4BABA0036766B /* CourseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = CourseTableViewCell.swift; path = PartyService/View/CourseTableViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36449E5C1FA4BABA0036766B /* CourseDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = CourseDetailTableViewCell.swift; path = PartyService/View/CourseDetailTableViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36449E5D1FA4BABA0036766B /* CourseDetailReadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = CourseDetailReadingView.swift; path = PartyService/View/CourseDetailReadingView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36449E711FA4BAD00036766B /* TwentyCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwentyCourseViewController.swift; path = PartyService/Controller/TwentyCourseViewController.swift; sourceTree = "<group>"; };
+		36449E721FA4BAD00036766B /* TwentyCourseScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = TwentyCourseScoreViewController.swift; path = PartyService/Controller/TwentyCourseScoreViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36449E731FA4BAD00036766B /* TwentyCourseDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwentyCourseDetailViewController.swift; path = PartyService/Controller/TwentyCourseDetailViewController.swift; sourceTree = "<group>"; };
+		36449E741FA4BAD00036766B /* TheoryClassicsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TheoryClassicsTableViewController.swift; path = PartyService/Controller/TheoryClassicsTableViewController.swift; sourceTree = "<group>"; };
+		36449E751FA4BAD00036766B /* QuizTakingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = QuizTakingViewController.swift; path = PartyService/Controller/QuizTakingViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36449E761FA4BAD00036766B /* PartySignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartySignUpViewController.swift; path = PartyService/Controller/PartySignUpViewController.swift; sourceTree = "<group>"; };
+		36449E771FA4BAD00036766B /* PartyScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PartyScoreViewController.m; path = PartyService/Controller/PartyScoreViewController.m; sourceTree = "<group>"; };
+		36449E781FA4BAD00036766B /* PartyScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PartyScoreViewController.h; path = PartyService/Controller/PartyScoreViewController.h; sourceTree = "<group>"; };
+		36449E791FA4BAD00036766B /* PartyPersonalStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = PartyPersonalStatusViewController.swift; path = PartyService/Controller/PartyPersonalStatusViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36449E7A1FA4BAD00036766B /* PartyMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = PartyMainViewController.swift; path = PartyService/Controller/PartyMainViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36449E7B1FA4BAD00036766B /* PartyHandInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = PartyHandInViewController.swift; path = PartyService/Controller/PartyHandInViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36449E7C1FA4BAD00036766B /* PartyCoursesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PartyCoursesViewController.m; path = PartyService/Controller/PartyCoursesViewController.m; sourceTree = "<group>"; };
+		36449E7D1FA4BAD00036766B /* PartyCoursesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PartyCoursesViewController.h; path = PartyService/Controller/PartyCoursesViewController.h; sourceTree = "<group>"; };
+		36449E7E1FA4BAD00036766B /* PartyComplainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartyComplainViewController.swift; path = PartyService/Controller/PartyComplainViewController.swift; sourceTree = "<group>"; };
+		36449E7F1FA4BAD00036766B /* HandInDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = HandInDetailViewController.swift; path = PartyService/Controller/HandInDetailViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36449E801FA4BAD00036766B /* GradeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GradeDetailViewController.swift; path = PartyService/Controller/GradeDetailViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36449E811FA4BAD00036766B /* GradeCheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GradeCheckViewController.swift; path = PartyService/Controller/GradeCheckViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36449E821FA4BAD00036766B /* AllQuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AllQuizViewController.swift; path = PartyService/Controller/AllQuizViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		365936681F1E2CCF003CE578 /* YellowPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageCell.swift; sourceTree = "<group>"; };
 		3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedButton.swift; sourceTree = "<group>"; };
 		3659366C1F1E3637003CE578 /* CommonUsedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUsedView.swift; sourceTree = "<group>"; };
@@ -353,6 +437,81 @@
 				36073D191F225D2A001317A7 /* SearchViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		36449E3A1FA4BA660036766B /* PartyService */ = {
+			isa = PBXGroup;
+			children = (
+				36449E3D1FA4BA820036766B /* Model */,
+				36449E3C1FA4BA7B0036766B /* View */,
+				36449E3B1FA4BA6E0036766B /* Controller */,
+			);
+			name = PartyService;
+			sourceTree = "<group>";
+		};
+		36449E3B1FA4BA6E0036766B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				36449E711FA4BAD00036766B /* TwentyCourseViewController.swift */,
+				36449E721FA4BAD00036766B /* TwentyCourseScoreViewController.swift */,
+				36449E731FA4BAD00036766B /* TwentyCourseDetailViewController.swift */,
+				36449E741FA4BAD00036766B /* TheoryClassicsTableViewController.swift */,
+				36449E751FA4BAD00036766B /* QuizTakingViewController.swift */,
+				36449E761FA4BAD00036766B /* PartySignUpViewController.swift */,
+				36449E771FA4BAD00036766B /* PartyScoreViewController.m */,
+				36449E781FA4BAD00036766B /* PartyScoreViewController.h */,
+				36449E791FA4BAD00036766B /* PartyPersonalStatusViewController.swift */,
+				36449E7A1FA4BAD00036766B /* PartyMainViewController.swift */,
+				36449E7B1FA4BAD00036766B /* PartyHandInViewController.swift */,
+				36449E7C1FA4BAD00036766B /* PartyCoursesViewController.m */,
+				36449E7D1FA4BAD00036766B /* PartyCoursesViewController.h */,
+				36449E7E1FA4BAD00036766B /* PartyComplainViewController.swift */,
+				36449E7F1FA4BAD00036766B /* HandInDetailViewController.swift */,
+				36449E801FA4BAD00036766B /* GradeDetailViewController.swift */,
+				36449E811FA4BAD00036766B /* GradeCheckViewController.swift */,
+				36449E821FA4BAD00036766B /* AllQuizViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		36449E3C1FA4BA7B0036766B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				36449E4A1FA4BABA0036766B /* WXWaveView.m */,
+				36449E4B1FA4BABA0036766B /* WXWaveView.h */,
+				36449E4C1FA4BABA0036766B /* TwentyCourseScoreViewController.xib */,
+				36449E4D1FA4BABA0036766B /* TheoryCourseArticleReadingView.swift */,
+				36449E4E1FA4BABA0036766B /* TextTableViewCell.swift */,
+				36449E4F1FA4BABA0036766B /* SignUpTableViewCell.swift */,
+				36449E501FA4BABA0036766B /* ScoreTableViewCell.swift */,
+				36449E511FA4BABA0036766B /* QuizView.swift */,
+				36449E521FA4BABA0036766B /* QuizCell.swift */,
+				36449E531FA4BABA0036766B /* PersonalStatusLabel.swift */,
+				36449E541FA4BABA0036766B /* PartyHandInViewController.xib */,
+				36449E551FA4BABA0036766B /* PartyComplainViewController.xib */,
+				36449E561FA4BABA0036766B /* HandInDetailViewController.xib */,
+				36449E571FA4BABA0036766B /* GradeDetailViewController.xib */,
+				36449E581FA4BABA0036766B /* GradeCheckViewController.xib */,
+				36449E591FA4BABA0036766B /* FunctionListTableViewCell.swift */,
+				36449E5A1FA4BABA0036766B /* FinalView.swift */,
+				36449E5B1FA4BABA0036766B /* CourseTableViewCell.swift */,
+				36449E5C1FA4BABA0036766B /* CourseDetailTableViewCell.swift */,
+				36449E5D1FA4BABA0036766B /* CourseDetailReadingView.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		36449E3D1FA4BA820036766B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				36449E3E1FA4BA9B0036766B /* TwentyCourseQuiz.swift */,
+				36449E3F1FA4BA9B0036766B /* PartyAPI.swift */,
+				36449E401FA4BA9B0036766B /* Courses.swift */,
+				36449E411FA4BA9B0036766B /* Checkbox.swift */,
+				36449E421FA4BA9B0036766B /* ApplicantTest.swift */,
+				36449E431FA4BA9B0036766B /* Applicant.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		3659367E1F1E5FB2003CE578 /* Controller */ = {
@@ -626,6 +785,7 @@
 		B19DAB881E6EF5C2004A50B5 /* WePeiYang */ = {
 			isa = PBXGroup;
 			children = (
+				36449E3A1FA4BA660036766B /* PartyService */,
 				B10254091EC8520A0064373A /* main */,
 				B181B95E1EC5C24000B8198E /* NewsViewController.swift */,
 				36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */,
@@ -740,7 +900,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = twtstudio;
 				TargetAttributes = {
 					B19DAB851E6EF5C2004A50B5 = {
@@ -789,8 +949,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				36F5BDCE1F9E196200CDDF74 /* FlowingColor.mp4 in Resources */,
+				36449E671FA4BABA0036766B /* PartyHandInViewController.xib in Resources */,
 				36073D261F231C36001317A7 /* Assets.xcassets in Resources */,
+				36449E6A1FA4BABA0036766B /* GradeDetailViewController.xib in Resources */,
+				36449E6B1FA4BABA0036766B /* GradeCheckViewController.xib in Resources */,
 				B19DAB941E6EF5C2004A50B5 /* LaunchScreen.storyboard in Resources */,
+				36449E681FA4BABA0036766B /* PartyComplainViewController.xib in Resources */,
+				36449E691FA4BABA0036766B /* HandInDetailViewController.xib in Resources */,
+				36449E5F1FA4BABA0036766B /* TwentyCourseScoreViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -838,7 +1004,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		433FB015B3FA922FE8E29B31 /* [CP] Copy Pods Resources */ = {
@@ -898,7 +1064,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -908,22 +1074,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36449E891FA4BAD10036766B /* PartyScoreViewController.m in Sources */,
+				36449E661FA4BABA0036766B /* PersonalStatusLabel.swift in Sources */,
+				36449E5E1FA4BABA0036766B /* WXWaveView.m in Sources */,
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
 				365936901F1E60A9003CE578 /* GPAClassModel.swift in Sources */,
 				0C3ADF371F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift in Sources */,
 				36073D081F223FC1001317A7 /* CoverView.swift in Sources */,
 				36073D0C1F223FC1001317A7 /* ReviewCell.swift in Sources */,
 				36073D1E1F225D2A001317A7 /* RecommendedViewController.swift in Sources */,
+				36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */,
 				365936961F1E60A9003CE578 /* StarView.swift in Sources */,
+				36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */,
+				36449E481FA4BA9B0036766B /* ApplicantTest.swift in Sources */,
+				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,
 				36073D0D1F223FC1001317A7 /* Search.swift in Sources */,
 				36073D1A1F225D2A001317A7 /* BookDetailViewController.swift in Sources */,
 				B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */,
 				3659368D1F1E60A9003CE578 /* CourseAppraiseViewController.swift in Sources */,
 				B102541B1EC8547E0064373A /* CardViewAndDelegate.swift in Sources */,
+				36449E641FA4BABA0036766B /* QuizView.swift in Sources */,
 				36073D1B1F225D2A001317A7 /* BookShelfViewController.swift in Sources */,
 				365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */,
+				36449E491FA4BA9B0036766B /* Applicant.swift in Sources */,
+				36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */,
 				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
+				36449E6C1FA4BABA0036766B /* FunctionListTableViewCell.swift in Sources */,
+				36449E701FA4BABA0036766B /* CourseDetailReadingView.swift in Sources */,
+				36449E831FA4BAD00036766B /* TwentyCourseViewController.swift in Sources */,
+				36449E8D1FA4BAD10036766B /* PartyCoursesViewController.m in Sources */,
 				3631D50A1F1903D70078816D /* TwTUser.swift in Sources */,
 				0C3ADF3A1F697EE100388C19 /* LostViewController.swift in Sources */,
 				36073D0A1F223FC1001317A7 /* ReadStarCell.swift in Sources */,
@@ -935,50 +1115,70 @@
 				365936711F1E38B8003CE578 /* YellowPageSearchHistoryCell.swift in Sources */,
 				B10254051EC84EE00064373A /* PhoneBook.swift in Sources */,
 				0C3ADF361F697EE100388C19 /* FoundViewController.swift in Sources */,
-				B10254201EC8547E0064373A /* WPYBaseViewController.swift in Sources */,
+				36DA7A5E1FA8A35C000DAF2B /* WPYBaseViewController.swift in Sources */,
 				0C3ADF4A1F697EE100388C19 /* SectionCell.swift in Sources */,
 				0C3ADF3E1F697EE100388C19 /* PublishSuccessViewController.swift in Sources */,
 				0C3ADF401F697EE100388C19 /* LostFoundSearchViewController.swift in Sources */,
-				B10253F11EC84ED90064373A /* CacheManager.swift in Sources */,
-				B13F3AE81F0CEE5C00F820A5 /* FAB.swift in Sources */,
+				36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */,
+				36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */,
 				0C3ADF491F697EE100388C19 /* PublishCustomCell.swift in Sources */,
 				0C3ADF431F697EE100388C19 /* LostFoundModel.swift in Sources */,
 				0C3ADF351F697EE100388C19 /* DetailViewController.swift in Sources */,
-				B10253FC1EC84ED90064373A /* DeviceStatus.swift in Sources */,
+				36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */,
 				0C3ADF471F697EE100388C19 /* MarkCustomCell.swift in Sources */,
 				0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */,
 				0C3ADF421F697EE100388C19 /* LostFoundAPI.swift in Sources */,
 				0C3ADF3F1F697EE100388C19 /* SearchedResultViewController.swift in Sources */,
-				36F5BDCC1F9E16FB00CDDF74 /* LoginViewController.swift in Sources */,
+				36DA7A5B1FA8A35C000DAF2B /* LoginViewController.swift in Sources */,
 				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
+				36449E8A1FA4BAD10036766B /* PartyPersonalStatusViewController.swift in Sources */,
+				36449E621FA4BABA0036766B /* SignUpTableViewCell.swift in Sources */,
+				36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */,
+				36449E841FA4BAD10036766B /* TwentyCourseScoreViewController.swift in Sources */,
+				36449E6D1FA4BABA0036766B /* FinalView.swift in Sources */,
+				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
+				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
 				B10254241EC8547E0064373A /* WPYTextView.swift in Sources */,
 				0C3ADF3D1F697EE100388C19 /* MyLostViewController.swift in Sources */,
 				B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */,
 				B102541C1EC8547E0064373A /* Metadata.swift in Sources */,
 				B10253D91EC84ED20064373A /* ReadAPI.swift in Sources */,
+				36449E651FA4BABA0036766B /* QuizCell.swift in Sources */,
+				36449E461FA4BA9B0036766B /* Courses.swift in Sources */,
 				3659368F1F1E60A9003CE578 /* CourseAppraiseManager.swift in Sources */,
+				36449E611FA4BABA0036766B /* TextTableViewCell.swift in Sources */,
 				3659368E1F1E60A9003CE578 /* GPAViewController.swift in Sources */,
 				0C3ADF381F697EE100388C19 /* LostFoundDetailModel.swift in Sources */,
 				365936911F1E60A9003CE578 /* GPASessionManager.swift in Sources */,
 				365936931F1E60A9003CE578 /* GPATermModel.swift in Sources */,
 				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
+				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
+				36449E631FA4BABA0036766B /* ScoreTableViewCell.swift in Sources */,
 				36073D0E1F223FC1001317A7 /* SearchResultCell.swift in Sources */,
 				0C3ADF391F697EE100388C19 /* LostFoundPageControllerViewController.swift in Sources */,
 				0C3ADF451F697EE100388C19 /* PublishLostViewController.swift in Sources */,
+				36449E8E1FA4BAD10036766B /* PartyComplainViewController.swift in Sources */,
+				36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */,
 				3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */,
 				B102541D1EC8547E0064373A /* SpringButton.swift in Sources */,
+				36449E861FA4BAD10036766B /* TheoryClassicsTableViewController.swift in Sources */,
 				365936951F1E60A9003CE578 /* ScoreHeaderView.swift in Sources */,
+				36449E451FA4BA9B0036766B /* PartyAPI.swift in Sources */,
 				3659367D1F1E5FAE003CE578 /* YellowPageSearchViewController.swift in Sources */,
 				0C3ADF4B1F697EE100388C19 /* UpLoadingPicCell.swift in Sources */,
 				3659366F1F1E37B8003CE578 /* SearchView.swift in Sources */,
+				36449E881FA4BAD10036766B /* PartySignUpViewController.swift in Sources */,
 				36073D241F22713B001317A7 /* ReadViewController.swift in Sources */,
+				36449E601FA4BABA0036766B /* TheoryCourseArticleReadingView.swift in Sources */,
 				369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */,
 				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
 				36073D091F223FC1001317A7 /* RateView.swift in Sources */,
 				B10253D61EC84ED20064373A /* Book.swift in Sources */,
 				B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */,
 				B10253DC1EC84ED20064373A /* Review.swift in Sources */,
+				36449E851FA4BAD10036766B /* TwentyCourseDetailViewController.swift in Sources */,
 				365936921F1E60A9003CE578 /* GPAStatModel.swift in Sources */,
+				36449E6E1FA4BABA0036766B /* CourseTableViewCell.swift in Sources */,
 				36073D101F223FC1001317A7 /* StatusInfoCell.swift in Sources */,
 				3659367B1F1E5FAE003CE578 /* YellowPageDetailViewController.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
@@ -986,6 +1186,7 @@
 				36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */,
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
 				36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */,
+				36449E8F1FA4BAD10036766B /* HandInDetailViewController.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
 				3659367C1F1E5FAE003CE578 /* YellowPageMainViewController.swift in Sources */,
 				B10253D71EC84ED20064373A /* Librarian.swift in Sources */,
@@ -1009,7 +1210,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B19DAB9F1E6EF5C2004A50B5 /* WePeiYangTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
