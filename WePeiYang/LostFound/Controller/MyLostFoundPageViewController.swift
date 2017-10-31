@@ -10,10 +10,21 @@ import UIKit
 import WMPageController
 
 class MyLostFoundPageViewController: WMPageController {
-
-    convenience init?(para: Int) {
-        
-        self.init(viewControllerClasses: [MyLostViewController.self, MyFoundViewController.self], andTheirTitles: ["我丢失的","我捡到的"])
+    
+//    var data: [(title: String, viewController: UIViewController)] {
+//        return [("我丢失的", MyLostViewController()), ("我捡到的", MyFoundViewController())]
+//    }
+//    override func numbersOfTitles(in menu: WMMenuView!) -> Int {
+//        return data.count
+//    }
+//    override func pageController(_ pageController: WMPageController, titleAt index: Int) -> String {
+//        return data[index].title
+//    }
+//    override func pageController(_ pageController: WMPageController, viewControllerAt index: Int) -> UIViewController {
+//        return data[index].viewController
+//    }
+    
+    override func viewDidLoad() {
         self.title = "我的"
         UIApplication.shared.statusBarStyle = .lightContent
         pageAnimatable = true
@@ -24,11 +35,11 @@ class MyLostFoundPageViewController: WMPageController {
         titleColorSelected = UIColor(hex6: 0x00a1e9)
         titleColorNormal = UIColor(hex6: 0xc8ccd3)
         menuItemWidth = self.view.frame.size.width/2
-    }
-    override func viewDidLoad() {
-
         menuBGColor = .white
         progressColor = UIColor(hex6: 0x00a1e9)
+//        self.dataSource = self
+        self.viewControllerClasses = [MyLostViewController.self, MyFoundViewController.self]
+        self.titles = ["我丢失的", "我捡到的"]
         super.viewDidLoad()
     }
 }

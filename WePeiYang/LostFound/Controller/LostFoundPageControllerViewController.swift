@@ -11,28 +11,9 @@ import WMPageController
  
 class LostFoundPageViewController: WMPageController {
 
-    convenience init?(para: Int) {
-        self.init(viewControllerClasses: [LostViewController.self, FoundViewController.self], andTheirTitles: ["丢失", "捡到"])
-//        self.init(viewControllrerClasses: [LostViewController.self, FoundViewController.self], andTheirTitles: ["hi", "a"]）
-        
-        self.title = "失物招领"
-        
-        UIApplication.shared.statusBarStyle = .lightContent
-        pageAnimatable = true
-        menuViewStyle = .line
-        titleSizeSelected = 16.0
-        titleSizeNormal = 15.0
-        menuHeight = 50
-        titleColorSelected = UIColor(hex6: 0x00a1e9)
-        titleColorNormal = UIColor(hex6: 0xc8ccd3)
-        menuItemWidth = self.view.frame.size.width/2
-
-
-//        menuBGColor = .white
-//        progressColor = UIColor(hex6: 0x00a1e9)
-
-    }
-    
+//    var data: [(title: String, viewController: UIViewController)] {
+//        return [("丢失", LostViewController()), ("捡到", FoundViewController())]
+//    }
     
     //Mark --导航栏（Navigationbar）的配置
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +27,19 @@ class LostFoundPageViewController: WMPageController {
     }
     
     override func viewDidLoad() {
+        
+        self.title = "失物招领"
+        
+        UIApplication.shared.statusBarStyle = .lightContent
+        pageAnimatable = true
+        menuViewStyle = .line
+        titleSizeSelected = 16.0
+        titleSizeNormal = 15.0
+        menuHeight = 50
+        titleColorSelected = UIColor(hex6: 0x00a1e9)
+        titleColorNormal = UIColor(hex6: 0xc8ccd3)
+        menuItemWidth = self.view.frame.size.width/2
+
         menuBGColor = .white
         progressColor = UIColor(hex6: 0x00a1e9)
         
@@ -86,12 +80,18 @@ class LostFoundPageViewController: WMPageController {
             })
             ])
         
+        
+            fab.showUp()
+        
+//        self.dataSource = self
+        self.viewControllerClasses = [LostViewController.self, FoundViewController.self]
+        self.titles = ["丢失", "捡到"]
         super.viewDidLoad()
 
     }
     func mineButton(item: UIBarButtonItem) {
-        let vc = MyLostFoundPageViewController(para: 1)
-        self.navigationController?.pushViewController(vc!, animated: true)
+        let vc = MyLostFoundPageViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func searchButton(item: UIBarButtonItem) {
@@ -101,5 +101,13 @@ class LostFoundPageViewController: WMPageController {
 //        self.navigationController?.pushViewController(successVC, animated: true)
     }
     
-    
+//    override func numbersOfTitles(in menu: WMMenuView!) -> Int {
+//        return data.count
+//    }
+//    override func pageController(_ pageController: WMPageController, titleAt index: Int) -> String {
+//        return data[index].title
+//    }
+//    override func pageController(_ pageController: WMPageController, viewControllerAt index: Int) -> UIViewController {
+//        return data[index].viewController
+//    }
 }
