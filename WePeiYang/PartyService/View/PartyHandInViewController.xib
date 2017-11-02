@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11761" systemVersion="16C60b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PartyHandInViewController" customModule="WePeiYang" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="aKV-Cn-uvY" id="5Ma-yL-LOT"/>
+                <outlet property="view" destination="iN0-l3-epB" id="SAN-Qd-Tfu"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="aKV-Cn-uvY">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="aKV-Cn-uvY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2Ok-5g-BUA"/>
+                <constraint firstAttribute="bottom" secondItem="aKV-Cn-uvY" secondAttribute="bottom" id="5zB-9i-FNZ"/>
+                <constraint firstItem="aKV-Cn-uvY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" symbolic="YES" id="LnK-RG-6UJ"/>
+                <constraint firstAttribute="trailing" secondItem="aKV-Cn-uvY" secondAttribute="trailing" id="T1o-17-zfq"/>
+                <constraint firstItem="aKV-Cn-uvY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dva-h8-QMh"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="LnK-RG-6UJ"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="312" y="319"/>
+        </view>
+    </objects>
+</document>

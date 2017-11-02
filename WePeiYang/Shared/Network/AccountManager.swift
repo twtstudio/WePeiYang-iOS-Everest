@@ -34,14 +34,12 @@ struct AccountManager {
 //        // TODO: CSSearchable
 //    }
     
-    static func getToken(username: String, password: String, success: (()->())?, failure: ((Error?)->())?) {
+    static func getToken(username: String, password: String, success: ((String)->())?, failure: ((Error?)->())?) {
         let para: Dictionary<String, String> = ["twtuname": username, "twtpasswd": password]
         SolaSessionManager.solaSession(type: .get, url: "/auth/token/get", token: nil, parameters: para, success: { dic in
             if let data = dic["data"] as? Dictionary<String, AnyObject> {
                 if let token = data["token"] as? String {
-                    TwTUser.shared.token = token
-                    TwTUser.shared.save()
-                    success?()
+                    success?(token)
                 }
             }
             

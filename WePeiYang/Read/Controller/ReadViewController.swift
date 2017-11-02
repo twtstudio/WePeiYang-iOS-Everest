@@ -82,6 +82,7 @@ class ReadViewController: WMPageController {
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.isTranslucent = UINavigationBar.appearance().isTranslucent
         self.navigationController?.navigationBar.shadowImage = UINavigationBar.appearance().shadowImage
+
 //        self.navigationController?.navigationBar.barStyle = .default
 //        self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
 //        self.navigationController?.navigationBar.shadowImage = nil
