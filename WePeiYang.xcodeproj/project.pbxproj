@@ -46,6 +46,25 @@
 		369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369306941F2B976C008E90DC /* ModuleCollectionViewCell.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
 		671E936890C15C748992981C /* Pods_WePeiYangUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */; };
+		A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4B01F99E43F00022A01 /* BicycleServiceNotificationController.swift */; };
+		A554C4B31F99E4FC00022A01 /* BicycleServiceViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4B21F99E4FC00022A01 /* BicycleServiceViewController2.swift */; };
+		A554C4B51F99E51D00022A01 /* BicycleServiceMapController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4B41F99E51D00022A01 /* BicycleServiceMapController2.swift */; };
+		A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4B81F99E57700022A01 /* SpotDetailsView.swift */; };
+		A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */; };
+		A554C4BE1F99F84900022A01 /* ParkingSpotsLocs.json in Resources */ = {isa = PBXBuildFile; fileRef = A554C4BC1F99EFE300022A01 /* ParkingSpotsLocs.json */; };
+		A5E117AF1F99DB8E00C86CA2 /* BicycleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117AE1F99DB8E00C86CA2 /* BicycleUser.swift */; };
+		A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117B01F99DBB700C86CA2 /* timeStampTransfer.swift */; };
+		A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117B21F99DBD700C86CA2 /* ParkingSpots.swift */; };
+		A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117B41F99DBFC00C86CA2 /* BicycleAPIs.swift */; };
+		A5E117B71F99DC9400C86CA2 /* NotificationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117B61F99DC9400C86CA2 /* NotificationList.swift */; };
+		A5E117B91F99DCAE00C86CA2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117B81F99DCAE00C86CA2 /* Card.swift */; };
+		A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117BA1F99DCBE00C86CA2 /* NotificationItem.swift */; };
+		A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117BC1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift */; };
+		A5E117BF1F99DDCA00C86CA2 /* BicycleUserBindViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117BE1F99DDCA00C86CA2 /* BicycleUserBindViewController2.swift */; };
+		A5E117C11F99E01A00C86CA2 /* BicycleCardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C01F99E01A00C86CA2 /* BicycleCardListViewController.swift */; };
+		A5E117C31F99E03200C86CA2 /* BicycleRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C21F99E03200C86CA2 /* BicycleRecordViewController.swift */; };
+		A5E117C51F99E05200C86CA2 /* BicycleServiceInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C41F99E05200C86CA2 /* BicycleServiceInfoController.swift */; };
+		A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C61F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift */; };
 		B10253D61EC84ED20064373A /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CD1EC84ED20064373A /* Book.swift */; };
 		B10253D71EC84ED20064373A /* Librarian.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CE1EC84ED20064373A /* Librarian.swift */; };
 		B10253D81EC84ED20064373A /* MyBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CF1EC84ED20064373A /* MyBook.swift */; };
@@ -147,6 +166,36 @@
 		8405C859FC95C5E72E0F9BD7 /* Pods-WePeiYang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.release.xcconfig"; sourceTree = "<group>"; };
 		9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.debug.xcconfig"; sourceTree = "<group>"; };
+		A554C4B01F99E43F00022A01 /* BicycleServiceNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleServiceNotificationController.swift; sourceTree = "<group>"; };
+		A554C4B21F99E4FC00022A01 /* BicycleServiceViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BicycleServiceViewController2.swift; path = ../../../../../.Trash/BicycleServiceViewController2.swift; sourceTree = "<group>"; };
+		A554C4B41F99E51D00022A01 /* BicycleServiceMapController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BicycleServiceMapController2.swift; path = ../../../../../.Trash/BicycleServiceMapController2.swift; sourceTree = "<group>"; };
+		A554C4B81F99E57700022A01 /* SpotDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailsView.swift; sourceTree = "<group>"; };
+		A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleFitnessTrackerViewCell.swift; sourceTree = "<group>"; };
+		A554C4BC1F99EFE300022A01 /* ParkingSpotsLocs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ParkingSpotsLocs.json; sourceTree = "<group>"; };
+		A5D695191F8A21AD00022B9A /* WMScrollView+gesture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMScrollView+gesture.m"; sourceTree = "<group>"; };
+		A5D6951D1F8A21AD00022B9A /* BicycleServiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BicycleServiceViewController.h; sourceTree = "<group>"; };
+		A5D6951E1F8A21AD00022B9A /* BicycleServiceViewControllerRev.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BicycleServiceViewControllerRev.h; sourceTree = "<group>"; };
+		A5D695201F8A21AD00022B9A /* WMScrollView+gesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMScrollView+gesture.h"; sourceTree = "<group>"; };
+		A5D695221F8A21AD00022B9A /* BicycleServiceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BicycleServiceViewController.m; sourceTree = "<group>"; };
+		A5D6952E1F8A21AD00022B9A /* BicycleServiceInfoController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BicycleServiceInfoController.xib; sourceTree = "<group>"; };
+		A5D695301F8A21AD00022B9A /* BicycleServiceNotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleServiceNotificationCell.swift; sourceTree = "<group>"; };
+		A5D695311F8A21AD00022B9A /* BicycleNotificationDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BicycleNotificationDetailViewController.xib; sourceTree = "<group>"; };
+		A5D695321F8A21AD00022B9A /* BicycleServiceNotificationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BicycleServiceNotificationController.xib; sourceTree = "<group>"; };
+		A5D695331F8A21AD00022B9A /* BicycleRecordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BicycleRecordViewController.xib; sourceTree = "<group>"; };
+		A5D695341F8A21AD00022B9A /* BicycleUserBindViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BicycleUserBindViewController.xib; sourceTree = "<group>"; };
+		A5E117AE1F99DB8E00C86CA2 /* BicycleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleUser.swift; sourceTree = "<group>"; };
+		A5E117B01F99DBB700C86CA2 /* timeStampTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timeStampTransfer.swift; sourceTree = "<group>"; };
+		A5E117B21F99DBD700C86CA2 /* ParkingSpots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpots.swift; sourceTree = "<group>"; };
+		A5E117B41F99DBFC00C86CA2 /* BicycleAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleAPIs.swift; sourceTree = "<group>"; };
+		A5E117B61F99DC9400C86CA2 /* NotificationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationList.swift; sourceTree = "<group>"; };
+		A5E117B81F99DCAE00C86CA2 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		A5E117BA1F99DCBE00C86CA2 /* NotificationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationItem.swift; sourceTree = "<group>"; };
+		A5E117BC1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleFitnessTrackerViewController.swift; sourceTree = "<group>"; };
+		A5E117BE1F99DDCA00C86CA2 /* BicycleUserBindViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleUserBindViewController2.swift; sourceTree = "<group>"; };
+		A5E117C01F99E01A00C86CA2 /* BicycleCardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleCardListViewController.swift; sourceTree = "<group>"; };
+		A5E117C21F99E03200C86CA2 /* BicycleRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleRecordViewController.swift; sourceTree = "<group>"; };
+		A5E117C41F99E05200C86CA2 /* BicycleServiceInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleServiceInfoController.swift; sourceTree = "<group>"; };
+		A5E117C61F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleNotificationDetailViewController.swift; sourceTree = "<group>"; };
 		B10253CD1EC84ED20064373A /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		B10253CE1EC84ED20064373A /* Librarian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Librarian.swift; sourceTree = "<group>"; };
 		B10253CF1EC84ED20064373A /* MyBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBook.swift; sourceTree = "<group>"; };
@@ -342,6 +391,67 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A5D695141F8A21AD00022B9A /* Bicycle */ = {
+			isa = PBXGroup;
+			children = (
+				A5D695151F8A21AD00022B9A /* Controller */,
+				A5D695241F8A21AD00022B9A /* Model */,
+				A5D6952C1F8A21AD00022B9A /* View */,
+			);
+			path = Bicycle;
+			sourceTree = "<group>";
+		};
+		A5D695151F8A21AD00022B9A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A5E117C01F99E01A00C86CA2 /* BicycleCardListViewController.swift */,
+				A5E117C21F99E03200C86CA2 /* BicycleRecordViewController.swift */,
+				A5D695191F8A21AD00022B9A /* WMScrollView+gesture.m */,
+				A5E117C41F99E05200C86CA2 /* BicycleServiceInfoController.swift */,
+				A5E117C61F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift */,
+				A5D6951D1F8A21AD00022B9A /* BicycleServiceViewController.h */,
+				A5D6951E1F8A21AD00022B9A /* BicycleServiceViewControllerRev.h */,
+				A554C4B01F99E43F00022A01 /* BicycleServiceNotificationController.swift */,
+				A5D695201F8A21AD00022B9A /* WMScrollView+gesture.h */,
+				A554C4B41F99E51D00022A01 /* BicycleServiceMapController2.swift */,
+				A554C4B21F99E4FC00022A01 /* BicycleServiceViewController2.swift */,
+				A5E117BE1F99DDCA00C86CA2 /* BicycleUserBindViewController2.swift */,
+				A5D695221F8A21AD00022B9A /* BicycleServiceViewController.m */,
+				A5E117BC1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		A5D695241F8A21AD00022B9A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A5E117B01F99DBB700C86CA2 /* timeStampTransfer.swift */,
+				A5E117B21F99DBD700C86CA2 /* ParkingSpots.swift */,
+				A554C4BC1F99EFE300022A01 /* ParkingSpotsLocs.json */,
+				A5E117B61F99DC9400C86CA2 /* NotificationList.swift */,
+				A5E117AE1F99DB8E00C86CA2 /* BicycleUser.swift */,
+				A5E117B81F99DCAE00C86CA2 /* Card.swift */,
+				A5E117B41F99DBFC00C86CA2 /* BicycleAPIs.swift */,
+				A5E117BA1F99DCBE00C86CA2 /* NotificationItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A5D6952C1F8A21AD00022B9A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A554C4B81F99E57700022A01 /* SpotDetailsView.swift */,
+				A5D6952E1F8A21AD00022B9A /* BicycleServiceInfoController.xib */,
+				A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */,
+				A5D695301F8A21AD00022B9A /* BicycleServiceNotificationCell.swift */,
+				A5D695311F8A21AD00022B9A /* BicycleNotificationDetailViewController.xib */,
+				A5D695321F8A21AD00022B9A /* BicycleServiceNotificationController.xib */,
+				A5D695331F8A21AD00022B9A /* BicycleRecordViewController.xib */,
+				A5D695341F8A21AD00022B9A /* BicycleUserBindViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		B10253CA1EC84ED20064373A /* Read */ = {
 			isa = PBXGroup;
 			children = (
@@ -533,6 +643,7 @@
 				36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */,
 				B181B9551EC5C21700B8198E /* Favorite */,
 				B10253CA1EC84ED20064373A /* Read */,
+				A5D695141F8A21AD00022B9A /* Bicycle */,
 				3659367F1F1E60A9003CE578 /* GPA */,
 				B10253FE1EC84EE00064373A /* YellowPage */,
 			);
@@ -644,7 +755,7 @@
 				TargetAttributes = {
 					B19DAB851E6EF5C2004A50B5 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = TYRRVX7RWJ;
+						DevelopmentTeam = 3VDXU5RF7E;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
@@ -687,6 +798,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A554C4BE1F99F84900022A01 /* ParkingSpotsLocs.json in Resources */,
 				36073D261F231C36001317A7 /* Assets.xcassets in Resources */,
 				B19DAB941E6EF5C2004A50B5 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -858,17 +970,23 @@
 				36073D1E1F225D2A001317A7 /* RecommendedViewController.swift in Sources */,
 				365936961F1E60A9003CE578 /* StarView.swift in Sources */,
 				36073D0D1F223FC1001317A7 /* Search.swift in Sources */,
+				A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */,
 				36073D1A1F225D2A001317A7 /* BookDetailViewController.swift in Sources */,
 				B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */,
 				3659368D1F1E60A9003CE578 /* CourseAppraiseViewController.swift in Sources */,
 				B102541B1EC8547E0064373A /* CardViewAndDelegate.swift in Sources */,
 				36073D1B1F225D2A001317A7 /* BookShelfViewController.swift in Sources */,
 				365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */,
+				A554C4B51F99E51D00022A01 /* BicycleServiceMapController2.swift in Sources */,
 				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
+				A5E117B91F99DCAE00C86CA2 /* Card.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
 				3631D50A1F1903D70078816D /* TwTUser.swift in Sources */,
+				A5E117C51F99E05200C86CA2 /* BicycleServiceInfoController.swift in Sources */,
+				A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */,
 				36073D0A1F223FC1001317A7 /* ReadStarCell.swift in Sources */,
 				365936941F1E60A9003CE578 /* CourseAppraiseCell.swift in Sources */,
+				A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */,
 				36073D0B1F223FC1001317A7 /* RecommendCell.swift in Sources */,
 				B181B95C1EC5C23400B8198E /* SettingsViewController.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
@@ -876,10 +994,14 @@
 				365936711F1E38B8003CE578 /* YellowPageSearchHistoryCell.swift in Sources */,
 				B10254051EC84EE00064373A /* PhoneBook.swift in Sources */,
 				B10254201EC8547E0064373A /* WPYBaseViewController.swift in Sources */,
+				A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */,
 				B10253F11EC84ED90064373A /* CacheManager.swift in Sources */,
+				A5E117C31F99E03200C86CA2 /* BicycleRecordViewController.swift in Sources */,
+				A5E117C11F99E01A00C86CA2 /* BicycleCardListViewController.swift in Sources */,
 				B13F3AE81F0CEE5C00F820A5 /* FAB.swift in Sources */,
 				B10253FC1EC84ED90064373A /* DeviceStatus.swift in Sources */,
 				B10254241EC8547E0064373A /* WPYTextView.swift in Sources */,
+				A5E117BF1F99DDCA00C86CA2 /* BicycleUserBindViewController2.swift in Sources */,
 				B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */,
 				B102541C1EC8547E0064373A /* Metadata.swift in Sources */,
 				B10253D91EC84ED20064373A /* ReadAPI.swift in Sources */,
@@ -890,12 +1012,16 @@
 				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
 				36073D0E1F223FC1001317A7 /* SearchResultCell.swift in Sources */,
 				3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */,
+				A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */,
 				B102541D1EC8547E0064373A /* SpringButton.swift in Sources */,
 				365936951F1E60A9003CE578 /* ScoreHeaderView.swift in Sources */,
 				3659367D1F1E5FAE003CE578 /* YellowPageSearchViewController.swift in Sources */,
 				3659366F1F1E37B8003CE578 /* SearchView.swift in Sources */,
+				A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */,
 				36073D241F22713B001317A7 /* ReadViewController.swift in Sources */,
 				369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */,
+				A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */,
+				A5E117AF1F99DB8E00C86CA2 /* BicycleUser.swift in Sources */,
 				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
 				36073D091F223FC1001317A7 /* RateView.swift in Sources */,
 				B10253D61EC84ED20064373A /* Book.swift in Sources */,
@@ -904,15 +1030,18 @@
 				365936921F1E60A9003CE578 /* GPAStatModel.swift in Sources */,
 				36073D101F223FC1001317A7 /* StatusInfoCell.swift in Sources */,
 				3659367B1F1E5FAE003CE578 /* YellowPageDetailViewController.swift in Sources */,
+				A5E117B71F99DC9400C86CA2 /* NotificationList.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
 				36073D1F1F225D2A001317A7 /* ReviewListViewController.swift in Sources */,
 				36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */,
+				A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */,
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
 				36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
 				3659367C1F1E5FAE003CE578 /* YellowPageMainViewController.swift in Sources */,
 				B10253D71EC84ED20064373A /* Librarian.swift in Sources */,
 				B10254211EC8547E0064373A /* WPYLabel.swift in Sources */,
+				A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */,
 				B10253FD1EC84ED90064373A /* log.swift in Sources */,
 				B10253DA1EC84ED20064373A /* ReadBeacon.swift in Sources */,
 				3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */,
@@ -920,6 +1049,7 @@
 				B10253F01EC84ED90064373A /* AccountManager.swift in Sources */,
 				36073D1C1F225D2A001317A7 /* InfoViewController.swift in Sources */,
 				B10254041EC84EE00064373A /* ClientItem.swift in Sources */,
+				A554C4B31F99E4FC00022A01 /* BicycleServiceViewController2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1065,7 +1195,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
+				DEVELOPMENT_TEAM = 3VDXU5RF7E;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1083,7 +1213,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
+				DEVELOPMENT_TEAM = 3VDXU5RF7E;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

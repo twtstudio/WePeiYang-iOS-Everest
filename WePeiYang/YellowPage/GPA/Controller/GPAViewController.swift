@@ -150,6 +150,7 @@ class GPAViewController: UIViewController {
         super.viewDidLoad()
         
         // set termSwitchView
+        self.navigationController?.navigationBar.tintColor = .white
         termSwitchView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: 60)
         termLabel.center = termSwitchView.center
         termSwitchView.addSubview(termLabel)
