@@ -33,6 +33,7 @@ struct SolaSessionManager {
     static func solaSession(type: SessionType = .get, baseURL: String = TWT_ROOT_URL, url: String, token: String? = nil, parameters: Dictionary<String, String>? = nil, success: ((Dictionary<String, AnyObject>)->())? = nil, failure: ((Error)->())? = nil) {
         
         let fullurl = baseURL + url
+        print(fullurl)
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
         var para = parameters ?? Dictionary<String, String>()
         para["t"] = timeStamp
@@ -68,7 +69,6 @@ struct SolaSessionManager {
         if type == .duo && token != nil{
             headers["Authorization"] = "Bearer {\(token)}"
         }
-        
         var method: HTTPMethod!
         switch type {
         case .get:
@@ -136,24 +136,60 @@ struct SolaSessionManager {
         } else {
             log.errorMessage("can't load twtToken")/
         }
-
+        let fullURL = TWT_ROOT_URL + url
         if method == .post {
             Alamofire.upload(multipartFormData: { formdata in
                 for item in dataDict {
-                    formdata.append(item.value, withName: item.key, mimeType: "image/jpeg")
+                    formdata.append(item.value, withName: item.key, fileName: "avatar.jpg", mimeType: "image/jpeg")
+//                    formdata.append(item.value, withName: item.key, mimeType: "image/jpg")
                 }
                 for item in paraDict {
                     formdata.append(item.value.data(using: .utf8)!, withName: item.key)
                 }
-            }, to: url, method: .put, headers: headers, encodingCompletion: { response in
+            }, to: fullURL, method: .post, headers: headers, encodingCompletion: { response in
                 switch response {
                 case .success(let upload, _, _):
                     upload.responseJSON { response in
-                        success?([:])
+                        if let data = response.result.value  {
+                            if let dict = data as? Dictionary<String, Any>, dict["error_code"] as? Int == 0 {
+                                success?(dict)
+                            } else {
+//                                HUD.hide()
+//                                HUD.flash(.label((data as? [String: Any])?["data"] as? String), delay: 1.0)
+                            }
+                        }
                     }
                     upload.uploadProgress { progress in
                         progressBlock?(progress)
                     }
+//                    upload.response(completionHandler: { response in
+//                        print(response)
+//                        
+//                    })
+                    upload.responseString(completionHandler: { string in
+                        guard let data = string.data else {
+                            //                            HUD.flash(.labeledError(title: errMsg, subtitle: nil), delay: 1.2)
+                            //                                failure?(Err)
+                            // FIXME: show call failure
+                            return
+                        }
+                        do {
+                            let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                            if let dict = json as? Dictionary<String, AnyObject> {
+                                if let err = dict["err"] as? Int, err == 0 {
+                                    success?(dict)
+                                } else {
+//                                    HUD.flash(.label(dict["data"] as? String), delay: 1.0)
+//                                    failure?(BBSError.custom)
+                                }
+                            }
+                        } catch let error {
+                            let errMsg = String(data: data, encoding: .utf8)
+//                            HUD.flash(.labeledError(title: errMsg, subtitle: nil), delay: 1.2)
+                            failure?(error)
+                            // log.error(error)/
+                        }
+                    })
                 case .failure(let error):
                     failure?(error)
                     print(error)

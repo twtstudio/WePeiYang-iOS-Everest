@@ -7,6 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C2C8D921F7BC48400D3A5E2 /* LFPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2C8D911F7BC48400D3A5E2 /* LFPickerCell.swift */; };
+		0C3ADF351F697EE100388C19 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1C1F697EE100388C19 /* DetailViewController.swift */; };
+		0C3ADF361F697EE100388C19 /* FoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1D1F697EE100388C19 /* FoundViewController.swift */; };
+		0C3ADF371F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1E1F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift */; };
+		0C3ADF381F697EE100388C19 /* LostFoundDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1F1F697EE100388C19 /* LostFoundDetailModel.swift */; };
+		0C3ADF391F697EE100388C19 /* LostFoundPageControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF201F697EE100388C19 /* LostFoundPageControllerViewController.swift */; };
+		0C3ADF3A1F697EE100388C19 /* LostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF211F697EE100388C19 /* LostViewController.swift */; };
+		0C3ADF3B1F697EE100388C19 /* MyFoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF221F697EE100388C19 /* MyFoundViewController.swift */; };
+		0C3ADF3C1F697EE100388C19 /* MyLostFoundPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF231F697EE100388C19 /* MyLostFoundPageViewController.swift */; };
+		0C3ADF3D1F697EE100388C19 /* MyLostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF241F697EE100388C19 /* MyLostViewController.swift */; };
+		0C3ADF3E1F697EE100388C19 /* PublishSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF251F697EE100388C19 /* PublishSuccessViewController.swift */; };
+		0C3ADF3F1F697EE100388C19 /* SearchedResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF261F697EE100388C19 /* SearchedResultViewController.swift */; };
+		0C3ADF401F697EE100388C19 /* LostFoundSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF271F697EE100388C19 /* LostFoundSearchViewController.swift */; };
+		0C3ADF421F697EE100388C19 /* LostFoundAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF2A1F697EE100388C19 /* LostFoundAPI.swift */; };
+		0C3ADF431F697EE100388C19 /* LostFoundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF2B1F697EE100388C19 /* LostFoundModel.swift */; };
+		0C3ADF441F697EE100388C19 /* MyLostFoundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF2C1F697EE100388C19 /* MyLostFoundModel.swift */; };
+		0C3ADF451F697EE100388C19 /* PublishLostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF2D1F697EE100388C19 /* PublishLostViewController.swift */; };
+		0C3ADF461F697EE100388C19 /* LostFoundCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF2F1F697EE100388C19 /* LostFoundCollectionViewCell.swift */; };
+		0C3ADF471F697EE100388C19 /* MarkCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF301F697EE100388C19 /* MarkCustomCell.swift */; };
+		0C3ADF481F697EE100388C19 /* MyLostFoundTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF311F697EE100388C19 /* MyLostFoundTableViewCell.swift */; };
+		0C3ADF491F697EE100388C19 /* PublishCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF321F697EE100388C19 /* PublishCustomCell.swift */; };
+		0C3ADF4A1F697EE100388C19 /* SectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF331F697EE100388C19 /* SectionCell.swift */; };
+		0C3ADF4B1F697EE100388C19 /* UpLoadingPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF341F697EE100388C19 /* UpLoadingPicCell.swift */; };
+		0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3B3EB51F777D7C00081A0D /* LFImagePreviewViewController.swift */; };
+		0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */; };
 		36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFD1F223FC1001317A7 /* BookDetailViewControllerTempView.swift */; };
 		36073D081F223FC1001317A7 /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFE1F223FC1001317A7 /* CoverView.swift */; };
 		36073D091F223FC1001317A7 /* RateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFF1F223FC1001317A7 /* RateView.swift */; };
@@ -25,6 +50,12 @@
 		36073D241F22713B001317A7 /* ReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D231F22713B001317A7 /* ReadViewController.swift */; };
 		36073D261F231C36001317A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36073D251F231C36001317A7 /* Assets.xcassets */; };
 		3631D50A1F1903D70078816D /* TwTUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5091F1903D70078816D /* TwTUser.swift */; };
+		36366B2E1FAB86B0001F72A0 /* BicycleServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36366B2D1FAB86B0001F72A0 /* BicycleServiceViewController.swift */; };
+		36366B2F1FAB8A84001F72A0 /* BicycleServiceInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D6952E1F8A21AD00022B9A /* BicycleServiceInfoController.xib */; };
+		36366B301FAB8A84001F72A0 /* BicycleNotificationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D695311F8A21AD00022B9A /* BicycleNotificationDetailViewController.xib */; };
+		36366B311FAB8A84001F72A0 /* BicycleServiceNotificationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D695321F8A21AD00022B9A /* BicycleServiceNotificationController.xib */; };
+		36366B321FAB8A84001F72A0 /* BicycleRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D695331F8A21AD00022B9A /* BicycleRecordViewController.xib */; };
+		36366B331FAB8A84001F72A0 /* BicycleUserBindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D695341F8A21AD00022B9A /* BicycleUserBindViewController.xib */; };
 		36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E3E1FA4BA9B0036766B /* TwentyCourseQuiz.swift */; };
 		36449E451FA4BA9B0036766B /* PartyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E3F1FA4BA9B0036766B /* PartyAPI.swift */; };
 		36449E461FA4BA9B0036766B /* Courses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E401FA4BA9B0036766B /* Courses.swift */; };
@@ -85,10 +116,31 @@
 		365936951F1E60A9003CE578 /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659368B1F1E60A9003CE578 /* ScoreHeaderView.swift */; };
 		365936961F1E60A9003CE578 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659368C1F1E60A9003CE578 /* StarView.swift */; };
 		369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369306941F2B976C008E90DC /* ModuleCollectionViewCell.swift */; };
-		36F5BDCC1F9E16FB00CDDF74 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */; };
+		36DA7A5B1FA8A35C000DAF2B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */; };
+		36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13F3AE71F0CEE5C00F820A5 /* FAB.swift */; };
+		36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E11EC84ED90064373A /* CacheManager.swift */; };
+		36DA7A5E1FA8A35C000DAF2B /* WPYBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254161EC8547E0064373A /* WPYBaseViewController.swift */; };
+		36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EE1EC84ED90064373A /* DeviceStatus.swift */; };
 		36F5BDCE1F9E196200CDDF74 /* FlowingColor.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 36F5BDCD1F9E17A600CDDF74 /* FlowingColor.mp4 */; };
+		36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F631EC1FAB31C500E3261F /* BicycleUserBindViewController.swift */; };
+		36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F631ED1FAB31C500E3261F /* BicycleServiceMapController.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
-		671E936890C15C748992981C /* Pods_WePeiYangUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */; };
+		A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4B01F99E43F00022A01 /* BicycleServiceNotificationController.swift */; };
+		A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4B81F99E57700022A01 /* SpotDetailsView.swift */; };
+		A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */; };
+		A554C4BE1F99F84900022A01 /* ParkingSpotsLocs.json in Resources */ = {isa = PBXBuildFile; fileRef = A554C4BC1F99EFE300022A01 /* ParkingSpotsLocs.json */; };
+		A5E117AF1F99DB8E00C86CA2 /* BicycleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117AE1F99DB8E00C86CA2 /* BicycleUser.swift */; };
+		A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117B01F99DBB700C86CA2 /* timeStampTransfer.swift */; };
+		A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117B21F99DBD700C86CA2 /* ParkingSpots.swift */; };
+		A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117B41F99DBFC00C86CA2 /* BicycleAPIs.swift */; };
+		A5E117B71F99DC9400C86CA2 /* NotificationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117B61F99DC9400C86CA2 /* NotificationList.swift */; };
+		A5E117B91F99DCAE00C86CA2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117B81F99DCAE00C86CA2 /* Card.swift */; };
+		A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117BA1F99DCBE00C86CA2 /* NotificationItem.swift */; };
+		A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117BC1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift */; };
+		A5E117C11F99E01A00C86CA2 /* BicycleCardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C01F99E01A00C86CA2 /* BicycleCardListViewController.swift */; };
+		A5E117C31F99E03200C86CA2 /* BicycleRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C21F99E03200C86CA2 /* BicycleRecordViewController.swift */; };
+		A5E117C51F99E05200C86CA2 /* BicycleServiceInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C41F99E05200C86CA2 /* BicycleServiceInfoController.swift */; };
+		A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C61F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift */; };
 		B10253D61EC84ED20064373A /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CD1EC84ED20064373A /* Book.swift */; };
 		B10253D71EC84ED20064373A /* Librarian.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CE1EC84ED20064373A /* Librarian.swift */; };
 		B10253D81EC84ED20064373A /* MyBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CF1EC84ED20064373A /* MyBook.swift */; };
@@ -98,10 +150,8 @@
 		B10253DC1EC84ED20064373A /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253D31EC84ED20064373A /* Review.swift */; };
 		B10253DD1EC84ED20064373A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253D41EC84ED20064373A /* User.swift */; };
 		B10253F01EC84ED90064373A /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E01EC84ED90064373A /* AccountManager.swift */; };
-		B10253F11EC84ED90064373A /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E11EC84ED90064373A /* CacheManager.swift */; };
 		B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E21EC84ED90064373A /* SolaSessionManager.swift */; };
 		B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TwTKeychain.swift */; };
-		B10253FC1EC84ED90064373A /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EE1EC84ED90064373A /* DeviceStatus.swift */; };
 		B10253FD1EC84ED90064373A /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EF1EC84ED90064373A /* log.swift */; };
 		B10254041EC84EE00064373A /* ClientItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254011EC84EE00064373A /* ClientItem.swift */; };
 		B10254051EC84EE00064373A /* PhoneBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254021EC84EE00064373A /* PhoneBook.swift */; };
@@ -112,14 +162,10 @@
 		B102541D1EC8547E0064373A /* SpringButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254131EC8547E0064373A /* SpringButton.swift */; };
 		B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254141EC8547E0064373A /* TabVCTransitioningAnimator.swift */; };
 		B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254151EC8547E0064373A /* ThemeChanging.swift */; };
-		B10254201EC8547E0064373A /* WPYBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254161EC8547E0064373A /* WPYBaseViewController.swift */; };
 		B10254211EC8547E0064373A /* WPYLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254171EC8547E0064373A /* WPYLabel.swift */; };
 		B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254181EC8547E0064373A /* WPYTabBarController.swift */; };
 		B10254231EC8547E0064373A /* WPYTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254191EC8547E0064373A /* WPYTextField.swift */; };
-		B10254241EC8547E0064373A /* WPYTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102541A1EC8547E0064373A /* WPYTextView.swift */; };
-		B13F3AE81F0CEE5C00F820A5 /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13F3AE71F0CEE5C00F820A5 /* FAB.swift */; };
 		B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B9571EC5C21700B8198E /* FavViewController.swift */; };
-		B181B95C1EC5C23400B8198E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95B1EC5C23400B8198E /* SettingsViewController.swift */; };
 		B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */; };
 		B181B9601EC5C24000B8198E /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95E1EC5C24000B8198E /* NewsViewController.swift */; };
 		B19DAB941E6EF5C2004A50B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B19DAB921E6EF5C2004A50B5 /* LaunchScreen.storyboard */; };
@@ -145,6 +191,31 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C2C8D911F7BC48400D3A5E2 /* LFPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFPickerCell.swift; sourceTree = "<group>"; };
+		0C3ADF1C1F697EE100388C19 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0C3ADF1D1F697EE100388C19 /* FoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundViewController.swift; sourceTree = "<group>"; };
+		0C3ADF1E1F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LostFoundCollectionViewCellDemo.swift; path = ../Controller/LostFoundCollectionViewCellDemo.swift; sourceTree = "<group>"; };
+		0C3ADF1F1F697EE100388C19 /* LostFoundDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LostFoundDetailModel.swift; path = ../Controller/LostFoundDetailModel.swift; sourceTree = "<group>"; };
+		0C3ADF201F697EE100388C19 /* LostFoundPageControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundPageControllerViewController.swift; sourceTree = "<group>"; };
+		0C3ADF211F697EE100388C19 /* LostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostViewController.swift; sourceTree = "<group>"; };
+		0C3ADF221F697EE100388C19 /* MyFoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFoundViewController.swift; sourceTree = "<group>"; };
+		0C3ADF231F697EE100388C19 /* MyLostFoundPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostFoundPageViewController.swift; sourceTree = "<group>"; };
+		0C3ADF241F697EE100388C19 /* MyLostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostViewController.swift; sourceTree = "<group>"; };
+		0C3ADF251F697EE100388C19 /* PublishSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishSuccessViewController.swift; sourceTree = "<group>"; };
+		0C3ADF261F697EE100388C19 /* SearchedResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedResultViewController.swift; sourceTree = "<group>"; };
+		0C3ADF271F697EE100388C19 /* LostFoundSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundSearchViewController.swift; sourceTree = "<group>"; };
+		0C3ADF2A1F697EE100388C19 /* LostFoundAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundAPI.swift; sourceTree = "<group>"; };
+		0C3ADF2B1F697EE100388C19 /* LostFoundModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundModel.swift; sourceTree = "<group>"; };
+		0C3ADF2C1F697EE100388C19 /* MyLostFoundModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostFoundModel.swift; sourceTree = "<group>"; };
+		0C3ADF2D1F697EE100388C19 /* PublishLostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublishLostViewController.swift; path = ../Model/PublishLostViewController.swift; sourceTree = "<group>"; };
+		0C3ADF2F1F697EE100388C19 /* LostFoundCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundCollectionViewCell.swift; sourceTree = "<group>"; };
+		0C3ADF301F697EE100388C19 /* MarkCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkCustomCell.swift; sourceTree = "<group>"; };
+		0C3ADF311F697EE100388C19 /* MyLostFoundTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostFoundTableViewCell.swift; sourceTree = "<group>"; };
+		0C3ADF321F697EE100388C19 /* PublishCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishCustomCell.swift; sourceTree = "<group>"; };
+		0C3ADF331F697EE100388C19 /* SectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionCell.swift; sourceTree = "<group>"; };
+		0C3ADF341F697EE100388C19 /* UpLoadingPicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpLoadingPicCell.swift; sourceTree = "<group>"; };
+		0C3B3EB51F777D7C00081A0D /* LFImagePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFImagePreviewViewController.swift; sourceTree = "<group>"; };
+		0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36073CFD1F223FC1001317A7 /* BookDetailViewControllerTempView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailViewControllerTempView.swift; sourceTree = "<group>"; };
 		36073CFE1F223FC1001317A7 /* CoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CoverView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -164,6 +235,7 @@
 		36073D231F22713B001317A7 /* ReadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadViewController.swift; sourceTree = "<group>"; };
 		36073D251F231C36001317A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3631D5091F1903D70078816D /* TwTUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTUser.swift; sourceTree = "<group>"; };
+		36366B2D1FAB86B0001F72A0 /* BicycleServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleServiceViewController.swift; sourceTree = "<group>"; };
 		36449E3E1FA4BA9B0036766B /* TwentyCourseQuiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwentyCourseQuiz.swift; path = PartyService/Model/TwentyCourseQuiz.swift; sourceTree = "<group>"; };
 		36449E3F1FA4BA9B0036766B /* PartyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartyAPI.swift; path = PartyService/Model/PartyAPI.swift; sourceTree = "<group>"; };
 		36449E401FA4BA9B0036766B /* Courses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Courses.swift; path = PartyService/Model/Courses.swift; sourceTree = "<group>"; };
@@ -230,11 +302,38 @@
 		36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WePeiYang-Bridging-Header.h"; sourceTree = "<group>"; };
 		36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		36F5BDCD1F9E17A600CDDF74 /* FlowingColor.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = FlowingColor.mp4; sourceTree = "<group>"; };
-		49A4CB0C33512BBF9F269C73 /* Pods-WePeiYangUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangUITests/Pods-WePeiYangUITests.release.xcconfig"; sourceTree = "<group>"; };
+		36F631EC1FAB31C500E3261F /* BicycleUserBindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleUserBindViewController.swift; sourceTree = "<group>"; };
+		36F631ED1FAB31C500E3261F /* BicycleServiceMapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleServiceMapController.swift; sourceTree = "<group>"; };
 		6F6749BFC82CF9191336C6C5 /* Pods_WePeiYangTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8405C859FC95C5E72E0F9BD7 /* Pods-WePeiYang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.release.xcconfig"; sourceTree = "<group>"; };
 		9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.debug.xcconfig"; sourceTree = "<group>"; };
+		A554C4B01F99E43F00022A01 /* BicycleServiceNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleServiceNotificationController.swift; sourceTree = "<group>"; };
+		A554C4B81F99E57700022A01 /* SpotDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailsView.swift; sourceTree = "<group>"; };
+		A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleFitnessTrackerViewCell.swift; sourceTree = "<group>"; };
+		A554C4BC1F99EFE300022A01 /* ParkingSpotsLocs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ParkingSpotsLocs.json; sourceTree = "<group>"; };
+		A5D695191F8A21AD00022B9A /* WMScrollView+gesture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMScrollView+gesture.m"; sourceTree = "<group>"; };
+		A5D6951D1F8A21AD00022B9A /* BicycleServiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BicycleServiceViewController.h; sourceTree = "<group>"; };
+		A5D6951E1F8A21AD00022B9A /* BicycleServiceViewControllerRev.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BicycleServiceViewControllerRev.h; sourceTree = "<group>"; };
+		A5D695201F8A21AD00022B9A /* WMScrollView+gesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMScrollView+gesture.h"; sourceTree = "<group>"; };
+		A5D6952E1F8A21AD00022B9A /* BicycleServiceInfoController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BicycleServiceInfoController.xib; sourceTree = "<group>"; };
+		A5D695301F8A21AD00022B9A /* BicycleServiceNotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleServiceNotificationCell.swift; sourceTree = "<group>"; };
+		A5D695311F8A21AD00022B9A /* BicycleNotificationDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BicycleNotificationDetailViewController.xib; sourceTree = "<group>"; };
+		A5D695321F8A21AD00022B9A /* BicycleServiceNotificationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BicycleServiceNotificationController.xib; sourceTree = "<group>"; };
+		A5D695331F8A21AD00022B9A /* BicycleRecordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BicycleRecordViewController.xib; sourceTree = "<group>"; };
+		A5D695341F8A21AD00022B9A /* BicycleUserBindViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BicycleUserBindViewController.xib; sourceTree = "<group>"; };
+		A5E117AE1F99DB8E00C86CA2 /* BicycleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleUser.swift; sourceTree = "<group>"; };
+		A5E117B01F99DBB700C86CA2 /* timeStampTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timeStampTransfer.swift; sourceTree = "<group>"; };
+		A5E117B21F99DBD700C86CA2 /* ParkingSpots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpots.swift; sourceTree = "<group>"; };
+		A5E117B41F99DBFC00C86CA2 /* BicycleAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleAPIs.swift; sourceTree = "<group>"; };
+		A5E117B61F99DC9400C86CA2 /* NotificationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationList.swift; sourceTree = "<group>"; };
+		A5E117B81F99DCAE00C86CA2 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		A5E117BA1F99DCBE00C86CA2 /* NotificationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationItem.swift; sourceTree = "<group>"; };
+		A5E117BC1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleFitnessTrackerViewController.swift; sourceTree = "<group>"; };
+		A5E117C01F99E01A00C86CA2 /* BicycleCardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleCardListViewController.swift; sourceTree = "<group>"; };
+		A5E117C21F99E03200C86CA2 /* BicycleRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleRecordViewController.swift; sourceTree = "<group>"; };
+		A5E117C41F99E05200C86CA2 /* BicycleServiceInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleServiceInfoController.swift; sourceTree = "<group>"; };
+		A5E117C61F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleNotificationDetailViewController.swift; sourceTree = "<group>"; };
 		B10253CD1EC84ED20064373A /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		B10253CE1EC84ED20064373A /* Librarian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Librarian.swift; sourceTree = "<group>"; };
 		B10253CF1EC84ED20064373A /* MyBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBook.swift; sourceTree = "<group>"; };
@@ -266,7 +365,6 @@
 		B102541A1EC8547E0064373A /* WPYTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYTextView.swift; sourceTree = "<group>"; };
 		B13F3AE71F0CEE5C00F820A5 /* FAB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAB.swift; sourceTree = "<group>"; };
 		B181B9571EC5C21700B8198E /* FavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavViewController.swift; sourceTree = "<group>"; };
-		B181B95B1EC5C23400B8198E /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllModulesViewController.swift; sourceTree = "<group>"; };
 		B181B95E1EC5C24000B8198E /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		B19DAB861E6EF5C2004A50B5 /* WePeiYang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WePeiYang.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -278,7 +376,6 @@
 		B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WePeiYangUITests.swift; sourceTree = "<group>"; };
 		B19DABAB1E6EF5C2004A50B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C5A8421277B4818318586CC1 /* Pods-WePeiYangTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangTests/Pods-WePeiYangTests.release.xcconfig"; sourceTree = "<group>"; };
-		CE7C0079EC8F44FEFBD147C0 /* Pods-WePeiYangUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangUITests/Pods-WePeiYangUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F9DF6854423B71BD48664450 /* Pods-WePeiYangTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangTests/Pods-WePeiYangTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -303,13 +400,67 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				671E936890C15C748992981C /* Pods_WePeiYangUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C3ADF1A1F697EE100388C19 /* LostFound */ = {
+			isa = PBXGroup;
+			children = (
+				0C3ADF291F697EE100388C19 /* Model */,
+				0C3ADF2E1F697EE100388C19 /* View */,
+				0C3ADF1B1F697EE100388C19 /* Controller */,
+			);
+			path = LostFound;
+			sourceTree = "<group>";
+		};
+		0C3ADF1B1F697EE100388C19 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0C3ADF201F697EE100388C19 /* LostFoundPageControllerViewController.swift */,
+				0C3ADF211F697EE100388C19 /* LostViewController.swift */,
+				0C3ADF1D1F697EE100388C19 /* FoundViewController.swift */,
+				0C3ADF261F697EE100388C19 /* SearchedResultViewController.swift */,
+				0C3ADF271F697EE100388C19 /* LostFoundSearchViewController.swift */,
+				0C3ADF231F697EE100388C19 /* MyLostFoundPageViewController.swift */,
+				0C3ADF241F697EE100388C19 /* MyLostViewController.swift */,
+				0C3ADF221F697EE100388C19 /* MyFoundViewController.swift */,
+				0C3ADF2D1F697EE100388C19 /* PublishLostViewController.swift */,
+				0C3ADF1C1F697EE100388C19 /* DetailViewController.swift */,
+				0C3B3EB51F777D7C00081A0D /* LFImagePreviewViewController.swift */,
+				0C3ADF251F697EE100388C19 /* PublishSuccessViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0C3ADF291F697EE100388C19 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0C3ADF2A1F697EE100388C19 /* LostFoundAPI.swift */,
+				0C3ADF1F1F697EE100388C19 /* LostFoundDetailModel.swift */,
+				0C3ADF2B1F697EE100388C19 /* LostFoundModel.swift */,
+				0C3ADF2C1F697EE100388C19 /* MyLostFoundModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0C3ADF2E1F697EE100388C19 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0C3ADF1E1F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift */,
+				0C3ADF2F1F697EE100388C19 /* LostFoundCollectionViewCell.swift */,
+				0C3ADF301F697EE100388C19 /* MarkCustomCell.swift */,
+				0C3ADF311F697EE100388C19 /* MyLostFoundTableViewCell.swift */,
+				0C3ADF321F697EE100388C19 /* PublishCustomCell.swift */,
+				0C3ADF331F697EE100388C19 /* SectionCell.swift */,
+				0C3ADF341F697EE100388C19 /* UpLoadingPicCell.swift */,
+				0C2C8D911F7BC48400D3A5E2 /* LFPickerCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		36073CFC1F223FC1001317A7 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -499,10 +650,68 @@
 				8405C859FC95C5E72E0F9BD7 /* Pods-WePeiYang.release.xcconfig */,
 				F9DF6854423B71BD48664450 /* Pods-WePeiYangTests.debug.xcconfig */,
 				C5A8421277B4818318586CC1 /* Pods-WePeiYangTests.release.xcconfig */,
-				CE7C0079EC8F44FEFBD147C0 /* Pods-WePeiYangUITests.debug.xcconfig */,
-				49A4CB0C33512BBF9F269C73 /* Pods-WePeiYangUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		A5D695141F8A21AD00022B9A /* Bicycle */ = {
+			isa = PBXGroup;
+			children = (
+				A5D695151F8A21AD00022B9A /* Controller */,
+				A5D695241F8A21AD00022B9A /* Model */,
+				A5D6952C1F8A21AD00022B9A /* View */,
+			);
+			path = Bicycle;
+			sourceTree = "<group>";
+		};
+		A5D695151F8A21AD00022B9A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A5E117C01F99E01A00C86CA2 /* BicycleCardListViewController.swift */,
+				A5E117C21F99E03200C86CA2 /* BicycleRecordViewController.swift */,
+				A5D695191F8A21AD00022B9A /* WMScrollView+gesture.m */,
+				A5E117C41F99E05200C86CA2 /* BicycleServiceInfoController.swift */,
+				A5E117C61F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift */,
+				A5D6951D1F8A21AD00022B9A /* BicycleServiceViewController.h */,
+				36366B2D1FAB86B0001F72A0 /* BicycleServiceViewController.swift */,
+				A5D6951E1F8A21AD00022B9A /* BicycleServiceViewControllerRev.h */,
+				A554C4B01F99E43F00022A01 /* BicycleServiceNotificationController.swift */,
+				A5D695201F8A21AD00022B9A /* WMScrollView+gesture.h */,
+				36F631EC1FAB31C500E3261F /* BicycleUserBindViewController.swift */,
+				36F631ED1FAB31C500E3261F /* BicycleServiceMapController.swift */,
+				A5E117BC1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		A5D695241F8A21AD00022B9A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A5E117B01F99DBB700C86CA2 /* timeStampTransfer.swift */,
+				A5E117B21F99DBD700C86CA2 /* ParkingSpots.swift */,
+				A554C4BC1F99EFE300022A01 /* ParkingSpotsLocs.json */,
+				A5E117B61F99DC9400C86CA2 /* NotificationList.swift */,
+				A5E117AE1F99DB8E00C86CA2 /* BicycleUser.swift */,
+				A5E117B81F99DCAE00C86CA2 /* Card.swift */,
+				A5E117B41F99DBFC00C86CA2 /* BicycleAPIs.swift */,
+				A5E117BA1F99DCBE00C86CA2 /* NotificationItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A5D6952C1F8A21AD00022B9A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A554C4B81F99E57700022A01 /* SpotDetailsView.swift */,
+				A5D6952E1F8A21AD00022B9A /* BicycleServiceInfoController.xib */,
+				A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */,
+				A5D695301F8A21AD00022B9A /* BicycleServiceNotificationCell.swift */,
+				A5D695311F8A21AD00022B9A /* BicycleNotificationDetailViewController.xib */,
+				A5D695321F8A21AD00022B9A /* BicycleServiceNotificationController.xib */,
+				A5D695331F8A21AD00022B9A /* BicycleRecordViewController.xib */,
+				A5D695341F8A21AD00022B9A /* BicycleUserBindViewController.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		B10253CA1EC84ED20064373A /* Read */ = {
@@ -691,14 +900,16 @@
 				36449E3A1FA4BA660036766B /* PartyService */,
 				B10254091EC8520A0064373A /* main */,
 				B181B95E1EC5C24000B8198E /* NewsViewController.swift */,
-				B181B95B1EC5C23400B8198E /* SettingsViewController.swift */,
 				36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */,
+				0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */,
 				369306911F2B972F008E90DC /* ModuleCollection */,
 				B10253DE1EC84ED90064373A /* Shared */,
 				B19DAB921E6EF5C2004A50B5 /* LaunchScreen.storyboard */,
 				36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */,
 				B181B9551EC5C21700B8198E /* Favorite */,
+				0C3ADF1A1F697EE100388C19 /* LostFound */,
 				B10253CA1EC84ED20064373A /* Read */,
+				A5D695141F8A21AD00022B9A /* Bicycle */,
 				3659367F1F1E60A9003CE578 /* GPA */,
 				B10253FE1EC84EE00064373A /* YellowPage */,
 			);
@@ -781,12 +992,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B19DABB41E6EF5C2004A50B5 /* Build configuration list for PBXNativeTarget "WePeiYangUITests" */;
 			buildPhases = (
-				50A0BB87D7405F14032C1B5F /* [CP] Check Pods Manifest.lock */,
 				B19DABA11E6EF5C2004A50B5 /* Sources */,
 				B19DABA21E6EF5C2004A50B5 /* Frameworks */,
 				B19DABA31E6EF5C2004A50B5 /* Resources */,
-				7316241FF6AF7BC5AE9ED302 /* [CP] Embed Pods Frameworks */,
-				AD8BCDB90306BAE3B3282BCA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -805,12 +1013,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = twtstudio;
 				TargetAttributes = {
 					B19DAB851E6EF5C2004A50B5 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = TYRRVX7RWJ;
+						DevelopmentTeam = 3H9L8F5742;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
@@ -853,6 +1061,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36366B2F1FAB8A84001F72A0 /* BicycleServiceInfoController.xib in Resources */,
+				36366B301FAB8A84001F72A0 /* BicycleNotificationDetailViewController.xib in Resources */,
+				36366B311FAB8A84001F72A0 /* BicycleServiceNotificationController.xib in Resources */,
+				36366B321FAB8A84001F72A0 /* BicycleRecordViewController.xib in Resources */,
+				36366B331FAB8A84001F72A0 /* BicycleUserBindViewController.xib in Resources */,
+				A554C4BE1F99F84900022A01 /* ParkingSpotsLocs.json in Resources */,
 				36F5BDCE1F9E196200CDDF74 /* FlowingColor.mp4 in Resources */,
 				36449E671FA4BABA0036766B /* PartyHandInViewController.xib in Resources */,
 				36073D261F231C36001317A7 /* Assets.xcassets in Resources */,
@@ -927,36 +1141,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		50A0BB87D7405F14032C1B5F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		7316241FF6AF7BC5AE9ED302 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYangUITests/Pods-WePeiYangUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9425E5E6C1FDC2E7D9F81A80 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -970,21 +1154,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AD8BCDB90306BAE3B3282BCA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYangUITests/Pods-WePeiYangUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E38BF0A869E90C6824C7AF88 /* [CP] Copy Pods Resources */ = {
@@ -1029,6 +1198,7 @@
 				36449E5E1FA4BABA0036766B /* WXWaveView.m in Sources */,
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
 				365936901F1E60A9003CE578 /* GPAClassModel.swift in Sources */,
+				0C3ADF371F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift in Sources */,
 				36073D081F223FC1001317A7 /* CoverView.swift in Sources */,
 				36073D0C1F223FC1001317A7 /* ReviewCell.swift in Sources */,
 				36073D1E1F225D2A001317A7 /* RecommendedViewController.swift in Sources */,
@@ -1038,8 +1208,10 @@
 				36449E481FA4BA9B0036766B /* ApplicantTest.swift in Sources */,
 				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,
 				36073D0D1F223FC1001317A7 /* Search.swift in Sources */,
+				A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */,
 				36073D1A1F225D2A001317A7 /* BookDetailViewController.swift in Sources */,
 				B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */,
+				36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */,
 				3659368D1F1E60A9003CE578 /* CourseAppraiseViewController.swift in Sources */,
 				B102541B1EC8547E0064373A /* CardViewAndDelegate.swift in Sources */,
 				36449E641FA4BABA0036766B /* QuizView.swift in Sources */,
@@ -1048,60 +1220,90 @@
 				36449E491FA4BA9B0036766B /* Applicant.swift in Sources */,
 				36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */,
 				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
+				A5E117B91F99DCAE00C86CA2 /* Card.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
 				36449E6C1FA4BABA0036766B /* FunctionListTableViewCell.swift in Sources */,
 				36449E701FA4BABA0036766B /* CourseDetailReadingView.swift in Sources */,
 				36449E831FA4BAD00036766B /* TwentyCourseViewController.swift in Sources */,
 				36449E8D1FA4BAD10036766B /* PartyCoursesViewController.m in Sources */,
 				3631D50A1F1903D70078816D /* TwTUser.swift in Sources */,
+				A5E117C51F99E05200C86CA2 /* BicycleServiceInfoController.swift in Sources */,
+				A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */,
+				0C3ADF3A1F697EE100388C19 /* LostViewController.swift in Sources */,
 				36073D0A1F223FC1001317A7 /* ReadStarCell.swift in Sources */,
 				365936941F1E60A9003CE578 /* CourseAppraiseCell.swift in Sources */,
+				A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */,
 				36073D0B1F223FC1001317A7 /* RecommendCell.swift in Sources */,
-				B181B95C1EC5C23400B8198E /* SettingsViewController.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
 				B181B9601EC5C24000B8198E /* NewsViewController.swift in Sources */,
+				0C3ADF3B1F697EE100388C19 /* MyFoundViewController.swift in Sources */,
 				365936711F1E38B8003CE578 /* YellowPageSearchHistoryCell.swift in Sources */,
 				B10254051EC84EE00064373A /* PhoneBook.swift in Sources */,
+				A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */,
+				A5E117C31F99E03200C86CA2 /* BicycleRecordViewController.swift in Sources */,
+				A5E117C11F99E01A00C86CA2 /* BicycleCardListViewController.swift in Sources */,
+				36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */,
+				0C3ADF361F697EE100388C19 /* FoundViewController.swift in Sources */,
+				36DA7A5E1FA8A35C000DAF2B /* WPYBaseViewController.swift in Sources */,
+				0C3ADF4A1F697EE100388C19 /* SectionCell.swift in Sources */,
+				0C3ADF3E1F697EE100388C19 /* PublishSuccessViewController.swift in Sources */,
+				0C3ADF401F697EE100388C19 /* LostFoundSearchViewController.swift in Sources */,
+				36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */,
+				36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */,
+				0C3ADF491F697EE100388C19 /* PublishCustomCell.swift in Sources */,
+				0C3ADF431F697EE100388C19 /* LostFoundModel.swift in Sources */,
+				0C3ADF351F697EE100388C19 /* DetailViewController.swift in Sources */,
+				36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */,
+				0C3ADF471F697EE100388C19 /* MarkCustomCell.swift in Sources */,
+				0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */,
+				0C3ADF421F697EE100388C19 /* LostFoundAPI.swift in Sources */,
+				0C3ADF3F1F697EE100388C19 /* SearchedResultViewController.swift in Sources */,
+				36DA7A5B1FA8A35C000DAF2B /* LoginViewController.swift in Sources */,
+				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
 				36449E8A1FA4BAD10036766B /* PartyPersonalStatusViewController.swift in Sources */,
-				B10254201EC8547E0064373A /* WPYBaseViewController.swift in Sources */,
 				36449E621FA4BABA0036766B /* SignUpTableViewCell.swift in Sources */,
-				B10253F11EC84ED90064373A /* CacheManager.swift in Sources */,
-				B13F3AE81F0CEE5C00F820A5 /* FAB.swift in Sources */,
 				36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */,
-				B10253FC1EC84ED90064373A /* DeviceStatus.swift in Sources */,
 				36449E841FA4BAD10036766B /* TwentyCourseScoreViewController.swift in Sources */,
-				36F5BDCC1F9E16FB00CDDF74 /* LoginViewController.swift in Sources */,
 				36449E6D1FA4BABA0036766B /* FinalView.swift in Sources */,
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
 				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
-				B10254241EC8547E0064373A /* WPYTextView.swift in Sources */,
+				0C3ADF3D1F697EE100388C19 /* MyLostViewController.swift in Sources */,
 				B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */,
 				B102541C1EC8547E0064373A /* Metadata.swift in Sources */,
 				B10253D91EC84ED20064373A /* ReadAPI.swift in Sources */,
 				36449E651FA4BABA0036766B /* QuizCell.swift in Sources */,
 				36449E461FA4BA9B0036766B /* Courses.swift in Sources */,
 				3659368F1F1E60A9003CE578 /* CourseAppraiseManager.swift in Sources */,
+				36366B2E1FAB86B0001F72A0 /* BicycleServiceViewController.swift in Sources */,
 				36449E611FA4BABA0036766B /* TextTableViewCell.swift in Sources */,
 				3659368E1F1E60A9003CE578 /* GPAViewController.swift in Sources */,
+				0C3ADF381F697EE100388C19 /* LostFoundDetailModel.swift in Sources */,
 				365936911F1E60A9003CE578 /* GPASessionManager.swift in Sources */,
 				365936931F1E60A9003CE578 /* GPATermModel.swift in Sources */,
 				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
 				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
 				36449E631FA4BABA0036766B /* ScoreTableViewCell.swift in Sources */,
 				36073D0E1F223FC1001317A7 /* SearchResultCell.swift in Sources */,
+				0C3ADF391F697EE100388C19 /* LostFoundPageControllerViewController.swift in Sources */,
+				0C3ADF451F697EE100388C19 /* PublishLostViewController.swift in Sources */,
 				36449E8E1FA4BAD10036766B /* PartyComplainViewController.swift in Sources */,
 				36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */,
 				3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */,
+				A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */,
 				B102541D1EC8547E0064373A /* SpringButton.swift in Sources */,
 				36449E861FA4BAD10036766B /* TheoryClassicsTableViewController.swift in Sources */,
 				365936951F1E60A9003CE578 /* ScoreHeaderView.swift in Sources */,
 				36449E451FA4BA9B0036766B /* PartyAPI.swift in Sources */,
 				3659367D1F1E5FAE003CE578 /* YellowPageSearchViewController.swift in Sources */,
+				0C3ADF4B1F697EE100388C19 /* UpLoadingPicCell.swift in Sources */,
 				3659366F1F1E37B8003CE578 /* SearchView.swift in Sources */,
+				A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */,
 				36449E881FA4BAD10036766B /* PartySignUpViewController.swift in Sources */,
 				36073D241F22713B001317A7 /* ReadViewController.swift in Sources */,
 				36449E601FA4BABA0036766B /* TheoryCourseArticleReadingView.swift in Sources */,
 				369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */,
+				A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */,
+				A5E117AF1F99DB8E00C86CA2 /* BicycleUser.swift in Sources */,
 				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
 				36073D091F223FC1001317A7 /* RateView.swift in Sources */,
 				B10253D61EC84ED20064373A /* Book.swift in Sources */,
@@ -1112,23 +1314,31 @@
 				36449E6E1FA4BABA0036766B /* CourseTableViewCell.swift in Sources */,
 				36073D101F223FC1001317A7 /* StatusInfoCell.swift in Sources */,
 				3659367B1F1E5FAE003CE578 /* YellowPageDetailViewController.swift in Sources */,
+				A5E117B71F99DC9400C86CA2 /* NotificationList.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
 				36073D1F1F225D2A001317A7 /* ReviewListViewController.swift in Sources */,
 				36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */,
+				A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */,
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
 				36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */,
 				36449E8F1FA4BAD10036766B /* HandInDetailViewController.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
 				3659367C1F1E5FAE003CE578 /* YellowPageMainViewController.swift in Sources */,
 				B10253D71EC84ED20064373A /* Librarian.swift in Sources */,
+				0C2C8D921F7BC48400D3A5E2 /* LFPickerCell.swift in Sources */,
 				B10254211EC8547E0064373A /* WPYLabel.swift in Sources */,
+				A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */,
 				B10253FD1EC84ED90064373A /* log.swift in Sources */,
+				0C3ADF481F697EE100388C19 /* MyLostFoundTableViewCell.swift in Sources */,
 				B10253DA1EC84ED20064373A /* ReadBeacon.swift in Sources */,
 				3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */,
 				B10253DD1EC84ED20064373A /* User.swift in Sources */,
 				B10253F01EC84ED90064373A /* AccountManager.swift in Sources */,
+				0C3ADF441F697EE100388C19 /* MyLostFoundModel.swift in Sources */,
 				36073D1C1F225D2A001317A7 /* InfoViewController.swift in Sources */,
+				0C3ADF3C1F697EE100388C19 /* MyLostFoundPageViewController.swift in Sources */,
 				B10254041EC84EE00064373A /* ClientItem.swift in Sources */,
+				0C3ADF461F697EE100388C19 /* LostFoundCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1273,11 +1483,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
+				DEVELOPMENT_TEAM = 3H9L8F5742;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WePeiYang;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WePeiYang.Hado;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYang/WePeiYang-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1291,11 +1501,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
+				DEVELOPMENT_TEAM = 3H9L8F5742;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WePeiYang;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WePeiYang.Hado;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYang/WePeiYang-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -1336,7 +1546,6 @@
 		};
 		B19DABB51E6EF5C2004A50B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CE7C0079EC8F44FEFBD147C0 /* Pods-WePeiYangUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = TYRRVX7RWJ;
@@ -1351,7 +1560,6 @@
 		};
 		B19DABB61E6EF5C2004A50B5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 49A4CB0C33512BBF9F269C73 /* Pods-WePeiYangUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = TYRRVX7RWJ;

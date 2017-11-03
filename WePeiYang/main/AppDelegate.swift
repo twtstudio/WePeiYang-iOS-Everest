@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WMPageController
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AccountManager.checkToken(failure: {
             // 让他重新登录
         })
-        
+
         mainTabVC = WPYTabBarController()
         
         let favoriteVC = FavViewController()

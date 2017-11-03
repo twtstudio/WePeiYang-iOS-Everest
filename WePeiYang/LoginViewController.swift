@@ -28,6 +28,7 @@ class LoginViewController: UIViewController {
         playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         playerLayer.frame = self.view.frame
         self.view.layer.addSublayer(playerLayer)
+        videoPlayer.isMuted = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(loopVideo), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         videoPlayer.play()
