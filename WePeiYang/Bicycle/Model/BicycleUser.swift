@@ -13,8 +13,8 @@ class BicycleUser: NSObject {
     
     //auth
     var uid: String?
-    var status: NSNumber?
-    var version: NSNumber?
+    var status: Int?
+    var version: Int?
     var bikeToken: String?
     var cardList = [Card]()
     var expire: Int?
@@ -23,8 +23,8 @@ class BicycleUser: NSObject {
     var name: String?
     var balance: String?
     var duration: String?
-    var recent: Array<Array<AnyObject>> = []
-    var record: NSDictionary?
+    var recent: [[Any]] = []
+    var record: [String: Any]?
     
     //取消绑定时不重复要求绑定
     var bindCancel = false
@@ -34,7 +34,8 @@ class BicycleUser: NSObject {
     
     func auth(presentViewController: @escaping () -> ()) {
         
-        let parameters = ["wpy_tk": "\(UserDefaults.standard.object(forKey: "twtToken")!)}"]
+        // FIXME: token
+        let parameters = ["wpy_tk": "\(TwTUser.shared.token ?? "")}"]
         
         
         
@@ -48,8 +49,8 @@ class BicycleUser: NSObject {
             
             let dict = dic["data"] as? NSDictionary
             //print(dict)
-            guard let fooStatus = dict?["status"] as? NSNumber,
-                let fooVersion = dict?["version"] as? NSNumber,
+            guard let fooStatus = dict?["status"] as? Int,
+                let fooVersion = dict?["version"] as? Int,
                 let fooBikeToken = dict?["token"] as? String,
                 let fooExpire = dict?["expire"] as? Int
                 else {
@@ -218,8 +219,8 @@ class BicycleUser: NSObject {
             guard let fooName = dic["name"] as? String,
                 let fooBalance = dic["balance"] as? String,
                 let fooDuration = dic["duration"] as? String,
-                let fooRecent = dic["recent"] as? Array<Array<AnyObject>>,
-                let fooRecord = dic["record"] as? NSDictionary
+                let fooRecent = dic["recent"] as? [[Any]],
+            let fooRecord = dic["record"] as? [String: Any]
                 else {
                     print("error.")
                     return

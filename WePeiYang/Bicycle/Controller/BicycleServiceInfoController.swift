@@ -66,28 +66,47 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
     }
     
     func updateUI() {
-        /*
+        
          //UI
          //chartViewBackground
-         let background = UIImage(named: "BicyleChartBackgroundImage")
-         let backgroundView = UIView(frame: CGRect(x: 8, y: 116, width: (UIApplication.sharedApplication().keyWindow?.frame.size.width)!-16, height: 220))
-         backgroundView.layer.cornerRadius = 8.0
-         backgroundView.backgroundColor = UIColor(patternImage: background!)
-         self.view.addSubview(backgroundView)
-         
-         //chartView
-         let chartView = JBLineChartView(frame: self.calculateChartViewFrame())
-         chartView.delegate = self
-         chartView.dataSource = self
-         chartView.backgroundColor = UIColor.clearColor()
-         self.view.addSubview(chartView)
-         chartView.reloadData()
-         
-         
-         let lastHour = BicycleUser.sharedInstance.recent![BicycleUser.sharedInstance.recent!.count-1][0]
-         let lastDuration = BicycleUser.sharedInstance.recent![BicycleUser.sharedInstance.recent!.count-1][1]
-         self.infoLabel!.text = "\(lastHour):00  骑行时间：\(lastDuration)s"
-         */
+//        let background = UIImage(named: "BicyleChartBackgroundImage")
+//        let backgroundView = UIView(frame: CGRect(x: 8, y: 116, width: (UIApplication.sharedApplication().keyWindow?.frame.size.width)!-16, height: 220))
+//        backgroundView.layer.cornerRadius = 8.0
+//        backgroundView.backgroundColor = UIColor(patternImage: background!)
+//        self.view.addSubview(backgroundView)
+//        
+//        chartView
+//        let chartView = JBLineChartView(frame: self.calculateChartViewFrame())
+//        chartView.delegate = self
+//        chartView.dataSource = self
+//        chartView.backgroundColor = UIColor.clearColor()
+//        self.view.addSubview(chartView)
+//        chartView.reloadData()
+//        
+//        
+//        let lastHour = BicycleUser.sharedInstance.recent![BicycleUser.sharedInstance.recent!.count-1][0]
+//        let lastDuration = BicycleUser.sharedInstance.recent![BicycleUser.sharedInstance.recent!.count-1][1]
+//        self.infoLabel!.text = "\(lastHour):00  骑行时间：\(lastDuration)s"
+
+        
+//         let background = UIImage(named: "BicyleChartBackgroundImage")
+//         let backgroundView = UIView(frame: CGRect(x: 8, y: 116, width: (UIApplication.shared.keyWindow?.frame.size.width)!-16, height: 220))
+//         backgroundView.layer.cornerRadius = 8.0
+//         backgroundView.backgroundColor = UIColor(patternImage: background!)
+//         self.view.addSubview(backgroundView)
+//         
+//         let chartView = JBLineChartView(frame: self.calculateChartViewFrame())
+//         chartView.delegate = self
+//         chartView.dataSource = self
+//         chartView.backgroundColor = .clear
+//        self.view.addSubview(chartView)
+//         chartView.reloadData()
+//         
+//         
+//         let lastHour = BicycleUser.sharedInstance.recent[BicycleUser.sharedInstance.recent.count-1][0]
+//         let lastDuration = BicycleUser.sharedInstance.recent[BicycleUser.sharedInstance.recent.count-1][1]
+//         self.infoLabel.text = "\(lastHour):00  骑行时间：\(lastDuration)s"
+//        
         
         //tableView
         tableView.reloadData()
@@ -229,12 +248,12 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
         } else if indexPath.section == 2 {
             cell!.textLabel?.text = "最近记录："
             if let foo = BicycleUser.sharedInstance.record {
-                var timeStampString = foo.object(forKey: "arr_time") as! String
+                var timeStampString = foo["arr_time"] as! String
                 
                 //借了车，没还车
                 if Int(timeStampString) == 0 {
                     cell?.textLabel?.text = "最近记录：借车"
-                    timeStampString = foo.object(forKey: "dep_time") as! String
+                    timeStampString = foo["dep_time"] as! String
                     cell?.detailTextLabel?.text = "时间：\(timeStampTransfer.stringFromTimeStampWithFormat(format: "yyyy-MM-dd HH:mm", timeStampString: timeStampString))"
                 } else {
                     cell?.textLabel?.text = "最近记录：还车"

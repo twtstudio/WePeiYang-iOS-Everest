@@ -6,13 +6,12 @@ target 'WePeiYang' do
   use_frameworks!
   pod 'Alamofire'
   pod 'JBChartView'
-  pod 'MJRefresh'
   pod 'SnapKit'
   pod 'SDWebImage'
   pod 'Charts'
   pod 'ObjectMapper'
   pod 'MJRefresh', '~> 3.1.12'
-
+  pod 'JBChartView'
   pod 'WMPageController', '2.3.0'
   pod 'pop'
   pod 'IGIdenticon'
