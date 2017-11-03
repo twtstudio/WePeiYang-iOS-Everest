@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        // TWTUser.shared.load() // load token and so on
+        TwTUser.shared.load() // load token and so on
         AccountManager.checkToken(failure: {
             // 让他重新登录
         })
