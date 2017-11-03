@@ -236,6 +236,7 @@
 		36073D251F231C36001317A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3631D5091F1903D70078816D /* TwTUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTUser.swift; sourceTree = "<group>"; };
 		36366B2D1FAB86B0001F72A0 /* BicycleServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleServiceViewController.swift; sourceTree = "<group>"; };
+		36366B351FAC61B6001F72A0 /* WePeiYang.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WePeiYang.entitlements; sourceTree = "<group>"; };
 		36449E3E1FA4BA9B0036766B /* TwentyCourseQuiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwentyCourseQuiz.swift; path = PartyService/Model/TwentyCourseQuiz.swift; sourceTree = "<group>"; };
 		36449E3F1FA4BA9B0036766B /* PartyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartyAPI.swift; path = PartyService/Model/PartyAPI.swift; sourceTree = "<group>"; };
 		36449E401FA4BA9B0036766B /* Courses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Courses.swift; path = PartyService/Model/Courses.swift; sourceTree = "<group>"; };
@@ -897,7 +898,7 @@
 		B19DAB881E6EF5C2004A50B5 /* WePeiYang */ = {
 			isa = PBXGroup;
 			children = (
-				36449E3A1FA4BA660036766B /* PartyService */,
+				36366B351FAC61B6001F72A0 /* WePeiYang.entitlements */,
 				B10254091EC8520A0064373A /* main */,
 				B181B95E1EC5C24000B8198E /* NewsViewController.swift */,
 				36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */,
@@ -910,6 +911,7 @@
 				0C3ADF1A1F697EE100388C19 /* LostFound */,
 				B10253CA1EC84ED20064373A /* Read */,
 				A5D695141F8A21AD00022B9A /* Bicycle */,
+				36449E3A1FA4BA660036766B /* PartyService */,
 				3659367F1F1E60A9003CE578 /* GPA */,
 				B10253FE1EC84EE00064373A /* YellowPage */,
 			);
@@ -1018,9 +1020,14 @@
 				TargetAttributes = {
 					B19DAB851E6EF5C2004A50B5 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 3H9L8F5742;
+						DevelopmentTeam = TYRRVX7RWJ;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					B19DAB991E6EF5C2004A50B5 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1483,11 +1490,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 3H9L8F5742;
+				CODE_SIGN_ENTITLEMENTS = WePeiYang/WePeiYang.entitlements;
+				DEVELOPMENT_TEAM = TYRRVX7RWJ;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WePeiYang.Hado;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYang/WePeiYang-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1501,11 +1509,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 3H9L8F5742;
+				CODE_SIGN_ENTITLEMENTS = WePeiYang/WePeiYang.entitlements;
+				DEVELOPMENT_TEAM = TYRRVX7RWJ;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WePeiYang.Hado;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYang/WePeiYang-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
