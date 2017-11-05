@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     var passwordField: UITextField!
     var loginButton: UIButton!
     var dismissButton: UIButton!
+    var playerLayer: AVPlayerLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,7 @@ class LoginViewController: UIViewController {
         let url = Bundle.main.url(forResource: "FlowingColor", withExtension: "mp4")
         videoPlayer = AVPlayer(url: url!)
         videoPlayer.isMuted = true
-        let playerLayer = AVPlayerLayer(player: videoPlayer)
+        playerLayer = AVPlayerLayer(player: videoPlayer)
         playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         playerLayer.frame = self.view.frame
         self.view.layer.addSublayer(playerLayer)
@@ -32,6 +33,7 @@ class LoginViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(loopVideo), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         videoPlayer.play()
+        
         // Do any additional setup after loading the view, typically from a nib.
         let titleLabel: UILabel = {
             let label = UILabel()
@@ -58,19 +60,23 @@ class LoginViewController: UIViewController {
         visualEffectView.contentView.addSubview(titleLabel)
         
         //        usernameField = UITextField(frame: CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*1.5/5.0), size: CGSize(width: 200, height: 40)))
-        usernameField = UITextField(frame: CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*2.0/5.0), size: CGSize(width: 200, height: 40)))
-        passwordField = UITextField(frame: CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*2.4/5.0), size: CGSize(width: 200, height: 40)))
+        
+        let textFieldWidth: CGFloat = 250
+
+        usernameField = UITextField(frame: CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*2.0/5.0), size: CGSize(width: textFieldWidth, height: 40)))
+        passwordField = UITextField(frame: CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*2.4/5.0), size: CGSize(width: textFieldWidth, height: 40)))
+    
         
         self.usernameField.textColor = .white
         self.usernameField.backgroundColor = UIColor(white: 1, alpha: 0.1);
         self.usernameField.layer.cornerRadius = 3;
         self.usernameField.layer.borderWidth = 0.5
         self.usernameField.keyboardType = .asciiCapable
-        self.usernameField.autocapitalizationType = .none
         self.usernameField.isSecureTextEntry = false
         self.usernameField.layer.borderColor = UIColor(white: 1, alpha: 0.8).cgColor;
         self.usernameField.placeholder = "用户名"
         self.usernameField.clearButtonMode = .always
+        self.usernameField.autocapitalizationType = .none
         
         self.passwordField.textColor = .white
         self.passwordField.backgroundColor = UIColor(white: 1, alpha: 0.1);
@@ -96,16 +102,18 @@ class LoginViewController: UIViewController {
         self.passwordField.leftView = passwordIconImageView
         self.passwordField.leftViewMode = .always
         
-        self.loginButton = UIButton(frame: CGRect(x: (self.view.frame.size.width-200)/2, y: passwordField.frame.origin.y + passwordField.frame.size.height + 20, width: 200, height: 38))
+        self.loginButton = UIButton(frame: CGRect(x: (self.view.frame.size.width-textFieldWidth)/2, y: passwordField.frame.origin.y + passwordField.frame.size.height + 20, width: textFieldWidth, height: 38))
         self.loginButton.setTitle("登  录", for: UIControlState())
         self.loginButton.layer.cornerRadius = 3;
         self.loginButton.layer.borderWidth = 0.5
         self.loginButton.layer.borderColor = UIColor(white: 1, alpha: 0.8).cgColor;
         
-        self.dismissButton = UIButton(frame: CGRect(x: self.view.frame.size.width*4.0/5.0, y: self.view.frame.size.height*4.0/5.0, width: 30, height: 20))
+        self.dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: self.view.frame.size.height*4.0/5.0, width: 30, height: 20))
+        self.dismissButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         dismissButton.setTitle("暂不登录", for: .normal)
 //        self.dismissButton.titleLabel?.sizeToFit()
         self.dismissButton.sizeToFit()
+        self.dismissButton.center = CGPoint(x: self.view.center.x, y: self.view.frame.height*4.8/5)
         
         visualEffectView.addSubview(usernameField)
         visualEffectView.addSubview(passwordField)
@@ -133,14 +141,18 @@ class LoginViewController: UIViewController {
         
         AccountManager.getToken(username: username, password: password, success: { token in
             TwTUser.shared.token = token
+            TwTUser.shared.username = username
             TwTUser.shared.save()
-            
             self.extraProcedures()
             // FIXME: login success
             self.dismiss(animated: true, completion: nil)
         }, failure: { error in
             print(error ?? "")
         })
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        videoPlayer.pause()
     }
     
     func dismissLogin() {
@@ -158,5 +170,9 @@ class LoginViewController: UIViewController {
 //            UserDefaults.standard.set(Applicant.sharedInstance.realName, forKey: "studentName")
 //            //log.word("fuckin awesome")/
         }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }

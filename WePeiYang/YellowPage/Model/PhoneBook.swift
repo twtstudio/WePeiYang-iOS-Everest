@@ -155,8 +155,8 @@ extension PhoneBook {
             //解码器
             let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
             //通过归档时设置的关键字Checklist还原lists
-            if let array = unarchiver.decodeObject(forKey: YELLOWPAGE_SAVE_KEY) as? Array<ClientItem>,
-                let favorite = unarchiver.decodeObject(forKey: "yp_favorite_key") as? Array<ClientItem>,
+            if let array = unarchiver.decodeObject(forKey: YELLOWPAGE_SAVE_KEY) as? [ClientItem],
+                let favorite = unarchiver.decodeObject(forKey: "yp_favorite_key") as? [ClientItem],
                 let members = unarchiver.decodeObject(forKey: "yp_member_key") as? [String: [String]],
                 let sections = unarchiver.decodeObject(forKey: "yp_section_key") as? [String] {
                 guard array.count > 0 else {

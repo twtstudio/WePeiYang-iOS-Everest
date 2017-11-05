@@ -21,7 +21,6 @@ let ALLOW_SPOTLIGHT_KEY = "allowSpotlightIndex"
 
 
 struct AccountManager {
-    
 //    static func removeToken() {
 //        UserDefaults.standard.removeObject(forKey: TOKEN_SAVE_KEY)
 //        UserDefaults.standard.removeObject(forKey: ID_SAVE_KEY)
@@ -139,5 +138,13 @@ struct AccountManager {
         })
     }
     
-    
+    static func getSelf(success: (()->())?, failure: (()->())?) {
+        SolaSessionManager.solaSession(type: .get, baseURL: "", url: TwTAPI.`self`, parameters: nil, success: { dict in
+            TwTUser.shared
+            print(dict)
+        }, failure: { error in
+            print(error)
+        })
+    }
+
 }

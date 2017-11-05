@@ -18,6 +18,12 @@ class TwTUser: NSObject {
     var libraryState: Bool = false
     var schoolID: String = ""
     var tjuBindingState: Bool = false
+    var libBindingState: Bool = false
+    var bicycleBindingState: Bool = false
+    var dropout: Int = -1
+    var avatarURL: String?
+    var twtid: String?
+    var realname: String?
     
     func save() {
         var dic: [String: Any] = [:]
@@ -40,6 +46,7 @@ class TwTUser: NSObject {
     }
     
     func load() {
+        // load from
         if let dict = UserDefaults(suiteName: suiteName)?.object(forKey: "TwTUser") as? NSDictionary {
             var outCount: UInt32 = 0
             let ivars = class_copyIvarList(TwTUser.self, &outCount)

@@ -13,7 +13,7 @@ import AddressBook
 class YellowPageDetailViewController: UIViewController {
     let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), style: .plain)
     
-    var models = Array<ClientItem>()
+    var models = [ClientItem]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
