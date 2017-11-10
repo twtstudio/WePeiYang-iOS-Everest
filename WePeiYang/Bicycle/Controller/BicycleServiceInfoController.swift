@@ -273,14 +273,14 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
         return cell!
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 264
         }
         return 4
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if section != 0 {
             let headerView = UIView(frame: CGRect(x: 0, y: 0, width: (UIApplication.shared.keyWindow?.frame.size.width)!, height: 4))
@@ -315,7 +315,7 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
         
         chartBackground?.snp.makeConstraints {
             make in
-            make.top.equalTo(infoLabel.snp_bottom).offset(8)
+            make.top.equalTo(infoLabel.snp.bottom).offset(8)
             make.left.equalTo(headerView).offset(8)
             make.right.equalTo(headerView).offset(-8)
             make.bottom.equalTo(headerView).offset(-8)
@@ -357,11 +357,11 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
         return headerView
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 4
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: (UIApplication.shared.keyWindow?.frame.size.width)!, height: 4))
         footerView.backgroundColor = UIColor.clear
@@ -370,7 +370,7 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
     
     
     //delegate of tableView
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 3 {
             //            MsgDisplay.showErrorMsg("暂时没有这个功能哦")
         }
