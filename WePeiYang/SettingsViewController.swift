@@ -82,7 +82,14 @@ class SettingsViewController: UIViewController {
         }
         
         let loginButton = UIButton()
-        loginButton.setTitle("登录", for: .normal)
+        if TwTUser.shared.token != nil {
+            loginButton.setTitle(TwTUser.shared.username, for: .normal)
+        } else {
+            loginButton.setTitle("登录", for: .normal)
+            // FIXME: better way to set it
+            loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
+        }
+        
         loginButton.setTitleColor(.black, for: .normal)
         loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 31, weight: UIFontWeightRegular)
         loginButton.titleLabel?.sizeToFit()
@@ -93,7 +100,6 @@ class SettingsViewController: UIViewController {
             make.left.equalTo(avatarView.snp.right).offset(5)
             make.top.equalTo(avatarView.snp.top).offset(5)
         }
-        loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
         
         let signatureLabel = UILabel(text: "登录以查看更多信息", color: .lightGray, fontSize: 15)
         headerView.addSubview(signatureLabel)

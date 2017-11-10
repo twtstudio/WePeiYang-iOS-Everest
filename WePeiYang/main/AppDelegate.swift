@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
         TwTUser.shared.load() // load token and so on
+        AccountManager.getSelf(success: nil, failure: nil)
         AccountManager.checkToken(failure: {
             // 让他重新登录
         })
