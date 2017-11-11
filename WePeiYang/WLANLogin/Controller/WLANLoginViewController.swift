@@ -17,6 +17,8 @@ class WLANLoginViewController: WMPageController {
     var passwordTextField: UITextField!
     var loginButton: UIButton!
     var serviceButton: UIButton!
+    var WiFiImage: UIImage!
+    var WiFiImageView: UIImageView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -35,8 +37,8 @@ class WLANLoginViewController: WMPageController {
         self.navigationController?.navigationBar.barStyle = .black
         
         self.title = "上网"
-        let WiFiImage = UIImage(named: "TJU")
-        let WiFiImageView = UIImageView.init(image: WiFiImage)
+        WiFiImage = UIImage(named: "TJU")
+        WiFiImageView = UIImageView.init(image: WiFiImage)
         WiFiImageView.frame = CGRect(x: 0, y: -70, width: UIScreen.main.bounds.width, height: self.view.bounds.height)
         self.view.addSubview(WiFiImageView)
         
@@ -59,6 +61,7 @@ class WLANLoginViewController: WMPageController {
         
         guard let isReady: Bool = (getWiFiSSID() == "tjuwlan" || getWiFiSSID() == "tjuwlan-lib") && (Network.reachability?.isReachable)! else {
             // NetworkReachability went wrong and I don't know what to do
+            // or the device is just not connected to tjuwlan
         }
         
         switch networkStatus {
@@ -106,7 +109,7 @@ class WLANLoginViewController: WMPageController {
                     make.top.equalTo(loginButton.snp.bottom).offset(10)
                 }
             } else {
-                // alert that user should connect to tjuwlan or tjuwlan-lib
+                // user should connect to tjuwlan or tjuwlan-lib
             }
         case .unreachable:
             print("Network error, please check reachability")
@@ -144,7 +147,7 @@ class WLANLoginViewController: WMPageController {
                 if let _ = dataResponse.value {
                     if (dataResponse.value?.contains("login_ok"))! {
                         print("Successfully logged in")
-                        // Alert
+                        self.updateUserInterface(self.WiFiImageView)
                     } else if (dataResponse.value?.contains("You are already online."))! {
                         print("Already online")
                         let failAlert = UIAlertController(title: "登录失败", message: "已经在线啦", preferredStyle: .alert)
