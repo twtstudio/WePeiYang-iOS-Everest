@@ -345,7 +345,7 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
         chartView.reloadData()
         
         /*
-         chartView.snp_makeConstraints {
+         chartView.snp.makeConstraints {
          make in
          make.left.equalTo(chartBackground!).offset(8)
          make.right.equalTo(chartBackground!).offset(-8)

@@ -140,8 +140,22 @@ struct AccountManager {
     
     static func getSelf(success: (()->())?, failure: (()->())?) {
         SolaSessionManager.solaSession(type: .get, baseURL: "", url: TwTAPI.`self`, parameters: nil, success: { dict in
-            TwTUser.shared
-            print(dict)
+            if let accounts = dict["accounts"] as? [String: Any],
+                let tju = accounts["tju"] as? Bool,
+                let lib = accounts["lib"] as? Bool,
+                let avatar = dict["avatar"] as? String,
+                let realname = dict["realname"] as? String,
+                let twtid = dict["twtid"] as? String,
+                let studentid = dict["studentid"] as? String,
+                let dropout = dict["dropout"] as? String {
+                TwTUser.shared.avatarURL = avatar
+                TwTUser.shared.tjuBindingState = tju
+                TwTUser.shared.libBindingState = lib
+                TwTUser.shared.realname = realname
+                TwTUser.shared.twtid = twtid
+                TwTUser.shared.schoolID = studentid
+                TwTUser.shared.dropout = dropout
+            }
         }, failure: { error in
             print(error)
         })

@@ -19,11 +19,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        TwTUser.shared.load() // load token and so on
-        AccountManager.getSelf(success: nil, failure: nil)
-        AccountManager.checkToken(failure: {
+//        TwTUser.shared.load() // load token and so on
+        TwTUser.shared.load(success: {
+            AccountManager.getSelf(success: nil, failure: nil)
+        }, failure: {
             // 让他重新登录
         })
+//        AccountManager.getSelf(success: nil, failure: nil)
+//        AccountManager.checkToken(failure: {
+//            // 让他重新登录
+//        })
 
         mainTabVC = WPYTabBarController()
         

@@ -165,6 +165,8 @@ class LoginViewController: UIViewController {
     }
 
     func extraProcedures() {
+        AccountManager.getSelf(success: nil, failure: nil)
+        
         Applicant.sharedInstance.getStudentNumber {
 //            UserDefaults.standard.set(Applicant.sharedInstance.studentNumber, forKey: "studentID")
 //            UserDefaults.standard.set(Applicant.sharedInstance.realName, forKey: "studentName")

@@ -20,7 +20,7 @@ class TwTUser: NSObject {
     var tjuBindingState: Bool = false
     var libBindingState: Bool = false
     var bicycleBindingState: Bool = false
-    var dropout: Int = -1
+    var dropout: String = "-1"
     var avatarURL: String?
     var twtid: String?
     var realname: String?
@@ -43,9 +43,10 @@ class TwTUser: NSObject {
     
     func delete() {
         UserDefaults(suiteName: suiteName)?.removeObject(forKey: "TwTUser")
+        self.token = nil
     }
     
-    func load() {
+    func load(success: (()->())?, failure: (()->())?) {
         // load from
         if let dict = UserDefaults(suiteName: suiteName)?.object(forKey: "TwTUser") as? NSDictionary {
             var outCount: UInt32 = 0
@@ -58,6 +59,9 @@ class TwTUser: NSObject {
                     self.setValue(value, forKey: name)
                 }
             }
+            success?()
+        } else {
+            failure?()
         }
     }
 }

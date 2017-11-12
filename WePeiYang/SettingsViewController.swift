@@ -34,15 +34,13 @@ class SettingsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        tableView.reloadData()
 //        navigationController?.navigationBar.barStyle = .black
 //        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
 //        //Changing NavigationBar Title color
 //        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
 //        
 //        navigationItem.title = "设置"
-
-        
     }
     
 
@@ -73,8 +71,11 @@ class SettingsViewController: UIViewController {
         
         headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 165))
         let avatarView = UIImageView(frame: .zero)
+        avatarView.tag = -2
         headerView.addSubview(avatarView)
-        avatarView.image = UIImage(named: "ic_account_circle")!.with(color: .gray)
+//        avatarView.image = UIImage(named: "ic_account_circle")!.with(color: .gray)
+        avatarView.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "ic_account_circle")!.with(color: .gray))
+        
         avatarView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(20)
@@ -82,6 +83,7 @@ class SettingsViewController: UIViewController {
         }
         
         let loginButton = UIButton()
+        loginButton.tag = -1
         if TwTUser.shared.token != nil {
             loginButton.setTitle(TwTUser.shared.username, for: .normal)
         } else {
@@ -166,6 +168,18 @@ extension SettingsViewController: UITableViewDataSource {
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
+            for subview in headerView.subviews {
+                if subview.tag == -1 {
+                    if TwTUser.shared.token != nil {
+                        (subview as? UIButton)?.setTitle(TwTUser.shared.username, for: .normal)
+                    } else {
+                         (subview as? UIButton)?.setTitle("登录", for: .normal)
+                         (subview as? UIButton)?.addTarget(self, action: #selector(login), for: .touchUpInside)
+                    }
+                } else if subview.tag == -2 {
+                    (subview as? UIImageView)?.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "ic_account_circle")!.with(color: .gray))
+                }
+            }
             return headerView
         }
         return nil
@@ -174,7 +188,20 @@ extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 ? 165 : 0
     }
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch (indexPath.section, indexPath.row) {
+        case (1, 1):
+            tableView.deselectRow(at: indexPath, animated: true)
+            TwTUser.shared.delete()
+            tableView.reloadData()
+            print("log out")
+        default:
+            break
+        }
     }
 }
