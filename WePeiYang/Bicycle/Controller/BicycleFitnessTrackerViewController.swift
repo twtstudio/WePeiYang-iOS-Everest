@@ -169,16 +169,16 @@ extension BicycleFitnessTrackerViewController: UITableViewDelegate, UITableViewD
         
         
         headerView.addSubview(timeLabel)
-        timeLabel.snp_makeConstraints {
+        timeLabel.snp.makeConstraints {
             make in
             make.centerX.equalTo(headerView)
             make.top.equalTo(headerView).offset(15)
         }
         
         headerView.addSubview(healthRingView)
-        healthRingView.snp_makeConstraints {
+        healthRingView.snp.makeConstraints {
             make in
-            make.top.equalTo(timeLabel.snp_bottom).offset(15)
+            make.top.equalTo(timeLabel.snp.bottom).offset(15)
             make.left.equalTo(headerView).offset(40)
             make.right.equalTo(headerView).offset(-40)
             make.height.equalTo(headerView.frame.width - 80)
@@ -198,7 +198,7 @@ extension BicycleFitnessTrackerViewController: UITableViewDelegate, UITableViewD
 extension BicycleFitnessTrackerViewController {
     func computeLayout() {
         self.view.addSubview(tableView)
-        tableView.snp_makeConstraints {
+        tableView.snp.makeConstraints {
             make in
             make.top.equalTo(self.view)
             make.left.equalTo(self.view)

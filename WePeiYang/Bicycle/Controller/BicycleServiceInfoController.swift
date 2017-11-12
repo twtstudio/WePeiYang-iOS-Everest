@@ -315,7 +315,7 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
         
         chartBackground?.snp.makeConstraints {
             make in
-            make.top.equalTo(infoLabel.snp_bottom).offset(8)
+            make.top.equalTo(infoLabel.snp.bottom).offset(8)
             make.left.equalTo(headerView).offset(8)
             make.right.equalTo(headerView).offset(-8)
             make.bottom.equalTo(headerView).offset(-8)
@@ -345,7 +345,7 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
         chartView.reloadData()
         
         /*
-         chartView.snp_makeConstraints {
+         chartView.snp.makeConstraints {
          make in
          make.left.equalTo(chartBackground!).offset(8)
          make.right.equalTo(chartBackground!).offset(-8)
