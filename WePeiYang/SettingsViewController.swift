@@ -28,7 +28,7 @@ class SettingsViewController: UIViewController {
     fileprivate let services: [ItemData] = [
         ("图书馆", LoginViewController.self, "", .notBind),
         ("自行车", LoginViewController.self, "", .notBind),
-        ("办公网", LoginViewController.self, "",.notBind)
+        ("办公网", LoginViewController.self, "", .notBind)
     ]
     fileprivate let settingTitles: [(title: String, iconName: String)] = [("设置", ""), ("退出", "")]
     
@@ -119,6 +119,7 @@ class SettingsViewController: UIViewController {
 
 // MARK: UITableViewDataSource
 extension SettingsViewController: UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }

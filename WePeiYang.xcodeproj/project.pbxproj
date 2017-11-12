@@ -126,6 +126,9 @@
 		36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F631EC1FAB31C500E3261F /* BicycleUserBindViewController.swift */; };
 		36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F631ED1FAB31C500E3261F /* BicycleServiceMapController.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
+		A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
+		A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */; };
+		A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */; };
 		A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4B01F99E43F00022A01 /* BicycleServiceNotificationController.swift */; };
 		A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4B81F99E57700022A01 /* SpotDetailsView.swift */; };
 		A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */; };
@@ -311,6 +314,9 @@
 		8405C859FC95C5E72E0F9BD7 /* Pods-WePeiYang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.release.xcconfig"; sourceTree = "<group>"; };
 		9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.debug.xcconfig"; sourceTree = "<group>"; };
+		A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANLoginAPIs.swift; sourceTree = "<group>"; };
+		A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
+		A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANLoginViewController.swift; sourceTree = "<group>"; };
 		A554C4B01F99E43F00022A01 /* BicycleServiceNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleServiceNotificationController.swift; sourceTree = "<group>"; };
 		A554C4B81F99E57700022A01 /* SpotDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailsView.swift; sourceTree = "<group>"; };
 		A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleFitnessTrackerViewCell.swift; sourceTree = "<group>"; };
@@ -657,6 +663,40 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A5159FDB1FB0731B00B466F2 /* WLANLogin */ = {
+			isa = PBXGroup;
+			children = (
+				A5159FDC1FB0734400B466F2 /* Model */,
+				A5159FDD1FB0734E00B466F2 /* View */,
+				A5159FDE1FB0736000B466F2 /* Controller */,
+			);
+			path = WLANLogin;
+			sourceTree = "<group>";
+		};
+		A5159FDC1FB0734400B466F2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */,
+				A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A5159FDD1FB0734E00B466F2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A5159FDE1FB0736000B466F2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		A5D695141F8A21AD00022B9A /* Bicycle */ = {
 			isa = PBXGroup;
 			children = (
@@ -911,6 +951,7 @@
 				B19DAB921E6EF5C2004A50B5 /* LaunchScreen.storyboard */,
 				36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */,
 				B181B9551EC5C21700B8198E /* Favorite */,
+				A5159FDB1FB0731B00B466F2 /* WLANLogin */,
 				0C3ADF1A1F697EE100388C19 /* LostFound */,
 				B10253CA1EC84ED20064373A /* Read */,
 				A5D695141F8A21AD00022B9A /* Bicycle */,
@@ -1023,7 +1064,7 @@
 				TargetAttributes = {
 					B19DAB851E6EF5C2004A50B5 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = TYRRVX7RWJ;
+						DevelopmentTeam = 3VDXU5RF7E;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1268,6 +1309,7 @@
 				0C3ADF471F697EE100388C19 /* MarkCustomCell.swift in Sources */,
 				0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */,
 				0C3ADF421F697EE100388C19 /* LostFoundAPI.swift in Sources */,
+				A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */,
 				0C3ADF3F1F697EE100388C19 /* SearchedResultViewController.swift in Sources */,
 				36DA7A5B1FA8A35C000DAF2B /* LoginViewController.swift in Sources */,
 				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
@@ -1293,6 +1335,7 @@
 				365936931F1E60A9003CE578 /* GPATermModel.swift in Sources */,
 				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
 				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
+				A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */,
 				36449E631FA4BABA0036766B /* ScoreTableViewCell.swift in Sources */,
 				36073D0E1F223FC1001317A7 /* SearchResultCell.swift in Sources */,
 				0C3ADF391F697EE100388C19 /* LostFoundPageControllerViewController.swift in Sources */,
@@ -1333,6 +1376,7 @@
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
 				36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */,
 				36449E8F1FA4BAD10036766B /* HandInDetailViewController.swift in Sources */,
+				A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
 				3659367C1F1E5FAE003CE578 /* YellowPageMainViewController.swift in Sources */,
 				B10253D71EC84ED20064373A /* Librarian.swift in Sources */,
@@ -1495,7 +1539,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = WePeiYang/WePeiYang.entitlements;
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
+				DEVELOPMENT_TEAM = 3VDXU5RF7E;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1514,7 +1558,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = WePeiYang/WePeiYang.entitlements;
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
+				DEVELOPMENT_TEAM = 3VDXU5RF7E;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
