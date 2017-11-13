@@ -230,6 +230,8 @@ class GPAViewController: UIViewController {
     
     func refresh() {
         GPASessionManager.getGPA(success: { (terms, stat, session) in
+            
+            // TODO: Save the data
             self.terms = terms
             self.stat = stat
             self.session = session
@@ -255,11 +257,13 @@ class GPAViewController: UIViewController {
             self.termLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
         }, completion: nil)
         
+        // 第一个
         if currentTerm!.name == terms[0].name {
             leftButton.isHidden = true
         } else {
             leftButton.isHidden = false
         }
+        // 最后一个
         if currentTerm!.name == terms[terms.count-1].name {
             rightButton.isHidden = true
         } else {
