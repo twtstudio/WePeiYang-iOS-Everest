@@ -7,6 +7,12 @@
 //
 
 import UIKit
+import MJRefresh
+enum MyURLState: String {
+    case lostURL = "lost"
+    case foundURL = "found"
+}
+
 let TWT_URL = "http://open.twtstudio.com/"
 
 class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
@@ -14,6 +20,8 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var id = ""
     var tableView: UITableView!
     var myLost: [MyLostFoundModel] = []
+    let footer = MJRefreshAutoNormalFooter()
+    let header = MJRefreshNormalHeader()
     var curPage = 1
     //    let TWT_URL = "http://open.twtstudio.com/"
     
@@ -42,21 +50,10 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.view.addSubview(tableView!)
         refresh()
-        let fab = FAB(subActions: [
-            (name: "fuck", function: {
-                
-                let vc = PublishLostViewController()
-                self.navigationController?.pushViewController(vc, animated: true)
-            }),
-            (name: "fs", function: {
-                
-                let vc = PublishLostViewController()
-                self.navigationController?.pushViewController(vc, animated: true)
-                
-            })
-            ])
-        fab.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
-        self.view.addSubview(fab)
+        self.tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
+        self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
+        self.tableView.mj_footer.isAutomaticallyHidden = true
+        
         
     }
     
@@ -71,6 +68,47 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
             print(error)
             
         })
+        
+    }
+    //底部上拉加载
+    func footerLoad() {
+        print("上拉加载")
+        self.curPage += 1
+        GetMyLostAPI.getMyLost(page: curPage, success: { (MyLosts) in
+            self.myLost += MyLosts
+            
+            self.tableView.mj_footer.endRefreshing()
+            self.tableView.reloadData()
+            
+        }, failure: { error in
+            print(error)
+            
+            
+        })
+        self.tableView.reloadData()
+    }
+    
+    //顶部下拉刷新
+    func headerRefresh(){
+        print("下拉刷新.")
+        
+        self.curPage = 1
+        GetMyLostAPI.getMyLost(page: 1, success: { (MyLosts) in
+            self.myLost = MyLosts
+            print(self.myLost)
+            
+            //结束刷新
+            self.tableView.mj_header.endRefreshing()
+            self.tableView.reloadData()
+            
+            
+            
+        }, failure: { error in
+            print(error)
+            
+        })
+        
+        
         
     }
     
@@ -128,10 +166,10 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell{
             
-
+            
             cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
             cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
-//
+            //
             
             let pic = myLost[indexPath.row].picture
             print(pic)
@@ -144,10 +182,13 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         let cell = MyLostFoundTableViewCell()
+        cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
+        cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
+        
         let pic = TWT_URL + myLost[indexPath.row].picture
         
-
-             cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
+        
+        cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
         
         
         
@@ -169,21 +210,18 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     func inverseButtonTapped(inverseButton: UIButton) {
-//        let cell = superUITableViewCell(of: inverseButton)!
+        //        let cell = superUITableViewCell(of: inverseButton)!
         
         let cell = inverseButton.superView(of: UITableViewCell.self)!
         let indexPath = tableView.indexPath(for: cell)
         id = myLost[(indexPath?[1])!].id
         print(id)
         
-    print("indexPath：\(indexPath!)")
+        print("indexPath：\(indexPath!)")
         
-        GetInverseAPI.getInverse(id: id, success: { _ in
+        GetInverseAPI.getInverse(id: id, success: { (code) in
             
-            
-            
-
-            
+            print(code)
             self.refresh()
             
         }, failure: { error in
@@ -192,14 +230,14 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-//    func superUITableViewCell(of: UIButton) -> UITableViewCell? {
-//        for view in sequence(first: of.superview, next: { $0?.superview }) {
-//            if let cell = view as? UITableViewCell {
-//                return cell
-//            }
-//        }
-//        return nil
-//    }
+    //    func superUITableViewCell(of: UIButton) -> UITableViewCell? {
+    //        for view in sequence(first: of.superview, next: { $0?.superview }) {
+    //            if let cell = view as? UITableViewCell {
+    //                return cell
+    //            }
+    //        }
+    //        return nil
+    //    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
