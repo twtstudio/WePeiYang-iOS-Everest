@@ -127,6 +127,39 @@ class GetMyLostAPI {
         })
     }
 }
+class GetMyFoundAPI {
+    
+    static func getMyFound(page: Int, success: @escaping ([MyLostFoundModel])->(), failure: (Error)->()) {
+        
+        SolaSessionManager.solaSession(url: "/lostfound/user/found?page=\(page)", success: { dic in
+            if let myFoundData = dic["data"] as? [[String : Any]]
+            {
+                var myFounds = [MyLostFoundModel]()
+                for found in myFoundData {
+                    
+                    let detail_type = found["detail_type"] as? Int ?? 0
+                    let time = found["time"] as? String ?? ""
+                    let title = found["title"] as? String ?? ""
+                    let picture = found["picture"] as? String ?? ""
+                    let place = found["place"] as? String ?? ""
+                    let id = found["id"] as? String ?? ""
+                    let isback = found["isback"] as? String ?? ""
+                    let name = found["name"] as? String ?? ""
+                    let phone = found["phone"] as? String ?? ""
+                    
+                    
+                    let myFoundModel = MyLostFoundModel(isBack: isback, title: title, detail_type: detail_type, time: time, place: place, picture: picture, id: id, name: name, phone: phone)
+                    myFounds.append(myFoundModel)
+                }
+                success(myFounds)
+            }
+            
+        }, failure: { err in
+            print(err)
+            
+        })
+    }
+}
 
 class DetailAPI {
 //    var id = 0
