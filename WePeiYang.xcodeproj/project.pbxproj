@@ -99,6 +99,7 @@
 		36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E811FA4BAD00036766B /* GradeCheckViewController.swift */; };
 		36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E821FA4BAD00036766B /* AllQuizViewController.swift */; };
 		365261561FB9F83400025B8A /* ClassTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365261551FB9F83400025B8A /* ClassTableModel.swift */; };
+		3653DD911FBAD0B600501C3B /* ClassTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3653DD901FBAD0B600501C3B /* ClassTableViewController.swift */; };
 		365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365936681F1E2CCF003CE578 /* YellowPageCell.swift */; };
 		3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */; };
 		3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659366C1F1E3637003CE578 /* CommonUsedView.swift */; };
@@ -292,6 +293,7 @@
 		36449E811FA4BAD00036766B /* GradeCheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GradeCheckViewController.swift; path = PartyService/Controller/GradeCheckViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		36449E821FA4BAD00036766B /* AllQuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AllQuizViewController.swift; path = PartyService/Controller/AllQuizViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		365261551FB9F83400025B8A /* ClassTableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableModel.swift; sourceTree = "<group>"; };
+		3653DD901FBAD0B600501C3B /* ClassTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewController.swift; sourceTree = "<group>"; };
 		365936681F1E2CCF003CE578 /* YellowPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageCell.swift; sourceTree = "<group>"; };
 		3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedButton.swift; sourceTree = "<group>"; };
 		3659366C1F1E3637003CE578 /* CommonUsedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUsedView.swift; sourceTree = "<group>"; };
@@ -651,6 +653,7 @@
 		365A8A141FB9BA8500B15443 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3653DD901FBAD0B600501C3B /* ClassTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1112,7 +1115,7 @@
 				TargetAttributes = {
 					B19DAB851E6EF5C2004A50B5 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 3VDXU5RF7E;
+						DevelopmentTeam = TYRRVX7RWJ;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1394,6 +1397,7 @@
 				0C3ADF451F697EE100388C19 /* PublishLostViewController.swift in Sources */,
 				36449E8E1FA4BAD10036766B /* PartyComplainViewController.swift in Sources */,
 				36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */,
+				3653DD911FBAD0B600501C3B /* ClassTableViewController.swift in Sources */,
 				3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */,
 				A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */,
 				B102541D1EC8547E0064373A /* SpringButton.swift in Sources */,
@@ -1592,7 +1596,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = WePeiYang/WePeiYang.entitlements;
-				DEVELOPMENT_TEAM = 3VDXU5RF7E;
+				DEVELOPMENT_TEAM = TYRRVX7RWJ;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1611,7 +1615,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = WePeiYang/WePeiYang.entitlements;
-				DEVELOPMENT_TEAM = 3VDXU5RF7E;
+				DEVELOPMENT_TEAM = TYRRVX7RWJ;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

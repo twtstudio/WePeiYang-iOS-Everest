@@ -486,6 +486,9 @@ extension GPAViewController: UITableViewDelegate {
 extension GPAViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y - 80
+        // TODO: Rolling in the deep
+//        radarChartView.rotationAngle = (offset / 530.0 )*360.0
+
         if offset > 0 {
             self.navigationItem.rightBarButtonItem?.tintColor = .white
             self.navigationController?.navigationBar.tintColor = .white

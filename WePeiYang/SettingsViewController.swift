@@ -57,7 +57,7 @@ class SettingsViewController: UIViewController {
         
         navigationItem.title = "设置"
         
-        ClasstableDataManager.getClassTable(success: {}, failure: {})
+        ClasstableDataManager.getClassTable(success: { _ in }, failure: { _ in })
         
         view.backgroundColor = Metadata.Color.GlobalViewBackgroundColor
 

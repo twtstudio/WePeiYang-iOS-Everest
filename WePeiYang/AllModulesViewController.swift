@@ -12,7 +12,7 @@ class AllModulesViewController: UIViewController {
     typealias ModuleData = (title: String, image: UIImage, class: AnyClass)
     fileprivate let modules: [ModuleData] = [
         (title: "GPA", image: UIImage(named: "gpaBtn")!, class: GPAViewController.self),
-        (title: "课程表", image: UIImage(named: "classtableBtn")!, class: GPAViewController.self),
+        (title: "课程表", image: UIImage(named: "classtableBtn")!, class: ClassTableViewController.self),
         (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self),
         (title: "自行车", image: UIImage(named: "bicycleBtn")!, class: BicycleServiceViewController.self),
         (title: "党建", image: UIImage(named: "partyBtn")!, class: PartyMainViewController.self),
