@@ -66,7 +66,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func initMyUI(pic: String, title: String, isBack: Int, mark: Int, time: String, place: String) {
+    func initMyUI(pic: String, title: String, isBack: String, mark: Int, time: String, place: String) {
         
         if pic != "", let picURL = URL(string: TWT_URL + pic) {
             pictureImageView.sd_setImage(with: picURL)
@@ -85,7 +85,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-10)
         
         }
-        if isBack == 0{
+        if isBack == "0" {
             isBackLabel.text = "未找到!"
         } else {
             isBackLabel.text = "已找到!"
@@ -188,7 +188,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
         }
         
         
-        if isBack == 0 {
+        if isBack == "0" {
             reversal = "灰勾"
         }
         else {

@@ -38,11 +38,6 @@ class DetailViewController: UIViewController {
         
 
         self.view.backgroundColor = .white
-//        self.detailView = UIView(frame: self.view.bounds)
-//        self.view.addSubview(self.detailView)
-//        detailView.backgroundColor = .white
-//        detailImageView.image = UIImage(named: dic["time"]!)
-//        detailTitleLabel.backgroundColor = .black
         
         self.detailImageView.contentMode = .scaleAspectFit
         self.detailImageView.frame = CGRect(x: 0, y: 62, width: self.view.bounds.width, height: 320)
@@ -113,8 +108,6 @@ class DetailViewController: UIViewController {
                 self.imageURL = self.detailArray[0].picture
                 self.detailImageView.sd_setImage(with: URL(string: self.TWT_URL + self.imageURL))
                 self.image = self.TWT_URL + self.imageURL
-            
-                print(self.image)
             }
             
 //            self.detailImageView.sd_setImage(with: URL(string: self.TWT_URL + self.imageURL))
@@ -157,8 +150,8 @@ class DetailViewController: UIViewController {
     func swipeClicked(recogizer: UITapGestureRecognizer) {
         
         let previewVC = LFImagePreviewViewController(image: image)
-        self.navigationController?.pushViewController(previewVC, animated: true)
-        
+//        self.navigationController?.pushViewController(previewVC, animated: true)
+        self.present(previewVC, animated: true, completion: nil)
         
     
     }

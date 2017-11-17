@@ -95,9 +95,9 @@ class GetFoundAPI {
 
 class GetMyLostAPI {
 
-    static func getMyLostAPI(success: @escaping ([MyLostFoundModel])->(), failure: (Error)->()) {
+    static func getMyLost(page: Int, success: @escaping ([MyLostFoundModel])->(), failure: (Error)->()) {
         
-        SolaSessionManager.solaSession(url: "/lostfound/user/lost", success: { dic in
+        SolaSessionManager.solaSession(url: "/lostfound/user/lost?page=\(page)", success: { dic in
             if let myLostData = dic["data"] as? [[String : Any]]
             {
                 var myLosts = [MyLostFoundModel]()
@@ -109,7 +109,7 @@ class GetMyLostAPI {
                     let picture = lost["picture"] as? String ?? ""
                     let place = lost["place"] as? String ?? ""
                     let id = lost["id"] as? String ?? ""
-                    let isback = lost["isback"] as? Int ?? 0
+                    let isback = lost["isback"] as? String ?? ""
                     let name = lost["name"] as? String ?? ""
                     let phone = lost["phone"] as? String ?? ""
                     
@@ -123,6 +123,39 @@ class GetMyLostAPI {
         }, failure: { err in
             print(err)
         
+        })
+    }
+}
+class GetMyFoundAPI {
+    
+    static func getMyFound(page: Int, success: @escaping ([MyLostFoundModel])->(), failure: (Error)->()) {
+        
+        SolaSessionManager.solaSession(url: "/lostfound/user/found?page=\(page)", success: { dic in
+            if let myFoundData = dic["data"] as? [[String : Any]]
+            {
+                var myFounds = [MyLostFoundModel]()
+                for found in myFoundData {
+                    
+                    let detail_type = found["detail_type"] as? Int ?? 0
+                    let time = found["time"] as? String ?? ""
+                    let title = found["title"] as? String ?? ""
+                    let picture = found["picture"] as? String ?? ""
+                    let place = found["place"] as? String ?? ""
+                    let id = found["id"] as? String ?? ""
+                    let isback = found["isback"] as? String ?? ""
+                    let name = found["name"] as? String ?? ""
+                    let phone = found["phone"] as? String ?? ""
+                    
+                    
+                    let myFoundModel = MyLostFoundModel(isBack: isback, title: title, detail_type: detail_type, time: time, place: place, picture: picture, id: id, name: name, phone: phone)
+                    myFounds.append(myFoundModel)
+                }
+                success(myFounds)
+            }
+            
+        }, failure: { err in
+            print(err)
+            
         })
     }
 }
@@ -219,13 +252,14 @@ class GetSearchAPI {
 
 class PostLostAPI {
 
-    static func postLost(markDic: [String : Any], success: @escaping (Dictionary<String, Any>)->(),failure: (Error)->()) {
+    static func postLost(markDic: [String : Any], tag: String, success: @escaping (Dictionary<String, Any>)->(),failure: (Error)->()) {
 //        SolaSessionManager.solaSession(type: .post, url: "/lostfound/lost", parameters: markDic, success: success, failure: { err in
 //    print(err)
 //    
 //    
-//    })
-        SolaSessionManager.upload(dictionay: markDic, url: "/lostfound/lost", method: .post, progressBlock: nil, failure: { err in
+//    })    
+        print(tag)
+        SolaSessionManager.upload(dictionay: markDic, url: "/lostfound/"+tag, method: .post, progressBlock: nil, failure: { err in
             print(err)
         
         }, success: success )
@@ -235,11 +269,13 @@ class PostLostAPI {
 
 class GetInverseAPI {
     
-    static func getInverse(id: String, success: @escaping (String)->(), failure: (Error)->()){
+    static func getInverse(id: String, success: @escaping (Int)->(), failure: (Error)->()){
         SolaSessionManager.solaSession(type: .get, url: "/lostfound/inverse/\(id)", success: { dic in
             print(dic)
-            
-        
+            if let error_code = dic["error_code"] as? Int {
+                var code = error_code
+                success(code)
+            }
         
         }, failure: { err in
             print(err)

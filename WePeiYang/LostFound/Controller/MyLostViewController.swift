@@ -7,13 +7,22 @@
 //
 
 import UIKit
+import MJRefresh
+enum MyURLState: String {
+    case lostURL = "lost"
+    case foundURL = "found"
+}
+
 let TWT_URL = "http://open.twtstudio.com/"
-var id = ""
+
 class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
-//    var id = ""
+    var id = ""
     var tableView: UITableView!
     var myLost: [MyLostFoundModel] = []
+    let footer = MJRefreshAutoNormalFooter()
+    let header = MJRefreshNormalHeader()
+    var curPage = 1
     //    let TWT_URL = "http://open.twtstudio.com/"
     
     //    var myLost1 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic2")
@@ -41,27 +50,16 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.view.addSubview(tableView!)
         refresh()
-        let fab = FAB(subActions: [
-            (name: "fuck", function: {
-                
-                let vc = PublishLostViewController()
-                self.navigationController?.pushViewController(vc, animated: true)
-            }),
-            (name: "fs", function: {
-                
-                let vc = PublishLostViewController()
-                self.navigationController?.pushViewController(vc, animated: true)
-                
-            })
-            ])
-        fab.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
-        self.view.addSubview(fab)
+        self.tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
+        self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
+        self.tableView.mj_footer.isAutomaticallyHidden = true
+
         
     }
     
     func refresh() {
         
-        GetMyLostAPI.getMyLostAPI(success: { (myLosts) in
+        GetMyLostAPI.getMyLost(page: curPage, success: { (myLosts) in
             self.myLost = myLosts
             self.tableView.reloadData()
             
@@ -72,6 +70,48 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         })
         
     }
+    //底部上拉加载
+    func footerLoad() {
+        print("上拉加载")
+        self.curPage += 1
+        GetMyLostAPI.getMyLost(page: curPage, success: { (MyLosts) in
+            self.myLost += MyLosts
+            
+            self.tableView.mj_footer.endRefreshing()
+            self.tableView.reloadData()
+            
+        }, failure: { error in
+            print(error)
+            
+            
+        })
+        self.tableView.reloadData()
+    }
+    
+    //顶部下拉刷新
+    func headerRefresh(){
+        print("下拉刷新.")
+        
+        self.curPage = 1
+        GetMyLostAPI.getMyLost(page: 1, success: { (MyLosts) in
+            self.myLost = MyLosts
+            print(self.myLost)
+            
+            //结束刷新
+            self.tableView.mj_header.endRefreshing()
+            self.tableView.reloadData()
+            
+            
+            
+        }, failure: { error in
+            print(error)
+            
+        })
+        
+        
+        
+    }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -80,7 +120,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.deselectRow(at: indexPath, animated: true)
         let detailView = DetailViewController()
         detailView.id = id
-        
+    
         
         self.navigationController?.pushViewController(detailView, animated: true)
     }
@@ -142,6 +182,9 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         let cell = MyLostFoundTableViewCell()
+        cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
+        cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
+
         let pic = TWT_URL + myLost[indexPath.row].picture
         
 
@@ -176,12 +219,9 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     print("indexPath：\(indexPath!)")
         
-        GetInverseAPI.getInverse(id: id, success: { _ in
+        GetInverseAPI.getInverse(id: id, success: { (code) in
             
-            
-            
-
-            
+            print(code)
             self.refresh()
             
         }, failure: { error in

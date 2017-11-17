@@ -15,6 +15,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     var tableView: UITableView!
     var markDict:[String: Any] = [:]
     var mark: MarkCustomCell!
+    var tag: String!
     var index = 0
     //    var function = [
     //        0: ["添加图片"],
@@ -366,7 +367,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
 //            
 //            
 //        }
-        PostLostAPI.postLost(markDic: markDict, success: {
+        PostLostAPI.postLost(markDic: markDict, tag: tag, success: {
             
             dic in
             let successVC = PublishSuccessViewController()
