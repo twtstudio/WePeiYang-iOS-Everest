@@ -11,46 +11,46 @@ import Alamofire
 
 class GetLostAPI{
     
-//    static func fabu(markdic: [String: String] , success: @escaping ([String: AnyObject]) -> ()) {
-
-//       SolaSessionManager.solaSession(type: .post , url: "/lostfound/lost", token: AccountManager.token, parameters: markdic, success: success, failure: nil)
-//
-//        if let array = dic 
-//
-//    }
-//
-//    
-//} 
-    static func getLost(page: Int, success: @escaping ([LostFoundModel])->(), failure: (Error)->()) {
-    SolaSessionManager.solaSession(url: "/lostfound/lost?page=\(page)",success: {
-        dic in
-        
-        print(page)
-        if let lostData = dic["data"] as? [[String : Any]]
-        {
-            var losts = [LostFoundModel]()
-            for lost in lostData {
-                
-                let detail_type = lost["detail_type"] as? String ?? ""
-                let time = lost["time"] as? String ?? ""
-                let title = lost["title"] as? String ?? ""
-                let picture = lost["picture"] as? String ?? ""
-                let place = lost["place"] as? String ?? ""
-                let id = lost["id"] as? String ?? ""
-                let isback = lost["isback"] as? String ?? ""
-                let name = lost["name"] as? String ?? ""
-                let phone = lost["phone"] as? String ?? ""
-                
-
-            let lostModel = LostFoundModel(id: id, title: title, detail_type: detail_type, time: time, picture: picture, place: place, phone: phone, isback: isback, name: name)
-            losts.append(lostModel)
-                
-                }
-            success(losts)
-            }
-
-        } ,failure: { err in
+    //    static func fabu(markdic: [String: String] , success: @escaping ([String: AnyObject]) -> ()) {
     
+    //       SolaSessionManager.solaSession(type: .post , url: "/lostfound/lost", token: AccountManager.token, parameters: markdic, success: success, failure: nil)
+    //
+    //        if let array = dic
+    //
+    //    }
+    //
+    //
+    //}
+    static func getLost(page: Int, success: @escaping ([LostFoundModel])->(), failure: (Error)->()) {
+        SolaSessionManager.solaSession(url: "/lostfound/lost?page=\(page)",success: {
+            dic in
+            
+            print(page)
+            if let lostData = dic["data"] as? [[String : Any]]
+            {
+                var losts = [LostFoundModel]()
+                for lost in lostData {
+                    
+                    let detail_type = lost["detail_type"] as? String ?? ""
+                    let time = lost["time"] as? String ?? ""
+                    let title = lost["title"] as? String ?? ""
+                    let picture = lost["picture"] as? String ?? ""
+                    let place = lost["place"] as? String ?? ""
+                    let id = lost["id"] as? String ?? ""
+                    let isback = lost["isback"] as? String ?? ""
+                    let name = lost["name"] as? String ?? ""
+                    let phone = lost["phone"] as? String ?? ""
+                    
+                    
+                    let lostModel = LostFoundModel(id: id, title: title, detail_type: detail_type, time: time, picture: picture, place: place, phone: phone, isback: isback, name: name)
+                    losts.append(lostModel)
+                    
+                }
+                success(losts)
+            }
+            
+        } ,failure: { err in
+            
         })
     }
 }
@@ -90,7 +90,7 @@ class GetFoundAPI {
             print(err)
         })
     }
-
+    
 }
 
 class GetMyLostAPI {
@@ -112,7 +112,6 @@ class GetMyLostAPI {
                     let isback = lost["isback"] as? String ?? ""
                     let name = lost["name"] as? String ?? ""
                     let phone = lost["phone"] as? String ?? ""
-
                     
                     
                     let myLostModel = MyLostFoundModel(isBack: isback, title: title, detail_type: detail_type, time: time, place: place, picture: picture, id: id, name: name, phone: phone)
@@ -120,10 +119,10 @@ class GetMyLostAPI {
                 }
                 success(myLosts)
             }
-        
+            
         }, failure: { err in
             print(err)
-        
+            
         })
     }
 }
@@ -162,7 +161,7 @@ class GetMyFoundAPI {
 }
 
 class DetailAPI {
-//    var id = 0
+    //    var id = 0
     var detailDisplay: [Any] = []
     func getDetail(id: String, success: @escaping ([LostFoundDetailModel])->(), failure: (Error)->()) {
         SolaSessionManager.solaSession(url: ("/lostfound/"+"\(id)"),success: {
@@ -195,7 +194,7 @@ class DetailAPI {
                     self.detailDisplay = [time, place, detail_type, name, phone, item_description ]
                     print(self.detailDisplay)
                     details.append(lostFoundDetailModel)
-
+                    
                     
                 }
                 success(details)
@@ -210,7 +209,7 @@ class DetailAPI {
 
 class GetSearchAPI {
     
-
+    
     
     static func getSearch(inputText: String, page: Int,success: @escaping ([LostFoundModel])->(), failure: (Error)->()) {
         
@@ -219,28 +218,28 @@ class GetSearchAPI {
         SolaSessionManager.solaSession(type: .get, url: utf8Text, success: { dic in
             print(dic)
             if let error_code = dic["error_code"] as? Int {
-            if let searchData = dic["data"] as? [[String: Any]] {
-                
-                var searchs = [LostFoundModel]()
-                for search in searchData {
+                if let searchData = dic["data"] as? [[String: Any]] {
                     
-                    let detail_type = search["detail_type"] as? String ?? ""
-                    let time = search["time"] as? String ?? ""
-                    let title = search["title"] as? String ?? ""
-                    let picture = search["picture"] as? String ?? ""
-                    let place = search["place"] as? String ?? ""
-                    let id = search["id"] as? String ?? ""
-                    let isback = search["isback"] as? String ?? ""
-                    let name = search["name"] as? String ?? ""
-                    let phone = search["phone"] as? String ?? ""
-                    
-                    
-                    let searchModel = LostFoundModel(id: id, title: title, detail_type: detail_type, time: time, picture: picture, place: place, phone: phone, isback: isback, name: name)
-                    searchs.append(searchModel)
+                    var searchs = [LostFoundModel]()
+                    for search in searchData {
+                        
+                        let detail_type = search["detail_type"] as? String ?? ""
+                        let time = search["time"] as? String ?? ""
+                        let title = search["title"] as? String ?? ""
+                        let picture = search["picture"] as? String ?? ""
+                        let place = search["place"] as? String ?? ""
+                        let id = search["id"] as? String ?? ""
+                        let isback = search["isback"] as? String ?? ""
+                        let name = search["name"] as? String ?? ""
+                        let phone = search["phone"] as? String ?? ""
+                        
+                        
+                        let searchModel = LostFoundModel(id: id, title: title, detail_type: detail_type, time: time, picture: picture, place: place, phone: phone, isback: isback, name: name)
+                        searchs.append(searchModel)
+                    }
+                    success(searchs)
                 }
-                success(searchs)
-            }
-
+                
             }
         } ,failure: { err in
             
@@ -252,35 +251,38 @@ class GetSearchAPI {
 
 
 class PostLostAPI {
-
-    static func postLost(markDic: [String : Any], success: @escaping (Dictionary<String, Any>)->(),failure: (Error)->()) {
-//        SolaSessionManager.solaSession(type: .post, url: "/lostfound/lost", parameters: markDic, success: success, failure: { err in
-//    print(err)
-//    
-//    
-//    })
-        SolaSessionManager.upload(dictionay: markDic, url: "/lostfound/lost", method: .post, progressBlock: nil, failure: { err in
+    
+    static func postLost(markDic: [String : Any], tag: String, success: @escaping (Dictionary<String, Any>)->(),failure: (Error)->()) {
+        //        SolaSessionManager.solaSession(type: .post, url: "/lostfound/lost", parameters: markDic, success: success, failure: { err in
+        //    print(err)
+        //
+        //
+        //    })
+        print(tag)
+        SolaSessionManager.upload(dictionay: markDic, url: "/lostfound/"+tag, method: .post, progressBlock: nil, failure: { err in
             print(err)
-        
+            
         }, success: success )
     }
-
+    
 }
 
 class GetInverseAPI {
     
-    static func getInverse(id: String, success: @escaping (String)->(), failure: (Error)->()){
+    static func getInverse(id: String, success: @escaping (Int)->(), failure: (Error)->()){
         SolaSessionManager.solaSession(type: .get, url: "/lostfound/inverse/\(id)", success: { dic in
             print(dic)
+            if let error_code = dic["error_code"] as? Int {
+                var code = error_code
+                success(code)
+            }
             
-        
-        
         }, failure: { err in
             print(err)
-        
-        
+            
+            
         })
-
+        
     }
     
     
