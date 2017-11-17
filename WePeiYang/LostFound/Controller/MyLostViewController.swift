@@ -8,12 +8,13 @@
 
 import UIKit
 let TWT_URL = "http://open.twtstudio.com/"
-var id = ""
+
 class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
-//    var id = ""
+    var id = ""
     var tableView: UITableView!
     var myLost: [MyLostFoundModel] = []
+    var curPage = 1
     //    let TWT_URL = "http://open.twtstudio.com/"
     
     //    var myLost1 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic2")
@@ -61,7 +62,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func refresh() {
         
-        GetMyLostAPI.getMyLostAPI(success: { (myLosts) in
+        GetMyLostAPI.getMyLost(page: curPage, success: { (myLosts) in
             self.myLost = myLosts
             self.tableView.reloadData()
             
@@ -72,6 +73,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         })
         
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

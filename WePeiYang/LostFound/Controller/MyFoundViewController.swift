@@ -12,6 +12,8 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
 
     var tableView: UITableView!
     var myFound: [MyLostFoundModel] = []
+    var id = ""
+    var curPage = 1
     
 //    var myLost1 = MyLoatFoundModel(isBack: "未交还", title: "大大捡到了", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic2")
 //    var myLost2 = MyLoatFoundModel(isBack: "未交还", title: "大大又捡到了", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic3")
@@ -36,6 +38,48 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         self.view.addSubview(tableView!)
         
     }
+    
+    //底部上拉加载
+    func footerLoad() {
+        print("上拉加载")
+        self.curPage += 1
+        GetMyFoundAPI.getMyFound(page: curPage, success: { (myFounds) in
+            self.myFound += myFounds
+            
+            self.tableView.mj_footer.endRefreshing()
+            self.tableView.reloadData()
+            
+        }, failure: { error in
+            print(error)
+            
+            
+        })
+        self.tableView.reloadData()
+    }
+
+    //顶部下拉刷新
+    func headerRefresh(){
+        print("下拉刷新.")
+        
+        self.curPage = 1
+        GetMyFoundAPI.getMyFound(page: 1, success: { (myFounds) in
+            self.myFound = myFounds
+            print(self.myFound)
+            
+            //结束刷新
+            self.tableView.mj_header.endRefreshing()
+            self.tableView.reloadData()
+            
+            
+            
+        }, failure: { error in
+            print(error)
+            
+        })
+        
+        
+        
+    }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.01
     }
@@ -45,6 +89,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         return myFound.count
         
     }
+    
     
     
     

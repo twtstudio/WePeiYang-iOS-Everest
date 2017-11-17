@@ -94,10 +94,10 @@ class GetFoundAPI {
 }
 
 class GetMyLostAPI {
-
-    static func getMyLostAPI(success: @escaping ([MyLostFoundModel])->(), failure: (Error)->()) {
+    
+    static func getMyLost(page: Int, success: @escaping ([MyLostFoundModel])->(), failure: (Error)->()) {
         
-        SolaSessionManager.solaSession(url: "/lostfound/user/lost", success: { dic in
+        SolaSessionManager.solaSession(url: "/lostfound/user/lost?page=\(page)", success: { dic in
             if let myLostData = dic["data"] as? [[String : Any]]
             {
                 var myLosts = [MyLostFoundModel]()
@@ -109,9 +109,10 @@ class GetMyLostAPI {
                     let picture = lost["picture"] as? String ?? ""
                     let place = lost["place"] as? String ?? ""
                     let id = lost["id"] as? String ?? ""
-                    let isback = lost["isback"] as? Int ?? 0
+                    let isback = lost["isback"] as? String ?? ""
                     let name = lost["name"] as? String ?? ""
                     let phone = lost["phone"] as? String ?? ""
+
                     
                     
                     let myLostModel = MyLostFoundModel(isBack: isback, title: title, detail_type: detail_type, time: time, place: place, picture: picture, id: id, name: name, phone: phone)
