@@ -10,6 +10,8 @@ import UIKit
 import WMPageController
  
 class LostFoundPageViewController: WMPageController {
+    
+    var rootView: UIView!
 
 //    var data: [(title: String, viewController: UIViewController)] {
 //        return [("丢失", LostViewController()), ("捡到", FoundViewController())]
@@ -66,26 +68,33 @@ class LostFoundPageViewController: WMPageController {
         //设置按钮
         self.navigationItem.rightBarButtonItems = [spacer, mineBarButton , gap, searchBarButton]
 
-        let fab = FAB(subActions: [
-            (name: "fuck", function: {
-                
-                let vc = PublishLostViewController()
-                self.navigationController?.pushViewController(vc, animated: true)
-            }),
-            (name: "fs", function: {
-                
-                let vc = PublishLostViewController()
-                self.navigationController?.pushViewController(vc, animated: true)
-                
-            })
-            ])
-        
-        
-            fab.showUp()
         
 //        self.dataSource = self
         self.viewControllerClasses = [LostViewController.self, FoundViewController.self]
         self.titles = ["丢失", "捡到"]
+        rootView = UIView(frame: UIScreen.main.bounds)
+        self.view.bringSubview(toFront: rootView)
+        let fab = FAB(subActions: [
+            (name: "发布丢失信息", function: {
+                
+                let vc = PublishLostViewController()
+                vc.tag = MyURLState.lostURL.rawValue
+                self.navigationController?.pushViewController(vc, animated: true)
+            }),
+            (name: "发布找到信息", function: {
+                let vc = PublishLostViewController()
+                vc.tag = MyURLState.foundURL.rawValue
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            })
+            ])
+        //        rootView.addSubview(fab)
+        UIApplication.shared.keyWindow?.addSubview(fab)
+        let tap = UITapGestureRecognizer(target: fab, action: #selector(FAB.dismissAnimated))
+        
+        rootView.addGestureRecognizer(tap)
+        
+        fab.showUp()
         super.viewDidLoad()
 
     }

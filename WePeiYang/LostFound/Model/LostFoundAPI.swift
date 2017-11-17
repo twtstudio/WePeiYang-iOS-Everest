@@ -94,7 +94,7 @@ class GetFoundAPI {
 }
 
 class GetMyLostAPI {
-    
+
     static func getMyLost(page: Int, success: @escaping ([MyLostFoundModel])->(), failure: (Error)->()) {
         
         SolaSessionManager.solaSession(url: "/lostfound/user/lost?page=\(page)", success: { dic in
@@ -126,6 +126,7 @@ class GetMyLostAPI {
         })
     }
 }
+
 class GetMyFoundAPI {
     
     static func getMyFound(page: Int, success: @escaping ([MyLostFoundModel])->(), failure: (Error)->()) {
@@ -251,13 +252,15 @@ class GetSearchAPI {
 
 
 class PostLostAPI {
-    
+
+
     static func postLost(markDic: [String : Any], tag: String, success: @escaping (Dictionary<String, Any>)->(),failure: (Error)->()) {
-        //        SolaSessionManager.solaSession(type: .post, url: "/lostfound/lost", parameters: markDic, success: success, failure: { err in
-        //    print(err)
-        //
-        //
-        //    })
+//        SolaSessionManager.solaSession(type: .post, url: "/lostfound/lost", parameters: markDic, success: success, failure: { err in
+//    print(err)
+//    
+//    
+//    })    
+
         print(tag)
         SolaSessionManager.upload(dictionay: markDic, url: "/lostfound/"+tag, method: .post, progressBlock: nil, failure: { err in
             print(err)
@@ -276,7 +279,7 @@ class GetInverseAPI {
                 var code = error_code
                 success(code)
             }
-            
+
         }, failure: { err in
             print(err)
             

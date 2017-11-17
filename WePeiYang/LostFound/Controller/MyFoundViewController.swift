@@ -10,6 +10,7 @@ import UIKit
 import MJRefresh
 
 
+
 class MyFoundViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var tableView: UITableView!
@@ -33,7 +34,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
-        
+
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         
         self.tableView.estimatedRowHeight = 100
@@ -48,6 +49,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func refresh() {
+        
         
         GetMyFoundAPI.getMyFound(page: curPage, success: { (myFounds) in
             self.myFound = myFounds
@@ -99,9 +101,10 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         })
         
         
-        
     }
     
+
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         id = myFound[indexPath.row].id
@@ -113,6 +116,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         
         self.navigationController?.pushViewController(detailView, animated: true)
     }
+
     
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -169,7 +173,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         
     }
     
-    
+
     func inverseButtonTapped(sender: UIButton) {
         //        let cell = superUITableViewCell(of: inverseButton)!
         

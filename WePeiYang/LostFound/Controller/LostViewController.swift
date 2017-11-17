@@ -42,22 +42,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         layout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
         self.view.addSubview(lostView)
         
-//        let fab = FAB(subActions: [
-//            (name: "fuck", function: {
-//                
-//                let vc = PublishLostViewController()
-//                self.navigationController?.pushViewController(vc, animated: true)
-//            }),
-//            (name: "fs", function: {
-//                
-//                let vc = PublishLostViewController()
-//                self.navigationController?.pushViewController(vc, animated: true)
-//                
-//            })
-//        ])
-//        
-//        fab.frame = CGRect(x: 300, y: 400, width: 56, height: 56)
-        
+
         
         let button = UIButton(type: .contactAdd)
         button.frame = CGRect(x: 250, y: 400, width: 100, height: 50)

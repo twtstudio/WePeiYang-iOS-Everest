@@ -15,7 +15,7 @@ class AllModulesViewController: UIViewController {
         (title: "课程表", image: UIImage(named: "classtableBtn")!, class: GPAViewController.self),
         (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self),
         (title: "自行车", image: UIImage(named: "bicycleBtn")!, class: GPAViewController.self),
-        (title: "党建", image: UIImage(named: "partyBtn")!, class: GPAViewController.self),
+        (title: "党建", image: UIImage(named: "partyBtn")!, class: PartyMainViewController.self),
         (title: "探索", image: UIImage(named: "msBtn")!, class: GPAViewController.self),
         (title: "阅读", image: UIImage(named: "readBtn")!, class: ReadViewController.self),
         (title: "黄页", image: UIImage(named: "yellowPageBtn")!, class: YellowPageMainViewController.self)]
@@ -63,6 +63,8 @@ class AllModulesViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         self.view.addSubview(collectionView)
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

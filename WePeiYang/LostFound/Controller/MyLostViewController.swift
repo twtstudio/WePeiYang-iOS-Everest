@@ -53,7 +53,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
         self.tableView.mj_footer.isAutomaticallyHidden = true
-        
+
         
     }
     
@@ -120,7 +120,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.deselectRow(at: indexPath, animated: true)
         let detailView = DetailViewController()
         detailView.id = id
-        
+    
         
         self.navigationController?.pushViewController(detailView, animated: true)
     }
@@ -184,7 +184,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = MyLostFoundTableViewCell()
         cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
         cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
-        
+
         let pic = TWT_URL + myLost[indexPath.row].picture
         
         

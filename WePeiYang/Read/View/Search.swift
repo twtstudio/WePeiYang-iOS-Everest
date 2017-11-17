@@ -90,7 +90,7 @@ class Search: UIView, UITableViewDelegate, UITableViewDataSource, UITextFieldDel
         notFoundView.backgroundColor = .white
         notFoundView.addSubview(self.label)
         self.addSubview(notFoundView)
-        //UIApplication.sharedApplication().keyWindow?.addSubview(notFoundView)
+        //UIApplication.shared.keyWindow?.addSubview(notFoundView)
         self.label.sizeToFit()
         self.label.snp.makeConstraints { make in
             make.center.equalTo(notFoundView)
@@ -162,7 +162,7 @@ class Search: UIView, UITableViewDelegate, UITableViewDataSource, UITextFieldDel
                 //self.addSubview(self.notFoundView)
             }
             self.searchField.resignFirstResponder()
-            //UIApplication.sharedApplication().keyWindow?.addSubview(self.notFoundView)
+            //UIApplication.shared.keyWindow?.addSubview(self.notFoundView)
 
             self.tableView.reloadData()
         }

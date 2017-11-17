@@ -16,10 +16,11 @@ class LoginViewController: UIViewController {
     var passwordField: UITextField!
     var loginButton: UIButton!
     var dismissButton: UIButton!
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.tintColor = .white
         let url = Bundle.main.url(forResource: "FlowingColor", withExtension: "mp4")
         videoPlayer = AVPlayer(url: url!)
         videoPlayer.isMuted = true
@@ -70,7 +71,7 @@ class LoginViewController: UIViewController {
         self.usernameField.placeholder = "用户名"
         self.usernameField.clearButtonMode = .always
         
-        self.passwordField.textColor = UIColor.white
+        self.passwordField.textColor = .white
         self.passwordField.backgroundColor = UIColor(white: 1, alpha: 0.1);
         self.passwordField.layer.cornerRadius = 3;
         self.passwordField.layer.borderWidth = 0.5
@@ -101,8 +102,9 @@ class LoginViewController: UIViewController {
         self.loginButton.layer.borderColor = UIColor(white: 1, alpha: 0.8).cgColor;
         
         self.dismissButton = UIButton(frame: CGRect(x: self.view.frame.size.width*4.0/5.0, y: self.view.frame.size.height*4.0/5.0, width: 30, height: 20))
-        self.dismissButton.titleLabel?.sizeToFit()
-        dismissButton.titleLabel?.text = "暂不登录"
+        dismissButton.setTitle("暂不登录", for: .normal)
+//        self.dismissButton.titleLabel?.sizeToFit()
+        self.dismissButton.sizeToFit()
         
         visualEffectView.addSubview(usernameField)
         visualEffectView.addSubview(passwordField)
@@ -113,6 +115,10 @@ class LoginViewController: UIViewController {
         dismissButton.addTarget(self, action: #selector(dismissLogin), for: .touchUpInside)
     }
 
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     func login() {
         guard let username = usernameField.text, !username.isEmpty else {
             // FIXME: username not nil
@@ -127,10 +133,12 @@ class LoginViewController: UIViewController {
         AccountManager.getToken(username: username, password: password, success: { token in
             TwTUser.shared.token = token
             TwTUser.shared.save()
+            
+            self.extraProcedures()
             // FIXME: login success
             self.dismiss(animated: true, completion: nil)
         }, failure: { error in
-            print(error)
+            print(error ?? "")
         })
     }
     
@@ -143,4 +151,11 @@ class LoginViewController: UIViewController {
         videoPlayer.play()
     }
 
+    func extraProcedures() {
+        Applicant.sharedInstance.getStudentNumber {
+//            UserDefaults.standard.set(Applicant.sharedInstance.studentNumber, forKey: "studentID")
+//            UserDefaults.standard.set(Applicant.sharedInstance.realName, forKey: "studentName")
+//            //log.word("fuckin awesome")/
+        }
+    }
 }

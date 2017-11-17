@@ -128,7 +128,7 @@ class CoverView: UIView {
 //            self.computedBGView.backgroundColor = UIColor(red: (fooRGB?.red)!, green: (fooRGB?.green)!, blue: (fooRGB?.blue)!, alpha: (fooRGB?.alpha)!)
 ////            //NavigationBar 的背景，使用了View
 ////            UIViewController.current?.navigationController!.jz_navigationBarBackgroundAlpha = 0;
-////            let bgView = UIView(frame: CGRect(x: 0, y: 0, width: UIViewController.current?.view.frame.size.width, height: UIViewController.current?.navigationController!.navigationBar.frame.size.height+UIApplication.sharedApplication().statusBarFrame.size.height))
+////            let bgView = UIView(frame: CGRect(x: 0, y: 0, width: UIViewController.current?.view.frame.size.width, height: UIViewController.current?.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height))
 ////            UIViewController.current?.navigationController?.navigationBar.tintColor = .white
 ////            bgView.backgroundColor = self.computedBGView.backgroundColor
 //////            log.any(self.computedBGView.backgroundColor)/
@@ -141,7 +141,7 @@ class CoverView: UIView {
 //                
 //                //NavigationBar 的背景，使用了View
 //                UIViewController.current?.navigationController!.jz_navigationBarBackgroundAlpha = 0;
-//                let bgView = UIView(frame: CGRect(x: 0, y: 0, width: UIViewController.current?.view.frame.size.width, height: UIViewController.current?.navigationController!.navigationBar.frame.size.height+UIApplication.sharedApplication().statusBarFrame.size.height))
+//                let bgView = UIView(frame: CGRect(x: 0, y: 0, width: UIViewController.current?.view.frame.size.width, height: UIViewController.current?.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height))
 //                UIViewController.current?.navigationController?.navigationBar.tintColor = .white
 //                bgView.backgroundColor = self.computedBGView.backgroundColor
 ////                log.any(self.computedBGView.backgroundColor)/
@@ -155,7 +155,7 @@ class CoverView: UIView {
 //            self.computedBGView.backgroundColor = UIColor(red: (fooRGB?.red)!, green: (fooRGB?.green)!, blue: (fooRGB?.blue)!, alpha: (fooRGB?.alpha)!)
 //            //NavigationBar 的背景，使用了View
 //            UIViewController.current?.navigationController!.jz_navigationBarBackgroundAlpha = 0;
-//            let bgView = UIView(frame: CGRect(x: 0, y: 0, width: UIViewController.current?.view.frame.size.width, height: UIViewController.current?.navigationController!.navigationBar.frame.size.height+UIApplication.sharedApplication().statusBarFrame.size.height))
+//            let bgView = UIView(frame: CGRect(x: 0, y: 0, width: UIViewController.current?.view.frame.size.width, height: UIViewController.current?.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height))
 //            UIViewController.current?.navigationController?.navigationBar.tintColor = .white
 //            bgView.backgroundColor = self.computedBGView.backgroundColor
 ////            log.any(self.computedBGView.backgroundColor)/

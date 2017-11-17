@@ -85,7 +85,9 @@ class MyLostFoundTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-10)
         
         }
-        if isBack == "0"{
+
+        if isBack == "0" {
+
             isBackLabel.text = "未找到!"
         } else {
             isBackLabel.text = "已找到!"
