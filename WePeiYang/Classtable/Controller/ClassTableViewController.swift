@@ -31,12 +31,13 @@ class ClassTableViewController: UIViewController {
     }
     
 //    var classTableView: UIScrollView!
-    var classTableView: UIScrollView!
+    var classTableView: UICollectionView!
     private var classNumberView: UIView!
     private var weekdayView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isTranslucent = false
         self.view.backgroundColor = .white
         weekdayView = UIView(frame: CGRect(x: Constant.numberViewWidth, y: 0, width: Constant.weekViewWidth, height: Constant.weekViewHeight))
         classNumberView = UIView(frame: CGRect(x: 0, y: Constant.weekViewHeight, width: Constant.cellWidth, height: view.height))
@@ -47,18 +48,47 @@ class ClassTableViewController: UIViewController {
         }
         for i in 0..<7 {
             let label = UILabel(frame: CGRect(x: CGFloat(i)*Constant.cellWidth, y: 0, width: Constant.cellWidth, height: Constant.weekViewHeight))
-            label.text = "\(i+1)"
+            label.text = "周 \(i+1) "
             weekdayView.addSubview(label)
         }
 
         // TODO: Fix height
-//        let layout = UICollectionViewFlowLayout()
+        let layout = UICollectionViewFlowLayout()
 //        layout.scrollDirection = .vertical
-        classTableView = UIScrollView(frame: CGRect(x: Constant.numberViewWidth, y: Constant.weekViewWidth, width: Constant.numberViewWidth, height: view.height))
-//        classTableView = UICollectionView(frame: CGRect(x: Constant.numberViewWidth, y: Constant.weekViewWidth, width: Constant.numberViewWidth, height: view.height), collectionViewLayout: layout)
+//        classTableView = UIScrollView(frame: CGRect(x: Constant.numberViewWidth, y: Constant.weekViewWidth, width: Constant.numberViewWidth, height: view.height))
+        layout.itemSize = CGSize(width: Constant.cellWidth, height: Constant.cellHeight*2)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        classTableView = UICollectionView(frame: CGRect(x: Constant.numberViewWidth, y: Constant.weekViewHeight, width: Constant.weekViewWidth, height: view.height), collectionViewLayout: layout)
+//        classTableView.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.96, alpha:1.00)
+        classTableView.backgroundColor = .white
+        classTableView.register(ClassTableCell.self, forCellWithReuseIdentifier: "ClassTableCell")
+//        classTableView.delegate = self
+        classTableView.dataSource = self
+
         
         self.view.addSubview(weekdayView)
         self.view.addSubview(classNumberView)
         self.view.addSubview(classTableView)
+    }
+}
+
+extension ClassTableViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 7
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ClassTableCell", for: indexPath) as! ClassTableCell
+        cell.classLabel.text = "\(indexPath)"
+        cell.backgroundColor = .red
+        if arc4random() % 3 == 0 {
+            cell.backgroundColor = .white
+        }
+        return cell
     }
 }
