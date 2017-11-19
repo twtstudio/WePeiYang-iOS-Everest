@@ -77,6 +77,8 @@ class SettingsViewController: UIViewController {
 //        avatarView.image = UIImage(named: "ic_account_circle")!.with(color: .gray)
         avatarView.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "ic_account_circle")!.with(color: .gray))
         
+        avatarView.layer.cornerRadius = 80.0/2
+        avatarView.layer.masksToBounds = true
         avatarView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(20)
@@ -100,14 +102,14 @@ class SettingsViewController: UIViewController {
 //        loginButton.sizeToFit()
         headerView.addSubview(loginButton)
         loginButton.snp.makeConstraints { make in
-            make.left.equalTo(avatarView.snp.right).offset(5)
+            make.left.equalTo(avatarView.snp.right).offset(15)
             make.top.equalTo(avatarView.snp.top).offset(5)
         }
         
         let signatureLabel = UILabel(text: "登录以查看更多信息", color: .lightGray, fontSize: 15)
         headerView.addSubview(signatureLabel)
         signatureLabel.snp.makeConstraints { make in
-            make.left.equalTo(avatarView.snp.right).offset(5)
+            make.left.equalTo(avatarView.snp.right).offset(15)
             make.bottom.equalTo(avatarView.snp.bottom).offset(-5)
         }
     }
