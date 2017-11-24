@@ -40,4 +40,14 @@ struct ClassModel: Mappable {
         campus <- map["campus"]
         ext <- map["ext"]
     }
+    
+    func `class`(of day: Int) -> ClassModel? {
+        var newClass = self
+        newClass.arrange = arrange.filter({ $0.day == day })
+        if newClass.arrange.isEmpty {
+            return nil
+        } else {
+            return newClass
+        }
+    }
 }

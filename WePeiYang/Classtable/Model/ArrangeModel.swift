@@ -15,13 +15,21 @@ struct ArrangeModel: Mappable {
     var start = 0
     var end = 0
     var room = ""
+    var length: Int {
+        return end - start + 1
+    }
     
     init?(map: Map) {}
     
     mutating func mapping(map: Map) {
         let transform = TransformOf<Int, String>(fromJSON: { (value: String?) -> Int? in
             // transform value from String? to Int?
-            return Int(value!)
+            if let value = value {
+                return Int(value)
+            } else {
+                return nil
+            }
+//            return Int(value!)
         }, toJSON: { (value: Int?) -> String? in
             // transform value from Int? to String?
             if let value = value {
