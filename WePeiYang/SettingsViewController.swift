@@ -66,7 +66,7 @@ class SettingsViewController: UIViewController {
         tableView.dataSource = self
         tableView.rowHeight = 60
         tableView.backgroundColor = .white
-        tableView.separatorStyle = .singleLineEtched
+        tableView.separatorStyle = .none
         
         self.view.addSubview(tableView)
         
@@ -116,6 +116,7 @@ class SettingsViewController: UIViewController {
     
     func login() {
         let loginVC = LoginViewController()
+//        self.navigationController?.pushViewController(loginVC, animated: true)
         self.present(loginVC, animated: true, completion: nil)
     }
 }

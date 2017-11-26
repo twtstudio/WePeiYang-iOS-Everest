@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import ObjectMapper
 
-
+let ClassTableKey = "ClassTableKey"
 class ClassTableViewController: UIViewController {
     var listView: CourseListView!
     var dataProvider = ClassDataProvider()
@@ -21,12 +22,23 @@ class ClassTableViewController: UIViewController {
         listView = CourseListView(frame: self.view.bounds)
         listView.dataSource = dataProvider
         self.view.addSubview(listView)
-        self.load()
+    
+        loadCache()
+        load()
+    }
+    
+    func loadCache() {
+        if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
+            self.dataProvider.table = table
+            self.title = "第 \(self.dataProvider.weekNumber()) 周"
+            self.listView.reloadData()
+        }
     }
     
     func load() {
         ClasstableDataManager.getClassTable(success: { table in
-            print(table)
+            let dic = table.toJSON()
+            CacheManager.saveGroupCache(with: dic, key: ClassTableKey)
             self.dataProvider.table = table
             self.title = "第 \(self.dataProvider.weekNumber()) 周"
             self.listView.reloadData()
