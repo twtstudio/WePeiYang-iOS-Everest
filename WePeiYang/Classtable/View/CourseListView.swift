@@ -15,7 +15,7 @@ fileprivate struct C {
     static let courseCount = 12
     
     static let classNumberViewWidth: CGFloat = 50
-    static let dayNumberViewHeight: CGFloat = 50
+    static let dayNumberViewHeight: CGFloat = 30
 }
 
 protocol CourseListViewDelegate {
@@ -72,6 +72,11 @@ class CourseListView: UIView {
         classNumberView = UIView(frame: .zero)
         dayNumberView = UIView(frame: .zero)
         updownContentView = UIScrollView(frame: .zero)
+        updownContentView.showsVerticalScrollIndicator = false
+        // updownContentView.delaysContentTouches = false
+//        updownContentView.delaysContentTouches = false
+//        updownContentView.panGestureRecognizer.delaysTouchesBegan = true
+//        updownContentView.
         
         self.addSubview(dayNumberView)
         
@@ -110,22 +115,16 @@ class CourseListView: UIView {
         
         let containerView = UIView()
         self.addSubview(containerView)
-        //        self.addSubview(updownContentView)
+
         containerView.snp.makeConstraints { make in
             make.top.equalTo(dayNumberView.snp.bottom)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
-//            make.width.equalToSuperview()
         }
 
         containerView.addSubview(updownContentView)
         updownContentView.snp.makeConstraints { make in
-//            make.top.equalTo(dayNumberView.snp.bottom)
-//            make.left.equalToSuperview()
-//            make.right.equalToSuperview()
-//            make.bottom.equalToSuperview()
-//            make.width.equalTo(self.width)
             make.edges.equalToSuperview()
         }
         
@@ -135,7 +134,6 @@ class CourseListView: UIView {
             make.edges.equalToSuperview()
         }
         
-        //        updownContentView.addSubview(classNumberView)
         contentView.addSubview(classNumberView)
         classNumberView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -166,7 +164,7 @@ class CourseListView: UIView {
             courseCountLabels.append(label)
         }
         courseCountLabels.last!.snp.makeConstraints { make in
-            make.bottom.equalTo(updownContentView.snp.bottom)
+            make.bottom.equalTo(classNumberView.snp.bottom)
         }
         
         for i in 0..<7 {
@@ -180,8 +178,6 @@ class CourseListView: UIView {
             tableView.snp.makeConstraints { make in
                 make.top.equalTo(courseCountLabels[0].snp.top)
                 make.bottom.equalToSuperview()
-//                make.bottom.equalTo(courseCountLabels.last!.snp.bottom)
-//                make.bottom.equalToSuperview()
                 if i == 0 {
                     make.left.equalToSuperview().offset(C.cellWidth)
                 } else {
@@ -192,12 +188,32 @@ class CourseListView: UIView {
             }
             tableView.isScrollEnabled = false
         }
+        
+//        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureAction:)];
+//        [recognizer setNumberOfTapsRequired:1];
+//        MYScrollView.userInteractionEnabled = YES;
+//        [MYScrollView addGestureRecognizer:recognizer];
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(tableViewTouch(sender:)))
+        updownContentView.addGestureRecognizer(recognizer)
+    }
+    
+    func tableViewTouch(sender: UITapGestureRecognizer) {
+        let location = sender.location(in: tableViews[0])
+        let index = Int(location.x / C.cellWidth)
+        let realLocation = sender.location(in: tableViews[index])
+        let indexPath = tableViews[index].indexPathForRow(at: realLocation)
+        if let indexPath = indexPath, let model = coursesForDay[index+1]?[indexPath.row] {
+            self.delegate?.listView(self, didSelectCourse: model)
+            print(model.courseName)
+        }
+        // tableViews[0].
     }
     
     func reloadData() {
         guard let dataSource = dataSource else {
             return
         }
+        
         days = dataSource.days()
         days.forEach { day in
             coursesForDay[day] = dataSource.courses(in: day)
@@ -223,51 +239,6 @@ class CourseListView: UIView {
         
         self.tableViews.forEach({ $0.reloadData() })
     }
-    
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-//    func load(table: ClassTableModel) {
-//        var week: [[ClassModel]] = [[], [], [], [], [], [], [], []]
-//        
-//        for course in table.classes {
-//            for model in course.arrange {
-//                var newCourse = course
-//                newCourse.arrange = [model]
-//                week[model.day].append(newCourse)
-//            }
-//        }
-//        //        week.forEach({ $0.sort({ $0.0.arrange[0].start < $0.1.arrange[0].start }) })
-//        
-////        var placeholders = [[ClassModel]](repeatElement([], count: 8))
-//        for (i, day) in week.enumerated() {
-//            var lastEnd = 0
-//            week[i].sort(by: { a, b in
-//                return a.arrange[0].start < b.arrange[0].start
-//            })
-//            for course in day {
-//                if (course.arrange[0].start-1) - (lastEnd+1) >= 0 {
-//                    let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(lastEnd+1)\", \"end\":\"\(course.arrange[0].start-1)\"}]}")!
-//                    //                    placeholders[i].append(placeholder)
-//                    week[i].append(placeholder)
-//                }
-//                lastEnd = course.arrange[0].end
-//            }
-//        }
-//        for i in 0..<week.count {
-//            week[i].sort(by: { a, b in
-//                return a.arrange[0].start < b.arrange[0].start
-//            })
-//        }
-//        self.week = week
-//        self.tableViews.forEach({ $0.reloadData() })
-//    }
-    
 }
 
 extension CourseListView: UITableViewDataSource {
@@ -276,20 +247,11 @@ extension CourseListView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let index = tableViews.index(of: tableView)!
-//        if index >= week.count {
-//            return 0
-//        } else {
-//            return week[index+1].filter({ model in
-//                return (model.arrange[0].week.contains("双周") && ((Int(model.weekStart) ?? 0)...(Int(model.weekEnd) ?? 1)).contains(14)) || model.arrange[0].week == ""
-//            }).count
-//        }
         let courses = coursesForDay[tableView.tag]
         return courses?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = UITableViewCell()
         let model = coursesForDay[tableView.tag]?[indexPath.row]
         let cell = CourseCell(style: .default, reuseIdentifier: "reuse")
         cell.load(course: model!)

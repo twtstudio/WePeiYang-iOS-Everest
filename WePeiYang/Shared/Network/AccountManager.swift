@@ -48,6 +48,11 @@ struct AccountManager {
         
     }
     
+     // FIXME: every time open the app, refresh token
+    static func refreshToken() {
+        
+    }
+    
     static func checkToken(success: (()->())? = nil, failure: (()->())?) {
         SolaSessionManager.solaSession(type: .get, url: "/auth/token/check", parameters: nil, success: { dict in
             if let error_code = dict["error_code"] as? Int {

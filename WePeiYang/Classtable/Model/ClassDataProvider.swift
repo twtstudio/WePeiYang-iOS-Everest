@@ -9,6 +9,7 @@
 //
 
 import Foundation
+import DateTools
 
 class ClassDataProvider: CourseListViewDataSource {
     var table: ClassTableModel? {
@@ -28,6 +29,18 @@ class ClassDataProvider: CourseListViewDataSource {
     }
     private var courses: [Int : [ClassModel]] = [:]
     
+    func weekNumber() -> Int {
+        guard table != nil else {
+            return 0
+        }
+        // FIXME: Optional
+//        let currentDate = Date()
+        let startDate = Date(timeIntervalSince1970: TimeInterval(table!.termStart))
+        let number = (startDate as NSDate).weeksAgo() + 1
+        
+        return number
+    }
+    
     func days() -> [Int] {
         guard table != nil else {
             return []
@@ -39,12 +52,12 @@ class ClassDataProvider: CourseListViewDataSource {
         guard let _ = table else {
             return []
         }
-        
-//        return (model.arrange[0].week.contains("双周") && ((Int(model.weekStart) ?? 0)...(Int(model.weekEnd) ?? 1)).contains(14)) || model.arrange[0].week == ""
-//        return courses[day] ?? []
+        let weekNumber = self.weekNumber()
+        let isDouble = weekNumber % 2 == 0
+        let hint = isDouble ? "双" : "单"
         let result = courses[day] ?? []
         return result.filter({ model in
-            return (model.arrange[0].week.contains("双周") && ((Int(model.weekStart) ?? 0)...(Int(model.weekEnd) ?? 1)).contains(14)) || model.arrange[0].week == ""
+            return (model.arrange[0].week.contains(hint) && ((Int(model.weekStart) ?? 0)...(Int(model.weekEnd) ?? 1)).contains(weekNumber)) || model.arrange[0].week == ""
         })
     }
 }

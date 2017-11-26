@@ -10,19 +10,36 @@ import UIKit
 
 class CourseCell: UITableViewCell {
     var titleLabel = UILabel()
+    var roomLabel = UILabel()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentView.addSubview(titleLabel)
+        self.contentView.addSubview(roomLabel)
         titleLabel.font = UIFont.systemFont(ofSize: 12)
+        titleLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightMedium)
         titleLabel.numberOfLines = 0
         titleLabel.textColor = .white
+        titleLabel.sizeToFit()
         
-        layer.cornerRadius = 6
-        layer.masksToBounds = true
+        roomLabel.font = UIFont.systemFont(ofSize: 12)
+        roomLabel.numberOfLines = 0
+        roomLabel.textColor = .white
+        roomLabel.sizeToFit()
+
+        contentView.layer.cornerRadius = 4
+        contentView.layer.masksToBounds = true
 
         titleLabel.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
+            make.top.equalToSuperview().offset(3)
+            make.left.equalToSuperview().offset(3)
+            make.right.equalToSuperview().offset(-3)
+        }
+        
+        roomLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom)
+            make.bottom.lessThanOrEqualTo(contentView.snp.bottom)
+//            make.bottom.equalToSuperview()
             make.left.equalToSuperview().offset(3)
             make.right.equalToSuperview().offset(-3)
         }
@@ -54,9 +71,11 @@ class CourseCell: UITableViewCell {
         } else {
             let colors = Metadata.Color.fluentColors
             let index = Int(arc4random()) % colors.count
-            self.contentView.backgroundColor = colors[index]
-            self.contentView.alpha = 0.7
-            self.titleLabel.text = course.courseName + "\n@" + course.arrange[0].room
+            contentView.backgroundColor = colors[index]
+            contentView.alpha = 0.7
+            roomLabel.text = "@" + course.arrange[0].room
+            roomLabel.sizeToFit()
+            titleLabel.text = course.courseName //+ "\n@" + course.arrange[0].room
             titleLabel.sizeToFit()
         }
     }

@@ -28,6 +28,7 @@ class ClassTableViewController: UIViewController {
         ClasstableDataManager.getClassTable(success: { table in
             print(table)
             self.dataProvider.table = table
+            self.title = "第 \(self.dataProvider.weekNumber()) 周"
             self.listView.reloadData()
 //            self.listView.load(table: table)
         }, failure: { errorMessage in
