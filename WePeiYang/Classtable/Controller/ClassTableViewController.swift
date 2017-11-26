@@ -19,9 +19,12 @@ class ClassTableViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = false
         self.view.backgroundColor = .white
         
-        listView = CourseListView(frame: self.view.bounds)
+        listView = CourseListView()
         listView.dataSource = dataProvider
         self.view.addSubview(listView)
+        listView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     
         loadCache()
         load()

@@ -257,9 +257,10 @@ class GPAViewController: UIViewController {
     
     // 根据 GPAModel 显示数据
     func loadModel(model: GPAModel) {
-        if self.stat?.credit == model.stat.credit {
-            return
-        }
+        // TODO: 数据过滤
+//        if self.stat?.credit == model.stat.credit {
+//            return
+//        }
         
         self.terms = model.terms
         self.stat = model.stat
