@@ -14,6 +14,7 @@ enum ServiceBindingState: String {
 }
 
 fileprivate typealias ItemData = (title: String, class: AnyClass, iconName: String, status: ServiceBindingState)
+
 class SettingsViewController: UIViewController {
     
     // The below override will not be called if current viewcontroller is controlled by a UINavigationController
@@ -28,7 +29,8 @@ class SettingsViewController: UIViewController {
     fileprivate let services: [ItemData] = [
         ("图书馆", LoginViewController.self, "", .notBind),
         ("自行车", LoginViewController.self, "", .notBind),
-        ("办公网", LoginViewController.self, "", .notBind)
+        ("办公网", TJUBindingViewController.self, "", .notBind),
+        ("校园网", LoginViewController.self, "", .notBind)
     ]
     fileprivate let settingTitles: [(title: String, iconName: String)] = [("设置", ""), ("退出", "")]
     
@@ -56,7 +58,6 @@ class SettingsViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         
         navigationItem.title = "设置"
-        
         
         view.backgroundColor = Metadata.Color.GlobalViewBackgroundColor
 
@@ -159,7 +160,6 @@ extension SettingsViewController: UITableViewDataSource {
             separator.alpha = 0.25
             cell.addSubview(separator)
             return cell
-
         }
     }
 }
@@ -202,6 +202,11 @@ extension SettingsViewController: UITableViewDelegate {
             print("log out")
         default:
             break
+        }
+        
+        if let vc = (services[indexPath.row].class as? UIViewController.Type)?.init() {
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

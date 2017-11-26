@@ -55,7 +55,7 @@ class LoginViewController: UIViewController {
         let visualEffectView = UIVisualEffectView(effect: vibrancyEffect)
         visualEffectView.frame = self.view.frame
         //        visualEffectView.frame = titleLabel.frame
-        blurView.addSubview(visualEffectView)
+        blurView.contentView.addSubview(visualEffectView)
         //        titleLabel.frame.origin = CGPoint(x: 0, y: 0)
         visualEffectView.contentView.addSubview(titleLabel)
         
@@ -115,10 +115,10 @@ class LoginViewController: UIViewController {
         self.dismissButton.sizeToFit()
         self.dismissButton.center = CGPoint(x: self.view.center.x, y: self.view.frame.height*4.8/5)
         
-        visualEffectView.addSubview(usernameField)
-        visualEffectView.addSubview(passwordField)
-        visualEffectView.addSubview(loginButton)
-        visualEffectView.addSubview(dismissButton)
+        visualEffectView.contentView.addSubview(usernameField)
+        visualEffectView.contentView.addSubview(passwordField)
+        visualEffectView.contentView.addSubview(loginButton)
+        visualEffectView.contentView.addSubview(dismissButton)
 
         loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
         dismissButton.addTarget(self, action: #selector(dismissLogin), for: .touchUpInside)

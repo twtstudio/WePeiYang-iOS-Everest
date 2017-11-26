@@ -128,7 +128,11 @@
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
 		A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */; };
+		A50F36501FB8837D00413CF2 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364F1FB8837D00413CF2 /* KeyChain.swift */; };
+		A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51497F91FC80D5E00622A7B /* BindingAPIs.swift */; };
 		A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */; };
+		A53602671FC6E36100E3D1AF /* LibraryBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53602661FC6E36100E3D1AF /* LibraryBindingViewController.swift */; };
+		A53602691FC6EC0500E3D1AF /* TJUBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53602681FC6EC0500E3D1AF /* TJUBindingViewController.swift */; };
 		A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4B01F99E43F00022A01 /* BicycleServiceNotificationController.swift */; };
 		A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4B81F99E57700022A01 /* SpotDetailsView.swift */; };
 		A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */; };
@@ -316,7 +320,11 @@
 		9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.debug.xcconfig"; sourceTree = "<group>"; };
 		A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANLoginAPIs.swift; sourceTree = "<group>"; };
 		A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
+		A50F364F1FB8837D00413CF2 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
+		A51497F91FC80D5E00622A7B /* BindingAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingAPIs.swift; sourceTree = "<group>"; };
 		A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANLoginViewController.swift; sourceTree = "<group>"; };
+		A53602661FC6E36100E3D1AF /* LibraryBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryBindingViewController.swift; sourceTree = "<group>"; };
+		A53602681FC6EC0500E3D1AF /* TJUBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TJUBindingViewController.swift; sourceTree = "<group>"; };
 		A554C4B01F99E43F00022A01 /* BicycleServiceNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleServiceNotificationController.swift; sourceTree = "<group>"; };
 		A554C4B81F99E57700022A01 /* SpotDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailsView.swift; sourceTree = "<group>"; };
 		A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleFitnessTrackerViewCell.swift; sourceTree = "<group>"; };
@@ -678,6 +686,7 @@
 			children = (
 				A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */,
 				A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */,
+				A50F364F1FB8837D00413CF2 /* KeyChain.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -693,6 +702,40 @@
 			isa = PBXGroup;
 			children = (
 				A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		A53602621FC6E23C00E3D1AF /* Binding */ = {
+			isa = PBXGroup;
+			children = (
+				A53602631FC6E24D00E3D1AF /* Model */,
+				A53602641FC6E25300E3D1AF /* View */,
+				A53602651FC6E25800E3D1AF /* Controller */,
+			);
+			path = Binding;
+			sourceTree = "<group>";
+		};
+		A53602631FC6E24D00E3D1AF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A51497F91FC80D5E00622A7B /* BindingAPIs.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A53602641FC6E25300E3D1AF /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A53602651FC6E25800E3D1AF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A53602661FC6E36100E3D1AF /* LibraryBindingViewController.swift */,
+				A53602681FC6EC0500E3D1AF /* TJUBindingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -950,6 +993,7 @@
 				B10253DE1EC84ED90064373A /* Shared */,
 				B19DAB921E6EF5C2004A50B5 /* LaunchScreen.storyboard */,
 				36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */,
+				A53602621FC6E23C00E3D1AF /* Binding */,
 				B181B9551EC5C21700B8198E /* Favorite */,
 				A5159FDB1FB0731B00B466F2 /* WLANLogin */,
 				0C3ADF1A1F697EE100388C19 /* LostFound */,
@@ -1272,6 +1316,7 @@
 				36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */,
 				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
 				A5E117B91F99DCAE00C86CA2 /* Card.swift in Sources */,
+				A53602671FC6E36100E3D1AF /* LibraryBindingViewController.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
 				36449E6C1FA4BABA0036766B /* FunctionListTableViewCell.swift in Sources */,
 				36449E701FA4BABA0036766B /* CourseDetailReadingView.swift in Sources */,
@@ -1309,6 +1354,7 @@
 				0C3ADF471F697EE100388C19 /* MarkCustomCell.swift in Sources */,
 				0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */,
 				0C3ADF421F697EE100388C19 /* LostFoundAPI.swift in Sources */,
+				A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */,
 				A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */,
 				0C3ADF3F1F697EE100388C19 /* SearchedResultViewController.swift in Sources */,
 				36DA7A5B1FA8A35C000DAF2B /* LoginViewController.swift in Sources */,
@@ -1391,9 +1437,11 @@
 				B10253F01EC84ED90064373A /* AccountManager.swift in Sources */,
 				0C3ADF441F697EE100388C19 /* MyLostFoundModel.swift in Sources */,
 				36073D1C1F225D2A001317A7 /* InfoViewController.swift in Sources */,
+				A53602691FC6EC0500E3D1AF /* TJUBindingViewController.swift in Sources */,
 				0C3ADF3C1F697EE100388C19 /* MyLostFoundPageViewController.swift in Sources */,
 				B10254041EC84EE00064373A /* ClientItem.swift in Sources */,
 				0C3ADF461F697EE100388C19 /* LostFoundCollectionViewCell.swift in Sources */,
+				A50F36501FB8837D00413CF2 /* KeyChain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

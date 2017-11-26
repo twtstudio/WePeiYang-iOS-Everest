@@ -123,7 +123,7 @@ class WLANLoginViewController: WMPageController {
                     warningText.textAlignment = .center
                     self.view.addSubview(warningText)
                     
-                    let heightForTextView = heightForView(text: "已经登录啦", font: UIFont.boldSystemFont(ofSize: 24), width: UIScreen.main.bounds.width - 20 * 2, xpos: 20) * 2.4
+                    let heightForTextView = heightForView(text: "已经登录啦", fontsize: UIFont.systemFont(ofSize: 24), width: UIScreen.main.bounds.width - 20 * 2, xpos: 20) * 2.4
                     
                     accountTextField = UITextField()
                     accountTextField.frame = CGRect(x: 20, y: WiFiImageView.frame.height - WiFiImageView.frame.height * 0.6 + heightForTextView, width: UIScreen.main.bounds.width - 20 * 2, height: 30)
@@ -295,7 +295,7 @@ class WLANLoginViewController: WMPageController {
     }
     
     func logout() {
-        print("tring to login to TJUWLAN")
+        print("tring to logout from TJUWLAN")
         
         if accountTextField.hasText && passwordTextField.hasText {
             var logoutInfo: [String: Any] = [String: Any]()
@@ -341,11 +341,11 @@ class WLANLoginViewController: WMPageController {
         }
     }
     
-    func heightForView(text:String, font:UIFont, width:CGFloat, xpos:CGFloat) -> CGFloat {
+    func heightForView(text: String, fontsize: UIFont, width: CGFloat, xpos: CGFloat) -> CGFloat {
         let label:UILabel = UILabel(frame: CGRect(x: xpos, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.font = font
+        label.font = fontsize
         label.text = text
         
         label.sizeToFit()
