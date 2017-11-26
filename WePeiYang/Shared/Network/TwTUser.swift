@@ -10,6 +10,7 @@ import UIKit
 
 let suiteName = "group.WePeiYang"
 
+// ATTENTION: 永远不要改这个里面数据的类型！
 class TwTUser: NSObject {
     static let shared = TwTUser()
     private override init() {}
