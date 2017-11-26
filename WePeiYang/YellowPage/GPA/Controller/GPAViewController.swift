@@ -26,6 +26,8 @@ class GPAViewController: UIViewController {
     
     var session: String!
     
+    fileprivate var lastScrollOffset = CGPoint.zero
+    
     fileprivate var sortMethod: GPASortMethod = .scoreFirst {
         didSet {
             if sortMethod == .scoreFirst {
@@ -230,6 +232,8 @@ class GPAViewController: UIViewController {
     
     func refresh() {
         GPASessionManager.getGPA(success: { (terms, stat, session) in
+            
+            // TODO: Save the data
             self.terms = terms
             self.stat = stat
             self.session = session
@@ -255,11 +259,13 @@ class GPAViewController: UIViewController {
             self.termLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
         }, completion: nil)
         
+        // 第一个
         if currentTerm!.name == terms[0].name {
             leftButton.isHidden = true
         } else {
             leftButton.isHidden = false
         }
+        // 最后一个
         if currentTerm!.name == terms[terms.count-1].name {
             rightButton.isHidden = true
         } else {
@@ -482,6 +488,14 @@ extension GPAViewController: UITableViewDelegate {
 extension GPAViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y - 80
+
+        if scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < 720 {
+            let scrollOffsetY = scrollView.contentOffset.y - lastScrollOffset.y
+            radarChartView.rotationAngle = (scrollOffsetY * 360.0 / 720.0  + radarChartView.rotationAngle).truncatingRemainder(dividingBy: 360)
+//            radarChartView.rotationAngle = ((radarChartView.rotationAngle + offset) / (530.0 + radarChartView.rotationAngle) )*360.0
+            lastScrollOffset = scrollView.contentOffset
+        }
+
         if offset > 0 {
             self.navigationItem.rightBarButtonItem?.tintColor = .white
             self.navigationController?.navigationBar.tintColor = .white
