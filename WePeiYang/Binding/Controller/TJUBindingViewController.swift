@@ -22,15 +22,6 @@ class TJUBindingViewController: WMPageController {
     var logoImageView: UIImageView!
     var warningText: UITextView!
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.barTintColor = UIColor(hex6: 0x00a1e9)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        super.viewWillAppear(animated)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,13 +64,13 @@ class TJUBindingViewController: WMPageController {
         self.view.addSubview(loginButton)
         
         cancelButton = UIButton()
-        cancelButton.setTitle("解绑临时按钮", for: .normal)
+        cancelButton.setTitle("暂不绑定", for: .normal)
         cancelButton.isUserInteractionEnabled = true
         cancelButton.backgroundColor = UIColor(hex6: 0xd3d3d3)
         cancelButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
         cancelButton.layer.borderWidth = 2
         cancelButton.layer.cornerRadius = 5
-        cancelButton.addTarget(self, action: #selector(cancelLogin), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(dismissBinding), for: .touchUpInside)
         self.view.addSubview(cancelButton)
         cancelButton.snp.makeConstraints { (make) -> Void in
             make.left.equalTo(20)
@@ -112,6 +103,7 @@ class TJUBindingViewController: WMPageController {
                 if bindingStatus == "success" {
                     TwTUser.shared.tjuBindingState = true
                     TwTUser.shared.save()
+                    NotificationCenter.default.post(name: NotificationNames.NotificationStatusDidChange.name, object: ("tju", true))
                     self.dismiss(animated: true, completion: nil)
                     print("TJUBindingState:")
                     print(TwTUser.shared.tjuBindingState)
@@ -139,6 +131,7 @@ class TJUBindingViewController: WMPageController {
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
     
     func cancelLogin() {
         
@@ -176,6 +169,10 @@ class TJUBindingViewController: WMPageController {
             self.dismiss(animated: true, completion: nil)
             
         })
+    }
+    
+    func dismissBinding() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     /*

@@ -139,8 +139,10 @@
 		A50F36501FB8837D00413CF2 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364F1FB8837D00413CF2 /* KeyChain.swift */; };
 		A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51497F91FC80D5E00622A7B /* BindingAPIs.swift */; };
 		A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */; };
+		A51C45681FD0227800652435 /* WLANBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51C45671FD0227800652435 /* WLANBindingViewController.swift */; };
 		A53602671FC6E36100E3D1AF /* LibraryBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53602661FC6E36100E3D1AF /* LibraryBindingViewController.swift */; };
 		A53602691FC6EC0500E3D1AF /* TJUBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53602681FC6EC0500E3D1AF /* TJUBindingViewController.swift */; };
+		A5389CB41FCB03CA00E6CD62 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5389CB31FCB03CA00E6CD62 /* NotificationNames.swift */; };
 		A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4B01F99E43F00022A01 /* BicycleServiceNotificationController.swift */; };
 		A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4B81F99E57700022A01 /* SpotDetailsView.swift */; };
 		A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */; };
@@ -339,8 +341,10 @@
 		A50F364F1FB8837D00413CF2 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		A51497F91FC80D5E00622A7B /* BindingAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingAPIs.swift; sourceTree = "<group>"; };
 		A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANLoginViewController.swift; sourceTree = "<group>"; };
+		A51C45671FD0227800652435 /* WLANBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANBindingViewController.swift; sourceTree = "<group>"; };
 		A53602661FC6E36100E3D1AF /* LibraryBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryBindingViewController.swift; sourceTree = "<group>"; };
 		A53602681FC6EC0500E3D1AF /* TJUBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TJUBindingViewController.swift; sourceTree = "<group>"; };
+		A5389CB31FCB03CA00E6CD62 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		A554C4B01F99E43F00022A01 /* BicycleServiceNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleServiceNotificationController.swift; sourceTree = "<group>"; };
 		A554C4B81F99E57700022A01 /* SpotDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailsView.swift; sourceTree = "<group>"; };
 		A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleFitnessTrackerViewCell.swift; sourceTree = "<group>"; };
@@ -792,6 +796,7 @@
 			children = (
 				A53602661FC6E36100E3D1AF /* LibraryBindingViewController.swift */,
 				A53602681FC6EC0500E3D1AF /* TJUBindingViewController.swift */,
+				A51C45671FD0227800652435 /* WLANBindingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -909,6 +914,7 @@
 			children = (
 				B10253EE1EC84ED90064373A /* DeviceStatus.swift */,
 				B10253EF1EC84ED90064373A /* log.swift */,
+				A5389CB31FCB03CA00E6CD62 /* NotificationNames.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1269,13 +1275,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WePeiYangTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		433FB015B3FA922FE8E29B31 /* [CP] Copy Pods Resources */ = {
@@ -1299,9 +1308,34 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/DateTools/DateTools.framework",
+				"${BUILT_PRODUCTS_DIR}/IGIdenticon/IGIdenticon.framework",
+				"${BUILT_PRODUCTS_DIR}/JBChartView/JBChartView.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/STPopup/STPopup.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/WMPageController/WMPageController.framework",
+				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateTools.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGIdenticon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JBChartView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/STPopup.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WMPageController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1329,13 +1363,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WePeiYang-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1391,6 +1428,7 @@
 				365936941F1E60A9003CE578 /* CourseAppraiseCell.swift in Sources */,
 				A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */,
 				365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */,
+				A5389CB41FCB03CA00E6CD62 /* NotificationNames.swift in Sources */,
 				36073D0B1F223FC1001317A7 /* RecommendCell.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
 				B181B9601EC5C24000B8198E /* NewsViewController.swift in Sources */,
@@ -1454,6 +1492,7 @@
 				3653DD911FBAD0B600501C3B /* ClassTableViewController.swift in Sources */,
 				3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */,
 				A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */,
+				A51C45681FD0227800652435 /* WLANBindingViewController.swift in Sources */,
 				B102541D1EC8547E0064373A /* SpringButton.swift in Sources */,
 				36449E861FA4BAD10036766B /* TheoryClassicsTableViewController.swift in Sources */,
 				365936951F1E60A9003CE578 /* ScoreHeaderView.swift in Sources */,

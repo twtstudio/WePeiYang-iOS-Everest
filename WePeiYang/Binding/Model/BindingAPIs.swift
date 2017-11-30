@@ -14,4 +14,7 @@ struct BindingAPIs {
     
     let bindTJUAccount = "api/v1/auth/bind/tju"
 
+    let unbindLIBAccount = "api/v1/auth/unbind/lib"
+    
+    let unbindTJUAccount = "api/v1/auth/unbind/tju"
 }
