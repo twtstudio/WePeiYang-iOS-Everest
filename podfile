@@ -4,6 +4,7 @@
 target 'WePeiYang' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
+  # Pods for WePeiYang
   pod 'Alamofire'
   pod 'JBChartView'
   pod 'SnapKit'
@@ -17,7 +18,7 @@ target 'WePeiYang' do
   pod 'IGIdenticon'
   pod 'STPopup'
   pod 'DateTools'
-  # Pods for WePeiYang
+  pod 'SwiftMessages'
 
   target 'WePeiYangTests' do
     inherit! :search_paths
