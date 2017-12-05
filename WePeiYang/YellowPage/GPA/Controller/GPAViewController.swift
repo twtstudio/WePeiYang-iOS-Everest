@@ -29,7 +29,7 @@ class GPAViewController: UIViewController {
     
     var session: String!
     
-    fileprivate var lastScrollOffset = CGPoint.zero
+//    fileprivate var lastScrollOffset = CGPoint.zero
     
     fileprivate var sortMethod: GPASortMethod = .scoreFirst {
         didSet {
@@ -513,12 +513,12 @@ extension GPAViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y - 80
 
-        if scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < 720 {
-            let scrollOffsetY = scrollView.contentOffset.y - lastScrollOffset.y
-            radarChartView.rotationAngle = (scrollOffsetY * 360.0 / 720.0  + radarChartView.rotationAngle).truncatingRemainder(dividingBy: 360)
-//            radarChartView.rotationAngle = ((radarChartView.rotationAngle + offset) / (530.0 + radarChartView.rotationAngle) )*360.0
-            lastScrollOffset = scrollView.contentOffset
-        }
+//        if scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < 720 {
+//            let scrollOffsetY = scrollView.contentOffset.y - lastScrollOffset.y
+//            radarChartView.rotationAngle = (scrollOffsetY * 360.0 / 720.0  + radarChartView.rotationAngle).truncatingRemainder(dividingBy: 360)
+////            radarChartView.rotationAngle = ((radarChartView.rotationAngle + offset) / (530.0 + radarChartView.rotationAngle) )*360.0
+//            lastScrollOffset = scrollView.contentOffset
+//        }
 
         if offset > 0 {
             self.navigationItem.rightBarButtonItem?.tintColor = .white

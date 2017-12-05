@@ -30,8 +30,10 @@ protocol CourseListViewDelegate {
 }
 
 protocol CourseListViewDataSource {
+//    var
     func days() -> [Int]
     func courses(in day: Int) -> [ClassModel]
+    func dayTitles() -> [String]
 }
 //Hiererachy
 //"CourseListView" UIView
@@ -56,7 +58,7 @@ class CourseListView: UIView {
         }
     }
     
-    var days: [Int] = []
+    var days: [Int] = [1, 2, 3, 4, 5, 6, 7]
     var coursesForDay: [Int : [ClassModel]] = [:]
     
     var week: [[ClassModel]] = []
@@ -91,12 +93,12 @@ class CourseListView: UIView {
             make.height.equalTo(C.dayNumberViewHeight)
         }
         
-        let dayArray = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+        var dayTitles = dataSource?.dayTitles() ?? ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
         // 一般是有七天
         var dayNumberLabels: [UILabel] = []
         for i in 0..<C.dayCount {
             let label = UILabel(frame: .zero)
-            label.text = dayArray[i]
+            label.text = dayTitles[i]
             label.textAlignment = .center
             label.font = UIFont.systemFont(ofSize: 13)
             label.textColor = .lightGray
@@ -233,7 +235,7 @@ class CourseListView: UIView {
             return
         }
         
-        days = dataSource.days()
+//        days = dataSource.days()
         days.forEach { day in
             coursesForDay[day] = dataSource.courses(in: day)
         }

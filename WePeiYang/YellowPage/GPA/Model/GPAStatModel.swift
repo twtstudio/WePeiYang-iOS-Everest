@@ -36,8 +36,21 @@ struct GPAStatModel: Mappable {
         } else {
             score <- map["score"]
         }
-        gpa <- map["gpa"]
-        credit <- map["credit"]
+        
+        if map["credit"].currentValue is String {
+            credit <- (map["credit"], transform)
+        } else {
+            credit <- map["credit"]
+        }
+        
+        if map["gpa"].currentValue is String {
+            gpa <- (map["gpa"], transform)
+        } else {
+            gpa <- map["gpa"]
+        }
+
+//        credit <- map["credit"]
+//        gpa <- map["gpa"]
         year <- map["year"]
     }
 }

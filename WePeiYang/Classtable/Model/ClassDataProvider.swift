@@ -11,6 +11,7 @@
 import Foundation
 import DateTools
 
+
 class ClassDataProvider: CourseListViewDataSource {
     var table: ClassTableModel? {
         didSet {
@@ -27,6 +28,14 @@ class ClassDataProvider: CourseListViewDataSource {
             }
         }
     }
+    func dayTitles() -> [String] {
+        let dayArray = days()
+        for i in dayArray {
+            Calendar.current
+        }
+        return [""]
+    }
+    
     private var courses: [Int : [ClassModel]] = [:]
     
     func weekNumber() -> Int {
@@ -61,3 +70,4 @@ class ClassDataProvider: CourseListViewDataSource {
         })
     }
 }
+
