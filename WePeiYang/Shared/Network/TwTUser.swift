@@ -22,6 +22,8 @@ class TwTUser: NSObject {
     var libBindingState: Bool = false
     var bicycleBindingState: Bool = false
     var WLANBindingState: Bool = false
+    var WLANAccount: String?
+    var WLANPassword: String?
     var dropout: String = "-1"
     var avatarURL: String?
     var twtid: String?

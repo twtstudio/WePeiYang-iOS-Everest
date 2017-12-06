@@ -49,7 +49,6 @@
 		36073D1F1F225D2A001317A7 /* ReviewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D181F225D2A001317A7 /* ReviewListViewController.swift */; };
 		36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D191F225D2A001317A7 /* SearchViewController.swift */; };
 		36073D241F22713B001317A7 /* ReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D231F22713B001317A7 /* ReadViewController.swift */; };
-		36073D261F231C36001317A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36073D251F231C36001317A7 /* Assets.xcassets */; };
 		3631D50A1F1903D70078816D /* TwTUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5091F1903D70078816D /* TwTUser.swift */; };
 		36366B2E1FAB86B0001F72A0 /* BicycleServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36366B2D1FAB86B0001F72A0 /* BicycleServiceViewController.swift */; };
 		36366B2F1FAB8A84001F72A0 /* BicycleServiceInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D6952E1F8A21AD00022B9A /* BicycleServiceInfoController.xib */; };
@@ -134,12 +133,14 @@
 		36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F631EC1FAB31C500E3261F /* BicycleUserBindViewController.swift */; };
 		36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F631ED1FAB31C500E3261F /* BicycleServiceMapController.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
+		A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51C456B1FD122F700652435 /* Assets.xcassets */; };
 		A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */; };
 		A50F36501FB8837D00413CF2 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364F1FB8837D00413CF2 /* KeyChain.swift */; };
 		A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51497F91FC80D5E00622A7B /* BindingAPIs.swift */; };
 		A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */; };
 		A51C45681FD0227800652435 /* WLANBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51C45671FD0227800652435 /* WLANBindingViewController.swift */; };
+		A51C456A1FD0477700652435 /* BicycleBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51C45691FD0477700652435 /* BicycleBindingViewController.swift */; };
 		A53602671FC6E36100E3D1AF /* LibraryBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53602661FC6E36100E3D1AF /* LibraryBindingViewController.swift */; };
 		A53602691FC6EC0500E3D1AF /* TJUBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53602681FC6EC0500E3D1AF /* TJUBindingViewController.swift */; };
 		A5389CB41FCB03CA00E6CD62 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5389CB31FCB03CA00E6CD62 /* NotificationNames.swift */; };
@@ -252,7 +253,6 @@
 		36073D181F225D2A001317A7 /* ReviewListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewListViewController.swift; sourceTree = "<group>"; };
 		36073D191F225D2A001317A7 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		36073D231F22713B001317A7 /* ReadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadViewController.swift; sourceTree = "<group>"; };
-		36073D251F231C36001317A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3631D5091F1903D70078816D /* TwTUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTUser.swift; sourceTree = "<group>"; };
 		36366B2D1FAB86B0001F72A0 /* BicycleServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleServiceViewController.swift; sourceTree = "<group>"; };
 		36366B351FAC61B6001F72A0 /* WePeiYang.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WePeiYang.entitlements; sourceTree = "<group>"; };
@@ -342,6 +342,8 @@
 		A51497F91FC80D5E00622A7B /* BindingAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingAPIs.swift; sourceTree = "<group>"; };
 		A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANLoginViewController.swift; sourceTree = "<group>"; };
 		A51C45671FD0227800652435 /* WLANBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANBindingViewController.swift; sourceTree = "<group>"; };
+		A51C45691FD0477700652435 /* BicycleBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleBindingViewController.swift; sourceTree = "<group>"; };
+		A51C456B1FD122F700652435 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A53602661FC6E36100E3D1AF /* LibraryBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryBindingViewController.swift; sourceTree = "<group>"; };
 		A53602681FC6EC0500E3D1AF /* TJUBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TJUBindingViewController.swift; sourceTree = "<group>"; };
 		A5389CB31FCB03CA00E6CD62 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
@@ -795,6 +797,7 @@
 			isa = PBXGroup;
 			children = (
 				A53602661FC6E36100E3D1AF /* LibraryBindingViewController.swift */,
+				A51C45691FD0477700652435 /* BicycleBindingViewController.swift */,
 				A53602681FC6EC0500E3D1AF /* TJUBindingViewController.swift */,
 				A51C45671FD0227800652435 /* WLANBindingViewController.swift */,
 			);
@@ -981,8 +984,8 @@
 		B156B7891E7A857F00A4C500 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A51C456B1FD122F700652435 /* Assets.xcassets */,
 				36F5BDCD1F9E17A600CDDF74 /* FlowingColor.mp4 */,
-				36073D251F231C36001317A7 /* Assets.xcassets */,
 			);
 			name = Resources;
 			path = WePeiYang/Resources;
@@ -1223,11 +1226,11 @@
 				36366B301FAB8A84001F72A0 /* BicycleNotificationDetailViewController.xib in Resources */,
 				36366B311FAB8A84001F72A0 /* BicycleServiceNotificationController.xib in Resources */,
 				36366B321FAB8A84001F72A0 /* BicycleRecordViewController.xib in Resources */,
+				A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */,
 				36366B331FAB8A84001F72A0 /* BicycleUserBindViewController.xib in Resources */,
 				A554C4BE1F99F84900022A01 /* ParkingSpotsLocs.json in Resources */,
 				36F5BDCE1F9E196200CDDF74 /* FlowingColor.mp4 in Resources */,
 				36449E671FA4BABA0036766B /* PartyHandInViewController.xib in Resources */,
-				36073D261F231C36001317A7 /* Assets.xcassets in Resources */,
 				36449E6A1FA4BABA0036766B /* GradeDetailViewController.xib in Resources */,
 				36449E6B1FA4BABA0036766B /* GradeCheckViewController.xib in Resources */,
 				B19DAB941E6EF5C2004A50B5 /* LaunchScreen.storyboard in Resources */,
@@ -1433,6 +1436,7 @@
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
 				B181B9601EC5C24000B8198E /* NewsViewController.swift in Sources */,
 				0C3ADF3B1F697EE100388C19 /* MyFoundViewController.swift in Sources */,
+				A51C456A1FD0477700652435 /* BicycleBindingViewController.swift in Sources */,
 				365936711F1E38B8003CE578 /* YellowPageSearchHistoryCell.swift in Sources */,
 				B10254051EC84EE00064373A /* PhoneBook.swift in Sources */,
 				A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */,

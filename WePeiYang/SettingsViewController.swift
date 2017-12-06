@@ -29,7 +29,7 @@ class SettingsViewController: UIViewController {
     public var services: [ItemData] = [
         ("图书馆", LibraryBindingViewController.self, "", {
             return TwTUser.shared.libBindingState}()),
-        ("自行车", LoginViewController.self, "", {
+        ("自行车", BicycleBindingViewController.self, "", {
             return TwTUser.shared.bicycleBindingState}()),
         ("办公网", TJUBindingViewController.self, "", {
             return TwTUser.shared.tjuBindingState}()),
@@ -132,11 +132,11 @@ class SettingsViewController: UIViewController {
         
         switch indexPath.row {
         case 0:
-            unbindURL = BindingAPIs.init().unbindLIBAccount
+            unbindURL = BindingAPIs.unbindLIBAccount
         case 1:
             return
         case 2:
-            unbindURL = BindingAPIs.init().unbindTJUAccount
+            unbindURL = BindingAPIs.unbindTJUAccount
         case 3:
             return
         default:
@@ -146,11 +146,11 @@ class SettingsViewController: UIViewController {
         SolaSessionManager.solaSession(type: .get, baseURL: baseURL, url: unbindURL, token: TwTUser.shared.token, success: { dictionary in
             print(dictionary)
             print("Succeeded")
-            guard let bindingStatus: String = dictionary["data"] as? String else {
+            guard let errorCode: Int = dictionary["error_code"] as? Int else {
                 return
             }
             
-            if bindingStatus == "unbind success" {
+            if errorCode == -1 {
                 TwTUser.shared.tjuBindingState = false
                 TwTUser.shared.save()
                 print(indexPath.row)

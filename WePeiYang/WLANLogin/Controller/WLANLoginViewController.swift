@@ -141,7 +141,7 @@ class WLANLoginViewController: WMPageController {
                     
                     // use loginButton as logoutButton because I don't wanna declare a button once more.
                     loginButton = UIButton()
-                    loginButton.frame = CGRect(x: 20, y: WiFiImageView.frame.height * 0.4 + 40 + 50 + 20 + heightForTextView, width: UIScreen.main.bounds.width - 20 * 2, height: 40)
+                    loginButton.frame = CGRect(x: 20, y: WiFiImageView.frame.height * 0.4 + 40 + 30 + 20 + heightForTextView, width: UIScreen.main.bounds.width - 20 * 2, height: 40)
                     loginButton.setTitle("注 销", for: .normal)
                     loginButton.setTitleColor(.white, for: .normal)
                     loginButton.isUserInteractionEnabled = true
@@ -219,7 +219,7 @@ class WLANLoginViewController: WMPageController {
              let sessionManager = Alamofire.SessionManager(configuration: configuration)
              */
             
-            Alamofire.request(WLANLoginAPIs.rootURL, method: .post, parameters: loginInfo).responseString(completionHandler: { (dataResponse) in
+            Alamofire.request("http://202.113.5.133/include/auth_action.php", method: .post, parameters: loginInfo).responseString(completionHandler: { (dataResponse) in
                 print(dataResponse)
                 
                 if let responseString = dataResponse.value {
@@ -304,7 +304,7 @@ class WLANLoginViewController: WMPageController {
             logoutInfo["password"] = "\(passwordTextField.text!)"
             logoutInfo["ajax"] = "1"
             
-            Alamofire.request(WLANLoginAPIs.rootURL, method: .post, parameters: logoutInfo).responseString(completionHandler: { (dataResponse) in
+            Alamofire.request("http://202.113.5.133/include/auth_action.php", method: .post, parameters: logoutInfo).responseString(completionHandler: { (dataResponse) in
                 print(dataResponse)
                 
                 if let responseString = dataResponse.value {
