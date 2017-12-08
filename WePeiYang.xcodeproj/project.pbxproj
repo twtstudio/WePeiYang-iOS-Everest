@@ -98,6 +98,9 @@
 		36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E801FA4BAD00036766B /* GradeDetailViewController.swift */; };
 		36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E811FA4BAD00036766B /* GradeCheckViewController.swift */; };
 		36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E821FA4BAD00036766B /* AllQuizViewController.swift */; };
+		364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */; };
+		364BDF721FDAE1EF00E61B65 /* GPACard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BDF711FDAE1EF00E61B65 /* GPACard.swift */; };
+		364BDF741FDAE21900E61B65 /* BezierLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BDF731FDAE21900E61B65 /* BezierLineLayer.swift */; };
 		364DB4F31FC6FD270050421D /* ClassDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364DB4F21FC6FD270050421D /* ClassDataProvider.swift */; };
 		365261561FB9F83400025B8A /* ClassTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365261551FB9F83400025B8A /* ClassTableModel.swift */; };
 		3653DD911FBAD0B600501C3B /* ClassTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3653DD901FBAD0B600501C3B /* ClassTableViewController.swift */; };
@@ -122,6 +125,7 @@
 		365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A1A1FB9BA8500B15443 /* ArrangeModel.swift */; };
 		365A8A251FB9BA8500B15443 /* ClasstableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A1C1FB9BA8500B15443 /* ClasstableDataManager.swift */; };
 		365A8A281FB9CA1700B15443 /* ClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A271FB9CA1700B15443 /* ClassModel.swift */; };
+		36758FDD1FDA851C0023A99C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36758FDC1FDA851C0023A99C /* CardView.swift */; };
 		36922AE21FCAEA1E00AD44F3 /* GPAModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36922AE11FCAEA1E00AD44F3 /* GPAModel.swift */; };
 		369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369306941F2B976C008E90DC /* ModuleCollectionViewCell.swift */; };
 		36DA7A5B1FA8A35C000DAF2B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */; };
@@ -302,6 +306,9 @@
 		36449E801FA4BAD00036766B /* GradeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GradeDetailViewController.swift; path = PartyService/Controller/GradeDetailViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		36449E811FA4BAD00036766B /* GradeCheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GradeCheckViewController.swift; path = PartyService/Controller/GradeCheckViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		36449E821FA4BAD00036766B /* AllQuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AllQuizViewController.swift; path = PartyService/Controller/AllQuizViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewTransitionAnimator.swift; sourceTree = "<group>"; };
+		364BDF711FDAE1EF00E61B65 /* GPACard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPACard.swift; sourceTree = "<group>"; };
+		364BDF731FDAE21900E61B65 /* BezierLineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BezierLineLayer.swift; sourceTree = "<group>"; };
 		364DB4F21FC6FD270050421D /* ClassDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDataProvider.swift; sourceTree = "<group>"; };
 		365261551FB9F83400025B8A /* ClassTableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableModel.swift; sourceTree = "<group>"; };
 		3653DD901FBAD0B600501C3B /* ClassTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewController.swift; sourceTree = "<group>"; };
@@ -326,6 +333,7 @@
 		365A8A1A1FB9BA8500B15443 /* ArrangeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrangeModel.swift; sourceTree = "<group>"; };
 		365A8A1C1FB9BA8500B15443 /* ClasstableDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClasstableDataManager.swift; sourceTree = "<group>"; };
 		365A8A271FB9CA1700B15443 /* ClassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassModel.swift; sourceTree = "<group>"; };
+		36758FDC1FDA851C0023A99C /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		36922AE11FCAEA1E00AD44F3 /* GPAModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAModel.swift; sourceTree = "<group>"; };
 		369306941F2B976C008E90DC /* ModuleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleCollectionViewCell.swift; sourceTree = "<group>"; };
 		36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WePeiYang-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -969,7 +977,9 @@
 			isa = PBXGroup;
 			children = (
 				B10254111EC8547E0064373A /* CardViewAndDelegate.swift */,
+				364BDF731FDAE21900E61B65 /* BezierLineLayer.swift */,
 				B10254121EC8547E0064373A /* Metadata.swift */,
+				364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */,
 				B13F3AE71F0CEE5C00F820A5 /* FAB.swift */,
 				B10254131EC8547E0064373A /* SpringButton.swift */,
 				B10254141EC8547E0064373A /* TabVCTransitioningAnimator.swift */,
@@ -980,6 +990,7 @@
 				B10254191EC8547E0064373A /* WPYTextField.swift */,
 				B102541A1EC8547E0064373A /* WPYTextView.swift */,
 				3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */,
+				36758FDC1FDA851C0023A99C /* CardView.swift */,
 			);
 			path = UI_Fundamentals;
 			sourceTree = "<group>";
@@ -1022,6 +1033,7 @@
 		B181B9591EC5C21700B8198E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				364BDF711FDAE1EF00E61B65 /* GPACard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1416,6 +1428,7 @@
 				36073D1B1F225D2A001317A7 /* BookShelfViewController.swift in Sources */,
 				365A8A281FB9CA1700B15443 /* ClassModel.swift in Sources */,
 				365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */,
+				364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */,
 				36449E491FA4BA9B0036766B /* Applicant.swift in Sources */,
 				36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */,
 				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
@@ -1442,6 +1455,7 @@
 				A51C456A1FD0477700652435 /* BicycleBindingViewController.swift in Sources */,
 				365936711F1E38B8003CE578 /* YellowPageSearchHistoryCell.swift in Sources */,
 				B10254051EC84EE00064373A /* PhoneBook.swift in Sources */,
+				36758FDD1FDA851C0023A99C /* CardView.swift in Sources */,
 				A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */,
 				A5E117C31F99E03200C86CA2 /* BicycleRecordViewController.swift in Sources */,
 				A5E117C11F99E01A00C86CA2 /* BicycleCardListViewController.swift in Sources */,
@@ -1456,6 +1470,7 @@
 				36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */,
 				36E56BC61FC512230009BD6F /* CourseListView.swift in Sources */,
 				0C3ADF491F697EE100388C19 /* PublishCustomCell.swift in Sources */,
+				364BDF721FDAE1EF00E61B65 /* GPACard.swift in Sources */,
 				0C3ADF431F697EE100388C19 /* LostFoundModel.swift in Sources */,
 				0C3ADF351F697EE100388C19 /* DetailViewController.swift in Sources */,
 				36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */,
@@ -1475,6 +1490,7 @@
 				36449E6D1FA4BABA0036766B /* FinalView.swift in Sources */,
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
 				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
+				364BDF741FDAE21900E61B65 /* BezierLineLayer.swift in Sources */,
 				0C3ADF3D1F697EE100388C19 /* MyLostViewController.swift in Sources */,
 				B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */,
 				B102541C1EC8547E0064373A /* Metadata.swift in Sources */,
