@@ -10,6 +10,7 @@ import UIKit
 import WMPageController
 import SnapKit
 import Alamofire
+import SafariServices
 
 class WLANBindingViewController: WMPageController {
     
@@ -18,6 +19,7 @@ class WLANBindingViewController: WMPageController {
     var bindButton: UIButton!
     var logoutButton: UIButton!
     var dismissButton: UIButton!
+    var serviceButton: UIButton!
     var logoImage: UIImage!
     var logoImageView: UIImageView!
     var warningText: UITextView!
@@ -69,22 +71,20 @@ class WLANBindingViewController: WMPageController {
         bindButton.addTarget(self, action: #selector(bind), for: .touchUpInside)
         self.view.addSubview(bindButton)
         
-        /*
-         dismissButton = UIButton()
-         dismissButton.setTitle("暂不绑定", for: .normal)
-         dismissButton.isUserInteractionEnabled = true
-         dismissButton.backgroundColor = UIColor(hex6: 0xd3d3d3)
-         dismissButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
-         dismissButton.layer.borderWidth = 2
-         dismissButton.layer.cornerRadius = 5
-         dismissButton.addTarget(self, action: #selector(dismissBinding), for: .touchUpInside)
-         self.view.addSubview(dismissButton)
-         dismissButton.snp.makeConstraints { (make) -> Void in
-         make.left.equalTo(20)
-         make.right.equalTo(-20)
-         make.top.equalTo(bindButton.snp.bottom).offset(10)
-         }
-         */
+        serviceButton = UIButton()
+        serviceButton.setTitle("自服务", for: .normal)
+        serviceButton.isUserInteractionEnabled = true
+        serviceButton.backgroundColor = UIColor(hex6: 0xd3d3d3)
+        serviceButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
+        serviceButton.layer.borderWidth = 2
+        serviceButton.layer.cornerRadius = 5
+        serviceButton.addTarget(self, action: #selector(showService), for: .touchUpInside)
+        self.view.addSubview(serviceButton)
+        serviceButton.snp.makeConstraints { (make) -> Void in
+            make.left.equalTo((self.view.frame.size.width-textFieldWidth)/2)
+            make.right.equalTo(-(self.view.frame.size.width-textFieldWidth)/2)
+            make.top.equalTo(bindButton.snp.bottom).offset(10)
+        }
         
         dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: self.view.frame.size.height*4.0/5.0, width: 30, height: 20))
         dismissButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
@@ -202,6 +202,20 @@ class WLANBindingViewController: WMPageController {
     
     func dismissBinding() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func showService() {
+        if let url = URL(string: "http://202.113.4.11/") {
+            if #available(iOS 11.0, *) {
+                let config = SFSafariViewController.Configuration()
+                config.entersReaderIfAvailable = true
+                
+                let vc = SFSafariViewController(url: url, configuration: config)
+                present(vc, animated: true)
+            } else {
+                // Fallback on earlier versions
+            }
+        }
     }
 }
 
