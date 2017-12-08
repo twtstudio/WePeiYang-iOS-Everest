@@ -52,7 +52,7 @@ class BicycleBindingViewController: UIViewController {
         */
         
         bindButton = UIButton()
-        bindButton.frame = CGRect(x: (self.view.frame.size.width-textFieldWidth)/2, y: IDCardNumberTextField.frame.origin.y + 20, width: textFieldWidth, height: 38)
+        bindButton.frame = CGRect(x: (self.view.frame.size.width-textFieldWidth)/2, y: IDCardNumberTextField.frame.origin.y + IDCardNumberTextField.frame.height + 20, width: textFieldWidth, height: 38)
         bindButton.setTitle("绑 定", for: .normal)
         bindButton.setTitleColor(.white, for: .normal)
         bindButton.isUserInteractionEnabled = true
