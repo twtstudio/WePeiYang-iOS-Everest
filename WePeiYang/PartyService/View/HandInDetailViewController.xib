@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11761" systemVersion="16C60b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HandInDetailViewController" customModule="WePeiYang" customModuleProvider="target">
+            <connections>
+                <outlet property="contentTextView" destination="aD4-AP-LLb" id="eLa-BR-Qqg"/>
+                <outlet property="titleTextField" destination="ieB-4z-2LF" id="Gys-oN-wpT"/>
+                <outlet property="view" destination="iN0-l3-epB" id="uUY-EV-5HR"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Dd-9m-bBb">
+                    <rect key="frame" x="8" y="80" width="52" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aD4-AP-LLb">
+                    <rect key="frame" x="8" y="119" width="359" height="540"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="86z-Dq-NbB">
+                    <rect key="frame" x="8" y="109" width="359" height="2"/>
+                    <color key="backgroundColor" red="0.90588235289999997" green="0.90196078430000004" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="2" id="oHp-Y7-sIv"/>
+                    </constraints>
+                </view>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ieB-4z-2LF">
+                    <rect key="frame" x="68" y="79" width="299" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="2G1-LC-jtU"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="2G1-LC-jtU"/>
+                        </mask>
+                    </variation>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="aD4-AP-LLb" secondAttribute="bottom" constant="8" id="69I-zL-Ohb"/>
+                <constraint firstItem="aD4-AP-LLb" firstAttribute="top" secondItem="86z-Dq-NbB" secondAttribute="bottom" constant="8" id="C6l-rP-7lr"/>
+                <constraint firstAttribute="trailing" secondItem="aD4-AP-LLb" secondAttribute="trailing" constant="8" id="KwC-U7-74r"/>
+                <constraint firstItem="6Dd-9m-bBb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="80" id="Lyl-Rm-dHK"/>
+                <constraint firstAttribute="trailing" secondItem="86z-Dq-NbB" secondAttribute="trailing" constant="8" id="NQ5-8W-PZc"/>
+                <constraint firstAttribute="trailing" secondItem="ieB-4z-2LF" secondAttribute="trailing" constant="8" id="cwz-rK-rrZ"/>
+                <constraint firstItem="aD4-AP-LLb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="dsB-GO-6Sy"/>
+                <constraint firstItem="ieB-4z-2LF" firstAttribute="centerY" secondItem="6Dd-9m-bBb" secondAttribute="centerY" id="eIq-kJ-VbM"/>
+                <constraint firstItem="86z-Dq-NbB" firstAttribute="top" secondItem="6Dd-9m-bBb" secondAttribute="bottom" constant="8" id="pkF-n4-Owy"/>
+                <constraint firstItem="6Dd-9m-bBb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="qG6-yG-kfB"/>
+                <constraint firstItem="ieB-4z-2LF" firstAttribute="leading" secondItem="6Dd-9m-bBb" secondAttribute="trailing" constant="8" id="zZM-kN-rsk"/>
+                <constraint firstItem="86z-Dq-NbB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="zws-By-0Gy"/>
+            </constraints>
+            <point key="canvasLocation" x="325" y="333"/>
+        </view>
+    </objects>
+</document>

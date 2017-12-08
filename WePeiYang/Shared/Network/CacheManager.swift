@@ -8,6 +8,8 @@
 
 import UIKit
 
+let suiteName = "group.WePeiYang"
+
 struct CacheManager {
     
     static func saveCache(cacheData data: Any, key keyStr: String) {
@@ -66,30 +68,35 @@ struct CacheManager {
     }
     
     static func saveGroupCache(with data: Any, key keyStr: String) {
-        let userDefault = UserDefaults(suiteName: "group.WePeiYang")
+        let userDefault = UserDefaults(suiteName: suiteName)
         removeGroupCache(withKey: keyStr)
         userDefault?.set(data, forKey: keyStr)
         userDefault?.synchronize()
     }
     
     static func removeGroupCache(withKey keyStr: String) {
-        let userDefault = UserDefaults(suiteName: "group.WePeiYang")
+        let userDefault = UserDefaults(suiteName: suiteName)
         userDefault?.removeObject(forKey: keyStr)
         userDefault?.synchronize()
     }
     
-    static func loadGroupCache(withKey keyStr: String, success: ((Any)->())?) {
-        let userDefault = UserDefaults(suiteName: "group.WePeiYang")
+    static func loadGroupCache(withKey keyStr: String) -> Any? {
+        let userDefault = UserDefaults(suiteName: suiteName)
         let cacheData = userDefault?.object(forKey: keyStr)
-        if let cacheData = cacheData {
-            success?(cacheData)
-        } else {
-            log.errorMessage("Group Cache file \(keyStr) can't load")/
-        }
+        return cacheData
     }
+//    static func loadGroupCache(withKey keyStr: String, success: ((Any)->())?) {
+//        let userDefault = UserDefaults(suiteName: suiteName)
+//        let cacheData = userDefault?.object(forKey: keyStr)
+//        if let cacheData = cacheData {
+//            success?(cacheData)
+//        } else {
+//            log.errorMessage("Group Cache file \(keyStr) can't load")/
+//        }
+//    }
     
     static func groupCacheExists(withKey keyStr: String) -> Bool {
-        let userDefault = UserDefaults(suiteName: "group.WePeiYang")
+        let userDefault = UserDefaults(suiteName: suiteName)
         let cacheData = userDefault?.object(forKey: keyStr)
         if cacheData != nil {
             return true

@@ -296,8 +296,31 @@ extension UIControl {
 }
 
 extension UIViewController {
+    private static func findBest(_ vc: UIViewController) -> UIViewController {
+        if let next = vc.presentedViewController {
+            return findBest(next)
+        } else if let svc = vc as? UISplitViewController, let last = svc.viewControllers.last {
+            return findBest(last)
+        } else if let svc = vc as? UINavigationController, let top = svc.viewControllers.last {
+            return findBest(top)
+        } else if let svc = vc as? UITabBarController, let selected = svc.selectedViewController {
+            return findBest(selected)
+        } else {
+            return vc
+        }
+    }
     
-    static func topViewController() -> UIViewController? {
+
+    static var current: UIViewController? {
+        if let vc = UIApplication.shared.keyWindow?.rootViewController {
+            return findBest(vc)
+        } else {
+            return nil
+        }
+    }
+    
+    static var top: UIViewController? {
+
         if let appRootVC = UIApplication.shared.keyWindow?.rootViewController {
             var topVC: UIViewController? = appRootVC
             while (topVC?.presentedViewController != nil) {
@@ -307,6 +330,7 @@ extension UIViewController {
         }
         return nil
     }
+    
     
 }
 
@@ -352,6 +376,10 @@ extension UIColor {
         let b = CGFloat( hex6 & 0x0000FF       ) / divisor
         self.init(red: r, green: g, blue: b, alpha: alpha)
     }
+    
+    static var readRed: UIColor {
+        return UIColor(red: 237.0/255.0, green: 84.0/255.0, blue: 80.0/255.0, alpha: 1.0)
+    }
 }
 
 
@@ -383,4 +411,11 @@ extension UIViewController {
 
     
     
+}
+
+extension CGRect {
+    init(center: CGPoint, size: CGSize) {
+        let origin = CGPoint(x: center.x - size.width/2, y: center.y - size.height/2)
+        self.init(origin: origin, size: size)
+    }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11761" systemVersion="16C60b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BicycleServiceNotificationController" customModule="WePeiYang" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="cXn-wn-lT5" id="0os-1F-V3C"/>
+                <outlet property="view" destination="kp1-tV-h2j" id="Ncm-CJ-5hF"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="kp1-tV-h2j">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="66" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="cXn-wn-lT5">
+                    <rect key="frame" x="0.0" y="108" width="375" height="559"/>
+                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="cXn-wn-lT5" secondAttribute="bottom" id="K6x-62-tpZ"/>
+                <constraint firstItem="cXn-wn-lT5" firstAttribute="leading" secondItem="kp1-tV-h2j" secondAttribute="leading" id="VDu-iG-fIh"/>
+                <constraint firstItem="cXn-wn-lT5" firstAttribute="top" secondItem="kp1-tV-h2j" secondAttribute="top" constant="108" id="acT-Gy-0GE"/>
+                <constraint firstAttribute="trailing" secondItem="cXn-wn-lT5" secondAttribute="trailing" id="xsi-Ot-F3F"/>
+            </constraints>
+            <point key="canvasLocation" x="351" y="367"/>
+        </view>
+    </objects>
+</document>

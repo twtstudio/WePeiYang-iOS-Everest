@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WMPageController
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,11 +19,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        // TWTUser.shared.load() // load token and so on
-        AccountManager.checkToken(failure: {
+//        TwTUser.shared.load() // load token and so on
+        TwTUser.shared.load(success: {
+            AccountManager.getSelf(success: nil, failure: nil)
+        }, failure: {
             // 让他重新登录
         })
-        
+//        AccountManager.getSelf(success: nil, failure: nil)
+//        AccountManager.checkToken(failure: {
+//            // 让他重新登录
+//        })
+
         mainTabVC = WPYTabBarController()
         
         let favoriteVC = FavViewController()
@@ -45,12 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         settingsVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         let settingsNavigationController = UINavigationController(rootViewController: settingsVC)
         
-        
-        
         mainTabVC.setViewControllers([favoriteNavigationController, infoNavigationController, allModulesNavigationController, settingsNavigationController], animated: true)
-        
-        
-        
         
         UITabBar.appearance().backgroundColor = Metadata.Color.GlobalTabBarBackgroundColor
         UITabBar.appearance().tintColor = Metadata.Color.WPYAccentColor
@@ -63,8 +65,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Fallback on earlier versions
         }
 //        window?.backgroundColor = .white
-        window?.rootViewController = UINavigationController(rootViewController: GPAViewController())
+        window?.rootViewController = mainTabVC
+        //UINavigationController(rootViewController: mainTabVC)
         window?.makeKeyAndVisible()
+        
+        // To check if network is available
+        // Used to determine the network state for WLANLogin
+        do {
+            Network.reachability = try Reachability(hostname: "www.bing.com")
+            do {
+                try Network.reachability?.start()
+            } catch let error as Network.Error {
+                print(error)
+            } catch {
+                print(error)
+            }
+        } catch {
+            print(error)
+        }
             
         return true
     }

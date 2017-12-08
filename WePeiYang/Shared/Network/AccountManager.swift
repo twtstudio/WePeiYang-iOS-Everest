@@ -21,7 +21,6 @@ let ALLOW_SPOTLIGHT_KEY = "allowSpotlightIndex"
 
 
 struct AccountManager {
-    
 //    static func removeToken() {
 //        UserDefaults.standard.removeObject(forKey: TOKEN_SAVE_KEY)
 //        UserDefaults.standard.removeObject(forKey: ID_SAVE_KEY)
@@ -34,20 +33,23 @@ struct AccountManager {
 //        // TODO: CSSearchable
 //    }
     
-    static func getToken(username: String, password: String, success: (()->())?, failure: ((Error?)->())?) {
+    static func getToken(username: String, password: String, success: ((String)->())?, failure: ((Error?)->())?) {
         let para: Dictionary<String, String> = ["twtuname": username, "twtpasswd": password]
         SolaSessionManager.solaSession(type: .get, url: "/auth/token/get", token: nil, parameters: para, success: { dic in
             if let data = dic["data"] as? Dictionary<String, AnyObject> {
                 if let token = data["token"] as? String {
-                    TwTUser.shared.token = token
-                    TwTUser.shared.save()
-                    success?()
+                    success?(token)
                 }
             }
             
         }, failure: { error in
             failure?(error)
         })
+        
+    }
+    
+     // FIXME: every time open the app, refresh token
+    static func refreshToken() {
         
     }
     
@@ -141,5 +143,27 @@ struct AccountManager {
         })
     }
     
-    
+    static func getSelf(success: (()->())?, failure: (()->())?) {
+        SolaSessionManager.solaSession(type: .get, baseURL: "", url: TwTAPI.`self`, parameters: nil, success: { dict in
+            if let accounts = dict["accounts"] as? [String: Any],
+                let tju = accounts["tju"] as? Bool,
+                let lib = accounts["lib"] as? Bool,
+                let avatar = dict["avatar"] as? String,
+                let realname = dict["realname"] as? String,
+                let twtid = dict["twtid"] as? String,
+                let studentid = dict["studentid"] as? String,
+                let dropout = dict["dropout"] as? String {
+                TwTUser.shared.avatarURL = avatar
+                TwTUser.shared.tjuBindingState = tju
+                TwTUser.shared.libBindingState = lib
+                TwTUser.shared.realname = realname
+                TwTUser.shared.twtid = twtid
+                TwTUser.shared.schoolID = studentid
+                TwTUser.shared.dropout = dropout
+            }
+        }, failure: { error in
+            print(error)
+        })
+    }
+
 }
