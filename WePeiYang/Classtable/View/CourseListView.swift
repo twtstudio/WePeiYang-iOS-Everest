@@ -9,12 +9,14 @@
 import UIKit
 
 fileprivate struct C {
-    static let cellWidth: CGFloat = 47
+    static var cellWidth: CGFloat {
+        return (UIScreen.main.bounds.width - classNumberViewWidth) / 7
+    }// = 47
     static let cellHeight: CGFloat = 55
     static let dayCount = 7
     static let courseCount = 12
     
-    static let classNumberViewWidth: CGFloat = 50
+    static let classNumberViewWidth: CGFloat = 30
     static let dayNumberViewHeight: CGFloat = 30
 }
 
@@ -28,8 +30,10 @@ protocol CourseListViewDelegate {
 }
 
 protocol CourseListViewDataSource {
+//    var
     func days() -> [Int]
     func courses(in day: Int) -> [ClassModel]
+    func dayTitles() -> [String]
 }
 //Hiererachy
 //"CourseListView" UIView
@@ -54,7 +58,7 @@ class CourseListView: UIView {
         }
     }
     
-    var days: [Int] = []
+    var days: [Int] = [1, 2, 3, 4, 5, 6, 7]
     var coursesForDay: [Int : [ClassModel]] = [:]
     
     var week: [[ClassModel]] = []
@@ -89,12 +93,12 @@ class CourseListView: UIView {
             make.height.equalTo(C.dayNumberViewHeight)
         }
         
-        let dayArray = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+        var dayTitles = dataSource?.dayTitles() ?? ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
         // 一般是有七天
         var dayNumberLabels: [UILabel] = []
         for i in 0..<C.dayCount {
             let label = UILabel(frame: .zero)
-            label.text = dayArray[i]
+            label.text = dayTitles[i]
             label.textAlignment = .center
             label.font = UIFont.systemFont(ofSize: 13)
             label.textColor = .lightGray
@@ -104,28 +108,36 @@ class CourseListView: UIView {
                 make.height.equalToSuperview()
                 make.width.equalTo(C.cellWidth)
                 if i == 0 {
-                    make.left.equalToSuperview().offset(C.cellWidth)
+                    make.left.equalToSuperview().offset(C.classNumberViewWidth)
                 } else {
                     make.left.equalTo(dayNumberLabels[i-1].snp.right)
+                }
+                if i == C.dayCount - 1 {
+                    label.snp.makeConstraints { make in
+                        make.right.equalToSuperview()
+                    }
                 }
             }
             dayNumberLabels.append(label)
         }
 
         
-        let containerView = UIView()
-        self.addSubview(containerView)
+//        let containerView = UIView()
+//        self.addSubview(containerView)
 
-        containerView.snp.makeConstraints { make in
-            make.top.equalTo(dayNumberView.snp.bottom)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
+//        containerView.snp.makeConstraints { make in
+//            make.top.equalTo(dayNumberView.snp.bottom)
+////            make.top.equalToSuperview()
+//            make.left.equalToSuperview()
+//            make.right.equalToSuperview()
+//            make.bottom.equalToSuperview()
+//        }
 
-        containerView.addSubview(updownContentView)
+        self.addSubview(updownContentView)
         updownContentView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.bottom.left.right.equalToSuperview()
+            make.top.equalTo(dayNumberView.snp.bottom)
+//            make.top.bottom.left.right.equalToSuperview()
         }
         
         let contentView = UIView()
@@ -138,9 +150,9 @@ class CourseListView: UIView {
         classNumberView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.left.equalToSuperview()
-            make.bottom.equalToSuperview()
             make.width.equalTo(C.classNumberViewWidth)
             make.height.equalTo(CGFloat(C.courseCount) * C.cellHeight)
+            make.bottom.equalToSuperview()
         }
         
         var courseCountLabels: [UILabel] = []
@@ -153,10 +165,11 @@ class CourseListView: UIView {
             classNumberView.addSubview(label)
             label.snp.makeConstraints { make in
                 make.height.equalTo(C.cellHeight)
-                make.width.equalTo(C.cellWidth)
+                make.width.equalTo(C.classNumberViewWidth)
                 make.left.equalToSuperview()
                 if i == 0 {
-                    make.top.equalToSuperview().offset(C.cellHeight)
+                    make.top.equalToSuperview()
+//                        .offset(C.cellHeight)
                 } else {
                     make.top.equalTo(courseCountLabels[i-1].snp.bottom)
                 }
@@ -164,9 +177,10 @@ class CourseListView: UIView {
             courseCountLabels.append(label)
         }
         courseCountLabels.last!.snp.makeConstraints { make in
-            make.bottom.equalTo(classNumberView.snp.bottom)
+            make.bottom.equalToSuperview()
         }
         
+        // TODO: replace 7
         for i in 0..<7 {
             let tableView = UITableView()
             tableViews.append(tableView)
@@ -174,14 +188,21 @@ class CourseListView: UIView {
             tableView.delegate = self
             tableView.separatorStyle = .none
             tableView.tag = i+1
+            tableView.contentInset.bottom = 64
             contentView.addSubview(tableView)
             tableView.snp.makeConstraints { make in
                 make.top.equalTo(courseCountLabels[0].snp.top)
                 make.bottom.equalToSuperview()
                 if i == 0 {
-                    make.left.equalToSuperview().offset(C.cellWidth)
+                    make.left.equalTo(courseCountLabels[0].snp.right)
+//                    make.left.equalToSuperview().offset(C.classNumberViewWidth)
                 } else {
                     make.left.equalTo(tableViews[i-1].snp.right)
+                }
+                if i == 7 - 1 {
+                    tableView.snp.makeConstraints { make in
+                        make.right.equalToSuperview()
+                    }
                 }
                 make.height.equalTo(CGFloat(C.courseCount) * C.cellHeight)
                 make.width.equalTo(C.cellWidth)
@@ -214,7 +235,7 @@ class CourseListView: UIView {
             return
         }
         
-        days = dataSource.days()
+//        days = dataSource.days()
         days.forEach { day in
             coursesForDay[day] = dataSource.courses(in: day)
         }

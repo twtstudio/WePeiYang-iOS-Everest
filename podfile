@@ -16,7 +16,6 @@ target 'WePeiYang' do
   pod 'WMPageController', '2.3.0'
   pod 'pop'
   pod 'IGIdenticon'
-  pod 'STPopup'
   pod 'DateTools'
   pod 'SwiftMessages'
 

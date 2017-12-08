@@ -8,15 +8,19 @@
 //  Copyright © 2017年 twtstudio. All rights reserved.
 //
 
-struct GPATermModel {
+import ObjectMapper
+
+struct GPATermModel: Mappable {
     var term: String = ""
     var classes: [GPAClassModel] = []
     var name: String = ""
     var stat: GPAStatModel!
-    init(term: String, classes: [GPAClassModel], name: String, stat: GPAStatModel) {
-        self.term = term
-        self.classes = classes
-        self.name = name
-        self.stat = stat
+    
+    init?(map: Map) {}
+    mutating func mapping(map: Map) {
+        term <- map["term"]
+        classes <- map["data"]
+        name <- map["name"]
+        stat <- map["stat"]
     }
 }
