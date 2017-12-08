@@ -13,7 +13,8 @@ enum ServiceBindingState: String {
     case notBind = "未绑定"
 }
 
-fileprivate typealias ItemData = (title: String, class: AnyClass, iconName: String, status: ServiceBindingState)
+typealias ItemData = (title: String, class: AnyClass, iconName: String, status: Bool)
+
 class SettingsViewController: UIViewController {
     
     // The below override will not be called if current viewcontroller is controlled by a UINavigationController
@@ -25,25 +26,30 @@ class SettingsViewController: UIViewController {
     var tableView: UITableView!
     var headerView: UIView!
     // FIXME: image name
-    fileprivate let services: [ItemData] = [
-        ("图书馆", LoginViewController.self, "", .notBind),
-        ("自行车", LoginViewController.self, "", .notBind),
-        ("办公网", LoginViewController.self, "", .notBind)
+    public var services: [ItemData] = [
+        ("图书馆", LibraryBindingViewController.self, "", {
+            return TwTUser.shared.libBindingState}()),
+        ("自行车", BicycleBindingViewController.self, "", {
+            return TwTUser.shared.bicycleBindingState}()),
+        ("办公网", TJUBindingViewController.self, "", {
+            return TwTUser.shared.tjuBindingState}()),
+        ("校园网", WLANBindingViewController.self, "", {
+            return TwTUser.shared.WLANBindingState}())
     ]
     fileprivate let settingTitles: [(title: String, iconName: String)] = [("设置", ""), ("退出", "")]
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
-//        navigationController?.navigationBar.barStyle = .black
-//        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
-//        //Changing NavigationBar Title color
-//        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
-//        
-//        navigationItem.title = "设置"
+        //        navigationController?.navigationBar.barStyle = .black
+        //        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
+        //        //Changing NavigationBar Title color
+        //        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
+        //
+        //        navigationItem.title = "设置"
     }
     
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,9 +64,8 @@ class SettingsViewController: UIViewController {
         navigationItem.title = "设置"
         
         ClasstableDataManager.getClassTable(success: { _ in }, failure: { _ in })
-        
         view.backgroundColor = Metadata.Color.GlobalViewBackgroundColor
-
+        
         tableView = UITableView(frame: self.view.bounds, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
@@ -68,13 +73,15 @@ class SettingsViewController: UIViewController {
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         
+        NotificationCenter.default.addObserver(self, selector: #selector(bindingStatusDidChange), name: NotificationNames.NotificationStatusDidChange.name, object: nil)
+        
         self.view.addSubview(tableView)
         
         headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 165))
         let avatarView = UIImageView(frame: .zero)
         avatarView.tag = -2
         headerView.addSubview(avatarView)
-//        avatarView.image = UIImage(named: "ic_account_circle")!.with(color: .gray)
+        //        avatarView.image = UIImage(named: "ic_account_circle")!.with(color: .gray)
         avatarView.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "ic_account_circle")!.with(color: .gray))
         
         avatarView.layer.cornerRadius = 80.0/2
@@ -99,7 +106,7 @@ class SettingsViewController: UIViewController {
         loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 31, weight: UIFontWeightRegular)
         loginButton.titleLabel?.sizeToFit()
         loginButton.sizeToFit()
-//        loginButton.sizeToFit()
+        //        loginButton.sizeToFit()
         headerView.addSubview(loginButton)
         loginButton.snp.makeConstraints { make in
             make.left.equalTo(avatarView.snp.right).offset(15)
@@ -118,6 +125,79 @@ class SettingsViewController: UIViewController {
         let loginVC = LoginViewController()
 //        self.navigationController?.pushViewController(loginVC, animated: true)
         self.present(loginVC, animated: true, completion: nil)
+    }
+    
+    func unbind(indexPath: IndexPath) {
+        
+        var unbindURL: String
+        
+        switch indexPath.row {
+        case 0:
+            unbindURL = BindingAPIs.unbindLIBAccount
+        case 1:
+            return
+        case 2:
+            unbindURL = BindingAPIs.unbindTJUAccount
+        case 3:
+            return
+        default:
+            return
+        }
+        
+        SolaSessionManager.solaSession(type: .get, baseURL: baseURL, url: unbindURL, token: TwTUser.shared.token, success: { dictionary in
+            print(dictionary)
+            print("Succeeded")
+            guard let errorCode: Int = dictionary["error_code"] as? Int else {
+                return
+            }
+            
+            if errorCode == -1 {
+                TwTUser.shared.tjuBindingState = false
+                TwTUser.shared.save()
+                print(indexPath.row)
+                print(TwTUser.shared.tjuBindingState)
+                // services[].status can't get renewed data each time user unbinds
+                self.services[indexPath.row].status = false
+                self.tableView.reloadData()
+            } else {
+                let alert = UIAlertController(title: "未知错误", message: nil, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "好的", style: .default, handler: { (result) in
+                    print("OK.")
+                })
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)
+            }
+        }, failure: { error in
+            print(error)
+            print("Failed")
+            self.dismiss(animated: true, completion: nil)
+        })
+    }
+    
+    func bindingStatusDidChange(notification: Notification) {
+        let notificationTuple: (String, Bool) = notification.object as! (String, Bool)
+        let bindingType: String = notificationTuple.0
+        let isStatusChanged: Bool = notificationTuple.1
+        var index: Int
+        
+        switch bindingType {
+        case "lib":
+            index = 0
+        case "bike":
+            index = 1
+        case "tju":
+            index = 2
+        case "WLAN":
+            index = 3
+        default:
+            return
+        }
+        
+        if isStatusChanged {
+            services[index].status = true
+        }
+        
+        // tableView.reloadData()
     }
 }
 
@@ -150,7 +230,12 @@ extension SettingsViewController: UITableViewDataSource {
             separator.backgroundColor = .gray
             separator.alpha = 0.25
             cell.addSubview(separator)
-            cell.detailTextLabel?.text = services[indexPath.row].status.rawValue
+            //            cell.detailTextLabel?.text = services[indexPath.row].status.rawValue
+            if services[indexPath.row].status {
+                cell.detailTextLabel?.text = "已绑定"
+            } else {
+                cell.detailTextLabel?.text = "未绑定"
+            }
             return cell
         } else {
             let cell = UITableViewCell()
@@ -163,7 +248,6 @@ extension SettingsViewController: UITableViewDataSource {
             separator.alpha = 0.25
             cell.addSubview(separator)
             return cell
-
         }
     }
 }
@@ -177,8 +261,8 @@ extension SettingsViewController: UITableViewDelegate {
                     if TwTUser.shared.token != nil {
                         (subview as? UIButton)?.setTitle(TwTUser.shared.username, for: .normal)
                     } else {
-                         (subview as? UIButton)?.setTitle("登录", for: .normal)
-                         (subview as? UIButton)?.addTarget(self, action: #selector(login), for: .touchUpInside)
+                        (subview as? UIButton)?.setTitle("登录", for: .normal)
+                        (subview as? UIButton)?.addTarget(self, action: #selector(login), for: .touchUpInside)
                     }
                 } else if subview.tag == -2 {
                     (subview as? UIImageView)?.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "ic_account_circle")!.with(color: .gray))
@@ -204,8 +288,37 @@ extension SettingsViewController: UITableViewDelegate {
             TwTUser.shared.delete()
             tableView.reloadData()
             print("log out")
+        case (0, _):
+            guard let _ = TwTUser.shared.token else {
+                let alert = UIAlertController(title: "先去登录！", message: nil, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "好的", style: .default, handler: { (result) in
+                    print("OK")
+                })
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
         default:
             break
+        }
+        
+        if !services[indexPath.row].status {
+            if let vc = (services[indexPath.row].class as? UIViewController.Type)?.init() {
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.present(vc, animated: true)
+            }
+        } else {
+            let alert = UIAlertController(title: "要解绑吗？", message: nil, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "好的", style: .destructive, handler: { (result) in
+                print("OK")
+                self.unbind(indexPath: indexPath)
+            })
+            let cancelAction = UIAlertAction(title: "算啦", style: .cancel, handler: { (result) in
+                print("Cancled")
+            })
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
         }
     }
 }

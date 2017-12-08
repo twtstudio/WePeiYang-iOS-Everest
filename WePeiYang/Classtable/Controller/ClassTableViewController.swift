@@ -11,6 +11,7 @@ import ObjectMapper
 
 let ClassTableKey = "ClassTableKey"
 class ClassTableViewController: UIViewController {
+    
     var listView: CourseListView!
     var dataProvider = ClassDataProvider()
     
