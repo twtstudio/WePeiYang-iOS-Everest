@@ -8,7 +8,6 @@
 
 import UIKit
 
-let suiteName = "group.WePeiYang"
 
 // ATTENTION: 永远不要改这个里面数据的类型！
 class TwTUser: NSObject {
@@ -42,17 +41,23 @@ class TwTUser: NSObject {
             }
         }
         let dict = NSDictionary(dictionary: dic)
-        UserDefaults(suiteName: suiteName)?.set(dict, forKey: "TwTUser")
+        CacheManager.saveGroupCache(with: dict, key: "TwTUser")
+//        UserDefaults(suiteName: suiteName)?.set(dict, forKey: "TwTUser")
     }
     
     func delete() {
-        UserDefaults(suiteName: suiteName)?.removeObject(forKey: "TwTUser")
+        CacheManager.removeGroupCache(withKey: "TwTUser")
+//        UserDefaults(suiteName: suiteName)?.removeObject(forKey: "TwTUser")
         self.token = nil
+        self.avatarURL = ""
+        self.bicycleBindingState = false
+        self.realname = ""
+        self.username = ""
     }
     
     func load(success: (()->())?, failure: (()->())?) {
         // load from
-        if let dict = UserDefaults(suiteName: suiteName)?.object(forKey: "TwTUser") as? NSDictionary {
+        if let dict = CacheManager.loadGroupCache(withKey: "TwTUser") as? NSDictionary {
             var outCount: UInt32 = 0
             let ivars = class_copyIvarList(TwTUser.self, &outCount)
             for i in 0..<outCount {

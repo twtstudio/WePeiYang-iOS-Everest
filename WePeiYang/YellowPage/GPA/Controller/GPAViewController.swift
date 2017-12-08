@@ -9,11 +9,14 @@
 
 import UIKit
 import Charts
+import ObjectMapper
 
 fileprivate enum GPASortMethod {
     case scoreFirst
     case creditFirst
 }
+
+let GPAKey = "GPAKey"
 
 class GPAViewController: UIViewController {
     var tableView: UITableView!
@@ -26,7 +29,7 @@ class GPAViewController: UIViewController {
     
     var session: String!
     
-    fileprivate var lastScrollOffset = CGPoint.zero
+//    fileprivate var lastScrollOffset = CGPoint.zero
     
     fileprivate var sortMethod: GPASortMethod = .scoreFirst {
         didSet {
@@ -227,30 +230,51 @@ class GPAViewController: UIViewController {
         let refreshItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(self.refresh))
         refreshItem.tintColor = .white
         self.navigationItem.rightBarButtonItem = refreshItem
+        loadCache()
         refresh()
     }
     
+    // 加载缓存
+    func loadCache() {
+        if let dic = CacheManager.loadGroupCache(withKey: GPAKey) as? [String: Any],
+            let model = Mapper<GPAModel>().map(JSON: dic) {
+            loadModel(model: model)
+        }
+    }
+    
+    // 刷新数据
     func refresh() {
-        GPASessionManager.getGPA(success: { (terms, stat, session) in
-            
-            // TODO: Save the data
-            self.terms = terms
-            self.stat = stat
-            self.session = session
-            if terms.count > 0 {
-                self.currentTerm = terms[0]
-            } else {
-                // TODO: 没有成绩的界面
-                print("没有成绩")
-                return
+        GPASessionManager.getGPA(success: { model in
+            self.loadModel(model: model)
+            // 数据有效 存起来
+            if model.terms.count > 0 {
+                CacheManager.saveGroupCache(with: model.toJSON(), key: GPAKey)
             }
-            self.load()
-            self.lineChartView.highlightValue(x: Double(0), dataSetIndex: 0, callDelegate: true)
         }, failure: { error in
             print(error)
         })
     }
     
+    // 根据 GPAModel 显示数据
+    func loadModel(model: GPAModel) {
+        // TODO: 数据过滤
+//        if self.stat?.credit == model.stat.credit {
+//            return
+//        }
+        
+        self.terms = model.terms
+        self.stat = model.stat
+        self.session = model.session
+        if self.terms.count > 0 {
+            self.currentTerm = self.terms[0]
+        } else {
+            // TODO: 没有成绩的界面
+            print("没有成绩")
+            return
+        }
+        self.load()
+        self.lineChartView.highlightValue(x: Double(0), dataSetIndex: 0, callDelegate: true)
+    }
     
     func load() {
         termLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
@@ -489,12 +513,12 @@ extension GPAViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y - 80
 
-        if scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < 720 {
-            let scrollOffsetY = scrollView.contentOffset.y - lastScrollOffset.y
-            radarChartView.rotationAngle = (scrollOffsetY * 360.0 / 720.0  + radarChartView.rotationAngle).truncatingRemainder(dividingBy: 360)
-//            radarChartView.rotationAngle = ((radarChartView.rotationAngle + offset) / (530.0 + radarChartView.rotationAngle) )*360.0
-            lastScrollOffset = scrollView.contentOffset
-        }
+//        if scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < 720 {
+//            let scrollOffsetY = scrollView.contentOffset.y - lastScrollOffset.y
+//            radarChartView.rotationAngle = (scrollOffsetY * 360.0 / 720.0  + radarChartView.rotationAngle).truncatingRemainder(dividingBy: 360)
+////            radarChartView.rotationAngle = ((radarChartView.rotationAngle + offset) / (530.0 + radarChartView.rotationAngle) )*360.0
+//            lastScrollOffset = scrollView.contentOffset
+//        }
 
         if offset > 0 {
             self.navigationItem.rightBarButtonItem?.tintColor = .white

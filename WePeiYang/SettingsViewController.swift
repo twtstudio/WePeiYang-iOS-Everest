@@ -123,6 +123,7 @@ class SettingsViewController: UIViewController {
     
     func login() {
         let loginVC = LoginViewController()
+//        self.navigationController?.pushViewController(loginVC, animated: true)
         self.present(loginVC, animated: true, completion: nil)
     }
     

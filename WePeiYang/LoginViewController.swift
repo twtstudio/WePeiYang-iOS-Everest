@@ -21,7 +21,6 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.tintColor = .white
         let url = Bundle.main.url(forResource: "FlowingColor", withExtension: "mp4")
         videoPlayer = AVPlayer(url: url!)
         videoPlayer.isMuted = true
