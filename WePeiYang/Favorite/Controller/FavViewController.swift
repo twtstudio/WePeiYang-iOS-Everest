@@ -66,50 +66,64 @@ extension FavViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        let card = GPACard()
-        cell.contentView.addSubview(card)
-        card.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.bottom.equalToSuperview().offset(-10)
-            make.height.equalTo(200)
-            make.left.equalToSuperview().offset(15)
-            make.right.equalToSuperview().offset(-15)
+        if indexPath.row == 0 {
+            let cell = UITableViewCell()
+            let card = GPACard()
+            cell.contentView.addSubview(card)
+            card.snp.makeConstraints { make in
+                make.top.equalToSuperview().offset(10)
+                make.bottom.equalToSuperview().offset(-10)
+                make.height.equalTo(200)
+                make.left.equalToSuperview().offset(15)
+                make.right.equalToSuperview().offset(-15)
+            }
+            
+            let data = [91.3, 90.8, 89.1, 89.9]
+            
+            let contentMargin: CGFloat = 15
+            let width: CGFloat = self.view.frame.size.width - 60
+            let space = (width - 2*contentMargin)/CGFloat(data.count - 1)
+            
+            let height: CGFloat = 100
+            let minVal = data.min()!
+            let range = data.max()! - minVal
+            let ratio = height/CGFloat(range)
+            
+            let newData = data.map({ item in
+                return height - CGFloat(item - minVal)*ratio
+            })
+            
+            var points = [CGPoint]()
+            
+            for i in 0..<newData.count {
+                let point = CGPoint(x: CGFloat(i)*space, y: newData[i])
+                points.append(point)
+            }
+            
+            card.drawLine(points: points)
+            let gpaVC = GPAViewController()
+            let gpaNC = UINavigationController(rootViewController: gpaVC)
+            //        newVC.transitioningDelegate = self
+            card.shouldPresent(gpaNC, from: self)
+            
+            return cell
+        } else {
+            let cell = UITableViewCell()
+            let card = LibraryCard()
+            cell.contentView.addSubview(card)
+            card.snp.makeConstraints { make in
+                make.top.equalToSuperview().offset(10)
+                make.bottom.equalToSuperview().offset(-10)
+//                make.height.equalTo(200)
+                make.left.equalToSuperview().offset(15)
+                make.right.equalToSuperview().offset(-15)
+            }
+            return cell
         }
-        
-        let data = [91.3, 90.8, 89.1, 89.9]
-        
-        let contentMargin: CGFloat = 15
-        let width: CGFloat = self.view.frame.size.width - 60
-        let space = (width - 2*contentMargin)/CGFloat(data.count - 1)
-        
-        let height: CGFloat = 100
-        let minVal = data.min()!
-        let range = data.max()! - minVal
-        let ratio = height/CGFloat(range)
-        
-        let newData = data.map({ item in
-            return height - CGFloat(item - minVal)*ratio
-        })
-        
-        var points = [CGPoint]()
-        
-        for i in 0..<newData.count {
-            let point = CGPoint(x: CGFloat(i)*space, y: newData[i])
-            points.append(point)
-        }
-        
-        card.drawLine(points: points)
-        let gpaVC = GPAViewController()
-        let gpaNC = UINavigationController(rootViewController: gpaVC)
-//        newVC.transitioningDelegate = self
-        card.shouldPresent(gpaNC, from: self)
-
-        return cell
     }
 }
 

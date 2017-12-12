@@ -1,5 +1,3 @@
-
-
 //
 //  GPACard.swift
 //  GPACard
