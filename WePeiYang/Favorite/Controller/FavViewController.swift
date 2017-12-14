@@ -109,7 +109,6 @@ extension FavViewController: UITableViewDataSource {
             let gpaNC = UINavigationController(rootViewController: gpaVC)
             //        newVC.transitioningDelegate = self
             card.shouldPresent(gpaNC, from: self)
-            
             return cell
         } else {
             let cell = UITableViewCell()
