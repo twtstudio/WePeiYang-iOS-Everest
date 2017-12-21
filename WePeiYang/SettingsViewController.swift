@@ -49,8 +49,6 @@ class SettingsViewController: UIViewController {
         //        navigationItem.title = "设置"
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
@@ -127,11 +125,11 @@ class SettingsViewController: UIViewController {
         self.present(loginVC, animated: true, completion: nil)
     }
     
-    func unbind(indexPath: IndexPath) {
+    func unbind(indexPathAtRow: Int) {
         
         var unbindURL: String
         
-        switch indexPath.row {
+        switch indexPathAtRow {
         case 0:
             unbindURL = BindingAPIs.unbindLIBAccount
         case 1:
@@ -154,10 +152,10 @@ class SettingsViewController: UIViewController {
             if errorCode == -1 {
                 TwTUser.shared.tjuBindingState = false
                 TwTUser.shared.save()
-                print(indexPath.row)
+                print(indexPathAtRow)
                 print(TwTUser.shared.tjuBindingState)
                 // services[].status can't get renewed data each time user unbinds
-                self.services[indexPath.row].status = false
+                self.services[indexPathAtRow].status = false
                 self.tableView.reloadData()
             } else {
                 let alert = UIAlertController(title: "未知错误", message: nil, preferredStyle: .alert)
@@ -284,10 +282,15 @@ extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
         case (1, 1):
+            // delete user info and request for unbind after click logout button
             tableView.deselectRow(at: indexPath, animated: true)
+            for index in 0...(services.count - 1) {
+                self.unbind(indexPathAtRow: index)
+            }
             TwTUser.shared.delete()
             tableView.reloadData()
-            print("log out")
+            print("logged out")
+            return
         case (0, _):
             guard let _ = TwTUser.shared.token else {
                 let alert = UIAlertController(title: "先去登录！", message: nil, preferredStyle: .alert)
@@ -311,7 +314,7 @@ extension SettingsViewController: UITableViewDelegate {
             let alert = UIAlertController(title: "要解绑吗？", message: nil, preferredStyle: .alert)
             let okAction = UIAlertAction(title: "好的", style: .destructive, handler: { (result) in
                 print("OK")
-                self.unbind(indexPath: indexPath)
+                self.unbind(indexPathAtRow: indexPath.row)
             })
             let cancelAction = UIAlertAction(title: "算啦", style: .cancel, handler: { (result) in
                 print("Cancled")
