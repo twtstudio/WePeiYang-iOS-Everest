@@ -31,7 +31,6 @@ protocol CourseListViewDelegate {
 
 protocol CourseListViewDataSource {
 //    var
-    func days() -> [Int]
     func courses(in day: Int) -> [ClassModel]
     func dayTitles() -> [String]
 }
@@ -54,12 +53,12 @@ class CourseListView: UIView {
     var delegate: CourseListViewDelegate?
     var dataSource: CourseListViewDataSource? {
         didSet {
-            self.reloadData()
+//            self.reloadData()
         }
     }
-    
-    var days: [Int] = [1, 2, 3, 4, 5, 6, 7]
-    var coursesForDay: [Int : [ClassModel]] = [:]
+    // 周一到周日
+    private var days: [Int] = [1, 2, 3, 4, 5, 6, 7]
+    var coursesForDay: [[ClassModel]] = [[], [], [], [], [], [], []]
     
     var week: [[ClassModel]] = []
     
@@ -77,15 +76,10 @@ class CourseListView: UIView {
         dayNumberView = UIView(frame: .zero)
         updownContentView = UIScrollView(frame: .zero)
         updownContentView.showsVerticalScrollIndicator = false
-        // updownContentView.delaysContentTouches = false
-//        updownContentView.delaysContentTouches = false
-//        updownContentView.panGestureRecognizer.delaysTouchesBegan = true
-//        updownContentView.
         
         self.addSubview(dayNumberView)
         
-//        updownContentView.contentSize = CGSize(width: self.width, height: CGFloat(C.courseCount) * C.cellHeight)
-        
+        // 周几 label 的底板
         dayNumberView.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.top.equalToSuperview()
@@ -93,8 +87,8 @@ class CourseListView: UIView {
             make.height.equalTo(C.dayNumberViewHeight)
         }
         
-        var dayTitles = dataSource?.dayTitles() ?? ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
-        // 一般是有七天
+        // 进行周几标签的布局
+        var dayTitles = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
         var dayNumberLabels: [UILabel] = []
         for i in 0..<C.dayCount {
             let label = UILabel(frame: .zero)
@@ -102,6 +96,7 @@ class CourseListView: UIView {
             label.textAlignment = .center
             label.font = UIFont.systemFont(ofSize: 13)
             label.textColor = .lightGray
+            label.numberOfLines = 2
             dayNumberView.addSubview(label)
             label.snp.makeConstraints { make in
                 make.top.equalToSuperview()
@@ -122,22 +117,11 @@ class CourseListView: UIView {
         }
 
         
-//        let containerView = UIView()
-//        self.addSubview(containerView)
-
-//        containerView.snp.makeConstraints { make in
-//            make.top.equalTo(dayNumberView.snp.bottom)
-////            make.top.equalToSuperview()
-//            make.left.equalToSuperview()
-//            make.right.equalToSuperview()
-//            make.bottom.equalToSuperview()
-//        }
-
+        // 上下滑动的view
         self.addSubview(updownContentView)
         updownContentView.snp.makeConstraints { make in
             make.bottom.left.right.equalToSuperview()
             make.top.equalTo(dayNumberView.snp.bottom)
-//            make.top.bottom.left.right.equalToSuperview()
         }
         
         let contentView = UIView()
@@ -154,7 +138,7 @@ class CourseListView: UIView {
             make.height.equalTo(CGFloat(C.courseCount) * C.cellHeight)
             make.bottom.equalToSuperview()
         }
-        
+        // 课程编号的label
         var courseCountLabels: [UILabel] = []
         for i in 0..<C.courseCount {
             let label = UILabel(frame: .zero)
@@ -168,34 +152,36 @@ class CourseListView: UIView {
                 make.width.equalTo(C.classNumberViewWidth)
                 make.left.equalToSuperview()
                 if i == 0 {
+                    // 第一个
                     make.top.equalToSuperview()
-//                        .offset(C.cellHeight)
                 } else {
                     make.top.equalTo(courseCountLabels[i-1].snp.bottom)
                 }
             }
             courseCountLabels.append(label)
         }
+        // 最后一个
         courseCountLabels.last!.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
         }
         
-        // TODO: replace 7
         for i in 0..<7 {
+            // 每天的 tableView
             let tableView = UITableView()
             tableViews.append(tableView)
             tableView.dataSource = self
             tableView.delegate = self
             tableView.separatorStyle = .none
-            tableView.tag = i+1
+            // 为了对应每天
+            tableView.tag = i
             tableView.contentInset.bottom = 64
+            tableView.allowsSelection = false
             contentView.addSubview(tableView)
             tableView.snp.makeConstraints { make in
                 make.top.equalTo(courseCountLabels[0].snp.top)
                 make.bottom.equalToSuperview()
                 if i == 0 {
                     make.left.equalTo(courseCountLabels[0].snp.right)
-//                    make.left.equalToSuperview().offset(C.classNumberViewWidth)
                 } else {
                     make.left.equalTo(tableViews[i-1].snp.right)
                 }
@@ -210,54 +196,128 @@ class CourseListView: UIView {
             tableView.isScrollEnabled = false
         }
         
-//        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureAction:)];
-//        [recognizer setNumberOfTapsRequired:1];
-//        MYScrollView.userInteractionEnabled = YES;
-//        [MYScrollView addGestureRecognizer:recognizer];
+        // 因为 tableView 在 scrollView 上，所以手势被屏蔽了 需要手动添加
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(tableViewTouch(sender:)))
         updownContentView.addGestureRecognizer(recognizer)
     }
     
     func tableViewTouch(sender: UITapGestureRecognizer) {
+        // 算出相对第一个 tableView 的点击位置
         let location = sender.location(in: tableViews[0])
         let index = Int(location.x / C.cellWidth)
+        // 算出相对被点击的 tabelView 的 indexPath
         let realLocation = sender.location(in: tableViews[index])
         let indexPath = tableViews[index].indexPathForRow(at: realLocation)
-        if let indexPath = indexPath, let model = coursesForDay[index+1]?[indexPath.row] {
+        if let indexPath = indexPath {
+            // 代理事件
+            let model = coursesForDay[index][indexPath.row]
             self.delegate?.listView(self, didSelectCourse: model)
             print(model.courseName)
         }
-        // tableViews[0].
     }
-    
+
+/*
     func reloadData() {
         guard let dataSource = dataSource else {
             return
         }
         
-//        days = dataSource.days()
+        // 每天的课
         days.forEach { day in
             coursesForDay[day] = dataSource.courses(in: day)
         }
         
         for key in coursesForDay.keys {
+            // 按课程开始时间排序
             coursesForDay[key]?.sort(by: { a, b in
                 return a.arrange[0].start < b.arrange[0].start
             })
             var lastEnd = 0
             for course in coursesForDay[key]! {
+                // 如果两节课之前有空格，加入长度为一的占位符
                 if (course.arrange[0].start-1) - (lastEnd+1) >= 0 {
-                    let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(lastEnd+1)\", \"end\":\"\(course.arrange[0].start-1)\"}]}")!
-                    // placeholders[i].append(placeholder)
-                    coursesForDay[key]?.append(placeholder)
-//                    item.append(placeholder)
+                    // 从上节课的结束到下节课的开始填满
+                    for i in (lastEnd+1)..<(course.arrange[0].start-1) {
+                        // 构造一个假的 model
+                        let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(i)\", \"end\":\"\(i+1)\"}]}")!
+                        // placeholders[i].append(placeholder)
+                        coursesForDay[key]?.append(placeholder)
+                    }
                 }
                 lastEnd = course.arrange[0].end
             }
+            // 按开始时间进行排序
             coursesForDay[key]?.sort(by: { $0.0.arrange[0].start < $0.1.arrange[0].start })
         }
         
+        // 所有 tableView reloadData
+        self.tableViews.forEach({ $0.reloadData() })
+    }
+
+ */
+    func load(table: ClassTableModel, week: Int) {
+        var classes = [] as [ClassModel]
+//        var coursesForDay: [[ClassModel]] = []
+        for course in table.classes {
+            // 对 week 进行判定
+            // 起止周
+            if week < Int(course.weekStart)! || week > Int(course.weekEnd)! {
+                continue
+            }
+
+            // 每个 arrange 变成一个
+            for arrange in course.arrange {
+                let day = arrange.day-1
+                // 如果是实习什么的课
+                if day < 0 || day > 6 {
+                    continue
+                }
+                // 对 week 进行判定
+                // 单双周
+                if (week % 2 == 0 && arrange.week == "单周")
+                || (week % 2 == 1 && arrange.week == "双周") {
+                    continue
+                }
+
+                var newCourse = course
+                newCourse.arrange = [arrange]
+                classes.append(newCourse)
+                coursesForDay[day].append(newCourse)
+            }
+        }
         
+        for day in 0..<7 {
+            var array = coursesForDay[day]
+            // 按课程开始时间排序
+            array.sort(by: { a, b in
+                return a.arrange[0].start < b.arrange[0].start
+            })
+            
+            var lastEnd = 0
+            for course in array {
+                // 如果两节课之前有空格，加入长度为一的占位符
+                if (course.arrange[0].start-1) - (lastEnd+1) >= 0 {
+                    // 从上节课的结束到下节课的开始填满
+                    for i in (lastEnd+1)...(course.arrange[0].start-1) {
+                        // 构造一个假的 model
+                        let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}]}")!
+                        // placeholders[i].append(placeholder)
+                        array.append(placeholder)
+                    }
+//                    for i in (lastEnd+1)..<(course.arrange[0].start-1) {
+//                        // 构造一个假的 model
+//                        let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(i)\", \"end\":\"\(i+1)\"}]}")!
+//                        // placeholders[i].append(placeholder)
+//                        array.append(placeholder)
+//                    }
+                }
+                lastEnd = course.arrange[0].end
+            }
+            // 按开始时间进行排序
+            array.sort(by: { $0.0.arrange[0].start < $0.1.arrange[0].start })
+            coursesForDay[day] = array
+        }
+        // 所有 tableView reloadData
         self.tableViews.forEach({ $0.reloadData() })
     }
 }
@@ -268,28 +328,30 @@ extension CourseListView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let courses = coursesForDay[tableView.tag]
-        return courses?.count ?? 0
+//        return C.courseCount
+        return coursesForDay[tableView.tag].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = coursesForDay[tableView.tag]?[indexPath.row]
-        let cell = CourseCell(style: .default, reuseIdentifier: "reuse")
-        cell.load(course: model!)
+        // 构造 cell
+        let model = coursesForDay[tableView.tag][indexPath.row]
+        let cell = CourseCell(style: .default, reuseIdentifier: "reuse[\(tableView.tag)]\(indexPath)")
+        cell.load(course: model)
         return cell
     }
 }
 
 extension CourseListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = coursesForDay[tableView.tag]?[indexPath.row]
-        return CGFloat(model!.arrange[0].length) * C.cellHeight
+        let model = coursesForDay[tableView.tag][indexPath.row]
+        return CGFloat(model.arrange[0].length) * C.cellHeight
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let model = coursesForDay[tableView.tag]?[indexPath.row] {
-            self.delegate?.listView(self, didSelectCourse: model)
-            print(model.courseName)
-        }
-    }
+    // 下面方法没用
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if let model = coursesForDay[tableView.tag]?[indexPath.row] {
+//            self.delegate?.listView(self, didSelectCourse: model)
+//            print(model.courseName)
+//        }
+//    }
 }

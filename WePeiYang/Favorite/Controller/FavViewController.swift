@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ObjectMapper
 
 class FavViewController: UIViewController {
 
@@ -33,13 +34,13 @@ class FavViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
         // Changing NavigationBar Title color
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
         // This is for removing the dark shadows when transitioning
         navigationController?.navigationBar.isTranslucent = false
+        navigationController?.isNavigationBarHidden = true
         
         navigationItem.title = "常用"
         
@@ -56,6 +57,7 @@ class FavViewController: UIViewController {
         cardTableView.rowHeight = UITableViewAutomaticDimension
         cardTableView.separatorStyle = .none
         cardTableView.allowsSelection = false
+        
     }
 }
 
@@ -81,15 +83,23 @@ extension FavViewController: UITableViewDataSource {
             make.right.equalToSuperview().offset(-15)
         }
         
-        let data = [91.3, 90.8, 89.1, 89.9]
+        let dic = CacheManager.loadGroupCache(withKey: GPAKey) as? [String: Any]
+        let model = Mapper<GPAModel>().map(JSON: dic ?? [:])
+        
+        // FIXME: gpa data
+        var data: [Double] = []
+        for term in model?.terms ?? [] {
+            data.append(term.stat.score)
+        }
+        data = [90, 91, 85]
         
         let contentMargin: CGFloat = 15
         let width: CGFloat = self.view.frame.size.width - 60
         let space = (width - 2*contentMargin)/CGFloat(data.count - 1)
         
         let height: CGFloat = 100
-        let minVal = data.min()!
-        let range = data.max()! - minVal
+        let minVal = data.min() ?? 0
+        let range = data.max() ?? 0 - minVal
         let ratio = height/CGFloat(range)
         
         let newData = data.map({ item in
@@ -105,9 +115,9 @@ extension FavViewController: UITableViewDataSource {
         
         card.drawLine(points: points)
         let gpaVC = GPAViewController()
-        let gpaNC = UINavigationController(rootViewController: gpaVC)
 //        newVC.transitioningDelegate = self
-        card.shouldPresent(gpaNC, from: self)
+//        card.shouldPresent(gpaVC, from: self)
+        card.shouldPush(gpaVC, from: self)
 
         return cell
     }

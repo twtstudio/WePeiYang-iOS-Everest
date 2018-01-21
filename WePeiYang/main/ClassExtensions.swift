@@ -105,6 +105,16 @@ extension UIView {
 
 }
 
+extension CALayer {
+    func snapshot() -> UIImage? {
+        UIGraphicsBeginImageContext(self.bounds.size)
+        self.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+}
+
 extension UIImage {
     
     static func resizedImage(image: UIImage, scaledToSize newSize: CGSize) -> UIImage{
