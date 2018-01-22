@@ -212,56 +212,24 @@ class CourseListView: UIView {
             // 代理事件
             let model = coursesForDay[index][indexPath.row]
             self.delegate?.listView(self, didSelectCourse: model)
-            print(model.courseName)
+            print(model)
         }
     }
 
-/*
-    func reloadData() {
-        guard let dataSource = dataSource else {
-            return
-        }
-        
-        // 每天的课
-        days.forEach { day in
-            coursesForDay[day] = dataSource.courses(in: day)
-        }
-        
-        for key in coursesForDay.keys {
-            // 按课程开始时间排序
-            coursesForDay[key]?.sort(by: { a, b in
-                return a.arrange[0].start < b.arrange[0].start
-            })
-            var lastEnd = 0
-            for course in coursesForDay[key]! {
-                // 如果两节课之前有空格，加入长度为一的占位符
-                if (course.arrange[0].start-1) - (lastEnd+1) >= 0 {
-                    // 从上节课的结束到下节课的开始填满
-                    for i in (lastEnd+1)..<(course.arrange[0].start-1) {
-                        // 构造一个假的 model
-                        let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(i)\", \"end\":\"\(i+1)\"}]}")!
-                        // placeholders[i].append(placeholder)
-                        coursesForDay[key]?.append(placeholder)
-                    }
-                }
-                lastEnd = course.arrange[0].end
-            }
-            // 按开始时间进行排序
-            coursesForDay[key]?.sort(by: { $0.0.arrange[0].start < $0.1.arrange[0].start })
-        }
-        
-        // 所有 tableView reloadData
+    func load(courses: [[ClassModel]]) {
+        coursesForDay = courses
         self.tableViews.forEach({ $0.reloadData() })
     }
-
- */
+    
     func load(table: ClassTableModel, week: Int) {
+        coursesForDay = [[], [], [], [], [], [], []]
         var classes = [] as [ClassModel]
 //        var coursesForDay: [[ClassModel]] = []
         for course in table.classes {
             // 对 week 进行判定
             // 起止周
             if week < Int(course.weekStart)! || week > Int(course.weekEnd)! {
+                // TODO: turn gray
                 continue
             }
 
@@ -276,6 +244,7 @@ class CourseListView: UIView {
                 // 单双周
                 if (week % 2 == 0 && arrange.week == "单周")
                 || (week % 2 == 1 && arrange.week == "双周") {
+                    // TODO: turn gray
                     continue
                 }
 

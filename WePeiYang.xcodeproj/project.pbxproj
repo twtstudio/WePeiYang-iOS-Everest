@@ -128,6 +128,8 @@
 		36922AE21FCAEA1E00AD44F3 /* GPAModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36922AE11FCAEA1E00AD44F3 /* GPAModel.swift */; };
 		369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369306941F2B976C008E90DC /* ModuleCollectionViewCell.swift */; };
 		369B2D4A20151542009352A8 /* DateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369B2D4920151542009352A8 /* DateTool.swift */; };
+		369D92072015D914004BA1D0 /* WeekSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D92062015D914004BA1D0 /* WeekSelectView.swift */; };
+		369D92092015D97A004BA1D0 /* WeekItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D92082015D97A004BA1D0 /* WeekItemCell.swift */; };
 		36DA7A5B1FA8A35C000DAF2B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */; };
 		36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13F3AE71F0CEE5C00F820A5 /* FAB.swift */; };
 		36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E11EC84ED90064373A /* CacheManager.swift */; };
@@ -336,6 +338,8 @@
 		36922AE11FCAEA1E00AD44F3 /* GPAModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAModel.swift; sourceTree = "<group>"; };
 		369306941F2B976C008E90DC /* ModuleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleCollectionViewCell.swift; sourceTree = "<group>"; };
 		369B2D4920151542009352A8 /* DateTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTool.swift; sourceTree = "<group>"; };
+		369D92062015D914004BA1D0 /* WeekSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSelectView.swift; sourceTree = "<group>"; };
+		369D92082015D97A004BA1D0 /* WeekItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekItemCell.swift; sourceTree = "<group>"; };
 		36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WePeiYang-Bridging-Header.h"; sourceTree = "<group>"; };
 		36E56BC51FC512230009BD6F /* CourseListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseListView.swift; sourceTree = "<group>"; };
 		36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -703,6 +707,8 @@
 			isa = PBXGroup;
 			children = (
 				36E56BC51FC512230009BD6F /* CourseListView.swift */,
+				369D92062015D914004BA1D0 /* WeekSelectView.swift */,
+				369D92082015D97A004BA1D0 /* WeekItemCell.swift */,
 				36042DB71FC7BB270016E859 /* CourseCell.swift */,
 			);
 			path = View;
@@ -1482,6 +1488,7 @@
 				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
 				36449E8A1FA4BAD10036766B /* PartyPersonalStatusViewController.swift in Sources */,
 				36449E621FA4BABA0036766B /* SignUpTableViewCell.swift in Sources */,
+				369D92092015D97A004BA1D0 /* WeekItemCell.swift in Sources */,
 				36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */,
 				36449E841FA4BAD10036766B /* TwentyCourseScoreViewController.swift in Sources */,
 				36449E6D1FA4BABA0036766B /* FinalView.swift in Sources */,
@@ -1547,6 +1554,7 @@
 				36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */,
 				36449E8F1FA4BAD10036766B /* HandInDetailViewController.swift in Sources */,
 				A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */,
+				369D92072015D914004BA1D0 /* WeekSelectView.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
 				3659367C1F1E5FAE003CE578 /* YellowPageMainViewController.swift in Sources */,
 				369B2D4A20151542009352A8 /* DateTool.swift in Sources */,

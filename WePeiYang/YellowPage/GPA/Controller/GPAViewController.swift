@@ -239,6 +239,7 @@ class GPAViewController: UIViewController {
         refresh()
     }
     
+    // TODO: update the only evaluated item
     func evaluateDone() {
         
     }
