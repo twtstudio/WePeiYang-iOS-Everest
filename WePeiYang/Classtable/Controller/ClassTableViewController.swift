@@ -14,8 +14,21 @@ class ClassTableViewController: UIViewController {
     
     var listView: CourseListView!
     var weekSelectView: WeekSelectView!
-    var table: ClassTableModel?
-    var currentWeek: Int = 1
+    var table: ClassTableModel? {
+        didSet {
+            updateWeekItem()
+        }
+    }
+    var currentWeek: Int = 1 {
+        willSet {
+            // 刷新标题栏
+            self.navigationItem.titleView?.subviews.forEach { v in
+                if v.tag == -1 {
+                    (v as? UIButton)?.setTitle("第\(newValue)周", for: .normal)
+                }
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,9 +44,10 @@ class ClassTableViewController: UIViewController {
             make.height.equalTo(60)
             make.left.right.equalToSuperview()
         }
+        // 加上点击事件
         weekSelectView.subviews.forEach { v in
             if v is WeekItemCell {
-                let gesture = UITapGestureRecognizer(target: self, action: #selector(setCurrentWeek))
+                let gesture = UITapGestureRecognizer(target: self, action: #selector(weekCellTapped))
                 v.addGestureRecognizer(gesture)
             }
         }
@@ -56,18 +70,20 @@ class ClassTableViewController: UIViewController {
         backView.addSubview(button)
         button.setTitle("第\(currentWeek)周", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.tag = -1
         self.navigationItem.titleView = backView
         button.addTarget(self, action: #selector(toggleWeekSelect), for: .touchUpInside)
     }
     
-    func setCurrentWeek(sender: UITapGestureRecognizer) {
+    func weekCellTapped(sender: UITapGestureRecognizer) {
         guard let cell = sender.view,
-        let table = table else {
-            return
+            let table = table else {
+                return
         }
-        currentWeek = cell.tag
-        let courses = self.getCourse(table: table, week: currentWeek)
-        listView.load(courses: courses)
+        let week = cell.tag
+        let courses = self.getCourse(table: table, week: week)
+        listView.load(courses: courses, weeks: week - currentWeek)
+//        currentWeek = week
     }
     
     func toggleWeekSelect(sender: UIButton) {
@@ -95,21 +111,24 @@ class ClassTableViewController: UIViewController {
         if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
             self.table = table
             let courses = self.getCourse(table: table, week: currentWeek)
-            listView.load(courses: courses)
-            self.updateWeekItem()
+            listView.load(courses: courses, weeks: 0)
 //            self.listView.load(table: table, week: currentWeek)
         }
     }
     
     func load() {
         ClasstableDataManager.getClassTable(success: { table in
+            // 存起来
             let dic = table.toJSON()
             CacheManager.saveGroupCache(with: dic, key: ClassTableKey)
             self.table = table
-            self.updateWeekItem()
-
+            let now = Date()
+            let termStart = Date(timeIntervalSince1970: Double(table.termStart))
+            let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
+            self.currentWeek = Int(week)
             let courses = self.getCourse(table: table, week: self.currentWeek)
-            self.listView.load(courses: courses)
+            // 和本周的差距
+            self.listView.load(courses: courses, weeks: 0)
         }, failure: { errorMessage in
             print(errorMessage)
         })
@@ -194,6 +213,7 @@ extension ClassTableViewController {
         return coursesForDay
     }
     
+    // 刷新缩略图
     func updateWeekItem() {
         guard let table = table,
             var cells = weekSelectView.subviews.filter({ $0 is WeekItemCell }) as? [WeekItemCell],
