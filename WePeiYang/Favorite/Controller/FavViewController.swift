@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ObjectMapper
 
 class FavViewController: UIViewController {
 
@@ -33,13 +34,13 @@ class FavViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
         // Changing NavigationBar Title color
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
         // This is for removing the dark shadows when transitioning
         navigationController?.navigationBar.isTranslucent = false
+        navigationController?.isNavigationBarHidden = true
         
         navigationItem.title = "常用"
         
@@ -52,73 +53,12 @@ class FavViewController: UIViewController {
         
         cardTableView.delegate = self
         cardTableView.dataSource = self
+        cardTableView.estimatedRowHeight = 200
+        cardTableView.rowHeight = UITableViewAutomaticDimension
+        cardTableView.separatorStyle = .none
+        cardTableView.allowsSelection = false
         
-        fooView = UIView(color: .red)
-        fooView.frame = CGRect(x: 125, y: 200, width: 100, height: 100)
-        view.addSubview(fooView)
-        
-        fooView.layer.cornerRadius = 30
-        fooView.layer.shadowRadius = 8
-        fooView.layer.shadowOffset = CGSize(width: 0, height: 4)
-        fooView.layer.shadowRadius = 10
-        fooView.layer.shadowOpacity = 0.5
-        
-        
-        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(shrink))
-        swipe.direction = .up
-        fooView.addGestureRecognizer(swipe)
-        
-        
-//        let tap = UITapGestureRecognizer(target: fab, action: #selector(FAB.dismissAnimated))
-        
-//        fooView.addGestureRecognizer(tap)
-        
-        // Do any additional setup after loading the view.
     }
-
-    func expand() {
-        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
-            self.fooView.frame = CGRect(x: 75, y: 150, width: 200, height: 200)
-            self.fooView.layer.cornerRadius = 0
-            self.fooView.layer.shadowOpacity = 0
-        }, completion: nil)
-    }
-    
-    func shrink() {
-        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
-            self.fooView.frame = CGRect(x: 125, y: 200, width: 100, height: 100)
-            self.fooView.layer.cornerRadius = 30
-            self.fooView.layer.shadowOpacity = 0.5
-        }, completion: nil)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        UIView.animate(withDuration: 0.3) { 
-            //self.navigationController?.navigationItem.titleView?.alpha = 0
-            
-            
-        }
-    }
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 
@@ -128,16 +68,59 @@ extension FavViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = UITableViewCell()
+        let card = GPACard()
+        cell.contentView.addSubview(card)
+        card.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.bottom.equalToSuperview().offset(-10)
+            make.height.equalTo(200)
+            make.left.equalToSuperview().offset(15)
+            make.right.equalToSuperview().offset(-15)
+        }
+        
+        let dic = CacheManager.loadGroupCache(withKey: GPAKey) as? [String: Any]
+        let model = Mapper<GPAModel>().map(JSON: dic ?? [:])
+        
+        // FIXME: gpa data
+        var data: [Double] = []
+        for term in model?.terms ?? [] {
+            data.append(term.stat.score)
+        }
+        data = [90, 91, 85]
+        
+        let contentMargin: CGFloat = 15
+        let width: CGFloat = self.view.frame.size.width - 60
+        let space = (width - 2*contentMargin)/CGFloat(data.count - 1)
+        
+        let height: CGFloat = 100
+        let minVal = data.min() ?? 0
+        let range = data.max() ?? 0 - minVal
+        let ratio = height/CGFloat(range)
+        
+        let newData = data.map({ item in
+            return height - CGFloat(item - minVal)*ratio
+        })
+        
+        var points = [CGPoint]()
+        
+        for i in 0..<newData.count {
+            let point = CGPoint(x: CGFloat(i)*space, y: newData[i])
+            points.append(point)
+        }
+        
+        card.drawLine(points: points)
+        let gpaVC = GPAViewController()
+//        newVC.transitioningDelegate = self
+//        card.shouldPresent(gpaVC, from: self)
+        card.shouldPush(gpaVC, from: self)
+
+        return cell
     }
-    
-    
-    
-    
 }
 
 extension FavViewController: UITableViewDelegate {

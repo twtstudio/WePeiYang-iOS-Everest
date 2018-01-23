@@ -9,7 +9,9 @@
 import Foundation
 
 struct WLANLoginAPIs {
-    // Login API
-    static let rootURL = "http://202.113.5.133/include/auth_action.php"
-    // Nothing available except for login / logout now. (Nov 7th, 2017)
+    static let loginURL = "api/v1/network/login"
+    
+    static let getIPURL = "api/v1/network/ip"
+    
+    static let getStatus = "api/v1/network/status"
 }
