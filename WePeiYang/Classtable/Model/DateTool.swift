@@ -22,27 +22,25 @@ struct DateTool {
         let componetSet = Set<Calendar.Component>([.year, .month, .day, .weekday])
         var components = cal.dateComponents(componetSet, from: now)
         let weekDay = components.weekday!
-        // 得到几号
-        let day = components.day!
         
         // 计算当前日期和这周的星期一和星期天差的天数
-        var firstDiff = 0
+        var mondayOffset = 0
         if weekDay == 1 {
-            firstDiff = 1-7
+            mondayOffset = 1-7
         } else {
-            firstDiff = cal.firstWeekday - weekDay
+            mondayOffset = cal.firstWeekday - weekDay
         }
-        // 在当前日期(去掉了时分秒)基础上加上差的天数
-        var firstDayComp = cal.dateComponents(Set([.year, .month, .day]), from: now)
-        firstDayComp.day = day + firstDiff
-        let month = "\(firstDayComp.month!)月"
+        
+        let mondayDate = now.addingTimeInterval(TimeInterval(mondayOffset*24*60*60))
+        var mondayComp = cal.dateComponents(Set([.year, .month, .day]), from: mondayDate)
+
+        let month = "\(mondayComp.month!)\n月"
         var array: [String] = []
         array.append(month)
         
         for i in 0..<7 {
-            components.day = firstDayComp.day! + i
-            let everyDate = cal.date(from: components)
-            components = cal.dateComponents(Set([.year, .month, .day, .weekday]), from: everyDate!)
+            let everyDate = mondayDate.addingTimeInterval(TimeInterval(i*24*60*60))
+            components = cal.dateComponents(Set([.year, .month, .day, .weekday]), from: everyDate)
             array.append(components.day!.description)
         }
         return array

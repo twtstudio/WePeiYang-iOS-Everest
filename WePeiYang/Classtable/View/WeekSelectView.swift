@@ -33,4 +33,24 @@ class WeekSelectView: UIScrollView {
             self.addSubview(cell)
         }
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.next?.touchesBegan(touches, with: event)
+        super.touchesBegan(touches, with: event)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if !self.isDragging {
+            self.next?.touchesEnded(touches, with: event)
+        }
+        super.touchesEnded(touches, with: event)
+    }
+    
+    override func touchesShouldCancel(in view: UIView) -> Bool {
+        return view is WeekItemCell
+    }
+    
+    override func touchesShouldBegin(_ touches: Set<UITouch>, with event: UIEvent?, in view: UIView) -> Bool {
+        return view is WeekItemCell
+    }
 }

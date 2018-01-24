@@ -19,12 +19,59 @@ class ClassTableViewController: UIViewController {
             updateWeekItem()
         }
     }
-    var currentWeek: Int = 1 {
+    var weekCourseDict: [Int: [[ClassModel]]] = [:]
+    
+    var backButton: UIButton!
+    // 当前的周
+    var currentWeek: Int = 1
+    // 当前显示的周
+    var currentDisplayWeek: Int = 1 {
         willSet {
+            if let cells = weekSelectView.subviews.filter({ $0 is WeekItemCell }) as? [WeekItemCell] {
+                cells.forEach { cell in
+                    cell.dismissSelected()
+                }
+                
+                if newValue - 1 < cells.count {
+                    cells[newValue-1].setSelected()
+                }
+            }
+
+            
+            backButton.setTitle("第\(newValue)周", for: .normal)
+            backButton.sizeToFit()
+            backButton.frame.origin.x = (90 - (backButton.width + 15))/2
+            if currentWeek != newValue {
+                backButton.setTitleColor(UIColor(red:0.98, green:0.26, blue:0.27, alpha:1.00), for: .normal)
+            } else {
+                backButton.setTitleColor(UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00), for: .normal)
+            }
             // 刷新标题栏
             self.navigationItem.titleView?.subviews.forEach { v in
-                if v.tag == -1 {
-                    (v as? UIButton)?.setTitle("第\(newValue)周", for: .normal)
+                // 显示 label
+                if v.tag == 1 {
+                    if currentWeek != newValue {
+                        v.isHidden = false
+                    } else {
+                        v.isHidden = true
+                    }
+                } else if v.tag == 2 {
+                    v.frame.origin.x = backButton.frame.origin.x + backButton.width
+                }
+            }
+        }
+    }
+    var isSelecting = false {
+        didSet {
+            self.navigationItem.titleView?.subviews.forEach { v in
+                if v.tag == 2 {
+                    if isSelecting {
+                        // 旋转 pi
+                        v.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+                    } else {
+                        // 复位
+                        v.transform = CGAffineTransform.identity
+                    }
                 }
             }
         }
@@ -44,16 +91,24 @@ class ClassTableViewController: UIViewController {
             make.height.equalTo(60)
             make.left.right.equalToSuperview()
         }
+//        weekSelectView.canCancelContentTouches = true
+//        weekSelectView.delaysContentTouches = false
         // 加上点击事件
         weekSelectView.subviews.forEach { v in
             if v is WeekItemCell {
-                let gesture = UITapGestureRecognizer(target: self, action: #selector(weekCellTapped))
-                v.addGestureRecognizer(gesture)
+                v.isUserInteractionEnabled = true
+//                let gesture = UITapGestureRecognizer(target: self, action: #selector(weekCellTapped))
+//                gesture.cancelsTouchesInView = false
+//                v.addGestureRecognizer(gesture)
             }
         }
-        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(weekCellTapped))
+        gesture.cancelsTouchesInView = false
+        weekSelectView.addGestureRecognizer(gesture)
+
         // 课表主视图
         listView = CourseListView()
+        listView.delegate = self
         self.view.addSubview(listView)
         listView.snp.makeConstraints { make in
             make.top.equalTo(weekSelectView.snp.bottom)
@@ -65,43 +120,76 @@ class ClassTableViewController: UIViewController {
     }
     
     func initNavBar() {
-        let backView = UIView(frame: CGRect(x: 0, y: 0, width: 90, height: 30))
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 90, height: 30))
-        backView.addSubview(button)
-        button.setTitle("第\(currentWeek)周", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.tag = -1
-        self.navigationItem.titleView = backView
-        button.addTarget(self, action: #selector(toggleWeekSelect), for: .touchUpInside)
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 90, height: 30))
+        let downArrow = UIImageView(image: #imageLiteral(resourceName: "ic_arrow_down").with(color: UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)))
+        downArrow.frame = CGRect(x: 70, y: 8, width: 15, height: 15)
+        downArrow.tag = 2
+        
+        titleView.addSubview(downArrow)
+        backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 30))
+        backButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        backButton.setTitle("第\(currentDisplayWeek)周", for: .normal)
+        backButton.setTitleColor(UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00), for: .normal)
+        backButton.sizeToFit()
+        backButton.frame.origin.x = (90 - (backButton.width + 15))/2
+        downArrow.frame.origin.x = backButton.frame.origin.x + backButton.width
+        backButton.tag = -1
+        titleView.addSubview(backButton)
+        
+        let backLabel = UILabel(frame: CGRect(x: 0, y: 25, width: 75, height: 10))
+        backLabel.backgroundColor = .clear
+        backLabel.textColor = UIColor(red:0.98, green:0.26, blue:0.27, alpha:1.00)
+        backLabel.textAlignment = .center
+        backLabel.font = UIFont.systemFont(ofSize: 8)
+        backLabel.text = "返回本周"
+        backLabel.isHidden = true
+        backLabel.tag = 1
+        titleView.addSubview(backLabel)
+        
+        self.navigationItem.titleView = titleView
+        backButton.addTarget(self, action: #selector(toggleWeekSelect), for: .touchUpInside)
     }
     
     func weekCellTapped(sender: UITapGestureRecognizer) {
-        guard let cell = sender.view,
-            let table = table else {
+//        guard let cell = sender.view,
+////        cell.tag - 1 < cells.count,
+//        cell.tag > 0,
+        guard let table = table else {
                 return
         }
-        let week = cell.tag
+        let point = sender.location(in: weekSelectView)
+        let week = Int(point.x / 50) + 1
+        
+//        let week = cell.tag
         let courses = self.getCourse(table: table, week: week)
         listView.load(courses: courses, weeks: week - currentWeek)
-//        currentWeek = week
+        currentDisplayWeek = week
     }
     
     func toggleWeekSelect(sender: UIButton) {
-        if sender.tag == 0 {
+        if !isSelecting {
             self.weekSelectView.snp.updateConstraints { make in
                 make.top.equalToSuperview()
             }
-            sender.tag = 1
+            isSelecting = true
+            // 点开居中
+            // TODO: 确定多少比较合适
+            if currentDisplayWeek <= 22 && currentDisplayWeek >= 4 {
+                weekSelectView.contentOffset = CGPoint(x: 0, y: (CGFloat(currentDisplayWeek)-3.5)*50)
+            }
         } else {
             self.weekSelectView.snp.updateConstraints { make in
                 make.top.equalToSuperview().offset(-60)
             }
-            sender.tag = 0
+            isSelecting = false
+            currentDisplayWeek = currentWeek
+            let courses = self.getCourse(table: table!, week: currentWeek)
+            listView.load(courses: courses, weeks: 0)
         }
         
         // 告诉self.view约束需要更新
         self.view.setNeedsUpdateConstraints()
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         }, completion: { _ in
         })
@@ -112,7 +200,12 @@ class ClassTableViewController: UIViewController {
             self.table = table
             let courses = self.getCourse(table: table, week: currentWeek)
             listView.load(courses: courses, weeks: 0)
-//            self.listView.load(table: table, week: currentWeek)
+            let now = Date()
+            let termStart = Date(timeIntervalSince1970: Double(table.termStart))
+            let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
+            self.currentWeek = Int(week)
+            self.currentDisplayWeek = Int(week)
+//            self.listView.load(courses: table, weeks: 0)
         }
     }
     
@@ -126,6 +219,7 @@ class ClassTableViewController: UIViewController {
             let termStart = Date(timeIntervalSince1970: Double(table.termStart))
             let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
             self.currentWeek = Int(week)
+            self.currentDisplayWeek = Int(week)
             let courses = self.getCourse(table: table, week: self.currentWeek)
             // 和本周的差距
             self.listView.load(courses: courses, weeks: 0)
@@ -133,10 +227,22 @@ class ClassTableViewController: UIViewController {
             print(errorMessage)
         })
     }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        super.viewWillAppear(animated)
+    }
 }
 
 extension ClassTableViewController {
     func getCourse(table: ClassTableModel, week: Int) -> [[ClassModel]] {
+        if let dict = weekCourseDict[week] {
+            return dict
+        }
+        // TODO: optimize
+        
         var coursesForDay: [[ClassModel]] = [[], [], [], [], [], [], []]
         var classes = [] as [ClassModel]
         //        var coursesForDay: [[ClassModel]] = []
@@ -165,6 +271,7 @@ extension ClassTableViewController {
                 
                 var newCourse = course
                 newCourse.arrange = [arrange]
+                // TODO: 这个是啥来着?
                 classes.append(newCourse)
                 coursesForDay[day].append(newCourse)
             }
@@ -210,6 +317,7 @@ extension ClassTableViewController {
             array.sort(by: { $0.0.arrange[0].start < $0.1.arrange[0].start })
             coursesForDay[day] = array
         }
+        weekCourseDict[week] = coursesForDay
         return coursesForDay
     }
     
@@ -254,28 +362,26 @@ extension ClassTableViewController {
                 }
             }
             
-            /*
-            // 抽取每行中的双数下标的元素
-            let sub1 = courses.map { items in
-                return items.enumerated().filter { index, item in
-                    return index % 2 == 0
-                    }.map { $0.1 }
-            }
-            // 抽取每行中的单数下标的元素
-            let sub2 = courses.map { items in
-                return items.enumerated().filter { index, item in
-                    return index % 2 == 1
-                    }.map { $0.1 }
-            }
-            let matrix = zip(sub1, sub2).map { (arg) -> [Bool] in
-                let (arr1, arr2) = arg
-                return zip(arr1, arr2).map {
-                    return $0.courseName != "" || $1.courseName != ""
-                }
-            }
-             */
             let cell = cells[i-1]
             cell.load(courses: matrix, week: i)
         }
+    }
+}
+
+extension ClassTableViewController: CourseListViewDelegate {
+    func listView(_ listView: CourseListView, didSelectCourse course: ClassModel) {
+        guard let table = table else {
+            return
+        }
+        if course.courseName == "" {
+            // TODO: 手动添加课程
+            return
+        }
+
+        // 相似课程
+//        let similiarCourses = table.classes.filter { $0.courseID == course.courseID }
+        let similiarCourses = table.classes.filter { $0.courseName == course.courseName }
+        let detailVC = ClassDetailViewController(courses: similiarCourses)
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

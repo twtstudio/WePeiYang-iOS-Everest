@@ -202,6 +202,7 @@ extension UIImage {
         return newImage
     }
     
+    
     //pure color image
     convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
         let rect = CGRect(origin: .zero, size: size)

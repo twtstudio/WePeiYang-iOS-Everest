@@ -17,6 +17,7 @@ class WeekItemCell: UIView {
         self.backgroundColor = .clear
         weekLabel.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: 20)
         self.addSubview(weekLabel)
+        self.layer.cornerRadius = 2
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,7 +43,7 @@ class WeekItemCell: UIView {
         guard let ctx = UIGraphicsGetCurrentContext() else {
             return
         }
-        let radius = 5 as CGFloat
+        let radius = 4.8 as CGFloat
         let offset = 1 as CGFloat
         let padding = (rect.width - CGFloat(matrix.count)*(radius + offset))/2
         
@@ -57,5 +58,12 @@ class WeekItemCell: UIView {
             }
         }
     }
-
+    
+    func setSelected() {
+        self.backgroundColor = .white
+    }
+    
+    func dismissSelected() {
+        self.backgroundColor = .clear
+    }
 }

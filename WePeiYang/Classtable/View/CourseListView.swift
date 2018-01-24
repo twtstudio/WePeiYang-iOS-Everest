@@ -16,8 +16,8 @@ fileprivate struct C {
     static let dayCount = 7
     static let courseCount = 12
     
-    static let classNumberViewWidth: CGFloat = 30
-    static let dayNumberViewHeight: CGFloat = 35
+    static let classNumberViewWidth: CGFloat = 32 //35
+    static let dayNumberViewHeight: CGFloat = 45
 }
 
 protocol CourseListViewDelegate {
@@ -68,9 +68,12 @@ class CourseListView: UIView {
         dayNumberView = UIView(frame: .zero)
         updownContentView = UIScrollView(frame: .zero)
         updownContentView.showsVerticalScrollIndicator = false
+        updownContentView.bounces = false
         
         self.addSubview(dayNumberView)
         
+        dayNumberView.layer.borderColor = UIColor(red:0.89, green:0.92, blue:0.93, alpha:1.00).cgColor
+        dayNumberView.layer.borderWidth = 1
         // 周几 label 的底板
         dayNumberView.snp.makeConstraints { make in
             make.left.equalToSuperview()
@@ -80,9 +83,13 @@ class CourseListView: UIView {
         }
         
         monthLabel = UILabel(frame: .zero)
-        monthLabel.font = UIFont.systemFont(ofSize: 12)
-        monthLabel.textColor = .lightGray
+//        monthLabel.font = UIFont.systemFont(ofSize: 12)
+        monthLabel.font = UIFont.boldSystemFont(ofSize: 11)
+//        monthLabel.textColor = .lightGray
+        monthLabel.textColor = UIColor(red:0.25, green:0.36, blue:0.47, alpha:1.00)
         monthLabel.textAlignment = .center
+        monthLabel.numberOfLines = 2
+        monthLabel.backgroundColor = UIColor(red:0.96, green:0.98, blue:0.98, alpha:1.00)
         dayNumberView.addSubview(monthLabel)
         monthLabel.text = dayInMonth[0]
         monthLabel.snp.makeConstraints { make in
@@ -96,11 +103,13 @@ class CourseListView: UIView {
         var dayTitles = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
         for i in 0..<C.dayCount {
             let label = UILabel(frame: .zero)
+            label.backgroundColor = UIColor(red:0.96, green:0.98, blue:0.98, alpha:1.00)
             label.text = dayTitles[i] + "\n" + dayInMonth[i+1]
             label.textAlignment = .center
-//            label.font = UIFont.boldSystemFont(ofSize: 12)
-            label.font = UIFont.systemFont(ofSize: 12)
-            label.textColor = .lightGray
+            label.font = UIFont.boldSystemFont(ofSize: 11)
+//            label.font = UIFont.systemFont(ofSize: 12)
+//            label.textColor = .lightGray
+            label.textColor = UIColor(red:0.25, green:0.36, blue:0.47, alpha:1.00)
             label.numberOfLines = 2
             dayNumberView.addSubview(label)
             label.snp.makeConstraints { make in
@@ -147,10 +156,11 @@ class CourseListView: UIView {
         var courseCountLabels: [UILabel] = []
         for i in 0..<C.courseCount {
             let label = UILabel(frame: .zero)
+            label.backgroundColor = UIColor(red:0.95, green:0.97, blue:0.97, alpha:1.00)
             label.text = "\(i+1)"
             label.textAlignment = .center
             label.font = UIFont.systemFont(ofSize: 12)
-            label.textColor = .lightGray
+            label.textColor = UIColor(red:0.46, green:0.55, blue:0.62, alpha:1.00)
             classNumberView.addSubview(label)
             label.snp.makeConstraints { make in
                 make.height.equalTo(C.cellHeight)
@@ -217,7 +227,6 @@ class CourseListView: UIView {
             // 代理事件
             let model = coursesForDay[index][indexPath.row]
             self.delegate?.listView(self, didSelectCourse: model)
-            print(model)
         }
     }
 

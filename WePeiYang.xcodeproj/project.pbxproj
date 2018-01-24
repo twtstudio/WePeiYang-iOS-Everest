@@ -130,6 +130,8 @@
 		369B2D4A20151542009352A8 /* DateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369B2D4920151542009352A8 /* DateTool.swift */; };
 		369D92072015D914004BA1D0 /* WeekSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D92062015D914004BA1D0 /* WeekSelectView.swift */; };
 		369D92092015D97A004BA1D0 /* WeekItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D92082015D97A004BA1D0 /* WeekItemCell.swift */; };
+		36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0FE73201861BD0014E667 /* ClassDetailViewController.swift */; };
+		36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0FE75201867CF0014E667 /* ArrangeCell.swift */; };
 		36DA7A5B1FA8A35C000DAF2B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */; };
 		36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13F3AE71F0CEE5C00F820A5 /* FAB.swift */; };
 		36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E11EC84ED90064373A /* CacheManager.swift */; };
@@ -340,6 +342,8 @@
 		369B2D4920151542009352A8 /* DateTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTool.swift; sourceTree = "<group>"; };
 		369D92062015D914004BA1D0 /* WeekSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSelectView.swift; sourceTree = "<group>"; };
 		369D92082015D97A004BA1D0 /* WeekItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekItemCell.swift; sourceTree = "<group>"; };
+		36D0FE73201861BD0014E667 /* ClassDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
+		36D0FE75201867CF0014E667 /* ArrangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrangeCell.swift; sourceTree = "<group>"; };
 		36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WePeiYang-Bridging-Header.h"; sourceTree = "<group>"; };
 		36E56BC51FC512230009BD6F /* CourseListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseListView.swift; sourceTree = "<group>"; };
 		36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -687,6 +691,7 @@
 			isa = PBXGroup;
 			children = (
 				3653DD901FBAD0B600501C3B /* ClassTableViewController.swift */,
+				36D0FE73201861BD0014E667 /* ClassDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -707,6 +712,7 @@
 			isa = PBXGroup;
 			children = (
 				36E56BC51FC512230009BD6F /* CourseListView.swift */,
+				36D0FE75201867CF0014E667 /* ArrangeCell.swift */,
 				369D92062015D914004BA1D0 /* WeekSelectView.swift */,
 				369D92082015D97A004BA1D0 /* WeekItemCell.swift */,
 				36042DB71FC7BB270016E859 /* CourseCell.swift */,
@@ -1497,6 +1503,7 @@
 				364BDF741FDAE21900E61B65 /* BezierLineLayer.swift in Sources */,
 				0C3ADF3D1F697EE100388C19 /* MyLostViewController.swift in Sources */,
 				B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */,
+				36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */,
 				B102541C1EC8547E0064373A /* Metadata.swift in Sources */,
 				B10253D91EC84ED20064373A /* ReadAPI.swift in Sources */,
 				36449E651FA4BABA0036766B /* QuizCell.swift in Sources */,
@@ -1549,6 +1556,7 @@
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
 				36073D1F1F225D2A001317A7 /* ReviewListViewController.swift in Sources */,
 				36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */,
+				36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */,
 				A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */,
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
 				36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */,
