@@ -35,32 +35,31 @@ class ArrangeCell: UITableViewCell {
         
         contentView.addSubview(titleLabel)
         titleLabel.textColor = UIColor(red:0.57, green:0.57, blue:0.57, alpha:1.00)
-        titleLabel.font = UIFont.systemFont(ofSize: 16)
+        titleLabel.font = UIFont.systemFont(ofSize: 15)
         titleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(15)
             make.top.equalToSuperview().offset(15)
-//            make.height.equalTo(19.5)
+            make.height.equalTo(19.5)
         }
         
         contentView.addSubview(dateLabel)
         dateLabel.textColor = UIColor(red:0.37, green:0.37, blue:0.37, alpha:1.00)
-        dateLabel.font = UIFont.systemFont(ofSize: 16)
+        dateLabel.font = UIFont.systemFont(ofSize: 15)
         dateLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(15)
             make.top.equalTo(titleLabel.snp.bottom).offset(12)
-//            make.height.equalTo(19.5)
+            make.height.equalTo(19.5)
         }
 
         contentView.addSubview(locationLabel)
         locationLabel.textColor = UIColor(red:0.37, green:0.37, blue:0.37, alpha:1.00)
-        locationLabel.font = UIFont.systemFont(ofSize: 16)
+        locationLabel.font = UIFont.systemFont(ofSize: 15)
         locationLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(15)
             make.top.equalTo(dateLabel.snp.bottom).offset(12)
-//            make.height.equalTo(19.5)
+            make.height.equalTo(19.5)
             make.bottom.equalToSuperview().offset(-15)
         }
-
     }
     
     func load(model: ClassModel, no: Int) {
@@ -84,6 +83,8 @@ class ArrangeCell: UITableViewCell {
         titleLabel.sizeToFit()
         dateLabel.sizeToFit()
         locationLabel.sizeToFit()
+        setNeedsLayout()
+        layoutIfNeeded()
     }
     
     override func awakeFromNib() {
