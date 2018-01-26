@@ -381,7 +381,16 @@ extension ClassTableViewController: CourseListViewDelegate {
         // 相似课程
 //        let similiarCourses = table.classes.filter { $0.courseID == course.courseID }
         let similiarCourses = table.classes.filter { $0.courseName == course.courseName }
-        let detailVC = ClassDetailViewController(courses: similiarCourses)
+        var singleArrangeCourses = [ClassModel]()
+        // 每个 arrange 作为一个 class
+        for course in similiarCourses {
+            for arrange in course.arrange {
+                var newCourse = course
+                newCourse.arrange = [arrange]
+                singleArrangeCourses.append(newCourse)
+            }
+        }
+        let detailVC = ClassDetailViewController(courses: singleArrangeCourses)
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

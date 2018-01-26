@@ -54,12 +54,23 @@ class ClassDetailViewController: UIViewController {
         
         let detailLabel = UILabel()
         detailLabel.numberOfLines = 0
+        
+        let teachers = Set<String>(courses.map { $0.teacher })
+        var teacherString = ""
+        for (idx, teacher) in teachers.enumerated() {
+            if idx == 0 {
+                teacherString = teacher
+            } else {
+                teacherString += "，" + teacher
+            }
+        }
+        
         var detailString = "逻辑班号: " + course.classID
         detailString += "\n课程编号: " + course.courseID
         detailString += "\n课程类型: " + course.courseType
         detailString += "\n课程性质: " + course.courseNature
         detailString += "\n学分: " + course.credit
-        detailString += "\n授课教师: " + course.teacher
+        detailString += "\n授课教师: " + teacherString
         detailString += "\n开课学院: " + course.college
         detailString += "\n校区: " + course.campus
         if course.ext != "" {

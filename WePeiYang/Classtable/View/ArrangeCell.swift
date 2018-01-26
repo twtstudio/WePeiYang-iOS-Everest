@@ -71,7 +71,7 @@ class ArrangeCell: UITableViewCell {
             time = week
             var mandarinWeek = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
             if arrange.day >= 1 && arrange.day <= 7 {
-                let day = mandarinWeek[arrange.day]
+                let day = mandarinWeek[arrange.day-1]
                 time += day
             }
             let timeRange = arrange.start.description + "-" + arrange.end.description + "节"
