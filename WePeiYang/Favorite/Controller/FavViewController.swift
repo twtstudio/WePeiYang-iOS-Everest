@@ -16,7 +16,7 @@ class FavViewController: UIViewController {
 //    override var preferredStatusBarStyle: UIStatusBarStyle {
 //        return .lightContent
 //    }
-    
+    var headerView: UIView!
     var fooView: UIView!
     var cardTableView: UITableView!
     
@@ -45,10 +45,10 @@ class FavViewController: UIViewController {
         navigationItem.title = "常用"
         
         
-        view.backgroundColor = Metadata.Color.GlobalViewBackgroundColor
-        
-        cardTableView = UITableView()
-        cardTableView.frame = view.frame
+//        view.backgroundColor = Metadata.Color.GlobalViewBackgroundColor
+        view.backgroundColor = .white
+
+        cardTableView = UITableView(frame: view.frame, style: .grouped)
         view = cardTableView
         
         cardTableView.delegate = self
@@ -57,7 +57,33 @@ class FavViewController: UIViewController {
         cardTableView.rowHeight = UITableViewAutomaticDimension
         cardTableView.separatorStyle = .none
         cardTableView.allowsSelection = false
+        cardTableView.backgroundColor = .white
         
+        
+        // init headerView
+        headerView = UIView()
+        headerView.frame = CGRect(x: 0, y: 0, width: 400, height: 80)
+        let dateLabel = UILabel()
+        let now = Date()
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US")
+//        formatter.dateFormat = "EEEE, MMMM d"
+        formatter.dateFormat = "EEE, MMMM d"
+
+        dateLabel.textColor = UIColor(red:0.36, green:0.36, blue:0.36, alpha:1.00)
+        dateLabel.text = formatter.string(from: now).uppercased()
+        dateLabel.font = UIFont.systemFont(ofSize: 15)
+        dateLabel.x = 15
+        dateLabel.y = 15
+        dateLabel.sizeToFit()
+        headerView.addSubview(dateLabel)
+        
+        let titleLabel = UILabel(text: "Favorite")
+        titleLabel.font = UIFont.systemFont(ofSize: 35, weight: UIFontWeightHeavy)
+        titleLabel.x = 15
+        titleLabel.y = 35
+        titleLabel.sizeToFit()
+        headerView.addSubview(titleLabel)
     }
 }
 
@@ -68,12 +94,69 @@ extension FavViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        let card = GPACard()
+        var card: CardView!
+
+        switch indexPath.row {
+        case 0:
+            card = GPACard()
+            
+            if let dic = CacheManager.loadGroupCache(withKey: GPAKey) as? [String: Any], let model = Mapper<GPAModel>().map(JSON: dic) {
+                var data: [Double] = []
+                for term in model.terms {
+                    data.append(term.stat.score)
+                }
+                
+                let contentMargin: CGFloat = 15
+                let width: CGFloat = self.view.frame.size.width - 60
+                let space = (width - 2*contentMargin)/CGFloat(data.count - 1)
+                
+                let height: CGFloat = 100
+                let minVal = data.min() ?? 0
+                let range = data.max() ?? 0 - minVal
+                let ratio = height/CGFloat(range)
+                
+                let newData = data.map({ item in
+                    return height - CGFloat(item - minVal)*ratio
+                })
+                
+                var points = [CGPoint]()
+                
+                for i in 0..<newData.count {
+                    let point = CGPoint(x: CGFloat(i)*space, y: newData[i])
+                    points.append(point)
+                }
+                
+                (card as? GPACard)?.drawLine(points: points)
+            }
+            // TODO: else 没有数据时
+            let gpaVC = GPAViewController()
+            //        newVC.transitioningDelegate = self
+            //        card.shouldPresent(gpaVC, from: self)
+            card.shouldPush(gpaVC, from: self)
+
+            // FIXME: gpa data
+        case 1:
+            card = ClassTableCard()
+            
+            let mycard = card as! ClassTableCard
+            let courses = ClassTableHelper.getTodayCourse().filter { course in
+                return course.courseName != ""
+            }
+            for i in 0..<5 {
+                if i < courses.count {
+                    mycard.cells[i].load(course: courses[i])
+                }
+            }
+            let classtableVC = ClassTableViewController()
+            card.shouldPush(classtableVC, from: self)
+        default:
+            break
+        }
         cell.contentView.addSubview(card)
         card.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
@@ -82,43 +165,10 @@ extension FavViewController: UITableViewDataSource {
             make.left.equalToSuperview().offset(15)
             make.right.equalToSuperview().offset(-15)
         }
-        
-        let dic = CacheManager.loadGroupCache(withKey: GPAKey) as? [String: Any]
-        let model = Mapper<GPAModel>().map(JSON: dic ?? [:])
-        
-        // FIXME: gpa data
-        var data: [Double] = []
-        for term in model?.terms ?? [] {
-            data.append(term.stat.score)
-        }
-        data = [90, 91, 85]
-        
-        let contentMargin: CGFloat = 15
-        let width: CGFloat = self.view.frame.size.width - 60
-        let space = (width - 2*contentMargin)/CGFloat(data.count - 1)
-        
-        let height: CGFloat = 100
-        let minVal = data.min() ?? 0
-        let range = data.max() ?? 0 - minVal
-        let ratio = height/CGFloat(range)
-        
-        let newData = data.map({ item in
-            return height - CGFloat(item - minVal)*ratio
-        })
-        
-        var points = [CGPoint]()
-        
-        for i in 0..<newData.count {
-            let point = CGPoint(x: CGFloat(i)*space, y: newData[i])
-            points.append(point)
-        }
-        
-        card.drawLine(points: points)
-        let gpaVC = GPAViewController()
-//        newVC.transitioningDelegate = self
-//        card.shouldPresent(gpaVC, from: self)
-        card.shouldPush(gpaVC, from: self)
 
+        cell.setNeedsLayout()
+        cell.layoutIfNeeded()
+        
         return cell
     }
 }
@@ -127,5 +177,16 @@ extension FavViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return headerView
+        }
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return headerView.systemLayoutSizeFitting(.init(width: CGFloat.infinity, height: CGFloat.infinity)).height
     }
 }

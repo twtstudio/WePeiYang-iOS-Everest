@@ -321,6 +321,7 @@ extension ClassTableViewController {
         return coursesForDay
     }
     
+    
     // 刷新缩略图
     func updateWeekItem() {
         guard let table = table,
