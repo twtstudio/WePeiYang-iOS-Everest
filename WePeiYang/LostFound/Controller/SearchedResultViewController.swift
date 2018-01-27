@@ -45,8 +45,8 @@ class SearchedResultViewController: UIViewController, UICollectionViewDelegate, 
         refresh()
         self.searchedView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.searchedView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
-        self.searchedView.mj_footer.isAutomaticallyHidden = true
-        
+//        self.searchedView.mj_footer.isAutomaticallyHidden = true
+
         
         
     }

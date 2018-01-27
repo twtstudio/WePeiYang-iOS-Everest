@@ -45,4 +45,10 @@ struct DateTool {
         }
         return array
     }
+    
+    static func getLocalWeekDay() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE"
+        return formatter.string(from: Date())
+    }
 }

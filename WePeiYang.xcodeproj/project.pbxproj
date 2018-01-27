@@ -124,6 +124,7 @@
 		365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A1A1FB9BA8500B15443 /* ArrangeModel.swift */; };
 		365A8A251FB9BA8500B15443 /* ClasstableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A1C1FB9BA8500B15443 /* ClasstableDataManager.swift */; };
 		365A8A281FB9CA1700B15443 /* ClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A271FB9CA1700B15443 /* ClassModel.swift */; };
+		3667E1D0201CB98800E82241 /* DetailSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667E1CF201CB98800E82241 /* DetailSettingViewController.swift */; };
 		36758FDD1FDA851C0023A99C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36758FDC1FDA851C0023A99C /* CardView.swift */; };
 		36922AE21FCAEA1E00AD44F3 /* GPAModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36922AE11FCAEA1E00AD44F3 /* GPAModel.swift */; };
 		369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369306941F2B976C008E90DC /* ModuleCollectionViewCell.swift */; };
@@ -338,6 +339,7 @@
 		365A8A1A1FB9BA8500B15443 /* ArrangeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrangeModel.swift; sourceTree = "<group>"; };
 		365A8A1C1FB9BA8500B15443 /* ClasstableDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClasstableDataManager.swift; sourceTree = "<group>"; };
 		365A8A271FB9CA1700B15443 /* ClassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassModel.swift; sourceTree = "<group>"; };
+		3667E1CF201CB98800E82241 /* DetailSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingViewController.swift; sourceTree = "<group>"; };
 		36758FDC1FDA851C0023A99C /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		36922AE11FCAEA1E00AD44F3 /* GPAModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAModel.swift; sourceTree = "<group>"; };
 		369306941F2B976C008E90DC /* ModuleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -725,6 +727,39 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		3667E1CB201CB3B400E82241 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3667E1CC201CB3D600E82241 /* Controller */,
+				3667E1CE201CB44200E82241 /* Model */,
+				3667E1CD201CB43600E82241 /* View */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		3667E1CC201CB3D600E82241 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */,
+				3667E1CF201CB98800E82241 /* DetailSettingViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3667E1CD201CB43600E82241 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3667E1CE201CB44200E82241 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		369306911F2B972F008E90DC /* ModuleCollection */ = {
 			isa = PBXGroup;
 			children = (
@@ -1086,7 +1121,6 @@
 				B10254091EC8520A0064373A /* main */,
 				B181B95E1EC5C24000B8198E /* NewsViewController.swift */,
 				36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */,
-				0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */,
 				369306911F2B972F008E90DC /* ModuleCollection */,
 				B10253DE1EC84ED90064373A /* Shared */,
 				B19DAB921E6EF5C2004A50B5 /* LaunchScreen.storyboard */,
@@ -1101,6 +1135,7 @@
 				36449E3A1FA4BA660036766B /* PartyService */,
 				3659367F1F1E60A9003CE578 /* GPA */,
 				B10253FE1EC84EE00064373A /* YellowPage */,
+				3667E1CB201CB3B400E82241 /* Settings */,
 			);
 			path = WePeiYang;
 			sourceTree = "<group>";
@@ -1508,6 +1543,7 @@
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
 				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
 				364BDF741FDAE21900E61B65 /* BezierLineLayer.swift in Sources */,
+				3667E1D0201CB98800E82241 /* DetailSettingViewController.swift in Sources */,
 				0C3ADF3D1F697EE100388C19 /* MyLostViewController.swift in Sources */,
 				B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */,
 				36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */,

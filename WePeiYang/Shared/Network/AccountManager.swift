@@ -49,8 +49,24 @@ struct AccountManager {
     }
     
      // FIXME: every time open the app, refresh token
-    static func refreshToken() {
-        
+    static func refreshToken(success: (()->())? = nil, failure: (()->())?) {
+        SolaSessionManager.solaSession(type: .get, url: "/auth/token/refresh", parameters: nil, success: { dict in
+            if let newToken = dict["data"] as? String {
+                TwTUser.shared.token = newToken
+                TwTUser.shared.save()
+                //啥都不用做
+                success?()
+                return
+            }
+            if let msg = dict["message"] as? String {
+                log.word(msg)/
+            }
+        }, failure: { error in
+            log.error(error)/
+            failure?()
+            // FIXME 获取失败我也不知道怎么做 难道要重新登录
+            TwTUser.shared.delete()
+        }) // refresh finished
     }
     
     static func checkToken(success: (()->())? = nil, failure: (()->())?) {

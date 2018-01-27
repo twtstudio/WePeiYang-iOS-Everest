@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Theme: String {
+enum WPYTheme: String {
     case night
     
     // more to be designed
@@ -17,5 +17,5 @@ enum Theme: String {
 protocol ThemeChanging {
     
     // Requires every conforming type to have an instance method of the theme changing
-    func changeInto(theme: Theme)
+    func changeInto(theme: WPYTheme)
 }

@@ -31,17 +31,6 @@ struct ClassTableHelper {
         return []
     }
     
-//    private static func getCourse(of day: Int) -> [ClassModel] {
-//        if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
-//            let now = Date()
-//            let termStart = Date(timeIntervalSince1970: Double(table.termStart))
-//            let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
-//            let currentWeek = Int(week)
-//
-//        }
-//        return []
-//    }
-
     
     // 很尴尬 我会优化的
     static func getCourse(table: ClassTableModel, week: Int) -> [[ClassModel]] {

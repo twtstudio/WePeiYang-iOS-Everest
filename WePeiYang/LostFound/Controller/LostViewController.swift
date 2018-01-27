@@ -75,8 +75,8 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
 //        footer.isAutomaticallyHidden = true
         self.lostView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.lostView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
-        self.lostView.mj_footer.isAutomaticallyHidden = true
-        
+//        self.lostView.mj_footer.isAutomaticallyHidden = true
+
         }
     
     

@@ -144,6 +144,15 @@ extension FavViewController: UITableViewDataSource {
             card = ClassTableCard()
             
             let mycard = card as! ClassTableCard
+            if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
+                let termStart = Date(timeIntervalSince1970: Double(table.termStart))
+                let week = Int(Date().timeIntervalSince(termStart)/(7.0*24*60*60) + 1)
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .spellOut
+                let weekday = DateTool.getLocalWeekDay()
+                mycard.titleLabel.text = "第\(formatter.string(from: NSNumber(integerLiteral: week))!)周 " + weekday
+                mycard.titleLabel.sizeToFit()
+            }
             let courses = ClassTableHelper.getTodayCourse().filter { course in
                 return course.courseName != ""
             }
@@ -173,12 +182,11 @@ extension FavViewController: UITableViewDataSource {
     }
 }
 
-extension FavViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
+extension FavViewController {
+    // TODO: get gpa card
+}
 
+extension FavViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             return headerView
