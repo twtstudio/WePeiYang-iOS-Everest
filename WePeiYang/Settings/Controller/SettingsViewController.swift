@@ -289,6 +289,7 @@ extension SettingsViewController: UITableViewDelegate {
             TwTUser.shared.delete()
             tableView.reloadData()
             print("log out")
+            return
         case (0, _):
             guard let _ = TwTUser.shared.token else {
                 let alert = UIAlertController(title: "先去登录！", message: nil, preferredStyle: .alert)
