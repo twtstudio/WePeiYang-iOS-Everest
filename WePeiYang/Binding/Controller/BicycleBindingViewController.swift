@@ -29,7 +29,8 @@ class BicycleBindingViewController: UIViewController {
         logoImageView = UIImageView.init(image: logoImage)
         logoImageView.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*1.0/5.0), size: CGSize(width: imageViewWidth, height: imageViewWidth / imageRatio))
         self.view.addSubview(logoImageView)
-        
+        title = "绑定自行车账号"
+
         let textFieldWidth: CGFloat = 250
         usernameTextField = UITextField()
         usernameTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*2.0/5.0), size: CGSize(width: textFieldWidth, height: 40))

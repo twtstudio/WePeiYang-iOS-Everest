@@ -98,7 +98,7 @@ class PartyPersonalStatusViewController: UIViewController, UIScrollViewDelegate 
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
         
         //改变背景颜色
-        mainScrollView.backgroundColor = UIColor(colorLiteralRed: 0.95, green: 0.95, blue: 0.95, alpha: 1)
+        mainScrollView.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
     }
         
     //MARK: 劳资真的要死了，劳资已经疯了

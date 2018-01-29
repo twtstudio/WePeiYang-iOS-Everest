@@ -169,7 +169,6 @@
 		A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117BA1F99DCBE00C86CA2 /* NotificationItem.swift */; };
 		A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117BC1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift */; };
 		A5E117C11F99E01A00C86CA2 /* BicycleCardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C01F99E01A00C86CA2 /* BicycleCardListViewController.swift */; };
-		A5E117C31F99E03200C86CA2 /* BicycleRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C21F99E03200C86CA2 /* BicycleRecordViewController.swift */; };
 		A5E117C51F99E05200C86CA2 /* BicycleServiceInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C41F99E05200C86CA2 /* BicycleServiceInfoController.swift */; };
 		A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C61F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift */; };
 		B10253D61EC84ED20064373A /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CD1EC84ED20064373A /* Book.swift */; };
@@ -376,8 +375,6 @@
 		A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleFitnessTrackerViewCell.swift; sourceTree = "<group>"; };
 		A554C4BC1F99EFE300022A01 /* ParkingSpotsLocs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ParkingSpotsLocs.json; sourceTree = "<group>"; };
 		A5D695191F8A21AD00022B9A /* WMScrollView+gesture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMScrollView+gesture.m"; sourceTree = "<group>"; };
-		A5D6951D1F8A21AD00022B9A /* BicycleServiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BicycleServiceViewController.h; sourceTree = "<group>"; };
-		A5D6951E1F8A21AD00022B9A /* BicycleServiceViewControllerRev.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BicycleServiceViewControllerRev.h; sourceTree = "<group>"; };
 		A5D695201F8A21AD00022B9A /* WMScrollView+gesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMScrollView+gesture.h"; sourceTree = "<group>"; };
 		A5D6952E1F8A21AD00022B9A /* BicycleServiceInfoController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BicycleServiceInfoController.xib; sourceTree = "<group>"; };
 		A5D695301F8A21AD00022B9A /* BicycleServiceNotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleServiceNotificationCell.swift; sourceTree = "<group>"; };
@@ -394,7 +391,6 @@
 		A5E117BA1F99DCBE00C86CA2 /* NotificationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationItem.swift; sourceTree = "<group>"; };
 		A5E117BC1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleFitnessTrackerViewController.swift; sourceTree = "<group>"; };
 		A5E117C01F99E01A00C86CA2 /* BicycleCardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleCardListViewController.swift; sourceTree = "<group>"; };
-		A5E117C21F99E03200C86CA2 /* BicycleRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleRecordViewController.swift; sourceTree = "<group>"; };
 		A5E117C41F99E05200C86CA2 /* BicycleServiceInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleServiceInfoController.swift; sourceTree = "<group>"; };
 		A5E117C61F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleNotificationDetailViewController.swift; sourceTree = "<group>"; };
 		B10253CD1EC84ED20064373A /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
@@ -881,13 +877,10 @@
 			isa = PBXGroup;
 			children = (
 				A5E117C01F99E01A00C86CA2 /* BicycleCardListViewController.swift */,
-				A5E117C21F99E03200C86CA2 /* BicycleRecordViewController.swift */,
 				A5D695191F8A21AD00022B9A /* WMScrollView+gesture.m */,
 				A5E117C41F99E05200C86CA2 /* BicycleServiceInfoController.swift */,
 				A5E117C61F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift */,
-				A5D6951D1F8A21AD00022B9A /* BicycleServiceViewController.h */,
 				36366B2D1FAB86B0001F72A0 /* BicycleServiceViewController.swift */,
-				A5D6951E1F8A21AD00022B9A /* BicycleServiceViewControllerRev.h */,
 				A554C4B01F99E43F00022A01 /* BicycleServiceNotificationController.swift */,
 				A5D695201F8A21AD00022B9A /* WMScrollView+gesture.h */,
 				36F631EC1FAB31C500E3261F /* BicycleUserBindViewController.swift */,
@@ -1511,7 +1504,6 @@
 				B10254051EC84EE00064373A /* PhoneBook.swift in Sources */,
 				36758FDD1FDA851C0023A99C /* CardView.swift in Sources */,
 				A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */,
-				A5E117C31F99E03200C86CA2 /* BicycleRecordViewController.swift in Sources */,
 				A5E117C11F99E01A00C86CA2 /* BicycleCardListViewController.swift in Sources */,
 				36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */,
 				0C3ADF361F697EE100388C19 /* FoundViewController.swift in Sources */,
