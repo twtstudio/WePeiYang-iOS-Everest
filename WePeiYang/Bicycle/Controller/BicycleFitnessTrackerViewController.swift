@@ -15,9 +15,9 @@ class BicycleFitnessTrackerViewController: UIViewController {
     let healthRingView = HKActivityRingView()
     let healthSummary = HKActivitySummary()
     
-    let MoveColor = UIColor(colorLiteralRed: 231.0/255.0, green: 23.0/255.0, blue: 61.0/255.0, alpha: 1)
-    let ExerciseColor = UIColor(colorLiteralRed: 98/255.0, green: 228/255.0, blue: 42/255.0, alpha: 1)
-    let StandColor = UIColor(colorLiteralRed: 34/255.0, green: 207/255.0, blue: 218/255.0, alpha: 1)
+    let MoveColor = UIColor(red: 231.0/255.0, green: 23.0/255.0, blue: 61.0/255.0, alpha: 1)
+    let ExerciseColor = UIColor(red: 98/255.0, green: 228/255.0, blue: 42/255.0, alpha: 1)
+    let StandColor = UIColor(red: 34/255.0, green: 207/255.0, blue: 218/255.0, alpha: 1)
     
     var tableView: UITableView!
     
@@ -55,7 +55,7 @@ class BicycleFitnessTrackerViewController: UIViewController {
         self.view.backgroundColor = .black
         
         //NavigationBar 的文字
-        self.navigationController!.navigationBar.tintColor = UIColor(colorLiteralRed: 39.0/255.0, green: 174.0/255.0, blue: 27.0/255.0, alpha: 1)
+        self.navigationController!.navigationBar.tintColor = UIColor(red: 39.0/255.0, green: 174.0/255.0, blue: 27.0/255.0, alpha: 1)
         
         
         

@@ -16,8 +16,8 @@ fileprivate struct C {
     static let dayCount = 7
     static let courseCount = 12
     
-    static let classNumberViewWidth: CGFloat = 30
-    static let dayNumberViewHeight: CGFloat = 30
+    static let classNumberViewWidth: CGFloat = 32 //35
+    static let dayNumberViewHeight: CGFloat = 45
 }
 
 protocol CourseListViewDelegate {
@@ -29,12 +29,6 @@ protocol CourseListViewDelegate {
     func listView(_ listView: CourseListView, didSelectCourse course: ClassModel)
 }
 
-protocol CourseListViewDataSource {
-//    var
-    func days() -> [Int]
-    func courses(in day: Int) -> [ClassModel]
-    func dayTitles() -> [String]
-}
 //Hiererachy
 //"CourseListView" UIView
 //    +--- "containerView" UIView
@@ -52,16 +46,11 @@ class CourseListView: UIView {
     var tableViews: [UITableView] = []
     
     var delegate: CourseListViewDelegate?
-    var dataSource: CourseListViewDataSource? {
-        didSet {
-            self.reloadData()
-        }
-    }
+    // 周一到周日
+    var coursesForDay: [[ClassModel]] = [[], [], [], [], [], [], []]
     
-    var days: [Int] = [1, 2, 3, 4, 5, 6, 7]
-    var coursesForDay: [Int : [ClassModel]] = [:]
-    
-    var week: [[ClassModel]] = []
+    var monthLabel: UILabel!
+    var dayNumberLabels: [UILabel] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -73,19 +62,19 @@ class CourseListView: UIView {
     }
     
     func setup() {
+        let dayInMonth = DateTool.getCurrentWeekDay()
+
         classNumberView = UIView(frame: .zero)
         dayNumberView = UIView(frame: .zero)
         updownContentView = UIScrollView(frame: .zero)
         updownContentView.showsVerticalScrollIndicator = false
-        // updownContentView.delaysContentTouches = false
-//        updownContentView.delaysContentTouches = false
-//        updownContentView.panGestureRecognizer.delaysTouchesBegan = true
-//        updownContentView.
+        updownContentView.bounces = false
         
         self.addSubview(dayNumberView)
         
-//        updownContentView.contentSize = CGSize(width: self.width, height: CGFloat(C.courseCount) * C.cellHeight)
-        
+        dayNumberView.layer.borderColor = UIColor(red:0.89, green:0.92, blue:0.93, alpha:1.00).cgColor
+        dayNumberView.layer.borderWidth = 1
+        // 周几 label 的底板
         dayNumberView.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.top.equalToSuperview()
@@ -93,15 +82,35 @@ class CourseListView: UIView {
             make.height.equalTo(C.dayNumberViewHeight)
         }
         
-        var dayTitles = dataSource?.dayTitles() ?? ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
-        // 一般是有七天
-        var dayNumberLabels: [UILabel] = []
+        monthLabel = UILabel(frame: .zero)
+//        monthLabel.font = UIFont.systemFont(ofSize: 12)
+        monthLabel.font = UIFont.boldSystemFont(ofSize: 11)
+//        monthLabel.textColor = .lightGray
+        monthLabel.textColor = UIColor(red:0.25, green:0.36, blue:0.47, alpha:1.00)
+        monthLabel.textAlignment = .center
+        monthLabel.numberOfLines = 2
+        monthLabel.backgroundColor = UIColor(red:0.96, green:0.98, blue:0.98, alpha:1.00)
+        dayNumberView.addSubview(monthLabel)
+        monthLabel.text = dayInMonth[0]
+        monthLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.top.equalToSuperview()
+            make.height.equalToSuperview()
+            make.width.equalTo(C.classNumberViewWidth)
+        }
+        
+        // 进行周几标签的布局
+        var dayTitles = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
         for i in 0..<C.dayCount {
             let label = UILabel(frame: .zero)
-            label.text = dayTitles[i]
+            label.backgroundColor = UIColor(red:0.96, green:0.98, blue:0.98, alpha:1.00)
+            label.text = dayTitles[i] + "\n" + dayInMonth[i+1]
             label.textAlignment = .center
-            label.font = UIFont.systemFont(ofSize: 13)
-            label.textColor = .lightGray
+            label.font = UIFont.boldSystemFont(ofSize: 11)
+//            label.font = UIFont.systemFont(ofSize: 12)
+//            label.textColor = .lightGray
+            label.textColor = UIColor(red:0.25, green:0.36, blue:0.47, alpha:1.00)
+            label.numberOfLines = 2
             dayNumberView.addSubview(label)
             label.snp.makeConstraints { make in
                 make.top.equalToSuperview()
@@ -122,22 +131,11 @@ class CourseListView: UIView {
         }
 
         
-//        let containerView = UIView()
-//        self.addSubview(containerView)
-
-//        containerView.snp.makeConstraints { make in
-//            make.top.equalTo(dayNumberView.snp.bottom)
-////            make.top.equalToSuperview()
-//            make.left.equalToSuperview()
-//            make.right.equalToSuperview()
-//            make.bottom.equalToSuperview()
-//        }
-
+        // 上下滑动的view
         self.addSubview(updownContentView)
         updownContentView.snp.makeConstraints { make in
             make.bottom.left.right.equalToSuperview()
             make.top.equalTo(dayNumberView.snp.bottom)
-//            make.top.bottom.left.right.equalToSuperview()
         }
         
         let contentView = UIView()
@@ -154,48 +152,51 @@ class CourseListView: UIView {
             make.height.equalTo(CGFloat(C.courseCount) * C.cellHeight)
             make.bottom.equalToSuperview()
         }
-        
+        // 课程编号的label
         var courseCountLabels: [UILabel] = []
         for i in 0..<C.courseCount {
             let label = UILabel(frame: .zero)
+            label.backgroundColor = UIColor(red:0.95, green:0.97, blue:0.97, alpha:1.00)
             label.text = "\(i+1)"
             label.textAlignment = .center
             label.font = UIFont.systemFont(ofSize: 12)
-            label.textColor = .lightGray
+            label.textColor = UIColor(red:0.46, green:0.55, blue:0.62, alpha:1.00)
             classNumberView.addSubview(label)
             label.snp.makeConstraints { make in
                 make.height.equalTo(C.cellHeight)
                 make.width.equalTo(C.classNumberViewWidth)
                 make.left.equalToSuperview()
                 if i == 0 {
+                    // 第一个
                     make.top.equalToSuperview()
-//                        .offset(C.cellHeight)
                 } else {
                     make.top.equalTo(courseCountLabels[i-1].snp.bottom)
                 }
             }
             courseCountLabels.append(label)
         }
+        // 最后一个
         courseCountLabels.last!.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
         }
         
-        // TODO: replace 7
         for i in 0..<7 {
+            // 每天的 tableView
             let tableView = UITableView()
             tableViews.append(tableView)
             tableView.dataSource = self
             tableView.delegate = self
             tableView.separatorStyle = .none
-            tableView.tag = i+1
+            // 为了对应每天
+            tableView.tag = i
             tableView.contentInset.bottom = 64
+            tableView.allowsSelection = false
             contentView.addSubview(tableView)
             tableView.snp.makeConstraints { make in
                 make.top.equalTo(courseCountLabels[0].snp.top)
                 make.bottom.equalToSuperview()
                 if i == 0 {
                     make.left.equalTo(courseCountLabels[0].snp.right)
-//                    make.left.equalToSuperview().offset(C.classNumberViewWidth)
                 } else {
                     make.left.equalTo(tableViews[i-1].snp.right)
                 }
@@ -210,56 +211,36 @@ class CourseListView: UIView {
             tableView.isScrollEnabled = false
         }
         
-//        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureAction:)];
-//        [recognizer setNumberOfTapsRequired:1];
-//        MYScrollView.userInteractionEnabled = YES;
-//        [MYScrollView addGestureRecognizer:recognizer];
+        // 因为 tableView 在 scrollView 上，所以手势被屏蔽了 需要手动添加
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(tableViewTouch(sender:)))
         updownContentView.addGestureRecognizer(recognizer)
     }
     
     func tableViewTouch(sender: UITapGestureRecognizer) {
+        // 算出相对第一个 tableView 的点击位置
         let location = sender.location(in: tableViews[0])
         let index = Int(location.x / C.cellWidth)
+        // 算出相对被点击的 tabelView 的 indexPath
         let realLocation = sender.location(in: tableViews[index])
         let indexPath = tableViews[index].indexPathForRow(at: realLocation)
-        if let indexPath = indexPath, let model = coursesForDay[index+1]?[indexPath.row] {
+        if let indexPath = indexPath {
+            // 代理事件
+            let model = coursesForDay[index][indexPath.row]
             self.delegate?.listView(self, didSelectCourse: model)
-            print(model.courseName)
         }
-        // tableViews[0].
     }
-    
-    func reloadData() {
-        guard let dataSource = dataSource else {
-            return
+
+    func load(courses: [[ClassModel]], weeks: Int) {
+        let dayInMonth = DateTool.getWeekDayAfter(weeks: weeks)
+        var dayTitles = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+        for i in 0..<C.dayCount {
+            dayNumberLabels[i].text = dayTitles[i] + "\n" + dayInMonth[i+1]
         }
-        
-//        days = dataSource.days()
-        days.forEach { day in
-            coursesForDay[day] = dataSource.courses(in: day)
-        }
-        
-        for key in coursesForDay.keys {
-            coursesForDay[key]?.sort(by: { a, b in
-                return a.arrange[0].start < b.arrange[0].start
-            })
-            var lastEnd = 0
-            for course in coursesForDay[key]! {
-                if (course.arrange[0].start-1) - (lastEnd+1) >= 0 {
-                    let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(lastEnd+1)\", \"end\":\"\(course.arrange[0].start-1)\"}]}")!
-                    // placeholders[i].append(placeholder)
-                    coursesForDay[key]?.append(placeholder)
-//                    item.append(placeholder)
-                }
-                lastEnd = course.arrange[0].end
-            }
-            coursesForDay[key]?.sort(by: { $0.0.arrange[0].start < $0.1.arrange[0].start })
-        }
-        
-        
+        monthLabel.text = dayInMonth[0]
+        coursesForDay = courses
         self.tableViews.forEach({ $0.reloadData() })
     }
+    
 }
 
 extension CourseListView: UITableViewDataSource {
@@ -268,28 +249,21 @@ extension CourseListView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let courses = coursesForDay[tableView.tag]
-        return courses?.count ?? 0
+        return coursesForDay[tableView.tag].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = coursesForDay[tableView.tag]?[indexPath.row]
-        let cell = CourseCell(style: .default, reuseIdentifier: "reuse")
-        cell.load(course: model!)
+        // 构造 cell
+        let model = coursesForDay[tableView.tag][indexPath.row]
+        let cell = CourseCell(style: .default, reuseIdentifier: "reuse[\(tableView.tag)]\(indexPath)")
+        cell.load(course: model)
         return cell
     }
 }
 
 extension CourseListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = coursesForDay[tableView.tag]?[indexPath.row]
-        return CGFloat(model!.arrange[0].length) * C.cellHeight
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let model = coursesForDay[tableView.tag]?[indexPath.row] {
-            self.delegate?.listView(self, didSelectCourse: model)
-            print(model.courseName)
-        }
+        let model = coursesForDay[tableView.tag][indexPath.row]
+        return CGFloat(model.arrange[0].length) * C.cellHeight
     }
 }

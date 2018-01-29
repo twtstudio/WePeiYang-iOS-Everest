@@ -73,8 +73,10 @@ class CourseCell: UITableViewCell {
             let index = Int(arc4random()) % colors.count
             contentView.backgroundColor = colors[index]
             contentView.alpha = 0.7
-            roomLabel.text = "@" + course.arrange[0].room
-            roomLabel.sizeToFit()
+            if course.arrange[0].room != "" {
+                roomLabel.text = "@" + course.arrange[0].room
+                roomLabel.sizeToFit()
+            }
             titleLabel.text = course.courseName //+ "\n@" + course.arrange[0].room
             titleLabel.sizeToFit()
         }

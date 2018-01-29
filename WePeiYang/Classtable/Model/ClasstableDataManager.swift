@@ -1,9 +1,9 @@
 //
-//  ClasstableDataManager.swift
+//  ClassModel.swift
 //  WePeiYang
 //
-//  Created by Qin Yubo on 16/1/28.
-//  Copyright © 2016年 Qin Yubo. All rights reserved.
+//  Created by Halcao on 2017/11/13.
+//  Copyright © 2017年 twtstudio. All rights reserved.
 //
 
 import ObjectMapper

@@ -8,6 +8,7 @@
 
 import UIKit
 import WMPageController
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+        // 注册通知
+        registerAppNotification(launchOptions: launchOptions)
+
         window = UIWindow(frame: UIScreen.main.bounds)
         
 //        TwTUser.shared.load() // load token and so on
@@ -108,7 +113,65 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 
+// MARK: User Notification
+extension AppDelegate: UNUserNotificationCenterDelegate {
+
+    func registerAppNotification(launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+        // 注册通知
+        if #available(iOS 10.0, *) {
+            let center = UNUserNotificationCenter.current()
+            center.delegate = self
+            center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+                if granted {
+                    log.word("Push notification request succeed")/
+                    DispatchQueue.main.async {
+                        UIApplication.shared.registerForRemoteNotifications()
+                    }
+                } else {
+                    log.word("Push notification request failed...")/
+                }
+            }
+        } else {
+            // Fallback on earlier versions
+            let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            UIApplication.shared.registerUserNotificationSettings(settings)
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+    }
+
+    // 收到推送token
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("------device token: \(deviceToken.hexString)")
+    }
+
+
+    // iOS 10: 处理前台收到通知的代理方法
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let info = notification.request.content.userInfo
+        print("iOS 10 foreground userInfo: \(info)")
+        completionHandler([.sound, .alert])
+    }
+
+    // iOS 10: 处理后台点击通知的代理方法
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let info = response.notification.request.content.userInfo
+        print("iOS 10 background tap userInfo: \(info)")
+        completionHandler()
+    }
+
+    // iOS 9
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if application.applicationState == .active {
+            // 前台
+        } else {
+            // 后台接受消息进入 app
+            // badge清零
+            UIApplication.shared.applicationIconBadgeNumber = 0
+        }
+        completionHandler(.newData)
+    }
+}

@@ -20,9 +20,8 @@ class NotificationList: NSObject {
     
     func getList(doSomething: @escaping () -> ()) {
         
-        list.removeAll()
-        
-        SolaSessionManager.solaSession(type: .post, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.notificationURL, parameters: nil, success: { dic in
+
+        SolaSessionManager.solaSession(type: .get, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.notificationURL, parameters: nil, success: { dic in
             
             //log.obj(dic!)/
             
@@ -43,7 +42,8 @@ class NotificationList: NSObject {
                     self.newestTimeStamp = fooTimeStamp
                 }
             }
-            
+            self.list.removeAll()
+
             for dict in foo {
                 self.list.append(NotificationItem(dict: dict as! NSDictionary))
             }

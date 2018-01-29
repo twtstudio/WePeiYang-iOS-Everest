@@ -33,7 +33,7 @@ extension FinalView {
         } else if status == 2 {
             frownOrSmile = UIImageView(imageName: "smile", desiredSize: CGSize(width: 150, height: 150))
         }
-        finalMsgLabel = UILabel(text: msg, color: UIColor(colorLiteralRed: 149.0/255.0, green: 149.0/255.0, blue: 149.0/255.0, alpha: 1))
+        finalMsgLabel = UILabel(text: msg, color: UIColor(red: 149.0/255.0, green: 149.0/255.0, blue: 149.0/255.0, alpha: 1))
         finalMsgLabel.numberOfLines = 0
         
         self.addSubview(frownOrSmile)

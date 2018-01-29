@@ -68,7 +68,7 @@ class SpringButton: UIButton {
 
 extension SpringButton: ThemeChanging {
     // TODO: Conforming to Protocol ThemeChanging
-    func changeInto(theme: Theme) {
+    func changeInto(theme: WPYTheme) {
         
     }
 }

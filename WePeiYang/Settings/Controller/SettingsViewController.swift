@@ -223,13 +223,14 @@ extension SettingsViewController: UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
             cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightRegular)
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)
             cell.accessoryType = .disclosureIndicator
             let x: CGFloat = 15
             let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))
             separator.backgroundColor = .gray
             separator.alpha = 0.25
             cell.addSubview(separator)
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)
             //            cell.detailTextLabel?.text = services[indexPath.row].status.rawValue
             if services[indexPath.row].status {
                 cell.detailTextLabel?.text = "已绑定"
@@ -240,7 +241,7 @@ extension SettingsViewController: UITableViewDataSource {
         } else {
             let cell = UITableViewCell()
             cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightRegular)
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)
             cell.accessoryType = .disclosureIndicator
             let x: CGFloat = 15
             let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))
@@ -288,6 +289,7 @@ extension SettingsViewController: UITableViewDelegate {
             TwTUser.shared.delete()
             tableView.reloadData()
             print("log out")
+            return
         case (0, _):
             guard let _ = TwTUser.shared.token else {
                 let alert = UIAlertController(title: "先去登录！", message: nil, preferredStyle: .alert)
