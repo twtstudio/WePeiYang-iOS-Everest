@@ -1249,6 +1249,9 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 					B19DAB991E6EF5C2004A50B5 = {
