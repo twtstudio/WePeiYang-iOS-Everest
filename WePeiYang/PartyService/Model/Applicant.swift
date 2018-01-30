@@ -27,10 +27,11 @@ class Applicant: NSObject {
     //TODO: 未完成
     func getStudentNumber(_ success: @escaping (Void) -> Void) {
         //TODO:这样做还不够优雅，应该在登录完成之后自动重新加载
-        guard let token = UserDefaults.standard.object(forKey: "twtToken") as? String else {
+        guard let token = TwTUser.shared.token else {
+            // FIXME: log something and login
 //            MsgDisplay.showErrorMsg("你需要登录才能访问党建功能")
-            let loginVC = LoginViewController()
-            UIViewController.current?.present(loginVC, animated: true, completion: nil)
+//            let loginVC = LoginViewController()
+//            UIViewController.current?.present(loginVC, animated: true, completion: nil)
             return
         }
         

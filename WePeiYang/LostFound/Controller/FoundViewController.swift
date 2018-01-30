@@ -45,8 +45,8 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         refresh()
         self.foundView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.foundView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
-        self.foundView.mj_footer.isAutomaticallyHidden = true
-        
+//        self.foundView.mj_footer.isAutomaticallyHidden = true
+
         
         
     }

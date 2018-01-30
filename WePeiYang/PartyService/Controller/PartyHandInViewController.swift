@@ -187,7 +187,7 @@ class PartyHandInViewController: UIViewController, UITableViewDelegate, UITableV
     //Table View Data Soucre
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        print(Applicant.sharedInstance.handInHandler)
+//        print(Applicant.sharedInstance.handInHandler)
         tableView.deselectRow(at: indexPath, animated: true)
         
         guard contentList[indexPath.section].available == 1 else {

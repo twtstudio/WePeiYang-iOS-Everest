@@ -30,7 +30,7 @@ class PartySignUpViewController: UIViewController {
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
         
         //改变背景颜色
-        view.backgroundColor = UIColor(colorLiteralRed: 0.95, green: 0.95, blue: 0.95, alpha: 1)
+        view.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
         
         tableView = UITableView()
         

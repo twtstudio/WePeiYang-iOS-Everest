@@ -4,17 +4,19 @@
 target 'WePeiYang' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
+  # Pods for WePeiYang
   pod 'Alamofire'
-  pod 'SnapKit'
+  pod 'JBChartView'
+  pod 'SnapKit', '3.2.0'
   pod 'SDWebImage'
-  pod 'Charts'
+  pod 'Charts', '3.0.2'
   pod 'ObjectMapper'
   pod 'MJRefresh', '~> 3.1.12'
-
+  pod 'JBChartView'
   pod 'WMPageController', '2.3.0'
   pod 'pop'
   pod 'IGIdenticon'
-  # Pods for WePeiYang
+  pod 'SwiftMessages'
 
   target 'WePeiYangTests' do
     inherit! :search_paths

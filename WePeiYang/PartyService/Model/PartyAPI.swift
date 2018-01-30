@@ -9,8 +9,8 @@
 struct PartyAPI {
     static let rootURL = "http://www.twt.edu.cn/party"
     
-    //Only for test
-    //static let studentID: String? = "3014218099"
+    // Only for test
+    // static let studentID: String? = "3014218099"
     
     static var studentID: String? {
         /*guard let foo = Applicant.sharedInstance.studentNumber else {
@@ -24,23 +24,23 @@ struct PartyAPI {
     
     
     
-    //个人信息参数
+    // 个人信息参数
     static let personalStatusParams = ["page": "api", "do": "personalstatus", "sno": studentID!]
     
     
-    //20 课简要列表，不知道 sno 要不要传
+    // 20 课简要列表，不知道 sno 要不要传
     static let courseStudyParams = ["page": "api", "do": "applicant_coursestudy", "sno": studentID!]
     
     static func courseStudyDetailParams(of courseID: String) -> [String: String] {
         return ["page": "api", "do": "applicant_coursestudy_detail", "course_id": courseID, "sno": studentID!]
     }
     
-    //20 课答题
+    // 20 课答题
     static func courseQuizParams(of courseID: String) -> [String: String] {
         return ["page": "api", "do": "20course_test", "course_id": courseID, "sno": studentID!]
     }
     
-    //20 课答案提交
+    // 20 课答案提交
     
     static let courseQuizSubmitURL = "http://www.twt.edu.cn/party/?page=api&do=20course_test&sno=\(studentID!)"
     

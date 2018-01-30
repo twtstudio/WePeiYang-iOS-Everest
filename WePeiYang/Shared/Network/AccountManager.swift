@@ -21,7 +21,6 @@ let ALLOW_SPOTLIGHT_KEY = "allowSpotlightIndex"
 
 
 struct AccountManager {
-    
 //    static func removeToken() {
 //        UserDefaults.standard.removeObject(forKey: TOKEN_SAVE_KEY)
 //        UserDefaults.standard.removeObject(forKey: ID_SAVE_KEY)
@@ -47,6 +46,27 @@ struct AccountManager {
             failure?(error)
         })
         
+    }
+    
+     // FIXME: every time open the app, refresh token
+    static func refreshToken(success: (()->())? = nil, failure: (()->())?) {
+        SolaSessionManager.solaSession(type: .get, url: "/auth/token/refresh", parameters: nil, success: { dict in
+            if let newToken = dict["data"] as? String {
+                TwTUser.shared.token = newToken
+                TwTUser.shared.save()
+                //啥都不用做
+                success?()
+                return
+            }
+            if let msg = dict["message"] as? String {
+                log.word(msg)/
+            }
+        }, failure: { error in
+            log.error(error)/
+            failure?()
+            // FIXME 获取失败我也不知道怎么做 难道要重新登录
+            TwTUser.shared.delete()
+        }) // refresh finished
     }
     
     static func checkToken(success: (()->())? = nil, failure: (()->())?) {
@@ -139,5 +159,27 @@ struct AccountManager {
         })
     }
     
-    
+    static func getSelf(success: (()->())?, failure: (()->())?) {
+        SolaSessionManager.solaSession(type: .get, baseURL: "", url: TwTAPI.`self`, parameters: nil, success: { dict in
+            if let accounts = dict["accounts"] as? [String: Any],
+                let tju = accounts["tju"] as? Bool,
+                let lib = accounts["lib"] as? Bool,
+                let avatar = dict["avatar"] as? String,
+                let realname = dict["realname"] as? String,
+                let twtid = dict["twtid"] as? String,
+                let studentid = dict["studentid"] as? String,
+                let dropout = dict["dropout"] as? String {
+                TwTUser.shared.avatarURL = avatar
+                TwTUser.shared.tjuBindingState = tju
+                TwTUser.shared.libBindingState = lib
+                TwTUser.shared.realname = realname
+                TwTUser.shared.twtid = twtid
+                TwTUser.shared.schoolID = studentid
+                TwTUser.shared.dropout = dropout
+            }
+        }, failure: { error in
+            print(error)
+        })
+    }
+
 }

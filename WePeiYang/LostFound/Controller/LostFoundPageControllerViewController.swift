@@ -89,6 +89,7 @@ class LostFoundPageViewController: WMPageController {
         super.viewDidLoad()
 
     }
+    
     func mineButton(item: UIBarButtonItem) {
         let vc = MyLostFoundPageViewController()
         self.navigationController?.pushViewController(vc, animated: true)
