@@ -43,13 +43,16 @@ class ClassDetailViewController: UIViewController {
 
         let course = courses.first!
         let titleLabel = UILabel()
-        titleLabel.text = course.courseName
         titleLabel.textColor = UIColor.darkGray
         titleLabel.font = UIFont.systemFont(ofSize: 18)
+        titleLabel.numberOfLines = 0
         headerView.addSubview(titleLabel)
+        titleLabel.text = course.courseName
+        titleLabel.sizeToFit()
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
             make.left.equalToSuperview().offset(15)
+            make.right.equalToSuperview().offset(-15)
         }
         
         let detailLabel = UILabel()

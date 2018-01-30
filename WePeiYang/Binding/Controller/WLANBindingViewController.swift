@@ -127,7 +127,7 @@ class WLANBindingViewController: WMPageController {
                     TwTUser.shared.WLANAccount = loginInfo["username"]
                     TwTUser.shared.WLANPassword = loginInfo["password"]
                     TwTUser.shared.save()
-                    NotificationCenter.default.post(name: NotificationNames.NotificationStatusDidChange.name, object: ("tjuwlan", true))
+                    NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("tjuwlan", true))
                     self.dismiss(animated: true, completion: nil)
                     print("TJUBindingState:")
                     print(TwTUser.shared.tjuBindingState)
