@@ -233,7 +233,7 @@ class GPAViewController: UIViewController {
         refreshItem.tintColor = .white
         self.navigationItem.rightBarButtonItem = refreshItem
         
-        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: NSNotification.Name(rawValue: "NOTIFICATION_APPRAISE_SUCCESSED"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: NotificationName.NotificationAppraiseDidSucceed.name, object: nil)
 
         loadCache()
         refresh()

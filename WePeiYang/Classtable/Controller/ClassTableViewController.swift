@@ -183,6 +183,7 @@ class ClassTableViewController: UIViewController {
             }
             isSelecting = false
             currentDisplayWeek = currentWeek
+            // FIXME: 刚登录 table 为空？？
             let courses = self.getCourse(table: table!, week: currentWeek)
             listView.load(courses: courses, weeks: 0)
         }

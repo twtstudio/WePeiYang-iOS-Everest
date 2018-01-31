@@ -168,7 +168,7 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
     
     func finishEvaluate() {
         CourseAppraiseManager.shared.submit {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NOTIFICATION_APPRAISE_SUCCESSED"), object: nil)
+            NotificationCenter.default.post(name: NotificationName.NotificationAppraiseDidSucceed.name, object: nil)
             let _ = self.navigationController?.popViewController(animated: true)
         }
     }

@@ -156,6 +156,22 @@ extension FavViewController: UITableViewDataSource {
             let courses = ClassTableHelper.getTodayCourse().filter { course in
                 return course.courseName != ""
             }
+
+            // 这个时间点有课就代表着时候有课
+            let keys = [1, 3, 5, 7, 9]
+            for (idx, time) in keys.enumerated() {
+                // 返回第一个包含时间点的课程 // 可能是 nil
+                let course = courses.first { course in
+                    let range = course.arrange.first!.start...course.arrange.first!.start
+                    return range.contains(time)
+                }
+                if let course = course {
+                    mycard.cells[idx].load(course: course)
+                } else {
+                    mycard.cells[idx].setIdle()
+                }
+            }
+
             for i in 0..<5 {
                 if i < courses.count {
                     mycard.cells[i].load(course: courses[i])

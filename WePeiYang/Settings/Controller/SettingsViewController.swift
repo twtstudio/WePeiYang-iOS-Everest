@@ -75,7 +75,7 @@ class SettingsViewController: UIViewController {
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         
-        NotificationCenter.default.addObserver(self, selector: #selector(bindingStatusDidChange), name: NotificationNames.NotificationStatusDidChange.name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(bindingStatusDidChange), name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
         
         self.view.addSubview(tableView)
         

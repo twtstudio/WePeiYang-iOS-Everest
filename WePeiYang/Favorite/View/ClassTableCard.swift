@@ -20,7 +20,6 @@ class ClassTableCard: CardView {
         titleLabel.frame = CGRect(x: padding, y: padding, width: 200, height: 20)
         titleLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightSemibold)
         titleLabel.textColor = UIColor(red:0.41, green:0.41, blue:0.41, alpha:1.00)
-//        titleLabel.text = "第二十三周 星期六"
         titleLabel.sizeToFit()
         self.addSubview(titleLabel)
 

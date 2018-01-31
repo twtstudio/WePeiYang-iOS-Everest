@@ -120,7 +120,7 @@ class TJUBindingViewController: WMPageController {
                 if errorCode == -1 {
                     TwTUser.shared.tjuBindingState = true
                     TwTUser.shared.save()
-                    NotificationCenter.default.post(name: NotificationNames.NotificationStatusDidChange.name, object: ("tju", true))
+                    NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("tju", true))
                     self.dismiss(animated: true, completion: nil)
                     print("TJUBindingState:")
                     print(TwTUser.shared.tjuBindingState)
