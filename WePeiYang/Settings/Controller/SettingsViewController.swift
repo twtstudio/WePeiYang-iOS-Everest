@@ -25,6 +25,8 @@ class SettingsViewController: UIViewController {
     
     var tableView: UITableView!
     var headerView: UIView!
+    var signatureLabel: UILabel!
+
     // FIXME: image name
     public var services: [ItemData] = [
         ("图书馆", LibraryBindingViewController.self, "", {
@@ -113,7 +115,7 @@ class SettingsViewController: UIViewController {
             make.top.equalTo(avatarView.snp.top).offset(5)
         }
         
-        let signatureLabel = UILabel(text: "登录以查看更多信息", color: .lightGray, fontSize: 15)
+        signatureLabel = UILabel(text: "登录以查看更多信息", color: .lightGray, fontSize: 15)
         headerView.addSubview(signatureLabel)
         signatureLabel.snp.makeConstraints { make in
             make.left.equalTo(avatarView.snp.right).offset(15)
@@ -261,9 +263,11 @@ extension SettingsViewController: UITableViewDelegate {
                 if subview.tag == -1 {
                     if TwTUser.shared.token != nil {
                         (subview as? UIButton)?.setTitle(TwTUser.shared.username, for: .normal)
+                        signatureLabel.text = TwTUser.shared.realname
                     } else {
                         (subview as? UIButton)?.setTitle("登录", for: .normal)
                         (subview as? UIButton)?.addTarget(self, action: #selector(login), for: .touchUpInside)
+                        signatureLabel.text = "登录以查看更多信息"
                     }
                 } else if subview.tag == -2 {
                     (subview as? UIImageView)?.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "ic_account_circle")!.with(color: .gray))

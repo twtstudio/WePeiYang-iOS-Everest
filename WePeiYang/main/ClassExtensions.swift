@@ -448,7 +448,7 @@ extension SwiftMessages {
         message(title: title, body: body, theme: .error, context: context)
     }
 
-    static func message(title: String = "", body: String, theme: Theme, context: PresentationContext = .automatic) {
+    static func message(title: String, body: String, theme: Theme, context: PresentationContext = .automatic) {
         let view = MessageView.viewFromNib(layout: .cardView)
         view.configureContent(title: title, body: body)
         view.button?.isHidden = true
