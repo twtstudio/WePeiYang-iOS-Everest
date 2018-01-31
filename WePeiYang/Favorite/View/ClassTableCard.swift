@@ -17,13 +17,13 @@ class ClassTableCard: CardView {
         super.initialize()
         let padding: CGFloat = 20
         
-        titleLabel.frame = CGRect(x: padding, y: padding, width: 200, height: 20)
-        titleLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightSemibold)
+        titleLabel.frame = CGRect(x: padding, y: padding-5, width: 200, height: 20)
+        titleLabel.font = UIFont.systemFont(ofSize: 13, weight: UIFontWeightSemibold)
         titleLabel.textColor = UIColor(red:0.41, green:0.41, blue:0.41, alpha:1.00)
         titleLabel.sizeToFit()
         self.addSubview(titleLabel)
 
-        subtitleLabel.frame = CGRect(x: padding, y: padding + 20, width: 200, height: 30)
+        subtitleLabel.frame = CGRect(x: padding, y: padding + 20 - 5, width: 200, height: 30)
         // TODO: 明天的课程
         subtitleLabel.text = "今天的课程"
         subtitleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFontWeightSemibold)

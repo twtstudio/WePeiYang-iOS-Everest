@@ -106,32 +106,33 @@ extension FavViewController: UITableViewDataSource {
             card = GPACard()
             
             if let dic = CacheManager.loadGroupCache(withKey: GPAKey) as? [String: Any], let model = Mapper<GPAModel>().map(JSON: dic) {
-                var data: [Double] = []
-                for term in model.terms {
-                    data.append(term.stat.score)
-                }
-                
-                let contentMargin: CGFloat = 15
-                let width: CGFloat = self.view.frame.size.width - 60
-                let space = (width - 2*contentMargin)/CGFloat(data.count - 1)
-                
-                let height: CGFloat = 100
-                let minVal = data.min() ?? 0
-                let range = data.max() ?? 0 - minVal
-                let ratio = height/CGFloat(range)
-                
-                let newData = data.map({ item in
-                    return height - CGFloat(item - minVal)*ratio
-                })
-                
-                var points = [CGPoint]()
-                
-                for i in 0..<newData.count {
-                    let point = CGPoint(x: CGFloat(i)*space, y: newData[i])
-                    points.append(point)
-                }
-                
-                (card as? GPACard)?.drawLine(points: points)
+                (card as? GPACard)?.load(model: model)
+//                var data: [Double] = []
+//                for term in model.terms {
+//                    data.append(term.stat.score)
+//                }
+//
+//                let contentMargin: CGFloat = 15
+//                let width: CGFloat = self.view.frame.size.width - 60
+//                let space = (width - 2*contentMargin)/CGFloat(data.count - 1)
+//
+//                let height: CGFloat = 100
+//                let minVal = data.min() ?? 0
+//                let range = data.max() ?? 0 - minVal
+//                let ratio = height/CGFloat(range)
+//
+//                let newData = data.map({ item in
+//                    return height - CGFloat(item - minVal)*ratio
+//                })
+//
+//                var points = [CGPoint]()
+//
+//                for i in 0..<newData.count {
+//                    let point = CGPoint(x: CGFloat(i)*space, y: newData[i])
+//                    points.append(point)
+//                }
+//
+//                (card as? GPACard)?.drawLine(points: points)
             }
             // TODO: else 没有数据时
             let gpaVC = GPAViewController()
@@ -149,8 +150,10 @@ extension FavViewController: UITableViewDataSource {
                 let week = Int(Date().timeIntervalSince(termStart)/(7.0*24*60*60) + 1)
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .spellOut
-                let weekday = DateTool.getLocalWeekDay()
-                mycard.titleLabel.text = "第\(formatter.string(from: NSNumber(integerLiteral: week))!)周 " + weekday
+                formatter.locale = NSLocale.system
+                let weekday = DateTool.getChineseWeekDay()
+                let weekString = DateTool.getChineseNumber(number: week)
+                mycard.titleLabel.text = "第" + weekString + "周" + " " + weekday
                 mycard.titleLabel.sizeToFit()
             }
             let courses = ClassTableHelper.getTodayCourse().filter { course in
