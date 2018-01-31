@@ -432,23 +432,23 @@ extension CGRect {
 }
 
 extension SwiftMessages {
-    static func showInfoMessage(title: String, body: String, context: PresentationContext = .automatic) {
+    static func showInfoMessage(title: String = "", body: String, context: PresentationContext = .automatic) {
         message(title: title, body: body, theme: .info, context: context)
     }
 
-    static func showSuccessMessage(title: String, body: String, context: PresentationContext = .automatic) {
+    static func showSuccessMessage(title: String = "", body: String, context: PresentationContext = .automatic) {
         message(title: title, body: body, theme: .success, context: context)
     }
 
-    static func showWarningMessage(title: String, body: String, context: PresentationContext = .automatic) {
+    static func showWarningMessage(title: String = "", body: String, context: PresentationContext = .automatic) {
         message(title: title, body: body, theme: .warning, context: context)
     }
 
-    static func showErrorMessage(title: String, body: String, context: PresentationContext = .automatic) {
+    static func showErrorMessage(title: String = "", body: String, context: PresentationContext = .automatic) {
         message(title: title, body: body, theme: .error, context: context)
     }
 
-    static func message(title: String, body: String, theme: Theme, context: PresentationContext = .automatic) {
+    static func message(title: String = "", body: String, theme: Theme, context: PresentationContext = .automatic) {
         let view = MessageView.viewFromNib(layout: .cardView)
         view.configureContent(title: title, body: body)
         view.button?.isHidden = true
