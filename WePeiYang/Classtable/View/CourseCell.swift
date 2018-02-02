@@ -16,7 +16,6 @@ class CourseCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentView.addSubview(titleLabel)
         self.contentView.addSubview(roomLabel)
-        titleLabel.font = UIFont.systemFont(ofSize: 12)
         titleLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightMedium)
         titleLabel.numberOfLines = 0
         titleLabel.textColor = .white
@@ -79,10 +78,24 @@ class CourseCell: UITableViewCell {
         contentView.layoutIfNeeded()
     }
 
+    // TODO: 必要性
+    func dismissIdle() {
+        // 还原
+        titleLabel.textColor = .white
+        titleLabel.snp.remakeConstraints { make in
+            make.top.equalToSuperview().offset(3)
+            make.left.equalToSuperview().offset(3)
+            make.right.equalToSuperview().offset(-3)
+        }
+        contentView.setNeedsUpdateConstraints()
+        contentView.layoutIfNeeded()
+    }
+
     func load(course: ClassModel) {
         if course.classID == "" {
             self.alpha = 0
         } else {
+            self.alpha = 1
             let colors = Metadata.Color.fluentColors
             let index = Int(arc4random()) % colors.count
             contentView.backgroundColor = colors[index]

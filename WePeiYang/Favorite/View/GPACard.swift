@@ -55,8 +55,6 @@ class GPACard: CardView {
         self.addSubview(titleLabel)
         
         self.backgroundColor = UIColor(red:0.98, green:0.66, blue:0.61, alpha:1.00)
-
-        lineChartView.delegate = self
         self.addSubview(lineChartView)
     }
     
@@ -76,6 +74,7 @@ class GPACard: CardView {
         let entrys = model.terms.enumerated().map { tuple in
             return ChartDataEntry(x: Double(tuple.offset), y: tuple.element.stat.score)
         }
+        // FIXME: 只有一学期的成绩
         let dataSet = LineChartDataSet(values: entrys, label: nil)
         dataSet.mode = .cubicBezier
         dataSet.drawCirclesEnabled = false
@@ -88,48 +87,7 @@ class GPACard: CardView {
         dataSet.lineWidth = 2
         dataSet.setColor(.white)
         lineChartView.data = LineChartData(dataSet: dataSet)
-    }
-
-    func loadData(model: GPAModel) {
-        // TODO: data 校验
-        let data = model.terms.map { $0.stat.score }
-
-        // 至少俩点
-        guard data.count > 1 else {
-            // TODO: 只有一个或两个数据
-            return
-        }
-
-        // 距卡片边缘
-        let contentPadding: CGFloat = 15
-        // 两点的间隔
-        let space = (width - 2*contentPadding)/CGFloat(data.count - 1)
-
-        // 图表
-        let diagramHeight: CGFloat = 100
-        let minVal = data.min()!
-        // 数据范围
-        let range = data.max()! - minVal
-        // 数据进行放缩
-        let ratio = diagramHeight/CGFloat(range)
-
-        // 放缩过的数据
-        let newData = data.map { e in
-            return diagramHeight - CGFloat(e - minVal)*ratio
-        }
-
-        var points = [CGPoint]()
-
-        for i in 0..<newData.count {
-            let point = CGPoint(x: CGFloat(i)*space, y: newData[i])
-            points.append(point)
-        }
-
-//        (card as? GPACard)?.drawLine(points: points)
-
+//        lineChartView.
     }
 }
 
-extension GPACard: ChartViewDelegate {
-
-}

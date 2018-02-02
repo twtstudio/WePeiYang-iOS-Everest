@@ -107,32 +107,6 @@ extension FavViewController: UITableViewDataSource {
             
             if let dic = CacheManager.loadGroupCache(withKey: GPAKey) as? [String: Any], let model = Mapper<GPAModel>().map(JSON: dic) {
                 (card as? GPACard)?.load(model: model)
-//                var data: [Double] = []
-//                for term in model.terms {
-//                    data.append(term.stat.score)
-//                }
-//
-//                let contentMargin: CGFloat = 15
-//                let width: CGFloat = self.view.frame.size.width - 60
-//                let space = (width - 2*contentMargin)/CGFloat(data.count - 1)
-//
-//                let height: CGFloat = 100
-//                let minVal = data.min() ?? 0
-//                let range = data.max() ?? 0 - minVal
-//                let ratio = height/CGFloat(range)
-//
-//                let newData = data.map({ item in
-//                    return height - CGFloat(item - minVal)*ratio
-//                })
-//
-//                var points = [CGPoint]()
-//
-//                for i in 0..<newData.count {
-//                    let point = CGPoint(x: CGFloat(i)*space, y: newData[i])
-//                    points.append(point)
-//                }
-//
-//                (card as? GPACard)?.drawLine(points: points)
             }
             // TODO: else 没有数据时
             let gpaVC = GPAViewController()
@@ -148,15 +122,17 @@ extension FavViewController: UITableViewDataSource {
             if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
                 let termStart = Date(timeIntervalSince1970: Double(table.termStart))
                 let week = Int(Date().timeIntervalSince(termStart)/(7.0*24*60*60) + 1)
-                let formatter = NumberFormatter()
-                formatter.numberStyle = .spellOut
-                formatter.locale = NSLocale.system
                 let weekday = DateTool.getChineseWeekDay()
-                let weekString = DateTool.getChineseNumber(number: week)
+//                let weekString = DateTool.getChineseNumber(number: week)
+                let formatter = NumberFormatter()
+                formatter.locale = Locale(identifier: "zh_CN")
+                formatter.numberStyle = .spellOut
+                let weekString = formatter.string(from: NSNumber(value: week)) ?? DateTool.getChineseNumber(number: week)
+
                 mycard.titleLabel.text = "第" + weekString + "周" + " " + weekday
                 mycard.titleLabel.sizeToFit()
             }
-            let courses = ClassTableHelper.getTodayCourse().filter { course in
+            var courses = ClassTableHelper.getTodayCourse().filter { course in
                 return course.courseName != ""
             }
 
@@ -165,21 +141,28 @@ extension FavViewController: UITableViewDataSource {
             for (idx, time) in keys.enumerated() {
                 // 返回第一个包含时间点的课程 // 可能是 nil
                 let course = courses.first { course in
-                    let range = course.arrange.first!.start...course.arrange.first!.start
+                    let range = course.arrange.first!.start...course.arrange.first!.end
                     return range.contains(time)
                 }
+
                 if let course = course {
+                    let index = courses.index { m in
+                        return m.classID == course.classID &&
+                        m.arrange.first?.start ==  course.arrange.first?.start &&
+                        m.arrange.first?.end ==  course.arrange.first?.end
+                    }
+                    courses.remove(at: index!)
                     mycard.cells[idx].load(course: course)
                 } else {
                     mycard.cells[idx].setIdle()
                 }
             }
 
-            for i in 0..<5 {
-                if i < courses.count {
-                    mycard.cells[i].load(course: courses[i])
-                }
-            }
+//            for i in 0..<5 {
+//                if i < courses.count {
+//                    mycard.cells[i].load(course: courses[i])
+//                }
+//            }
             let classtableVC = ClassTableViewController()
             card.shouldPush(classtableVC, from: self)
         default:
