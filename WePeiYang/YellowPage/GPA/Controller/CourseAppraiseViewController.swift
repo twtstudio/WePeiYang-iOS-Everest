@@ -27,6 +27,17 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
     var shouldLoadDetail = false
     var data: GPAClassModel!
     var GPASession: String?
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let image = UIImage(color: UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00), size: CGSize(width: self.view.width, height: 64))
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         guard data != nil else {
@@ -157,10 +168,8 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
     
     func finishEvaluate() {
         CourseAppraiseManager.shared.submit {
+            NotificationCenter.default.post(name: NotificationName.NotificationAppraiseDidSucceed.name, object: nil)
             let _ = self.navigationController?.popViewController(animated: true)
-            // fetch data and refresh chartView
-            // FIXME: reloadData in GPA page
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NOTIFICATION_APPRAISE_SUCCESSED"), object: nil)
         }
     }
     

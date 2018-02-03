@@ -22,7 +22,9 @@ class BicycleServiceViewController: WMPageController {
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.0 / 255.0, green: 174.0 / 255.0, blue: 101.0 / 255.0, alpha: 1.0)
-        
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(red: 0.0 / 255.0, green: 174.0 / 255.0, blue: 101.0 / 255.0, alpha: 1.0)), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+
         // addIcon
         self.addIcons()
     }
@@ -57,13 +59,27 @@ class BicycleServiceViewController: WMPageController {
         menuItemWidth = self.view.frame.size.width / 3
         
         bounces = true
-        menuHeight = 44.0
+        menuHeight = 44
         menuViewBottomSpace = -(self.menuHeight + 64.0)
-        
+
+
         // didAddIcon
 
         viewControllerClasses = [BicycleServiceMapController.self, BicycleServiceInfoController.self, BicycleServiceNotificationController.self]
         titles = ["", "", ""]
+
+        // 消除辣鸡分割线
+        if let bgView = self.navigationController?.navigationBar.subviews.first {
+            for view in bgView.subviews {
+                if view.height <= 1 {
+                    view.isHidden = true
+                }
+            }
+        }
+
+        BicycleUser.sharedInstance.auth {
+            print("自行车加载成功")
+        }
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
@@ -80,11 +96,11 @@ class BicycleServiceViewController: WMPageController {
         let y: CGFloat = self.menuHeight / 2 - iconHeight / 2
         // height of status bar = 20, height of navigationBar = 44
         
-        self.mapIconImageView = UIImageView.init(frame: CGRect(x: x, y: y, width: iconWidth, height: iconHeight))
+        self.mapIconImageView = UIImageView(frame: CGRect(x: x, y: y, width: iconWidth, height: iconHeight))
         self.mapIconImageView.image = UIImage(named: "地图")
-        self.infoIconImageView = UIImageView.init(frame: CGRect(x: x + self.menuItemWidth, y: y, width: iconWidth, height: iconHeight))
+        self.infoIconImageView = UIImageView(frame: CGRect(x: x + self.menuItemWidth, y: y, width: iconWidth, height: iconHeight))
         self.infoIconImageView.image = UIImage(named: "信息")
-        self.notificationIconImageView = UIImageView.init(frame: CGRect(x: x + 2 * self.menuItemWidth, y: y, width: iconWidth, height: iconHeight))
+        self.notificationIconImageView = UIImageView(frame: CGRect(x: x + 2 * self.menuItemWidth, y: y, width: iconWidth, height: iconHeight))
         self.notificationIconImageView.image = UIImage(named: "公告")
         
         self.view.addSubview(self.mapIconImageView)
@@ -139,22 +155,6 @@ class BicycleServiceViewController: WMPageController {
     func refreshUserInfo() {
         let infoVC: BicycleServiceInfoController = self.currentViewController as! BicycleServiceInfoController
         infoVC.refreshInfo()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    }    
 }
 

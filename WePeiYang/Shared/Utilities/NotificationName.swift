@@ -8,10 +8,23 @@
 
 import Foundation
 
-enum NotificationNames: String {
-    case NotificationStatusDidChange
+enum NotificationName: String {
     // Object thereof is a Tuple of String: Bool, which contains the name and status of binding.
-    
+    case NotificationBindingStatusDidChange
+
+    // login success
+    case NotificationUserDidLogin
+
+    // logout success
+    case NotificationUserDidLogout
+
+    // appraise succeed
+    case NotificationAppraiseDidSucceed
+}
+
+
+extension NotificationName {
+    // return a notification.name
     var name: Notification.Name {
         return Notification.Name(rawValue: self.rawValue)
     }

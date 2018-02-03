@@ -13,7 +13,7 @@
 
 
 import UIKit
-
+import SwiftMessages
 
 extension UILabel {
     convenience init(text: String, color: UIColor) {
@@ -105,6 +105,16 @@ extension UIView {
 
 }
 
+extension CALayer {
+    func snapshot() -> UIImage? {
+        UIGraphicsBeginImageContext(self.bounds.size)
+        self.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+}
+
 extension UIImage {
     
     static func resizedImage(image: UIImage, scaledToSize newSize: CGSize) -> UIImage{
@@ -191,6 +201,7 @@ extension UIImage {
         
         return newImage
     }
+    
     
     //pure color image
     convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
@@ -417,5 +428,44 @@ extension CGRect {
     init(center: CGPoint, size: CGSize) {
         let origin = CGPoint(x: center.x - size.width/2, y: center.y - size.height/2)
         self.init(origin: origin, size: size)
+    }
+}
+
+extension SwiftMessages {
+    static func showInfoMessage(title: String, body: String, context: PresentationContext = .automatic) {
+        message(title: title, body: body, theme: .info, context: context)
+    }
+
+    static func showSuccessMessage(title: String, body: String, context: PresentationContext = .automatic) {
+        message(title: title, body: body, theme: .success, context: context)
+    }
+
+    static func showWarningMessage(title: String, body: String, context: PresentationContext = .automatic) {
+        message(title: title, body: body, theme: .warning, context: context)
+    }
+
+    static func showErrorMessage(title: String, body: String, context: PresentationContext = .automatic) {
+        message(title: title, body: body, theme: .error, context: context)
+    }
+
+    static func message(title: String, body: String, theme: Theme, context: PresentationContext = .automatic) {
+        let view = MessageView.viewFromNib(layout: .cardView)
+        view.configureContent(title: title, body: body)
+        view.button?.isHidden = true
+        view.configureTheme(theme)
+        var config = SwiftMessages.Config()
+        config.presentationContext = context
+        SwiftMessages.show(config: config, view: view)
+    }
+}
+
+extension Data {
+    //将Data转换为String
+    var hexString: String {
+        return withUnsafeBytes {(bytes: UnsafePointer<UInt8>) -> String in
+            let buffer = UnsafeBufferPointer(start: bytes, count: count)
+            return buffer.map {
+                String(format: "%02hhx", $0)}.reduce("", { $0 + $1 })
+        }
     }
 }

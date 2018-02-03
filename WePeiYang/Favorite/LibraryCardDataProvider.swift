@@ -32,7 +32,12 @@ extension LibraryCardDataProvider: UITableViewDelegate {
 extension LibraryCardDataProvider {
     func getBooks() {
         SolaSessionManager.solaSession(type: .get, url: "/library/user/info", token: "", parameters: nil, success: { dict in
-                print(dict)
+            if let data = try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted),
+                let response = try? LibraryResponse(data: data) {
+
+            } else {
+                // TODO: 解析错误
+            }
         }, failure: { err in
             
         })

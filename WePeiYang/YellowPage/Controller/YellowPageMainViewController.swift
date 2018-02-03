@@ -46,6 +46,8 @@ class YellowPageMainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.estimatedSectionHeaderHeight = 0
+        tableView.estimatedSectionFooterHeight = 0
         tableView.estimatedRowHeight = 200.5
         tableView.rowHeight = UITableViewAutomaticDimension
         
@@ -223,29 +225,29 @@ extension YellowPageMainViewController: UITableViewDelegate {
             tableView.deselectRow(at: indexPath, animated: true)
         case 1: // favorite
             if indexPath.row == 0 {
-                DispatchQueue.main.async {
-                    self.shouldLoadFavorite = !self.shouldLoadFavorite
+                self.shouldLoadFavorite = !self.shouldLoadFavorite
+//                DispatchQueue.main.sync {
                     tableView.reloadSections([1], with: .automatic)
-                }
+//                }
             } else {
                 // toggle phone call
             }
         case let section where section > 1 && section < 2+sections.count: //  section
             let n = indexPath.section - 2
             if indexPath.row == 0 {
-                DispatchQueue.main.async {
-                    if self.shouldLoadSections.contains(n) {
-                        // if the section is unfolded
-                        self.shouldLoadSections = self.shouldLoadSections.filter { e in
-                            return e != n
-                        }
-                    } else {
-                        // will unfold the section
-                        self.shouldLoadSections.append(n)
+                if self.shouldLoadSections.contains(n) {
+                    // if the section is unfolded
+                    self.shouldLoadSections = self.shouldLoadSections.filter { e in
+                        return e != n
                     }
+                } else {
+                    // will unfold the section
+                    self.shouldLoadSections.append(n)
+                }
+                //                DispatchQueue.main.sync {
                     // reload data
                     self.tableView.reloadSections([indexPath.section], with: .automatic)
-                }
+//               }
             } else {
                 // push to detailed ViewController
                 let detailedVC = YellowPageDetailViewController()
@@ -278,7 +280,6 @@ extension YellowPageMainViewController: UITableViewDelegate {
         } else {
             return 0.001
         }
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {

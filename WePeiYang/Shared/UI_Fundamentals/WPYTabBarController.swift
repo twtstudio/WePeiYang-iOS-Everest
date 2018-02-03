@@ -72,7 +72,7 @@ class WPYTabBarController: UITabBarController {
 
 
 extension WPYTabBarController: ThemeChanging {
-    func changeInto(theme: Theme) {
+    func changeInto(theme: WPYTheme) {
         
     }
 }

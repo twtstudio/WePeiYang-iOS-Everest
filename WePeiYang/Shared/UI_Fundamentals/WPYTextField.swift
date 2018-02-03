@@ -25,7 +25,7 @@ class WPYTextField: UITextField {
 
 extension WPYTextField: ThemeChanging {
     
-    func changeInto(theme: Theme) {
+    func changeInto(theme: WPYTheme) {
         
     }
 }

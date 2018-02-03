@@ -33,8 +33,8 @@ class BicycleServiceNotificationController: UIViewController, UITableViewDelegat
             self.refreshData()
         })
         
-        //self.tableView.mj_header.beginRefreshing()
-        
+        self.tableView.mj_header.beginRefreshing()
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -44,7 +44,7 @@ class BicycleServiceNotificationController: UIViewController, UITableViewDelegat
     func refreshData() {
         
         NotificationList.sharedInstance.getList(doSomething: {
-            self.tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: UITableViewRowAnimation.bottom)
+            self.tableView.reloadData()
             NotificationList.sharedInstance.didGetNewNotification = false;
             self.tableView.mj_header.endRefreshing()
         })
@@ -52,7 +52,7 @@ class BicycleServiceNotificationController: UIViewController, UITableViewDelegat
     
     
     //UITableViewDataSource
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
@@ -78,8 +78,7 @@ class BicycleServiceNotificationController: UIViewController, UITableViewDelegat
         return cell!
     }
     
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = BicycleNotificationDetailViewController(nibName: "BicycleNotificationDetailViewController", bundle: nil)
         detailVC.notificationTitle = NotificationList.sharedInstance.list[indexPath.row].title
         detailVC.notificationContent = NotificationList.sharedInstance.list[indexPath.row].content

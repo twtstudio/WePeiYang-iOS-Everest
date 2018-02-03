@@ -51,3 +51,4 @@ struct ClassModel: Mappable {
         }
     }
 }
+

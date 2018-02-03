@@ -10,7 +10,7 @@ import MapKit
 import UIKit
 import SnapKit
 
-let bicycleGreen = UIColor(colorLiteralRed: 39.0/255.0, green: 174.0/255.0, blue: 27.0/255.0, alpha: 0.8)
+let bicycleGreen = UIColor(red: 39.0/255.0, green: 174.0/255.0, blue: 27.0/255.0, alpha: 0.8)
 
 //let bigiPhoneWidth: CGFloat = 414.0
 let deviceWidth = UIScreen.main.bounds.size.width
@@ -59,7 +59,7 @@ class SpotDetailsView: UIView {
             
             /*
              let shadowPath = UIBezierPath(rect: bounds)
-             self.layer.shadowColor = UIColor(colorLiteralRed: 236.0/255.0, green: 236.0/255.0, blue: 236.0/255.0, alpha: 1.0).CGColor
+             self.layer.shadowColor = UIColor(red: 236.0/255.0, green: 236.0/255.0, blue: 236.0/255.0, alpha: 1.0).CGColor
              
              self.layer.shadowOffset = CGSize(width: 0, height: 1.0)
              self.layer.shadowOpacity = 0.8
@@ -81,11 +81,11 @@ class SpotDetailsView: UIView {
             
             
             //self.backgroundColor = UIColor.clearColor()
-            blurEffectView.addSubview(bicycleIconView!)
-            blurEffectView.addSubview(positionsAvailableLabel)
-            blurEffectView.addSubview(spotNameLabel)
-            blurEffectView.addSubview(roundedStatusView)
-            blurEffectView.addSubview(distanceFromUserLabel)
+            blurEffectView.contentView.addSubview(bicycleIconView!)
+            blurEffectView.contentView.addSubview(positionsAvailableLabel)
+            blurEffectView.contentView.addSubview(spotNameLabel)
+            blurEffectView.contentView.addSubview(roundedStatusView)
+            blurEffectView.contentView.addSubview(distanceFromUserLabel)
             self.addSubview(blurEffectView)
             self.clipsToBounds = true
             
@@ -93,13 +93,15 @@ class SpotDetailsView: UIView {
             //set constraint
             bicycleIconView!.snp.makeConstraints {
                 make in
-                make.top.equalTo(self).offset(20)
+//                make.top.equalTo(self).offset(20)
+                make.top.equalTo(self).offset(10)
                 make.left.equalTo(self).offset(10)
             }
             
             positionsAvailableLabel.snp.makeConstraints {
                 make in
-                make.top.equalTo(self).offset(20)
+//                make.top.equalTo(self).offset(20)
+                make.top.equalTo(self).offset(10)
                 make.left.equalTo(bicycleIconView!.snp.right).offset(10)
                 
             }
@@ -107,7 +109,8 @@ class SpotDetailsView: UIView {
             
             spotNameLabel.snp.makeConstraints {
                 make in
-                make.top.equalTo(self).offset(20)
+//                make.top.equalTo(self).offset(20)
+                make.top.equalTo(self).offset(10)
                 make.left.equalTo(positionsAvailableLabel.snp.right).offset(15)
                 
             }
@@ -115,14 +118,15 @@ class SpotDetailsView: UIView {
             roundedStatusView.snp.makeConstraints {
                 make in
                 make.left.equalTo(spotNameLabel.snp.right).offset(8)
-                make.centerY.equalTo(spotNameLabel)
+                make.centerY.equalTo(spotNameLabel).offset(25)
                 make.width.height.equalTo(14)
             }
             roundedStatusView.layer.cornerRadius = 7
             
             distanceFromUserLabel.snp.makeConstraints {
                 make in
-                make.top.equalTo(positionsAvailableLabel.snp.bottom).offset(10)
+                make.centerY.equalTo(spotNameLabel).offset(25)
+//                make.top.equalTo(positionsAvailableLabel.snp.bottom).offset(10)
                 make.left.equalTo(self).offset(10)
                 
             }
@@ -156,11 +160,11 @@ class SpotDetailsView: UIView {
             
             
             //self.backgroundColor = UIColor.clearColor()
-            blurEffectView.addSubview(bicycleIconView!)
-            blurEffectView.addSubview(positionsAvailableLabel)
-            blurEffectView.addSubview(spotNameLabel)
-            blurEffectView.addSubview(roundedStatusView)
-            blurEffectView.addSubview(distanceFromUserLabel)
+            blurEffectView.contentView.addSubview(bicycleIconView!)
+            blurEffectView.contentView.addSubview(positionsAvailableLabel)
+            blurEffectView.contentView.addSubview(spotNameLabel)
+            blurEffectView.contentView.addSubview(roundedStatusView)
+            blurEffectView.contentView.addSubview(distanceFromUserLabel)
             self.addSubview(blurEffectView)
             self.clipsToBounds = true
             
@@ -172,37 +176,42 @@ class SpotDetailsView: UIView {
             //set constraint
             bicycleIconView!.snp.makeConstraints {
                 make in
-                make.top.equalTo(self).offset(28)
+//                make.top.equalTo(self).offset(28)
+                make.top.equalTo(self).offset(14)
                 make.left.equalTo(self).offset(10)
             }
             
             positionsAvailableLabel.snp.makeConstraints {
                 make in
-                make.top.equalTo(self).offset(28)
+//                make.top.equalTo(self).offset(28)
+                make.top.equalTo(self).offset(14)
                 make.left.equalTo(bicycleIconView!.snp.right).offset(10)
                 
             }
             
             spotNameLabel.snp.makeConstraints {
                 make in
-                make.top.equalTo(self).offset(28)
+//                make.top.equalTo(self).offset(28)
+                make.top.equalTo(self).offset(14)
                 make.left.equalTo(positionsAvailableLabel.snp.right).offset(10)
                 
             }
             
             roundedStatusView.snp.makeConstraints {
                 make in
-                make.centerY.equalTo(spotNameLabel)
-                make.left.equalTo(spotNameLabel.snp.right).offset(5)
+                make.centerY.equalTo(spotNameLabel).offset(22)
+                make.left.equalTo(self).offset(10)
+//                make.left.equalTo(spotNameLabel.snp.right).offset(5)
                 make.width.height.equalTo(14)
             }
             roundedStatusView.layer.cornerRadius = 7
             
             distanceFromUserLabel.snp.makeConstraints {
                 make in
-                make.top.equalTo(self).offset(28)
-                make.right.equalTo(self).offset(-10)
-                
+//                make.top.equalTo(self).offset(28)
+                make.centerY.equalTo(spotNameLabel).offset(22)
+                make.left.equalTo(roundedStatusView.snp.right).offset(3)
+//                make.right.equalTo(self).offset(-10)
             }
             
         }

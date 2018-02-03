@@ -29,7 +29,7 @@ class BicycleServiceMapController: UIViewController {
     
     func whereAmI(sender: UIButton!) {
         if let userLoc: MKUserLocation? = newMapView.userLocation {
-            let cl = CLLocation(latitude: (userLoc?.coordinate.latitude)!, longitude: (userLoc?.coordinate.longitude)!)
+            let cl = CLLocation(latitude: userLoc!.coordinate.latitude, longitude: userLoc!.coordinate.longitude)
             centerMapOnLocation(location: cl)
         } else {
             checkLocationAuthorizationStatus()
@@ -86,11 +86,8 @@ class BicycleServiceMapController: UIViewController {
             // Fallback on earlier versions
         }
         
-        newMapView.addAnnotations(_: spots!)
+        newMapView.addAnnotations(spots!)
         //newMapView.addAnnotation(spot)
-
-        // Do any additional setup after loading the view, typically from a nib.'\
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -164,7 +161,7 @@ extension BicycleServiceMapController: MKMapViewDelegate {
     }
     
     
-    
+
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         for view in views {
             let endFrame = view.frame
@@ -193,8 +190,10 @@ extension BicycleServiceMapController: MKMapViewDelegate {
             let detailView = SpotDetailsView(positionsAvailable: "\((spot.currentNumberOfBikes)!)/\(spot.numberOfBikes)", spotName: spot.title!, distanceFromUser: spot.calculateDistance(userLocation: userLoc), status: spot.status)
 
             //log.any(spot.coordinate)/
-            mapView.addSubview(detailView)
-            
+            DispatchQueue.main.async {
+                mapView.addSubview(detailView)
+            }
+
         }
 
     }

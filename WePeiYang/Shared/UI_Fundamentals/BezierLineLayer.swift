@@ -93,6 +93,8 @@ struct AlgorithmHelper {
         //Number of Segments
         let count = dataPoints.count - 1
         
+        // FIXME: DATA point
+        
         //P0, P1, P2, P3 are the points for each segment, where P0 & P3 are the knots and P1, P2 are the control points.
         if count == 1 {
             let P0 = dataPoints[0]

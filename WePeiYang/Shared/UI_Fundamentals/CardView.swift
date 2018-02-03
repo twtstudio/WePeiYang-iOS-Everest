@@ -19,8 +19,8 @@ class CardView: UIView {
     /**
      Should card present detail view controller when tapped.
      */
-    var shouldPresentDetail: Bool = true
-    
+    var shouldPresentDetail: Bool = false
+    var shouldPushDetail: Bool = true
     /**
      Amount of blur for the card's shadow.
      */
@@ -109,7 +109,7 @@ class CardView: UIView {
         super.draw(rect)
         contentView.frame.origin = CGPoint.zero
         contentView.frame.size = rect.size
-        originalFrame = rect
+//        originalFrame = rect
         
         self.layer.shadowOpacity = shadowOpacity
         self.layer.shadowColor = shadowColor.cgColor
@@ -124,11 +124,21 @@ class CardView: UIView {
     }
     
     func shouldPresent(_ viewController: UIViewController, from superVC: UIViewController) {
+        shouldPresentDetail = true
+        shouldPushDetail = false
         self.superVC = superVC
         self.detailVC = viewController
         detailVC?.transitioningDelegate = self
     }
     
+    func shouldPush(_ viewController: UIViewController, from superVC: UIViewController) {
+        shouldPresentDetail = false
+        shouldPushDetail = true
+        self.superVC = superVC
+        self.detailVC = viewController
+        detailVC?.hidesBottomBarWhenPushed = true
+        superVC.navigationController?.delegate = self
+    }
     /**
      Parallax Effect
      */
@@ -154,7 +164,12 @@ extension CardView {
         self.delegate?.cardIsTapped(card: self)
         if let superVC = superVC,
             let detailVC = detailVC {
-            superVC.present(detailVC, animated: true, completion: nil)
+//            originalFrame = self.convert(self.bounds, to: superVC.view)
+            if shouldPresentDetail {
+                superVC.present(detailVC, animated: true, completion: nil)
+            } else if shouldPushDetail {
+                superVC.navigationController?.pushViewController(detailVC, animated: true)
+            }
         } else {
             // TODO: reset animation
             // resetAnimated()
@@ -176,13 +191,23 @@ extension CardView {
 
 extension CardView: UIViewControllerTransitioningDelegate {
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
         let animator = CardViewTransitionAnimator(isPresenting: true, originalFrame: originalFrame)
         return animator
     }
     
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = CardViewTransitionAnimator(isPresenting: false, originalFrame: originalFrame)
+        let animator = CardViewTransitionAnimator(isPresenting: false, originalFrame: originalFrame, card: self)
+        return animator
+    }
+}
+
+extension CardView: UINavigationControllerDelegate {
+    
+    
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let isPresenting = operation == .push ? true : false
+//        fromVC.tabBarController?.tabBar.isHidden = true
+        let animator = CardViewTransitionAnimator(isPresenting: isPresenting, originalFrame: originalFrame, card: self)
         return animator
     }
 }
