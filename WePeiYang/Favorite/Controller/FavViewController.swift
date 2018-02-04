@@ -1,4 +1,4 @@
-//
+
 //  FavViewController.swift
 //  WePeiYang
 //
@@ -19,7 +19,8 @@ class FavViewController: UIViewController {
     var headerView: UIView!
     var fooView: UIView!
     var cardTableView: UITableView!
-    
+//    var cardDict: [String: CardView] = [:]
+
     override func viewWillAppear(_ animated: Bool) {
 //        super.viewWillAppear(animated)
 //        
@@ -100,6 +101,7 @@ extension FavViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         var card: CardView!
+        var cardHeight: CGFloat = 200
 
         switch indexPath.row {
         case 0:
@@ -176,14 +178,20 @@ extension FavViewController: UITableViewDataSource {
             card.shouldPush(classtableVC, from: self)
         case 2:
             card = LibraryCard()
+            (card as? LibraryCard)?.getBooks()
         default:
             break
         }
         cell.contentView.addSubview(card)
+        let tmpHeight = card.sizeThatFits(CGSize(width: self.view.width - 30, height: CGFloat.infinity)).height
+
+        cardHeight = max(tmpHeight, cardHeight)
+
+        card.sizeToFit()
         card.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
             make.bottom.equalToSuperview().offset(-10)
-            make.height.equalTo(200)
+            make.height.equalTo(300)
             make.left.equalToSuperview().offset(15)
             make.right.equalToSuperview().offset(-15)
         }
@@ -196,7 +204,7 @@ extension FavViewController: UITableViewDataSource {
 }
 
 extension FavViewController {
-    // TODO: get gpa card
+    // TODO: gpa card generator
 }
 
 extension FavViewController: UITableViewDelegate {

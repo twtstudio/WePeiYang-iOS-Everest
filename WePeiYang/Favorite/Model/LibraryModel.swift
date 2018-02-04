@@ -26,7 +26,7 @@ struct BorrowingData: Codable {
     let status: String
     let expire: String
     let credit: String
-    let LibraryBooks: [LibraryBook]
+    let books: [LibraryBook]
     let card: String
     let borrowLimit: Int
     let type: String
@@ -37,7 +37,7 @@ struct BorrowingData: Codable {
         case status = "status"
         case expire = "expire"
         case credit = "credit"
-        case LibraryBooks = "LibraryBooks"
+        case books = "books"
         case card = "card"
         case borrowLimit = "borrowLimit"
         case type = "type"

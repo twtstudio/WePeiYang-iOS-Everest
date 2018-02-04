@@ -101,6 +101,7 @@
 		36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E811FA4BAD00036766B /* GradeCheckViewController.swift */; };
 		36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E821FA4BAD00036766B /* AllQuizViewController.swift */; };
 		364922A120260CDC00DFDC35 /* LibraryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364922A020260CDC00DFDC35 /* LibraryModel.swift */; };
+		364922A3202620CC00DFDC35 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364922A2202620CC00DFDC35 /* CardButton.swift */; };
 		364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */; };
 		364BDF721FDAE1EF00E61B65 /* GPACard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BDF711FDAE1EF00E61B65 /* GPACard.swift */; };
 		364BDF741FDAE21900E61B65 /* BezierLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BDF731FDAE21900E61B65 /* BezierLineLayer.swift */; };
@@ -319,6 +320,7 @@
 		36449E811FA4BAD00036766B /* GradeCheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GradeCheckViewController.swift; path = PartyService/Controller/GradeCheckViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		36449E821FA4BAD00036766B /* AllQuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AllQuizViewController.swift; path = PartyService/Controller/AllQuizViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		364922A020260CDC00DFDC35 /* LibraryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryModel.swift; sourceTree = "<group>"; };
+		364922A2202620CC00DFDC35 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewTransitionAnimator.swift; sourceTree = "<group>"; };
 		364BDF711FDAE1EF00E61B65 /* GPACard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPACard.swift; sourceTree = "<group>"; };
 		364BDF731FDAE21900E61B65 /* BezierLineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BezierLineLayer.swift; sourceTree = "<group>"; };
@@ -1042,6 +1044,7 @@
 				364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */,
 				B13F3AE71F0CEE5C00F820A5 /* FAB.swift */,
 				B10254131EC8547E0064373A /* SpringButton.swift */,
+				364922A2202620CC00DFDC35 /* CardButton.swift */,
 				B10254141EC8547E0064373A /* TabVCTransitioningAnimator.swift */,
 				B10254151EC8547E0064373A /* ThemeChanging.swift */,
 				B10254161EC8547E0064373A /* WPYBaseViewController.swift */,
@@ -1575,6 +1578,7 @@
 				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
 				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
 				A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */,
+				364922A3202620CC00DFDC35 /* CardButton.swift in Sources */,
 				36449E631FA4BABA0036766B /* ScoreTableViewCell.swift in Sources */,
 				36073D0E1F223FC1001317A7 /* SearchResultCell.swift in Sources */,
 				0C3ADF391F697EE100388C19 /* LostFoundPageControllerViewController.swift in Sources */,
