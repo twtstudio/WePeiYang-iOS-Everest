@@ -46,9 +46,43 @@ struct DateTool {
         return array
     }
     
-    static func getLocalWeekDay() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEE"
-        return formatter.string(from: Date())
+//    static func getLocalWeekDay() -> String {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "EEE"
+//        return formatter.string(from: Date())
+//    }
+
+    static func getChineseWeekDay() -> String {
+        let cal = Calendar.current
+        let weekday = cal.component(.weekday, from: Date())
+        let days = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
+        return days[weekday-1]
+    }
+
+    // 两位 正数
+    static func getChineseNumber(number: Int) -> String {
+        let digits = ["", "一", "二", "三", "四", "五", "六", "七", "八", "九"]
+        var result = ""
+//        if number < 10 && number > 0 {
+//            result = digits[number]
+//        } else if number < 20 && number >= 10 {
+//            result = "十" + digits[number-10]
+//        } else if number < 30 && number >= 20 {
+//            result = "二十" + digits[number-20]
+//        } else if number < 40 && number >= 30 {
+//            result = "三十" + digits[number-30]
+//        } else if number < 50 && number >= 40 {
+//            result = "四十" + digits[number-40]
+//        }
+        let tenDigit = number / 10
+        let lower = tenDigit * 10
+        var tenString = digits[tenDigit] + "十"
+        if tenDigit == 1 {
+            tenString = "十"
+        } else if tenDigit == 0 {
+            tenString = ""
+        }
+        result = tenString + digits[number - lower]
+        return result
     }
 }

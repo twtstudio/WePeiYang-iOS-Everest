@@ -178,6 +178,7 @@ struct AccountManager {
                 TwTUser.shared.dropout = dropout
             }
         }, failure: { error in
+            // FIXME: 错误
             print(error)
         })
     }

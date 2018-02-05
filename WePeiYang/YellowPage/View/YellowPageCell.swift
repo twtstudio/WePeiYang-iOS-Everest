@@ -10,6 +10,7 @@
 
 import UIKit
 import SnapKit
+import SwiftMessages
 
 
 // haeder: the view on top
@@ -211,6 +212,7 @@ class YellowPageCell: UITableViewCell {
             UIPasteboard.general.string = self.detailedModel.phone
         }
         // FIXME: MsgDisplay
+        SwiftMessages.showSuccessMessage(title: "操作成功", body: "已经复制到剪切板")
         // MsgDisplay.showSuccessMsg("已经复制到剪切板")
     }
 }

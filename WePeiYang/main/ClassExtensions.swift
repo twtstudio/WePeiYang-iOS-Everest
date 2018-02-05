@@ -432,19 +432,19 @@ extension CGRect {
 }
 
 extension SwiftMessages {
-    static func showInfoMessage(title: String, body: String, context: PresentationContext = .automatic) {
+    static func showInfoMessage(title: String = "", body: String, context: PresentationContext = .automatic) {
         message(title: title, body: body, theme: .info, context: context)
     }
 
-    static func showSuccessMessage(title: String, body: String, context: PresentationContext = .automatic) {
+    static func showSuccessMessage(title: String = "", body: String, context: PresentationContext = .automatic) {
         message(title: title, body: body, theme: .success, context: context)
     }
 
-    static func showWarningMessage(title: String, body: String, context: PresentationContext = .automatic) {
+    static func showWarningMessage(title: String = "", body: String, context: PresentationContext = .automatic) {
         message(title: title, body: body, theme: .warning, context: context)
     }
 
-    static func showErrorMessage(title: String, body: String, context: PresentationContext = .automatic) {
+    static func showErrorMessage(title: String = "", body: String, context: PresentationContext = .automatic) {
         message(title: title, body: body, theme: .error, context: context)
     }
 

@@ -91,17 +91,8 @@ class ClassTableViewController: UIViewController {
             make.height.equalTo(60)
             make.left.right.equalToSuperview()
         }
-//        weekSelectView.canCancelContentTouches = true
-//        weekSelectView.delaysContentTouches = false
+
         // 加上点击事件
-        weekSelectView.subviews.forEach { v in
-            if v is WeekItemCell {
-                v.isUserInteractionEnabled = true
-//                let gesture = UITapGestureRecognizer(target: self, action: #selector(weekCellTapped))
-//                gesture.cancelsTouchesInView = false
-//                v.addGestureRecognizer(gesture)
-            }
-        }
         let gesture = UITapGestureRecognizer(target: self, action: #selector(weekCellTapped))
         gesture.cancelsTouchesInView = false
         weekSelectView.addGestureRecognizer(gesture)
@@ -185,6 +176,7 @@ class ClassTableViewController: UIViewController {
             currentDisplayWeek = currentWeek
             // FIXME: 刚登录 table 为空？？
             let courses = self.getCourse(table: table!, week: currentWeek)
+            // 跳回当前周
             listView.load(courses: courses, weeks: 0)
         }
         
@@ -197,16 +189,24 @@ class ClassTableViewController: UIViewController {
     }
     
     func loadCache() {
-        if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
-            self.table = table
-            let courses = self.getCourse(table: table, week: currentWeek)
-            listView.load(courses: courses, weeks: 0)
-            let now = Date()
-            let termStart = Date(timeIntervalSince1970: Double(table.termStart))
-            let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
-            self.currentWeek = Int(week)
-            self.currentDisplayWeek = Int(week)
-//            self.listView.load(courses: table, weeks: 0)
+        let queue = DispatchQueue(label: "load cache")
+        queue.async {
+            if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
+                DispatchQueue.main.async {
+                    self.table = table
+                }
+
+                let courses = self.getCourse(table: table, week: self.currentWeek)
+                let now = Date()
+                let termStart = Date(timeIntervalSince1970: Double(table.termStart))
+                let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
+                DispatchQueue.main.async {
+                    self.listView.load(courses: courses, weeks: 0)
+                    self.currentWeek = Int(week)
+                    self.currentDisplayWeek = Int(week)
+                }
+                //            self.listView.load(courses: table, weeks: 0)
+            }
         }
     }
     

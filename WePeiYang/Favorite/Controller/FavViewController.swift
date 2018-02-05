@@ -141,74 +141,72 @@ extension FavViewController {
         let card = GPACard()
 
         if let dic = CacheManager.loadGroupCache(withKey: GPAKey) as? [String: Any], let model = Mapper<GPAModel>().map(JSON: dic) {
-            var data: [Double] = []
-            for term in model.terms {
-                data.append(term.stat.score)
-            }
-
-            let contentMargin: CGFloat = 15
-            let width: CGFloat = self.view.frame.size.width - 60
-            let space = (width - 2*contentMargin)/CGFloat(data.count - 1)
-
-            let height: CGFloat = 100
-            let minVal = data.min() ?? 0
-            let range = data.max() ?? 0 - minVal
-            let ratio = height/CGFloat(range)
-
-            let newData = data.map({ item in
-                return height - CGFloat(item - minVal)*ratio
-            })
-
-            var points = [CGPoint]()
-
-            for i in 0..<newData.count {
-                let point = CGPoint(x: CGFloat(i)*space, y: newData[i])
-                points.append(point)
-            }
-
-            card.drawLine(points: points)
+            card.load(model: model)
         }
-
         // TODO: else 没有数据时
         let gpaVC = GPAViewController()
         //        newVC.transitioningDelegate = self
         //        card.shouldPresent(gpaVC, from: self)
         card.shouldPush(gpaVC, from: self)
-        cardDict["GPA"] = card
+
         // FIXME: gpa data
+        cardDict["GPA"] = card
     }
 
     func initClassTableCard() {
         let card = ClassTableCard()
+        var table: ClassTableModel?
+        let queue = DispatchQueue(label: "load cache")
+        queue.async {
+            if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
 
-        if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
-            let termStart = Date(timeIntervalSince1970: Double(table.termStart))
-            let week = Int(Date().timeIntervalSince(termStart)/(7.0*24*60*60) + 1)
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .spellOut
-            let weekday = DateTool.getLocalWeekDay()
-            card.titleLabel.text = "第\(formatter.string(from: NSNumber(integerLiteral: week))!)周 " + weekday
-            card.titleLabel.sizeToFit()
-        }
-        let courses = ClassTableHelper.getTodayCourse().filter { course in
-            return course.courseName != ""
-        }
 
-        // 这个时间点有课就代表着时候有课
-        let keys = [1, 3, 5, 7, 9]
-        for (idx, time) in keys.enumerated() {
-            // 返回第一个包含时间点的课程 // 可能是 nil
-            let course = courses.first { course in
-                let range = course.arrange.first!.start...course.arrange.first!.start
-                return range.contains(time)
+                let termStart = Date(timeIntervalSince1970: Double(table.termStart))
+                let week = Int(Date().timeIntervalSince(termStart)/(7.0*24*60*60) + 1)
+                let weekday = DateTool.getChineseWeekDay()
+                //                let weekString = DateTool.getChineseNumber(number: week)
+                let formatter = NumberFormatter()
+                formatter.locale = Locale(identifier: "zh_CN")
+                formatter.numberStyle = .spellOut
+                let weekString = formatter.string(from: NSNumber(value: week)) ?? DateTool.getChineseNumber(number: week)
+                DispatchQueue.main.async {
+                    card.titleLabel.text = "第" + weekString + "周" + " " + weekday
+                    card.titleLabel.sizeToFit()
+                }
             }
-            if let course = course {
-                card.cells[idx].load(course: course)
-            } else {
-                card.cells[idx].setIdle()
+            var courses = ClassTableHelper.getTodayCourse().filter { course in
+                return course.courseName != ""
+            }
+
+            // 这个时间点有课就代表着时候有课
+            let keys = [1, 3, 5, 7, 9]
+            for (idx, time) in keys.enumerated() {
+                // 返回第一个包含时间点的课程 // 可能是 nil
+                let course = courses.first { course in
+                    let range = course.arrange.first!.start...course.arrange.first!.end
+                    return range.contains(time)
+                }
+                DispatchQueue.main.async {
+                    if let course = course {
+                        let index = courses.index { m in
+                            return m.classID == course.classID &&
+                                m.arrange.first?.start ==  course.arrange.first?.start &&
+                                m.arrange.first?.end ==  course.arrange.first?.end
+                        }
+                        courses.remove(at: index!)
+                        card.cells[idx].load(course: course)
+                    } else {
+                        card.cells[idx].setIdle()
+                    }
+                }
             }
         }
 
+        //            for i in 0..<5 {
+        //                if i < courses.count {
+        //                    mycard.cells[i].load(course: courses[i])
+        //                }
+        //            }
         let classtableVC = ClassTableViewController()
         card.shouldPush(classtableVC, from: self)
         cardDict["ClassTable"] = card
@@ -216,7 +214,7 @@ extension FavViewController {
 
     func initLibraryCard() {
         let card = LibraryCard()
-        card.getBooks()
+        card.refresh(sender: card.refreshButton)
         cardDict["Library"] = card
     }
 }

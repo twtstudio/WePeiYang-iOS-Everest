@@ -278,7 +278,7 @@ class GPAViewController: UIViewController {
         if self.terms.count > 0 {
             self.currentTerm = self.terms[0]
         } else {
-            // TODO: 没有成绩的界面
+            // FIXME: 没有成绩的界面
             print("没有成绩")
             return
         }
