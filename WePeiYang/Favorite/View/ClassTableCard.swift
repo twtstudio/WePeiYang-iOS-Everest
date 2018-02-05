@@ -45,7 +45,7 @@ class ClassTableCard: CardView {
             // 初始化
             for i in 0..<5 {
                 let cell = CourseCell(style: .default, reuseIdentifier: "CourseCell\(i.description)")
-                cell.frame = CGRect(x: padding+(cellWidth+offset)*CGFloat(i), y: 75, width: cellWidth, height: cellHeight)
+                cell.frame = CGRect(x: padding+(cellWidth+offset)*CGFloat(i), y: 95, width: cellWidth, height: cellHeight)
                 cell.tag = i
                 cells.append(cell)
                 self.addSubview(cell)
@@ -54,7 +54,7 @@ class ClassTableCard: CardView {
             // 调整位置
             for i in 0..<5 {
                 let cell = cells[i]
-                cell.frame = CGRect(x: padding+(cellWidth+offset)*CGFloat(i), y: 75, width: cellWidth, height: cellHeight)
+                cell.frame = CGRect(x: padding+(cellWidth+offset)*CGFloat(i), y: 95, width: cellWidth, height: cellHeight)
             }
         }
     }

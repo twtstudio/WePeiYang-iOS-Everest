@@ -20,6 +20,9 @@ enum NotificationName: String {
 
     // appraise succeed
     case NotificationAppraiseDidSucceed
+
+    // reload card
+    case NotificationCardWillRefresh
 }
 
 

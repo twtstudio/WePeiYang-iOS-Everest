@@ -32,6 +32,7 @@
 		0C3ADF4B1F697EE100388C19 /* UpLoadingPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF341F697EE100388C19 /* UpLoadingPicCell.swift */; };
 		0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3B3EB51F777D7C00081A0D /* LFImagePreviewViewController.swift */; };
 		0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */; };
+		360339E920247B9D0006A083 /* LibraryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360339E820247B9C0006A083 /* LibraryCard.swift */; };
 		36042DB81FC7BB270016E859 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36042DB71FC7BB270016E859 /* CourseCell.swift */; };
 		36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFD1F223FC1001317A7 /* BookDetailViewControllerTempView.swift */; };
 		36073D081F223FC1001317A7 /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFE1F223FC1001317A7 /* CoverView.swift */; };
@@ -57,6 +58,7 @@
 		36366B321FAB8A84001F72A0 /* BicycleRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D695331F8A21AD00022B9A /* BicycleRecordViewController.xib */; };
 		36366B331FAB8A84001F72A0 /* BicycleUserBindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D695341F8A21AD00022B9A /* BicycleUserBindViewController.xib */; };
 		363CE4BA1FAEB76F00999720 /* TwTAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363CE4B91FAEB76F00999720 /* TwTAPI.swift */; };
+		363D0A701FE006990095DA57 /* LibraryCardDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363D0A6F1FE006990095DA57 /* LibraryCardDataProvider.swift */; };
 		36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E3E1FA4BA9B0036766B /* TwentyCourseQuiz.swift */; };
 		36449E451FA4BA9B0036766B /* PartyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E3F1FA4BA9B0036766B /* PartyAPI.swift */; };
 		36449E461FA4BA9B0036766B /* Courses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E401FA4BA9B0036766B /* Courses.swift */; };
@@ -98,6 +100,8 @@
 		36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E801FA4BAD00036766B /* GradeDetailViewController.swift */; };
 		36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E811FA4BAD00036766B /* GradeCheckViewController.swift */; };
 		36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E821FA4BAD00036766B /* AllQuizViewController.swift */; };
+		364922A120260CDC00DFDC35 /* LibraryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364922A020260CDC00DFDC35 /* LibraryModel.swift */; };
+		364922A3202620CC00DFDC35 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364922A2202620CC00DFDC35 /* CardButton.swift */; };
 		364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */; };
 		364BDF721FDAE1EF00E61B65 /* GPACard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BDF711FDAE1EF00E61B65 /* GPACard.swift */; };
 		364BDF741FDAE21900E61B65 /* BezierLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BDF731FDAE21900E61B65 /* BezierLineLayer.swift */; };
@@ -247,6 +251,7 @@
 		0C3B3EB51F777D7C00081A0D /* LFImagePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFImagePreviewViewController.swift; sourceTree = "<group>"; };
 		0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		360339E820247B9C0006A083 /* LibraryCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCard.swift; sourceTree = "<group>"; };
 		36042DB71FC7BB270016E859 /* CourseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
 		36073CFD1F223FC1001317A7 /* BookDetailViewControllerTempView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailViewControllerTempView.swift; sourceTree = "<group>"; };
 		36073CFE1F223FC1001317A7 /* CoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CoverView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -268,6 +273,8 @@
 		36366B2D1FAB86B0001F72A0 /* BicycleServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleServiceViewController.swift; sourceTree = "<group>"; };
 		36366B351FAC61B6001F72A0 /* WePeiYang.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WePeiYang.entitlements; sourceTree = "<group>"; };
 		363CE4B91FAEB76F00999720 /* TwTAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTAPI.swift; sourceTree = "<group>"; };
+		363D0A6D1FE005480095DA57 /* LibraryCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCard.swift; sourceTree = "<group>"; };
+		363D0A6F1FE006990095DA57 /* LibraryCardDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LibraryCardDataProvider.swift; path = WePeiYang/Favorite/LibraryCardDataProvider.swift; sourceTree = SOURCE_ROOT; };
 		36449E3E1FA4BA9B0036766B /* TwentyCourseQuiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwentyCourseQuiz.swift; path = PartyService/Model/TwentyCourseQuiz.swift; sourceTree = "<group>"; };
 		36449E3F1FA4BA9B0036766B /* PartyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartyAPI.swift; path = PartyService/Model/PartyAPI.swift; sourceTree = "<group>"; };
 		36449E401FA4BA9B0036766B /* Courses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Courses.swift; path = PartyService/Model/Courses.swift; sourceTree = "<group>"; };
@@ -312,6 +319,8 @@
 		36449E801FA4BAD00036766B /* GradeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GradeDetailViewController.swift; path = PartyService/Controller/GradeDetailViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		36449E811FA4BAD00036766B /* GradeCheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GradeCheckViewController.swift; path = PartyService/Controller/GradeCheckViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		36449E821FA4BAD00036766B /* AllQuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AllQuizViewController.swift; path = PartyService/Controller/AllQuizViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		364922A020260CDC00DFDC35 /* LibraryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryModel.swift; sourceTree = "<group>"; };
+		364922A2202620CC00DFDC35 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewTransitionAnimator.swift; sourceTree = "<group>"; };
 		364BDF711FDAE1EF00E61B65 /* GPACard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPACard.swift; sourceTree = "<group>"; };
 		364BDF731FDAE21900E61B65 /* BezierLineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BezierLineLayer.swift; sourceTree = "<group>"; };
@@ -518,6 +527,14 @@
 				0C2C8D911F7BC48400D3A5E2 /* LFPickerCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		360339E720247B8D0006A083 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				363D0A6D1FE005480095DA57 /* LibraryCard.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		36073CFC1F223FC1001317A7 /* View */ = {
@@ -1027,6 +1044,7 @@
 				364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */,
 				B13F3AE71F0CEE5C00F820A5 /* FAB.swift */,
 				B10254131EC8547E0064373A /* SpringButton.swift */,
+				364922A2202620CC00DFDC35 /* CardButton.swift */,
 				B10254141EC8547E0064373A /* TabVCTransitioningAnimator.swift */,
 				B10254151EC8547E0064373A /* ThemeChanging.swift */,
 				B10254161EC8547E0064373A /* WPYBaseViewController.swift */,
@@ -1071,6 +1089,8 @@
 		B181B9581EC5C21700B8198E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				363D0A6F1FE006990095DA57 /* LibraryCardDataProvider.swift */,
+				364922A020260CDC00DFDC35 /* LibraryModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1078,6 +1098,7 @@
 		B181B9591EC5C21700B8198E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				360339E820247B9C0006A083 /* LibraryCard.swift */,
 				364BDF711FDAE1EF00E61B65 /* GPACard.swift */,
 				36CAD44B201B9194006F85E3 /* ClassTableCard.swift */,
 			);
@@ -1094,6 +1115,7 @@
 				B19DAB871E6EF5C2004A50B5 /* Products */,
 				80B33C5178ED19C33022F16B /* Pods */,
 				D33D5F603943FDFD415D167A /* Frameworks */,
+				360339E720247B8D0006A083 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1450,6 +1472,7 @@
 				36449E891FA4BAD10036766B /* PartyScoreViewController.m in Sources */,
 				36449E661FA4BABA0036766B /* PersonalStatusLabel.swift in Sources */,
 				36449E5E1FA4BABA0036766B /* WXWaveView.m in Sources */,
+				360339E920247B9D0006A083 /* LibraryCard.swift in Sources */,
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
 				36042DB81FC7BB270016E859 /* CourseCell.swift in Sources */,
 				365936901F1E60A9003CE578 /* GPAClassModel.swift in Sources */,
@@ -1555,6 +1578,7 @@
 				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
 				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
 				A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */,
+				364922A3202620CC00DFDC35 /* CardButton.swift in Sources */,
 				36449E631FA4BABA0036766B /* ScoreTableViewCell.swift in Sources */,
 				36073D0E1F223FC1001317A7 /* SearchResultCell.swift in Sources */,
 				0C3ADF391F697EE100388C19 /* LostFoundPageControllerViewController.swift in Sources */,
@@ -1588,7 +1612,9 @@
 				36449E851FA4BAD10036766B /* TwentyCourseDetailViewController.swift in Sources */,
 				365936921F1E60A9003CE578 /* GPAStatModel.swift in Sources */,
 				36449E6E1FA4BABA0036766B /* CourseTableViewCell.swift in Sources */,
+				364922A120260CDC00DFDC35 /* LibraryModel.swift in Sources */,
 				36073D101F223FC1001317A7 /* StatusInfoCell.swift in Sources */,
+				363D0A701FE006990095DA57 /* LibraryCardDataProvider.swift in Sources */,
 				3659367B1F1E5FAE003CE578 /* YellowPageDetailViewController.swift in Sources */,
 				A5E117B71F99DC9400C86CA2 /* NotificationList.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
