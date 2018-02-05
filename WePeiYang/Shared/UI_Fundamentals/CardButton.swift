@@ -9,23 +9,22 @@
 import UIKit
 
 class CardButton: UIButton {
+    var tapAction: ((CardButton) -> ())?
 
-    override var frame: CGRect {
-        didSet{
-            setNeedsDisplay()
-        }
+    init() {
+        super.init(frame: .zero)
+        self.addTarget(self, action: #selector(tapped(sender:)), for: .touchUpInside)
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = UIColor(red:0.34, green:0.76, blue:0.97, alpha:1.00)
-    }
+    func setTitle(_ title: String) {
+        self.backgroundColor = UIColor(red:0.99, green:0.19, blue:0.35, alpha:1.00)
+        let attrString = NSAttributedString(string: title, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16, weight: UIFontWeightBlack), NSForegroundColorAttributeName: UIColor.white])
 
-    override func setTitle(_ title: String?, for state: UIControlState) {
-        let attrString = NSAttributedString(string: title ?? "", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16, weight: UIFontWeightBlack), NSForegroundColorAttributeName: UIColor.white])
-        setAttributedTitle(attrString, for: state)
+        setAttributedTitle(attrString, for: .normal)
+        titleLabel?.sizeToFit()
         self.sizeToFit()
-        self.width = CGFloat((title ?? "").count + 2)*10.0
+        width += 25
+        height += 5
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -36,6 +35,30 @@ class CardButton: UIButton {
         super.draw(rect)
         self.layer.cornerRadius = self.layer.bounds.height/2
         self.clipsToBounds = true
+    }
+
+    func tapped(sender: CardButton) {
+//        UIView.animate(withDuration: 0.15, delay: 0, usingSpringWithDamping: 0.1, initialSpringVelocity: 0, options: [.allowUserInteraction, .curveEaseInOut], animations: {
+//            self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+//        }, completion: { isFinished in
+//
+//        })
+//        UIView.animate(withDuration: 0.05, delay: 0.15, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.allowUserInteraction, .curveEaseInOut], animations: {
+//            self.transform = CGAffineTransform.identity
+//        }, completion: { isFinished in
+//            self.tapAction?(sender)
+//        })
+
+        UIView.animate(withDuration: 0.1, delay: 0, options: [.allowUserInteraction, .curveEaseIn], animations: {
+            self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        }, completion: { isFinished in
+        })
+
+        UIView.animate(withDuration: 0.1, delay: 0.1, options: [.allowUserInteraction, .curveEaseOut], animations: {
+            self.transform = CGAffineTransform.identity
+        }, completion: { isFinished in
+            self.tapAction?(sender)
+        })
     }
 }
 
