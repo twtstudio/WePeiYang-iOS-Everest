@@ -7,16 +7,15 @@ target 'WePeiYang' do
   # Pods for WePeiYang
   pod 'Alamofire'
   pod 'JBChartView'
-  pod 'SnapKit'
+  pod 'SnapKit', '3.2.0'
   pod 'SDWebImage'
-  pod 'Charts'
+  pod 'Charts', '3.0.2'
   pod 'ObjectMapper'
   pod 'MJRefresh', '~> 3.1.12'
   pod 'JBChartView'
   pod 'WMPageController', '2.3.0'
   pod 'pop'
   pod 'IGIdenticon'
-  pod 'DateTools'
   pod 'SwiftMessages'
 
   target 'WePeiYangTests' do

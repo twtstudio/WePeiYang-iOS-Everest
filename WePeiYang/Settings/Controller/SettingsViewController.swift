@@ -25,6 +25,8 @@ class SettingsViewController: UIViewController {
     
     var tableView: UITableView!
     var headerView: UIView!
+    var signatureLabel: UILabel!
+
     // FIXME: image name
     public var services: [ItemData] = [
         ("图书馆", LibraryBindingViewController.self, "", {
@@ -71,7 +73,7 @@ class SettingsViewController: UIViewController {
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         
-        NotificationCenter.default.addObserver(self, selector: #selector(bindingStatusDidChange), name: NotificationNames.NotificationStatusDidChange.name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(bindingStatusDidChange), name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
         
         self.view.addSubview(tableView)
         
@@ -111,7 +113,7 @@ class SettingsViewController: UIViewController {
             make.top.equalTo(avatarView.snp.top).offset(5)
         }
         
-        let signatureLabel = UILabel(text: "登录以查看更多信息", color: .lightGray, fontSize: 15)
+        signatureLabel = UILabel(text: "登录以查看更多信息", color: .lightGray, fontSize: 15)
         headerView.addSubview(signatureLabel)
         signatureLabel.snp.makeConstraints { make in
             make.left.equalTo(avatarView.snp.right).offset(15)
@@ -221,13 +223,14 @@ extension SettingsViewController: UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
             cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightRegular)
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)
             cell.accessoryType = .disclosureIndicator
             let x: CGFloat = 15
             let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))
             separator.backgroundColor = .gray
             separator.alpha = 0.25
             cell.addSubview(separator)
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)
             //            cell.detailTextLabel?.text = services[indexPath.row].status.rawValue
             if services[indexPath.row].status {
                 cell.detailTextLabel?.text = "已绑定"
@@ -238,7 +241,7 @@ extension SettingsViewController: UITableViewDataSource {
         } else {
             let cell = UITableViewCell()
             cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightRegular)
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)
             cell.accessoryType = .disclosureIndicator
             let x: CGFloat = 15
             let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))
@@ -258,9 +261,11 @@ extension SettingsViewController: UITableViewDelegate {
                 if subview.tag == -1 {
                     if TwTUser.shared.token != nil {
                         (subview as? UIButton)?.setTitle(TwTUser.shared.username, for: .normal)
+                        signatureLabel.text = TwTUser.shared.realname
                     } else {
                         (subview as? UIButton)?.setTitle("登录", for: .normal)
                         (subview as? UIButton)?.addTarget(self, action: #selector(login), for: .touchUpInside)
+                        signatureLabel.text = "登录以查看更多信息"
                     }
                 } else if subview.tag == -2 {
                     (subview as? UIImageView)?.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "ic_account_circle")!.with(color: .gray))
@@ -289,7 +294,11 @@ extension SettingsViewController: UITableViewDelegate {
             }
             TwTUser.shared.delete()
             tableView.reloadData()
+<<<<<<< HEAD:WePeiYang/SettingsViewController.swift
             print("logged out")
+=======
+            print("log out")
+>>>>>>> b7e1198828912bd422d5f2d2eb39643ca6090583:WePeiYang/Settings/Controller/SettingsViewController.swift
             return
         case (0, _):
             guard let _ = TwTUser.shared.token else {

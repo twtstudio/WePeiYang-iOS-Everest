@@ -85,6 +85,16 @@ struct CacheManager {
         let cacheData = userDefault?.object(forKey: keyStr)
         return cacheData
     }
+
+    static func loadGroupCacheAsync(withKey keyStr: String, success: @escaping (Any?)->()) {
+        let queue = DispatchQueue(label: "load_default")
+        queue.async {
+            let userDefault = UserDefaults(suiteName: suiteName)
+            let cacheData = userDefault?.object(forKey: keyStr)
+            success(cacheData)
+        }
+    }
+
 //    static func loadGroupCache(withKey keyStr: String, success: ((Any)->())?) {
 //        let userDefault = UserDefaults(suiteName: suiteName)
 //        let cacheData = userDefault?.object(forKey: keyStr)

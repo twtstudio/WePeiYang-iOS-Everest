@@ -29,6 +29,7 @@ class GPAViewController: UIViewController {
     
     var session: String!
     
+    var lastSelect: Int = 0
 //    fileprivate var lastScrollOffset = CGPoint.zero
     
     fileprivate var sortMethod: GPASortMethod = .scoreFirst {
@@ -145,10 +146,11 @@ class GPAViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        let image = UIImage(color: UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00), size: CGSize(width: self.view.width, height: 64))
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.barStyle = .default
     }
     
     override func viewDidLoad() {
@@ -230,8 +232,16 @@ class GPAViewController: UIViewController {
         let refreshItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(self.refresh))
         refreshItem.tintColor = .white
         self.navigationItem.rightBarButtonItem = refreshItem
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: NotificationName.NotificationAppraiseDidSucceed.name, object: nil)
+
         loadCache()
         refresh()
+    }
+    
+    // TODO: update the only evaluated item
+    func evaluateDone() {
+        
     }
     
     // 加载缓存
@@ -268,12 +278,12 @@ class GPAViewController: UIViewController {
         if self.terms.count > 0 {
             self.currentTerm = self.terms[0]
         } else {
-            // TODO: 没有成绩的界面
+            // FIXME: 没有成绩的界面
             print("没有成绩")
             return
         }
         self.load()
-        self.lineChartView.highlightValue(x: Double(0), dataSetIndex: 0, callDelegate: true)
+        self.lineChartView.highlightValue(x: Double(lastSelect), dataSetIndex: 0, callDelegate: true)
     }
     
     func load() {
@@ -379,8 +389,9 @@ class GPAViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.isTranslucent = UINavigationBar.appearance().isTranslucent
-        self.navigationController?.navigationBar.shadowImage = UINavigationBar.appearance().shadowImage
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -554,6 +565,8 @@ extension GPAViewController: ChartViewDelegate {
         guard entry.x > -1 && entry.x < Double(terms.count) else {
             return
         }
+        
+        lastSelect = Int(entry.x)
         
         let term = terms[Int(entry.x)]
         self.currentTerm = term

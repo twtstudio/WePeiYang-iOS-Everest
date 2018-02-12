@@ -23,8 +23,8 @@ class ClientItem: NSObject, NSCoding {
     required init?(coder aDecoder: NSCoder) {
         name = aDecoder.decodeObject(forKey: "yp_name") as! String
         phone = aDecoder.decodeObject(forKey: "yp_phone") as! String
-        isFavorite = aDecoder.decodeObject(forKey: "yp_isFavorite") as! Bool
-//        isFavorite = aDecoder.decodeBool(forKey: "yp_isFavorite")
+//        isFavorite = aDecoder.decodeObject(forKey: "yp_isFavorite") as! Bool
+        isFavorite = aDecoder.decodeBool(forKey: "yp_isFavorite")
         owner = aDecoder.decodeObject(forKey: "yp_owner") as! String
     }
     

@@ -156,8 +156,10 @@ extension ParkingSpot {
             
             self.numberOfBikes = Int(numberOfBikes)!
             self.currentNumberOfBikes = Int(currentNumberOfBikes)
-            
-        }, failure: nil)
+            completion()
+        }, failure: { err in
+             //MsgDisplay.showErrorMsg("网络不好，请重试")
+        })
         
         //        manager.request(BicycleAPIs.statusURL, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: AnyObject?) in
         //            guard responseObject != nil else {

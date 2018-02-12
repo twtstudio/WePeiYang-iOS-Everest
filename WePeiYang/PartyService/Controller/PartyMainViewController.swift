@@ -323,7 +323,7 @@ extension PartyMainViewController {
 
 extension UIColor {
     static var partyRed: UIColor {
-        return UIColor(colorLiteralRed: 240.0/255.0, green: 22.0/255.0, blue: 22.0/255.0, alpha: 1.0)
+        return UIColor(red: 240.0/255.0, green: 22.0/255.0, blue: 22.0/255.0, alpha: 1.0)
     }
 }
 

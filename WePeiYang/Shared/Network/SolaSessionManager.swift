@@ -39,11 +39,8 @@ struct SolaSessionManager {
         para["t"] = timeStamp
         var fooPara = para
         
-        if type == .duo {
-            if let twtToken = TwTUser.shared.token {
-                // twt token
-                fooPara["token"] = twtToken
-            }
+        if type == .duo, let token = token {
+            fooPara["token"] = token
         }
         
         let keys = fooPara.keys.sorted()
@@ -66,9 +63,9 @@ struct SolaSessionManager {
             log.errorMessage("can't load twtToken")/
         }
         
-        if type == .duo && token != nil{
-            headers["Authorization"] = "Bearer {\(token)}"
-        }
+//        if type == .duo && token != nil{
+//            headers["Authorization"] = "Bearer {\(token)}"
+//        }
         var method: HTTPMethod!
         switch type {
         case .get:
