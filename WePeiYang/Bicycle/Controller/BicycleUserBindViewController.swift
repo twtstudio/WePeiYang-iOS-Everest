@@ -29,10 +29,10 @@ class BicycleUserBindViewController: UIViewController, UIAlertViewDelegate {
     override func viewDidLoad() {
         self.navigationController?.navigationBar.tintColor = nil
         super.viewDidLoad()
-        
-        let alert = UIAlertView(title: "请绑定自行车卡", message: "提示：\n在您进行新办卡、修改卡信息、换卡等操作后，第二天才能正常使用本系统", delegate: self, cancelButtonTitle: "知道了")
-        
-        alert.show()
+        // FIXME: 不知道还要不要
+//        let alert = UIAlertView(title: "请绑定自行车卡", message: "提示：\n在您进行新办卡、修改卡信息、换卡等操作后，第二天才能正常使用本系统", delegate: self, cancelButtonTitle: "知道了")
+
+//        alert.show()
     }
     
     override func viewDidAppear(_ animated: Bool) {

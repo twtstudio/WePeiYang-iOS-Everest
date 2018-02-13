@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        TwTUser.shared.load() // load token and so on
         TwTUser.shared.load(success: {
+            UIApplication.shared.applicationIconBadgeNumber = 0
             AccountManager.getSelf(success: nil, failure: nil)
         }, failure: {
             // 让他重新登录

@@ -28,8 +28,8 @@ class WPYTabBarController: UITabBarController {
         
         tabBar.isTranslucent = false
         
-        delegate = tabBarVCDelegate
-        
+//        delegate = tabBarVCDelegate
+
         selectedIndex = 0
         tabBar.backgroundColor = Metadata.Color.GlobalTabBarBackgroundColor
         tabBar.tintColor = Metadata.Color.WPYAccentColor

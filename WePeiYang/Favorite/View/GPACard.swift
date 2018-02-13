@@ -38,6 +38,9 @@ class GPACard: CardView {
         lineChartView.isUserInteractionEnabled = false
         lineChartView.borderColor = .white
         lineChartView.legend.enabled = false
+        lineChartView.noDataTextColor = .white
+        lineChartView.noDataText = "暂无数据"
+        lineChartView.noDataFont = NSUIFont.boldSystemFont(ofSize: 16)
         return lineChartView
     }()
 

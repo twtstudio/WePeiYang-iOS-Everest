@@ -110,10 +110,17 @@ class FavViewController: UIViewController {
                     make.height.equalTo(height)
                 }
 
-                cell?.contentView.updateConstraintsIfNeeded()
-                cell?.contentView.layoutIfNeeded()
+//                cell?.contentView.updateConstraintsIfNeeded()
 
-                card.updateConstraintsIfNeeded()
+//                card.updateConstraintsIfNeeded()
+                cell?.setNeedsUpdateConstraints()
+                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
+//                    card.layoutIfNeeded()
+//                    cell?.contentView.layoutIfNeeded()
+                    cell?.layoutIfNeeded()
+                }, completion: { _ in
+                })
+
 //                self.cardTableView.endUpdates()
                 self.cardTableView.reloadData()
                 self.cardTableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.middle, animated: true)
@@ -214,7 +221,7 @@ extension FavViewController {
 
     func initLibraryCard() {
         let card = LibraryCard()
-        card.refresh(sender: card.refreshButton)
+        card.getBooks()
         cardDict["Library"] = card
     }
 }

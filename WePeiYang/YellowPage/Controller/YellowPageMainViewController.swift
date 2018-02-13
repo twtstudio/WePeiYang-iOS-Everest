@@ -247,6 +247,7 @@ extension YellowPageMainViewController: UITableViewDelegate {
                 //                DispatchQueue.main.sync {
                     // reload data
                     self.tableView.reloadSections([indexPath.section], with: .automatic)
+                    tableView.scrollToRow(at: IndexPath(row: 0, section: indexPath.section), at: .top, animated: true)
 //               }
             } else {
                 // push to detailed ViewController

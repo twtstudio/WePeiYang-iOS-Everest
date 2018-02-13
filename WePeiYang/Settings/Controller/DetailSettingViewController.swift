@@ -14,7 +14,7 @@ class DetailSettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView = UITableView(frame: self.view.bounds, style: .grouped)
-        
+        self.view.addSubview(tableView)
     }
 
 }

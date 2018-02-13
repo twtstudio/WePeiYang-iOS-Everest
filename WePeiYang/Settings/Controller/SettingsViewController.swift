@@ -26,6 +26,8 @@ class SettingsViewController: UIViewController {
     var tableView: UITableView!
     var headerView: UIView!
     var signatureLabel: UILabel!
+    let avatarView = UIImageView(frame: .zero)
+    let loginButton = UIButton()
 
     // FIXME: image name
     public var services: [ItemData] = [
@@ -71,7 +73,7 @@ class SettingsViewController: UIViewController {
         tableView = UITableView(frame: self.view.bounds, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = 60
+        tableView.rowHeight = 50
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         
@@ -80,8 +82,7 @@ class SettingsViewController: UIViewController {
         self.view.addSubview(tableView)
         
         headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 165))
-        let avatarView = UIImageView(frame: .zero)
-        avatarView.tag = -2
+
         headerView.addSubview(avatarView)
         //        avatarView.image = UIImage(named: "ic_account_circle")!.with(color: .gray)
         avatarView.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "ic_account_circle")!.with(color: .gray))
@@ -94,8 +95,6 @@ class SettingsViewController: UIViewController {
             make.height.width.equalTo(80)
         }
         
-        let loginButton = UIButton()
-        loginButton.tag = -1
         if TwTUser.shared.token != nil {
             loginButton.setTitle(TwTUser.shared.username, for: .normal)
         } else {
@@ -225,14 +224,14 @@ extension SettingsViewController: UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
             cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightRegular)
             cell.accessoryType = .disclosureIndicator
             let x: CGFloat = 15
             let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))
             separator.backgroundColor = .gray
             separator.alpha = 0.25
             cell.addSubview(separator)
-            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
             //            cell.detailTextLabel?.text = services[indexPath.row].status.rawValue
             if services[indexPath.row].status {
                 cell.detailTextLabel?.text = "已绑定"
@@ -243,7 +242,7 @@ extension SettingsViewController: UITableViewDataSource {
         } else {
             let cell = UITableViewCell()
             cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightRegular)
             cell.accessoryType = .disclosureIndicator
             let x: CGFloat = 15
             let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))
@@ -259,20 +258,17 @@ extension SettingsViewController: UITableViewDataSource {
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            for subview in headerView.subviews {
-                if subview.tag == -1 {
-                    if TwTUser.shared.token != nil {
-                        (subview as? UIButton)?.setTitle(TwTUser.shared.username, for: .normal)
-                        signatureLabel.text = TwTUser.shared.realname
-                    } else {
-                        (subview as? UIButton)?.setTitle("登录", for: .normal)
-                        (subview as? UIButton)?.addTarget(self, action: #selector(login), for: .touchUpInside)
-                        signatureLabel.text = "登录以查看更多信息"
-                    }
-                } else if subview.tag == -2 {
-                    (subview as? UIImageView)?.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "ic_account_circle")!.with(color: .gray))
-                }
+            if TwTUser.shared.token != nil {
+                loginButton.setTitle(TwTUser.shared.username, for: .normal)
+                signatureLabel.text = TwTUser.shared.realname
+            } else {
+                loginButton.setTitle("登录", for: .normal)
+                loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
+                signatureLabel.text = "登录以查看更多信息"
             }
+
+            avatarView.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "account_circle")!.with(color: .gray))
+
             return headerView
         }
         return nil
@@ -287,9 +283,13 @@ extension SettingsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         switch (indexPath.section, indexPath.row) {
+        case (1, 0):
+            let detailVC = DetailSettingViewController()
+            self.navigationController?.pushViewController(detailVC, animated: true)
+            return
         case (1, 1):
-            tableView.deselectRow(at: indexPath, animated: true)
             TwTUser.shared.delete()
             tableView.reloadData()
             print("log out")

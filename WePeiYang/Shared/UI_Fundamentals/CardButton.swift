@@ -13,6 +13,7 @@ class CardButton: UIButton {
 
     init() {
         super.init(frame: .zero)
+        alpha = 0.8
         self.addTarget(self, action: #selector(tapped(sender:)), for: .touchUpInside)
     }
 
