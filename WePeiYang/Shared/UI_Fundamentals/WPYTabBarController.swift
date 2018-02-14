@@ -27,7 +27,8 @@ class WPYTabBarController: UITabBarController {
         super.viewDidLoad()
         
         tabBar.isTranslucent = false
-        
+
+        // FIXME: 动画
 //        delegate = tabBarVCDelegate
 
         selectedIndex = 0

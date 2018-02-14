@@ -178,6 +178,7 @@ class LoginViewController: UIViewController {
         videoPlayer.play()
     }
 
+    // 登录成功
     func extraProcedures() {
         AccountManager.getSelf(success: nil, failure: nil)
         
@@ -186,6 +187,22 @@ class LoginViewController: UIViewController {
 //            UserDefaults.standard.set(Applicant.sharedInstance.realName, forKey: "studentName")
 //            //log.word("fuckin awesome")/
         }
+
+        GPASessionManager.getGPA(success: { model in
+
+        }, failure: { err in
+
+        })
+
+        BicycleUser.sharedInstance.auth {
+
+        }
+
+        ClasstableDataManager.getClassTable(success: { model in
+
+        }, failure: { str in
+            
+        })
     }
     
     deinit {
