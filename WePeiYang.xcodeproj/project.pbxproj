@@ -125,6 +125,7 @@
 		365936941F1E60A9003CE578 /* CourseAppraiseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659368A1F1E60A9003CE578 /* CourseAppraiseCell.swift */; };
 		365936951F1E60A9003CE578 /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659368B1F1E60A9003CE578 /* ScoreHeaderView.swift */; };
 		365936961F1E60A9003CE578 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659368C1F1E60A9003CE578 /* StarView.swift */; };
+		365A46462035E35500738963 /* DiskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A46452035E35500738963 /* DiskStorage.swift */; };
 		365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A1A1FB9BA8500B15443 /* ArrangeModel.swift */; };
 		365A8A251FB9BA8500B15443 /* ClasstableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A1C1FB9BA8500B15443 /* ClasstableDataManager.swift */; };
 		365A8A281FB9CA1700B15443 /* ClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A271FB9CA1700B15443 /* ClassModel.swift */; };
@@ -344,6 +345,7 @@
 		3659368A1F1E60A9003CE578 /* CourseAppraiseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseCell.swift; sourceTree = "<group>"; };
 		3659368B1F1E60A9003CE578 /* ScoreHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
 		3659368C1F1E60A9003CE578 /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
+		365A46452035E35500738963 /* DiskStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskStorage.swift; sourceTree = "<group>"; };
 		365A8A1A1FB9BA8500B15443 /* ArrangeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrangeModel.swift; sourceTree = "<group>"; };
 		365A8A1C1FB9BA8500B15443 /* ClasstableDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClasstableDataManager.swift; sourceTree = "<group>"; };
 		365A8A271FB9CA1700B15443 /* ClassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassModel.swift; sourceTree = "<group>"; };
@@ -991,6 +993,7 @@
 				B10253EE1EC84ED90064373A /* DeviceStatus.swift */,
 				B10253EF1EC84ED90064373A /* log.swift */,
 				369140AE2020CBA30022BA3F /* NotificationName.swift */,
+				365A46452035E35500738963 /* DiskStorage.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1514,6 +1517,7 @@
 				A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */,
 				0C3ADF3A1F697EE100388C19 /* LostViewController.swift in Sources */,
 				36073D0A1F223FC1001317A7 /* ReadStarCell.swift in Sources */,
+				365A46462035E35500738963 /* DiskStorage.swift in Sources */,
 				365936941F1E60A9003CE578 /* CourseAppraiseCell.swift in Sources */,
 				A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */,
 				365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */,
