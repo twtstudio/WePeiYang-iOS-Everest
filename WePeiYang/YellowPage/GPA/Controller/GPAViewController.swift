@@ -91,6 +91,9 @@ class GPAViewController: UIViewController {
         lineChartView.isUserInteractionEnabled = true
         lineChartView.borderColor = .white
         lineChartView.legend.enabled = false
+        lineChartView.noDataTextColor = .white
+        lineChartView.noDataText = "暂无数据"
+        lineChartView.noDataFont = NSUIFont.boldSystemFont(ofSize: 16)
         return lineChartView
     }()
     
@@ -246,9 +249,16 @@ class GPAViewController: UIViewController {
     
     // 加载缓存
     func loadCache() {
+//        CacheManager.loadGroupCacheAsync(withKey: GPAKey) { dic in
+//            if let dic = dic as? [String: Any],
+//                let model = Mapper<GPAModel>().map(JSON: dic) {
+//                self.loadModel(model: model)
+//            }
+//        }
+        // TODO: Async
         if let dic = CacheManager.loadGroupCache(withKey: GPAKey) as? [String: Any],
             let model = Mapper<GPAModel>().map(JSON: dic) {
-            loadModel(model: model)
+            self.loadModel(model: model)
         }
     }
     
@@ -292,7 +302,7 @@ class GPAViewController: UIViewController {
             self.termLabel.text = self.currentTerm?.name ?? ""
             self.termLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
         }, completion: nil)
-        
+
         // 第一个
         if currentTerm!.name == terms[0].name {
             leftButton.isHidden = true
@@ -317,7 +327,7 @@ class GPAViewController: UIViewController {
         tableView.reloadData()
 //        lineChartView.highlightValue(x: 0, dataSetIndex: 0)
     }
-    
+
     func segmentValueChanged(sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             sortMethod = .scoreFirst
@@ -634,4 +644,3 @@ extension GPAViewController: ChartViewDelegate {
         
     }
 }
-

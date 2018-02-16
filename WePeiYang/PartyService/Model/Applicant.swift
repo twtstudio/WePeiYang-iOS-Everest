@@ -25,7 +25,7 @@ class Applicant: NSObject {
     fileprivate override init(){}
     
     //TODO: 未完成
-    func getStudentNumber(_ success: @escaping (Void) -> Void) {
+    func getStudentNumber(_ success: @escaping () -> Void) {
         //TODO:这样做还不够优雅，应该在登录完成之后自动重新加载
         guard let token = TwTUser.shared.token else {
             // FIXME: log something and login

@@ -125,7 +125,11 @@
 		365936941F1E60A9003CE578 /* CourseAppraiseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659368A1F1E60A9003CE578 /* CourseAppraiseCell.swift */; };
 		365936951F1E60A9003CE578 /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659368B1F1E60A9003CE578 /* ScoreHeaderView.swift */; };
 		365936961F1E60A9003CE578 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659368C1F1E60A9003CE578 /* StarView.swift */; };
-		365A46462035E35500738963 /* DiskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A46452035E35500738963 /* DiskStorage.swift */; };
+		365A46462035E35500738963 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A46452035E35500738963 /* Storage.swift */; };
+		365A46482036956700738963 /* CacheFilenameKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A46472036956700738963 /* CacheFilenameKey.swift */; };
+		365A464F2036EFB800738963 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 365A464E2036EFB800738963 /* NotificationCenter.framework */; };
+		365A46522036EFB800738963 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A46512036EFB800738963 /* TodayViewController.swift */; };
+		365A46592036EFB800738963 /* WePeiYangWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 365A464D2036EFB700738963 /* WePeiYangWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A1A1FB9BA8500B15443 /* ArrangeModel.swift */; };
 		365A8A251FB9BA8500B15443 /* ClasstableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A1C1FB9BA8500B15443 /* ClasstableDataManager.swift */; };
 		365A8A281FB9CA1700B15443 /* ClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A271FB9CA1700B15443 /* ClassModel.swift */; };
@@ -209,6 +213,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		365A46572036EFB800738963 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B19DAB7E1E6EF5C1004A50B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 365A464C2036EFB700738963;
+			remoteInfo = WePeiYangWidget;
+		};
 		B19DAB9B1E6EF5C2004A50B5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B19DAB7E1E6EF5C1004A50B5 /* Project object */;
@@ -224,6 +235,20 @@
 			remoteInfo = WePeiYang;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		365A465D2036EFB800738963 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				365A46592036EFB800738963 /* WePeiYangWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0C2C8D911F7BC48400D3A5E2 /* LFPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFPickerCell.swift; sourceTree = "<group>"; };
@@ -345,7 +370,14 @@
 		3659368A1F1E60A9003CE578 /* CourseAppraiseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseCell.swift; sourceTree = "<group>"; };
 		3659368B1F1E60A9003CE578 /* ScoreHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
 		3659368C1F1E60A9003CE578 /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
-		365A46452035E35500738963 /* DiskStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskStorage.swift; sourceTree = "<group>"; };
+		365A46452035E35500738963 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		365A46472036956700738963 /* CacheFilenameKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFilenameKey.swift; sourceTree = "<group>"; };
+		365A464D2036EFB700738963 /* WePeiYangWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WePeiYangWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		365A464E2036EFB800738963 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		365A46512036EFB800738963 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		365A46562036EFB800738963 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		365A465E2036EFCC00738963 /* WePeiYangWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WePeiYangWidget.entitlements; sourceTree = "<group>"; };
+		365A46612037197F00738963 /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		365A8A1A1FB9BA8500B15443 /* ArrangeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrangeModel.swift; sourceTree = "<group>"; };
 		365A8A1C1FB9BA8500B15443 /* ClasstableDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClasstableDataManager.swift; sourceTree = "<group>"; };
 		365A8A271FB9CA1700B15443 /* ClassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassModel.swift; sourceTree = "<group>"; };
@@ -450,6 +482,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		365A464A2036EFB700738963 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				365A464F2036EFB800738963 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B19DAB831E6EF5C2004A50B5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -695,6 +735,16 @@
 				3659368C1F1E60A9003CE578 /* StarView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		365A46502036EFB800738963 /* WePeiYangWidget */ = {
+			isa = PBXGroup;
+			children = (
+				365A465E2036EFCC00738963 /* WePeiYangWidget.entitlements */,
+				365A46512036EFB800738963 /* TodayViewController.swift */,
+				365A46562036EFB800738963 /* Info.plist */,
+			);
+			path = WePeiYangWidget;
 			sourceTree = "<group>";
 		};
 		365A8A131FB9BA8500B15443 /* ClassTable */ = {
@@ -992,8 +1042,9 @@
 			children = (
 				B10253EE1EC84ED90064373A /* DeviceStatus.swift */,
 				B10253EF1EC84ED90064373A /* log.swift */,
+				365A46472036956700738963 /* CacheFilenameKey.swift */,
 				369140AE2020CBA30022BA3F /* NotificationName.swift */,
-				365A46452035E35500738963 /* DiskStorage.swift */,
+				365A46452035E35500738963 /* Storage.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1112,6 +1163,7 @@
 			isa = PBXGroup;
 			children = (
 				B19DAB881E6EF5C2004A50B5 /* WePeiYang */,
+				365A46502036EFB800738963 /* WePeiYangWidget */,
 				B156B7891E7A857F00A4C500 /* Resources */,
 				B19DAB9D1E6EF5C2004A50B5 /* WePeiYangTests */,
 				B19DABA81E6EF5C2004A50B5 /* WePeiYangUITests */,
@@ -1128,6 +1180,7 @@
 				B19DAB861E6EF5C2004A50B5 /* WePeiYang.app */,
 				B19DAB9A1E6EF5C2004A50B5 /* WePeiYangTests.xctest */,
 				B19DABA51E6EF5C2004A50B5 /* WePeiYangUITests.xctest */,
+				365A464D2036EFB700738963 /* WePeiYangWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1179,9 +1232,11 @@
 		D33D5F603943FDFD415D167A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				365A46612037197F00738963 /* ObjectMapper.framework */,
 				1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */,
 				6F6749BFC82CF9191336C6C5 /* Pods_WePeiYangTests.framework */,
 				9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */,
+				365A464E2036EFB800738963 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1189,6 +1244,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		365A464C2036EFB700738963 /* WePeiYangWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 365A465C2036EFB800738963 /* Build configuration list for PBXNativeTarget "WePeiYangWidget" */;
+			buildPhases = (
+				365A46492036EFB700738963 /* Sources */,
+				365A464A2036EFB700738963 /* Frameworks */,
+				365A464B2036EFB700738963 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WePeiYangWidget;
+			productName = WePeiYangWidget;
+			productReference = 365A464D2036EFB700738963 /* WePeiYangWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		B19DAB851E6EF5C2004A50B5 /* WePeiYang */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B19DABAE1E6EF5C2004A50B5 /* Build configuration list for PBXNativeTarget "WePeiYang" */;
@@ -1199,10 +1271,12 @@
 				B19DAB841E6EF5C2004A50B5 /* Resources */,
 				9425E5E6C1FDC2E7D9F81A80 /* [CP] Embed Pods Frameworks */,
 				433FB015B3FA922FE8E29B31 /* [CP] Copy Pods Resources */,
+				365A465D2036EFB800738963 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				365A46582036EFB800738963 /* PBXTargetDependency */,
 			);
 			name = WePeiYang;
 			productName = WePeiYang;
@@ -1254,10 +1328,20 @@
 		B19DAB7E1E6EF5C1004A50B5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = twtstudio;
 				TargetAttributes = {
+					365A464C2036EFB700738963 = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = TYRRVX7RWJ;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 					B19DAB851E6EF5C2004A50B5 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = TYRRVX7RWJ;
@@ -1300,6 +1384,7 @@
 			projectRoot = "";
 			targets = (
 				B19DAB851E6EF5C2004A50B5 /* WePeiYang */,
+				365A464C2036EFB700738963 /* WePeiYangWidget */,
 				B19DAB991E6EF5C2004A50B5 /* WePeiYangTests */,
 				B19DABA41E6EF5C2004A50B5 /* WePeiYangUITests */,
 			);
@@ -1307,6 +1392,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		365A464B2036EFB700738963 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B19DAB841E6EF5C2004A50B5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1468,6 +1560,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		365A46492036EFB700738963 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				365A46522036EFB800738963 /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B19DAB821E6EF5C2004A50B5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1517,10 +1617,11 @@
 				A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */,
 				0C3ADF3A1F697EE100388C19 /* LostViewController.swift in Sources */,
 				36073D0A1F223FC1001317A7 /* ReadStarCell.swift in Sources */,
-				365A46462035E35500738963 /* DiskStorage.swift in Sources */,
+				365A46462035E35500738963 /* Storage.swift in Sources */,
 				365936941F1E60A9003CE578 /* CourseAppraiseCell.swift in Sources */,
 				A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */,
 				365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */,
+				365A46482036956700738963 /* CacheFilenameKey.swift in Sources */,
 				36073D0B1F223FC1001317A7 /* RecommendCell.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
 				B181B9601EC5C24000B8198E /* NewsViewController.swift in Sources */,
@@ -1674,6 +1775,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		365A46582036EFB800738963 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 365A464C2036EFB700738963 /* WePeiYangWidget */;
+			targetProxy = 365A46572036EFB800738963 /* PBXContainerItemProxy */;
+		};
 		B19DAB9C1E6EF5C2004A50B5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B19DAB851E6EF5C2004A50B5 /* WePeiYang */;
@@ -1698,6 +1804,62 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		365A465A2036EFB800738963 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = WePeiYangWidget/WePeiYangWidget.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TYRRVX7RWJ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang.WePeiYangWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		365A465B2036EFB800738963 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = WePeiYangWidget/WePeiYangWidget.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TYRRVX7RWJ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang.WePeiYangWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		B19DABAC1E6EF5C2004A50B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1795,9 +1957,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = WePeiYang/WePeiYang.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = TYRRVX7RWJ;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1814,9 +1978,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8405C859FC95C5E72E0F9BD7 /* Pods-WePeiYang.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = WePeiYang/WePeiYang.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = TYRRVX7RWJ;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1891,6 +2057,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		365A465C2036EFB800738963 /* Build configuration list for PBXNativeTarget "WePeiYangWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				365A465A2036EFB800738963 /* Debug */,
+				365A465B2036EFB800738963 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B19DAB811E6EF5C1004A50B5 /* Build configuration list for PBXProject "WePeiYang" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

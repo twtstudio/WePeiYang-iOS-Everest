@@ -186,6 +186,8 @@ extension LibraryCard {
                     self.toggleButton.setTitle("展开(\(max(LibraryDataContainer.shared.books.count-2, 0)))")
                 }
                 self.tableView.reloadData()
+                // 缓存起来撒
+                Storage.store(response, in: .caches, as: CacheFilenameKey.libUserInfo.name)
                 success?()
             } else {
                 // TODO: 解析错误
@@ -231,3 +233,4 @@ extension LibraryCard {
 
 extension LibraryCard: UITableViewDelegate {
 }
+
