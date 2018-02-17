@@ -16,6 +16,9 @@ struct Storage {
 
         // Data that can be downloaded again or regenerated should be stored in the <Application_Home>/Library/Caches directory. Examples of files you should put in the Caches directory include database cache files and downloadable content, such as that used by magazine, newspaper, and map applications.
         case caches
+
+        // Data that can be shared with other app
+        case group
     }
 
     // returns file url by directory
@@ -26,6 +29,8 @@ struct Storage {
             searchDirectory = .cachesDirectory
         case .documents:
             searchDirectory = .documentDirectory
+        case .group:
+            return FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.WePeiyang")!
         }
         if let url = FileManager.default.urls(for: searchDirectory, in: .userDomainMask).first {
             return url
