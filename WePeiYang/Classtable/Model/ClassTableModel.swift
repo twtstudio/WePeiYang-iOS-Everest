@@ -26,3 +26,29 @@ struct ClassTableModel: Mappable {
         classes <- map["data"]
     }
 }
+
+struct TestModel: Codable {
+    let week: String
+    let updatedAt: String
+    let termStart: Int
+    let term: String
+//    let classes: [ClassModel]
+
+    enum CodingKeys: String, CodingKey {
+        case week = "week"
+        case term = "term"
+        case termStart = "term_start"
+        case updatedAt = "updated_at"
+//        case classes = "data"
+    }
+
+    init(data: Data) throws {
+        let a = type(of: self)
+        self = try JSONDecoder().decode(a, from: data)
+    }
+
+    init?(_ json: String, using encoding: String.Encoding = .utf8) throws {
+        guard let data = json.data(using: encoding) else { return nil }
+        try self.init(data: data)
+    }
+}

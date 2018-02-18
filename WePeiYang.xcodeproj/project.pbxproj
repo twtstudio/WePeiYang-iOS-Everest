@@ -141,6 +141,8 @@
 		369B2D4A20151542009352A8 /* DateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369B2D4920151542009352A8 /* DateTool.swift */; };
 		369D92072015D914004BA1D0 /* WeekSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D92062015D914004BA1D0 /* WeekSelectView.swift */; };
 		369D92092015D97A004BA1D0 /* WeekItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D92082015D97A004BA1D0 /* WeekItemCell.swift */; };
+		36B2C8902038898400AD2E3F /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A46452035E35500738963 /* Storage.swift */; };
+		36B2C89120388DF200AD2E3F /* LibraryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364922A020260CDC00DFDC35 /* LibraryModel.swift */; };
 		36CAD44A201B8EAA006F85E3 /* ClassTableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CAD449201B8EAA006F85E3 /* ClassTableHelper.swift */; };
 		36CAD44C201B9194006F85E3 /* ClassTableCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CAD44B201B9194006F85E3 /* ClassTableCard.swift */; };
 		36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0FE73201861BD0014E667 /* ClassDetailViewController.swift */; };
@@ -1565,6 +1567,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				365A46522036EFB800738963 /* TodayViewController.swift in Sources */,
+				36B2C89120388DF200AD2E3F /* LibraryModel.swift in Sources */,
+				36B2C8902038898400AD2E3F /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

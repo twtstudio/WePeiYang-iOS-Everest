@@ -469,3 +469,15 @@ extension Data {
         }
     }
 }
+
+
+// Encodable
+extension Encodable {
+    func jsonData() throws -> Data {
+        return try JSONEncoder().encode(self)
+    }
+
+    func jsonString() throws -> String? {
+        return String(data: try self.jsonData(), encoding: .utf8)
+    }
+}

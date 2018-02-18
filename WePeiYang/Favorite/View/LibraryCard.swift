@@ -187,6 +187,7 @@ extension LibraryCard {
                 }
                 self.tableView.reloadData()
                 // 缓存起来撒
+                Storage.store(response, in: .group, as: "date.json")
                 Storage.store(response, in: .caches, as: CacheFilenameKey.libUserInfo.name)
                 success?()
             } else {

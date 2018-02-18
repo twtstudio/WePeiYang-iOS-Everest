@@ -22,6 +22,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if #available(iOSApplicationExtension 10.0, *) {
             extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         }
+        let a = Storage.retreive("date.json", from: .group, as: LibraryResponse.self)
 
         let width = UIScreen.main.bounds.width
         let tableViewHeight = 50 as CGFloat
