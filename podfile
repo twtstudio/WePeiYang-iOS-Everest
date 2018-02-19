@@ -3,7 +3,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 def shared_pods
-  pod 'ObjectMapper'
+  pod 'ObjectMapper', '~> 3.1'
 end
 
 target 'WePeiYang' do

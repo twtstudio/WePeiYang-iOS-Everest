@@ -8,13 +8,16 @@
 
 import UIKit
 import NotificationCenter
+import ObjectMapper
+
+let ClassTableKey = "ClassTableKey"
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     var tableView: UITableView!
     var imgView: UIImageView!
     var hintLabel: UILabel!
 
-    var classes: [String] = []
+    var classes: [ClassModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +25,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if #available(iOSApplicationExtension 10.0, *) {
             extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         }
-        let a = Storage.retreive("date.json", from: .group, as: LibraryResponse.self)
+
+        
 
         let width = UIScreen.main.bounds.width
         let tableViewHeight = 50 as CGFloat
@@ -53,8 +57,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         switch activeDisplayMode {
         case .compact:
+            tableView.frame.size.height = tableView.rowHeight
             self.preferredContentSize.height =  tableView.rowHeight + 20
         case .expanded:
+            tableView.frame.size.height = CGFloat(classes.count) * tableView.rowHeight
             self.preferredContentSize.height = CGFloat(classes.count) * tableView.rowHeight + 20
         }
         layout()
@@ -65,12 +71,20 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
 
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
+//        if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
+//            self.classes = table.classes
+//            tableView.reloadData()
+//            completionHandler(NCUpdateResult.newData)
+//        }
+        self.classes = ClassTableHelper.getTodayCourse().filter { course in
+            return course.courseName != ""
+        }
+        self.tableView.reloadData()
         // Perform any setup necessary in order to update the view.
         
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
-        
         completionHandler(NCUpdateResult.newData)
     }
 
@@ -81,12 +95,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
 extension TodayViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return classes.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "\(indexPath)"
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "12345")
+        let model = classes[indexPath.row]
+        cell.textLabel?.text = model.courseName
+        cell.detailTextLabel?.text = model.arrange.first?.room ?? ""
         return cell
     }
 }
