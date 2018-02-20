@@ -215,7 +215,9 @@ extension FavViewController {
         //                }
         //            }
         let classtableVC = ClassTableViewController()
-        card.shouldPush(classtableVC, from: self)
+//        card.shouldPush(classtableVC, from: self)
+        let classtableNC = UINavigationController(rootViewController: classtableVC)
+        card.shouldPresent(classtableNC, from: self)
         cardDict["ClassTable"] = card
     }
 

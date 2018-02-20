@@ -71,21 +71,22 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
 
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-//        if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
-//            self.classes = table.classes
-//            tableView.reloadData()
-//            completionHandler(NCUpdateResult.newData)
-//        }
-        self.classes = ClassTableHelper.getTodayCourse().filter { course in
-            return course.courseName != ""
+        if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
+            self.classes = table.classes
+            tableView.reloadData()
+            completionHandler(NCUpdateResult.newData)
         }
-        self.tableView.reloadData()
+//        self.classes = ClassTableHelper.getTodayCourse().filter { course in
+//            return course.courseName != ""
+//        }
+//        self.tableView.reloadData()
         // Perform any setup necessary in order to update the view.
         
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
-        completionHandler(NCUpdateResult.newData)
+//        completionHandler(NCUpdateResult.newData)
+        completionHandler(NCUpdateResult.failed)
     }
 
     func widgetMarginInsets(forProposedMarginInsets defaultMarginInsets: UIEdgeInsets) -> UIEdgeInsets {

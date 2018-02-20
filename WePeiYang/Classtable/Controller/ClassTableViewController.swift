@@ -82,7 +82,7 @@ class ClassTableViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = false
         self.view.backgroundColor = .white
         initNavBar()
-        
+
         // 选择周
         weekSelectView = WeekSelectView()
         self.view.addSubview(weekSelectView)
@@ -105,11 +105,21 @@ class ClassTableViewController: UIViewController {
             make.top.equalTo(weekSelectView.snp.bottom)
             make.left.right.bottom.equalToSuperview()
         }
-    
+
+        if isModal {
+            let image = UIImage(named: "ic_back")!
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
+
+        }
+
         loadCache()
         load()
     }
-    
+
+    func close() {
+        self.dismiss(animated: true, completion: nil)
+    }
+
     func initNavBar() {
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 90, height: 30))
         let downArrow = UIImageView(image: #imageLiteral(resourceName: "ic_arrow_down").with(color: UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)))
@@ -231,9 +241,12 @@ class ClassTableViewController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
         super.viewWillAppear(animated)
+
+        navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = false
+
     }
 }
 
