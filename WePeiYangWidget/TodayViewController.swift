@@ -18,6 +18,18 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     var hintLabel: UILabel!
 
     var classes: [ClassModel] = []
+    let timeArray = [(start: "8:30", end: "9:15"),
+                     (start: "9:20", end: "10:05"),
+                     (start: "10:25", end: "11:10"),
+                     (start: "11:15", end: "12:00"),
+                     (start: "13:30", end: "14:15"),
+                     (start: "14:20", end: "15:05"),
+                     (start: "15:25", end: "16:10"),
+                     (start: "16:15", end: "17:00"),
+                     (start: "18:30", end: "19:15"),
+                     (start: "19:20", end: "20:05"),
+                     (start: "20:10", end: "20:55"),
+                     (start: "21:00", end: "21:45")]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,19 +38,25 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         }
 
-        
-
         let width = UIScreen.main.bounds.width
+
+        let dayLabel = UILabel(frame: CGRect(x: 70, y: 10, width: width - 70, height: 20))
+        dayLabel.textAlignment = .left
+        dayLabel.font = UIFont.preferredFont(forTextStyle: .title3)
+        dayLabel.text = "周二 2月21日 第17周"
+        dayLabel.textColor = .gray
+        self.view.addSubview(dayLabel)
+
         let tableViewHeight = 50 as CGFloat
         self.preferredContentSize = CGSize(width: width, height: tableViewHeight + 20)
 
-        tableView = UITableView(frame: CGRect(x: 80, y: 20, width: width - 80, height: 50))
+        tableView = UITableView(frame: CGRect(x: 70, y: 40, width: width - 70, height: 50))
         tableView.rowHeight = tableViewHeight
-        imgView = UIImageView(frame: CGRect(x: 20, y: 20, width: 50, height: 50))
-        imgView.backgroundColor = .white
+        imgView = UIImageView(frame: CGRect(x: 20, y: 20, width: 40, height: 40))
+        imgView.image = #imageLiteral(resourceName: "ic_wifi-1")
         // imgView.image = #imageLiteral(resourceName: "bicycleBtn")
 
-        hintLabel = UILabel(frame: CGRect(x: 20, y: 75, width: 50, height: 15))
+        hintLabel = UILabel(frame: CGRect(x: 20, y: 65, width: 40, height: 15))
         hintLabel.textColor = .gray
         hintLabel.textAlignment = .center
         hintLabel.font = UIFont.systemFont(ofSize: 10)
@@ -72,7 +90,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
-            self.classes = table.classes
+            self.classes = table.classes.filter { model in
+                return model.arrange.count > 0
+            }
             tableView.reloadData()
             completionHandler(NCUpdateResult.newData)
         }
@@ -100,10 +120,21 @@ extension TodayViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "12345")
+        let cell = ClassWidgetCell(style: .default, reuseIdentifier: "ClassWidgetCell")
         let model = classes[indexPath.row]
-        cell.textLabel?.text = model.courseName
-        cell.detailTextLabel?.text = model.arrange.first?.room ?? ""
+        let arrange = model.arrange.first!
+        cell.coursenameLabel.text = model.courseName + " (当前课程)"
+        let rangeText = "\(arrange.start)-\(arrange.end)节"
+        var timeText = ""
+        if arrange.start <= timeArray.count && arrange.end <= timeArray.count {
+            timeText = "\(timeArray[arrange.start].start)-\(timeArray[arrange.end].end)"
+        }
+        cell.infoLabel.text = rangeText + " " + timeText
+
+        if arrange.room != "" && arrange.room != "无" {
+            let text = cell.infoLabel.text!
+            cell.infoLabel.text = text + " @" + arrange.room
+        }
         return cell
     }
 }

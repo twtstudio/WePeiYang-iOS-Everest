@@ -109,7 +109,6 @@ class ClassTableViewController: UIViewController {
         if isModal {
             let image = UIImage(named: "ic_back")!
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
-
         }
 
         loadCache()

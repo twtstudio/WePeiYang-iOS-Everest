@@ -150,6 +150,8 @@
 		36B2C895203A80D600AD2E3F /* ArrangeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A1A1FB9BA8500B15443 /* ArrangeModel.swift */; };
 		36B2C896203A80F700AD2E3F /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EF1EC84ED90064373A /* log.swift */; };
 		36B2C897203A82B000AD2E3F /* ClassTableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CAD449201B8EAA006F85E3 /* ClassTableHelper.swift */; };
+		36B2C899203DB8DB00AD2E3F /* ClassWidgetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B2C898203DB8DB00AD2E3F /* ClassWidgetCell.swift */; };
+		36B2C89A203DC90B00AD2E3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51C456B1FD122F700652435 /* Assets.xcassets */; };
 		36CAD44A201B8EAA006F85E3 /* ClassTableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CAD449201B8EAA006F85E3 /* ClassTableHelper.swift */; };
 		36CAD44C201B9194006F85E3 /* ClassTableCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CAD44B201B9194006F85E3 /* ClassTableCard.swift */; };
 		36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0FE73201861BD0014E667 /* ClassDetailViewController.swift */; };
@@ -397,6 +399,7 @@
 		369B2D4920151542009352A8 /* DateTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTool.swift; sourceTree = "<group>"; };
 		369D92062015D914004BA1D0 /* WeekSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSelectView.swift; sourceTree = "<group>"; };
 		369D92082015D97A004BA1D0 /* WeekItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekItemCell.swift; sourceTree = "<group>"; };
+		36B2C898203DB8DB00AD2E3F /* ClassWidgetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassWidgetCell.swift; sourceTree = "<group>"; };
 		36CAD449201B8EAA006F85E3 /* ClassTableHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableHelper.swift; sourceTree = "<group>"; };
 		36CAD44B201B9194006F85E3 /* ClassTableCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableCard.swift; sourceTree = "<group>"; };
 		36D0FE73201861BD0014E667 /* ClassDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
@@ -751,6 +754,7 @@
 			children = (
 				365A465E2036EFCC00738963 /* WePeiYangWidget.entitlements */,
 				365A46512036EFB800738963 /* TodayViewController.swift */,
+				36B2C898203DB8DB00AD2E3F /* ClassWidgetCell.swift */,
 				365A46562036EFB800738963 /* Info.plist */,
 			);
 			path = WePeiYangWidget;
@@ -1405,6 +1409,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36B2C89A203DC90B00AD2E3F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1558,6 +1563,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36B2C899203DB8DB00AD2E3F /* ClassWidgetCell.swift in Sources */,
 				36B2C894203A80D100AD2E3F /* ClassModel.swift in Sources */,
 				36B2C892203A806C00AD2E3F /* CacheManager.swift in Sources */,
 				36B2C895203A80D600AD2E3F /* ArrangeModel.swift in Sources */,
