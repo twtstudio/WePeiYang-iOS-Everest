@@ -23,7 +23,11 @@ class CardViewTransitionAnimator: NSObject, UIViewControllerAnimatedTransitionin
     }
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return velocity
+        if isPresenting {
+            return velocity
+        } else {
+            return velocity/2
+        }
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -164,50 +168,24 @@ class CardViewTransitionAnimator: NSObject, UIViewControllerAnimatedTransitionin
         imgView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         imgView.alpha = 0.8
 
-        UIView.animate(withDuration: velocity/2, delay: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: velocity/6, delay: 0, options: .curveEaseOut, animations: {
             frontView.y += frontView.height
         }, completion: { isFinished in
-
+            UIView.animate(withDuration: self.velocity*1/3, delay: self.velocity/6, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
+                imgView.center = toView.center
+                imgView.transform = CGAffineTransform.identity
+                imgView.alpha = 1
+                //            frontView.frame = toView.frame
+            }, completion: { isFinished in
+                //            frontView.removeFromSuperview()
+                imgView.removeFromSuperview()
+                blankView.removeFromSuperview()
+                //            toVC.navigationController?.isNavigationBarHidden = false
+                transitionContext.containerView.addSubview(toView)
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            })
         })
-//        UIView.animate(withDuration: velocity/2, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
-//            frontView.y += frontView.height
-////            frontView.frame = self.originalFrame
-//            //            imgView.alpha = 1.0
-//            //            toView.alpha = 1.0
-//        }, completion: { isFinished in
-////            frontView.image = self.cardImage
-////            frontView.removeFromSuperview()
-//
-//            //            blankView.removeFromSuperview()
-//            //            imgView.removeFromSuperview()
-//        })
 
-
-//        UIView.animate(withDuration: velocity/2, delay: velocity/2, options: UIViewAnimationOptions., animations: {
-//            imgView.center = toView.center
-//            imgView.transform = CGAffineTransform.identity
-//            imgView.alpha = 1
-//        }, completion: { isFinished in
-//            imgView.removeFromSuperview()
-//            blankView.removeFromSuperview()
-//            //            toVC.navigationController?.isNavigationBarHidden = false
-//            transitionContext.containerView.addSubview(toView)
-//            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-//        })
-
-        UIView.animate(withDuration: self.velocity/2, delay: self.velocity/2, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-            imgView.center = toView.center
-            imgView.transform = CGAffineTransform.identity
-            imgView.alpha = 1
-            //            frontView.frame = toView.frame
-        }, completion: { isFinished in
-            //            frontView.removeFromSuperview()
-            imgView.removeFromSuperview()
-            blankView.removeFromSuperview()
-            //            toVC.navigationController?.isNavigationBarHidden = false
-            transitionContext.containerView.addSubview(toView)
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        })
 
     }
 

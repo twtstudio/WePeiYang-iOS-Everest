@@ -287,6 +287,7 @@ extension SettingsViewController: UITableViewDelegate {
         switch (indexPath.section, indexPath.row) {
         case (1, 0):
             let detailVC = DetailSettingViewController()
+            detailVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(detailVC, animated: true)
             return
         case (1, 1):
