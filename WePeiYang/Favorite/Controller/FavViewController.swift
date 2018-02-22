@@ -168,7 +168,9 @@ extension FavViewController {
 //        card.refresh()
 
         let gpaVC = GPAViewController()
-        card.shouldPush(gpaVC, from: self)
+        let gpaNC = UINavigationController(rootViewController: gpaVC)
+        card.shouldPresent(gpaNC, from: self)
+//        card.shouldPush(gpaVC, from: self)
 
         cardDict["GPA"] = card
     }

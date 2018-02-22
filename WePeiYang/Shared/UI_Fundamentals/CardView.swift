@@ -212,7 +212,7 @@ extension CardView {
 
 extension CardView: UIViewControllerTransitioningDelegate {
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = CardViewTransitionAnimator(isPresenting: true, originalFrame: originalFrame)
+        let animator = CardViewTransitionAnimator(isPresenting: true, originalFrame: originalFrame, card: self)
         return animator
     }
     

@@ -149,17 +149,18 @@ class GPAViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let image = UIImage(color: UIColor.gpaPink, size: CGSize(width: self.view.width, height: 64))
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
+//        self.navigationController?.navigationBar.isTranslucent = true
+//        self.navigationController?.navigationBar.alpha = 1
+        scrollViewDidScroll(tableView)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.tintColor = UIColor.gpaPink
+//        self.navigationController?.navigationBar.tintColor = UIColor.gpaPink
 
         // set termSwitchView
         self.navigationController?.navigationBar.tintColor = .white
@@ -238,10 +239,19 @@ class GPAViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: NotificationName.NotificationAppraiseDidSucceed.name, object: nil)
 
+
+        if isModal {
+            let image = UIImage(named: "ic_back")!
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
+        }
         loadCache()
         refresh()
     }
-    
+
+    func close() {
+        self.dismiss(animated: true, completion: nil)
+    }
+
     // TODO: update the only evaluated item
     func evaluateDone() {
         
@@ -401,9 +411,9 @@ class GPAViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.isTranslucent = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -557,8 +567,7 @@ extension GPAViewController: UIScrollViewDelegate {
             let image = UIImage(color: UIColor.gpaPink, size: CGSize(width: self.view.width, height: 64))
             self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
             self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
-            self.navigationController?.navigationBar.shadowImage = UIImage()
-            self.navigationController?.navigationBar.isTranslucent = true
+//            self.navigationController?.navigationBar.isTranslucent = true
         } else {
             self.title = ""
             self.navigationController?.navigationBar.alpha = 1
@@ -566,8 +575,7 @@ extension GPAViewController: UIScrollViewDelegate {
             self.navigationController?.navigationBar.tintColor = UIColor.gpaPink
             self.navigationController?.navigationBar.barStyle = .default
             self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            self.navigationController?.navigationBar.shadowImage = UIImage()
-            self.navigationController?.navigationBar.isTranslucent = true
+//            self.navigationController?.navigationBar.isTranslucent = true
         }
     }
 }
