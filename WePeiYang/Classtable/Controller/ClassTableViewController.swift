@@ -167,6 +167,10 @@ class ClassTableViewController: UIViewController {
     }
     
     func toggleWeekSelect(sender: UIButton) {
+        guard let table = table else {
+            return
+        }
+
         if !isSelecting {
             self.weekSelectView.snp.updateConstraints { make in
                 make.top.equalToSuperview()
@@ -184,7 +188,7 @@ class ClassTableViewController: UIViewController {
             isSelecting = false
             currentDisplayWeek = currentWeek
             // FIXME: 刚登录 table 为空？？
-            let courses = self.getCourse(table: table!, week: currentWeek)
+            let courses = self.getCourse(table: table, week: currentWeek)
             // 跳回当前周
             listView.load(courses: courses, weeks: 0)
         }
@@ -198,35 +202,39 @@ class ClassTableViewController: UIViewController {
     }
     
     func loadCache() {
-        let queue = DispatchQueue(label: "load cache")
-        queue.async {
-            if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
-                DispatchQueue.main.async {
+        guard CacheManager.fileExists(filename: "classtable/classtable.json", in: .group) else {
+            return
+        }
+        
+        CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
+            if let table = Mapper<ClassTableModel>().map(JSONString: string) {
                     self.table = table
-                }
 
                 let courses = self.getCourse(table: table, week: self.currentWeek)
                 let now = Date()
                 let termStart = Date(timeIntervalSince1970: Double(table.termStart))
                 let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
-                DispatchQueue.main.async {
                     self.listView.load(courses: courses, weeks: 0)
                     self.currentWeek = Int(week)
                     self.currentDisplayWeek = Int(week)
-                }
-                //            self.listView.load(courses: table, weeks: 0)
             }
-        }
+        }, failure: {
+
+        })
     }
     
     func load() {
         ClasstableDataManager.getClassTable(success: { table in
             // 存起来
-            let dic = table.toJSON()
-            CacheManager.saveGroupCache(with: dic, key: ClassTableKey)
+//            let dic = table.toJSON()
+//            CacheManager.saveGroupCache(with: dic, key: ClassTableKey)
+            let string = table.toJSONString() ?? ""
+            CacheManager.store(object: string, in: .group, as: "classtable/classtable.json")
             self.table = table
             let now = Date()
             let termStart = Date(timeIntervalSince1970: Double(table.termStart))
+            CacheManager.saveGroupCache(with: termStart, key: "TermStart")
+
             let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
             self.currentWeek = Int(week)
             self.currentDisplayWeek = Int(week)

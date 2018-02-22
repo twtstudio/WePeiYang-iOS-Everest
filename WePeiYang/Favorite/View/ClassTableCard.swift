@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ObjectMapper
 
 class ClassTableCard: CardView {
     let titleLabel = UILabel()
@@ -41,6 +42,8 @@ class ClassTableCard: CardView {
         let offset: CGFloat = 2
         let cellWidth = (rect.width - 2*padding - 4*offset) / 5 as CGFloat
         let cellHeight = 110 as CGFloat
+
+        blankView.frame = CGRect(x: padding, y: 95, width: (cellWidth+offset)*5, height: cellHeight)
         if cells.count == 0 {
             // 初始化
             for i in 0..<5 {
@@ -57,5 +60,58 @@ class ClassTableCard: CardView {
                 cell.frame = CGRect(x: padding+(cellWidth+offset)*CGFloat(i), y: 95, width: cellWidth, height: cellHeight)
             }
         }
+        super.layout(rect: rect)
+    }
+}
+
+extension ClassTableCard {
+    override func refresh() {
+        super.refresh()
+
+        CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
+            guard let table = Mapper<ClassTableModel>().map(JSONString: string) else {
+                return
+            }
+            let termStart = Date(timeIntervalSince1970: Double(table.termStart))
+            let week = Int(Date().timeIntervalSince(termStart)/(7.0*24*60*60) + 1)
+            let weekday = DateTool.getChineseWeekDay()
+            //                let weekString = DateTool.getChineseNumber(number: week)
+            let formatter = NumberFormatter()
+            formatter.locale = Locale(identifier: "zh_CN")
+            formatter.numberStyle = .spellOut
+            let weekString = formatter.string(from: NSNumber(value: week)) ?? DateTool.getChineseNumber(number: week)
+            self.titleLabel.text = "第" + weekString + "周" + " " + weekday
+            self.titleLabel.sizeToFit()
+
+            var courses = ClassTableHelper.getTodayCourse(table: table).filter { course in
+                return course.courseName != ""
+            }
+
+            // 这个时间点有课就代表着时候有课
+            let keys = [1, 3, 5, 7, 9]
+            for (idx, time) in keys.enumerated() {
+                // 返回第一个包含时间点的课程 // 可能是 nil
+                let course = courses.first { course in
+                    let range = course.arrange.first!.start...course.arrange.first!.end
+                    return range.contains(time)
+                }
+                if let course = course {
+                    let index = courses.index { m in
+                        return m.classID == course.classID &&
+                            m.arrange.first?.start ==  course.arrange.first?.start &&
+                            m.arrange.first?.end ==  course.arrange.first?.end
+                    }
+                    courses.remove(at: index!)
+                    self.cells[idx].load(course: course)
+                } else {
+                    self.cells[idx].setIdle()
+                }
+            }
+            if courses.count == 0 {
+                self.setState(.empty("今天没有课，做点有趣的事情吧！", .darkGray))
+            } else {
+                self.setState(.data)
+            }
+        })
     }
 }

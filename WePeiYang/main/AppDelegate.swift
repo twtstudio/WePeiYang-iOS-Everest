@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }, failure: {
             // 让他重新登录
         })
+
 //        AccountManager.getSelf(success: nil, failure: nil)
 //        AccountManager.checkToken(failure: {
 //            // 让他重新登录

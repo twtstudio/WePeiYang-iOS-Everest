@@ -152,6 +152,7 @@
 		36B2C897203A82B000AD2E3F /* ClassTableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CAD449201B8EAA006F85E3 /* ClassTableHelper.swift */; };
 		36B2C899203DB8DB00AD2E3F /* ClassWidgetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B2C898203DB8DB00AD2E3F /* ClassWidgetCell.swift */; };
 		36B2C89A203DC90B00AD2E3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51C456B1FD122F700652435 /* Assets.xcassets */; };
+		36B2C89B203DE86700AD2E3F /* TwTUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5091F1903D70078816D /* TwTUser.swift */; };
 		36CAD44A201B8EAA006F85E3 /* ClassTableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CAD449201B8EAA006F85E3 /* ClassTableHelper.swift */; };
 		36CAD44C201B9194006F85E3 /* ClassTableCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CAD44B201B9194006F85E3 /* ClassTableCard.swift */; };
 		36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0FE73201861BD0014E667 /* ClassDetailViewController.swift */; };
@@ -1564,6 +1565,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36B2C899203DB8DB00AD2E3F /* ClassWidgetCell.swift in Sources */,
+				36B2C89B203DE86700AD2E3F /* TwTUser.swift in Sources */,
 				36B2C894203A80D100AD2E3F /* ClassModel.swift in Sources */,
 				36B2C892203A806C00AD2E3F /* CacheManager.swift in Sources */,
 				36B2C895203A80D600AD2E3F /* ArrangeModel.swift in Sources */,

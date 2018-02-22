@@ -10,25 +10,22 @@ import Foundation
 import ObjectMapper
 
 struct ClassTableHelper {
-    static func getTodayCourse() -> [ClassModel] {
-        if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
-            let now = Date()
-            let termStart = Date(timeIntervalSince1970: Double(table.termStart))
-            let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
-            let currentWeek = Int(week)
-            let cal = Calendar.current
-            var weekday = cal.component(.weekday, from: now)
-            // 周日
-            if weekday == 1 {
-                weekday = 6
-            } else {
-                weekday -= 2
-            }
-            let courseForDay = getCourse(table: table, week: currentWeek)
-            let courses = courseForDay[weekday]
-            return courses
+    static func getTodayCourse(table: ClassTableModel) -> [ClassModel] {
+        let now = Date()
+        let termStart = Date(timeIntervalSince1970: Double(table.termStart))
+        let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
+        let currentWeek = Int(week)
+        let cal = Calendar.current
+        var weekday = cal.component(.weekday, from: now)
+        // 周日
+        if weekday == 1 {
+            weekday = 6
+        } else {
+            weekday -= 2
         }
-        return []
+        let courseForDay = getCourse(table: table, week: currentWeek)
+        let courses = courseForDay[weekday]
+        return courses
     }
     
     

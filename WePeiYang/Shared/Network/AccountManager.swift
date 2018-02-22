@@ -176,6 +176,7 @@ struct AccountManager {
                 TwTUser.shared.twtid = twtid
                 TwTUser.shared.schoolID = studentid
                 TwTUser.shared.dropout = dropout
+                TwTUser.shared.save()
             }
         }, failure: { error in
             // FIXME: 错误

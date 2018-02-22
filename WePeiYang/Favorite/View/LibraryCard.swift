@@ -102,7 +102,12 @@ class LibraryCard: CardView {
             make.bottom.equalToSuperview().offset(-10)
         }
 
-
+        blankView.snp.makeConstraints { make in
+            make.top.equalTo(tableView.snp.top)
+            make.left.equalTo(tableView.snp.left)
+            make.right.equalTo(tableView.snp.right)
+            make.bottom.equalTo(toggleButton.snp.bottom)
+        }
 //        contentView.setNeedsUpdateConstraints()
 //        self.contentView.layoutIfNeeded()
 
@@ -156,10 +161,12 @@ extension LibraryCard {
 
         let group = DispatchGroup()
 //        library/renew/{barcode}
+        var count = 0
         for book in LibraryDataContainer.shared.books {
             group.enter()
             SolaSessionManager.solaSession(type: .get, url: "/library/renew/\(book.barcode)", token: "", parameters: nil, success: { dict in
-                // TODO:
+                // TODO: Check
+                count += 1
                 group.leave()
             }, failure: { err in
                 group.leave()
@@ -167,9 +174,10 @@ extension LibraryCard {
             })
         }
         group.notify(queue: .main, execute: {
-            // TODO: 还了几本书？
-            self.tableView.reloadData()
-//            self.updateBookStatus()
+            SwiftMessages.showSuccessMessage(body: "成功续借\(count)本书")
+            self.getBooks(success: {
+                self.tableView.reloadData()
+            })
         })
     }
 
@@ -178,23 +186,30 @@ extension LibraryCard {
     }
 
     func getBooks(success: (()->())? = nil) {
+        self.setState(.loading("加载中...", .gray))
         SolaSessionManager.solaSession(type: .get, url: "/library/user/info", token: "", parameters: nil, success: { dict in
             if let data = try? JSONSerialization.data(withJSONObject: dict, options: .init(rawValue: 0)),
                 let response = try? LibraryResponse(data: data) {
                 LibraryDataContainer.shared.response = response
+                self.setState(.data)
+                if response.data.books.count == 0 {
+                    self.setState(.empty("没有待还的书籍", .gray))
+                }
                 if self.toggleButton.tag == 0 {
                     self.toggleButton.setTitle("展开(\(max(LibraryDataContainer.shared.books.count-2, 0)))")
                 }
                 self.tableView.reloadData()
                 // 缓存起来撒
-                Storage.store(response, in: .group, as: "date.json")
-                Storage.store(response, in: .caches, as: CacheFilenameKey.libUserInfo.name)
+                CacheManager.store(object: response, in: .group, as: "lib/info.json")
+//                Storage.store(response, in: .group, as: "lib")
+//                Storage.store(response, in: .caches, as: CacheFilenameKey.libUserInfo.name)
                 success?()
             } else {
+                self.setState(.failed("解析失败"))
                 // TODO: 解析错误
             }
         }, failure: { err in
-
+            self.setState(.failed(err.localizedDescription))
         })
     }
 
@@ -235,3 +250,10 @@ extension LibraryCard {
 extension LibraryCard: UITableViewDelegate {
 }
 
+extension LibraryCard {
+    override func refresh() {
+        super.refresh()
+
+        getBooks()
+    }
+}

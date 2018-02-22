@@ -46,13 +46,25 @@ struct Storage {
     ///   - directory: where to store
     ///   - filename: the name of file
     static func store<T: Encodable>(_ object: T, in directory: Directory, as filename: String) {
-        let url = getURL(for: directory).appendingPathComponent(filename, isDirectory: false)
+        var url = getURL(for: directory)
+        var dirs = filename.split(separator: "/")
+
         let encoder = JSONEncoder()
         do {
+            for i in 0..<dirs.count {
+                if i == dirs.count - 1 {
+                    try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+                    url.appendPathComponent(String(dirs[i]), isDirectory: false)
+                } else {
+                    url.appendPathComponent(String(dirs[i]), isDirectory: true)
+                }
+            }
+
             let data = try encoder.encode(object)
             if FileManager.default.fileExists(atPath: url.path) {
                 try FileManager.default.removeItem(at: url)
             }
+
             FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
         } catch {
             // FIXME: handle error
@@ -101,17 +113,23 @@ struct Storage {
     }
 
     /// clear all files in directory
-    static func clear(_ directory: Directory) {
-        let url = getURL(for: directory)
+    static func clear(subdirectory: String = "", in directory: Directory) {
+        let url = getURL(for: directory).appendingPathComponent(subdirectory, isDirectory: true)
         do {
-
             let urls = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [])
             for file in urls {
                 try FileManager.default.removeItem(at: file)
             }
         } catch {
             // FIXME: handle error
-            fatalError("error decode data")
+            print(error.localizedDescription)
+//            fatalError("error decode data")
         }
+    }
+
+    /// Returns BOOL indicating whether file exists at specified directory with specified file name
+    static func fileExists(_ filename: String, in directory: Directory) -> Bool {
+        let url = getURL(for: directory).appendingPathComponent(filename, isDirectory: false)
+        return FileManager.default.fileExists(atPath: url.path)
     }
 }

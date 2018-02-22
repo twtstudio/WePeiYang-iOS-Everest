@@ -7,11 +7,9 @@
 //
 
 import UIKit
-import WMPageController
-import SnapKit
-import Alamofire
+import SwiftMessages
 
-class TJUBindingViewController: WMPageController {
+class TJUBindingViewController: UIViewController {
     
     var usernameTextField: UITextField!
     var passwordTextField: UITextField!
@@ -24,7 +22,7 @@ class TJUBindingViewController: WMPageController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = .white
         // Do any additional setup after loading the view.
         
         self.navigationController?.navigationBar.barStyle = .black
@@ -86,12 +84,12 @@ class TJUBindingViewController: WMPageController {
         }
          */
  
-        dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: self.view.frame.size.height*4.0/5.0, width: 30, height: 20))
+        dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: bindButton.y + bindButton.height + 20, width: 30, height: 20))
         dismissButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
-        dismissButton.setTitleColor(UIColor(hex6: 0xd3d3d3), for: .normal)
+        dismissButton.setTitleColor(UIColor.gray, for: .normal)
         dismissButton.setTitle("暂不绑定", for: .normal)
         dismissButton.sizeToFit()
-        dismissButton.center = CGPoint(x: self.view.center.x, y: self.view.frame.height*4.8/5)
+        dismissButton.center = CGPoint(x: self.view.center.x, y: bindButton.y + bindButton.height + 20)
         dismissButton.addTarget(self, action: #selector(dismissBinding), for: .touchUpInside)
         self.view.addSubview(dismissButton)
         
@@ -113,39 +111,31 @@ class TJUBindingViewController: WMPageController {
                 
                 print(dictionary)
                 print("Succeeded")
-                guard let errorCode: Int = dictionary["error_code"] as? Int else {
-                    return
+                guard let errorCode: Int = dictionary["error_code"] as? Int,
+                    let errMsg = dictionary["message"] as? String else {
+                        return
                 }
-                
+
                 if errorCode == -1 {
                     TwTUser.shared.tjuBindingState = true
                     TwTUser.shared.save()
                     NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("tju", true))
+                    SwiftMessages.showSuccessMessage(body: "绑定成功！")
                     self.dismiss(animated: true, completion: nil)
                     print("TJUBindingState:")
                     print(TwTUser.shared.tjuBindingState)
                 } else {
-                    let alert = UIAlertController(title: "未知错误", message: nil, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "好的", style: .default, handler: { (result) in
-                        print("OK.")
-                    })
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    SwiftMessages.showErrorMessage(body: errMsg)
                 }
             }, failure: { error in
                 
                 print(error)
                 print("Failed")
-                self.dismiss(animated: true, completion: nil)
-                
+                SwiftMessages.showErrorMessage(body: error.localizedDescription)
+
             })
         } else {
-            let alert = UIAlertController(title: "请填写账号和密码", message: nil, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "好的", style: .default, handler: { (result) in
-                print("OK.")
-            })
-            alert.addAction(okAction)
-            self.present(alert, animated: true, completion: nil)
+            SwiftMessages.showWarningMessage(body: "请填写账号和密码")
         }
     }
     

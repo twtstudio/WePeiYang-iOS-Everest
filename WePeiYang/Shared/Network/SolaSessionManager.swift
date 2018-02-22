@@ -171,7 +171,7 @@ struct SolaSessionManager {
                         }
                         do {
                             let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                            if let dict = json as? Dictionary<String, AnyObject> {
+                            if let dict = json as? Dictionary<String, Any> {
                                 if let err = dict["err"] as? Int, err == 0 {
                                     success?(dict)
                                 } else {

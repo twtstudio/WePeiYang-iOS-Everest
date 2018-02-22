@@ -290,9 +290,20 @@ extension SettingsViewController: UITableViewDelegate {
             self.navigationController?.pushViewController(detailVC, animated: true)
             return
         case (1, 1):
-            TwTUser.shared.delete()
-            tableView.reloadData()
-            print("log out")
+            let alert = UIAlertController(title: "确定要退出吗？", message: nil, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "好的", style: .destructive, handler: { (result) in
+                TwTUser.shared.delete()
+                tableView.reloadData()
+                NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
+                print("log out")
+            })
+            let cancelAction = UIAlertAction(title: "算啦", style: .cancel, handler: { (result) in
+                print("Cancled")
+            })
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
+
             return
         case (0, _):
             guard let _ = TwTUser.shared.token else {

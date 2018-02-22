@@ -109,7 +109,7 @@ class GPAViewController: UIViewController {
         radarChartView.yAxis.setLabelCount(1, force: true)
         radarChartView.yAxis.gridColor = .white
         radarChartView.setExtraOffsets(left: 0, top: 0, right: 0, bottom: 0)
-        radarChartView.backgroundColor = UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00)
+        radarChartView.backgroundColor = UIColor.gpaPink
         radarChartView.webColor = .white
         radarChartView.innerWebColor = .white
         radarChartView.innerWebLineWidth = 2
@@ -136,7 +136,7 @@ class GPAViewController: UIViewController {
     
     let segmentContentView: UIView = {
         let contentView = UIView()
-        contentView.backgroundColor = UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00)
+        contentView.backgroundColor = UIColor.gpaPink
         return contentView
     }()
     
@@ -149,7 +149,7 @@ class GPAViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let image = UIImage(color: UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00), size: CGSize(width: self.view.width, height: 64))
+        let image = UIImage(color: UIColor.gpaPink, size: CGSize(width: self.view.width, height: 64))
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -159,7 +159,7 @@ class GPAViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.tintColor = UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00)
+        self.navigationController?.navigationBar.tintColor = UIColor.gpaPink
 
         // set termSwitchView
         self.navigationController?.navigationBar.tintColor = .white
@@ -219,7 +219,7 @@ class GPAViewController: UIViewController {
         segmentContentView.addSubview(segmentView)
         segmentView.addTarget(self, action: #selector(self.segmentValueChanged(sender:)), for: .valueChanged)
         // set paddingView 
-        paddingView.backgroundColor = UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00)
+        paddingView.backgroundColor = UIColor.gpaPink
 
         // CGRect(x: 0, y: -44, width: self.view.width, height: UIScreen.main.bounds.height)
         tableView = UITableView(frame: self.view.bounds, style: .plain)
@@ -249,17 +249,16 @@ class GPAViewController: UIViewController {
     
     // 加载缓存
     func loadCache() {
-//        CacheManager.loadGroupCacheAsync(withKey: GPAKey) { dic in
-//            if let dic = dic as? [String: Any],
-//                let model = Mapper<GPAModel>().map(JSON: dic) {
-//                self.loadModel(model: model)
-//            }
+        CacheManager.retreive("gpa/gpa.json", from: .group, as: String.self, success: { string in
+            if let model = Mapper<GPAModel>().map(JSONString: string) {
+                self.loadModel(model: model)
+            }
+        })
+
+//        if let dic = CacheManager.loadGroupCache(withKey: GPAKey) as? [String: Any],
+//            let model = Mapper<GPAModel>().map(JSON: dic) {
+//            self.loadModel(model: model)
 //        }
-        // TODO: Async
-        if let dic = CacheManager.loadGroupCache(withKey: GPAKey) as? [String: Any],
-            let model = Mapper<GPAModel>().map(JSON: dic) {
-            self.loadModel(model: model)
-        }
     }
     
     // 刷新数据
@@ -268,7 +267,10 @@ class GPAViewController: UIViewController {
             self.loadModel(model: model)
             // 数据有效 存起来
             if model.terms.count > 0 {
-                CacheManager.saveGroupCache(with: model.toJSON(), key: GPAKey)
+                if let string = model.toJSONString() {
+                    CacheManager.store(object: string, in: .group, as: "gpa/gpa.json")
+                }
+//                CacheManager.saveGroupCache(with: model.toJSON(), key: GPAKey)
             }
         }, failure: { error in
             print(error)
@@ -364,7 +366,7 @@ class GPAViewController: UIViewController {
         dataSet.drawCircleHoleEnabled = false
         dataSet.drawFilledEnabled = true
         dataSet.setDrawHighlightIndicators(false)
-        dataSet.fillColor = UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00)
+        dataSet.fillColor = UIColor.gpaPink
         dataSet.fillAlpha = 1
         dataSet.lineWidth = 2
         dataSet.setColor(UIColor(red:0.98, green:0.49, blue:0.41, alpha:1.00))
@@ -548,11 +550,11 @@ extension GPAViewController: UIScrollViewDelegate {
             self.title = currentTerm?.name
             if offset > 530 {
                 self.navigationController?.navigationBar.alpha = 1
-                self.navigationController?.navigationBar.isTranslucent = false
+//                self.navigationController?.navigationBar.isTranslucent = false
                 return
             }
             self.navigationController?.navigationBar.alpha = min(offset * 0.02, 1)
-            let image = UIImage(color: UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00), size: CGSize(width: self.view.width, height: 64))
+            let image = UIImage(color: UIColor.gpaPink, size: CGSize(width: self.view.width, height: 64))
             self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
             self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
             self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -560,8 +562,8 @@ extension GPAViewController: UIScrollViewDelegate {
         } else {
             self.title = ""
             self.navigationController?.navigationBar.alpha = 1
-            self.navigationItem.rightBarButtonItem?.tintColor = UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00)
-            self.navigationController?.navigationBar.tintColor = UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00)
+            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.gpaPink
+            self.navigationController?.navigationBar.tintColor = UIColor.gpaPink
             self.navigationController?.navigationBar.barStyle = .default
             self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
             self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -642,5 +644,11 @@ extension GPAViewController: ChartViewDelegate {
     
     func chartValueNothingSelected(_ chartView: ChartViewBase) {
         
+    }
+}
+
+extension UIColor {
+    static var gpaPink: UIColor {
+        return UIColor(red:0.99, green:0.66, blue:0.60, alpha:1.00)
     }
 }

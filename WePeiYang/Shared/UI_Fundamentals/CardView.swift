@@ -69,7 +69,10 @@ class CardView: UIView {
      */
     override open var backgroundColor: UIColor? {
         didSet(new) {
-            if let color = new { contentView.backgroundColor = color }
+            if let color = new {
+                contentView.backgroundColor = color
+                blankView.backgroundColor = color
+            }
             if backgroundColor != UIColor.clear { backgroundColor = UIColor.clear }
         }
     }
@@ -81,6 +84,9 @@ class CardView: UIView {
     var detailVC: UIViewController?
     var originalFrame = CGRect.zero
     let contentView = UIView()
+
+    fileprivate let msgLabel = UILabel()
+    let blankView = UIView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -101,14 +107,29 @@ class CardView: UIView {
             contentView.backgroundColor = UIColor.white
             super.backgroundColor = UIColor.clear
         }
+        msgLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        msgLabel.textColor = .white
+        msgLabel.textAlignment = .center
+        blankView.backgroundColor = UIColor.white
+        self.addSubview(msgLabel)
+//        blankView.addSubview(msgLabel)
+        self.addSubview(blankView)
+        blankView.isHidden = true
     }
     
-    func layout(rect: CGRect) { }
+    func layout(rect: CGRect) {
+        msgLabel.center = blankView.center
+    }
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         contentView.frame.origin = CGPoint.zero
         contentView.frame.size = rect.size
+
+        blankView.frame = CGRect(x: 0, y: 50, width: rect.size.width, height: rect.size.height-50-cardRadius)
+        msgLabel.center = blankView.center
+//        msgLabel.center = contentView.center
+//        msgLabel.y -= cardRadius*2
 //        originalFrame = rect
         
         self.layer.shadowOpacity = shadowOpacity
@@ -209,5 +230,49 @@ extension CardView: UINavigationControllerDelegate {
 //        fromVC.tabBarController?.tabBar.isHidden = true
         let animator = CardViewTransitionAnimator(isPresenting: isPresenting, originalFrame: originalFrame, card: self)
         return animator
+    }
+}
+
+extension CardView {
+    enum State {
+        case loading(String, UIColor)
+        case empty(String, UIColor)
+        case data
+        case failed(String)
+    }
+
+    func refresh() {
+
+    }
+
+    func setState(_ state: State) {
+        switch state {
+        case .data:
+            blankView.isHidden = true
+            self.sendSubview(toBack: blankView)
+            self.sendSubview(toBack: msgLabel)
+            return
+        case .loading(let msg, let textColor):
+            blankView.isHidden = false
+            self.bringSubview(toFront: blankView)
+            self.bringSubview(toFront: msgLabel)
+            msgLabel.text = msg
+            msgLabel.textColor = textColor
+            msgLabel.sizeToFit()
+            msgLabel.center = blankView.center
+            return
+        case .empty(let msg, let textColor):
+            blankView.isHidden = false
+            self.bringSubview(toFront: blankView)
+            self.bringSubview(toFront: msgLabel)
+            msgLabel.text = msg
+            msgLabel.textColor = textColor
+            msgLabel.sizeToFit()
+            msgLabel.center = blankView.center
+            return
+        // TODO: 失败
+        default:
+            return
+        }
     }
 }
