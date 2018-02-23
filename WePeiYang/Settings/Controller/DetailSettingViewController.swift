@@ -7,12 +7,21 @@
 //
 
 import UIKit
+import SafariServices
 
 class DetailSettingViewController: UIViewController {
-    var tableView: UITableView!
+    private enum SettingTitle: String {
+        case notification = "推送设置"
+        case modules = "模块设置"
+        case accounts = "关联账号设置"
 
+        case join = "加入我们"
+        case ucma
+    }
+
+    var tableView: UITableView!
     let titles = [("设置", ["推送设置", "模块设置", "关联账号设置"]),
-                  ("关于", ["加入我们", "用户协议", "反馈"]),
+                  ("关于", ["加入我们", "用户协议", "建议与反馈"]),
                   ("其他", ["推荐给朋友", "给微北洋评分", "退出登录"])]
 
     override func viewWillAppear(_ animated: Bool) {
@@ -31,6 +40,7 @@ class DetailSettingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         tableView = UITableView(frame: self.view.bounds, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
@@ -59,7 +69,6 @@ extension DetailSettingViewController: UITableViewDataSource {
 }
 
 extension DetailSettingViewController: UITableViewDelegate {
-
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return titles[section].0
     }
@@ -92,6 +101,47 @@ extension DetailSettingViewController: UITableViewDelegate {
             return 120
         } else {
             return 15
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        switch (indexPath.section, indexPath.row) {
+        case (0, 0):
+            return
+        case (0, 1):
+            return
+        case (0, 2):
+            return
+
+        case (1, 0):
+            return
+        case (1, 1):
+            return
+        case (1, 2):
+            return
+
+        case (2, 0):
+            return
+        case (2, 1):
+            return
+        case (2, 2):
+            let alert = UIAlertController(title: "确定要退出吗？", message: nil, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "好的", style: .destructive, handler: { (result) in
+                TwTUser.shared.delete()
+                tableView.reloadData()
+                NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
+                print("log out")
+            })
+            let cancelAction = UIAlertAction(title: "算啦", style: .cancel, handler: { (result) in
+                print("Cancled")
+            })
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
+        default:
+            return
         }
     }
 }

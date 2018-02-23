@@ -40,7 +40,7 @@ class SettingsViewController: UIViewController {
         ("校园网", WLANBindingViewController.self, "", {
             return TwTUser.shared.WLANBindingState}())
     ]
-    fileprivate let settingTitles: [(title: String, iconName: String)] = [("设置", ""), ("退出", "")]
+    fileprivate let settingTitles: [(title: String, iconName: String)] = [("设置", "")]
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -76,7 +76,9 @@ class SettingsViewController: UIViewController {
         tableView.rowHeight = 50
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
-        
+
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+
         NotificationCenter.default.addObserver(self, selector: #selector(bindingStatusDidChange), name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
         
         self.view.addSubview(tableView)
@@ -289,22 +291,6 @@ extension SettingsViewController: UITableViewDelegate {
             let detailVC = DetailSettingViewController()
             detailVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(detailVC, animated: true)
-            return
-        case (1, 1):
-            let alert = UIAlertController(title: "确定要退出吗？", message: nil, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "好的", style: .destructive, handler: { (result) in
-                TwTUser.shared.delete()
-                tableView.reloadData()
-                NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
-                print("log out")
-            })
-            let cancelAction = UIAlertAction(title: "算啦", style: .cancel, handler: { (result) in
-                print("Cancled")
-            })
-            alert.addAction(okAction)
-            alert.addAction(cancelAction)
-            self.present(alert, animated: true, completion: nil)
-
             return
         case (0, _):
             guard let _ = TwTUser.shared.token else {

@@ -558,16 +558,16 @@ extension GPAViewController: UIScrollViewDelegate {
             self.navigationController?.navigationBar.tintColor = .white
             self.navigationController?.navigationBar.barStyle = .black
             self.title = currentTerm?.name
-            if offset > 530 {
+            if offset > 520 {
                 self.navigationController?.navigationBar.alpha = 1
-//                self.navigationController?.navigationBar.isTranslucent = false
+                self.navigationController?.navigationBar.isTranslucent = false
                 return
             }
             self.navigationController?.navigationBar.alpha = min(offset * 0.02, 1)
             let image = UIImage(color: UIColor.gpaPink, size: CGSize(width: self.view.width, height: 64))
             self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
             self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
-//            self.navigationController?.navigationBar.isTranslucent = true
+            self.navigationController?.navigationBar.isTranslucent = true
         } else {
             self.title = ""
             self.navigationController?.navigationBar.alpha = 1
