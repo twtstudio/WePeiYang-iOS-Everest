@@ -10,38 +10,47 @@ import UIKit
 import SafariServices
 
 class DetailSettingViewController: UIViewController {
-    private enum SettingTitle: String {
+    enum SettingTitle: String {
         case notification = "推送设置"
         case modules = "模块设置"
         case accounts = "关联账号设置"
 
         case join = "加入我们"
-        case ucma
+        case EULA = "用户协议"
+        case feedback = "建议与反馈"
+
+        case share = "推荐给朋友"
+        case rate = "给微北洋评分"
+        case quit = "退出登录"
     }
 
     var tableView: UITableView!
-    let titles = [("设置", ["推送设置", "模块设置", "关联账号设置"]),
-                  ("关于", ["加入我们", "用户协议", "建议与反馈"]),
-                  ("其他", ["推荐给朋友", "给微北洋评分", "退出登录"])]
+//    let titles = [("设置", ["推送设置", "模块设置", "关联账号设置"]),
+//                  ("关于", ["加入我们", "用户协议", "建议与反馈"]),
+//                  ("其他", ["推荐给朋友", "给微北洋评分", "退出登录"])]
+    let titles: [(String, [SettingTitle])] = [
+        ("设置", [.notification, .modules, .accounts]),
+                  ("关于", [.join, .EULA, .feedback]),
+                  ("其他", [.share, .rate, .quit])]
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white)!, for: .default)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        super.viewWillAppear(animated)
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white)!, for: .default)
         self.navigationController?.navigationBar.barStyle = .default
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.setNavigationBarHidden(true, animated:animated)
+        super.viewWillDisappear(animated)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView = UITableView(frame: self.view.bounds, style: .grouped)
+        tableView.contentInset.bottom = 100
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -49,21 +58,24 @@ class DetailSettingViewController: UIViewController {
 //        tableView.backgroundColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
         title = "设置"
+
+        // 据说可以移除转场阴影
+        navigationController?.navigationBar.isTranslucent = false
     }
 }
 
 extension DetailSettingViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
+    internal func numberOfSections(in tableView: UITableView) -> Int {
         return titles.count
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return titles[section].1.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = titles[indexPath.section].1[indexPath.row]
+        cell.textLabel?.text = titles[indexPath.section].1[indexPath.row].rawValue
         return cell
     }
 }
@@ -106,27 +118,31 @@ extension DetailSettingViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-
-        switch (indexPath.section, indexPath.row) {
-        case (0, 0):
+        let title = titles[indexPath.section].1[indexPath.row]
+        switch (indexPath.section, title) {
+        case (0, .notification):
             return
-        case (0, 1):
+        case (0, .modules):
             return
-        case (0, 2):
-            return
-
-        case (1, 0):
-            return
-        case (1, 1):
-            return
-        case (1, 2):
+        case (0, .accounts):
             return
 
-        case (2, 0):
+        case (1, .join):
+            let safariVC = SFSafariViewController(url: URL(string: "https://coder.twtstudio.com/join")!, entersReaderIfAvailable: false)
+            safariVC.delegate = self
+            self.navigationController?.pushViewController(safariVC, animated: true)
+        case (1, .EULA):
+            let safariVC = SFSafariViewController(url: URL(string: "https://support.twtstudio.com/category/1/%E5%85%AC%E5%91%8A")!, entersReaderIfAvailable: false)
+            safariVC.delegate = self
+            self.navigationController?.pushViewController(safariVC, animated: true)
+        case (1, .accounts):
             return
-        case (2, 1):
+
+        case (2, .share):
             return
-        case (2, 2):
+        case (2, .rate):
+            return
+        case (2, .quit):
             let alert = UIAlertController(title: "确定要退出吗？", message: nil, preferredStyle: .alert)
             let okAction = UIAlertAction(title: "好的", style: .destructive, handler: { (result) in
                 TwTUser.shared.delete()
@@ -143,5 +159,11 @@ extension DetailSettingViewController: UITableViewDelegate {
         default:
             return
         }
+    }
+}
+
+extension DetailSettingViewController: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        controller.navigationController?.popViewController(animated: true)
     }
 }

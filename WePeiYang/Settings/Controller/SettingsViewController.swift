@@ -44,6 +44,7 @@ class SettingsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         tableView.reloadData()
         //        navigationController?.navigationBar.barStyle = .black
         //        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
@@ -53,13 +54,15 @@ class SettingsViewController: UIViewController {
         //        navigationItem.title = "设置"
     }
     
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        super.viewWillDisappear(animated)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
-        navigationController?.navigationBar.barStyle = .black
-        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
+//        navigationController?.navigationBar.barStyle = .black
+//        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
         //Changing NavigationBar Title color
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
         // This is for removing the dark shadows when transitioning
@@ -67,7 +70,6 @@ class SettingsViewController: UIViewController {
         
         navigationItem.title = "设置"
         
-        ClasstableDataManager.getClassTable(success: { _ in }, failure: { _ in })
         view.backgroundColor = Metadata.Color.GlobalViewBackgroundColor
         
         tableView = UITableView(frame: self.view.bounds, style: .grouped)
@@ -309,7 +311,7 @@ extension SettingsViewController: UITableViewDelegate {
         if !services[indexPath.row].status {
             if let vc = (services[indexPath.row].class as? UIViewController.Type)?.init() {
                 vc.hidesBottomBarWhenPushed = true
-                self.navigationController?.present(vc, animated: true)
+                self.present(vc, animated: true)
             }
         } else {
             let alert = UIAlertController(title: "要解绑吗？", message: nil, preferredStyle: .alert)
