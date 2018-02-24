@@ -89,12 +89,12 @@ class YellowPageMainViewController: UIViewController {
         self.navigationController!.navigationBar.tintColor = .white
     }
     
-    func searchToggle() {
+    @objc func searchToggle() {
         let searchVC = YellowPageSearchViewController()
         self.present(searchVC, animated: true, completion: nil)
     }
     
-    func cellTapped(sender: YellowPageCell) {
+    @objc func cellTapped(sender: YellowPageCell) {
         let alertVC = UIAlertController(title: "详情", message: "想要做什么？", preferredStyle: .actionSheet)
         let copyAction = UIAlertAction(title: "复制到剪切板", style: .default) { action in
             sender.longPressed()

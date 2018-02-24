@@ -219,10 +219,10 @@ class ReadStarCell: UITableViewCell {
     func infoString(count: String) -> NSMutableAttributedString {
         let fooString = "写过 \(count) 条评论"
         let mutableAttributedString = NSMutableAttributedString(string: fooString)
-        mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.gray, range: NSRange(location:0, length: 2))
-        mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.red,range: NSRange(location:3, length: count.characters.count+2))
-        mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.gray, range: NSRange(location:count.characters.count+4, length:3))
-        mutableAttributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "Arial", size: 14.0)!, range: NSRange(location: 0, length: fooString.characters.count))
+        mutableAttributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.gray, range: NSRange(location:0, length: 2))
+        mutableAttributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.red,range: NSRange(location:3, length: count.count+2))
+        mutableAttributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.gray, range: NSRange(location:count.count+4, length:3))
+        mutableAttributedString.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "Arial", size: 14.0)!, range: NSRange(location: 0, length: fooString.count))
         
         return mutableAttributedString
     }

@@ -96,11 +96,11 @@ class BicycleBindingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func bind() {
+    @objc func bind() {
         
     }
     
-    func dismissBinding() {
+    @objc func dismissBinding() {
         self.dismiss(animated: true, completion: nil)
     }
     

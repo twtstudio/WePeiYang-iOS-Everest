@@ -58,7 +58,7 @@ class HandInDetailViewController: UIViewController {
         navigationController?.navigationBar.barStyle = .black
     }
     
-    func submit() {
+    @objc func submit() {
         
         guard !(titleTextField.text?.isEmpty)! else {
 //            MsgDisplay.showErrorMsg("标题不能为空")

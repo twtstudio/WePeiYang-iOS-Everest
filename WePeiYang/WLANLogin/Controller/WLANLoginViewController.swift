@@ -25,7 +25,7 @@ class WLANLoginViewController: WMPageController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.barTintColor = UIColor(hex6: 0x00a1e9)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
     }
@@ -198,7 +198,7 @@ class WLANLoginViewController: WMPageController {
         }
     }
     
-    func login() {
+    @objc func login() {
         print("tring to login to TJUWLAN")
         
         if accountTextField.hasText && passwordTextField.hasText {
@@ -294,7 +294,7 @@ class WLANLoginViewController: WMPageController {
         }
     }
     
-    func logout() {
+    @objc func logout() {
         print("tring to logout from TJUWLAN")
         
         if accountTextField.hasText && passwordTextField.hasText {
@@ -331,7 +331,7 @@ class WLANLoginViewController: WMPageController {
         }
     }
     
-    func service() {
+    @objc func service() {
         if let link = URL(string: "http://202.113.4.11/") {
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(link)

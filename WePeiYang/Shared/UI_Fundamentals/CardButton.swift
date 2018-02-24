@@ -19,7 +19,7 @@ class CardButton: UIButton {
 
     func setTitle(_ title: String) {
         self.backgroundColor = UIColor(red:0.99, green:0.19, blue:0.35, alpha:1.00)
-        let attrString = NSAttributedString(string: title, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16, weight: UIFontWeightBlack), NSForegroundColorAttributeName: UIColor.white])
+        let attrString = NSAttributedString(string: title, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.black), NSAttributedStringKey.foregroundColor: UIColor.white])
 
         setAttributedTitle(attrString, for: .normal)
         titleLabel?.sizeToFit()
@@ -38,7 +38,7 @@ class CardButton: UIButton {
         self.clipsToBounds = true
     }
 
-    func tapped(sender: CardButton) {
+    @objc func tapped(sender: CardButton) {
 //        UIView.animate(withDuration: 0.15, delay: 0, usingSpringWithDamping: 0.1, initialSpringVelocity: 0, options: [.allowUserInteraction, .curveEaseInOut], animations: {
 //            self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
 //        }, completion: { isFinished in

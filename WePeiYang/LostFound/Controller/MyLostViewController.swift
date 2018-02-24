@@ -151,7 +151,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         return cell
     }
-    func editButtonTapped(editButton: UIButton) {
+    @objc func editButtonTapped(editButton: UIButton) {
         
         let cell = editButton.superView(of: UITableViewCell.self)!
         let indexPath = tableView.indexPath(for: cell)
@@ -166,7 +166,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
-    func inverseButtonTapped(inverseButton: UIButton) {
+    @objc func inverseButtonTapped(inverseButton: UIButton) {
 //        let cell = superUITableViewCell(of: inverseButton)!
         
         let cell = inverseButton.superView(of: UITableViewCell.self)!

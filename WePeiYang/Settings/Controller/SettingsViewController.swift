@@ -65,7 +65,7 @@ class SettingsViewController: UIViewController {
 //        navigationController?.navigationBar.barStyle = .black
 //        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
         //Changing NavigationBar Title color
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Metadata.Color.naviTextColor]
         // This is for removing the dark shadows when transitioning
         navigationController?.navigationBar.isTranslucent = false
         
@@ -109,7 +109,7 @@ class SettingsViewController: UIViewController {
         }
         
         loginButton.setTitleColor(.black, for: .normal)
-        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 31, weight: UIFontWeightRegular)
+        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 31, weight: UIFont.Weight.regular)
         loginButton.titleLabel?.sizeToFit()
         loginButton.sizeToFit()
         //        loginButton.sizeToFit()
@@ -127,7 +127,7 @@ class SettingsViewController: UIViewController {
         }
     }
     
-    func login() {
+    @objc func login() {
         let loginVC = LoginViewController()
 //        self.navigationController?.pushViewController(loginVC, animated: true)
         self.present(loginVC, animated: true, completion: nil)
@@ -180,7 +180,7 @@ class SettingsViewController: UIViewController {
         })
     }
     
-    func bindingStatusDidChange(notification: Notification) {
+    @objc func bindingStatusDidChange(notification: Notification) {
 //        let notificationTuple: (String, Bool) = notification.object as! (String, Bool)
 //        let bindingType: String = notificationTuple.0
 //        let status: Bool = notificationTuple.1
@@ -235,14 +235,14 @@ extension SettingsViewController: UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
             cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightRegular)
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
             cell.accessoryType = .disclosureIndicator
             let x: CGFloat = 15
             let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))
             separator.backgroundColor = .gray
             separator.alpha = 0.25
             cell.addSubview(separator)
-            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
             //            cell.detailTextLabel?.text = services[indexPath.row].status.rawValue
             if services[indexPath.row].status() {
                 cell.detailTextLabel?.text = "已绑定"
@@ -253,7 +253,7 @@ extension SettingsViewController: UITableViewDataSource {
         } else {
             let cell = UITableViewCell()
             cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightRegular)
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
             cell.accessoryType = .disclosureIndicator
             let x: CGFloat = 15
             let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))

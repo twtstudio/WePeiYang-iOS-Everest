@@ -69,7 +69,8 @@ class ParkingSpot: NSObject, MKAnnotation {
         for dict in arr {
             guard let id = dict["id"] as? Int,
                 let title = dict["name"] as? String,
-                let campus = dict["campus"] as? Int,
+                // FIXME: 这是个啥玩意儿
+//                let campus = dict["campus"] as? Int,
                 let latitude_c = dict["lat_c"] as? Double,
                 let longitude_c = dict["lng_c"] as? Double
                 else {
@@ -119,20 +120,20 @@ extension ParkingSpot {
             
             guard dic["errno"] as? Int == 0 else {
                 guard let msg = dic["errmsg"] as? String else {
-                    // Display err.
+                    SwiftMessages.showErrorMessage(body: "解析错误")
                     return
                 }
-                // Display err.
+                SwiftMessages.showErrorMessage(body: msg)
                 return
             }
             
             guard let fooStatus = dic["data"] as? Array<NSDictionary> else {
-                // Display err.
+                SwiftMessages.showErrorMessage(body: "解析错误")
                 return
             }
             
             guard fooStatus.count == 1 else {
-                // Display err.
+                SwiftMessages.showErrorMessage(body: "状态获取失败")
                 return
             }
             
@@ -150,7 +151,7 @@ extension ParkingSpot {
             guard let numberOfBikes = fooStatus[0]["total"] as? String,
                 let currentNumberOfBikes = fooStatus[0]["used"] as? String
                 else {
-                    // MsgDisplay.showErrorMsg("哎呀，未知错误3")
+                    SwiftMessages.showErrorMessage(body: "获取状态失败")
                     return
             }
             
@@ -158,7 +159,7 @@ extension ParkingSpot {
             self.currentNumberOfBikes = Int(currentNumberOfBikes)
             completion()
         }, failure: { err in
-             //MsgDisplay.showErrorMsg("网络不好，请重试")
+            SwiftMessages.showErrorMessage(body: err.localizedDescription)
         })
         
         //        manager.request(BicycleAPIs.statusURL, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: AnyObject?) in
@@ -231,15 +232,15 @@ extension ParkingSpot {
             
             guard dic["errno"] as! Int == 0 else {
                 guard let msg = dic["ermsg"] as? String else {
-                    // display errmsg
+                    SwiftMessages.showErrorMessage(body: "解析错误")
                     return
                 }
-                // display errmsg
+                SwiftMessages.showErrorMessage(body: msg)
                 return
             }
             
             guard let fooStatus = dic["data"] as? Array<NSDictionary> else {
-                // display errmsg
+                SwiftMessages.showErrorMessage(body: "解析错误")
                 return
             }
             
@@ -247,7 +248,7 @@ extension ParkingSpot {
                 guard let numberOfBikes = fooStatus[i]["total"] as? String,
                     let currentNumberOfBikes = fooStatus[i]["used"] as? String
                     else {
-                        //MsgDisplay.showErrorMsg("哎呀，未知错误3")
+                        SwiftMessages.showErrorMessage(body: "数据解析错误")
                         return
                 }
                 list[i].numberOfBikes = Int(numberOfBikes)!
@@ -318,10 +319,10 @@ extension ParkingSpot {
 fileprivate extension String {
     
     func removeCharsFromEnd(count:Int) -> String{
-        let stringLength = self.characters.count
+        let stringLength = self.count
         let substringCount = (stringLength < count) ? 0 : stringLength - count
         let index: String.Index = self.index(self.startIndex, offsetBy: substringCount)
-        return self.substring(to: index)
+        return String(self[...index])
     }
 }
 

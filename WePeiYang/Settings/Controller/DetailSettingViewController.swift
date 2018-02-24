@@ -60,7 +60,7 @@ class DetailSettingViewController: UIViewController {
 
         self.view.addSubview(tableView)
 //        tableView.backgroundColor = .white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
         title = "设置"
 
         // 据说可以移除转场阴影

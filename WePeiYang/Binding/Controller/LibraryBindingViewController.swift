@@ -105,7 +105,7 @@ class LibraryBindingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func bind() {
+    @objc func bind() {
         
         if passwordTextField.hasText {
             var loginInfo: [String: String] = [String: String]()
@@ -176,7 +176,7 @@ class LibraryBindingViewController: UIViewController {
         })
     }
     
-    func dismissBinding() {
+    @objc func dismissBinding() {
         self.dismiss(animated: true, completion: nil)
     }
 

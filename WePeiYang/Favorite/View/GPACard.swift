@@ -51,7 +51,7 @@ class GPACard: CardView {
         
         titleLabel.frame = CGRect(x: padding, y: padding, width: 200, height: 30)
         titleLabel.text = "我的GPA"
-        titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFontWeightSemibold)
+        titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.semibold)
         titleLabel.textColor = .white
         titleLabel.sizeToFit()
         self.addSubview(titleLabel)
@@ -93,9 +93,7 @@ class GPACard: CardView {
         lineChartView.data = LineChartData(dataSet: dataSet)
 //        lineChartView.
     }
-}
 
-extension GPACard {
     override func refresh() {
         super.refresh()
         setState(.loading("加载中...", .white))
@@ -113,3 +111,4 @@ extension GPACard {
         })
     }
 }
+

@@ -80,7 +80,7 @@ extension YellowPageDetailViewController: UITableViewDelegate {
 }
 
 extension YellowPageDetailViewController {
-    func cellTapped(sender: UILabel) {
+    @objc func cellTapped(sender: UILabel) {
         let alertVC = UIAlertController(title: "详情", message: "想要做什么？", preferredStyle: .actionSheet)
         let copyAction = UIAlertAction(title: "复制到剪切板", style: .default) { action in
             if let superview = sender.superview as? YellowPageCell {

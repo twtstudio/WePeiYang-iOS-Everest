@@ -333,20 +333,21 @@ class Applicant: NSObject {
         
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.handInURL, url: "", token: nil, parameters: parameters, success: { dict in
             guard dict["status"] as? Int == 1 else {
-//                MsgDisplay.showErrorMsg(dict["msg"] as! String)
+                if let msg = dict["msg"] as? String {
+                    SwiftMessages.showErrorMessage(body: msg)
+                }
                 return
             }
             
             if let msg = dict["msg"] as? String {
-//                MsgDisplay.showSuccessMsg(msg)
+                SwiftMessages.showSuccessMessage(body: msg)
             } else {
-//                MsgDisplay.showSuccessMsg("递交成功")
+                SwiftMessages.showSuccessMessage(body: "递交成功")
             }
             
             doSomething()
         }, failure: { error in
-//            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
-            print("error: \(error)")
+            SwiftMessages.showSuccessMessage(body: error.localizedDescription)
         })
         
 //        let manager = AFHTTPSessionManager()

@@ -161,7 +161,7 @@ class BicycleServiceViewController: WMPageController {
         }
     }
     
-    func refreshUserInfo() {
+    @objc func refreshUserInfo() {
         let infoVC: BicycleServiceInfoController = self.currentViewController as! BicycleServiceInfoController
         infoVC.refreshInfo()
     }    

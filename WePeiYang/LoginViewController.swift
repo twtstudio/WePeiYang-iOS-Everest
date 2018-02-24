@@ -26,7 +26,7 @@ class LoginViewController: UIViewController {
         videoPlayer = AVPlayer(url: url!)
         videoPlayer.isMuted = true
         playerLayer = AVPlayerLayer(player: videoPlayer)
-        playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         playerLayer.frame = view.frame
         view.layer.addSublayer(playerLayer)
         videoPlayer.isMuted = true
@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
             let label = UILabel()
             label.text = "微北洋"
             label.textColor = .white
-            label.font = UIFont.systemFont(ofSize: 50, weight: UIFontWeightHeavy)
+            label.font = UIFont.systemFont(ofSize: 50, weight: UIFont.Weight.heavy)
             label.sizeToFit()
             label.center.x = view.center.x
             label.center.y = view.frame.size.height*1/5
@@ -133,7 +133,7 @@ class LoginViewController: UIViewController {
         view.endEditing(true)
     }
     
-    func login() {
+    @objc func login() {
         guard let username = usernameField.text, !username.isEmpty else {
             let view = MessageView.viewFromNib(layout: .cardView)
             view.configureContent(title: "输入错误", body: "用户名不能为空")
@@ -169,11 +169,11 @@ class LoginViewController: UIViewController {
         videoPlayer.pause()
     }
     
-    func dismissLogin() {
+    @objc func dismissLogin() {
         dismiss(animated: true, completion: nil)
     }
     
-    func loopVideo() {
+    @objc func loopVideo() {
         videoPlayer.seek(to: CMTime(seconds: 0, preferredTimescale: 1))
         videoPlayer.play()
     }

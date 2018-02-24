@@ -63,7 +63,7 @@ class SearchedResultViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     //底部上拉加载
-    func footerLoad() {
+    @objc func footerLoad() {
         print("上拉加载")
         self.curPage += 1
         GetSearchAPI.getSearch(inputText: inputText, page: curPage, success: { (searchs) in
@@ -81,7 +81,7 @@ class SearchedResultViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     //顶部下拉刷新
-    func headerRefresh(){
+    @objc func headerRefresh(){
         print("下拉刷新.")
         
         self.curPage = 1

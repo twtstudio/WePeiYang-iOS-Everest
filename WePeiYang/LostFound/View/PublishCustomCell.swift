@@ -74,7 +74,7 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
         
         self.textField.addTarget(self, action: #selector(self.textFieldTextChange(sender:)), for: .allEditingEvents)
     }
-    func textFieldTextChange(sender: UITextField) {
+    @objc func textFieldTextChange(sender: UITextField) {
     
         delegate?.means(input: textField.text!, key: cellkey!)
     }

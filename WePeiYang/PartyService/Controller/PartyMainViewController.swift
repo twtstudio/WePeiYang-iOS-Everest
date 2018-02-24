@@ -304,7 +304,7 @@ extension PartyMainViewController {
         
     }
     
-    func changeAvatar() {
+    @objc func changeAvatar() {
         
         UIView.animate(withDuration: 0.3, animations: {
             self.anAvatar.alpha = 0

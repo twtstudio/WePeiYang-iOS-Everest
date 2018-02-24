@@ -63,7 +63,7 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     //底部上拉加载
-    func footerLoad() {
+    @objc func footerLoad() {
         print("上拉加载")
         self.curPage += 1
         GetFoundAPI.getFound(page: curPage, success: { (losts) in
@@ -81,7 +81,7 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     //顶部下拉刷新
-    func headerRefresh(){
+    @objc func headerRefresh(){
         print("下拉刷新.")
         
         self.curPage = 1

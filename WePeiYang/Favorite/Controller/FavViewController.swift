@@ -41,7 +41,7 @@ class FavViewController: UIViewController {
         navigationController?.navigationBar.barStyle = .black
 //        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
         // Changing NavigationBar Title color
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Metadata.Color.naviTextColor]
         // This is for removing the dark shadows when transitioning
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.isNavigationBarHidden = true
@@ -83,7 +83,7 @@ class FavViewController: UIViewController {
         headerView.addSubview(dateLabel)
         
         let titleLabel = UILabel(text: "Favorite")
-        titleLabel.font = UIFont.systemFont(ofSize: 35, weight: UIFontWeightHeavy)
+        titleLabel.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.heavy)
         titleLabel.x = 15
         titleLabel.y = 35
         titleLabel.sizeToFit()
@@ -135,7 +135,7 @@ class FavViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(refreshCards), name: NotificationName.NotificationUserDidLogin.name, object: nil)
     }
 
-    func refreshCards(info: Notification) {
+    @objc func refreshCards(info: Notification) {
         for key in Array(cardDict.keys) {
             cardDict[key]!.refresh()
         }

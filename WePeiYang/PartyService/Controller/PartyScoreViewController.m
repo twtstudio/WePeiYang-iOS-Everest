@@ -65,7 +65,10 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     //titleLabel 设置
-    UILabel *titleLabel = [[UILabel alloc] initWithText:@"成绩查询" fontSize:17];
+//    UILabel *titleLabel = [[UILabel alloc] initWithText:@"成绩查询" fontSize:17];
+    UILabel *titleLabel = [[UILabel alloc] init];
+    [titleLabel setText:@"成绩查询"];
+    [titleLabel setFont:[UIFont systemFontOfSize:17]];
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = titleLabel;

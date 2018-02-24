@@ -25,11 +25,13 @@ class BicycleFitnessTrackerViewController: UIViewController {
         super.viewWillAppear(animated)
         
         //NavigationBar 的背景，使用了View
-        var bounds = self.navigationController?.navigationBar.bounds as CGRect!
-        bounds?.offsetBy(dx: 0.0, dy: -20.0)
-        bounds?.size.height = (bounds?.height)! + 20.0
+        var bounds = self.navigationController!.navigationBar.bounds
+        bounds = CGRect(origin: bounds.origin, size: bounds.size)
+        bounds.offsetBy(dx: 0.0, dy: -20.0)
+//        bounds.size.height += 20.0
         let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        visualEffectView.frame = bounds!
+        visualEffectView.frame = bounds
+        visualEffectView.height += 20.0
         visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         //If this is not set to false, the back button won't work
@@ -124,15 +126,15 @@ extension BicycleFitnessTrackerViewController: UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return (UIApplication.shared.keyWindow?.frame.size.width)!
         }
         return 4
     }
-    
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 20
     }
     
@@ -151,7 +153,7 @@ extension BicycleFitnessTrackerViewController: UITableViewDelegate, UITableViewD
     }
     
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if section != 0 {
             let headerView = UIView(frame: CGRect(x: 0, y: 0, width: (UIApplication.shared.keyWindow?.frame.size.width)!, height: 4))
@@ -187,8 +189,8 @@ extension BicycleFitnessTrackerViewController: UITableViewDelegate, UITableViewD
         
         return headerView
     }
-    
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView(color: .clear)
     }
     

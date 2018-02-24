@@ -21,7 +21,7 @@ class LostFoundPageViewController: WMPageController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(hex6: 0x00a1e9))!, for: .default)
 //        self.navigationController?.navigationBar.barTintColor = UIColor(hex6: 0x00a1e9)
         self.navigationController?.navigationBar.titleTextAttributes =
-            [NSForegroundColorAttributeName: UIColor.white]
+            [NSAttributedStringKey.foregroundColor: UIColor.white]
         self.navigationController?.navigationBar.tintColor = UIColor.white
     }
 
@@ -94,12 +94,12 @@ class LostFoundPageViewController: WMPageController {
 
     }
     
-    func mineButton(item: UIBarButtonItem) {
+    @objc func mineButton(item: UIBarButtonItem) {
         let vc = MyLostFoundPageViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    func searchButton(item: UIBarButtonItem) {
+    @objc func searchButton(item: UIBarButtonItem) {
         let vc = LostFoundSearchViewController()
         self.navigationController?.pushViewController(vc, animated: true)
 //        let successVC = PublishSuccessViewController()

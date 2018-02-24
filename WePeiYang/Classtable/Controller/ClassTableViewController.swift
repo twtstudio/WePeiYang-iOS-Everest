@@ -115,7 +115,7 @@ class ClassTableViewController: UIViewController {
         load()
     }
 
-    func close() {
+    @objc func close() {
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -150,7 +150,7 @@ class ClassTableViewController: UIViewController {
         backButton.addTarget(self, action: #selector(toggleWeekSelect), for: .touchUpInside)
     }
     
-    func weekCellTapped(sender: UITapGestureRecognizer) {
+    @objc func weekCellTapped(sender: UITapGestureRecognizer) {
 //        guard let cell = sender.view,
 ////        cell.tag - 1 < cells.count,
 //        cell.tag > 0,
@@ -166,7 +166,7 @@ class ClassTableViewController: UIViewController {
         currentDisplayWeek = week
     }
     
-    func toggleWeekSelect(sender: UIButton) {
+    @objc func toggleWeekSelect(sender: UIButton) {
         guard let table = table else {
             return
         }
@@ -336,7 +336,7 @@ extension ClassTableViewController {
                 }
             }
             // 按开始时间进行排序
-            array.sort(by: { $0.0.arrange[0].start < $0.1.arrange[0].start })
+            array.sort(by: { $0.arrange[0].start < $1.arrange[0].start })
             coursesForDay[day] = array
         }
         weekCourseDict[week] = coursesForDay

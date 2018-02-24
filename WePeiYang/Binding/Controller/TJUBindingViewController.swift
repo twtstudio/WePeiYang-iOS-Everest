@@ -100,7 +100,7 @@ class TJUBindingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func bind() {
+    @objc func bind() {
         
         if usernameTextField.hasText && passwordTextField.hasText {
             var loginInfo: [String: String] = [String: String]()
@@ -178,7 +178,7 @@ class TJUBindingViewController: UIViewController {
         })
     }
     
-    func dismissBinding() {
+    @objc func dismissBinding() {
         self.dismiss(animated: true, completion: nil)
     }
     

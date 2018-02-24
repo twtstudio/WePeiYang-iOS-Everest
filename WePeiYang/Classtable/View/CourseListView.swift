@@ -216,7 +216,7 @@ class CourseListView: UIView {
         updownContentView.addGestureRecognizer(recognizer)
     }
     
-    func tableViewTouch(sender: UITapGestureRecognizer) {
+    @objc func tableViewTouch(sender: UITapGestureRecognizer) {
         // 算出相对第一个 tableView 的点击位置
         let location = sender.location(in: tableViews[0])
         let index = Int(location.x / C.cellWidth)

@@ -27,7 +27,8 @@ class BicycleServiceMapController: UIViewController {
     
     //var whereAmI = UIButton(frame: CGRect(x: 100, y: 100, width: 32, height: 32))
     
-    func whereAmI(sender: UIButton!) {
+    @objc func whereAmI(sender: UIButton!) {
+        // 迷醉？
         if let userLoc: MKUserLocation? = newMapView.userLocation {
             let cl = CLLocation(latitude: userLoc!.coordinate.latitude, longitude: userLoc!.coordinate.longitude)
             centerMapOnLocation(location: cl)

@@ -94,7 +94,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     }
     
 
-    func tapped(){
+    @objc func tapped(){
         let vc = PublishLostViewController()
         
         self.navigationController?.pushViewController(vc, animated: true)
@@ -103,7 +103,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     }
     
     //底部上拉加载
-    func footerLoad() {
+    @objc func footerLoad() {
         print("上拉加载")
         self.curPage += 1
         GetLostAPI.getLost(page: curPage, success: { (losts) in
@@ -121,7 +121,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     }
     
     //顶部下拉刷新
-    func headerRefresh(){
+    @objc func headerRefresh(){
         print("下拉刷新.")
         
         self.curPage = 1

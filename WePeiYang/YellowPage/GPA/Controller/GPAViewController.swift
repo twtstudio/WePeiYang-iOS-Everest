@@ -40,7 +40,7 @@ class GPAViewController: UIViewController {
                 })
                 tableView.reloadData()
             } else {
-                currentTerm?.classes.sort(by: { $0.0.credit > $0.1.credit })
+                currentTerm?.classes.sort(by: { $0.credit > $1.credit })
                 tableView.reloadData()
             }
         }
@@ -51,7 +51,7 @@ class GPAViewController: UIViewController {
     let termLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red:0.22, green:0.22, blue:0.22, alpha:1.00)
-        label.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightLight)
+        label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
         label.textAlignment = .center
         label.width = 100
         label.height = 20
@@ -248,7 +248,7 @@ class GPAViewController: UIViewController {
         refresh()
     }
 
-    func close() {
+    @objc func close() {
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -272,7 +272,7 @@ class GPAViewController: UIViewController {
     }
     
     // 刷新数据
-    func refresh() {
+    @objc func refresh() {
         GPASessionManager.getGPA(success: { model in
             self.loadModel(model: model)
             // 数据有效 存起来
@@ -342,7 +342,7 @@ class GPAViewController: UIViewController {
 //        lineChartView.highlightValue(x: 0, dataSetIndex: 0)
     }
 
-    func segmentValueChanged(sender: UISegmentedControl) {
+    @objc func segmentValueChanged(sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             sortMethod = .scoreFirst
         } else if sender.selectedSegmentIndex == 1 {
@@ -567,7 +567,7 @@ extension GPAViewController: UIScrollViewDelegate {
             }
             self.navigationController?.navigationBar.alpha = min(offset * 0.02, 1)
             let image = UIImage(color: UIColor.gpaPink, size: CGSize(width: self.view.width, height: 64))
-            self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
             self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
             self.navigationController?.navigationBar.isTranslucent = true
         } else {
@@ -633,11 +633,11 @@ extension GPAViewController: ChartViewDelegate {
         }
         
         let scoreLabel = UILabel(text: "加权: \(term.stat.score)", color: .black, fontSize: 12)
-        scoreLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        scoreLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         let GPALabel = UILabel(text: "绩点: \(term.stat.gpa)", color: .black, fontSize: 12)
-        GPALabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        GPALabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         let creditsLabel = UILabel(text: "总学分: \(term.stat.credit)", color: .black, fontSize: 12)
-        creditsLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        creditsLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         scoreLabel.frame = CGRect(x: 21.5, y: 22.5 + upsidedownOffset, width: 125, height: 20)
         GPALabel.frame = CGRect(x: 21.5, y: 52.5 + upsidedownOffset, width: 125, height: 20)
         creditsLabel.frame = CGRect(x: 21.5, y: 82.5 + upsidedownOffset, width: 125, height: 20)

@@ -83,7 +83,7 @@ class ClassDetailViewController: UIViewController {
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 10
-        let attributedString = NSAttributedString(string: detailString, attributes: [NSParagraphStyleAttributeName: paragraphStyle])
+        let attributedString = NSAttributedString(string: detailString, attributes: [NSAttributedStringKey.paragraphStyle: paragraphStyle])
         
         detailLabel.textColor = UIColor(red:0.75, green:0.75, blue:0.75, alpha:1.00)
         detailLabel.font = UIFont.systemFont(ofSize: 15)

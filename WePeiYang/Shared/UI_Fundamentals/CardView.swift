@@ -143,7 +143,11 @@ class CardView: UIView {
 
         self.layout(rect: rect)
     }
-    
+
+    func refresh() {
+
+    }
+
     func shouldPresent(_ viewController: UIViewController, from superVC: UIViewController) {
         shouldPresentDetail = true
         shouldPushDetail = false
@@ -239,10 +243,6 @@ extension CardView {
         case empty(String, UIColor)
         case data
         case failed(String)
-    }
-
-    func refresh() {
-
     }
 
     func setState(_ state: State) {

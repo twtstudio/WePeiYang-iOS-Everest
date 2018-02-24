@@ -23,7 +23,7 @@ class LibraryCard: CardView {
         self.backgroundColor = .white
 
         titleLabel.text = "图书馆"
-        titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFontWeightSemibold)
+        titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.semibold)
         titleLabel.textColor = .black
         contentView.addSubview(titleLabel)
         titleLabel.sizeToFit()
@@ -250,10 +250,3 @@ extension LibraryCard {
 extension LibraryCard: UITableViewDelegate {
 }
 
-extension LibraryCard {
-    override func refresh() {
-        super.refresh()
-
-        getBooks()
-    }
-}

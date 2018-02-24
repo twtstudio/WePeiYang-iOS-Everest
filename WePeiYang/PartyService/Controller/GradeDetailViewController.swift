@@ -135,7 +135,7 @@ class GradeDetailViewController: UIViewController, UITableViewDataSource, UITabl
         
     }
     
-    func complain() {
+    @objc func complain() {
         let dict = Applicant.sharedInstance.applicantGrade[index!]
         if testType == "probationary" {
             let complainVC = PartyComplainViewController(ID: dict["train_id"] as! String, type: testType!)

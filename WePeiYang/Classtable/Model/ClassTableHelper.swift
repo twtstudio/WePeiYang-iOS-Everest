@@ -103,7 +103,7 @@ struct ClassTableHelper {
                 }
             }
             // 按开始时间进行排序
-            array.sort(by: { $0.0.arrange[0].start < $0.1.arrange[0].start })
+            array.sort(by: { $0.arrange[0].start < $1.arrange[0].start })
             coursesForDay[day] = array
         }
         return coursesForDay

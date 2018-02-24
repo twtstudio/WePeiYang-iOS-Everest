@@ -55,7 +55,7 @@ class AllQuizViewController: UIViewController,UICollectionViewDelegate,UICollect
         
     }
 
-    func dismissAnimated() {
+    @objc func dismissAnimated() {
         self.dismiss(animated: true, completion: nil)
     }
     

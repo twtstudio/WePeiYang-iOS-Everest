@@ -141,7 +141,7 @@ class YellowPageCell: UITableViewCell {
         
         
         phoneLabel = UILabel()
-        let attributedString = NSAttributedString(string: model.phone, attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue, NSForegroundColorAttributeName: UIColor.blue])
+        let attributedString = NSAttributedString(string: model.phone, attributes: [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue, NSAttributedStringKey.foregroundColor: UIColor.blue])
         
         phoneLabel.attributedText = attributedString
         //        phoneLabel.font = UIFont.flexibleFont(with: 14)
@@ -186,7 +186,7 @@ class YellowPageCell: UITableViewCell {
         
     }
     
-    func likeTapped() {
+    @objc func likeTapped() {
         if detailedModel.isFavorite {
             PhoneBook.shared.removeFavorite(with: self.detailedModel) {
                 self.likeView.setImage(UIImage(named: "dislike"), for: .normal)
@@ -203,11 +203,11 @@ class YellowPageCell: UITableViewCell {
         }
     }
     
-    func phoneTapped() {
-        UIApplication.shared.openURL(NSURL(string: "telprompt://\(self.detailedModel.phone)")! as URL)
+    @objc func phoneTapped() {
+        UIApplication.shared.openURL(URL(string: "telprompt://\(self.detailedModel.phone)")!)
     }
     
-    func longPressed() {
+    @objc func longPressed() {
         if let text = UIPasteboard.general.string, text != self.detailedModel.phone {
             UIPasteboard.general.string = self.detailedModel.phone
         }

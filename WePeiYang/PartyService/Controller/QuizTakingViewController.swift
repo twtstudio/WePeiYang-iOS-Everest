@@ -175,7 +175,7 @@ extension QuizTakingViewController {
 
 //Logic Func
 extension QuizTakingViewController {
-    func submitAnswer() {
+    @objc func submitAnswer() {
         
         //处理当前 quiz
         for fooView in self.view.subviews {
@@ -229,7 +229,7 @@ extension QuizTakingViewController {
         }
     }
     
-    func swipeToNextQuiz() {
+    @objc func swipeToNextQuiz() {
         self.currentQuizIndex += 1
         guard currentQuizIndex != Courses.Study20.courseQuizes.count else {
 //            MsgDisplay.showErrorMsg("你已经在最后一道题啦")
@@ -257,7 +257,7 @@ extension QuizTakingViewController {
         }
     }
     
-    func swipeToLastQuiz() {
+    @objc func swipeToLastQuiz() {
         self.currentQuizIndex -= 1
         guard currentQuizIndex >= 0 else {
 //            MsgDisplay.showErrorMsg("你已经在第一题啦")
@@ -285,7 +285,7 @@ extension QuizTakingViewController {
         }
     }
     
-    func showAllQuizesList() {
+    @objc func showAllQuizesList() {
         
         //Handle current quiz
         for fooView in self.view.subviews {
@@ -326,7 +326,7 @@ extension QuizTakingViewController {
         }
     }
     
-    func finishQuizTaking() {
+    @objc func finishQuizTaking() {
         //self.dismissViewControllerAnimated(true, completion: nil)
         self.navigationController?.popViewController(animated: true)
     }

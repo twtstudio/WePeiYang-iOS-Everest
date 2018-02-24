@@ -105,7 +105,7 @@ class WLANBindingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func bind() {
+    @objc func bind() {
         
         if usernameTextField.hasText && passwordTextField.hasText {
             var loginInfo: [String: String] = [String: String]()
@@ -178,7 +178,7 @@ class WLANBindingViewController: UIViewController {
         })
     }
     
-    func dismissBinding() {
+    @objc func dismissBinding() {
         self.dismiss(animated: true, completion: nil)
     }
 }

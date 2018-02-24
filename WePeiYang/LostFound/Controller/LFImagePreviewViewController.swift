@@ -88,14 +88,14 @@ class LFImagePreviewViewController: UIViewController {
         return true
     }
     // 单击
-    func tapSingleDid(_ ges: UITapGestureRecognizer) {
+    @objc func tapSingleDid(_ ges: UITapGestureRecognizer) {
     
         if let nav = self.navigationController {
             nav.setNavigationBarHidden(!nav.isNavigationBarHidden, animated: true)
         }
     }
     // 双击
-    func tapDoubleDid(_ ges: UITapGestureRecognizer) {
+    @objc func tapDoubleDid(_ ges: UITapGestureRecognizer) {
     
         if let nav = self.navigationController {
             nav.setNavigationBarHidden(true, animated: true)

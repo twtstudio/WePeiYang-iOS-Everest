@@ -98,7 +98,7 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
         if indexPath.section == 0 {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UICollectionElementKindSectionHeader", for: indexPath)
             let label = UILabel(text: "更多功能")
-            label.font = UIFont.systemFont(ofSize: 35, weight: UIFontWeightHeavy)
+            label.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.heavy)
             label.x = 15
             label.y = 25
             label.sizeToFit()

@@ -31,7 +31,7 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let image = UIImage(color: UIColor.gpaPink, size: CGSize(width: self.view.width, height: 64))
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
@@ -166,14 +166,14 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
     }
     
-    func finishEvaluate() {
+    @objc func finishEvaluate() {
         CourseAppraiseManager.shared.submit {
             NotificationCenter.default.post(name: NotificationName.NotificationAppraiseDidSucceed.name, object: nil)
             let _ = self.navigationController?.popViewController(animated: true)
         }
     }
     
-    func keyboardWillShow(notification: NSNotification) {
+    @objc func keyboardWillShow(notification: NSNotification) {
         let userInfo:NSDictionary = notification.userInfo! as NSDictionary
         let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
@@ -185,13 +185,13 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
         })
     }
     
-    func keyboardWillHide(notification:NSNotification) {
+    @objc func keyboardWillHide(notification:NSNotification) {
         UIView.animate(withDuration: 0.5, animations: {
             self.view.frame.origin.y = 0
         })
     }
     
-    func handleTap(sender: UITapGestureRecognizer) {
+    @objc func handleTap(sender: UITapGestureRecognizer) {
         tableView.endEditing(true)
     }
     

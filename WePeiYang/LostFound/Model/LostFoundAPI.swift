@@ -137,8 +137,8 @@ class DetailAPI {
             if let detailData = dic["data"] as? [String : Any] {
                 
                 var details = [LostFoundDetailModel]()
-                for (key, value) in detailData {
-                    
+//                for (key, value) in detailData {
+
                     let detail_type = detailData["detail_type"] as? Int ?? 0
                     let time = detailData["time"] as? String ?? ""
                     let title = detailData["title"] as? String ?? ""
@@ -163,7 +163,7 @@ class DetailAPI {
                     details.append(lostFoundDetailModel)
 
                     
-                }
+//                }
                 success(details)
             }
             

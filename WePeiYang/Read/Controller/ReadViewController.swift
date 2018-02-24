@@ -38,7 +38,7 @@ class ReadViewController: WMPageController {
         
         menuViewBottomSpace = -(self.menuHeight + 64.0)
         
-        menuBGColor = .init(colorLiteralRed: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1)
+        menuBGColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1)
         progressColor = .readRed
         progressHeight = 3.0
         
@@ -49,7 +49,7 @@ class ReadViewController: WMPageController {
         // Do any additional setup after loading the view.
     }
     
-    func pushSearchViewController() {
+    @objc func pushSearchViewController() {
         let svc = SearchViewController()
         svc.view.bounds = self.view.bounds
         svc.modalPresentationStyle = .overCurrentContext

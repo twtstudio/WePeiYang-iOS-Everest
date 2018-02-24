@@ -14,7 +14,7 @@ class ScoreHeaderView: UIView {
     let totalScoreLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 27, weight: UIFontWeightLight)
+        label.font = UIFont.systemFont(ofSize: 27, weight: UIFont.Weight.light)
         label.textAlignment = .center
         label.sizeToFit()
         return label
@@ -22,7 +22,7 @@ class ScoreHeaderView: UIView {
     let totalGPALabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 27, weight: UIFontWeightLight)
+        label.font = UIFont.systemFont(ofSize: 27, weight: UIFont.Weight.light)
         label.textAlignment = .center
         label.sizeToFit()
         return label
@@ -30,7 +30,7 @@ class ScoreHeaderView: UIView {
     let totalCreditLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 27, weight: UIFontWeightLight)
+        label.font = UIFont.systemFont(ofSize: 27, weight: UIFont.Weight.light)
         label.textAlignment = .center
         label.sizeToFit()
         return label
@@ -74,15 +74,15 @@ class ScoreHeaderView: UIView {
         // color
         let scoreHintLabel = UILabel(text: "总加权", color: UIColor(red:0.28, green:0.28, blue:0.28, alpha:1.00))
         scoreHintLabel.textAlignment = .center
-        scoreHintLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        scoreHintLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         
         let GPAHintLabel = UILabel(text: "总绩点", color: UIColor(red:0.28, green:0.28, blue:0.28, alpha:1.00))
         GPAHintLabel.textAlignment = .center
-        GPAHintLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        GPAHintLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         
         let creditHintLabel = UILabel(text: "总学分", color: UIColor(red:0.28, green:0.28, blue:0.28, alpha:1.00))
         creditHintLabel.textAlignment = .center
-        creditHintLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        creditHintLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         
         self.addSubview(scoreHintLabel)
         self.addSubview(GPAHintLabel)

@@ -121,11 +121,11 @@ extension PartySignUpViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     /*
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView_ tableView: UITableView, heightForFooterInSection section: Int -> CGFloat {
         return 5
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: (UIApplication.shared.keyWindow?.frame.size.width)!, height: 5))
         
         return footerView
