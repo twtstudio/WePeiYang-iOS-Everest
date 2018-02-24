@@ -161,7 +161,7 @@ class LoginViewController: UIViewController {
             // FIXME: login success
             self.dismiss(animated: true, completion: nil)
         }, failure: { error in
-            print(error ?? "")
+            SwiftMessages.showErrorMessage(body: error?.localizedDescription ?? "未知错误❌")
         })
     }
     
@@ -180,7 +180,18 @@ class LoginViewController: UIViewController {
 
     // 登录成功
     func extraProcedures() {
-        AccountManager.getSelf(success: nil, failure: nil)
+        AccountManager.getSelf(success: {
+            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("lib", TwTUser.shared.libBindingState))
+            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("tju", TwTUser.shared.tjuBindingState))
+//            case "lib":
+//            index = 0
+//            case "bike":
+//            index = 1
+//            case "tju":
+//            index = 2
+//            case "WLAN":
+
+        }, failure: nil)
         
         Applicant.sharedInstance.getStudentNumber {
 //            UserDefaults.standard.set(Applicant.sharedInstance.studentNumber, forKey: "studentID")
@@ -189,20 +200,28 @@ class LoginViewController: UIViewController {
         }
 
         GPASessionManager.getGPA(success: { model in
-
+            if let string = model.toJSONString() {
+                CacheManager.store(object: string, in: .group, as: "gpa/gpa.json")
+            }
         }, failure: { err in
 
         })
 
         BicycleUser.sharedInstance.auth {
-
+            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("bike", TwTUser.shared.bicycleBindingState))
         }
 
         ClasstableDataManager.getClassTable(success: { model in
-
+            if let string = model.toJSONString() {
+                CacheManager.store(object: string, in: .group, as: "classtable/classtable.json")
+            }
         }, failure: { str in
             
         })
+
+
+        // FIXME: 上网状态咋获得?
+//        NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("WLAN", TwTUser.shared.WLANBindingState))
     }
     
     deinit {

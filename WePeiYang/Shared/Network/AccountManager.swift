@@ -172,15 +172,18 @@ struct AccountManager {
                 TwTUser.shared.avatarURL = avatar
                 TwTUser.shared.tjuBindingState = tju
                 TwTUser.shared.libBindingState = lib
+//                TwTUser.shared.bicycleBindingState = 
                 TwTUser.shared.realname = realname
                 TwTUser.shared.twtid = twtid
                 TwTUser.shared.schoolID = studentid
                 TwTUser.shared.dropout = dropout
                 TwTUser.shared.save()
+                success?()
             }
         }, failure: { error in
             // FIXME: 错误
             print(error)
+            failure?()
         })
     }
 

@@ -16,8 +16,8 @@ class AllModulesViewController: UIViewController {
         (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self),
         (title: "自行车", image: UIImage(named: "bicycleBtn")!, class: BicycleServiceViewController.self),
         (title: "党建", image: UIImage(named: "partyBtn")!, class: PartyMainViewController.self),
-        (title: "探索", image: UIImage(named: "msBtn")!, class: GPAViewController.self),
-        (title: "阅读", image: UIImage(named: "readBtn")!, class: ReadViewController.self),
+        (title: "商城", image: UIImage(named: "mallBtn")!, class: MallViewController.self),
+//        (title: "阅读", image: UIImage(named: "readBtn")!, class: ReadViewController.self),
         (title: "黄页", image: UIImage(named: "yellowPageBtn")!, class: YellowPageMainViewController.self),
         (title: "上网", image: UIImage(named: "bicycleBtn")!, class: WLANLoginViewController.self)]
     
@@ -109,6 +109,13 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if modules[indexPath.row].title == "商城" {
+            let mallVC = MallViewController()
+            mallVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(mallVC, animated: true)
+            return
+        }
+
         // instantiate a view controller by its class
         if let vc = (modules[indexPath.row].class as? UIViewController.Type)?.init() {
             vc.hidesBottomBarWhenPushed = true

@@ -70,8 +70,9 @@ class BicycleFitnessTrackerViewController: UIViewController {
         tableView.dataSource = self
         
         //改变 statusBar 颜色
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-        
+//        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+        navigationController?.navigationBar.barStyle = .black
+
         getActivitySummary()
         
         computeLayout()

@@ -30,6 +30,7 @@ class ClassDetailViewController: UIViewController {
         tableView.allowsSelection = false
         tableView.register(ArrangeCell.self, forCellReuseIdentifier: "ArrangeCell")
         tableView.contentInset.top = 10
+        tableView.contentInset.bottom = 30
         tableView.estimatedRowHeight = 70
         tableView.rowHeight = UITableViewAutomaticDimension
         self.view.addSubview(tableView)

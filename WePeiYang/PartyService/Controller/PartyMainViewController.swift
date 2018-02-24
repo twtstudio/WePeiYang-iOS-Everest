@@ -45,7 +45,7 @@ class PartyMainViewController: UIViewController {
         super.viewDidLoad()
         
         //personalStatusButton.addTarget(self, action: #selector(PartyMainViewController.personalStatusButtonTapped(_:)), for: .touchUpInside)
-        
+
         functionTableView.delegate = self
         functionTableView.dataSource = self
         functionTableView.tableFooterView = UIView()
@@ -122,13 +122,15 @@ class PartyMainViewController: UIViewController {
             self.navigationController?.navigationBar.barStyle = .default
 //        self.navigationController?.jz_navigationBarBackgroundAlpha = 0
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-        
+        navigationController?.navigationBar.barStyle = .black
+//        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        UIApplication.shared.setStatusBarStyle(.default, animated: true)
+//        UIApplication.shared.setStatusBarStyle(.default, animated: true)
+        navigationController?.navigationBar.barStyle = .default
         guard Applicant.sharedInstance.realName != nil else {
             //log.word("not found")/
             return

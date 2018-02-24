@@ -13,7 +13,7 @@ enum ServiceBindingState: String {
     case notBind = "未绑定"
 }
 
-typealias ItemData = (title: String, class: AnyClass, iconName: String, status: Bool)
+typealias ItemData = (title: String, class: AnyClass, iconName: String, status: () -> Bool)
 
 class SettingsViewController: UIViewController {
     
@@ -32,13 +32,13 @@ class SettingsViewController: UIViewController {
     // FIXME: image name
     public var services: [ItemData] = [
         ("图书馆", LibraryBindingViewController.self, "", {
-            return TwTUser.shared.libBindingState}()),
+            return TwTUser.shared.libBindingState}),
         ("自行车", BicycleBindingViewController.self, "", {
-            return TwTUser.shared.bicycleBindingState}()),
+            return TwTUser.shared.bicycleBindingState}),
         ("办公网", TJUBindingViewController.self, "", {
-            return TwTUser.shared.tjuBindingState}()),
+            return TwTUser.shared.tjuBindingState}),
         ("校园网", WLANBindingViewController.self, "", {
-            return TwTUser.shared.WLANBindingState}())
+            return TwTUser.shared.WLANBindingState})
     ]
     fileprivate let settingTitles: [(title: String, iconName: String)] = [("设置", "")]
     
@@ -55,7 +55,8 @@ class SettingsViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.navigationBar.isTranslucent = false
+//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
     }
     
@@ -162,7 +163,7 @@ class SettingsViewController: UIViewController {
                 print(indexPath.row)
                 print(TwTUser.shared.tjuBindingState)
                 // services[].status can't get renewed data each time user unbinds
-                self.services[indexPath.row].status = false
+//                self.services[indexPath.row].status = false
                 self.tableView.reloadData()
             } else {
                 let alert = UIAlertController(title: "未知错误", message: nil, preferredStyle: .alert)
@@ -180,29 +181,35 @@ class SettingsViewController: UIViewController {
     }
     
     func bindingStatusDidChange(notification: Notification) {
-        let notificationTuple: (String, Bool) = notification.object as! (String, Bool)
-        let bindingType: String = notificationTuple.0
-        let isStatusChanged: Bool = notificationTuple.1
-        var index: Int
-        
-        switch bindingType {
-        case "lib":
-            index = 0
-        case "bike":
-            index = 1
-        case "tju":
-            index = 2
-        case "WLAN":
-            index = 3
-        default:
-            return
-        }
-        
-        if isStatusChanged {
-            services[index].status = true
-        }
-        
-        // tableView.reloadData()
+//        let notificationTuple: (String, Bool) = notification.object as! (String, Bool)
+//        let bindingType: String = notificationTuple.0
+//        let status: Bool = notificationTuple.1
+//        var index: Int
+
+//        switch bindingType {
+//        case "lib":
+//            index = 0
+//        case "bike":
+//            index = 1
+//        case "tju":
+//            index = 2
+//        case "WLAN":
+//            index = 3
+//        case "reload":
+//            tableView.reloadData()
+//            return
+//        default:
+//            return
+//        }
+//
+//        if isStatusChanged {
+//        if services[index].status != status {
+//            services[index].status = status
+            tableView.reloadData()
+//        }
+//        }
+
+//         tableView.reloadData()
     }
 }
 
@@ -237,7 +244,7 @@ extension SettingsViewController: UITableViewDataSource {
             cell.addSubview(separator)
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
             //            cell.detailTextLabel?.text = services[indexPath.row].status.rawValue
-            if services[indexPath.row].status {
+            if services[indexPath.row].status() {
                 cell.detailTextLabel?.text = "已绑定"
             } else {
                 cell.detailTextLabel?.text = "未绑定"
@@ -308,7 +315,7 @@ extension SettingsViewController: UITableViewDelegate {
             break
         }
         
-        if !services[indexPath.row].status {
+        if !services[indexPath.row].status() {
             if let vc = (services[indexPath.row].class as? UIViewController.Type)?.init() {
                 vc.hidesBottomBarWhenPushed = true
                 self.present(vc, animated: true)

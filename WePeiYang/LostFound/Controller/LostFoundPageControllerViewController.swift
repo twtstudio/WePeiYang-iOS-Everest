@@ -18,14 +18,18 @@ class LostFoundPageViewController: WMPageController {
     //Mark --导航栏（Navigationbar）的配置
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.barTintColor = UIColor(hex6: 0x00a1e9)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(hex6: 0x00a1e9))!, for: .default)
+//        self.navigationController?.navigationBar.barTintColor = UIColor(hex6: 0x00a1e9)
         self.navigationController?.navigationBar.titleTextAttributes =
             [NSForegroundColorAttributeName: UIColor.white]
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        
-
     }
-    
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+    }
+
     override func viewDidLoad() {
         
         self.title = "失物招领"

@@ -13,6 +13,10 @@ class PartySignUpViewController: UIViewController {
     var tableView: UITableView!
     let bgView = UIView(color: .partyRed)
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.barStyle = .black
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,8 +31,8 @@ class PartySignUpViewController: UIViewController {
 //        self.navigationController!.jz_navigationBarBackgroundAlpha = 0;
 
         //改变 statusBar 颜色
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-        
+//        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+//        navigationController?.navigationBar.barStyle = .black
         //改变背景颜色
         view.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
         

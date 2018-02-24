@@ -249,9 +249,10 @@ class ClassTableViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        navigationController?.navigationBar.tintColor = UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)
         navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.barStyle = .default
         self.navigationController?.navigationBar.isTranslucent = false
 
     }

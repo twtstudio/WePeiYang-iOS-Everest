@@ -14,7 +14,7 @@ class TwTUser: NSObject, Codable {
     private override init() {}
     var token: String?
     var username: String = ""
-    var libraryState: Bool = false
+//    var libraryState: Bool = false
     var schoolID: String = ""
     var tjuBindingState: Bool = false
     var libBindingState: Bool = false

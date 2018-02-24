@@ -127,7 +127,7 @@ class WLANBindingViewController: UIViewController {
                     TwTUser.shared.WLANPassword = loginInfo["password"]
                     TwTUser.shared.save()
                     SwiftMessages.showSuccessMessage(body: "绑定成功！")
-                    NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("tjuwlan", true))
+                    NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("WLAN", true))
                     self.dismiss(animated: true, completion: nil)
                     print("TJUBindingState:")
                     print(TwTUser.shared.tjuBindingState)

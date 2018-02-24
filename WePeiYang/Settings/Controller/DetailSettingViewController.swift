@@ -8,6 +8,8 @@
 
 import UIKit
 import SafariServices
+import StoreKit
+import SwiftMessages
 
 class DetailSettingViewController: UIViewController {
     enum SettingTitle: String {
@@ -35,6 +37,8 @@ class DetailSettingViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.tintColor = .black
         super.viewWillAppear(animated)
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white)!, for: .default)
         self.navigationController?.navigationBar.barStyle = .default
@@ -76,6 +80,7 @@ extension DetailSettingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = titles[indexPath.section].1[indexPath.row].rawValue
+        cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         return cell
     }
 }
@@ -135,13 +140,30 @@ extension DetailSettingViewController: UITableViewDelegate {
             let safariVC = SFSafariViewController(url: URL(string: "https://support.twtstudio.com/category/1/%E5%85%AC%E5%91%8A")!, entersReaderIfAvailable: false)
             safariVC.delegate = self
             self.navigationController?.pushViewController(safariVC, animated: true)
-        case (1, .accounts):
-            return
+        case (1, .feedback):
+            let safariVC = SFSafariViewController(url: URL(string: "https://support.twtstudio.com/category/6/%E7%A7%BB%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF")!, entersReaderIfAvailable: false)
+            safariVC.delegate = self
+            self.navigationController?.pushViewController(safariVC, animated: true)
 
         case (2, .share):
-            return
+            let shareVC = UIActivityViewController(activityItems: [UIImage(named: "AppIcon40x40")!, "我发现「微北洋」超好用！一起来吧！", URL(string: "https://mobile.twt.edu.cn/wpy/index.html")!], applicationActivities: [])
+            // TODO: iPad
+//            if let popoverPresentationController = shareVC.popoverPresentationController {
+//                popoverPresentationController.barButtonItem
+//                popoverPresentationController.permittedArrowDirections = .up
+//            }
+            self.present(shareVC, animated: true, completion: nil)
         case (2, .rate):
-            return
+            let appid = "785509141"
+            let storeVC = SKStoreProductViewController()
+            storeVC.delegate = self
+            storeVC.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: appid], completionBlock: { (result, error) in
+                if let error = error {
+                    SwiftMessages.showErrorMessage(body: error.localizedDescription)
+                } else {
+                    self.present(storeVC, animated: true, completion: nil)
+                }
+            })
         case (2, .quit):
             let alert = UIAlertController(title: "确定要退出吗？", message: nil, preferredStyle: .alert)
             let okAction = UIAlertAction(title: "好的", style: .destructive, handler: { (result) in
@@ -165,5 +187,11 @@ extension DetailSettingViewController: UITableViewDelegate {
 extension DetailSettingViewController: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         controller.navigationController?.popViewController(animated: true)
+    }
+}
+
+extension DetailSettingViewController: SKStoreProductViewControllerDelegate {
+    func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
+        viewController.dismiss(animated: true, completion: nil)
     }
 }

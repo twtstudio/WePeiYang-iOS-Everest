@@ -67,6 +67,7 @@ class ClassTableCard: CardView {
 extension ClassTableCard {
     override func refresh() {
         super.refresh()
+        self.setState(.loading("加载中...", .darkGray))
 
         CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
             guard let table = Mapper<ClassTableModel>().map(JSONString: string) else {

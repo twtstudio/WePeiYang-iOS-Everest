@@ -149,6 +149,7 @@ class GPAViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.tintColor = .white
 //        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -163,7 +164,6 @@ class GPAViewController: UIViewController {
 //        self.navigationController?.navigationBar.tintColor = UIColor.gpaPink
 
         // set termSwitchView
-        self.navigationController?.navigationBar.tintColor = .white
         termSwitchView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: 60)
         termLabel.center = termSwitchView.center
         termSwitchView.addSubview(termLabel)
@@ -282,7 +282,9 @@ class GPAViewController: UIViewController {
                 }
 //                CacheManager.saveGroupCache(with: model.toJSON(), key: GPAKey)
             }
+            SwiftMessages.showSuccessMessage(body: "刷新成功")
         }, failure: { error in
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
             print(error)
         })
     }

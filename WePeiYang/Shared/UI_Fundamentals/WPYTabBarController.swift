@@ -28,8 +28,7 @@ class WPYTabBarController: UITabBarController {
         
         tabBar.isTranslucent = false
 
-        // FIXME: 动画
-//        delegate = tabBarVCDelegate
+        delegate = tabBarVCDelegate
 
         selectedIndex = 0
         tabBar.backgroundColor = Metadata.Color.GlobalTabBarBackgroundColor

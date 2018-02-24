@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        TwTUser.shared.load() // load token and so on
         TwTUser.shared.load(success: {
             UIApplication.shared.applicationIconBadgeNumber = 0
+            // FIXME: 没有加载成功
+            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
             AccountManager.getSelf(success: nil, failure: nil)
         }, failure: {
             // 让他重新登录
