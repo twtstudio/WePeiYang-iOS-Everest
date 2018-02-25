@@ -133,7 +133,7 @@ class LibraryBindingViewController: UIViewController {
                 }
             }, failure: { error in
                 
-                print(error)
+                debugLog(error)
                 print("Failed")
                 SwiftMessages.showErrorMessage(body: error.localizedDescription)
             })
@@ -169,7 +169,7 @@ class LibraryBindingViewController: UIViewController {
             }
         }, failure: { error in
             
-            print(error)
+            debugLog(error)
             print("Failed")
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
 

@@ -182,7 +182,7 @@ struct AccountManager {
             }
         }, failure: { error in
             // FIXME: 错误
-            print(error)
+            debugLog(error)
             failure?()
         })
     }

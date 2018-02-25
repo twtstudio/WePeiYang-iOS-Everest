@@ -24,7 +24,9 @@ class FavViewController: UIViewController {
     var cellHeights: [CGFloat] = []
 
     override func viewWillAppear(_ animated: Bool) {
-        //        super.viewWillAppear(animated)
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
         //
         //        navigationController?.navigationBar.barStyle = .black
         //        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
@@ -89,6 +91,7 @@ class FavViewController: UIViewController {
         titleLabel.sizeToFit()
         headerView.addSubview(titleLabel)
         NotificationCenter.default.addObserver(forName: NotificationName.NotificationCardWillRefresh.name, object: nil, queue: nil, using: { notification in
+            // 这个地方很丑陋
             if let info = notification.userInfo,
                 let name = info["name"] as? String,
                 let height = info["height"] as? CGFloat,
@@ -126,6 +129,8 @@ class FavViewController: UIViewController {
                 self.cardTableView.reloadData()
                 self.cardTableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.middle, animated: true)
                 //                self.cardTableView.reloadRows(at: [indexPath], with: .automatic)
+            } else {
+                self.refreshCards(info: notification)
             }
         })
         // init Cards
@@ -232,10 +237,6 @@ extension FavViewController: UITableViewDataSource {
 
         return cell!
     }
-}
-
-extension FavViewController {
-    // TODO: gpa card generator
 }
 
 extension FavViewController: UITableViewDelegate {

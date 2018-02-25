@@ -369,7 +369,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             self.navigationController?.pushViewController(successVC, animated: true)
         }, failure: { error
             in
-            print(error)
+            debugLog(error)
         })
         //        }
         print(markDict)

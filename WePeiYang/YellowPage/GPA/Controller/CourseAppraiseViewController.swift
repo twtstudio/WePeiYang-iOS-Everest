@@ -194,5 +194,8 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
     @objc func handleTap(sender: UITapGestureRecognizer) {
         tableView.endEditing(true)
     }
-    
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }

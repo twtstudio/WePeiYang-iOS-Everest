@@ -180,22 +180,15 @@ class LoginViewController: UIViewController {
 
     // 登录成功
     func extraProcedures() {
+        NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogin.name, object: nil)
         AccountManager.getSelf(success: {
-            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("lib", TwTUser.shared.libBindingState))
-            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("tju", TwTUser.shared.tjuBindingState))
-//            case "lib":
-//            index = 0
-//            case "bike":
-//            index = 1
-//            case "tju":
-//            index = 2
-//            case "WLAN":
+            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
 
         }, failure: nil)
         
         Applicant.sharedInstance.getStudentNumber {
-//            UserDefaults.standard.set(Applicant.sharedInstance.studentNumber, forKey: "studentID")
-//            UserDefaults.standard.set(Applicant.sharedInstance.realName, forKey: "studentName")
+            UserDefaults.standard.set(Applicant.sharedInstance.studentNumber, forKey: "studentID")
+            UserDefaults.standard.set(Applicant.sharedInstance.realName, forKey: "studentName")
 //            //log.word("fuckin awesome")/
         }
 

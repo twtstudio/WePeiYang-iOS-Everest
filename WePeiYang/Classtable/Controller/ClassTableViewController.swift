@@ -202,21 +202,17 @@ class ClassTableViewController: UIViewController {
     }
     
     func loadCache() {
-        guard CacheManager.fileExists(filename: "classtable/classtable.json", in: .group) else {
-            return
-        }
-        
         CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
             if let table = Mapper<ClassTableModel>().map(JSONString: string) {
-                    self.table = table
+                self.table = table
 
                 let courses = self.getCourse(table: table, week: self.currentWeek)
                 let now = Date()
                 let termStart = Date(timeIntervalSince1970: Double(table.termStart))
                 let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
-                    self.listView.load(courses: courses, weeks: 0)
-                    self.currentWeek = Int(week)
-                    self.currentDisplayWeek = Int(week)
+                self.listView.load(courses: courses, weeks: 0)
+                self.currentWeek = Int(week)
+                self.currentDisplayWeek = Int(week)
             }
         }, failure: {
 
@@ -228,6 +224,14 @@ class ClassTableViewController: UIViewController {
             // 存起来
 //            let dic = table.toJSON()
 //            CacheManager.saveGroupCache(with: dic, key: ClassTableKey)
+            if let oldTable = self.table {
+                // 如果有 table
+                if oldTable.updatedAt >= table.updatedAt {
+                    // 如果新的还不如旧的
+                    // 那就不刷新
+                    return
+                }
+            }
             let string = table.toJSONString() ?? ""
             CacheManager.store(object: string, in: .group, as: "classtable/classtable.json")
             self.table = table
@@ -242,7 +246,7 @@ class ClassTableViewController: UIViewController {
             // 和本周的差距
             self.listView.load(courses: courses, weeks: 0)
         }, failure: { errorMessage in
-            print(errorMessage)
+            SwiftMessages.showErrorMessage(body: errorMessage)
         })
     }
     
@@ -252,9 +256,18 @@ class ClassTableViewController: UIViewController {
         navigationController?.navigationBar.tintColor = UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)
         navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.setNavigationBarHidden(false, animated: animated)
         self.navigationController?.navigationBar.barStyle = .default
         self.navigationController?.navigationBar.isTranslucent = false
+    }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
     }
 }
 

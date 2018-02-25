@@ -9,9 +9,9 @@
 import UIKit
 
 // TODO: Codable
-class TwTUser: NSObject, Codable {
+class TwTUser: Codable {
     static var shared = TwTUser()
-    private override init() {}
+    private init() {}
     var token: String?
     var username: String = ""
 //    var libraryState: Bool = false
@@ -28,20 +28,30 @@ class TwTUser: NSObject, Codable {
     var realname: String?
     
     func save() {
-        CacheManager.store(object: self, in: .group, as: "user.json")
+//        CacheManager.store(object: self, in: .group, as: "user.json")
+        Storage.store(self, in: .group, as: "user.json")
     }
 
     func load(success: (()->())?, failure: (()->())?) {
-        CacheManager.retreive("user.json", from: .group, as: TwTUser.self, success: { user in
-            TwTUser.shared = user
-            success?()
-        }, failure: {
+        guard Storage.fileExists("user.json", in: .group) else {
             failure?()
-        })
+            return
+        }
+
+        let user = Storage.retreive("user.json", from: .group, as: TwTUser.self)
+        TwTUser.shared = user
+        success?()
+//        CacheManager.retreive("user.json", from: .group, as: TwTUser.self, success: { user in
+//            TwTUser.shared = user
+//            success?()
+//        }, failure: {
+//            failure?()
+//        })
     }
 
     func delete() {
         CacheManager.clear(directory: .group)
+        Storage.remove("user.json", from: .group)
         TwTUser.shared = TwTUser()
     }
 }

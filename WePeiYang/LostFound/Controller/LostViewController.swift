@@ -89,7 +89,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
             
             
             , failure: { error in
-                print(error)
+                debugLog(error)
             } )
     }
     
@@ -113,7 +113,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
             self.lostView.reloadData()
         
         }, failure: { error in
-            print(error)
+            debugLog(error)
         
         
         })
@@ -136,7 +136,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
             
         
         }, failure: { error in
-            print(error)
+            debugLog(error)
         
         })
 

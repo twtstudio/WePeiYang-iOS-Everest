@@ -63,32 +63,28 @@ class YellowPageMainViewController: UIViewController {
         //MsgDisplay.showLoading()
 
         PhoneBook.shared.load(success: {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }, failure: {
             PhoneBook.checkVersion {
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+                self.tableView.reloadData()
             }
         })
+
+//        UIView.performWithoutAnimation {
+//            self.tableView.reloadSections([1], with: .none)
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        DispatchQueue.main.async {
-            UIView.performWithoutAnimation {
-                self.tableView.reloadSections([1], with: .none)
-            }
-        }
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(red: 0.1059, green: 0.6352, blue: 0.9019, alpha: 1)), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.barStyle = .black
         self.navigationController!.navigationBar.tintColor = .white
     }
-    
+
     @objc func searchToggle() {
         let searchVC = YellowPageSearchViewController()
         self.present(searchVC, animated: true, completion: nil)
@@ -226,9 +222,9 @@ extension YellowPageMainViewController: UITableViewDelegate {
         case 1: // favorite
             if indexPath.row == 0 {
                 self.shouldLoadFavorite = !self.shouldLoadFavorite
-//                DispatchQueue.main.sync {
-                    tableView.reloadSections([1], with: .automatic)
-//                }
+                tableView.reloadData()
+                // xxx
+//                    tableView.reloadSections([1], with: .none)
             } else {
                 // toggle phone call
             }
@@ -246,7 +242,9 @@ extension YellowPageMainViewController: UITableViewDelegate {
                 }
                 //                DispatchQueue.main.sync {
                     // reload data
-                    self.tableView.reloadSections([indexPath.section], with: .automatic)
+                tableView.reloadData()
+                // xxx
+//                    self.tableView.reloadSections([indexPath.section], with: .none)
                     tableView.scrollToRow(at: IndexPath(row: 0, section: indexPath.section), at: .top, animated: true)
 //               }
             } else {
@@ -288,6 +286,7 @@ extension YellowPageMainViewController: UITableViewDelegate {
         // FIXME: setBarColor
         self.navigationController?.navigationBar.isTranslucent = UINavigationBar.appearance().isTranslucent
         self.navigationController?.navigationBar.shadowImage = UINavigationBar.appearance().shadowImage
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     

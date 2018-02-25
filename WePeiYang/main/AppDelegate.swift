@@ -28,7 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIApplication.shared.applicationIconBadgeNumber = 0
             // FIXME: 没有加载成功
             NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
-            AccountManager.getSelf(success: nil, failure: nil)
+            AccountManager.getSelf(success:{
+//                NotificationCenter.default.post(name: NotificationName.NotificationCardWillRefresh.name, object: nil)
+            }, failure: nil)
         }, failure: {
             // 让他重新登录
         })
@@ -84,12 +86,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 try Network.reachability?.start()
             } catch let error as Network.Error {
-                print(error)
+                debugLog(error)
             } catch {
-                print(error)
+                debugLog(error)
             }
         } catch {
-            print(error)
+            debugLog(error)
         }
             
         return true

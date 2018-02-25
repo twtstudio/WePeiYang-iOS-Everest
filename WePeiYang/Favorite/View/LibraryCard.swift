@@ -214,14 +214,15 @@ extension LibraryCard {
     }
 
     func refresh(sender: CardButton) {
+        setState(.loading("加载中...", .darkGray))
         getBooks(success: {
+            self.setState(.data)
             SwiftMessages.showSuccessMessage(body: "刷新成功")
         })
     }
 
     func toggle(sender: CardButton) {
         // TODO: 没有数据时
-
         var height: CGFloat = 0
         if sender.tag == 0 {
             // 展开

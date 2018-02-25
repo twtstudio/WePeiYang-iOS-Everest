@@ -149,6 +149,7 @@ class GPAViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         self.navigationController?.navigationBar.tintColor = .white
 //        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -285,7 +286,7 @@ class GPAViewController: UIViewController {
             SwiftMessages.showSuccessMessage(body: "刷新成功")
         }, failure: { error in
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
-            print(error)
+            debugLog(error)
         })
     }
     
@@ -342,6 +343,10 @@ class GPAViewController: UIViewController {
 //        lineChartView.highlightValue(x: 0, dataSetIndex: 0)
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     @objc func segmentValueChanged(sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             sortMethod = .scoreFirst
@@ -349,7 +354,7 @@ class GPAViewController: UIViewController {
             sortMethod = .creditFirst
         }
     }
-    
+
     func setupLineChartView() {
         // 这里为了曲线上点不出现在屏幕边缘做了一些处理
         // 向最前和最后插入一个元素
@@ -413,6 +418,8 @@ class GPAViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
 //        self.navigationController?.navigationBar.shadowImage = UIImage()
 //        self.navigationController?.navigationBar.isTranslucent = true

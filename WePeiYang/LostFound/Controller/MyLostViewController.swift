@@ -67,7 +67,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             
         }, failure: {error in
-            print(error)
+            debugLog(error)
             
         })
         
@@ -185,7 +185,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.refresh()
             
         }, failure: { error in
-            print(error)
+            debugLog(error)
         })
         
     }

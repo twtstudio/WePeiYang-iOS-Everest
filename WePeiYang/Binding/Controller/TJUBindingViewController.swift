@@ -129,7 +129,7 @@ class TJUBindingViewController: UIViewController {
                 }
             }, failure: { error in
                 
-                print(error)
+                debugLog(error)
                 print("Failed")
                 SwiftMessages.showErrorMessage(body: error.localizedDescription)
 
@@ -171,7 +171,7 @@ class TJUBindingViewController: UIViewController {
             }
         }, failure: { error in
             
-            print(error)
+            debugLog(error)
             print("Failed")
             self.dismiss(animated: true, completion: nil)
             

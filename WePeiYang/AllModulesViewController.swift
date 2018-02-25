@@ -27,12 +27,7 @@ class AllModulesViewController: UIViewController {
     //    override var preferredStatusBarStyle: UIStatusBarStyle {
     //        return .lightContent
     //    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        super.viewWillAppear(animated)
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // 3D Touch
@@ -67,10 +62,23 @@ class AllModulesViewController: UIViewController {
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.alpha = 0
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
 }
 

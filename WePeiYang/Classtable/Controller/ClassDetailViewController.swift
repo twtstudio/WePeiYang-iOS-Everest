@@ -23,6 +23,7 @@ class ClassDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "课程详情"
+        self.navigationController?.navigationBar.tintColor = UIColor(red:0.19, green:0.69, blue:0.92, alpha:1.00)
         tableView = UITableView(frame: self.view.bounds, style: .grouped)
         tableView.separatorStyle = .none
         tableView.delegate = self
@@ -42,7 +43,10 @@ class ClassDetailViewController: UIViewController {
         headerView.backgroundColor = .white
 //        footerView = UIView()
 
-        let course = courses.first!
+        guard let course = courses.first else {
+            SwiftMessages.showErrorMessage(body: "数据解析错误😟，请稍后再试")
+            return
+        }
         let titleLabel = UILabel()
         titleLabel.textColor = UIColor.darkGray
         titleLabel.font = UIFont.systemFont(ofSize: 18)

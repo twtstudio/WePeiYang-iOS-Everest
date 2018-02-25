@@ -138,7 +138,7 @@ class DetailViewController: UIViewController {
             
         
         }, failure: { error in
-            print(error)
+            debugLog(error)
         
         
         })

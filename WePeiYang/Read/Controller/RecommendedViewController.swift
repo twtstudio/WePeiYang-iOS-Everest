@@ -277,6 +277,10 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
             self.present(safariController, animated: true, completion: nil)
 //            presentViewController(safariController, animated: true, completion: nil)
         } else {
+            if let url = URL(string: Recommender.shared.bannerList[pageControl.currentPage].url) {
+                let safariVC = SFSafariViewController(url: url)
+                self.navigationController?.pushViewController(safariVC, animated: true)
+            }
             // FIXME: web app
 //            let webController = WebAppViewController(address: Recommender.shared.bannerList[pageControl.currentPage].url)
 //            self.navigationController?.pushViewController(webController, animated: true)

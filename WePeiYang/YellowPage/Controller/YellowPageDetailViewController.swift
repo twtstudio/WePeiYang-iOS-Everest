@@ -42,6 +42,16 @@ class YellowPageDetailViewController: UIViewController {
             make.top.bottom.left.right.equalToSuperview()
         }
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        super.viewWillAppear(animated)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewDidDisappear(animated)
+    }
 }
 
 extension YellowPageDetailViewController: UITableViewDataSource {

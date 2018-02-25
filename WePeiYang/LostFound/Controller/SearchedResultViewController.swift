@@ -57,7 +57,7 @@ class SearchedResultViewController: UIViewController, UICollectionViewDelegate, 
             self.searchedView.reloadData()
             
         }, failure: { error in
-            print(error)
+            debugLog(error)
             
         })
     }
@@ -73,7 +73,7 @@ class SearchedResultViewController: UIViewController, UICollectionViewDelegate, 
             self.searchedView.reloadData()
             
         }, failure: { error in
-            print(error)
+            debugLog(error)
             
             
         })
@@ -96,7 +96,7 @@ class SearchedResultViewController: UIViewController, UICollectionViewDelegate, 
             
             
         }, failure: { error in
-            print(error)
+            debugLog(error)
             
         })
         

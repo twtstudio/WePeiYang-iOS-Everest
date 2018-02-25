@@ -57,7 +57,7 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
             self.foundView.reloadData()
             
         }, failure: { error in
-            print(error)
+            debugLog(error)
             
         })
     }
@@ -73,7 +73,7 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
             self.foundView.reloadData()
             
         }, failure: { error in
-            print(error)
+            debugLog(error)
             
             
         })
@@ -96,7 +96,7 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             
         }, failure: { error in
-            print(error)
+            debugLog(error)
             
         })
         

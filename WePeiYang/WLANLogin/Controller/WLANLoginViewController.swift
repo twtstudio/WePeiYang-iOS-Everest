@@ -24,12 +24,23 @@ class WLANLoginViewController: WMPageController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.barTintColor = UIColor(hex6: 0x00a1e9)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(hex6: 0x00a1e9))!, for: .default)
+//        self.navigationController?.navigationBar.barTintColor = UIColor(hex6: 0x00a1e9)
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-    
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

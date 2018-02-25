@@ -55,9 +55,13 @@ class SettingsViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.navigationBar.isTranslucent = false
-//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
     
     override func viewDidLoad() {
@@ -67,8 +71,8 @@ class SettingsViewController: UIViewController {
         //Changing NavigationBar Title color
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Metadata.Color.naviTextColor]
         // This is for removing the dark shadows when transitioning
-        navigationController?.navigationBar.isTranslucent = false
-        
+//        navigationController?.navigationBar.isTranslucent = false
+
         navigationItem.title = "设置"
         
         view.backgroundColor = Metadata.Color.GlobalViewBackgroundColor
@@ -174,42 +178,18 @@ class SettingsViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             }
         }, failure: { error in
-            print(error)
+            debugLog(error)
             print("Failed")
             self.dismiss(animated: true, completion: nil)
         })
     }
     
     @objc func bindingStatusDidChange(notification: Notification) {
-//        let notificationTuple: (String, Bool) = notification.object as! (String, Bool)
-//        let bindingType: String = notificationTuple.0
-//        let status: Bool = notificationTuple.1
-//        var index: Int
-
-//        switch bindingType {
-//        case "lib":
-//            index = 0
-//        case "bike":
-//            index = 1
-//        case "tju":
-//            index = 2
-//        case "WLAN":
-//            index = 3
-//        case "reload":
-//            tableView.reloadData()
-//            return
-//        default:
-//            return
-//        }
-//
-//        if isStatusChanged {
-//        if services[index].status != status {
-//            services[index].status = status
             tableView.reloadData()
-//        }
-//        }
+    }
 
-//         tableView.reloadData()
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
