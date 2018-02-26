@@ -35,6 +35,7 @@ struct Storage {
         if let url = FileManager.default.urls(for: searchDirectory, in: .userDomainMask).first {
             return url
         } else {
+            // 不该错吧...
             fatalError("Could not create URL for specified directory!")
         }
     }
@@ -45,7 +46,7 @@ struct Storage {
     ///   - object: the encodable object to store
     ///   - directory: where to store
     ///   - filename: the name of file
-    static func store<T: Encodable>(_ object: T, in directory: Directory, as filename: String) {
+    static func store<T: Encodable>(_ object: T, in directory: Directory, as filename: String, success: (()->())? = nil, failure: (()->())? = nil) {
         var url = getURL(for: directory)
         var dirs = filename.split(separator: "/")
 
@@ -68,7 +69,8 @@ struct Storage {
             FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
         } catch {
             // FIXME: handle error
-            fatalError(error.localizedDescription)
+            // 我觉得不该错
+//            fatalError(error.localizedDescription)
         }
     }
 
@@ -79,10 +81,11 @@ struct Storage {
     ///   - directory: where to retrieve
     ///   - type: object type
     /// - Returns: decoded struct model(s) of data
-    static func retreive<T: Decodable>(_ filename: String, from directory: Directory, as type: T.Type) -> T {
+    static func retreive<T: Decodable>(_ filename: String, from directory: Directory, as type: T.Type) -> T? {
         let url = getURL(for: directory).appendingPathComponent(filename, isDirectory: false)
         if !FileManager.default.fileExists(atPath: url.path) {
-            fatalError("error: \(filename) does not exist")
+            return nil
+//            fatalError("error: \(filename) does not exist")
         }
 
         if let data = FileManager.default.contents(atPath: url.path) {
@@ -91,12 +94,14 @@ struct Storage {
                 let model = try decoder.decode(type, from: data)
                 return model
             } catch {
+                return nil
                 // FIXME: handle error
-                fatalError("error decode data")
+//                fatalError("error decode data")
             }
         } else {
             // FIXME: handle error
-            fatalError("error decode data")
+//            fatalError("error decode data")
+            return nil
         }
     }
 

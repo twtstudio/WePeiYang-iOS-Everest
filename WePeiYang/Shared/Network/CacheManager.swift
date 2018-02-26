@@ -130,7 +130,7 @@ struct CacheManager {
             let newFilename = TwTUser.shared.schoolID + "/" + filename
             let obj = Storage.retreive(newFilename, from: directory, as: [String: T].self)
             DispatchQueue.main.async {
-                if let object = obj["com.wpy.cache"] {
+                if let obj = obj, let object = obj["com.wpy.cache"] {
                     success(object)
                 } else {
                     failure?()

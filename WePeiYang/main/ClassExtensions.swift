@@ -491,3 +491,17 @@ extension Encodable {
         return String(data: try self.jsonData(), encoding: .utf8)
     }
 }
+
+extension CGFloat {
+    static var iPhoneSEWidth: CGFloat {
+        return 320
+    }
+
+    static var iPhone8Width: CGFloat {
+        return 375
+    }
+
+    static var iPhone8PlusWidth: CGFloat {
+        return 414
+    }
+}

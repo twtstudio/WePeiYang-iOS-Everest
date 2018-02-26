@@ -39,7 +39,9 @@ class TwTUser: Codable {
         }
 
         let user = Storage.retreive("user.json", from: .group, as: TwTUser.self)
-        TwTUser.shared = user
+        if let user = user {
+            TwTUser.shared = user
+        }
         success?()
 //        CacheManager.retreive("user.json", from: .group, as: TwTUser.self, success: { user in
 //            TwTUser.shared = user

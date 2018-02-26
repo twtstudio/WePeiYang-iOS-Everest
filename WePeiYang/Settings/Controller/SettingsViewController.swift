@@ -45,6 +45,9 @@ class SettingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
         tableView.reloadData()
         //        navigationController?.navigationBar.barStyle = .black
         //        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor

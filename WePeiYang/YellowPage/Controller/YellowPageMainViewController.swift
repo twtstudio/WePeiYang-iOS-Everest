@@ -284,8 +284,8 @@ extension YellowPageMainViewController: UITableViewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // FIXME: setBarColor
-        self.navigationController?.navigationBar.isTranslucent = UINavigationBar.appearance().isTranslucent
-        self.navigationController?.navigationBar.shadowImage = UINavigationBar.appearance().shadowImage
+//        self.navigationController?.navigationBar.isTranslucent = UINavigationBar.appearance().isTranslucent
+//        self.navigationController?.navigationBar.shadowImage = UINavigationBar.appearance().shadowImage
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     

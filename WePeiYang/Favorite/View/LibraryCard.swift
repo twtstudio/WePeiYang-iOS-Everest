@@ -57,6 +57,7 @@ class LibraryCard: CardView {
 
     override func layout(rect: CGRect) {
         super.layout(rect: rect)
+        remakeConstraints()
     }
 
     func remakeConstraints() {
@@ -67,6 +68,11 @@ class LibraryCard: CardView {
             make.top.equalToSuperview().offset(padding)
             make.width.equalTo(200)
             make.height.equalTo(30)
+        }
+
+        var divideSpacing: CGFloat = 30
+        if UIScreen.main.bounds.width <= .iPhoneSEWidth {
+            divideSpacing = 12
         }
 
         let height = self.height - 125
@@ -86,7 +92,7 @@ class LibraryCard: CardView {
         }
 
         refreshButton.snp.remakeConstraints { make in
-            make.right.equalTo(renewButton.snp.left).offset(-30)
+            make.right.equalTo(renewButton.snp.left).offset(-divideSpacing)
             make.width.equalTo(refreshButton.width)
             make.height.equalTo(refreshButton.height)
             make.top.equalTo(tableView.snp.bottom).offset(10)
@@ -94,7 +100,7 @@ class LibraryCard: CardView {
         }
 
         toggleButton.snp.remakeConstraints { make in
-            make.left.equalTo(renewButton.snp.right).offset(30+(refreshButton.width-toggleButton.width)/2)
+            make.left.equalTo(renewButton.snp.right).offset(divideSpacing+(refreshButton.width-toggleButton.width)/2)
 //            make.left.equalTo(renewButton.snp.right).offset(30)
             make.width.equalTo(toggleButton.width)
             make.height.equalTo(toggleButton.height)
@@ -102,10 +108,10 @@ class LibraryCard: CardView {
             make.bottom.equalToSuperview().offset(-10)
         }
 
-        blankView.snp.makeConstraints { make in
+        blankView.snp.remakeConstraints { make in
             make.top.equalTo(tableView.snp.top)
-            make.left.equalTo(tableView.snp.left)
-            make.right.equalTo(tableView.snp.right)
+            make.left.equalTo(refreshButton.snp.left)
+            make.right.equalTo(toggleButton.snp.right)
             make.bottom.equalTo(toggleButton.snp.bottom)
         }
 //        contentView.setNeedsUpdateConstraints()
@@ -214,7 +220,6 @@ extension LibraryCard {
     }
 
     func refresh(sender: CardButton) {
-        setState(.loading("加载中...", .darkGray))
         getBooks(success: {
             self.setState(.data)
             SwiftMessages.showSuccessMessage(body: "刷新成功")

@@ -9,7 +9,7 @@
 
 import UIKit
 
-let bigiPhoneWidth: CGFloat = 375.0
+private let bigiPhoneWidth: CGFloat = 375.0
 
 class BookShelfViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var bookShelf: [MyBook] = []
