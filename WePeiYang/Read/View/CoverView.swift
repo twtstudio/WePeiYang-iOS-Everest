@@ -304,7 +304,7 @@ private extension UIButton {
 
 
 extension CoverView: UIWebViewDelegate {
-    func presentRateView() {
+    @objc func presentRateView() {
         let rateView = RateView(rating: 3.0, id: "\(book.id)")
         //self.addSubview(rateView)
         
@@ -336,14 +336,14 @@ extension CoverView: UIWebViewDelegate {
         UIViewController.current?.navigationItem.setHidesBackButton(false, animated: true)
     }
     
-    func favourite() {
+    @objc func favourite() {
         User.shared.addFavorite(id: "\(self.book.id)") {
 //            MsgDisplay.showSuccessMsg("添加成功")
         }
         //Call `favourite` method of a user
     }
     
-    func tapToSeeMore() {
+    @objc func tapToSeeMore() {
         
         let blurEffect = UIBlurEffect(style: .light)
         let frostView = UIVisualEffectView(effect: blurEffect)
@@ -392,7 +392,7 @@ extension CoverView: UIWebViewDelegate {
 //        summaryDetailView.addGestureRecognizer(tap)
     }
     
-    func tapAgainToDismiss() {
+    @objc func tapAgainToDismiss() {
         for fooView in (UIViewController.current?.view.subviews)! {
             if fooView is UIVisualEffectView {
                 UIView.animate(withDuration: 0.7, animations: {

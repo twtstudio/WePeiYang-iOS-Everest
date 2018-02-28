@@ -107,7 +107,7 @@ class MarkCustomCell: UITableViewCell {
     
     }
  
-    func buttonTapped(sender: UIButton) {
+    @objc func buttonTapped(sender: UIButton) {
         
         
         if let title = sender.titleLabel?.text {
@@ -130,9 +130,7 @@ class MarkCustomCell: UITableViewCell {
                     
                 }
                 
-                
-                print(self.delegate?.function)
-                
+                                
                 for indexAll in buttonAllArray
                 {
                     indexAll.backgroundColor = UIColor(hex6: 0xd9d9d9)

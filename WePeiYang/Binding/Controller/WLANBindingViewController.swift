@@ -11,8 +11,9 @@ import WMPageController
 import SnapKit
 import Alamofire
 import SafariServices
+import SwiftMessages
 
-class WLANBindingViewController: WMPageController {
+class WLANBindingViewController: UIViewController {
     
     var usernameTextField: UITextField!
     var passwordTextField: UITextField!
@@ -26,7 +27,7 @@ class WLANBindingViewController: WMPageController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = .white
         // Do any additional setup after loading the view.
         
         self.navigationController?.navigationBar.barStyle = .black
@@ -86,12 +87,12 @@ class WLANBindingViewController: WMPageController {
             make.top.equalTo(bindButton.snp.bottom).offset(10)
         }
         
-        dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: self.view.frame.size.height*4.0/5.0, width: 30, height: 20))
+        dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: bindButton.y + bindButton.height + 20, width: 30, height: 20))
         dismissButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
-        dismissButton.setTitleColor(UIColor(hex6: 0xd3d3d3), for: .normal)
+        dismissButton.setTitleColor(UIColor.gray, for: .normal)
         dismissButton.setTitle("暂不绑定", for: .normal)
         dismissButton.sizeToFit()
-        dismissButton.center = CGPoint(x: self.view.center.x, y: self.view.frame.height*4.8/5)
+        dismissButton.center = CGPoint(x: self.view.center.x, y: bindButton.y + bindButton.height + 20)
         dismissButton.addTarget(self, action: #selector(dismissBinding), for: .touchUpInside)
         self.view.addSubview(dismissButton)
         
@@ -107,7 +108,7 @@ class WLANBindingViewController: WMPageController {
         // Dispose of any resources that can be recreated.
     }
     
-    func bind() {
+    @objc func bind() {
         
         if usernameTextField.hasText && passwordTextField.hasText {
             var loginInfo: [String: String] = [String: String]()
@@ -118,47 +119,31 @@ class WLANBindingViewController: WMPageController {
                 
                 print(dictionary)
                 print("Succeeded")
-                guard let errorCode: Int = dictionary["error_code"] as? Int else {
-                    return
+                guard let errorCode: Int = dictionary["error_code"] as? Int,
+                    let errMsg = dictionary["message"] as? String else {
+                        return
                 }
-                
+
                 if errorCode == -1 {
                     TwTUser.shared.tjuBindingState = true
                     TwTUser.shared.WLANAccount = loginInfo["username"]
                     TwTUser.shared.WLANPassword = loginInfo["password"]
                     TwTUser.shared.save()
-                    NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("tjuwlan", true))
+                    SwiftMessages.showSuccessMessage(body: "绑定成功！")
+                    NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("WLAN", true))
                     self.dismiss(animated: true, completion: nil)
                     print("TJUBindingState:")
                     print(TwTUser.shared.tjuBindingState)
                 } else if errorCode == 50002 {
-                    let alert = UIAlertController(title: "密码错误", message: nil, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "好的", style: .default, handler: { (result) in
-                        print("OK")
-                    })
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    SwiftMessages.showErrorMessage(body: "密码错误")
                 } else {
-                    let alert = UIAlertController(title: "未知错误", message: nil, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "好的", style: .default, handler: { (result) in
-                        print("OK")
-                        self.dismiss(animated: true, completion: nil)
-                    })
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
+                    SwiftMessages.showErrorMessage(body: errMsg)
                 }
             }, failure: { error in
-                print(error)
-                print("Failed")
-                self.dismiss(animated: true, completion: nil)
+                SwiftMessages.showErrorMessage(body: error.localizedDescription)
             })
         } else {
-            let alert = UIAlertController(title: "请填写账号和密码", message: nil, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "好的", style: .default, handler: { (result) in
-                print("OK.")
-            })
-            alert.addAction(okAction)
-            self.present(alert, animated: true, completion: nil)
+            SwiftMessages.showWarningMessage(body: "请填写账号和密码")
         }
     }
     
@@ -173,38 +158,34 @@ class WLANBindingViewController: WMPageController {
             
             print(dictionary)
             print("Succeeded")
-            guard let errorCode: Int = dictionary["error_code"] as? Int else {
-                return
+            guard let errorCode: Int = dictionary["error_code"] as? Int,
+                let errMsg = dictionary["message"] as? String else {
+                    return
             }
-            
+
             if errorCode == -1 {
                 TwTUser.shared.tjuBindingState = false
                 TwTUser.shared.save()
+                SwiftMessages.showSuccessMessage(body: "解绑成功！")
                 self.dismiss(animated: true, completion: nil)
                 print("TJUBindingState:")
                 print(TwTUser.shared.tjuBindingState)
             } else {
-                let alert = UIAlertController(title: "未知错误", message: nil, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "好的", style: .default, handler: { (result) in
-                    print("OK.")
-                })
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
+                SwiftMessages.showErrorMessage(body: errMsg)
             }
         }, failure: { error in
             
-            print(error)
+            debugLog(error)
             print("Failed")
-            self.dismiss(animated: true, completion: nil)
-            
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
     }
     
-    func dismissBinding() {
+    @objc func dismissBinding() {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func showService() {
+    @objc func showService() {
         if let url = URL(string: "http://202.113.4.11/") {
             if #available(iOS 11.0, *) {
                 let config = SFSafariViewController.Configuration()

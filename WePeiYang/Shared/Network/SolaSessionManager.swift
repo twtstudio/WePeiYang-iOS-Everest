@@ -30,10 +30,9 @@ struct SolaSessionManager {
     ///   - parameters: http parameters
     ///   - success: callback if request succeeds
     ///   - failure: callback if request fails
-    static func solaSession(type: SessionType = .get, baseURL: String = TWT_ROOT_URL, url: String, token: String? = nil, parameters: Dictionary<String, String>? = nil, success: ((Dictionary<String, AnyObject>)->())? = nil, failure: ((Error)->())? = nil) {
+    static func solaSession(type: SessionType = .get, baseURL: String = TWT_ROOT_URL, url: String, token: String? = nil, parameters: Dictionary<String, String>? = nil, success: ((Dictionary<String, Any>)->())? = nil, failure: ((Error)->())? = nil) {
         
         let fullurl = baseURL + url
-        print(fullurl)
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
         var para = parameters ?? Dictionary<String, String>()
         para["t"] = timeStamp
@@ -80,17 +79,19 @@ struct SolaSessionManager {
             switch response.result {
             case .success:
                 if let data = response.result.value  {
-                    if let dict = data as? Dictionary<String, AnyObject> {
+                    if let dict = data as? Dictionary<String, Any> {
                         success?(dict)
                     }
                 }
             case .failure(let error):
                 failure?(error)
-                log.error(error)/
                 if let data = response.result.value  {
-                    if let dict = data as? Dictionary<String, AnyObject> {
-                        log.errorMessage(dict["message"] as! String)/
+                    if let dict = data as? [String: Any],
+                    let errmsg = dict["message"] as? String {
+                        print(errmsg)
                     }
+                } else {
+                    print(error)
                 }
             }
         }
@@ -171,7 +172,7 @@ struct SolaSessionManager {
                         }
                         do {
                             let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                            if let dict = json as? Dictionary<String, AnyObject> {
+                            if let dict = json as? Dictionary<String, Any> {
                                 if let err = dict["err"] as? Int, err == 0 {
                                     success?(dict)
                                 } else {
@@ -183,7 +184,7 @@ struct SolaSessionManager {
                             let errMsg = String(data: data, encoding: .utf8)
 //                            HUD.flash(.labeledError(title: errMsg, subtitle: nil), delay: 1.2)
                             failure?(error)
-                            // log.error(error)/
+                            print(errMsg)
                         }
                     })
                 case .failure(let error):
@@ -268,7 +269,7 @@ struct SolaSessionManager {
                     //                        }
                     //                        do {
                     //                            let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                    //                            if let dict = json as? Dictionary<String, AnyObject> {
+                    //                            if let dict = json as? Dictionary<String, Any> {
                     //                                if let err = dict["err"] as? Int, err == 0 {
                     //                                    success?(dict)
                     //                                } else {
@@ -285,7 +286,7 @@ struct SolaSessionManager {
                 //                    })
                 case .failure(let error):
                     failure?(error)
-                    print(error)
+                    debugLog(error)
                 }
             })
         }

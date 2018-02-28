@@ -103,7 +103,7 @@ class Checkbox: UIButton {
         self.addTarget(self, action: #selector(Checkbox.beTapped), for: .touchUpInside)
     }
     
-    func beTapped() {
+    @objc func beTapped() {
         
         if self.belongsToMany {
             self.wasChosen = !self.wasChosen

@@ -26,7 +26,7 @@ class LoginViewController: UIViewController {
         videoPlayer = AVPlayer(url: url!)
         videoPlayer.isMuted = true
         playerLayer = AVPlayerLayer(player: videoPlayer)
-        playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         playerLayer.frame = view.frame
         view.layer.addSublayer(playerLayer)
         videoPlayer.isMuted = true
@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
             let label = UILabel()
             label.text = "微北洋"
             label.textColor = .white
-            label.font = UIFont.systemFont(ofSize: 50, weight: UIFontWeightHeavy)
+            label.font = UIFont.systemFont(ofSize: 50, weight: UIFont.Weight.heavy)
             label.sizeToFit()
             label.center.x = view.center.x
             label.center.y = view.frame.size.height*1/5
@@ -133,7 +133,7 @@ class LoginViewController: UIViewController {
         view.endEditing(true)
     }
     
-    func login() {
+    @objc func login() {
         guard let username = usernameField.text, !username.isEmpty else {
             let view = MessageView.viewFromNib(layout: .cardView)
             view.configureContent(title: "输入错误", body: "用户名不能为空")
@@ -161,7 +161,7 @@ class LoginViewController: UIViewController {
             // FIXME: login success
             self.dismiss(animated: true, completion: nil)
         }, failure: { error in
-            print(error ?? "")
+            SwiftMessages.showErrorMessage(body: error?.localizedDescription ?? "未知错误❌")
         })
     }
     
@@ -169,23 +169,52 @@ class LoginViewController: UIViewController {
         videoPlayer.pause()
     }
     
-    func dismissLogin() {
+    @objc func dismissLogin() {
         dismiss(animated: true, completion: nil)
     }
     
-    func loopVideo() {
+    @objc func loopVideo() {
         videoPlayer.seek(to: CMTime(seconds: 0, preferredTimescale: 1))
         videoPlayer.play()
     }
 
+    // 登录成功
     func extraProcedures() {
-        AccountManager.getSelf(success: nil, failure: nil)
+        NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogin.name, object: nil)
+        AccountManager.getSelf(success: {
+            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
+
+        }, failure: nil)
         
         Applicant.sharedInstance.getStudentNumber {
-//            UserDefaults.standard.set(Applicant.sharedInstance.studentNumber, forKey: "studentID")
-//            UserDefaults.standard.set(Applicant.sharedInstance.realName, forKey: "studentName")
+            UserDefaults.standard.set(Applicant.sharedInstance.studentNumber, forKey: "studentID")
+            UserDefaults.standard.set(Applicant.sharedInstance.realName, forKey: "studentName")
 //            //log.word("fuckin awesome")/
         }
+
+        GPASessionManager.getGPA(success: { model in
+            if let string = model.toJSONString() {
+                CacheManager.store(object: string, in: .group, as: "gpa/gpa.json")
+            }
+        }, failure: { err in
+
+        })
+
+        BicycleUser.sharedInstance.auth {
+            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("bike", TwTUser.shared.bicycleBindingState))
+        }
+
+        ClasstableDataManager.getClassTable(success: { model in
+            if let string = model.toJSONString() {
+                CacheManager.store(object: string, in: .group, as: "classtable/classtable.json")
+            }
+        }, failure: { str in
+            
+        })
+
+
+        // FIXME: 上网状态咋获得?
+//        NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("WLAN", TwTUser.shared.WLANBindingState))
     }
     
     deinit {

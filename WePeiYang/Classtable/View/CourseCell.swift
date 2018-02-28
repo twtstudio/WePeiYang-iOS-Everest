@@ -16,7 +16,7 @@ class CourseCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentView.addSubview(titleLabel)
         self.contentView.addSubview(roomLabel)
-        titleLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightMedium)
+        titleLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
         titleLabel.numberOfLines = 0
         titleLabel.textColor = .white
         titleLabel.sizeToFit()

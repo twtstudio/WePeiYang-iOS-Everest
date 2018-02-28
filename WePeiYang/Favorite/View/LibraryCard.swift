@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import SwiftMessages
 
 class LibraryCard: CardView {
     let titleLabel = UILabel()
@@ -20,79 +21,38 @@ class LibraryCard: CardView {
         super.initialize()
         
         self.backgroundColor = .white
-        let padding: CGFloat = 20
-        
+
         titleLabel.text = "图书馆"
-        titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFontWeightSemibold)
+        titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.semibold)
         titleLabel.textColor = .black
         contentView.addSubview(titleLabel)
         titleLabel.sizeToFit()
-//        titleLabel.snp.makeConstraints { make in
-//            make.left.equalToSuperview().offset(padding)
-//            make.top.equalToSuperview().offset(padding)
-//            make.width.equalTo(200)
-//            make.height.equalTo(30)
-//        }
 
         tableView.rowHeight = 50
         tableView.delegate = self
         tableView.dataSource = self
         tableView.isScrollEnabled = false
-//        (tableView as UIScrollView).isScrollEnabled = false
+        tableView.allowsSelection = false
         contentView.addSubview(tableView)
-//        tableView.snp.makeConstraints { make in
-//            make.centerX.equalToSuperview()
-//            make.top.equalTo(titleLabel.snp.bottom).offset(20)
-//            make.width.equalToSuperview().multipliedBy(0.9)
-//            make.height.equalTo(132)
-////            make.height.equalToSuperview().offset(-30)
-////            make.bottom.equalToSuperview().offset(-padding)
-//        }
+
         contentView.addSubview(renewButton)
         renewButton.setTitle("一键续借")
         renewButton.layer.cornerRadius = renewButton.height/2
-//        renewButton.snp.makeConstraints { make in
-//            make.centerX.equalToSuperview()
-//            make.width.equalTo(renewButton.width)
-//            make.height.equalTo(renewButton.height)
-//            make.top.equalTo(tableView.snp.bottom).offset(10)
-//            make.bottom.equalToSuperview().offset(-10)
-//        }
         renewButton.tapAction = renew
 
         contentView.addSubview(refreshButton)
         refreshButton.setTitle("刷新")
         refreshButton.layer.cornerRadius = refreshButton.height/2
-//        refreshButton.snp.makeConstraints { make in
-//            make.right.equalTo(renewButton.snp.left).offset(-30)
-//            make.width.equalTo(refreshButton.width)
-//            make.height.equalTo(refreshButton.height)
-//            make.top.equalTo(tableView.snp.bottom).offset(10)
-//            make.bottom.equalToSuperview().offset(-10)
-//        }
         refreshButton.tapAction = refresh
 
         contentView.addSubview(toggleButton)
         toggleButton.setTitle("展开")
         toggleButton.tag = 0
         toggleButton.layer.cornerRadius = toggleButton.height/2
-//        toggleButton.snp.makeConstraints { make in
-//            make.left.equalTo(renewButton.snp.right).offset(30)
-//            make.width.equalTo(toggleButton.width)
-//            make.height.equalTo(toggleButton.height)
-//            make.top.equalTo(tableView.snp.bottom).offset(10)
-//            make.bottom.equalToSuperview().offset(-10)
-//        }
-
         toggleButton.tapAction = toggle
 
-//        self.height = 162
         self.height = 240
         remakeConstraints()
-        // 其实是高度
-//        let info: [String : Any] = ["name": "Library", "height": 260 as CGFloat]
-//        NotificationCenter.default.post(name: NotificationName.NotificationCardWillRefresh.name, object: nil, userInfo: info)
-//        self.tag = 260
     }
 
     override func layout(rect: CGRect) {
@@ -134,19 +94,29 @@ class LibraryCard: CardView {
         }
 
         toggleButton.snp.remakeConstraints { make in
-            make.left.equalTo(renewButton.snp.right).offset(30)
+            make.left.equalTo(renewButton.snp.right).offset(30+(refreshButton.width-toggleButton.width)/2)
+//            make.left.equalTo(renewButton.snp.right).offset(30)
             make.width.equalTo(toggleButton.width)
             make.height.equalTo(toggleButton.height)
             make.top.equalTo(tableView.snp.bottom).offset(10)
             make.bottom.equalToSuperview().offset(-10)
         }
 
-        setNeedsDisplay()
-//        super.draw(self.frame)
-    }
+        blankView.snp.makeConstraints { make in
+            make.top.equalTo(tableView.snp.top)
+            make.left.equalTo(tableView.snp.left)
+            make.right.equalTo(tableView.snp.right)
+            make.bottom.equalTo(toggleButton.snp.bottom)
+        }
+//        contentView.setNeedsUpdateConstraints()
+//        self.contentView.layoutIfNeeded()
 
-    override func updateConstraints() {
-        super.updateConstraints()
+        self.setNeedsDisplay()
+
+//        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
+//            self.setNeedsDisplay()
+//        }, completion: { _ in
+//        })
     }
 }
 
@@ -159,10 +129,22 @@ extension LibraryCard: UITableViewDataSource {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "\(indexPath)")
         let book = LibraryDataContainer.shared.books[indexPath.row]
 
-        let imageSize = CGSize(width: 30, height: 30)
-        UIGraphicsBeginImageContextWithOptions(imageSize, false, 0.0)
-        let imageRect = CGRect(center: .zero, size: imageSize)
-        #imageLiteral(resourceName: "icon-bike").draw(in: imageRect)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-DD"
+
+        var image = #imageLiteral(resourceName: "感叹号")
+        // 如果还没到还书时间
+        if let date = dateFormatter.date(from: book.returnTime),
+            date >= Date() {
+            image = #imageLiteral(resourceName: "对号")
+        }
+
+        let imageSize = CGSize(width: 25, height: 25)
+        image = UIImage.resizedImage(image: image, scaledToSize: imageSize)
+        UIGraphicsBeginImageContext(imageSize)
+        let imageRect = CGRect(origin: .zero, size: imageSize)
+        image.draw(in: imageRect)
+        cell.imageView?.contentMode = .scaleAspectFit
         cell.imageView?.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
@@ -179,10 +161,12 @@ extension LibraryCard {
 
         let group = DispatchGroup()
 //        library/renew/{barcode}
+        var count = 0
         for book in LibraryDataContainer.shared.books {
             group.enter()
             SolaSessionManager.solaSession(type: .get, url: "/library/renew/\(book.barcode)", token: "", parameters: nil, success: { dict in
-                // TODO:
+                // TODO: Check
+                count += 1
                 group.leave()
             }, failure: { err in
                 group.leave()
@@ -190,7 +174,10 @@ extension LibraryCard {
             })
         }
         group.notify(queue: .main, execute: {
-            self.updateBookStatus()
+            SwiftMessages.showSuccessMessage(body: "成功续借\(count)本书")
+            self.getBooks(success: {
+                self.tableView.reloadData()
+            })
         })
     }
 
@@ -198,36 +185,59 @@ extension LibraryCard {
 
     }
 
-    func refresh(sender: CardButton) {
+    func getBooks(success: (()->())? = nil) {
+        self.setState(.loading("加载中...", .gray))
         SolaSessionManager.solaSession(type: .get, url: "/library/user/info", token: "", parameters: nil, success: { dict in
             if let data = try? JSONSerialization.data(withJSONObject: dict, options: .init(rawValue: 0)),
                 let response = try? LibraryResponse(data: data) {
                 LibraryDataContainer.shared.response = response
-                // TODO: 会自己滚到下面
-                //                self.toggleButton.tag = 1
-                //                self.toggle(sender: self.toggleButton)
+                self.setState(.data)
+                if response.data.books.count == 0 {
+                    self.setState(.empty("没有待还的书籍", .gray))
+                }
+                if self.toggleButton.tag == 0 {
+                    self.toggleButton.setTitle("展开(\(max(LibraryDataContainer.shared.books.count-2, 0)))")
+                }
                 self.tableView.reloadData()
+                // 缓存起来撒
+                CacheManager.store(object: response, in: .group, as: "lib/info.json")
+//                Storage.store(response, in: .group, as: "lib")
+//                Storage.store(response, in: .caches, as: CacheFilenameKey.libUserInfo.name)
+                success?()
             } else {
+                self.setState(.failed("解析失败"))
                 // TODO: 解析错误
             }
         }, failure: { err in
+            self.setState(.failed(err.localizedDescription))
+        })
+    }
 
+    func refresh(sender: CardButton) {
+        setState(.loading("加载中...", .darkGray))
+        getBooks(success: {
+            self.setState(.data)
+            SwiftMessages.showSuccessMessage(body: "刷新成功")
         })
     }
 
     func toggle(sender: CardButton) {
         // TODO: 没有数据时
-
         var height: CGFloat = 0
         if sender.tag == 0 {
             // 展开
-            height = tableView.rowHeight * CGFloat(LibraryDataContainer.shared.books.count) + 145
+            height = tableView.rowHeight * CGFloat(max(LibraryDataContainer.shared.books.count, 2)) + 145
             sender.setTitle("收起")
             sender.tag = 1
         } else {
             // 收起
             height = tableView.rowHeight * 2 + 145
-            sender.setTitle("展开(\(max(LibraryDataContainer.shared.books.count-2, 0)))")
+            let moreCount = LibraryDataContainer.shared.books.count-2
+            if moreCount > 0 {
+                sender.setTitle("展开(\(moreCount))")
+            } else {
+                sender.setTitle("展开")
+            }
             sender.tag = 0
         }
         self.height = height
@@ -240,3 +250,4 @@ extension LibraryCard {
 
 extension LibraryCard: UITableViewDelegate {
 }
+

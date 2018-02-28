@@ -13,7 +13,7 @@ enum ServiceBindingState: String {
     case notBind = "未绑定"
 }
 
-typealias ItemData = (title: String, class: AnyClass, iconName: String, status: Bool)
+typealias ItemData = (title: String, class: AnyClass, iconName: String, status: () -> Bool)
 
 class SettingsViewController: UIViewController {
     
@@ -26,22 +26,25 @@ class SettingsViewController: UIViewController {
     var tableView: UITableView!
     var headerView: UIView!
     var signatureLabel: UILabel!
+    let avatarView = UIImageView(frame: .zero)
+    let loginButton = UIButton()
 
     // FIXME: image name
     public var services: [ItemData] = [
         ("图书馆", LibraryBindingViewController.self, "", {
-            return TwTUser.shared.libBindingState}()),
+            return TwTUser.shared.libBindingState}),
         ("自行车", BicycleBindingViewController.self, "", {
-            return TwTUser.shared.bicycleBindingState}()),
+            return TwTUser.shared.bicycleBindingState}),
         ("办公网", TJUBindingViewController.self, "", {
-            return TwTUser.shared.tjuBindingState}()),
+            return TwTUser.shared.tjuBindingState}),
         ("校园网", WLANBindingViewController.self, "", {
-            return TwTUser.shared.WLANBindingState}())
+            return TwTUser.shared.WLANBindingState})
     ]
-    fileprivate let settingTitles: [(title: String, iconName: String)] = [("设置", ""), ("退出", "")]
+    fileprivate let settingTitles: [(title: String, iconName: String)] = [("设置", "")]
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         tableView.reloadData()
         //        navigationController?.navigationBar.barStyle = .black
         //        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
@@ -51,35 +54,47 @@ class SettingsViewController: UIViewController {
         //        navigationItem.title = "设置"
     }
     
+<<<<<<< HEAD
+=======
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+    }
+    
+>>>>>>> ecf66e88367f5753ce58f3cb9be98e53401aee56
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
-        navigationController?.navigationBar.barStyle = .black
-        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
+//        navigationController?.navigationBar.barStyle = .black
+//        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
         //Changing NavigationBar Title color
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Metadata.Color.naviTextColor]
         // This is for removing the dark shadows when transitioning
-        navigationController?.navigationBar.isTranslucent = false
-        
+//        navigationController?.navigationBar.isTranslucent = false
+
         navigationItem.title = "设置"
         
-        ClasstableDataManager.getClassTable(success: { _ in }, failure: { _ in })
         view.backgroundColor = Metadata.Color.GlobalViewBackgroundColor
         
         tableView = UITableView(frame: self.view.bounds, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = 60
+        tableView.rowHeight = 50
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
-        
+
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+
         NotificationCenter.default.addObserver(self, selector: #selector(bindingStatusDidChange), name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
         
         self.view.addSubview(tableView)
         
         headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 165))
-        let avatarView = UIImageView(frame: .zero)
-        avatarView.tag = -2
+
         headerView.addSubview(avatarView)
         //        avatarView.image = UIImage(named: "ic_account_circle")!.with(color: .gray)
         avatarView.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "ic_account_circle")!.with(color: .gray))
@@ -92,8 +107,6 @@ class SettingsViewController: UIViewController {
             make.height.width.equalTo(80)
         }
         
-        let loginButton = UIButton()
-        loginButton.tag = -1
         if TwTUser.shared.token != nil {
             loginButton.setTitle(TwTUser.shared.username, for: .normal)
         } else {
@@ -103,7 +116,7 @@ class SettingsViewController: UIViewController {
         }
         
         loginButton.setTitleColor(.black, for: .normal)
-        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 31, weight: UIFontWeightRegular)
+        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 31, weight: UIFont.Weight.regular)
         loginButton.titleLabel?.sizeToFit()
         loginButton.sizeToFit()
         //        loginButton.sizeToFit()
@@ -121,7 +134,7 @@ class SettingsViewController: UIViewController {
         }
     }
     
-    func login() {
+    @objc func login() {
         let loginVC = LoginViewController()
 //        self.navigationController?.pushViewController(loginVC, animated: true)
         self.present(loginVC, animated: true, completion: nil)
@@ -157,7 +170,11 @@ class SettingsViewController: UIViewController {
                 print(indexPathAtRow)
                 print(TwTUser.shared.tjuBindingState)
                 // services[].status can't get renewed data each time user unbinds
+<<<<<<< HEAD
                 self.services[indexPathAtRow].status = false
+=======
+//                self.services[indexPath.row].status = false
+>>>>>>> ecf66e88367f5753ce58f3cb9be98e53401aee56
                 self.tableView.reloadData()
             } else {
                 let alert = UIAlertController(title: "未知错误", message: nil, preferredStyle: .alert)
@@ -168,36 +185,18 @@ class SettingsViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             }
         }, failure: { error in
-            print(error)
+            debugLog(error)
             print("Failed")
             self.dismiss(animated: true, completion: nil)
         })
     }
     
-    func bindingStatusDidChange(notification: Notification) {
-        let notificationTuple: (String, Bool) = notification.object as! (String, Bool)
-        let bindingType: String = notificationTuple.0
-        let isStatusChanged: Bool = notificationTuple.1
-        var index: Int
-        
-        switch bindingType {
-        case "lib":
-            index = 0
-        case "bike":
-            index = 1
-        case "tju":
-            index = 2
-        case "WLAN":
-            index = 3
-        default:
-            return
-        }
-        
-        if isStatusChanged {
-            services[index].status = true
-        }
-        
-        // tableView.reloadData()
+    @objc func bindingStatusDidChange(notification: Notification) {
+            tableView.reloadData()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -223,16 +222,16 @@ extension SettingsViewController: UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
             cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
             cell.accessoryType = .disclosureIndicator
             let x: CGFloat = 15
             let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))
             separator.backgroundColor = .gray
             separator.alpha = 0.25
             cell.addSubview(separator)
-            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
             //            cell.detailTextLabel?.text = services[indexPath.row].status.rawValue
-            if services[indexPath.row].status {
+            if services[indexPath.row].status() {
                 cell.detailTextLabel?.text = "已绑定"
             } else {
                 cell.detailTextLabel?.text = "未绑定"
@@ -241,7 +240,7 @@ extension SettingsViewController: UITableViewDataSource {
         } else {
             let cell = UITableViewCell()
             cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
             cell.accessoryType = .disclosureIndicator
             let x: CGFloat = 15
             let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))
@@ -257,20 +256,17 @@ extension SettingsViewController: UITableViewDataSource {
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            for subview in headerView.subviews {
-                if subview.tag == -1 {
-                    if TwTUser.shared.token != nil {
-                        (subview as? UIButton)?.setTitle(TwTUser.shared.username, for: .normal)
-                        signatureLabel.text = TwTUser.shared.realname
-                    } else {
-                        (subview as? UIButton)?.setTitle("登录", for: .normal)
-                        (subview as? UIButton)?.addTarget(self, action: #selector(login), for: .touchUpInside)
-                        signatureLabel.text = "登录以查看更多信息"
-                    }
-                } else if subview.tag == -2 {
-                    (subview as? UIImageView)?.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "ic_account_circle")!.with(color: .gray))
-                }
+            if TwTUser.shared.token != nil {
+                loginButton.setTitle(TwTUser.shared.username, for: .normal)
+                signatureLabel.text = TwTUser.shared.realname
+            } else {
+                loginButton.setTitle("登录", for: .normal)
+                loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
+                signatureLabel.text = "登录以查看更多信息"
             }
+
+            avatarView.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "account_circle")!.with(color: .gray))
+
             return headerView
         }
         return nil
@@ -285,7 +281,9 @@ extension SettingsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         switch (indexPath.section, indexPath.row) {
+<<<<<<< HEAD
         case (1, 1):
             // delete user info and request for unbind after click logout button
             tableView.deselectRow(at: indexPath, animated: true)
@@ -299,6 +297,12 @@ extension SettingsViewController: UITableViewDelegate {
 =======
             print("log out")
 >>>>>>> b7e1198828912bd422d5f2d2eb39643ca6090583:WePeiYang/Settings/Controller/SettingsViewController.swift
+=======
+        case (1, 0):
+            let detailVC = DetailSettingViewController()
+            detailVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(detailVC, animated: true)
+>>>>>>> ecf66e88367f5753ce58f3cb9be98e53401aee56
             return
         case (0, _):
             guard let _ = TwTUser.shared.token else {
@@ -314,10 +318,10 @@ extension SettingsViewController: UITableViewDelegate {
             break
         }
         
-        if !services[indexPath.row].status {
+        if !services[indexPath.row].status() {
             if let vc = (services[indexPath.row].class as? UIViewController.Type)?.init() {
                 vc.hidesBottomBarWhenPushed = true
-                self.navigationController?.present(vc, animated: true)
+                self.present(vc, animated: true)
             }
         } else {
             let alert = UIAlertController(title: "要解绑吗？", message: nil, preferredStyle: .alert)

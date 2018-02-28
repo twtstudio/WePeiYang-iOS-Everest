@@ -127,7 +127,7 @@ class Search: UIView, UITableViewDelegate, UITableViewDataSource, UITextFieldDel
         })
     }
     
-    func dismiss()  {
+    @objc func dismiss()  {
         self.searchField.text = ""
         self.items.removeAll()
         self.tableView.removeFromSuperview()

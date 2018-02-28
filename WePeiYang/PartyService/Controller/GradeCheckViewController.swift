@@ -12,7 +12,7 @@ class GradeCheckViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet var tableView: UITableView!
     
-    var testType: String?
+    @objc var testType: String?
     var gradeList = [[String: Any]]()
     
     /*convenience init(type: String) {
@@ -155,7 +155,7 @@ class GradeCheckViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     //因为暂时无法使用 init
-    func fetchData() {
+    @objc func fetchData() {
         Applicant.sharedInstance.getGrade(testType!, doSomething: {
             self.refreshUI()
         })

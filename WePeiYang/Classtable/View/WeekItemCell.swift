@@ -27,11 +27,11 @@ class WeekItemCell: UIView {
     func load(courses: [[Bool]], week: Int) {
         matrix = courses
         let attrString = NSMutableAttributedString(string: "第\(week)周")
-        attrString.addAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 9)], range: NSRange(location: 0, length: 1))
+        attrString.addAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: 9)], range: NSRange(location: 0, length: 1))
         let length = week > 9 ? 2 : 1
-        attrString.addAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 18)], range: NSRange(location: 1, length: length))
-        attrString.addAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 9)], range: NSRange(location: 1 + length, length: 1))
-        attrString.addAttributes([NSForegroundColorAttributeName: UIColor(red:0.27, green:0.39, blue:0.49, alpha:1.00)], range: NSRange(location: 0, length: 2 + length))
+        attrString.addAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)], range: NSRange(location: 1, length: length))
+        attrString.addAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: 9)], range: NSRange(location: 1 + length, length: 1))
+        attrString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor(red:0.27, green:0.39, blue:0.49, alpha:1.00)], range: NSRange(location: 0, length: 2 + length))
         weekLabel.attributedText = attrString
         weekLabel.sizeToFit()
         weekLabel.x = (self.width - weekLabel.width)/2

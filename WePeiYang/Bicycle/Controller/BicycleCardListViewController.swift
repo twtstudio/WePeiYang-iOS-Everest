@@ -67,39 +67,47 @@ class BicycleCardListViewController: UITableViewController, UIAlertViewDelegate 
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         choosenRow = indexPath.row
-        
-        let alert = UIAlertView(title: "提示", message: "确定绑定此卡？", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "确定")
-        
-        alert.show()
-        
+        let alertVC = UIAlertController(title: "提示", message: "确定绑定此卡?", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "确定", style: .default, handler: { action in
+
+        })
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+
+        alertVC.addAction(confirmAction)
+        alertVC.addAction(cancelAction)
+
+//        let alert = UIAlertView(title: "提示", message: "确定绑定此卡？", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "确定")
+        self.present(alertVC, animated: true, completion: nil)
+//        alert.show()
+
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         
     }
-    
-    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
-        
-        let choosenCard = BicycleUser.sharedInstance.cardList[choosenRow];
-        
-        //坑：应该要先判断是哪个 alertView
-        guard buttonIndex != alertView.cancelButtonIndex else {
-            return
-        }
-        
-        BicycleUser.sharedInstance.bindCard(id: choosenCard.id!, sign: choosenCard.sign!, doSomething: {
-            
-            //pop 到BicycleServiceViewController
-            BicycleUser.sharedInstance.status = 1;//坑：毕竟这样不太稳妥
-            UserDefaults.standard.setValue(1, forKey: "BicycleStatus")
-            self.navigationController?.popViewController(animated: true)
-            self.navigationController?.popViewController(animated: true)
-            
-            for vc in (self.navigationController?.viewControllers)! {
-                if let currentVC = vc as? BicycleServiceInfoController {
-                    currentVC.refreshInfo()
-                }
-            }
-        })
-    }
-    
+
+//    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
+//
+//        let choosenCard = BicycleUser.sharedInstance.cardList[choosenRow];
+//
+//        //坑：应该要先判断是哪个 alertView
+//        guard buttonIndex != alertView.cancelButtonIndex else {
+//            return
+//        }
+//
+//        BicycleUser.sharedInstance.bindCard(id: choosenCard.id!, sign: choosenCard.sign!, doSomething: {
+//
+//            //pop 到BicycleServiceViewController
+//            BicycleUser.sharedInstance.status = 1;//坑：毕竟这样不太稳妥
+//            UserDefaults.standard.setValue(1, forKey: "BicycleStatus")
+//            self.navigationController?.popViewController(animated: true)
+//            self.navigationController?.popViewController(animated: true)
+//
+//            for vc in (self.navigationController?.viewControllers)! {
+//                if let currentVC = vc as? BicycleServiceInfoController {
+//                    currentVC.refreshInfo()
+//                }
+//            }
+//        })
+//    }
+
 }
 

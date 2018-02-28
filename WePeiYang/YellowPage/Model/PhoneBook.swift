@@ -11,9 +11,9 @@ import UIKit
 import Alamofire
 
 let YELLOWPAGE_SAVE_KEY = "YellowPageItems"
-class PhoneBook: NSObject {
+class PhoneBook {
     static let shared = PhoneBook()
-    private override init() {}
+    private init() {}
     
     static let url = "/yellowpage/data3"
     var favorite: [ClientItem] = []

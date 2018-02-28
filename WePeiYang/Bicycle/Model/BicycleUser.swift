@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class BicycleUser: NSObject {
+class BicycleUser {
     
     //auth
     var uid: String?
@@ -30,7 +30,7 @@ class BicycleUser: NSObject {
     var bindCancel = false
     
     static let sharedInstance = BicycleUser()
-    private override init() {}
+    private init() {}
     
     func auth(presentViewController: @escaping () -> ()) {
         

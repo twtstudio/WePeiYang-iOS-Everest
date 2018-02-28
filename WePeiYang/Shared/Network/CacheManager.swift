@@ -113,5 +113,46 @@ struct CacheManager {
         }
         return false
     }
-        
+
+    static func store<T: Encodable>(object: T, in directory: Storage.Directory, as filename: String) {
+        let newFilename = TwTUser.shared.schoolID + "/" + filename
+        Storage.store(["com.wpy.cache": object], in: directory, as: newFilename)
+    }
+
+    static func retreive<T: Decodable>(_ filename: String, from directory: Storage.Directory, as type: T.Type, success: @escaping (T)->(), failure: (()->())? = nil) {
+        guard fileExists(filename: filename, in: directory) else {
+            failure?()
+            return
+        }
+
+        let queue = DispatchQueue(label: "com.wpy.cache")
+        queue.async {
+            let newFilename = TwTUser.shared.schoolID + "/" + filename
+            let obj = Storage.retreive(newFilename, from: directory, as: [String: T].self)
+            DispatchQueue.main.async {
+                if let object = obj["com.wpy.cache"] {
+                    success(object)
+                } else {
+                    failure?()
+                }
+            }
+        }
+    }
+
+    static func fileExists(filename: String, in directory: Storage.Directory) -> Bool {
+        let newFilename = TwTUser.shared.schoolID + "/" + filename
+        return Storage.fileExists(newFilename, in: directory)
+    }
+
+    static func clear(directory: Storage.Directory) {
+        Storage.clear(subdirectory: TwTUser.shared.schoolID, in: directory)
+    }
+
+    static func delete(filename: String, in directory: Storage.Directory) {
+        guard fileExists(filename: filename, in: directory) else {
+            return
+        }
+        let newFilename = TwTUser.shared.schoolID + "/" + filename
+        Storage.remove(newFilename, from: directory)
+    }
 }

@@ -155,7 +155,7 @@ class RecommendBookView: UIView {
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.pushDetailViewController)))
     }
     
-    func pushDetailViewController() {
+    @objc func pushDetailViewController() {
 //        print("fafa")
         delegate?.pushDetailViewController(bookID: "\(self.tag)")
     }

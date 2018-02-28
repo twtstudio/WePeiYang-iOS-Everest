@@ -106,7 +106,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         self.tableView.endEditing(true)
     }
     
@@ -348,7 +348,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    func tapped(){
+    @objc func tapped(){
         
         print("Release success")
         print(markDict)
@@ -369,7 +369,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             self.navigationController?.pushViewController(successVC, animated: true)
         }, failure: { error
             in
-            print(error)
+            debugLog(error)
         })
         //        }
         print(markDict)

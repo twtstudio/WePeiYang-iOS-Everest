@@ -98,9 +98,9 @@ struct PartyAPI {
 private extension String {
     
     func removeCharsFromEnd(_ count:Int) -> String{
-        let stringLength = self.characters.count
+        let stringLength = self.count
         let substringCount = (stringLength < count) ? 0 : stringLength - count
-        let index: String.Index = self.characters.index(self.startIndex, offsetBy: substringCount)
-        return self.substring(to: index)
+        let index: String.Index = self.index(self.startIndex, offsetBy: substringCount)
+        return String(self[...index])
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import Charts
+import ObjectMapper
 
 class GPACard: CardView {
     let titleLabel = UILabel()
@@ -38,6 +39,9 @@ class GPACard: CardView {
         lineChartView.isUserInteractionEnabled = false
         lineChartView.borderColor = .white
         lineChartView.legend.enabled = false
+        lineChartView.noDataTextColor = .white
+        lineChartView.noDataText = "暂无数据"
+        lineChartView.noDataFont = NSUIFont.boldSystemFont(ofSize: 16)
         return lineChartView
     }()
 
@@ -47,12 +51,12 @@ class GPACard: CardView {
         
         titleLabel.frame = CGRect(x: padding, y: padding, width: 200, height: 30)
         titleLabel.text = "我的GPA"
-        titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFontWeightSemibold)
+        titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.semibold)
         titleLabel.textColor = .white
         titleLabel.sizeToFit()
         self.addSubview(titleLabel)
         
-        self.backgroundColor = UIColor(red:0.98, green:0.66, blue:0.61, alpha:1.00)
+        self.backgroundColor = UIColor.gpaPink
         self.addSubview(lineChartView)
     }
     
@@ -62,10 +66,12 @@ class GPACard: CardView {
         let layerWidth = rect.width - 2*padding
         let layerHeight = rect.height - 2*padding - 40
 
+        blankView.frame = CGRect(x: padding, y: padding + 30 + 15, width: layerWidth, height: layerHeight)
         lineChartView.frame = CGRect(x: padding, y: padding + 30 + 15, width: layerWidth, height: layerHeight)
 //        bezierLayer.frame = CGRect(x: padding, y: padding + 30 + 20, width: layerWidth, height: layerHeight)
 //        //        bezierLayer.points = points
 //        self.layer.addSublayer(bezierLayer)
+        super.layout(rect: rect)
     }
 
     func load(model: GPAModel) {
@@ -80,12 +86,29 @@ class GPACard: CardView {
         dataSet.drawCircleHoleEnabled = false
         dataSet.drawFilledEnabled = true
         dataSet.setDrawHighlightIndicators(false)
-        dataSet.fillColor = UIColor(red:0.98, green:0.66, blue:0.61, alpha:1.00)
+        dataSet.fillColor = UIColor.gpaPink
         dataSet.fillAlpha = 1
         dataSet.lineWidth = 2
         dataSet.setColor(.white)
         lineChartView.data = LineChartData(dataSet: dataSet)
 //        lineChartView.
+    }
+
+    override func refresh() {
+        super.refresh()
+        setState(.loading("加载中...", .white))
+        CacheManager.retreive("gpa/gpa.json", from: .group, as: String.self, success: { string in
+            if let model = Mapper<GPAModel>().map(JSONString: string) {
+                if model.terms.count > 1 {
+                    self.setState(.data)
+                    self.load(model: model)
+                } else {
+                    self.setState(.empty("◉", .white))
+                }
+            } else {
+                self.setState(.failed("加载失败"))
+            }
+        })
     }
 }
 

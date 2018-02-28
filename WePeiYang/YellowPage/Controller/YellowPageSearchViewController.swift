@@ -30,14 +30,14 @@ class YellowPageSearchViewController: UIViewController {
         tableView.frame = CGRect(x: 0, y: y, width: width, height: height)
     }
     
-    func keyboardWillHide(notification: Notification) {
+    @objc func keyboardWillHide(notification: Notification) {
         let height = view.frame.size.height - searchView.frame.size.height
         tableView.frame = CGRect(x: 0, y: searchView.frame.size.height, width: tableView.frame.size.width, height: height)
         tableView.setNeedsLayout()
         tableView.layoutIfNeeded()
     }
         
-    func keyboardWillShow(notification: Notification) {
+    @objc func keyboardWillShow(notification: Notification) {
         if let endRect = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue, let beginRect = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as AnyObject).cgRectValue {
             if beginRect.size.height > 0 && beginRect.origin.y - endRect.origin.y > 0 {
                 let height = view.frame.size.height - searchView.frame.size.height - endRect.size.height
@@ -74,12 +74,12 @@ class YellowPageSearchViewController: UIViewController {
         self.searchView.textField.resignFirstResponder()
     }
     
-    func backToggled() {
+    @objc func backToggled() {
 //        searchView.backButton.
         self.dismiss(animated: true, completion: nil)
     }
     
-    func clearTapped() {
+    @objc func clearTapped() {
         // FIXME: Write to model singleton
         self.history.removeAll()
         tableView.reloadData()
@@ -92,7 +92,7 @@ class YellowPageSearchViewController: UIViewController {
         }
     }
     
-    func textFieldTextChanged(sender : AnyObject) {
+    @objc func textFieldTextChanged(sender : AnyObject) {
         // got what you want
         guard searchView.textField.text! != "" else {
             isSearching = false
@@ -108,7 +108,7 @@ class YellowPageSearchViewController: UIViewController {
         // TODO: if not found, display not-found-view
     }
     
-    func cellTapped(sender: YellowPageCell) {
+    @objc func cellTapped(sender: YellowPageCell) {
         let alertVC = UIAlertController(title: "详情", message: "想要做什么？", preferredStyle: .actionSheet)
         let copyAction = UIAlertAction(title: "复制到剪切板", style: .default) { action in
             sender.longPressed()

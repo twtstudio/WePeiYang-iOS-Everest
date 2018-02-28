@@ -42,8 +42,9 @@ class GradeDetailViewController: UIViewController, UITableViewDataSource, UITabl
         self.view.addSubview(bgView)
         
         //改变 statusBar 颜色
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-        
+//        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+        navigationController?.navigationBar.barStyle = .black
+
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -134,7 +135,7 @@ class GradeDetailViewController: UIViewController, UITableViewDataSource, UITabl
         
     }
     
-    func complain() {
+    @objc func complain() {
         let dict = Applicant.sharedInstance.applicantGrade[index!]
         if testType == "probationary" {
             let complainVC = PartyComplainViewController(ID: dict["train_id"] as! String, type: testType!)

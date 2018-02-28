@@ -13,7 +13,7 @@ class PartyComplainViewController: UIViewController, UITextViewDelegate {
     @IBOutlet var titleField: UITextField!
     @IBOutlet var contentField: UITextView!
     var testID: String?
-    var testType: String?
+    @objc var testType: String?
     
     convenience init(ID: String, type: String) {
         self.init(nibName: "PartyComplainViewController", bundle: nil)
@@ -50,10 +50,11 @@ class PartyComplainViewController: UIViewController, UITextViewDelegate {
         self.view.addSubview(bgView)
         
         //改变 statusBar 颜色
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+//        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+        navigationController?.navigationBar.barStyle = .black
     }
     
-    func complain() {
+    @objc func complain() {
         
         guard !(titleField.text?.isEmpty)! else {
 //            MsgDisplay.showErrorMsg("标题不能为空")

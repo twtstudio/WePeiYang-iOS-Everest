@@ -21,7 +21,8 @@ class BicycleServiceViewController: WMPageController {
         // text color of NavigationBar
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = UIColor(red: 0.0 / 255.0, green: 174.0 / 255.0, blue: 101.0 / 255.0, alpha: 1.0)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(red: 0.0 / 255.0, green: 174.0 / 255.0, blue: 101.0 / 255.0, alpha: 1.0))!, for: .default)
+//        navigationController?.navigationBar.barTintColor = UIColor(red: 0.0 / 255.0, green: 174.0 / 255.0, blue: 101.0 / 255.0, alpha: 1.0)
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(red: 0.0 / 255.0, green: 174.0 / 255.0, blue: 101.0 / 255.0, alpha: 1.0)), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
 
@@ -30,9 +31,10 @@ class BicycleServiceViewController: WMPageController {
     }
     
     override func viewDidLoad() {
-        
-        UIApplication.shared.statusBarStyle = .lightContent
-        
+        navigationController?.navigationBar.barStyle = .black
+
+//        UIApplication.shared.statusBarStyle = .lightContent
+
         menuBGColor = UIColor(red: 0.0 / 255.0, green: 174.0 / 255.0, blue: 101.0 / 255.0, alpha: 1.0)
         progressColor = UIColor(red: 69.0 / 255.0, green: 216.0 / 255.0, blue: 146 / 255.0, alpha: 1.0)
         progressHeight = 3.0
@@ -86,9 +88,16 @@ class BicycleServiceViewController: WMPageController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        UIApplication.shared.statusBarStyle = .default
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillDisappear(animated)
+//        UIApplication.shared.statusBarStyle = .default
     }
-    
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+    }
+
     func addIcons() {
         let iconWidth: CGFloat = 30
         let iconHeight: CGFloat = 30
@@ -152,7 +161,7 @@ class BicycleServiceViewController: WMPageController {
         }
     }
     
-    func refreshUserInfo() {
+    @objc func refreshUserInfo() {
         let infoVC: BicycleServiceInfoController = self.currentViewController as! BicycleServiceInfoController
         infoVC.refreshInfo()
     }    

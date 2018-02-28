@@ -21,7 +21,7 @@ class BicycleBindingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.backgroundColor = .white
         // Do any additional setup after loading the view.
         logoImage = UIImage(named: "bicycleBinding")
         let imageRatio: CGFloat = logoImage.size.width / logoImage.size.height
@@ -82,12 +82,12 @@ class BicycleBindingViewController: UIViewController {
          }
          */
         
-        dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: self.view.frame.size.height*4.0/5.0, width: 30, height: 20))
+        dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: bindButton.y + bindButton.height + 20, width: 30, height: 20))
         dismissButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
-        dismissButton.setTitleColor(UIColor(hex6: 0xd3d3d3), for: .normal)
+        dismissButton.setTitleColor(UIColor.gray, for: .normal)
         dismissButton.setTitle("暂不绑定", for: .normal)
         dismissButton.sizeToFit()
-        dismissButton.center = CGPoint(x: self.view.center.x, y: self.view.frame.height*4.8/5)
+        dismissButton.center = CGPoint(x: self.view.center.x, y: bindButton.y + bindButton.height + 20)
         dismissButton.addTarget(self, action: #selector(dismissBinding), for: .touchUpInside)
         self.view.addSubview(dismissButton)
         
@@ -99,11 +99,11 @@ class BicycleBindingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func bind() {
+    @objc func bind() {
         
     }
     
-    func dismissBinding() {
+    @objc func dismissBinding() {
         self.dismiss(animated: true, completion: nil)
     }
     

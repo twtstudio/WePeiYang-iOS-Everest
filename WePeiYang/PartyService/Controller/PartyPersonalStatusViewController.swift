@@ -57,10 +57,16 @@ class PartyPersonalStatusViewController: UIViewController, UIScrollViewDelegate 
     var label29 = PersonalStatusLabel()
     var label30 = PersonalStatusLabel()
     var label31 = PersonalStatusLabel()
-    
+
+
+
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return .default
+//    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        self.setNeedsStatusBarAppe.lpijy7aranceUpdate()
         initUI()
         
         Applicant.sharedInstance.getPersonalStatus({
@@ -95,8 +101,9 @@ class PartyPersonalStatusViewController: UIViewController, UIScrollViewDelegate 
         self.view.addSubview(bgView)
         
         //改变 statusBar 颜色
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-        
+//        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+        navigationController?.navigationBar.barStyle = .black
+
         //改变背景颜色
         mainScrollView.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
     }

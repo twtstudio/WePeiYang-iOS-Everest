@@ -16,8 +16,8 @@ class AllModulesViewController: UIViewController {
         (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self),
         (title: "自行车", image: UIImage(named: "bicycleBtn")!, class: BicycleServiceViewController.self),
         (title: "党建", image: UIImage(named: "partyBtn")!, class: PartyMainViewController.self),
-        (title: "探索", image: UIImage(named: "msBtn")!, class: GPAViewController.self),
-        (title: "阅读", image: UIImage(named: "readBtn")!, class: ReadViewController.self),
+        (title: "商城", image: UIImage(named: "mallBtn")!, class: MallViewController.self),
+//        (title: "阅读", image: UIImage(named: "readBtn")!, class: ReadViewController.self),
         (title: "黄页", image: UIImage(named: "yellowPageBtn")!, class: YellowPageMainViewController.self),
         (title: "上网", image: UIImage(named: "bicycleBtn")!, class: WLANLoginViewController.self)]
     
@@ -27,12 +27,7 @@ class AllModulesViewController: UIViewController {
     //    override var preferredStatusBarStyle: UIStatusBarStyle {
     //        return .lightContent
     //    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        super.viewWillAppear(animated)
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // 3D Touch
@@ -67,10 +62,23 @@ class AllModulesViewController: UIViewController {
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.alpha = 0
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
 }
 
@@ -98,7 +106,7 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
         if indexPath.section == 0 {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UICollectionElementKindSectionHeader", for: indexPath)
             let label = UILabel(text: "更多功能")
-            label.font = UIFont.systemFont(ofSize: 35, weight: UIFontWeightHeavy)
+            label.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.heavy)
             label.x = 15
             label.y = 25
             label.sizeToFit()
@@ -109,6 +117,13 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if modules[indexPath.row].title == "商城" {
+            let mallVC = MallViewController()
+            mallVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(mallVC, animated: true)
+            return
+        }
+
         // instantiate a view controller by its class
         if let vc = (modules[indexPath.row].class as? UIViewController.Type)?.init() {
             vc.hidesBottomBarWhenPushed = true

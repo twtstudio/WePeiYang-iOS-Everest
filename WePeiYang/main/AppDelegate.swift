@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-
         // 注册通知
         registerAppNotification(launchOptions: launchOptions)
 
@@ -26,10 +25,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        TwTUser.shared.load() // load token and so on
         TwTUser.shared.load(success: {
-            AccountManager.getSelf(success: nil, failure: nil)
+            UIApplication.shared.applicationIconBadgeNumber = 0
+            // FIXME: 没有加载成功
+            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
+            AccountManager.getSelf(success:{
+//                NotificationCenter.default.post(name: NotificationName.NotificationCardWillRefresh.name, object: nil)
+            }, failure: nil)
         }, failure: {
             // 让他重新登录
         })
+
 //        AccountManager.getSelf(success: nil, failure: nil)
 //        AccountManager.checkToken(failure: {
 //            // 让他重新登录
@@ -81,12 +86,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 try Network.reachability?.start()
             } catch let error as Network.Error {
-                print(error)
+                debugLog(error)
             } catch {
-                print(error)
+                debugLog(error)
             }
         } catch {
-            print(error)
+            debugLog(error)
         }
             
         return true

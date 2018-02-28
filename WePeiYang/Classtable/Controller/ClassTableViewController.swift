@@ -82,7 +82,7 @@ class ClassTableViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = false
         self.view.backgroundColor = .white
         initNavBar()
-        
+
         // 选择周
         weekSelectView = WeekSelectView()
         self.view.addSubview(weekSelectView)
@@ -105,11 +105,20 @@ class ClassTableViewController: UIViewController {
             make.top.equalTo(weekSelectView.snp.bottom)
             make.left.right.bottom.equalToSuperview()
         }
-    
+
+        if isModal {
+            let image = UIImage(named: "ic_back")!
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
+        }
+
         loadCache()
         load()
     }
-    
+
+    @objc func close() {
+        self.dismiss(animated: true, completion: nil)
+    }
+
     func initNavBar() {
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 90, height: 30))
         let downArrow = UIImageView(image: #imageLiteral(resourceName: "ic_arrow_down").with(color: UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)))
@@ -141,7 +150,7 @@ class ClassTableViewController: UIViewController {
         backButton.addTarget(self, action: #selector(toggleWeekSelect), for: .touchUpInside)
     }
     
-    func weekCellTapped(sender: UITapGestureRecognizer) {
+    @objc func weekCellTapped(sender: UITapGestureRecognizer) {
 //        guard let cell = sender.view,
 ////        cell.tag - 1 < cells.count,
 //        cell.tag > 0,
@@ -157,7 +166,11 @@ class ClassTableViewController: UIViewController {
         currentDisplayWeek = week
     }
     
-    func toggleWeekSelect(sender: UIButton) {
+    @objc func toggleWeekSelect(sender: UIButton) {
+        guard let table = table else {
+            return
+        }
+
         if !isSelecting {
             self.weekSelectView.snp.updateConstraints { make in
                 make.top.equalToSuperview()
@@ -175,7 +188,7 @@ class ClassTableViewController: UIViewController {
             isSelecting = false
             currentDisplayWeek = currentWeek
             // FIXME: 刚登录 table 为空？？
-            let courses = self.getCourse(table: table!, week: currentWeek)
+            let courses = self.getCourse(table: table, week: currentWeek)
             // 跳回当前周
             listView.load(courses: courses, weeks: 0)
         }
@@ -189,35 +202,43 @@ class ClassTableViewController: UIViewController {
     }
     
     func loadCache() {
-        let queue = DispatchQueue(label: "load cache")
-        queue.async {
-            if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
-                DispatchQueue.main.async {
-                    self.table = table
-                }
+        CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
+            if let table = Mapper<ClassTableModel>().map(JSONString: string) {
+                self.table = table
 
                 let courses = self.getCourse(table: table, week: self.currentWeek)
                 let now = Date()
                 let termStart = Date(timeIntervalSince1970: Double(table.termStart))
                 let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
-                DispatchQueue.main.async {
-                    self.listView.load(courses: courses, weeks: 0)
-                    self.currentWeek = Int(week)
-                    self.currentDisplayWeek = Int(week)
-                }
-                //            self.listView.load(courses: table, weeks: 0)
+                self.listView.load(courses: courses, weeks: 0)
+                self.currentWeek = Int(week)
+                self.currentDisplayWeek = Int(week)
             }
-        }
+        }, failure: {
+
+        })
     }
     
     func load() {
         ClasstableDataManager.getClassTable(success: { table in
             // 存起来
-            let dic = table.toJSON()
-            CacheManager.saveGroupCache(with: dic, key: ClassTableKey)
+//            let dic = table.toJSON()
+//            CacheManager.saveGroupCache(with: dic, key: ClassTableKey)
+            if let oldTable = self.table {
+                // 如果有 table
+                if oldTable.updatedAt >= table.updatedAt {
+                    // 如果新的还不如旧的
+                    // 那就不刷新
+                    return
+                }
+            }
+            let string = table.toJSONString() ?? ""
+            CacheManager.store(object: string, in: .group, as: "classtable/classtable.json")
             self.table = table
             let now = Date()
             let termStart = Date(timeIntervalSince1970: Double(table.termStart))
+            CacheManager.saveGroupCache(with: termStart, key: "TermStart")
+
             let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
             self.currentWeek = Int(week)
             self.currentDisplayWeek = Int(week)
@@ -225,15 +246,28 @@ class ClassTableViewController: UIViewController {
             // 和本周的差距
             self.listView.load(courses: courses, weeks: 0)
         }, failure: { errorMessage in
-            print(errorMessage)
+            SwiftMessages.showErrorMessage(body: errorMessage)
         })
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.tintColor = UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+        self.navigationController?.navigationBar.barStyle = .default
+        self.navigationController?.navigationBar.isTranslucent = false
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
     }
 }
 
@@ -315,7 +349,7 @@ extension ClassTableViewController {
                 }
             }
             // 按开始时间进行排序
-            array.sort(by: { $0.0.arrange[0].start < $0.1.arrange[0].start })
+            array.sort(by: { $0.arrange[0].start < $1.arrange[0].start })
             coursesForDay[day] = array
         }
         weekCourseDict[week] = coursesForDay

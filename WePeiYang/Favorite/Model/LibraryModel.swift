@@ -117,12 +117,4 @@ extension LibraryBook {
         guard let data = json.data(using: encoding) else { return nil }
         try self.init(data: data)
     }
-
-    func jsonData() throws -> Data {
-        return try JSONEncoder().encode(self)
-    }
-
-    func jsonString() throws -> String? {
-        return String(data: try self.jsonData(), encoding: .utf8)
-    }
 }

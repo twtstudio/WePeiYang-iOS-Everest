@@ -21,7 +21,7 @@ class QuizView: UIView {
     var optionButtons: [Checkbox]!
     var optionLabels: [UILabel]!
     
-    func didSelectOptionButton(_ button: Checkbox) {
+    @objc func didSelectOptionButton(_ button: Checkbox) {
         
         if !hasMultipleChoices {
             for foo in optionButtons {
@@ -41,17 +41,17 @@ class QuizView: UIView {
         for i in 0..<optionButtons.count {
             if optionButtons[i].wasChosen {
                 log.word("entered if")/
-                log.any(Courses.Study20.courseQuizes[self.tag]?.options[i].weight)/
+//                log.any(Courses.Study20.courseQuizes[self.tag]?.options[i].weight)/
                     fooArr.append(i)
-                    log.word("\(i)")/
+//                    log.word("\(i)")/
             }
         }
         if fooArr != [] {
             
             Courses.Study20.courseQuizes[self.tag]?.chosenOnesAtIndex = fooArr
             log.any(fooArr)/
-            log.any(Courses.Study20.courseQuizes[self.tag]?.chosenOnesAtIndex)/
-            
+//            log.any(Courses.Study20.courseQuizes[self.tag]?.chosenOnesAtIndex)/
+
         }
     }
     
