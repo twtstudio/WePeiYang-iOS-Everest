@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         favoriteVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         let favoriteNavigationController = UINavigationController(rootViewController: favoriteVC)
         
-        let newsVC = FavViewController()
+        let newsVC = NewsViewController()
         newsVC.tabBarItem.image = #imageLiteral(resourceName: "News")
         newsVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         let infoNavigationController = UINavigationController(rootViewController: newsVC)

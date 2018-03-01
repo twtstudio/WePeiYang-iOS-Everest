@@ -135,16 +135,16 @@ class LoginViewController: UIViewController {
     
     @objc func login() {
         guard let username = usernameField.text, !username.isEmpty else {
-            let view = MessageView.viewFromNib(layout: .cardView)
-            view.configureContent(title: "输入错误", body: "用户名不能为空")
-            view.alpha = 0.5
-            view.button?.isHidden = true
-            view.configureTheme(.error)
-            var config = SwiftMessages.Config()
-            config.presentationContext = .window(windowLevel: .infinity)
-            SwiftMessages.show(config: config, view: view)
+//            let view = MessageView.viewFromNib(layout: .cardView)
+//            view.configureContent(title: "输入错误", body: "用户名不能为空")
+//            view.alpha = 0.5
+//            view.button?.isHidden = true
+//            view.configureTheme(.error)
+//            var config = SwiftMessages.Config()
+//            config.presentationContext = .window(windowLevel: .infinity)
+//            SwiftMessages.show(config: config, view: view)
 
-//            SwiftMessages.showErrorMessage(title: "输入错误", body: "用户名不能为空")
+            SwiftMessages.showErrorMessage(title: "输入错误", body: "用户名不能为空")
             return
         }
         guard let password = passwordField.text, !password.isEmpty else {
