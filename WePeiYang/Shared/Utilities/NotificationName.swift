@@ -23,6 +23,9 @@ enum NotificationName: String {
 
     // reload card
     case NotificationCardWillRefresh
+
+    // reload card order
+    case NotificationCardOrderChanged
 }
 
 

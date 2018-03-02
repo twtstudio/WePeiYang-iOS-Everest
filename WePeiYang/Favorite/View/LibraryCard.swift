@@ -60,6 +60,10 @@ class LibraryCard: CardView {
         remakeConstraints()
     }
 
+    override func refresh() {
+        refresh(sender: refreshButton)
+    }
+
     func remakeConstraints() {
         let padding: CGFloat = 20
 
@@ -110,8 +114,8 @@ class LibraryCard: CardView {
 
         blankView.snp.remakeConstraints { make in
             make.top.equalTo(tableView.snp.top)
-            make.left.equalTo(refreshButton.snp.left)
-            make.right.equalTo(toggleButton.snp.right)
+            make.left.equalTo(tableView.snp.left)
+            make.right.equalTo(tableView.snp.right)
             make.bottom.equalTo(toggleButton.snp.bottom)
         }
 //        contentView.setNeedsUpdateConstraints()
@@ -248,7 +252,7 @@ extension LibraryCard {
         self.height = height
         remakeConstraints()
 
-        let info: [String : Any] = ["name": "Library", "height": height as CGFloat]
+        let info: [String : Any] = ["name": Module.library.rawValue, "height": height as CGFloat]
         NotificationCenter.default.post(name: NotificationName.NotificationCardWillRefresh.name, object: nil, userInfo: info)
     }
 }

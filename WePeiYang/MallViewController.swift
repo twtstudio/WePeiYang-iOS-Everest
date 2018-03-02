@@ -12,6 +12,7 @@ import SafariServices
 class MallViewController: SFSafariViewController {
     convenience init(_: String = "") {
         self.init(url: URL(string: "https://mall.twt.edu.cn")!)
+        self.modalPresentationStyle = .overFullScreen
     }
 
     required convenience init(_: String = "", coder aDecoder: NSCoder) {

@@ -14,10 +14,14 @@ class TwTUser: Codable {
     private init() {}
     var token: String?
     var username: String = ""
+    var password: String = ""
 //    var libraryState: Bool = false
     var schoolID: String = ""
     var tjuBindingState: Bool = false
+    var tjuPassword: String = ""
+
     var libBindingState: Bool = false
+    var libPassword: String = ""
     var bicycleBindingState: Bool = false
     var WLANBindingState: Bool = false
     var WLANAccount: String?
