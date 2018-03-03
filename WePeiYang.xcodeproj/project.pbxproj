@@ -1869,7 +1869,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = WePeiYangWidget/WePeiYangWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = TYRRVX7RWJ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1878,8 +1878,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang.WePeiYangWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9ff8a1f0-31dd-45e2-993f-5b8d493f2d0e";
-				PROVISIONING_PROFILE_SPECIFIER = "wpy widget provision";
+				PROVISIONING_PROFILE = "008c7954-32b7-4e82-bf67-7c371d314b5c";
+				PROVISIONING_PROFILE_SPECIFIER = cn.edu.twt.WeiPeiYang.WePeiYangWidget.dev;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1910,7 +1910,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang.WePeiYangWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3482a164-4052-49ee-9852-e0c66b391622";
+				PROVISIONING_PROFILE = "c2fde2ec-5ec3-4d37-b8ef-e9ee61953532";
 				PROVISIONING_PROFILE_SPECIFIER = "wpy widget provision";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -2034,7 +2034,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = WePeiYang/WePeiYang.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = TYRRVX7RWJ;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
@@ -2042,8 +2042,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "193a5cb8-cdb2-4f4e-a4d3-c2a7c67f9b69";
-				PROVISIONING_PROFILE_SPECIFIER = "wpy provision";
+				PROVISIONING_PROFILE = "d140e629-afda-4d31-af21-4a7c3b682479";
+				PROVISIONING_PROFILE_SPECIFIER = cn.edu.twt.WeiPeiYang.dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYang/WePeiYang-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;

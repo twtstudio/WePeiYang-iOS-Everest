@@ -119,7 +119,9 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
         if modules[indexPath.row].title == "商城" {
             let mallVC = MallViewController()
             mallVC.hidesBottomBarWhenPushed = true
+            mallVC.modalPresentationStyle = .overFullScreen
             self.navigationController?.pushViewController(mallVC, animated: true)
+//            self.present(mallVC, animated: true, completion: nil)
             return
         }
 

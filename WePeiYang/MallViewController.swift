@@ -38,7 +38,10 @@ class MallViewController: SFSafariViewController {
 
 extension MallViewController: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        self.navigationController?.popViewController(animated: true)
-//        controller.dismiss(animated: true, completion: nil)
+        if isModal {
+            controller.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 }

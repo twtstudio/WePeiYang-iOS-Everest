@@ -37,27 +37,30 @@ class DetailSettingViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.navigationBar.isTranslucent = true
+//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
 //        self.navigationController?.navigationBar.shadowImage = UIImage()
 //        self.navigationController?.navigationBar.tintColor = .black
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white)!, for: .default)
+        self.navigationController?.navigationBar.isHidden = false
 //        self.navigationController?.navigationBar.barStyle = .default
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-//        navigationController?.navigationBar.isTranslucent = false
         super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = true
 //        self.navigationController?.setNavigationBarHidden(true, animated:animated)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.navigationBar.isTranslucent = true
         tableView = UITableView(frame: self.view.bounds, style: .grouped)
         tableView.contentInset.bottom = 100
         tableView.delegate = self
@@ -69,7 +72,7 @@ class DetailSettingViewController: UIViewController {
         title = "设置"
 
         // 据说可以移除转场阴影
-        navigationController?.navigationBar.isTranslucent = false
+//        navigationController?.navigationBar.isTranslucent = false
     }
 }
 
@@ -204,3 +207,4 @@ extension DetailSettingViewController: SKStoreProductViewControllerDelegate {
         viewController.dismiss(animated: true, completion: nil)
     }
 }
+

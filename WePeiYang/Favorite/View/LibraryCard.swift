@@ -116,7 +116,8 @@ class LibraryCard: CardView {
             make.top.equalTo(tableView.snp.top)
             make.left.equalTo(tableView.snp.left)
             make.right.equalTo(tableView.snp.right)
-            make.bottom.equalTo(toggleButton.snp.bottom)
+//            make.bottom.equalTo(toggleButton.snp.bottom)
+            make.bottom.equalToSuperview()
         }
 //        contentView.setNeedsUpdateConstraints()
 //        self.contentView.layoutIfNeeded()
