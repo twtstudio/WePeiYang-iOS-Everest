@@ -98,8 +98,8 @@ class FavViewController: UIViewController {
                 let nameString = info["name"] as? String,
                 let name = Module(rawValue: nameString),
                 let height = info["height"] as? CGFloat,
-            let card = self.cardDict[name],
-                let row = Array(self.cardDict.keys).index(of: name) {
+                let card = self.cardDict[name],
+                let row = self.modules.index(where: { $0.0 == name }) {
                 let indexPath = IndexPath(row: row, section: 0)
                 let cell = self.cardTableView.cellForRow(at: indexPath)
 

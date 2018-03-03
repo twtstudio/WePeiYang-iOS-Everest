@@ -148,6 +148,8 @@ class ClassTableViewController: UIViewController {
         
         self.navigationItem.titleView = titleView
         backButton.addTarget(self, action: #selector(toggleWeekSelect), for: .touchUpInside)
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(load))
     }
     
     @objc func weekCellTapped(sender: UITapGestureRecognizer) {
@@ -186,11 +188,13 @@ class ClassTableViewController: UIViewController {
                 make.top.equalToSuperview().offset(-60)
             }
             isSelecting = false
-            currentDisplayWeek = currentWeek
-            // FIXME: 刚登录 table 为空？？
-            let courses = self.getCourse(table: table, week: currentWeek)
-            // 跳回当前周
-            listView.load(courses: courses, weeks: 0)
+            if currentDisplayWeek != currentWeek {
+                currentDisplayWeek = currentWeek
+                // FIXME: 刚登录 table 为空？？
+                let courses = self.getCourse(table: table, week: currentWeek)
+                // 跳回当前周
+                listView.load(courses: courses, weeks: 0)
+            }
         }
         
         // 告诉self.view约束需要更新
@@ -209,8 +213,11 @@ class ClassTableViewController: UIViewController {
                 let courses = self.getCourse(table: table, week: self.currentWeek)
                 let now = Date()
                 let termStart = Date(timeIntervalSince1970: Double(table.termStart))
-                let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
+                var week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
                 self.listView.load(courses: courses, weeks: 0)
+                if week < 1 {
+                    week = 1
+                }
                 self.currentWeek = Int(week)
                 self.currentDisplayWeek = Int(week)
             }
@@ -219,7 +226,7 @@ class ClassTableViewController: UIViewController {
         })
     }
     
-    func load() {
+    @objc func load() {
         ClasstableDataManager.getClassTable(success: { table in
             // 存起来
 //            let dic = table.toJSON()
@@ -239,7 +246,10 @@ class ClassTableViewController: UIViewController {
             let termStart = Date(timeIntervalSince1970: Double(table.termStart))
             CacheManager.saveGroupCache(with: termStart, key: "TermStart")
 
-            let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
+            var week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
+            if week < 1 {
+                week = 1
+            }
             self.currentWeek = Int(week)
             self.currentDisplayWeek = Int(week)
             let courses = self.getCourse(table: table, week: self.currentWeek)
