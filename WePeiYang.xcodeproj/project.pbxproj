@@ -153,6 +153,7 @@
 		369B2D4A20151542009352A8 /* DateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369B2D4920151542009352A8 /* DateTool.swift */; };
 		369D92072015D914004BA1D0 /* WeekSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D92062015D914004BA1D0 /* WeekSelectView.swift */; };
 		369D92092015D97A004BA1D0 /* WeekItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D92082015D97A004BA1D0 /* WeekItemCell.swift */; };
+		36A9C320204C56CD0018B6B3 /* ProgressWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A9C31F204C56CD0018B6B3 /* ProgressWebViewController.swift */; };
 		36B2C8902038898400AD2E3F /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A46452035E35500738963 /* Storage.swift */; };
 		36B2C89120388DF200AD2E3F /* LibraryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364922A020260CDC00DFDC35 /* LibraryModel.swift */; };
 		36B2C892203A806C00AD2E3F /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E11EC84ED90064373A /* CacheManager.swift */; };
@@ -424,6 +425,7 @@
 		369B2D4920151542009352A8 /* DateTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTool.swift; sourceTree = "<group>"; };
 		369D92062015D914004BA1D0 /* WeekSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSelectView.swift; sourceTree = "<group>"; };
 		369D92082015D97A004BA1D0 /* WeekItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekItemCell.swift; sourceTree = "<group>"; };
+		36A9C31F204C56CD0018B6B3 /* ProgressWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressWebViewController.swift; sourceTree = "<group>"; };
 		36B2C898203DB8DB00AD2E3F /* ClassWidgetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassWidgetCell.swift; sourceTree = "<group>"; };
 		36CAD449201B8EAA006F85E3 /* ClassTableHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableHelper.swift; sourceTree = "<group>"; };
 		36CAD44B201B9194006F85E3 /* ClassTableCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableCard.swift; sourceTree = "<group>"; };
@@ -1193,6 +1195,7 @@
 				B102541A1EC8547E0064373A /* WPYTextView.swift */,
 				3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */,
 				36758FDC1FDA851C0023A99C /* CardView.swift */,
+				36A9C31F204C56CD0018B6B3 /* ProgressWebViewController.swift */,
 			);
 			path = UI_Fundamentals;
 			sourceTree = "<group>";
@@ -1693,6 +1696,7 @@
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
 				36449E6C1FA4BABA0036766B /* FunctionListTableViewCell.swift in Sources */,
 				36449E701FA4BABA0036766B /* CourseDetailReadingView.swift in Sources */,
+				36A9C320204C56CD0018B6B3 /* ProgressWebViewController.swift in Sources */,
 				36449E831FA4BAD00036766B /* TwentyCourseViewController.swift in Sources */,
 				36449E8D1FA4BAD10036766B /* PartyCoursesViewController.m in Sources */,
 				3631D50A1F1903D70078816D /* TwTUser.swift in Sources */,

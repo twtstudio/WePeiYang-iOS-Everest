@@ -22,7 +22,12 @@ class NewsViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
-  
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
 //    fileprivate var backgroundScrollView: UIScrollView!
     fileprivate var newsHeaderView: NewsHeaderView!
     fileprivate var tableView: UITableView!
@@ -390,7 +395,10 @@ extension NewsViewController: UITableViewDelegate {
         }
         let row = indexPath.row - 2
         tableView.deselectRow(at: indexPath, animated: true)
-
+        let news = newsList[row]
+        let newsVC = ProgressWebViewController()
+        newsVC.webView.load(URLRequest(url: URL(string: "https://news.twt.edu.cn/?c=default&a=pernews&id=" + news.index)!))
+        self.navigationController?.pushViewController(newsVC, animated: true)
     }
 }
 

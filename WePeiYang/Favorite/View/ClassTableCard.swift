@@ -86,6 +86,12 @@ class ClassTableCard: CardView {
                 return course.courseName != ""
             }
 
+            if courses.count == 0 {
+                self.setState(.empty("今天没有课，做点有趣的事情吧！", .darkGray))
+            } else {
+                self.setState(.data)
+            }
+
             // 这个时间点有课就代表着时候有课
             let keys = [1, 3, 5, 7, 9]
             for (idx, time) in keys.enumerated() {
@@ -105,11 +111,6 @@ class ClassTableCard: CardView {
                 } else {
                     self.cells[idx].setIdle()
                 }
-            }
-            if courses.count == 0 {
-                self.setState(.empty("今天没有课，做点有趣的事情吧！", .darkGray))
-            } else {
-                self.setState(.data)
             }
         })
     }
