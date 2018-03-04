@@ -12,7 +12,7 @@ import SnapKit
 
 let bicycleGreen = UIColor(red: 39.0/255.0, green: 174.0/255.0, blue: 27.0/255.0, alpha: 0.8)
 
-//let bigiPhoneWidth: CGFloat = 414.0
+private let bigiPhoneWidth: CGFloat = 414.0
 let deviceWidth = UIScreen.main.bounds.size.width
 let deviceHeight = UIScreen.main.bounds.size.height
 

@@ -60,6 +60,7 @@
 		36366B331FAB8A84001F72A0 /* BicycleUserBindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D695341F8A21AD00022B9A /* BicycleUserBindViewController.xib */; };
 		363CE4BA1FAEB76F00999720 /* TwTAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363CE4B91FAEB76F00999720 /* TwTAPI.swift */; };
 		363D0A701FE006990095DA57 /* LibraryCardDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363D0A6F1FE006990095DA57 /* LibraryCardDataProvider.swift */; };
+		3641470D20471D6000F6DFD5 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3641470C20471D6000F6DFD5 /* NewsViewController.swift */; };
 		36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E3E1FA4BA9B0036766B /* TwentyCourseQuiz.swift */; };
 		36449E451FA4BA9B0036766B /* PartyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E3F1FA4BA9B0036766B /* PartyAPI.swift */; };
 		36449E461FA4BA9B0036766B /* Courses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E401FA4BA9B0036766B /* Courses.swift */; };
@@ -164,6 +165,7 @@
 		36DA7A5E1FA8A35C000DAF2B /* WPYBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254161EC8547E0064373A /* WPYBaseViewController.swift */; };
 		36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EE1EC84ED90064373A /* DeviceStatus.swift */; };
 		36E56BC61FC512230009BD6F /* CourseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E56BC51FC512230009BD6F /* CourseListView.swift */; };
+		36F285092049B7D50095A3D4 /* ModulesSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F285082049B7D50095A3D4 /* ModulesSettingsViewController.swift */; };
 		36F5BDCE1F9E196200CDDF74 /* FlowingColor.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 36F5BDCD1F9E17A600CDDF74 /* FlowingColor.mp4 */; };
 		36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F631EC1FAB31C500E3261F /* BicycleUserBindViewController.swift */; };
 		36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F631ED1FAB31C500E3261F /* BicycleServiceMapController.swift */; };
@@ -220,7 +222,6 @@
 		B10254231EC8547E0064373A /* WPYTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254191EC8547E0064373A /* WPYTextField.swift */; };
 		B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B9571EC5C21700B8198E /* FavViewController.swift */; };
 		B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */; };
-		B181B9601EC5C24000B8198E /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95E1EC5C24000B8198E /* NewsViewController.swift */; };
 		B19DAB941E6EF5C2004A50B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B19DAB921E6EF5C2004A50B5 /* LaunchScreen.storyboard */; };
 		B19DABAA1E6EF5C2004A50B5 /* WePeiYangUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */; };
 /* End PBXBuildFile section */
@@ -314,6 +315,7 @@
 		363CE4B91FAEB76F00999720 /* TwTAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTAPI.swift; sourceTree = "<group>"; };
 		363D0A6D1FE005480095DA57 /* LibraryCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCard.swift; sourceTree = "<group>"; };
 		363D0A6F1FE006990095DA57 /* LibraryCardDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LibraryCardDataProvider.swift; path = WePeiYang/Favorite/LibraryCardDataProvider.swift; sourceTree = SOURCE_ROOT; };
+		3641470C20471D6000F6DFD5 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		36449E3E1FA4BA9B0036766B /* TwentyCourseQuiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwentyCourseQuiz.swift; path = PartyService/Model/TwentyCourseQuiz.swift; sourceTree = "<group>"; };
 		36449E3F1FA4BA9B0036766B /* PartyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartyAPI.swift; path = PartyService/Model/PartyAPI.swift; sourceTree = "<group>"; };
 		36449E401FA4BA9B0036766B /* Courses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Courses.swift; path = PartyService/Model/Courses.swift; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 		36D526E42041C4150074EB2B /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
 		36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WePeiYang-Bridging-Header.h"; sourceTree = "<group>"; };
 		36E56BC51FC512230009BD6F /* CourseListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseListView.swift; sourceTree = "<group>"; };
+		36F285082049B7D50095A3D4 /* ModulesSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesSettingsViewController.swift; sourceTree = "<group>"; };
 		36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		36F5BDCD1F9E17A600CDDF74 /* FlowingColor.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = FlowingColor.mp4; sourceTree = "<group>"; };
 		36F631EC1FAB31C500E3261F /* BicycleUserBindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleUserBindViewController.swift; sourceTree = "<group>"; };
@@ -486,7 +489,6 @@
 		B13F3AE71F0CEE5C00F820A5 /* FAB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAB.swift; sourceTree = "<group>"; };
 		B181B9571EC5C21700B8198E /* FavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavViewController.swift; sourceTree = "<group>"; };
 		B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllModulesViewController.swift; sourceTree = "<group>"; };
-		B181B95E1EC5C24000B8198E /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		B19DAB861E6EF5C2004A50B5 /* WePeiYang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WePeiYang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B19DAB931E6EF5C2004A50B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B19DAB9A1E6EF5C2004A50B5 /* WePeiYangTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WePeiYangTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -624,6 +626,38 @@
 				36073D191F225D2A001317A7 /* SearchViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		3641470820471CC500F6DFD5 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				3641470A20471CE200F6DFD5 /* Controller */,
+				3641470920471CDC00F6DFD5 /* View */,
+				3641470B20471CEC00F6DFD5 /* Model */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
+		3641470920471CDC00F6DFD5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3641470A20471CE200F6DFD5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3641470C20471D6000F6DFD5 /* NewsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3641470B20471CEC00F6DFD5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		36449E3A1FA4BA660036766B /* PartyService */ = {
@@ -825,6 +859,7 @@
 			children = (
 				0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */,
 				3667E1CF201CB98800E82241 /* DetailSettingViewController.swift */,
+				36F285082049B7D50095A3D4 /* ModulesSettingsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1241,12 +1276,12 @@
 			children = (
 				36366B351FAC61B6001F72A0 /* WePeiYang.entitlements */,
 				B10254091EC8520A0064373A /* main */,
-				B181B95E1EC5C24000B8198E /* NewsViewController.swift */,
 				36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */,
 				369306911F2B972F008E90DC /* ModuleCollection */,
 				B10253DE1EC84ED90064373A /* Shared */,
 				B19DAB921E6EF5C2004A50B5 /* LaunchScreen.storyboard */,
 				36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */,
+				3641470820471CC500F6DFD5 /* News */,
 				A53602621FC6E23C00E3D1AF /* Binding */,
 				A5197A381FDA850A008C445A /* Library */,
 				B181B9551EC5C21700B8198E /* Favorite */,
@@ -1387,7 +1422,7 @@
 					365A464C2036EFB700738963 = {
 						CreatedOnToolsVersion = 9.2;
 						DevelopmentTeam = TYRRVX7RWJ;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1398,7 +1433,7 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = TYRRVX7RWJ;
 						LastSwiftMigration = 0810;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1642,6 +1677,7 @@
 				36073D0D1F223FC1001317A7 /* Search.swift in Sources */,
 				A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */,
 				36073D1A1F225D2A001317A7 /* BookDetailViewController.swift in Sources */,
+				3641470D20471D6000F6DFD5 /* NewsViewController.swift in Sources */,
 				B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */,
 				36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */,
 				3659368D1F1E60A9003CE578 /* CourseAppraiseViewController.swift in Sources */,
@@ -1673,7 +1709,6 @@
 				365A46482036956700738963 /* CacheFilenameKey.swift in Sources */,
 				36073D0B1F223FC1001317A7 /* RecommendCell.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
-				B181B9601EC5C24000B8198E /* NewsViewController.swift in Sources */,
 				0C3ADF3B1F697EE100388C19 /* MyFoundViewController.swift in Sources */,
 				A51C456A1FD0477700652435 /* BicycleBindingViewController.swift in Sources */,
 				365936711F1E38B8003CE578 /* YellowPageSearchHistoryCell.swift in Sources */,
@@ -1740,6 +1775,7 @@
 				36449E8E1FA4BAD10036766B /* PartyComplainViewController.swift in Sources */,
 				36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */,
 				3653DD911FBAD0B600501C3B /* ClassTableViewController.swift in Sources */,
+				36F285092049B7D50095A3D4 /* ModulesSettingsViewController.swift in Sources */,
 				3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */,
 				A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */,
 				A51C45681FD0227800652435 /* WLANBindingViewController.swift in Sources */,
@@ -1869,7 +1905,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = WePeiYangWidget/WePeiYangWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = TYRRVX7RWJ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
@@ -1877,6 +1914,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang.WePeiYangWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "008c7954-32b7-4e82-bf67-7c371d314b5c";
+				PROVISIONING_PROFILE_SPECIFIER = cn.edu.twt.WeiPeiYang.WePeiYangWidget.dev;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1897,8 +1936,9 @@
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = WePeiYangWidget/WePeiYangWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jiayi Li (TYRRVX7RWJ)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = TYRRVX7RWJ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
@@ -1906,6 +1946,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang.WePeiYangWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c2fde2ec-5ec3-4d37-b8ef-e9ee61953532";
+				PROVISIONING_PROFILE_SPECIFIER = "wpy widget provision";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1939,6 +1981,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1995,7 +2038,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Jiayi Li (TYRRVX7RWJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jiayi Li (TYRRVX7RWJ)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2026,12 +2070,16 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = WePeiYang/WePeiYang.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = TYRRVX7RWJ;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d140e629-afda-4d31-af21-4a7c3b682479";
+				PROVISIONING_PROFILE_SPECIFIER = cn.edu.twt.WeiPeiYang.dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYang/WePeiYang-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -2046,13 +2094,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = WePeiYang/WePeiYang.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jiayi Li (TYRRVX7RWJ)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = TYRRVX7RWJ;
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "193a5cb8-cdb2-4f4e-a4d3-c2a7c67f9b69";
+				PROVISIONING_PROFILE_SPECIFIER = "wpy provision";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYang/WePeiYang-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};

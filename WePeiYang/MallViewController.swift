@@ -12,6 +12,7 @@ import SafariServices
 class MallViewController: SFSafariViewController {
     convenience init(_: String = "") {
         self.init(url: URL(string: "https://mall.twt.edu.cn")!)
+        self.modalPresentationStyle = .overFullScreen
     }
 
     required convenience init(_: String = "", coder aDecoder: NSCoder) {
@@ -37,7 +38,10 @@ class MallViewController: SFSafariViewController {
 
 extension MallViewController: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        self.navigationController?.popViewController(animated: true)
-//        controller.dismiss(animated: true, completion: nil)
+        if isModal {
+            controller.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 }

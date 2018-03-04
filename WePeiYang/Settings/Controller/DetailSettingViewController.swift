@@ -36,23 +36,31 @@ class DetailSettingViewController: UIViewController {
                   ("其他", [.share, .rate, .quit])]
 
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.tintColor = .black
         super.viewWillAppear(animated)
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white)!, for: .default)
-        self.navigationController?.navigationBar.barStyle = .default
+        navigationController?.navigationBar.isTranslucent = true
+//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.tintColor = .black
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white)!, for: .default)
+        self.navigationController?.navigationBar.isHidden = false
+//        self.navigationController?.navigationBar.barStyle = .default
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.setNavigationBarHidden(true, animated:animated)
         super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+//        self.navigationController?.setNavigationBarHidden(true, animated:animated)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.navigationBar.isTranslucent = true
         tableView = UITableView(frame: self.view.bounds, style: .grouped)
         tableView.contentInset.bottom = 100
         tableView.delegate = self
@@ -64,7 +72,7 @@ class DetailSettingViewController: UIViewController {
         title = "设置"
 
         // 据说可以移除转场阴影
-        navigationController?.navigationBar.isTranslucent = false
+//        navigationController?.navigationBar.isTranslucent = false
     }
 }
 
@@ -128,21 +136,25 @@ extension DetailSettingViewController: UITableViewDelegate {
         case (0, .notification):
             return
         case (0, .modules):
-            return
+            let settingsVC = ModulesSettingsViewController()
+            self.navigationController?.pushViewController(settingsVC, animated: true)
         case (0, .accounts):
             return
 
         case (1, .join):
             let safariVC = SFSafariViewController(url: URL(string: "https://coder.twtstudio.com/join")!, entersReaderIfAvailable: false)
             safariVC.delegate = self
+            safariVC.modalPresentationStyle = .overFullScreen
             self.navigationController?.pushViewController(safariVC, animated: true)
         case (1, .EULA):
             let safariVC = SFSafariViewController(url: URL(string: "https://support.twtstudio.com/category/1/%E5%85%AC%E5%91%8A")!, entersReaderIfAvailable: false)
             safariVC.delegate = self
+            safariVC.modalPresentationStyle = .overFullScreen
             self.navigationController?.pushViewController(safariVC, animated: true)
         case (1, .feedback):
             let safariVC = SFSafariViewController(url: URL(string: "https://support.twtstudio.com/category/6/%E7%A7%BB%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF")!, entersReaderIfAvailable: false)
             safariVC.delegate = self
+            safariVC.modalPresentationStyle = .overFullScreen
             self.navigationController?.pushViewController(safariVC, animated: true)
 
         case (2, .share):
@@ -195,3 +207,4 @@ extension DetailSettingViewController: SKStoreProductViewControllerDelegate {
         viewController.dismiss(animated: true, completion: nil)
     }
 }
+

@@ -14,10 +14,14 @@ class TwTUser: Codable {
     private init() {}
     var token: String?
     var username: String = ""
+    var password: String = ""
 //    var libraryState: Bool = false
     var schoolID: String = ""
     var tjuBindingState: Bool = false
+    var tjuPassword: String = ""
+
     var libBindingState: Bool = false
+    var libPassword: String = ""
     var bicycleBindingState: Bool = false
     var WLANBindingState: Bool = false
     var WLANAccount: String?
@@ -39,7 +43,9 @@ class TwTUser: Codable {
         }
 
         let user = Storage.retreive("user.json", from: .group, as: TwTUser.self)
-        TwTUser.shared = user
+        if let user = user {
+            TwTUser.shared = user
+        }
         success?()
 //        CacheManager.retreive("user.json", from: .group, as: TwTUser.self, success: { user in
 //            TwTUser.shared = user

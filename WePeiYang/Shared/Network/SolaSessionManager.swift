@@ -184,7 +184,7 @@ struct SolaSessionManager {
                             let errMsg = String(data: data, encoding: .utf8)
 //                            HUD.flash(.labeledError(title: errMsg, subtitle: nil), delay: 1.2)
                             failure?(error)
-                            print(errMsg)
+//                            print(errMsg)
                         }
                     })
                 case .failure(let error):

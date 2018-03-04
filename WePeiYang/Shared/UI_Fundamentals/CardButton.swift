@@ -24,7 +24,7 @@ class CardButton: UIButton {
         setAttributedTitle(attrString, for: .normal)
         titleLabel?.sizeToFit()
         self.sizeToFit()
-        width += 25
+        width += 20
         height += 5
     }
 

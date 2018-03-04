@@ -118,6 +118,7 @@ class TJUBindingViewController: UIViewController {
 
                 if errorCode == -1 {
                     TwTUser.shared.tjuBindingState = true
+                    TwTUser.shared.tjuPassword = self.passwordTextField.text!
                     TwTUser.shared.save()
                     NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("tju", true))
                     SwiftMessages.showSuccessMessage(body: "绑定成功！")

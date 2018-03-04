@@ -20,8 +20,10 @@ class FavViewController: UIViewController {
     var headerView: UIView!
     var fooView: UIView!
     var cardTableView: UITableView!
-    var cardDict: [String: CardView] = [:]
+    var cardDict: [Module: CardView] = [:]
     var cellHeights: [CGFloat] = []
+
+    var modules: [(Module, Bool)] = []
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -93,10 +95,11 @@ class FavViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: NotificationName.NotificationCardWillRefresh.name, object: nil, queue: nil, using: { notification in
             // 这个地方很丑陋
             if let info = notification.userInfo,
-                let name = info["name"] as? String,
+                let nameString = info["name"] as? String,
+                let name = Module(rawValue: nameString),
                 let height = info["height"] as? CGFloat,
                 let card = self.cardDict[name],
-                let row = Array(self.cardDict.keys).index(of: name) {
+                let row = self.modules.index(where: { $0.0 == name }) {
                 let indexPath = IndexPath(row: row, section: 0)
                 let cell = self.cardTableView.cellForRow(at: indexPath)
 
@@ -133,13 +136,31 @@ class FavViewController: UIViewController {
                 self.refreshCards(info: notification)
             }
         })
+
+        reloadOrder()
         // init Cards
-        initCards()
+//        initCards()
 
         NotificationCenter.default.addObserver(self, selector: #selector(refreshCards), name: NotificationName.NotificationUserDidLogout.name, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshCards), name: NotificationName.NotificationUserDidLogin.name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadOrder), name: NotificationName.NotificationCardOrderChanged.name, object: nil)
     }
 
+    // 重新加载顺序
+    @objc func reloadOrder() {
+        modules = [(.classtable, true), (.gpa, true), (.library, true)]
+        if let dict = UserDefaults.standard.dictionary(forKey: ModuleArrangementKey) as? [String: [String: String]] {
+            var array: [(Module, Bool, Int)] = []
+            for item in dict {
+                array.append((Module(rawValue: item.key)!, Bool(item.value["isOn"]!)!, Int(item.value["order"]!)!))
+            }
+            modules = array.sorted(by: { $0.2 < $1.2 }).map({ ($0.0, $0.1) }).filter({ $0.1 })
+        }
+        initCards()
+//        cardTableView.reloadData()
+    }
+
+    // 重新加载数据
     @objc func refreshCards(info: Notification) {
         for key in Array(cardDict.keys) {
             cardDict[key]!.refresh()
@@ -154,10 +175,26 @@ class FavViewController: UIViewController {
         }
     }
 
+    // 初始化卡片
     func initCards() {
-        initClassTableCard()
-        initLibraryCard()
-        initGPACard()
+        for module in modules {
+            if !module.1 {
+                continue
+            }
+
+            if cardDict[module.0] != nil {
+                continue
+            }
+
+            switch module.0 {
+            case .classtable:
+                initClassTableCard()
+            case .gpa:
+                initGPACard()
+            case .library:
+                initLibraryCard()
+            }
+        }
         cardTableView.reloadData()
     }
 
@@ -177,7 +214,7 @@ extension FavViewController {
         card.shouldPresent(gpaNC, from: self)
 //        card.shouldPush(gpaVC, from: self)
 
-        cardDict["GPA"] = card
+        cardDict[Module.gpa] = card
     }
 
     func initClassTableCard() {
@@ -188,7 +225,7 @@ extension FavViewController {
             let classtableVC = ClassTableViewController()
             let classtableNC = UINavigationController(rootViewController: classtableVC)
             card.shouldPresent(classtableNC, from: self)
-            cardDict["ClassTable"] = card
+            cardDict[Module.classtable] = card
         }
 
 //        card.refresh()
@@ -198,7 +235,7 @@ extension FavViewController {
         let card = LibraryCard()
 
 //        card.refresh()
-        cardDict["Library"] = card
+        cardDict[Module.library] = card
     }
 }
 
@@ -208,17 +245,19 @@ extension FavViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cardDict.keys.count
+        return modules.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let key = Array(cardDict.keys)[indexPath.row]
-        let card = cardDict[key]!
-        var cell = tableView.dequeueReusableCell(withIdentifier: "card\(indexPath)")
+        let module = modules[indexPath.row]
+
+//        let key = Array(cardDict.keys)[indexPath.row]
+        let card = cardDict[module.0]!
+        var cell = tableView.dequeueReusableCell(withIdentifier: "card\(module)")
 
         if cell == nil {
             // no cell in reuse pool
-            cell = UITableViewCell(style: .default, reuseIdentifier: "card\(indexPath)")
+            cell = UITableViewCell(style: .default, reuseIdentifier: "card\(module)")
             cell!.contentView.addSubview(card)
             card.sizeToFit()
             let cellHeight: CGFloat = 240

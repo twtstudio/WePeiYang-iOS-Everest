@@ -67,8 +67,7 @@ class AllModulesViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.alpha = 0
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
 
@@ -120,7 +119,9 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
         if modules[indexPath.row].title == "商城" {
             let mallVC = MallViewController()
             mallVC.hidesBottomBarWhenPushed = true
+            mallVC.modalPresentationStyle = .overFullScreen
             self.navigationController?.pushViewController(mallVC, animated: true)
+//            self.present(mallVC, animated: true, completion: nil)
             return
         }
 
