@@ -1925,7 +1925,7 @@
 				PROVISIONING_PROFILE = "008c7954-32b7-4e82-bf67-7c371d314b5c";
 				PROVISIONING_PROFILE_SPECIFIER = cn.edu.twt.WeiPeiYang.WePeiYangWidget.dev;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1957,7 +1957,7 @@
 				PROVISIONING_PROFILE = "c2fde2ec-5ec3-4d37-b8ef-e9ee61953532";
 				PROVISIONING_PROFILE_SPECIFIER = "wpy widget provision";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
