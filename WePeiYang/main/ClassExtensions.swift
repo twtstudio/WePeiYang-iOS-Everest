@@ -462,9 +462,18 @@ extension SwiftMessages {
         let view = MessageView.viewFromNib(layout: layout)
         view.configureContent(title: title, body: body)
         view.button?.isHidden = true
+
         view.configureTheme(theme)
         var config = SwiftMessages.Config()
-        config.presentationContext = context
+//        if let vc = UIViewController.current {
+////            public let UIWindowLevelNormal: UIWindowLevel
+////            public let UIWindowLevelAlert: UIWindowLevel
+////            public let UIWindowLevelStatusBar: UIWindowLevel
+//            config.presentationContext = PresentationContext.window(windowLevel: UIWindowLevelStatusBar)
+//        } else {
+            config.presentationContext = context
+//        }
+
         SwiftMessages.show(config: config, view: view)
     }
 }
@@ -489,6 +498,12 @@ extension Encodable {
 
     func jsonString() throws -> String? {
         return String(data: try self.jsonData(), encoding: .utf8)
+    }
+}
+
+extension Dictionary {
+    func jsonData() throws -> Data {
+        return try JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted)
     }
 }
 

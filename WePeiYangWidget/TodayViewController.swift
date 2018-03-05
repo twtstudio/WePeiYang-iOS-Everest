@@ -114,14 +114,18 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 //            tableView.reloadData()
 //            completionHandler(NCUpdateResult.newData)
 //        }
-        CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
-            if let table = Mapper<ClassTableModel>().map(JSONString: string) {
-                self.classes = ClassTableHelper.getTodayCourse(table: table).filter { course in
-                    return course.courseName != "" && course.arrange.count > 0
+        TwTUser.shared.load(success: {
+            CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
+                if let table = Mapper<ClassTableModel>().map(JSONString: string) {
+                    self.classes = ClassTableHelper.getTodayCourse(table: table).filter { course in
+                        return course.courseName != "" && course.arrange.count > 0
+                    }
+                    self.tableView.reloadData()
+                    completionHandler(NCUpdateResult.newData)
                 }
-                self.tableView.reloadData()
-                completionHandler(NCUpdateResult.newData)
-            }
+            }, failure: {
+                completionHandler(NCUpdateResult.failed)
+            })
         }, failure: {
             completionHandler(NCUpdateResult.failed)
         })

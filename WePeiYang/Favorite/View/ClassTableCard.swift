@@ -107,6 +107,7 @@ class ClassTableCard: CardView {
                             m.arrange.first?.end ==  course.arrange.first?.end
                     }
                     courses.remove(at: index!)
+                    self.cells[idx].dismissIdle()
                     self.cells[idx].load(course: course)
                 } else {
                     self.cells[idx].setIdle()

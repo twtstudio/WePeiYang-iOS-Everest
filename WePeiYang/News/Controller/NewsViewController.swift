@@ -396,8 +396,8 @@ extension NewsViewController: UITableViewDelegate {
         let row = indexPath.row - 2
         tableView.deselectRow(at: indexPath, animated: true)
         let news = newsList[row]
-        let newsVC = ProgressWebViewController()
-        newsVC.webView.load(URLRequest(url: URL(string: "https://news.twt.edu.cn/?c=default&a=pernews&id=" + news.index)!))
+        let newsVC = NewsDetailViewController(index: news.index)
+        newsVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(newsVC, animated: true)
     }
 }

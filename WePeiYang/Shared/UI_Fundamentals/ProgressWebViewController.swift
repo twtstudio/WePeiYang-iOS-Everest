@@ -36,9 +36,15 @@ class ProgressWebViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.hidesBarsOnSwipe = true
         setupWebView()
         setupProgressView()
+    }
+
+    deinit {
+        webView.removeObserver(self, forKeyPath: "estimatedProgress")
+        webView.navigationDelegate = nil
     }
 }
 
@@ -51,7 +57,7 @@ extension ProgressWebViewController {
             let animated = Float(webView.estimatedProgress) > progressView.progress
             progressView.setProgress(Float(webView.estimatedProgress), animated: animated)
             if webView.estimatedProgress >= 1.0 {
-                UIView.animate(withDuration: 0.3, delay: 0.3, options: .curveEaseOut, animations: {
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
                     self.progressView.alpha = 0
                 }, completion: { finished in
                     self.progressView.setProgress(0, animated: false)
@@ -67,10 +73,37 @@ extension ProgressWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         progressView.isHidden = false
 
+//        self.title = webView.title
 //        webView.evaluateJavaScript("document.title") { title, error in
 //            if let title = title as? String {
 //                self.title = title
 //            }
 //        }
+    }
+
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        switch navigationAction.navigationType {
+        case .linkActivated:
+            let newVC = ProgressWebViewController()
+            newVC.webView.load(navigationAction.request)
+            decisionHandler(.cancel)
+            self.navigationController?.pushViewController(newVC, animated: true)
+            return
+        case .backForward:
+            decisionHandler(.cancel)
+            self.navigationController?.popViewController(animated: true)
+            break
+        case .formResubmitted:
+            break
+        case .formSubmitted:
+            break
+        case .reload:
+            break
+        case .other:
+            break
+        default:
+            break
+        }
+        decisionHandler(.allow)
     }
 }
