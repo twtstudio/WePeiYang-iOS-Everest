@@ -12,7 +12,9 @@ import WebKit
 class ProgressWebViewController: UIViewController {
     var webView: WKWebView = {
         let config = WKWebViewConfiguration()
+        config.allowsPictureInPictureMediaPlayback = true
         let webView = WKWebView(frame: .zero, configuration: config)
+//        webView.allowsBackForwardNavigationGestures = true
         return webView
     }()
     var progressView = UIProgressView()
@@ -100,8 +102,6 @@ extension ProgressWebViewController: WKNavigationDelegate {
         case .reload:
             break
         case .other:
-            break
-        default:
             break
         }
         decisionHandler(.allow)

@@ -17,6 +17,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     var imgView: UIImageView!
     var hintLabel: UILabel!
     var messageLabel: UILabel!
+    var dayLabel: UILabel!
+    var activeDisplayMode = 0
 
     var classes: [ClassModel] = [] {
         willSet {
@@ -24,21 +26,19 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                 messageLabel.isHidden = false
             } else {
                 messageLabel.isHidden = true
+                nextClass = newValue.first(where: { model in
+                    let arrange = model.arrange.first!
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "HH:mm:ss"
+                    let time = formatter.string(from: Date())
+                    return time < arrange.startTime
+                })
             }
         }
     }
-    let timeArray = [(start: "8:30", end: "9:15"),
-                     (start: "9:20", end: "10:05"),
-                     (start: "10:25", end: "11:10"),
-                     (start: "11:15", end: "12:00"),
-                     (start: "13:30", end: "14:15"),
-                     (start: "14:20", end: "15:05"),
-                     (start: "15:25", end: "16:10"),
-                     (start: "16:15", end: "17:00"),
-                     (start: "18:30", end: "19:15"),
-                     (start: "19:20", end: "20:05"),
-                     (start: "20:10", end: "20:55"),
-                     (start: "21:00", end: "21:45")]
+
+    var nextClass: ClassModel?
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,11 +48,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
 
         let width = UIScreen.main.bounds.width
-
-        let dayLabel = UILabel(frame: CGRect(x: 70, y: 20, width: width - 70 - 20, height: 20))
+        dayLabel = UILabel(frame: CGRect(x: 70, y: 20, width: width - 70 - 20, height: 20))
         dayLabel.textAlignment = .center
-        dayLabel.font = UIFont.preferredFont(forTextStyle: .title3)
-        dayLabel.text = "周二 2月21日 第17周"
+        dayLabel.font = UIFont.preferredFont(forTextStyle: .body)
+//        dayLabel.text = ""
         dayLabel.textColor = .gray
         self.view.addSubview(dayLabel)
 
@@ -61,6 +60,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
         tableView = UITableView(frame: CGRect(x: 70, y: 50, width: width - 70, height: 50))
         tableView.rowHeight = tableViewHeight
+        tableView.allowsSelection = false
         imgView = UIImageView(frame: CGRect(x: 20, y: 20, width: 40, height: 40))
         imgView.image = #imageLiteral(resourceName: "ic_wifi-1")
         // imgView.image = #imageLiteral(resourceName: "bicycleBtn")
@@ -72,7 +72,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         hintLabel.text = "请稍候"
 
         messageLabel = UILabel(frame: CGRect(x: 70, y: 50, width: width - 70, height: 50))
-        messageLabel.font = UIFont.preferredFont(forTextStyle: .title3)
+        messageLabel.font = UIFont.preferredFont(forTextStyle: .body)
         messageLabel.textAlignment = .center
         messageLabel.textColor = .gray
         messageLabel.text = "今天没有课，做点有趣的事情吧！"
@@ -93,11 +93,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         switch activeDisplayMode {
         case .compact:
-            tableView.frame.size.height = tableView.rowHeight
-            self.preferredContentSize.height =  tableView.rowHeight + 20 + 20
+            tableView.frame.size.height = tableView.rowHeight + 20
+            self.preferredContentSize.height = tableView.rowHeight + 20 + 20
         case .expanded:
-            tableView.frame.size.height = CGFloat(classes.count) * tableView.rowHeight
-            self.preferredContentSize.height = CGFloat(classes.count) * tableView.rowHeight + 20 + 20
+            tableView.frame.size.height = CGFloat(classes.count) * tableView.rowHeight + 20
+            self.preferredContentSize.height = CGFloat(classes.count) * tableView.rowHeight + 20 + 20 + 20
         }
         layout()
     }
@@ -114,6 +114,21 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 //            tableView.reloadData()
 //            completionHandler(NCUpdateResult.newData)
 //        }
+
+        if let termStart = CacheManager.loadGroupCache(withKey: "TermStart") as? Date {
+            let now = Date()
+            let week = Int(now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1)
+            let cal = Calendar.current
+            let weekday = DateTool.getChineseWeekDay()
+            let formatter = NumberFormatter()
+            formatter.locale = Locale(identifier: "zh_CN")
+            formatter.numberStyle = .spellOut
+            let comps = cal.dateComponents([.month, .day], from: now)
+
+            dayLabel.text = weekday + " \(comps.month!)月\(comps.day!)日 " + "第\(week)周"
+        }
+
+
         TwTUser.shared.load(success: {
             CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
                 if let table = Mapper<ClassTableModel>().map(JSONString: string) {
@@ -152,18 +167,29 @@ extension TodayViewController: UITableViewDataSource {
         let cell = ClassWidgetCell(style: .default, reuseIdentifier: "ClassWidgetCell")
         let model = classes[indexPath.row]
         let arrange = model.arrange.first!
-        cell.coursenameLabel.text = model.courseName + " (当前课程)"
+        cell.coursenameLabel.text = model.courseName
+        cell.coursenameLabel.frame.size.width = UIScreen.main.bounds.width - 120
         let rangeText = "\(arrange.start)-\(arrange.end)节"
         var timeText = ""
-        if arrange.start <= timeArray.count && arrange.end <= timeArray.count {
-            timeText = "\(timeArray[arrange.start].start)-\(timeArray[arrange.end].end)"
-        }
+//        if arrange.start <= timeArray.count && arrange.end <= timeArray.count {
+//            let timeStart = timeArray[arrange.start-1].start
+//            let timeEnd = timeArray[arrange.end-1].end
+            timeText = arrange.startTime + "-" + arrange.endTime
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm:ss"
+            let time = formatter.string(from: Date())
+            if time >= arrange.startTime && time <= arrange.endTime {
+                cell.coursenameLabel.text = model.courseName + " (当前课程)"
+            }
+//        }
         cell.infoLabel.text = rangeText + " " + timeText
 
         if arrange.room != "" && arrange.room != "无" {
             let text = cell.infoLabel.text!
             cell.infoLabel.text = text + " @" + arrange.room
         }
+        cell.infoLabel.sizeToFit()
+        
         return cell
     }
 }

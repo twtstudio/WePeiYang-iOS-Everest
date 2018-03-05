@@ -20,7 +20,7 @@ class ClassTableViewController: UIViewController {
         }
     }
     var weekCourseDict: [Int: [[ClassModel]]] = [:]
-    
+
     var backButton: UIButton!
     // 当前的周
     var currentWeek: Int = 1
