@@ -85,7 +85,6 @@ struct Storage {
         let url = getURL(for: directory).appendingPathComponent(filename, isDirectory: false)
         if !FileManager.default.fileExists(atPath: url.path) {
             return nil
-//            fatalError("error: \(filename) does not exist")
         }
 
         if let data = FileManager.default.contents(atPath: url.path) {
@@ -95,12 +94,8 @@ struct Storage {
                 return model
             } catch {
                 return nil
-                // FIXME: handle error
-//                fatalError("error decode data")
             }
         } else {
-            // FIXME: handle error
-//            fatalError("error decode data")
             return nil
         }
     }

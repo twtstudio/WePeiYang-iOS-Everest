@@ -30,11 +30,11 @@ struct SolaSessionManager {
     ///   - parameters: http parameters
     ///   - success: callback if request succeeds
     ///   - failure: callback if request fails
-    static func solaSession(type: SessionType = .get, baseURL: String = TWT_ROOT_URL, url: String, token: String? = nil, parameters: Dictionary<String, String>? = nil, success: ((Dictionary<String, Any>)->())? = nil, failure: ((Error)->())? = nil) {
+    static func solaSession(type: SessionType = .get, baseURL: String = TWT_ROOT_URL, url: String, token: String? = nil, parameters: [String: String]? = nil, success: (([String: Any])->())? = nil, failure: ((Error)->())? = nil) {
         
         let fullurl = baseURL + url
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
-        var para = parameters ?? Dictionary<String, String>()
+        var para = parameters ?? [String: String]()
         para["t"] = timeStamp
         var fooPara = para
         
@@ -79,7 +79,7 @@ struct SolaSessionManager {
             switch response.result {
             case .success:
                 if let data = response.result.value  {
-                    if let dict = data as? Dictionary<String, Any> {
+                    if let dict = data as? [String: Any] {
                         success?(dict)
                     }
                 }

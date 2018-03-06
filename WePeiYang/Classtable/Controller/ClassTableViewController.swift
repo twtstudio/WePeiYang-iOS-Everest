@@ -20,7 +20,7 @@ class ClassTableViewController: UIViewController {
         }
     }
     var weekCourseDict: [Int: [[ClassModel]]] = [:]
-    
+
     var backButton: UIButton!
     // 当前的周
     var currentWeek: Int = 1
@@ -184,10 +184,7 @@ class ClassTableViewController: UIViewController {
                 weekSelectView.contentOffset = CGPoint(x: 0, y: (CGFloat(currentDisplayWeek)-3.5)*50)
             }
         } else {
-            self.weekSelectView.snp.updateConstraints { make in
-                make.top.equalToSuperview().offset(-60)
-            }
-            isSelecting = false
+
             if currentDisplayWeek != currentWeek {
                 currentDisplayWeek = currentWeek
                 // FIXME: 刚登录 table 为空？？
@@ -195,6 +192,13 @@ class ClassTableViewController: UIViewController {
                 // 跳回当前周
                 listView.load(courses: courses, weeks: 0)
             }
+            self.view.setNeedsUpdateConstraints()
+            self.view.layoutIfNeeded()
+
+            self.weekSelectView.snp.updateConstraints { make in
+                make.top.equalToSuperview().offset(-60)
+            }
+            isSelecting = false
         }
         
         // 告诉self.view约束需要更新
@@ -209,7 +213,7 @@ class ClassTableViewController: UIViewController {
         CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
             if let table = Mapper<ClassTableModel>().map(JSONString: string) {
                 self.table = table
-
+                self.weekCourseDict = [:]
                 let courses = self.getCourse(table: table, week: self.currentWeek)
                 let now = Date()
                 let termStart = Date(timeIntervalSince1970: Double(table.termStart))
@@ -228,14 +232,12 @@ class ClassTableViewController: UIViewController {
     
     @objc func load() {
         ClasstableDataManager.getClassTable(success: { table in
-            // 存起来
-//            let dic = table.toJSON()
-//            CacheManager.saveGroupCache(with: dic, key: ClassTableKey)
             if let oldTable = self.table {
                 // 如果有 table
-                if oldTable.updatedAt >= table.updatedAt {
+                if oldTable.updatedAt > table.updatedAt {
                     // 如果新的还不如旧的
                     // 那就不刷新
+                    SwiftMessages.showWarningMessage(body: "服务器故障\n缓存时间: \(oldTable.updatedAt)")
                     return
                 }
             }
@@ -252,8 +254,10 @@ class ClassTableViewController: UIViewController {
             }
             self.currentWeek = Int(week)
             self.currentDisplayWeek = Int(week)
+            self.weekCourseDict = [:]
             let courses = self.getCourse(table: table, week: self.currentWeek)
             // 和本周的差距
+            SwiftMessages.showSuccessMessage(body: "刷新成功\n更新时间: \(table.updatedAt)")
             self.listView.load(courses: courses, weeks: 0)
         }, failure: { errorMessage in
             SwiftMessages.showErrorMessage(body: errorMessage)

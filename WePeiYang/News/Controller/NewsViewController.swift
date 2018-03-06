@@ -8,7 +8,7 @@
 
 import UIKit
 import MJRefresh
-
+import SafariServices
 
 // FIXME: - 使用Tableview为容器，在tableviewCell上添加collectionView并做到高度自适应
 class NewsViewController: UIViewController {
@@ -22,7 +22,12 @@ class NewsViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
-  
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+//        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
 //    fileprivate var backgroundScrollView: UIScrollView!
     fileprivate var newsHeaderView: NewsHeaderView!
     fileprivate var tableView: UITableView!
@@ -90,18 +95,6 @@ class NewsViewController: UIViewController {
     func setupUI() {
         
         self.automaticallyAdjustsScrollViewInsets = false
-        
-        //MARK: - init scrollView
-//        self.backgroundScrollView = UIScrollView(frame: UIScreen.main.bounds)
-        //如果不设置contentsize label就无法变大小
-//        self.backgroundScrollView.contentSize = CGSize(width: deviceWidth, height: deviceHeight)
-        // -statusBarHeight 用来挡住RefreshHeader
-//        self.backgroundScrollView.contentInset = UIEdgeInsetsMake(-statusBarHeight, 0, 0, 0)
-//        backgroundScrollView.showsVerticalScrollIndicator = false
-//        backgroundScrollView.showsHorizontalScrollIndicator = false
-//        backgroundScrollView.backgroundColor = .white
-//        backgroundScrollView.delegate = self
-//        self.view.addSubview(backgroundScrollView)
 
         let statusBarHeight: CGFloat = UIScreen.main.bounds.height == 812 ? 44 : 20
         let tabBarHeight = self.tabBarController?.tabBar.height ?? 0
@@ -110,14 +103,13 @@ class NewsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        // FIXME: 自适应UITableViewCell高度
+
         tableView.estimatedRowHeight = 500
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.showsVerticalScrollIndicator = false
-//        tableView.allowsSelection = false
+
         tableView.backgroundColor = .white
         self.view.addSubview(tableView)
-//        self.backgroundScrollView.addSubview(tableView)
 
         newsHeaderView = NewsHeaderView(withTitle: "News")
         
@@ -129,29 +121,43 @@ class NewsViewController: UIViewController {
         tableView.mj_header = header
         tableView.mj_footer = footer
 
-//        let refreshFooter = MJRefreshAutoNormalFooter()
-//        tableView.mj_footer = refreshFooter
-//
-//        refreshHeader.setRefreshingTarget(self, refreshingAction: #selector(headerRefresh))
-//        refreshFooter.setRefreshingTarget(self, refreshingAction: #selector(footerLoadMore))
+        header?.beginRefreshing()
+        loadCache()
     }
+
+    func loadCache() {
+        CacheManager.retreive("news/homepage.json", from: .caches, as: HomePageTopModel.self, success: { homepage in
+            self.homepage = homepage
+            self.tableView.reloadData()
+        })
+
+        CacheManager.retreive("news/galleries.json", from: .caches, as: [GalleryModel].self, success: { galleries in
+            self.galleryList = galleries
+            self.tableView.reloadData()
+        })
+
+        CacheManager.retreive("news/newsList.json", from: .caches, as: [NewsModel].self, success: { newsList in
+            self.newsList = newsList
+            self.tableView.reloadData()
+        })
+}
 
     @objc func headerRefresh() {
         let group = DispatchGroup()
 
         group.enter()
         HomePageHelper.getHomepage(success: { homepage in
+            CacheManager.store(object: homepage, in: .caches, as: "news/homepage.json")
             self.homepage = homepage
             self.tableView.reloadData()
             group.leave()
-            // TODO: fix cache
-//            Storage.
         }, failure: { error in
             group.leave()
         })
 
         group.enter()
         HomePageHelper.getGallery(success: { galleries in
+            CacheManager.store(object: galleries, in: .caches, as: "news/galleries.json")
             self.galleryList = galleries
             self.tableView.reloadData()
             group.leave()
@@ -161,6 +167,7 @@ class NewsViewController: UIViewController {
 
         group.enter()
         HomePageHelper.getNews(page: page, category: category, success: { newsList in
+            CacheManager.store(object: newsList.data, in: .caches, as: "news/newsList.json")
             self.newsList = newsList.data
             group.leave()
             self.tableView.reloadData()
@@ -390,7 +397,10 @@ extension NewsViewController: UITableViewDelegate {
         }
         let row = indexPath.row - 2
         tableView.deselectRow(at: indexPath, animated: true)
-
+        let news = newsList[row]
+        let newsVC = NewsDetailViewController(index: news.index)
+        newsVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(newsVC, animated: true)
     }
 }
 
@@ -399,6 +409,9 @@ extension NewsViewController: BannerScrollViewDelegate {
     func bannerScrollViewDidSelect(at index: Int, bannerScrollView: BannerScrollView) {
         if let homepage = self.homepage {
             let newsIndex = homepage.data.carousel[index].index
+            let newsVC = NewsDetailViewController(index: newsIndex)
+            newsVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(newsVC, animated: true)
             // self.navigationController?.pushViewController(detailVC, animated: true)
         }
     }
@@ -434,6 +447,13 @@ extension NewsViewController: UICollectionViewDataSource {
         imgView.addSubview(label)
         cell.contentView.addSubview(imgView)
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let model = galleryList[indexPath.row]
+//        let safariVC = SFSafariViewController(url: URL(string: "https://www.twt.edu.cn/galleries/\(model.id)")!)
+//        safariVC.modalPresentationStyle = .overFullScreen
+//        self.navigationController?.pushViewController(safariVC, animated: true)
     }
 }
 

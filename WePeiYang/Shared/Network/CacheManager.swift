@@ -11,7 +11,7 @@ import UIKit
 let suiteName = "group.WePeiYang"
 
 struct CacheManager {
-    
+
     static func saveCache(cacheData data: Any, key keyStr: String) {
         let cachePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].appending(keyStr)
         let fileManager = FileManager()
@@ -115,7 +115,7 @@ struct CacheManager {
     }
 
     static func store<T: Encodable>(object: T, in directory: Storage.Directory, as filename: String) {
-        let newFilename = TwTUser.shared.schoolID + "/" + filename
+        let newFilename = directory != .caches ? TwTUser.shared.schoolID + "/" + filename : filename
         Storage.store(["com.wpy.cache": object], in: directory, as: newFilename)
     }
 
@@ -127,7 +127,7 @@ struct CacheManager {
 
         let queue = DispatchQueue(label: "com.wpy.cache")
         queue.async {
-            let newFilename = TwTUser.shared.schoolID + "/" + filename
+            let newFilename = directory != .caches ? TwTUser.shared.schoolID + "/" + filename : filename
             let obj = Storage.retreive(newFilename, from: directory, as: [String: T].self)
             DispatchQueue.main.async {
                 if let obj = obj, let object = obj["com.wpy.cache"] {
@@ -140,7 +140,7 @@ struct CacheManager {
     }
 
     static func fileExists(filename: String, in directory: Storage.Directory) -> Bool {
-        let newFilename = TwTUser.shared.schoolID + "/" + filename
+        let newFilename = directory != .caches ? TwTUser.shared.schoolID + "/" + filename : filename
         return Storage.fileExists(newFilename, in: directory)
     }
 
@@ -152,7 +152,7 @@ struct CacheManager {
         guard fileExists(filename: filename, in: directory) else {
             return
         }
-        let newFilename = TwTUser.shared.schoolID + "/" + filename
+        let newFilename = directory != .caches ? TwTUser.shared.schoolID + "/" + filename : filename
         Storage.remove(newFilename, from: directory)
     }
 }
