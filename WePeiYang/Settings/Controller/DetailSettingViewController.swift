@@ -185,7 +185,7 @@ extension DetailSettingViewController: UITableViewDelegate {
                 print("log out")
             })
             let cancelAction = UIAlertAction(title: "算啦", style: .cancel, handler: { (result) in
-                print("Cancled")
+                print("Canceled")
             })
             alert.addAction(okAction)
             alert.addAction(cancelAction)

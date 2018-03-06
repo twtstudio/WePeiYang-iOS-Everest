@@ -57,8 +57,6 @@ class SettingsViewController: UIViewController {
         //        navigationItem.title = "设置"
     }
     
-<<<<<<< HEAD
-=======
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -69,7 +67,6 @@ class SettingsViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
     
->>>>>>> ecf66e88367f5753ce58f3cb9be98e53401aee56
     override func viewDidLoad() {
         super.viewDidLoad()
 //        navigationController?.navigationBar.barStyle = .black
@@ -173,11 +170,7 @@ class SettingsViewController: UIViewController {
                 print(indexPathAtRow)
                 print(TwTUser.shared.tjuBindingState)
                 // services[].status can't get renewed data each time user unbinds
-<<<<<<< HEAD
-                self.services[indexPathAtRow].status = false
-=======
-//                self.services[indexPath.row].status = false
->>>>>>> ecf66e88367f5753ce58f3cb9be98e53401aee56
+                // self.services[indexPathAtRow].status = false
                 self.tableView.reloadData()
             } else {
                 let alert = UIAlertController(title: "未知错误", message: nil, preferredStyle: .alert)
@@ -286,7 +279,6 @@ extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch (indexPath.section, indexPath.row) {
-<<<<<<< HEAD
         case (1, 1):
             // delete user info and request for unbind after click logout button
             tableView.deselectRow(at: indexPath, animated: true)
@@ -295,17 +287,12 @@ extension SettingsViewController: UITableViewDelegate {
             }
             TwTUser.shared.delete()
             tableView.reloadData()
-<<<<<<< HEAD:WePeiYang/SettingsViewController.swift
-            print("logged out")
-=======
             print("log out")
->>>>>>> b7e1198828912bd422d5f2d2eb39643ca6090583:WePeiYang/Settings/Controller/SettingsViewController.swift
-=======
+
         case (1, 0):
             let detailVC = DetailSettingViewController()
             detailVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(detailVC, animated: true)
->>>>>>> ecf66e88367f5753ce58f3cb9be98e53401aee56
             return
         case (0, _):
             guard let _ = TwTUser.shared.token else {
@@ -333,7 +320,7 @@ extension SettingsViewController: UITableViewDelegate {
                 self.unbind(indexPathAtRow: indexPath.row)
             })
             let cancelAction = UIAlertAction(title: "算啦", style: .cancel, handler: { (result) in
-                print("Cancled")
+                print("Canceled")
             })
             alert.addAction(okAction)
             alert.addAction(cancelAction)

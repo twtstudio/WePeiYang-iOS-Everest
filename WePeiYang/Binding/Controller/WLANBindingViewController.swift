@@ -200,3 +200,15 @@ class WLANBindingViewController: UIViewController {
     }
 }
 
+extension WLANBindingViewController {
+
+    func hideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(WLANBindingViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
