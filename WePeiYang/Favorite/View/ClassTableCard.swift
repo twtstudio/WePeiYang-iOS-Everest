@@ -112,6 +112,7 @@ class ClassTableCard: CardView {
                 } else {
                     self.cells[idx].setIdle()
                 }
+                self.cells[idx].isUserInteractionEnabled = false
             }
         })
     }

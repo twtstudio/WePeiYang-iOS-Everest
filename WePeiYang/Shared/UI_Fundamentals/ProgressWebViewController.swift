@@ -21,17 +21,18 @@ class ProgressWebViewController: UIViewController {
 
     func setupReloadButton() {
         reloadButton = UIButton(type: .custom)
-        reloadButton.frame = CGRect(x: 0, y: 0, width: 150, height: 150)
+        reloadButton.frame = CGRect(x: 0, y: 0, width: 167, height: 106)
+
         reloadButton.center = self.view.center
-        reloadButton.layer.cornerRadius = 75
-        reloadButton.setBackgroundImage(UIImage(named: "error_placeholder"), for: .normal)
-        reloadButton.setTitle("出错啦", for: .normal)
+//        reloadButton.layer.cornerRadius = 75
+        reloadButton.setBackgroundImage(UIImage(named: "noNetwork"), for: .normal)
+        reloadButton.addTarget(self, action: #selector(reloadWebView), for: .touchUpInside)
+        reloadButton.setTitle("网络错误\n点击重试", for: .normal)
         reloadButton.setTitleColor(.lightGray, for: .normal)
         reloadButton.titleEdgeInsets = .init(top: 200, left: -50, bottom: 0, right: -50)
         reloadButton.titleLabel?.numberOfLines = 0
         reloadButton.titleLabel?.textAlignment = .center
         reloadButton.frame.origin.y -= 100
-        reloadButton.isEnabled = false
     }
 
     func setupWebView() {
@@ -43,7 +44,7 @@ class ProgressWebViewController: UIViewController {
         webView.navigationDelegate = self
         webView.uiDelegate = self
         if #available(iOS 10.0, *), canDownRefresh {
-            refreshControl.addTarget(self, action: #selector(reloadWebView(refreshControl:)), for: .valueChanged)
+            refreshControl.addTarget(self, action: #selector(reloadWebView), for: .valueChanged)
             webView.scrollView.refreshControl = refreshControl
         }
 
@@ -98,7 +99,7 @@ class ProgressWebViewController: UIViewController {
 }
 
 extension ProgressWebViewController {
-    @objc func reloadWebView(refreshControl: UIRefreshControl) {
+    @objc func reloadWebView() {
         webView.reload()
     }
 
@@ -157,7 +158,15 @@ extension ProgressWebViewController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         webView.isHidden = true
-        reloadButton.setTitle(error.localizedDescription, for: .normal)
+//        reloadButton.setTitle(error.localizedDescription, for: .normal)
+    }
+
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        webView.isHidden = true
+    }
+
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        webView.isHidden = true
     }
 
     func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {

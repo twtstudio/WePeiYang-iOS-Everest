@@ -307,8 +307,10 @@ class GPAViewController: UIViewController {
             print("没有成绩")
             return
         }
-        self.load()
-        self.lineChartView.highlightValue(x: Double(lastSelect), dataSetIndex: 0, callDelegate: true)
+        DispatchQueue.main.async {
+            self.load()
+            self.lineChartView.highlightValue(x: Double(self.lastSelect), dataSetIndex: 0, callDelegate: true)
+        }
     }
     
     func load() {
@@ -567,9 +569,10 @@ extension GPAViewController: UIScrollViewDelegate {
             self.title = currentTerm?.name
             if offset > 520 {
                 self.navigationController?.navigationBar.alpha = 1
-                self.navigationController?.navigationBar.isTranslucent = false
+//                self.navigationController?.navigationBar.isTranslucent = false
                 return
             }
+            self.navigationController?.navigationBar.isTranslucent = true
             self.navigationController?.navigationBar.alpha = min(offset * 0.02, 1)
             let image = UIImage(color: UIColor.gpaPink, size: CGSize(width: self.view.width, height: 64))
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]

@@ -56,9 +56,14 @@ class FavViewController: UIViewController {
         //        view.backgroundColor = Metadata.Color.GlobalViewBackgroundColor
         view.backgroundColor = .white
 
-        cardTableView = UITableView(frame: view.frame, style: .grouped)
-        view = cardTableView
-        
+        self.automaticallyAdjustsScrollViewInsets = false
+        let statusBarHeight: CGFloat = UIScreen.main.bounds.height == 812 ? 44 : 20
+        let tabBarHeight = self.tabBarController?.tabBar.height ?? 0
+
+        cardTableView = UITableView(frame: CGRect(x: 0, y: statusBarHeight, width: deviceWidth, height: deviceHeight-statusBarHeight-tabBarHeight), style: .grouped)
+//        view = cardTableView
+        view.addSubview(cardTableView)
+
         cardTableView.delegate = self
         cardTableView.dataSource = self
         cardTableView.estimatedRowHeight = 300
