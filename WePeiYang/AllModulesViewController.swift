@@ -116,15 +116,6 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if modules[indexPath.row].title == "商城" {
-            let mallVC = MallViewController()
-            mallVC.hidesBottomBarWhenPushed = true
-            mallVC.modalPresentationStyle = .overFullScreen
-            self.navigationController?.pushViewController(mallVC, animated: true)
-//            self.present(mallVC, animated: true, completion: nil)
-            return
-        }
-
         // instantiate a view controller by its class
         if let vc = (modules[indexPath.row].class as? UIViewController.Type)?.init() {
             vc.hidesBottomBarWhenPushed = true

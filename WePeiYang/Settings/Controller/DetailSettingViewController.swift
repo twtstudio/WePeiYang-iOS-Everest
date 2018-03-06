@@ -37,23 +37,26 @@ class DetailSettingViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.isTranslucent = false
 //        self.navigationController?.setNavigationBarHidden(false, animated: animated)
 //        self.navigationController?.navigationBar.shadowImage = UIImage()
 //        self.navigationController?.navigationBar.tintColor = .black
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white)!, for: .default)
         self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
 //        self.navigationController?.navigationBar.barStyle = .default
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.isHidden = true
-//        self.navigationController?.setNavigationBarHidden(true, animated:animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        // 因为这个方法不会取消左滑back手势
+        self.navigationController?.navigationBar.isHidden = true
 //        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
     }
 

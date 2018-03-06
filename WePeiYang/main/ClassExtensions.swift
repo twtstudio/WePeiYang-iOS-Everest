@@ -464,19 +464,16 @@ extension SwiftMessages {
         view.button?.isHidden = true
 
         view.configureTheme(theme)
-        if layout == .statusLine {
-            view.configureTheme(backgroundColor: .white, foregroundColor: .black)
-        }
-        var config = SwiftMessages.Config()
-        if let vc = UIViewController.current {
-//            public let UIWindowLevelNormal: UIWindowLevel
-//            public let UIWindowLevelAlert: UIWindowLevel
-//            public let UIWindowLevelStatusBar: UIWindowLevel
-            config.presentationContext = PresentationContext.viewController(vc)
-        } else {
-            config.presentationContext = context
-        }
 
+        var config = SwiftMessages.Config()
+//        if let vc = UIViewController.current {
+////            public let UIWindowLevelNormal: UIWindowLevel
+////            public let UIWindowLevelAlert: UIWindowLevel
+////            public let UIWindowLevelStatusBar: UIWindowLevel
+//            config.presentationContext = PresentationContext.viewController(vc)
+//        } else {
+            config.presentationContext = context
+//        }
         SwiftMessages.show(config: config, view: view)
     }
 }

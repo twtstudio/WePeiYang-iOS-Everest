@@ -22,16 +22,32 @@ class NewsDetailViewController: ProgressWebViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        // 因为这个方法不会取消左滑back手势
+        self.navigationController?.navigationBar.isHidden = true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationController?.hidesBarsOnSwipe = false
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
         title = "详情"
 
+        if #available(iOS 10.0, *) {
+            webView.scrollView.refreshControl = nil
+        }
+
         view.backgroundColor = .white
-        webView.frame.origin.x = 20
-        webView.frame.size.width -= 40
+//        webView.frame.origin.x = 20
+//        webView.frame.size.width -= 40
+
+        // 不显示竖直的滚动条
+        for subview in webView.subviews {
+            if let scrollView = subview as? UIScrollView {
+                scrollView.showsVerticalScrollIndicator = false
+            }
+        }
 
         SolaSessionManager.solaSession(type: .get, url: "/news/\(index)", token: nil, parameters: nil, success: { dict in
             if let topModel = try? NewsDetailTopModel(data: dict.jsonData()) {
@@ -59,15 +75,14 @@ class NewsDetailViewController: ProgressWebViewController {
         "<h5 style=\"text-align: left;\">新闻来源:\(model.newscome)</h5>"
         return str
     }
-
 }
 
 extension NewsDetailViewController {
-    override func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        super.webView(webView, didStartProvisionalNavigation: navigation)
-
-//        webView.evaluateJavaScript("document.title", completionHandler: { (title, error) in
-//            self.navigationItem.title = title as? String
-//            })
-    }
+//    override func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+//        super.webView(webView, didStartProvisionalNavigation: navigation)
+//
+////        webView.evaluateJavaScript("document.title", completionHandler: { (title, error) in
+////            self.navigationItem.title = title as? String
+////            })
+//    }
 }
