@@ -192,6 +192,7 @@
 		A50F36501FB8837D00413CF2 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364F1FB8837D00413CF2 /* KeyChain.swift */; };
 		A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51497F91FC80D5E00622A7B /* BindingAPIs.swift */; };
 		A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */; };
+		A5197A3D1FDA8F99008C445A /* LibraryAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5197A3C1FDA8F99008C445A /* LibraryAPIs.swift */; };
 		A51C45681FD0227800652435 /* WLANBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51C45671FD0227800652435 /* WLANBindingViewController.swift */; };
 		A51C456A1FD0477700652435 /* BicycleBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51C45691FD0477700652435 /* BicycleBindingViewController.swift */; };
 		A53602671FC6E36100E3D1AF /* LibraryBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53602661FC6E36100E3D1AF /* LibraryBindingViewController.swift */; };
@@ -458,6 +459,7 @@
 		A50F364F1FB8837D00413CF2 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		A51497F91FC80D5E00622A7B /* BindingAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingAPIs.swift; sourceTree = "<group>"; };
 		A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANLoginViewController.swift; sourceTree = "<group>"; };
+		A5197A3C1FDA8F99008C445A /* LibraryAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAPIs.swift; sourceTree = "<group>"; };
 		A51C45671FD0227800652435 /* WLANBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANBindingViewController.swift; sourceTree = "<group>"; };
 		A51C45691FD0477700652435 /* BicycleBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleBindingViewController.swift; sourceTree = "<group>"; };
 		A51C456B1FD122F700652435 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -992,6 +994,38 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		A5197A381FDA850A008C445A /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				A5197A3B1FDA8F7F008C445A /* Model */,
+				A5197A3A1FDA8F7A008C445A /* View */,
+				A5197A391FDA8F73008C445A /* Controller */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		A5197A391FDA8F73008C445A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		A5197A3A1FDA8F7A008C445A /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A5197A3B1FDA8F7F008C445A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A5197A3C1FDA8F99008C445A /* LibraryAPIs.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		A53602621FC6E23C00E3D1AF /* Binding */ = {
 			isa = PBXGroup;
 			children = (
@@ -1295,6 +1329,7 @@
 				36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */,
 				3641470820471CC500F6DFD5 /* News */,
 				A53602621FC6E23C00E3D1AF /* Binding */,
+				A5197A381FDA850A008C445A /* Library */,
 				B181B9551EC5C21700B8198E /* Favorite */,
 				A5159FDB1FB0731B00B466F2 /* WLANLogin */,
 				0C3ADF1A1F697EE100388C19 /* LostFound */,
@@ -1682,6 +1717,7 @@
 				365261561FB9F83400025B8A /* ClassTableModel.swift in Sources */,
 				36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */,
 				365936961F1E60A9003CE578 /* StarView.swift in Sources */,
+				A5197A3D1FDA8F99008C445A /* LibraryAPIs.swift in Sources */,
 				36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */,
 				36CAD44A201B8EAA006F85E3 /* ClassTableHelper.swift in Sources */,
 				36449E481FA4BA9B0036766B /* ApplicantTest.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 
 class BicycleBindingViewController: UIViewController {
     
-    var usernameTextField: UITextField!
+    var IDCardNumberTextField: UITextField!
     var passwordTextField: UITextField!
     var bindButton: UIButton!
     var logoutButton: UIButton!
@@ -32,25 +32,28 @@ class BicycleBindingViewController: UIViewController {
         title = "绑定自行车账号"
 
         let textFieldWidth: CGFloat = 250
-        usernameTextField = UITextField()
-        usernameTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*2.0/5.0), size: CGSize(width: textFieldWidth, height: 40))
-        usernameTextField.placeholder = "请输入账号"
-        usernameTextField.keyboardType = .numberPad
-        usernameTextField.borderStyle = .roundedRect
-        usernameTextField.clearButtonMode = .always
-        usernameTextField.autocapitalizationType = .none
+        IDCardNumberTextField = UITextField()
+        IDCardNumberTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*2.0/5.0), size: CGSize(width: textFieldWidth, height: 40))
+        IDCardNumberTextField.placeholder = "请输入身份证号"
+        IDCardNumberTextField.keyboardType = .numberPad
+        IDCardNumberTextField.borderStyle = .roundedRect
+        IDCardNumberTextField.clearButtonMode = .always
+        IDCardNumberTextField.autocapitalizationType = .none
+        self.view.addSubview(IDCardNumberTextField)
+        
+        /*
         passwordTextField = UITextField()
-        passwordTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: usernameTextField.frame.origin.y + usernameTextField.frame.size.height + 30), size: CGSize(width: textFieldWidth, height: 40))
+        passwordTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: IDCardNumberTextField.frame.origin.y + IDCardNumberTextField.frame.size.height + 30), size: CGSize(width: textFieldWidth, height: 40))
         passwordTextField.placeholder = "请输入密码"
         passwordTextField.keyboardType = .default
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.isSecureTextEntry = true
         passwordTextField.clearButtonMode = .always
-        self.view.addSubview(usernameTextField)
         self.view.addSubview(passwordTextField)
+        */
         
         bindButton = UIButton()
-        bindButton.frame = CGRect(x: (self.view.frame.size.width-textFieldWidth)/2, y: passwordTextField.frame.origin.y + passwordTextField.frame.size.height + 20, width: textFieldWidth, height: 38)
+        bindButton.frame = CGRect(x: (self.view.frame.size.width-textFieldWidth)/2, y: IDCardNumberTextField.frame.origin.y + IDCardNumberTextField.frame.height + 20, width: textFieldWidth, height: 38)
         bindButton.setTitle("绑 定", for: .normal)
         bindButton.setTitleColor(.white, for: .normal)
         bindButton.isUserInteractionEnabled = true

@@ -14,11 +14,15 @@ class ReadViewController: WMPageController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .readRed), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.barStyle = .black
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .readRed), for: .default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.isTranslucent = false
+//        self.navigationController?.navigationBar.tintColor = .white
+//        self.navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.barTintColor = UIColor(red: 0.0 / 255.0, green: 174.0 / 255.0, blue: 101.0 / 255.0, alpha: 1.0)
+
     }
     
     override func viewDidLoad() {

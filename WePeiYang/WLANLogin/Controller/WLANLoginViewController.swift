@@ -10,6 +10,7 @@ import UIKit
 import WMPageController
 import SnapKit
 import Alamofire
+import SafariServices
 
 class WLANLoginViewController: WMPageController {
     
@@ -20,7 +21,7 @@ class WLANLoginViewController: WMPageController {
     var serviceButton: UIButton!
     var WiFiImage: UIImage!
     var WiFiImageView: UIImageView!
-    var warningText: UITextView!
+    var warningText: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -118,7 +119,7 @@ class WLANLoginViewController: WMPageController {
                     serviceButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
                     serviceButton.layer.borderWidth = 2
                     serviceButton.layer.cornerRadius = 5
-                    serviceButton.addTarget(self, action: #selector(service), for: .touchUpInside)
+                    serviceButton.addTarget(self, action: #selector(showService), for: .touchUpInside)
                     self.view.addSubview(serviceButton)
                     serviceButton.snp.makeConstraints { (make) -> Void in
                         make.left.equalTo(20)
@@ -126,7 +127,7 @@ class WLANLoginViewController: WMPageController {
                         make.top.equalTo(loginButton.snp.bottom).offset(10)
                     }
                 } else {
-                    warningText = UITextView()
+                    warningText = UILabel()
                     warningText.text = "已经登录啦"
                     warningText.font = UIFont.systemFont(ofSize: 24)
                     warningText.textColor = UIColor(hex6: 0xd3d3d3)
@@ -171,7 +172,7 @@ class WLANLoginViewController: WMPageController {
                     serviceButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
                     serviceButton.layer.borderWidth = 2
                     serviceButton.layer.cornerRadius = 5
-                    serviceButton.addTarget(self, action: #selector(service), for: .touchUpInside)
+                    serviceButton.addTarget(self, action: #selector(showService), for: .touchUpInside)
                     self.view.addSubview(serviceButton)
                     serviceButton.snp.makeConstraints { (make) -> Void in
                         make.left.equalTo(20)
@@ -180,7 +181,7 @@ class WLANLoginViewController: WMPageController {
                     }
                 }
             } else {
-                warningText = UITextView()
+                warningText = UILabel()
                 warningText.text = "请连接到 tjuwlan 或 tjuwlan-lib"
                 warningText.font = UIFont.systemFont(ofSize: 24)
                 warningText.textColor = UIColor(hex6: 0xd3d3d3)
@@ -190,7 +191,7 @@ class WLANLoginViewController: WMPageController {
             }
         case .unreachable:
             print("Network error, please check reachability")
-            warningText = UITextView()
+            warningText = UILabel()
             warningText.text = "网络错误，请检查网络连接"
             warningText.font = UIFont.systemFont(ofSize: 24)
             warningText.textColor = UIColor(hex6: 0xd3d3d3)
@@ -199,7 +200,7 @@ class WLANLoginViewController: WMPageController {
             self.view.addSubview(warningText)
         case .wwan:
             print("Device connected to cellular")
-            warningText = UITextView()
+            warningText = UILabel()
             warningText.text = "请连接到 tjuwlan 或 tjuwlan-lib"
             warningText.font = UIFont.systemFont(ofSize: 24)
             warningText.textColor = UIColor(hex6: 0xd3d3d3)
@@ -342,10 +343,14 @@ class WLANLoginViewController: WMPageController {
         }
     }
     
-    @objc func service() {
-        if let link = URL(string: "http://202.113.4.11/") {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(link)
+    @objc func showService() {
+        if let url = URL(string: "http://202.113.4.11/") {
+            if #available(iOS 11.0, *) {
+                let config = SFSafariViewController.Configuration()
+                config.entersReaderIfAvailable = true
+                
+                let vc = SFSafariViewController(url: url, configuration: config)
+                present(vc, animated: true)
             } else {
                 // Fallback on earlier versions
             }
