@@ -130,7 +130,7 @@ class LibraryBindingViewController: UIViewController {
                     print("TJUBindingState:")
                     print(TwTUser.shared.libBindingState)
                 } else {
-                    SwiftMessages.showErrorMessage(body: errMsg)
+                    SwiftMessages.showErrorMessage(body: "密码错误！")
                 }
             }, failure: { error in
                 
