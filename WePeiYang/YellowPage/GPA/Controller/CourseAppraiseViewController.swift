@@ -30,6 +30,7 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
         let image = UIImage(color: UIColor.gpaPink, size: CGSize(width: self.view.width, height: 64))
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)

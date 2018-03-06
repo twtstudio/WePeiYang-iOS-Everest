@@ -227,7 +227,7 @@ extension LibraryCard {
     func refresh(sender: CardButton) {
         getBooks(success: {
             self.setState(.data)
-            SwiftMessages.showErrorMessage(body: "借阅列表刷新成功", layout: MessageView.Layout.statusLine)
+            SwiftMessages.showSuccessMessage(body: "借阅列表刷新成功", context: SwiftMessages.PresentationContext.window(windowLevel: UIWindowLevelStatusBar), layout: MessageView.Layout.statusLine)
         })
     }
 

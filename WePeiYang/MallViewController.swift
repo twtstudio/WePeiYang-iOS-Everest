@@ -7,41 +7,27 @@
 //
 
 import UIKit
-import SafariServices
+import WebKit
 
-class MallViewController: SFSafariViewController {
-    convenience init(_: String = "") {
-        self.init(url: URL(string: "https://mall.twt.edu.cn")!)
-        self.modalPresentationStyle = .overFullScreen
-    }
-
-    required convenience init(_: String = "", coder aDecoder: NSCoder) {
-        self.init("")
-//        fatalError("init(coder:) has not been implemented")
-    }
+class MallViewController: ProgressWebViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationBar.barStyle = .black
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
+        navigationController?.navigationBar.barStyle = .default
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.delegate = self
+        self.view.backgroundColor = UIColor(red:0.95, green:0.50, blue:0.17, alpha:1.00)
+        webView.load(URLRequest(url: URL(string: "https://mall.twt.edu.cn/")!))
     }
 }
 
-extension MallViewController: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        if isModal {
-            controller.dismiss(animated: true, completion: nil)
-        } else {
-            self.navigationController?.popViewController(animated: true)
-        }
-    }
+extension MallViewController {
 }
