@@ -19,33 +19,29 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     let header = MJRefreshNormalHeader()
     var curPage: Int = 0
     var id = ""
-    
-    //    var myLost1 = MyLoatFoundModel(isBack: "未交还", title: "大大捡到了", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic2")
-    //    var myLost2 = MyLoatFoundModel(isBack: "未交还", title: "大大又捡到了", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic3")
-    //    var myLost3 = MyLoatFoundModel(isBack: "已交还", title: "大大又捡到了", mark:"钱包" , time: "2017/5/1",place: "图书馆", picture: "pic1")
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //        myFound = [myLost1, myLost2, myLost3]
         
-        self.tableView = UITableView(frame: CGRect.init(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height-110), style: .grouped)
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
-
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
-        
-        self.tableView.estimatedRowHeight = 100
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        
-        
-        self.view.addSubview(tableView!)
+        configUI()
         refresh()
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
         self.tableView.mj_footer.isAutomaticallyHidden = true
+    }
+    
+    func configUI() {
+        self.tableView = UITableView(frame: CGRect.init(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height-110), style: .grouped)
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.view.addSubview(tableView!)
     }
     
     func refresh() {
@@ -110,7 +106,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         id = myFound[indexPath.row].id
         
         tableView.deselectRow(at: indexPath, animated: true)
-        let detailView = DetailViewController()
+        let detailView = LFDetailViewController()
         detailView.id = id
         
         

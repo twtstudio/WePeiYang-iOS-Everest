@@ -25,17 +25,21 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var curPage = 1
     //    let TWT_URL = "http://open.twtstudio.com/"
     
-    //    var myLost1 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic2")
-    //    var myLost2 = MyLoatFoundModel(isBack: "未找到", title: "求大大", mark:"钱包" , time: "2017/5/1", place: "图书馆", picture: "pic3")
-    //    var myLost3 = MyLoatFoundModel(isBack: "已找到", title: "求大大", mark:"钱包" , time: "2017/5/1",place: "图书馆", picture: "pic1")
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        myLost.append(myLost1)
-        //        myLost.append(myLost2)
-        //        myLost.append(myLost3)
+        configUI()
+        refresh()
+        self.tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
+        self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
+        self.tableView.mj_footer.isAutomaticallyHidden = true
+
         
+    }
+    
+    func configUI() {
         self.title = "我的"
         
         self.tableView = UITableView(frame: CGRect.init(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height-110), style: .grouped)
@@ -49,12 +53,6 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         //        self.automaticallyAdjustsScrollViewInsets = false
         
         self.view.addSubview(tableView!)
-        refresh()
-        self.tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
-        self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
-        self.tableView.mj_footer.isAutomaticallyHidden = true
-
-        
     }
     
     func refresh() {
@@ -101,27 +99,18 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.tableView.mj_header.endRefreshing()
             self.tableView.reloadData()
             
-            
-            
         }, failure: { error in
             print(error)
-            
         })
-        
-        
-        
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         id = myLost[indexPath.row].id
-        
         tableView.deselectRow(at: indexPath, animated: true)
-        let detailView = DetailViewController()
+        let detailView = LFDetailViewController()
         detailView.id = id
-    
-        
         self.navigationController?.pushViewController(detailView, animated: true)
     }
     
@@ -131,35 +120,12 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return 0.01
     }
     
-    //    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-    //
-    //
-    //
-    //    }
-    //    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-    //        return UITableViewCellEditingStyle.delete
-    //    }
-    //    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-    //        return true
-    //    }
-    //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-    //
-    //        if editingStyle == UITableViewCellEditingStyle.delete {
-    //
-    //
-    //        }
-    //
-    //    }
-    
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         return myLost.count
         
     }
-    
-    
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
@@ -180,7 +146,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             
         }
-        
+        else {
         let cell = MyLostFoundTableViewCell()
         cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
         cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
@@ -193,7 +159,9 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         return cell
+        }
     }
+    // 修改按钮的回调
     func editButtonTapped(editButton: UIButton) {
         
         let cell = editButton.superView(of: UITableViewCell.self)!
@@ -209,6 +177,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
+    // 翻转的按钮的回调
     func inverseButtonTapped(inverseButton: UIButton) {
         //        let cell = superUITableViewCell(of: inverseButton)!
         
@@ -230,14 +199,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-    //    func superUITableViewCell(of: UIButton) -> UITableViewCell? {
-    //        for view in sequence(first: of.superview, next: { $0?.superview }) {
-    //            if let cell = view as? UITableViewCell {
-    //                return cell
-    //            }
-    //        }
-    //        return nil
-    //    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -246,8 +208,10 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     
-    
 }
+
+// 返回父视图
+// 返回点击（修改or翻转按钮）返回当前点击cell
 extension UIView {
     //返回该view所在的父view
     func superView<T: UIView>(of: T.Type) -> T? {

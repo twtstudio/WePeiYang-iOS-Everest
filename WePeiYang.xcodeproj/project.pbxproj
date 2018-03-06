@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C2C8D921F7BC48400D3A5E2 /* LFPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2C8D911F7BC48400D3A5E2 /* LFPickerCell.swift */; };
-		0C3ADF351F697EE100388C19 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1C1F697EE100388C19 /* DetailViewController.swift */; };
+		0C3ADF351F697EE100388C19 /* LFDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1C1F697EE100388C19 /* LFDetailViewController.swift */; };
 		0C3ADF361F697EE100388C19 /* FoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1D1F697EE100388C19 /* FoundViewController.swift */; };
 		0C3ADF371F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1E1F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift */; };
 		0C3ADF381F697EE100388C19 /* LostFoundDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1F1F697EE100388C19 /* LostFoundDetailModel.swift */; };
@@ -18,20 +18,24 @@
 		0C3ADF3C1F697EE100388C19 /* MyLostFoundPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF231F697EE100388C19 /* MyLostFoundPageViewController.swift */; };
 		0C3ADF3D1F697EE100388C19 /* MyLostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF241F697EE100388C19 /* MyLostViewController.swift */; };
 		0C3ADF3E1F697EE100388C19 /* PublishSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF251F697EE100388C19 /* PublishSuccessViewController.swift */; };
-		0C3ADF3F1F697EE100388C19 /* SearchedResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF261F697EE100388C19 /* SearchedResultViewController.swift */; };
+		0C3ADF3F1F697EE100388C19 /* LFSearchedResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF261F697EE100388C19 /* LFSearchedResultViewController.swift */; };
 		0C3ADF401F697EE100388C19 /* LostFoundSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF271F697EE100388C19 /* LostFoundSearchViewController.swift */; };
 		0C3ADF421F697EE100388C19 /* LostFoundAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF2A1F697EE100388C19 /* LostFoundAPI.swift */; };
 		0C3ADF431F697EE100388C19 /* LostFoundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF2B1F697EE100388C19 /* LostFoundModel.swift */; };
 		0C3ADF441F697EE100388C19 /* MyLostFoundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF2C1F697EE100388C19 /* MyLostFoundModel.swift */; };
 		0C3ADF451F697EE100388C19 /* PublishLostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF2D1F697EE100388C19 /* PublishLostViewController.swift */; };
 		0C3ADF461F697EE100388C19 /* LostFoundCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF2F1F697EE100388C19 /* LostFoundCollectionViewCell.swift */; };
-		0C3ADF471F697EE100388C19 /* MarkCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF301F697EE100388C19 /* MarkCustomCell.swift */; };
+		0C3ADF471F697EE100388C19 /* LFMarkCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF301F697EE100388C19 /* LFMarkCustomCell.swift */; };
 		0C3ADF481F697EE100388C19 /* MyLostFoundTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF311F697EE100388C19 /* MyLostFoundTableViewCell.swift */; };
 		0C3ADF491F697EE100388C19 /* PublishCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF321F697EE100388C19 /* PublishCustomCell.swift */; };
-		0C3ADF4A1F697EE100388C19 /* SectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF331F697EE100388C19 /* SectionCell.swift */; };
+		0C3ADF4A1F697EE100388C19 /* LFSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF331F697EE100388C19 /* LFSectionCell.swift */; };
 		0C3ADF4B1F697EE100388C19 /* UpLoadingPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF341F697EE100388C19 /* UpLoadingPicCell.swift */; };
 		0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3B3EB51F777D7C00081A0D /* LFImagePreviewViewController.swift */; };
+		0C3D30F91FE24EE3005E18C3 /* LFCollectionReusableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D30F81FE24EE3005E18C3 /* LFCollectionReusableHeaderView.swift */; };
+		0C9CCF0D1FDE2BB20030CFF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C9CCF0C1FDE2BB20030CFF6 /* Assets.xcassets */; };
 		0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */; };
+		0CF7F0E6201B13F600033E55 /* LFSearchCellOfHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF7F0E5201B13F600033E55 /* LFSearchCellOfHeight.swift */; };
+		0CF914661FDA690500DF11F3 /* LFSearchCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF914651FDA690500DF11F3 /* LFSearchCustomCell.swift */; };
 		36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFD1F223FC1001317A7 /* BookDetailViewControllerTempView.swift */; };
 		36073D081F223FC1001317A7 /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFE1F223FC1001317A7 /* CoverView.swift */; };
 		36073D091F223FC1001317A7 /* RateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFF1F223FC1001317A7 /* RateView.swift */; };
@@ -48,7 +52,6 @@
 		36073D1F1F225D2A001317A7 /* ReviewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D181F225D2A001317A7 /* ReviewListViewController.swift */; };
 		36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D191F225D2A001317A7 /* SearchViewController.swift */; };
 		36073D241F22713B001317A7 /* ReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D231F22713B001317A7 /* ReadViewController.swift */; };
-		36073D261F231C36001317A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36073D251F231C36001317A7 /* Assets.xcassets */; };
 		3631D50A1F1903D70078816D /* TwTUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5091F1903D70078816D /* TwTUser.swift */; };
 		36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E3E1FA4BA9B0036766B /* TwentyCourseQuiz.swift */; };
 		36449E451FA4BA9B0036766B /* PartyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E3F1FA4BA9B0036766B /* PartyAPI.swift */; };
@@ -169,7 +172,7 @@
 
 /* Begin PBXFileReference section */
 		0C2C8D911F7BC48400D3A5E2 /* LFPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFPickerCell.swift; sourceTree = "<group>"; };
-		0C3ADF1C1F697EE100388C19 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0C3ADF1C1F697EE100388C19 /* LFDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFDetailViewController.swift; sourceTree = "<group>"; };
 		0C3ADF1D1F697EE100388C19 /* FoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundViewController.swift; sourceTree = "<group>"; };
 		0C3ADF1E1F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LostFoundCollectionViewCellDemo.swift; path = ../Controller/LostFoundCollectionViewCellDemo.swift; sourceTree = "<group>"; };
 		0C3ADF1F1F697EE100388C19 /* LostFoundDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LostFoundDetailModel.swift; path = ../Controller/LostFoundDetailModel.swift; sourceTree = "<group>"; };
@@ -179,20 +182,24 @@
 		0C3ADF231F697EE100388C19 /* MyLostFoundPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostFoundPageViewController.swift; sourceTree = "<group>"; };
 		0C3ADF241F697EE100388C19 /* MyLostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostViewController.swift; sourceTree = "<group>"; };
 		0C3ADF251F697EE100388C19 /* PublishSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishSuccessViewController.swift; sourceTree = "<group>"; };
-		0C3ADF261F697EE100388C19 /* SearchedResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedResultViewController.swift; sourceTree = "<group>"; };
+		0C3ADF261F697EE100388C19 /* LFSearchedResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFSearchedResultViewController.swift; sourceTree = "<group>"; };
 		0C3ADF271F697EE100388C19 /* LostFoundSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundSearchViewController.swift; sourceTree = "<group>"; };
 		0C3ADF2A1F697EE100388C19 /* LostFoundAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundAPI.swift; sourceTree = "<group>"; };
 		0C3ADF2B1F697EE100388C19 /* LostFoundModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundModel.swift; sourceTree = "<group>"; };
 		0C3ADF2C1F697EE100388C19 /* MyLostFoundModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostFoundModel.swift; sourceTree = "<group>"; };
 		0C3ADF2D1F697EE100388C19 /* PublishLostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublishLostViewController.swift; path = ../Model/PublishLostViewController.swift; sourceTree = "<group>"; };
 		0C3ADF2F1F697EE100388C19 /* LostFoundCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundCollectionViewCell.swift; sourceTree = "<group>"; };
-		0C3ADF301F697EE100388C19 /* MarkCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkCustomCell.swift; sourceTree = "<group>"; };
+		0C3ADF301F697EE100388C19 /* LFMarkCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFMarkCustomCell.swift; sourceTree = "<group>"; };
 		0C3ADF311F697EE100388C19 /* MyLostFoundTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostFoundTableViewCell.swift; sourceTree = "<group>"; };
 		0C3ADF321F697EE100388C19 /* PublishCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishCustomCell.swift; sourceTree = "<group>"; };
-		0C3ADF331F697EE100388C19 /* SectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionCell.swift; sourceTree = "<group>"; };
+		0C3ADF331F697EE100388C19 /* LFSectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFSectionCell.swift; sourceTree = "<group>"; };
 		0C3ADF341F697EE100388C19 /* UpLoadingPicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpLoadingPicCell.swift; sourceTree = "<group>"; };
 		0C3B3EB51F777D7C00081A0D /* LFImagePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFImagePreviewViewController.swift; sourceTree = "<group>"; };
+		0C3D30F81FE24EE3005E18C3 /* LFCollectionReusableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFCollectionReusableHeaderView.swift; sourceTree = "<group>"; };
+		0C9CCF0C1FDE2BB20030CFF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		0CF7F0E5201B13F600033E55 /* LFSearchCellOfHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFSearchCellOfHeight.swift; sourceTree = "<group>"; };
+		0CF914651FDA690500DF11F3 /* LFSearchCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFSearchCustomCell.swift; sourceTree = "<group>"; };
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36073CFD1F223FC1001317A7 /* BookDetailViewControllerTempView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailViewControllerTempView.swift; sourceTree = "<group>"; };
 		36073CFE1F223FC1001317A7 /* CoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CoverView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -210,7 +217,6 @@
 		36073D181F225D2A001317A7 /* ReviewListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewListViewController.swift; sourceTree = "<group>"; };
 		36073D191F225D2A001317A7 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		36073D231F22713B001317A7 /* ReadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadViewController.swift; sourceTree = "<group>"; };
-		36073D251F231C36001317A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3631D5091F1903D70078816D /* TwTUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTUser.swift; sourceTree = "<group>"; };
 		36449E3E1FA4BA9B0036766B /* TwentyCourseQuiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwentyCourseQuiz.swift; path = PartyService/Model/TwentyCourseQuiz.swift; sourceTree = "<group>"; };
 		36449E3F1FA4BA9B0036766B /* PartyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartyAPI.swift; path = PartyService/Model/PartyAPI.swift; sourceTree = "<group>"; };
@@ -370,13 +376,13 @@
 				0C3ADF201F697EE100388C19 /* LostFoundPageControllerViewController.swift */,
 				0C3ADF211F697EE100388C19 /* LostViewController.swift */,
 				0C3ADF1D1F697EE100388C19 /* FoundViewController.swift */,
-				0C3ADF261F697EE100388C19 /* SearchedResultViewController.swift */,
+				0C3ADF261F697EE100388C19 /* LFSearchedResultViewController.swift */,
 				0C3ADF271F697EE100388C19 /* LostFoundSearchViewController.swift */,
 				0C3ADF231F697EE100388C19 /* MyLostFoundPageViewController.swift */,
 				0C3ADF241F697EE100388C19 /* MyLostViewController.swift */,
 				0C3ADF221F697EE100388C19 /* MyFoundViewController.swift */,
 				0C3ADF2D1F697EE100388C19 /* PublishLostViewController.swift */,
-				0C3ADF1C1F697EE100388C19 /* DetailViewController.swift */,
+				0C3ADF1C1F697EE100388C19 /* LFDetailViewController.swift */,
 				0C3B3EB51F777D7C00081A0D /* LFImagePreviewViewController.swift */,
 				0C3ADF251F697EE100388C19 /* PublishSuccessViewController.swift */,
 			);
@@ -390,6 +396,7 @@
 				0C3ADF1F1F697EE100388C19 /* LostFoundDetailModel.swift */,
 				0C3ADF2B1F697EE100388C19 /* LostFoundModel.swift */,
 				0C3ADF2C1F697EE100388C19 /* MyLostFoundModel.swift */,
+				0CF7F0E5201B13F600033E55 /* LFSearchCellOfHeight.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -399,10 +406,12 @@
 			children = (
 				0C3ADF1E1F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift */,
 				0C3ADF2F1F697EE100388C19 /* LostFoundCollectionViewCell.swift */,
-				0C3ADF301F697EE100388C19 /* MarkCustomCell.swift */,
+				0C3ADF301F697EE100388C19 /* LFMarkCustomCell.swift */,
 				0C3ADF311F697EE100388C19 /* MyLostFoundTableViewCell.swift */,
 				0C3ADF321F697EE100388C19 /* PublishCustomCell.swift */,
-				0C3ADF331F697EE100388C19 /* SectionCell.swift */,
+				0C3D30F81FE24EE3005E18C3 /* LFCollectionReusableHeaderView.swift */,
+				0C3ADF331F697EE100388C19 /* LFSectionCell.swift */,
+				0CF914651FDA690500DF11F3 /* LFSearchCustomCell.swift */,
 				0C3ADF341F697EE100388C19 /* UpLoadingPicCell.swift */,
 				0C2C8D911F7BC48400D3A5E2 /* LFPickerCell.swift */,
 			);
@@ -720,8 +729,8 @@
 		B156B7891E7A857F00A4C500 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0C9CCF0C1FDE2BB20030CFF6 /* Assets.xcassets */,
 				36F5BDCD1F9E17A600CDDF74 /* FlowingColor.mp4 */,
-				36073D251F231C36001317A7 /* Assets.xcassets */,
 			);
 			name = Resources;
 			path = WePeiYang/Resources;
@@ -950,12 +959,12 @@
 			files = (
 				36F5BDCE1F9E196200CDDF74 /* FlowingColor.mp4 in Resources */,
 				36449E671FA4BABA0036766B /* PartyHandInViewController.xib in Resources */,
-				36073D261F231C36001317A7 /* Assets.xcassets in Resources */,
 				36449E6A1FA4BABA0036766B /* GradeDetailViewController.xib in Resources */,
 				36449E6B1FA4BABA0036766B /* GradeCheckViewController.xib in Resources */,
 				B19DAB941E6EF5C2004A50B5 /* LaunchScreen.storyboard in Resources */,
 				36449E681FA4BABA0036766B /* PartyComplainViewController.xib in Resources */,
 				36449E691FA4BABA0036766B /* HandInDetailViewController.xib in Resources */,
+				0C9CCF0D1FDE2BB20030CFF6 /* Assets.xcassets in Resources */,
 				36449E5F1FA4BABA0036766B /* TwentyCourseScoreViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -998,13 +1007,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WePeiYangTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		433FB015B3FA922FE8E29B31 /* [CP] Copy Pods Resources */ = {
@@ -1028,9 +1040,28 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/IGIdenticon/IGIdenticon.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/WMPageController/WMPageController.framework",
+				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGIdenticon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WMPageController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1058,13 +1089,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WePeiYang-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1077,6 +1111,7 @@
 				36449E891FA4BAD10036766B /* PartyScoreViewController.m in Sources */,
 				36449E661FA4BABA0036766B /* PersonalStatusLabel.swift in Sources */,
 				36449E5E1FA4BABA0036766B /* WXWaveView.m in Sources */,
+				0CF7F0E6201B13F600033E55 /* LFSearchCellOfHeight.swift in Sources */,
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
 				365936901F1E60A9003CE578 /* GPAClassModel.swift in Sources */,
 				0C3ADF371F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift in Sources */,
@@ -1105,6 +1140,7 @@
 				36449E831FA4BAD00036766B /* TwentyCourseViewController.swift in Sources */,
 				36449E8D1FA4BAD10036766B /* PartyCoursesViewController.m in Sources */,
 				3631D50A1F1903D70078816D /* TwTUser.swift in Sources */,
+				0C3D30F91FE24EE3005E18C3 /* LFCollectionReusableHeaderView.swift in Sources */,
 				0C3ADF3A1F697EE100388C19 /* LostViewController.swift in Sources */,
 				36073D0A1F223FC1001317A7 /* ReadStarCell.swift in Sources */,
 				365936941F1E60A9003CE578 /* CourseAppraiseCell.swift in Sources */,
@@ -1116,19 +1152,19 @@
 				B10254051EC84EE00064373A /* PhoneBook.swift in Sources */,
 				0C3ADF361F697EE100388C19 /* FoundViewController.swift in Sources */,
 				36DA7A5E1FA8A35C000DAF2B /* WPYBaseViewController.swift in Sources */,
-				0C3ADF4A1F697EE100388C19 /* SectionCell.swift in Sources */,
+				0C3ADF4A1F697EE100388C19 /* LFSectionCell.swift in Sources */,
 				0C3ADF3E1F697EE100388C19 /* PublishSuccessViewController.swift in Sources */,
 				0C3ADF401F697EE100388C19 /* LostFoundSearchViewController.swift in Sources */,
 				36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */,
 				36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */,
 				0C3ADF491F697EE100388C19 /* PublishCustomCell.swift in Sources */,
 				0C3ADF431F697EE100388C19 /* LostFoundModel.swift in Sources */,
-				0C3ADF351F697EE100388C19 /* DetailViewController.swift in Sources */,
+				0C3ADF351F697EE100388C19 /* LFDetailViewController.swift in Sources */,
 				36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */,
-				0C3ADF471F697EE100388C19 /* MarkCustomCell.swift in Sources */,
+				0C3ADF471F697EE100388C19 /* LFMarkCustomCell.swift in Sources */,
 				0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */,
 				0C3ADF421F697EE100388C19 /* LostFoundAPI.swift in Sources */,
-				0C3ADF3F1F697EE100388C19 /* SearchedResultViewController.swift in Sources */,
+				0C3ADF3F1F697EE100388C19 /* LFSearchedResultViewController.swift in Sources */,
 				36DA7A5B1FA8A35C000DAF2B /* LoginViewController.swift in Sources */,
 				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
 				36449E8A1FA4BAD10036766B /* PartyPersonalStatusViewController.swift in Sources */,
@@ -1149,6 +1185,7 @@
 				36449E611FA4BABA0036766B /* TextTableViewCell.swift in Sources */,
 				3659368E1F1E60A9003CE578 /* GPAViewController.swift in Sources */,
 				0C3ADF381F697EE100388C19 /* LostFoundDetailModel.swift in Sources */,
+				0CF914661FDA690500DF11F3 /* LFSearchCustomCell.swift in Sources */,
 				365936911F1E60A9003CE578 /* GPASessionManager.swift in Sources */,
 				365936931F1E60A9003CE578 /* GPATermModel.swift in Sources */,
 				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,

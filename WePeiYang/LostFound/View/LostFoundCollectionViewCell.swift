@@ -73,19 +73,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
             pictureImageView.image = UIImage(named: picURL)
         }
         pictureImageView.contentMode = .scaleAspectFill
-//        pictureImageView.sd_setImage(with: pic)
 
-        
-//        pictureImage.snp.makeConstraints{
-//            make in
-//            make.top.equalToSuperview().offset(0.1)
-//            make.left.equalToSuperview().offset(0.1)
-//            make.right.equalToSuperview().offset(-0.1)
-//            make.bottom.equalTo(titleLabel.snp.top).offset(-10)
-////            make.height.equalTo(70)
-//            
-//            
-//        }
         
         titleLabel.text = title
         titleLabel.numberOfLines = 0

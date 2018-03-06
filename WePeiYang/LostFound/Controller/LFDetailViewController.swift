@@ -12,7 +12,7 @@ import SDWebImage
 
 
 
-class DetailViewController: UIViewController {
+class LFDetailViewController: UIViewController {
     
 //    var detailView : UIView!
     var detailImageView = UIImageView()
@@ -29,14 +29,18 @@ class DetailViewController: UIViewController {
     
     var detailArray: [LostFoundDetailModel] = []
     var detailDisplayArray: [String] = []
-
- 
     var image = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 
+        initUI()
+        refresh()
+        print(image)
+        print(detailImageView.frame.width)
+
+    }
+    func initUI() {
         self.view.backgroundColor = .white
         
         self.detailImageView.contentMode = .scaleAspectFit
@@ -47,36 +51,12 @@ class DetailViewController: UIViewController {
         self.view.addSubview(detailImageView)
         self.view.addSubview(detailTitleLabel)
         print(id)
-
-        
-        refresh()
-        print(image)
         let tapSingle = UITapGestureRecognizer(target: self, action: #selector(swipeClicked(recogizer:)))
         tapSingle.numberOfTapsRequired = 1
         tapSingle.numberOfTouchesRequired = 1
         detailImageView.addGestureRecognizer(tapSingle)
-        
-//        enumeratedImage()
-//        enumeratedLabel()
-        
-        
-        
-//        detailTitleLabel.center.x = self.view.bounds.width/2
-        
-//        detailImageView.snp.makeConstraints{
-//            make in
-//            make.left.equalToSuperview().offset(-5)
-//            make.top.equalToSuperview().offset(0)
-//            make.right.equalToSuperview().offset(5)
-//            make.width.equalTo(self.view.frame.width)
-//            make.height.equalTo(320)
-//
-//        
-//        }
-
-        print(detailImageView.frame.width)
-
     }
+    
     // Mark -- 更新UI
     func refresh() {
         detailApi.getDetail(id: id, success: { (details) in
@@ -126,14 +106,9 @@ class DetailViewController: UIViewController {
                 make.centerX.equalTo(self.view.bounds.width/2)
                 
             }
-            
-            
-            
-        
+
         }, failure: { error in
             print(error)
-        
-        
         })
     }
 
@@ -152,16 +127,10 @@ class DetailViewController: UIViewController {
         let previewVC = LFImagePreviewViewController(image: image)
 //        self.navigationController?.pushViewController(previewVC, animated: true)
         self.present(previewVC, animated: true, completion: nil)
-        
     
     }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-
-
 }

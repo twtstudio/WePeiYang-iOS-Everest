@@ -9,13 +9,15 @@
 import UIKit
 import SDWebImage
 import MJRefresh
+import SnapKit
 
+    var lostList: [LostFoundModel] = []
 class LostViewController: UIViewController, UIPageViewControllerDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
 
     
     var lostView: UICollectionView!
+    var promptView: UIScrollView!
     let layout = UICollectionViewFlowLayout()
-    var lostList: [LostFoundModel] = []
     let footer = MJRefreshAutoNormalFooter()
     let header = MJRefreshNormalHeader()
     var curPage: Int = 1
@@ -25,35 +27,12 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        lostView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height-110), collectionViewLayout: layout)
         
-        lostView.register(LostFoundCollectionViewCell.self, forCellWithReuseIdentifier: "lostCell")
         
-        lostView.delegate = self
-        lostView.dataSource = self
-        
-        lostView.backgroundColor = UIColor(hex6: 0xeeeeee)
-        self.automaticallyAdjustsScrollViewInsets = false
-        
-        layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height:  270)
-        
-
-        layout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
-        self.view.addSubview(lostView)
-        
-
-        
-        let button = UIButton(type: .contactAdd)
-        button.frame = CGRect(x: 250, y: 400, width: 100, height: 50)
-
-        self.view.addSubview(button)
-        
-        button.setTitle("丢失信息", for: UIControlState.normal)
-        button.setTitle("触摸状态", for: UIControlState.highlighted)
-//        button.setTitle("禁用状态", for: .disabled)
-        button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
+        configUI()
+        promptUI()
         refresh()
+
 //        header.setRefreshingTarget(self, refreshingAction: #selector(LostViewController.headerRefresh))
 //        
 //        footer.setRefreshingTarget(self, refreshingAction: #selector(LostViewController.footerLoad))
@@ -64,12 +43,41 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         
         }
     
+    func configUI() {
+        lostView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height-110), collectionViewLayout: layout)
+        lostView.register(LostFoundCollectionViewCell.self, forCellWithReuseIdentifier: "lostCell")
+        
+        lostView.delegate = self
+        lostView.dataSource = self
+        
+        lostView.backgroundColor = UIColor(hex6: 0xeeeeee)
+        self.automaticallyAdjustsScrollViewInsets = false
+        layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height:  270)
+        layout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
+    }
     
+    func promptUI() {
+        self.promptView = UIScrollView(frame: UIScreen.main.bounds)
+        self.promptView.backgroundColor = UIColor(hex6: 0xeeeeee)
+        let image = UIImageView(frame: CGRect(x: 0, y: 100, width:150, height: 150))
+        image.center = CGPoint(x: self.view.frame.width/2, y: 170)
+        image.image = UIImage(named: "飞")
+        self.promptView.addSubview(image)
+        let titleLabel = UILabel(frame: CGRect(x: 0, y: 100, width:240, height: 50))
+        titleLabel.center = CGPoint(x: self.view.frame.width/2, y: 280)
+        titleLabel.text = "暂时没有该类物品,去发布吧!"
+        titleLabel.textAlignment = .center
+        self.promptView.addSubview(titleLabel)
+        self.promptView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
+    }
+    // 网络的异步请求
     func refresh() {
 
         GetLostAPI.getLost(page: curPage, success: { (losts) in
-            self.lostList = losts
-            self.lostView.reloadData()
+            lostList = losts
+            self.selectView()
+            self.lostView.backgroundColor = UIColor(hex6: 0xeeeeee)
+//            self.lostView.reloadData()
         }
             
             
@@ -77,14 +85,20 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
                 print(error)
             } )
     }
+    func selectView() {
+        if lostList.count == 0 {
+        self.view.addSubview(self.promptView)
+        } else {
+            print(lostList.count)
+            self.view.addSubview(self.lostView)
+            self.lostView.reloadData()
+        }
+        
+    }
     
-
     func tapped(){
         let vc = PublishLostViewController()
-        
         self.navigationController?.pushViewController(vc, animated: true)
-//        self.present(vc, animated: true, completion: nil)
-    
     }
     
     //底部上拉加载
@@ -92,7 +106,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         print("上拉加载")
         self.curPage += 1
         GetLostAPI.getLost(page: curPage, success: { (losts) in
-            self.lostList += losts
+            lostList += losts
 
             self.lostView.mj_footer.endRefreshing()
             self.lostView.reloadData()
@@ -111,11 +125,11 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         
         self.curPage = 1
         GetLostAPI.getLost(page: 1, success: { (losts) in
-            self.lostList = losts
-            print(self.lostList)
-
+            lostList = losts
+            self.selectView()
             //结束刷新
             self.lostView.mj_header.endRefreshing()
+            self.promptView.mj_header.endRefreshing()
             self.lostView.reloadData()
             
             
@@ -137,7 +151,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     {
         print(lostList[indexPath.row].id)
         let id = lostList[indexPath.row].id
-        let detailVC = DetailViewController()
+        let detailVC = LFDetailViewController()
 //        detailVC.id = 197
         detailVC.id = id
         print(id)

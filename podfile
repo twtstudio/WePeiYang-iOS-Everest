@@ -4,11 +4,13 @@
 target 'WePeiYang' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-  pod 'Alamofire'
-  pod 'SnapKit'
-  pod 'SDWebImage'
-  pod 'Charts'
-  pod 'ObjectMapper'
+  pod 'Alamofire', '~> 4.3.0'
+  pod 'SnapKit', '~> 3.2.0'
+  pod 'SDWebImage', '~> 4.0.0'
+  pod 'Charts', '3.0.2'
+  pod 'ObjectMapper', '~> 2.2.7'
+#  pod 'ActionButton’, '0.1.5’
+#  pod "LiquidFloatingActionButton"
   pod 'MJRefresh', '~> 3.1.12'
   pod 'WMPageController', '2.3.0'
   pod 'pop'

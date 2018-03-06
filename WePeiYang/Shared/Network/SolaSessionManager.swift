@@ -254,8 +254,8 @@ struct SolaSessionManager {
                             if let dict = data as? Dictionary<String, Any>, dict["error_code"] as? Int == -1 {
                                 success?(dict)
                             } else {
-                                //                                HUD.hide()
-                                //                                HUD.flash(.label((data as? [String: Any])?["data"] as? String), delay: 1.0)
+//                                                                HUD.hide()
+//                                                                HUD.flash(.label((data as? [String: Any])?["data"] as? String), delay: 1.0)
                             }
                         }
                     }
