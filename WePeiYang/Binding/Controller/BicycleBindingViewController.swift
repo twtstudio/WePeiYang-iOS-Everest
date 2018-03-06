@@ -35,7 +35,7 @@ class BicycleBindingViewController: UIViewController {
         IDCardNumberTextField = UITextField()
         IDCardNumberTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*2.0/5.0), size: CGSize(width: textFieldWidth, height: 40))
         IDCardNumberTextField.placeholder = "请输入身份证号"
-        IDCardNumberTextField.keyboardType = .numberPad
+        IDCardNumberTextField.keyboardType = .namePhonePad
         IDCardNumberTextField.borderStyle = .roundedRect
         IDCardNumberTextField.clearButtonMode = .always
         IDCardNumberTextField.autocapitalizationType = .none
