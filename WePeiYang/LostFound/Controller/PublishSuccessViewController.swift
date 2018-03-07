@@ -10,8 +10,6 @@ import UIKit
 import SnapKit
 
 class PublishSuccessViewController: UIViewController {
-    
-
     let titleLabel = UILabel()
     let titleImage = UIImageView()
     
@@ -28,8 +26,7 @@ class PublishSuccessViewController: UIViewController {
         self.view.addSubview(titleLabel)
         
         titleImage.image = #imageLiteral(resourceName: "对勾(1)")
-        titleImage.snp.makeConstraints {
-            make in
+        titleImage.snp.makeConstraints { make in
             make.top.equalTo(successView.snp.top).offset(25)
             make.left.equalTo(successView.snp.left).offset(successView.frame.width/2-45)
             make.bottom.equalTo(successView.snp.bottom).offset(-25)
@@ -37,26 +34,12 @@ class PublishSuccessViewController: UIViewController {
             make.width.equalTo(20)
         }
         
-        titleLabel.snp.makeConstraints{
-        
-            make in
+        titleLabel.snp.makeConstraints { make in
             make.top.equalTo(successView.snp.top).offset(20)
             make.left.equalTo(titleImage.snp.left).offset(20)
             make.right.equalTo(successView.snp.right).offset(-30)
             make.bottom.equalTo(successView.snp.bottom).offset(-20)
             
         }
-        
-        // Do any additional setup after loading the view.
     }
-    
-
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-
 }

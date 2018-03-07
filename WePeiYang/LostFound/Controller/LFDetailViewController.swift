@@ -10,8 +10,6 @@ import UIKit
 import SnapKit
 import SDWebImage
 
-
-
 class LFDetailViewController: UIViewController {
     
 //    var detailView : UIView!
@@ -36,9 +34,6 @@ class LFDetailViewController: UIViewController {
 
         initUI()
         refresh()
-        print(image)
-        print(detailImageView.frame.width)
-
     }
     func initUI() {
         self.view.backgroundColor = .white
@@ -62,16 +57,15 @@ class LFDetailViewController: UIViewController {
         detailApi.getDetail(id: id, success: { (details) in
             self.detailArray = details
             self.detailDisplayArray = [self.detailArray[0].time,self.detailArray[0].place, "\(self.detailArray[0].detail_type)", self.detailArray[0].name, self.detailArray[0].phone, self.detailArray[0].item_description]
-            print(self.detailDisplayArray)
-            
-            for (index, name) in self.detailImageArray.enumerated(){
+
+            for (index, name) in self.detailImageArray.enumerated() {
                 
                 let imageView = UIImageView(frame: CGRect(x: 50, y: 440+CGFloat(index*self.Y), width: 20, height: 20))
                 imageView.image = UIImage(named: name)
                 self.view.addSubview(imageView)
             }
             
-            for (index, name) in self.detailDisplayArray.enumerated(){
+            for (index, name) in self.detailDisplayArray.enumerated() {
                 let label = UILabel(frame: CGRect(x: 80, y: 440+CGFloat(index*self.Y), width: 250, height: 20))
                 print(self.detailDisplayArray)
                 
@@ -79,8 +73,7 @@ class LFDetailViewController: UIViewController {
                 self.view.addSubview(label)
                 
             }
-            
-            print(self.detailArray[0].picture)
+
             if self.detailArray[0].picture == "" {
 //                self.imageURL = "uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg" //暂无图片
                 self.detailImageView.image = UIImage(named: "暂无图片")
@@ -90,23 +83,14 @@ class LFDetailViewController: UIViewController {
                 self.image = self.TWT_URL + self.imageURL
             }
             
-//            self.detailImageView.sd_setImage(with: URL(string: self.TWT_URL + self.imageURL))
-//            self.detailImageView.contentMode = .scaleAspectFit
-//            self.detailImageView.frame = CGRect(x: 0, y: 62, width: self.view.bounds.width, height: 320)
-//            self.detailImageView.isUserInteractionEnabled = true
-            
-            
             self.detailTitleLabel.text = self.detailArray[0].title
             self.detailTitleLabel.textAlignment = .center
-            self.detailTitleLabel.snp.makeConstraints{
-                make in
+            self.detailTitleLabel.snp.makeConstraints { make in
                 make.top.equalTo(self.detailImageView.snp.bottom).offset(10)
                 make.width.equalTo(250)
                 make.height.equalTo(40)
                 make.centerX.equalTo(self.view.bounds.width/2)
-                
             }
-
         }, failure: { error in
             print(error)
         })
@@ -123,14 +107,9 @@ class LFDetailViewController: UIViewController {
     }
     
     func swipeClicked(recogizer: UITapGestureRecognizer) {
-        
         let previewVC = LFImagePreviewViewController(image: image)
 //        self.navigationController?.pushViewController(previewVC, animated: true)
         self.present(previewVC, animated: true, completion: nil)
     
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }

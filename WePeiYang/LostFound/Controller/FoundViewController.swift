@@ -15,25 +15,16 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
     var foundView: UICollectionView!
     var promptView: UIScrollView!
     let layout = UICollectionViewFlowLayout()
-    let footer = MJRefreshAutoNormalFooter()
-    let header = MJRefreshNormalHeader()
     var curPage : Int = 1
-    
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-       
         configUI()
         promptUI()
         refresh()
         self.promptView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.foundView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.foundView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
-        self.foundView.mj_footer.isAutomaticallyHidden = true
-        
-        
     }
     
     func configUI() {
@@ -84,14 +75,15 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         self.curPage += 1
         GetFoundAPI.getFound(page: curPage, success: { (losts) in
             foundList += losts
-            
-            self.foundView.mj_footer.endRefreshing()
             self.foundView.reloadData()
-            
+            if losts.count == 0 {
+                self.curPage -= 1
+                self.foundView.mj_footer.endRefreshingWithNoMoreData()
+            } else {
+                self.foundView.mj_footer.endRefreshing()
+            }
         }, failure: { error in
             print(error)
-            
-            
         })
         self.foundView.reloadData()
     }
@@ -100,17 +92,15 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
     func headerRefresh(){
         print("下拉刷新.")
         
-        self.curPage = 1
         GetFoundAPI.getFound(page: 1, success: { (losts) in
             foundList = losts
             self.selectView()
-            print(foundList)
-            
+            self.foundView.mj_footer.resetNoMoreData()
             //结束刷新
             self.foundView.mj_header.endRefreshing()
             self.promptView.mj_header.endRefreshing()
             self.foundView.reloadData()
-  
+            self.curPage = 1
         }, failure: { error in
             print(error)
         })
@@ -118,69 +108,28 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     func selectView() {
-        if lostList.count == 0 {
+        if foundList.count == 0 {
             self.view.addSubview(self.promptView)
         } else {
-            print(lostList.count)
             self.view.addSubview(self.foundView)
             self.foundView.reloadData()
-            
         }
         
     }
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    //
-    //        let image = UIImage(named: foundList[indexPath.row].picture)
-    //        let imageHeight = image?.size.height
-    //        let imageWidth = image?.size.width
-    //        let width = self.view.frame.size.width/2 - 10
-    //        let ratio = imageWidth!/width
-    //        let height = imageHeight!/ratio
-    //        return CGSize(width: width, height: height + 4*30)
-    //
-    //    }
-    
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-////        if foundList.count == 0 {
-////            return CGSize(width: UIScreen.main.bounds.width, height: 350)
-////        } else {
-////            return CGSize(width: 0, height: 0)
-////        }
-//        return CGSize(width: UIScreen.main.bounds.width, height: 350)
-//    }
-    
-//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//        var reusableView: UICollectionReusableView!
-//        if kind == UICollectionElementKindSectionHeader {
-//            reusableView = foundView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifer, for: indexPath) as! CollectionReusableHeaderView
-//            reusableView.backgroundColor = .black
-//
-//        }
-//        if kind == UICollectionElementKindSectionFooter {
-//            reusableView = foundView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifer, for: indexPath) as! CollectionReusableHeaderView
-//            reusableView.backgroundColor = .black
-//            
-//        }
-//        return reusableView
-//    }
-    
-    
+
     //某个Cell被选择的事件处理
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
-    {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let id = foundList[indexPath.row].id
         let detailVC = LFDetailViewController()
         detailVC.id = id
         self.navigationController?.pushViewController(detailVC, animated: true)
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        
         return foundList.count
     }
     

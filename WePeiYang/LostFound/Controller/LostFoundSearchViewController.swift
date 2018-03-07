@@ -7,14 +7,10 @@
 //
 
 import UIKit
-import SnapKit
-
 
 var inputText = ""
-
-class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate
-{
-    lazy   var searchBar:UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 200, height: 20))
+class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
+    lazy var searchBar:UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 200, height: 20))
     var tableView: UITableView!
     var searchController: UISearchController!
     var historyNSArray: NSArray = []
@@ -26,20 +22,19 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
     }
     let itemsArray = ["delete", "看"]
     let titleArray = ["搜索历史", "分类"]
-    var searchArray:[String] = [String]() {
-        didSet { self.tableView.reloadData() }
-        
+    var searchArray: [String] = [String]() {
+        didSet {
+            self.tableView.reloadData()
+        }
     }
     var searchOfMessage = ""
-    
+
     var delButton = UIButton()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
         searchOfMessage = "noSearch"
 
-        
         loadData()
         cellHeight()
         searchBar.placeholder = "搜索"
@@ -78,25 +73,13 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
     func cellHeight() {
         let cell = LFSearchCustomCell()
         High = cell.initMark(array: historyArray, title: "")
-        print(High)
-        
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        
-//        if self.searchController.isActive {
-//            
-//            return self.searchArray.count
-//        } else {
-//            return self.historyArray.count
-//        }
-
         if searchOfMessage == "noSearch" {
             return mainAry.count
-        }
-        else {
+        } else {
             return searchArray.count
-
         }
     }
     
@@ -105,47 +88,35 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
     
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
-        let identify:String = "searchCell"
-    
-
-        
-//        if let cell = tableView.cellForRow(at: indexPath) as? SearchCustomCell {
+        let identify: String = "searchCell"
         if let cell = tableView.dequeueReusableCell(withIdentifier: identify + "\(indexPath)") as? LFSearchCustomCell {
             if searchOfMessage == "noSearch" {
                 if indexPath.row == 0 {
                     cell.delUI()
                     cell.deleteButton.addTarget(self, action: #selector(deleteOfButtonTapped(sender: )), for: .touchUpInside)
                 }
-                      _ = cell.initMark(array: mainAry[indexPath.row], title: titleArray[indexPath.row] )
+                _ = cell.initMark(array: mainAry[indexPath.row], title: titleArray[indexPath.row] )
                 cell.delegate = self
             } else {
-               // print(searchArray)
-                  cell.textLabel?.text = self.searchArray[indexPath.row]
+                // print(searchArray)
+                cell.textLabel?.text = self.searchArray[indexPath.row]
             }
-            
+            return cell
+        } else {
+            let cell = LFSearchCustomCell()
+            if searchOfMessage == "noSearch" {
+                if indexPath.row == 0 {
+                    cell.delUI()
+                    cell.deleteButton.addTarget(self, action: #selector(deleteOfButtonTapped(sender: )), for: .touchUpInside)
+                }
+                _ = cell.initMark(array: mainAry[indexPath.row], title: titleArray[indexPath.row] )
+                cell.delegate = self
+            } else {
+                print(searchArray)
+                cell.textLabel?.text = self.searchArray[indexPath.row]
+            }
             return cell
         }
-
-            else {
-                let cell = LFSearchCustomCell()
-                    if searchOfMessage == "noSearch" {
-                        if indexPath.row == 0 {
-                            cell.delUI()
-                            cell.deleteButton.addTarget(self, action: #selector(deleteOfButtonTapped(sender: )), for: .touchUpInside)
-                        }
-                        _ = cell.initMark(array: mainAry[indexPath.row], title: titleArray[indexPath.row] )
-                                        cell.delegate = self
-                }
-                    else {
-                        print(searchArray)
-                        cell.textLabel?.text = self.searchArray[indexPath.row]
-            }
-
-                return cell
-            }
- 
     }
     
 

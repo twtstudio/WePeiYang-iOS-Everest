@@ -23,20 +23,13 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     let footer = MJRefreshAutoNormalFooter()
     let header = MJRefreshNormalHeader()
     var curPage = 1
-    //    let TWT_URL = "http://open.twtstudio.com/"
-    
 
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
         refresh()
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
-        self.tableView.mj_footer.isAutomaticallyHidden = true
-
-        
     }
     
     func configUI() {
@@ -56,49 +49,37 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func refresh() {
-        
-        GetMyLostAPI.getMyLost(page: curPage, success: { (myLosts) in
+        GetMyLostAPI.getMyLost(page: 1, success: { (myLosts) in
             self.myLost = myLosts
             self.tableView.reloadData()
-            
-            
+            self.curPage = 1
         }, failure: {error in
             print(error)
-            
         })
-        
     }
+
     //底部上拉加载
     func footerLoad() {
-        print("上拉加载")
         self.curPage += 1
         GetMyLostAPI.getMyLost(page: curPage, success: { (MyLosts) in
             self.myLost += MyLosts
-            
             self.tableView.mj_footer.endRefreshing()
             self.tableView.reloadData()
-            
         }, failure: { error in
             print(error)
-            
-            
+            self.curPage -= 1
         })
         self.tableView.reloadData()
     }
     
     //顶部下拉刷新
     func headerRefresh(){
-        print("下拉刷新.")
-        
-        self.curPage = 1
         GetMyLostAPI.getMyLost(page: 1, success: { (MyLosts) in
             self.myLost = MyLosts
-            print(self.myLost)
-            
+            self.curPage = 1
             //结束刷新
             self.tableView.mj_header.endRefreshing()
             self.tableView.reloadData()
-            
         }, failure: { error in
             print(error)
         })
@@ -106,68 +87,53 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         id = myLost[indexPath.row].id
         tableView.deselectRow(at: indexPath, animated: true)
         let detailView = LFDetailViewController()
         detailView.id = id
         self.navigationController?.pushViewController(detailView, animated: true)
     }
-    
-    
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.01
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        
         return myLost.count
-        
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell{
-            
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell {
             
             cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
             cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
             //
-            
             let pic = myLost[indexPath.row].picture
             print(pic)
             cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
             
             return cell
-            
-            
-            
-        }
-        else {
-        let cell = MyLostFoundTableViewCell()
-        cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
-        cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
+        } else {
+            let cell = MyLostFoundTableViewCell()
+            cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
+            cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
 
-        let pic = TWT_URL + myLost[indexPath.row].picture
-        
-        
-        cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
-        
-        
-        
-        return cell
+            let pic = TWT_URL + myLost[indexPath.row].picture
+
+            cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
+
+            return cell
         }
     }
+
     // 修改按钮的回调
     func editButtonTapped(editButton: UIButton) {
-        
+
         let cell = editButton.superView(of: UITableViewCell.self)!
         let indexPath = tableView.indexPath(for: cell)
         id = myLost[(indexPath?[1])!].id
-        print(id)
         
         print("indexPath：\(indexPath!)")
         let vc = PublishLostViewController()
@@ -184,29 +150,14 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = inverseButton.superView(of: UITableViewCell.self)!
         let indexPath = tableView.indexPath(for: cell)
         id = myLost[(indexPath?[1])!].id
-        print(id)
-        
-        print("indexPath：\(indexPath!)")
-        
+
         GetInverseAPI.getInverse(id: id, success: { (code) in
-            
-            print(code)
             self.refresh()
-            
         }, failure: { error in
             print(error)
         })
         
     }
-    
-
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
     
 }
 

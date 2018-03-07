@@ -10,24 +10,11 @@ import Foundation
 import Alamofire
 
 class GetLostAPI{
-    
-    //    static func fabu(markdic: [String: String] , success: @escaping ([String: AnyObject]) -> ()) {
-    
-    //       SolaSessionManager.solaSession(type: .post , url: "/lostfound/lost", token: AccountManager.token, parameters: markdic, success: success, failure: nil)
-    //
-    //        if let array = dic
-    //
-    //    }
-    //
-    //
-    //}
-    static func getLost(page: Int, success: @escaping ([LostFoundModel])->(), failure: (Error)->()) {
+    static func getLost(page: Int, success: @escaping ([LostFoundModel])->(), failure: @escaping (Error)->()) {
         SolaSessionManager.solaSession(url: "/lostfound/lost?page=\(page)",success: {
             dic in
             
-            print(page)
-            if let lostData = dic["data"] as? [[String : Any]]
-            {
+            if let lostData = dic["data"] as? [[String : Any]] {
                 var losts = [LostFoundModel]()
                 for lost in lostData {
                     
@@ -50,7 +37,8 @@ class GetLostAPI{
             }
             
         } ,failure: { err in
-            
+            // TODO: error
+            failure(err)
         })
     }
 }
@@ -59,12 +47,11 @@ class GetLostAPI{
 
 class GetFoundAPI {
     
-    static func getFound(page: Int, success: @escaping ([LostFoundModel])->(), failure: (Error)->()) {
+    static func getFound(page: Int, success: @escaping ([LostFoundModel])->(), failure: @escaping (Error)->()) {
         SolaSessionManager.solaSession(url: "/lostfound/found?page=\(page)",success: {
             dic in
             print(page)
-            if let foundData = dic["data"] as? [[String : Any]]
-            {
+            if let foundData = dic["data"] as? [[String : Any]] {
                 var founds = [LostFoundModel]()
                 for found in foundData {
                     
@@ -77,8 +64,7 @@ class GetFoundAPI {
                     let isback = found["isback"] as? String ?? ""
                     let name = found["name"] as? String ?? ""
                     let phone = found["phone"] as? String ?? ""
-                    
-                    
+
                     let foundModel = LostFoundModel(id: id, title: title, detail_type: detail_type, time: time, picture: picture, place: place, phone: phone, isback: isback, name: name)
                     founds.append(foundModel)
                     
@@ -87,7 +73,8 @@ class GetFoundAPI {
             }
             
         } ,failure: { err in
-            print(err)
+            // TODO: error
+            failure(err)
         })
     }
     
@@ -95,7 +82,7 @@ class GetFoundAPI {
 
 class GetMyLostAPI {
 
-    static func getMyLost(page: Int, success: @escaping ([MyLostFoundModel])->(), failure: (Error)->()) {
+    static func getMyLost(page: Int, success: @escaping ([MyLostFoundModel])->(), failure: @escaping (Error)->()) {
         
         SolaSessionManager.solaSession(url: "/lostfound/user/lost?page=\(page)", success: { dic in
             if let myLostData = dic["data"] as? [[String : Any]]
@@ -121,19 +108,18 @@ class GetMyLostAPI {
             }
             
         }, failure: { err in
-            print(err)
-            
+            // TODO: error
+            failure(err)
         })
     }
 }
 
 class GetMyFoundAPI {
     
-    static func getMyFound(page: Int, success: @escaping ([MyLostFoundModel])->(), failure: (Error)->()) {
+    static func getMyFound(page: Int, success: @escaping ([MyLostFoundModel])->(), failure: @escaping (Error)->()) {
         
         SolaSessionManager.solaSession(url: "/lostfound/user/found?page=\(page)", success: { dic in
-            if let myFoundData = dic["data"] as? [[String : Any]]
-            {
+            if let myFoundData = dic["data"] as? [[String : Any]] {
                 var myFounds = [MyLostFoundModel]()
                 for found in myFoundData {
                     
@@ -155,8 +141,8 @@ class GetMyFoundAPI {
             }
             
         }, failure: { err in
-            print(err)
-            
+            // TODO: error
+            failure(err)
         })
     }
 }
@@ -164,15 +150,15 @@ class GetMyFoundAPI {
 class DetailAPI {
     //    var id = 0
     var detailDisplay: [Any] = []
-    func getDetail(id: String, success: @escaping ([LostFoundDetailModel])->(), failure: (Error)->()) {
+    func getDetail(id: String, success: @escaping ([LostFoundDetailModel])->(), failure: @escaping (Error)->()) {
         SolaSessionManager.solaSession(url: ("/lostfound/"+"\(id)"),success: {
             dic in
             print(dic)
             if let detailData = dic["data"] as? [String : Any] {
                 
                 var details = [LostFoundDetailModel]()
-                for (key, value) in detailData {
-                    
+//                for (key, value) in detailData {
+
                     let detail_type = detailData["detail_type"] as? Int ?? 0
                     let time = detailData["time"] as? String ?? ""
                     let title = detailData["title"] as? String ?? ""
@@ -195,15 +181,13 @@ class DetailAPI {
                     self.detailDisplay = [time, place, detail_type, name, phone, item_description ]
                     print(self.detailDisplay)
                     details.append(lostFoundDetailModel)
-                    
-                    
-                }
+//                }
                 success(details)
             }
             
         } ,failure: { err in
-            print(err)
-            
+            // TODO: error
+            failure(err)
         })
     }
 }
@@ -212,13 +196,13 @@ class GetSearchAPI {
     
     
     
-    static func getSearch(inputText: String, page: Int,success: @escaping ([LostFoundModel])->(), failure: (Error)->()) {
+    static func getSearch(inputText: String, page: Int,success: @escaping ([LostFoundModel])->(), failure: @escaping (Error)->()) {
         
         let utf8Text = "/lostfound/search?keyword=\(inputText)&page=\(page)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         print(utf8Text)
         SolaSessionManager.solaSession(type: .get, url: utf8Text, success: { dic in
             print(dic)
-            if let error_code = dic["error_code"] as? Int {
+            if let error_code = dic["error_code"] as? Int, error_code == 0 {
                 if let searchData = dic["data"] as? [[String: Any]] {
                     
                     var searchs = [LostFoundModel]()
@@ -240,10 +224,10 @@ class GetSearchAPI {
                     }
                     success(searchs)
                 }
-                
             }
         } ,failure: { err in
-            
+            // TODO: error
+            failure(err)
         })
     }
     
@@ -254,39 +238,24 @@ class GetSearchAPI {
 class PostLostAPI {
 
 
-    static func postLost(markDic: [String : Any], tag: String, success: @escaping (Dictionary<String, Any>)->(),failure: (Error)->()) {
-//        SolaSessionManager.solaSession(type: .post, url: "/lostfound/lost", parameters: markDic, success: success, failure: { err in
-//    print(err)
-//    
-//    
-//    })    
-
-        print(tag)
+    static func postLost(markDic: [String : Any], tag: String, success: @escaping (Dictionary<String, Any>)->(),failure: @escaping (Error)->()) {
         SolaSessionManager.upload(dictionay: markDic, url: "/lostfound/"+tag, method: .post, progressBlock: nil, failure: { err in
-            print(err)
-            
-        }, success: success )
+            // TODO: error
+            failure(err)
+        }, success: success)
     }
-    
 }
 
 class GetInverseAPI {
     
-    static func getInverse(id: String, success: @escaping (Int)->(), failure: (Error)->()){
+    static func getInverse(id: String, success: @escaping (Int)->(), failure: @escaping (Error)->()){
         SolaSessionManager.solaSession(type: .get, url: "/lostfound/inverse/\(id)", success: { dic in
-            print(dic)
             if let error_code = dic["error_code"] as? Int {
-                var code = error_code
-                success(code)
+                success(error_code)
             }
-
         }, failure: { err in
-            print(err)
-            
-            
+            // TODO: error
+            failure(err)
         })
-        
     }
-    
-    
 }

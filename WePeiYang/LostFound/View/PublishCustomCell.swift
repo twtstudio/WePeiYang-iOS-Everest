@@ -14,10 +14,7 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
     var delegate: PublishLostViewController?
     
     var cellkey:String?
-    
-    
 
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         delegate?.means(input: textField.text!, key: cellkey!)
         
@@ -51,13 +48,9 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
             textField.clearButtonMode = UITextFieldViewMode.unlessEditing 
 
             self.addSubview(textField);
-            
-            
 
             
-            textField.snp.makeConstraints{
-            
-                make in
+            textField.snp.makeConstraints { make in
                 make.top.equalToSuperview().offset(5)
                 make.right.equalToSuperview().offset(-5)
                 make.left.equalToSuperview().offset(80)
@@ -65,9 +58,6 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
                 make.height.equalTo(30)
             }
         }
-        
-        
-    
     }
 
     func addTargetMethod() {
@@ -84,22 +74,3 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
         self.textField.layoutIfNeeded()
     }
 }
-
-
-
-//extension UIViewController {
-//    
-//    func hide() {
-//        
-////        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismiss))
-//        let tapGestureRecognizerKey = UITapGestureRecognizer(target: self, action: #selector(dismissKey))
-//        
-//    }
-//    
-//    func dismissKey() {
-//        
-//        view.endEditing(true)
-//    }
-//    
-//}
-

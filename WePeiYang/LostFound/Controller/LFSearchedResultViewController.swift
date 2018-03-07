@@ -19,10 +19,6 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
     let header = MJRefreshNormalHeader()
     var curPage : Int = 1
     
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,13 +26,10 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
         promptUI()
         refresh()
 
-
-        let leftBarBtn = UIBarButtonItem(title: "返回", style: .plain, target: self,
-                                         action: #selector(LFSearchedResultViewController.backToMain))
+        let leftBarBtn = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(LFSearchedResultViewController.backToMain))
         self.navigationItem.leftBarButtonItem = leftBarBtn
-        
-    
     }
+
     func configUI() {
         //        layout.estimatedItemSize = CGSize(width: self.view.frame.size.width/2-10, height: 270)
         //        layout.itemSize =
@@ -73,20 +66,20 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
         self.promptView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.searchedView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.searchedView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
-        self.searchedView.mj_footer.isAutomaticallyHidden = true
+//        self.searchedView.mj_footer.isAutomaticallyHidden = true
     }
     
     func refresh() {
-        GetSearchAPI.getSearch(inputText: inputText ,page: curPage, success: { (searchs) in
+        GetSearchAPI.getSearch(inputText: inputText, page: 1, success: { (searchs) in
             self.searchedList = searchs
             self.selectView()
             self.searchedView.reloadData()
-
+            self.curPage = 1
         }, failure: { error in
             print(error)
-            
         })
     }
+
     func selectView() {
         if searchedList.count == 0 {
             self.view.addSubview(self.promptView)
@@ -94,24 +87,20 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
             print(searchedList.count)
             self.view.addSubview(self.searchedView)
             self.searchedView.reloadData()
-            
         }
-        
     }
+
     //底部上拉加载
     func footerLoad() {
         print("上拉加载")
         self.curPage += 1
         GetSearchAPI.getSearch(inputText: inputText, page: curPage, success: { (searchs) in
             self.searchedList += searchs
-            
             self.searchedView.mj_footer.endRefreshing()
             self.searchedView.reloadData()
-            
         }, failure: { error in
             print(error)
-            
-            
+            self.curPage -= 1
         })
         self.searchedView.reloadData()
     }
@@ -120,12 +109,11 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
     func headerRefresh(){
         print("下拉刷新.")
         
-        self.curPage = 1
         GetSearchAPI.getSearch(inputText: inputText, page: 1, success: { (searchs) in
             self.searchedList = searchs
             print(self.searchedList)
             self.selectView()
-            
+            self.curPage = 1
             //结束刷新
             self.searchedView.mj_header.endRefreshing()
             self.promptView.mj_header.endRefreshing()
@@ -152,8 +140,7 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return searchedList.count
     }
     
@@ -163,30 +150,23 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchedCell", for: indexPath) as? LostFoundCollectionViewCell{
             //        cell.title.text = "这里是内容：\(indexPath.row)"
             
-                let picURL = searchedList[indexPath.row].picture
-                cell.initUI(pic: picURL, title: searchedList[indexPath.row].title, mark: Int(searchedList[indexPath.row].detail_type)!, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
+            let picURL = searchedList[indexPath.row].picture
+            cell.initUI(pic: picURL, title: searchedList[indexPath.row].title, mark: Int(searchedList[indexPath.row].detail_type)!, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
 
             return cell
             
         }
+
         let cell = LostFoundCollectionViewCell()
 
-            let picURL = searchedList[indexPath.row].picture
-            cell.initUI(pic: picURL, title: searchedList[indexPath.row].title, mark: Int(searchedList[indexPath.row].detail_type)!, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
+        let picURL = searchedList[indexPath.row].picture
+        cell.initUI(pic: picURL, title: searchedList[indexPath.row].title, mark: Int(searchedList[indexPath.row].detail_type)!, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
         
         return cell
-        
     }
+
     func backToMain() {
         let mainVC = self.navigationController?.viewControllers[1]
         self.navigationController?.popToViewController(mainVC!, animated: true)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-  
 }

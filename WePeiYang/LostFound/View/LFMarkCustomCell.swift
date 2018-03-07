@@ -11,10 +11,7 @@ import UIKit
 class LFMarkCustomCell: UITableViewCell {
     
     var delegate: PublishLostViewController?
-    
-    
-    
-    
+
     let buttonArray = ["身份证","饭卡","手机","钥匙","书包","手表&饰品","U盘&硬盘","水杯","钱包","银行卡","书","伞","其他"]
     let types = ["1", "2", "3","4","5","6","7","8","9","10","11","12","13"]
     var functionDic:[Int : Array<String>] = [:]
@@ -27,12 +24,6 @@ class LFMarkCustomCell: UITableViewCell {
     var currentY: CGFloat = 50
     var currentX: CGFloat = 10
     var button = UIButton()
-    
-//    func textSize(text : String , font : UIFont , maxSize : CGSize) -> CGSize{
-//        return text.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], attributes: [NSFontAttributeName : font], context: nil).size
-//    }
-
-    
     
     // 循环建立button
     func enumerated() {
@@ -116,11 +107,11 @@ class LFMarkCustomCell: UITableViewCell {
                 self.delegate?.means(input: types[index], key: "detail_type")
                 switch types[index] {
                 case "1":
-                    self.delegate?.function[2] = ["卡号*","姓名*"]
+                    self.delegate?.function[2] = ["卡号 *","姓名 *"]
                 case "2":
-                    self.delegate?.function[2] = ["卡号*","姓名*"]
+                    self.delegate?.function[2] = ["卡号 *","姓名 *"]
                 case "10":
-                    self.delegate?.function[2] = ["卡号*","姓名*"]
+                    self.delegate?.function[2] = ["卡号 *","姓名 *"]
                 default:
                     self.delegate?.function[2] = []
                     

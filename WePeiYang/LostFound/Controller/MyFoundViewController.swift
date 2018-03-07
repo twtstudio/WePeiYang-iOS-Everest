@@ -9,8 +9,6 @@
 import UIKit
 import MJRefresh
 
-
-
 class MyFoundViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var tableView: UITableView!
@@ -20,17 +18,14 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     var curPage: Int = 0
     var id = ""
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        myFound = [myLost1, myLost2, myLost3]
-        
+
         configUI()
         refresh()
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
-        self.tableView.mj_footer.isAutomaticallyHidden = true
     }
     
     func configUI() {
@@ -46,18 +41,16 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func refresh() {
         
-        
         GetMyFoundAPI.getMyFound(page: curPage, success: { (myFounds) in
             self.myFound = myFounds
             self.tableView.reloadData()
-            
-            
         }, failure: {error in
             print(error)
             
         })
         
     }
+
     //底部上拉加载
     func footerLoad() {
         print("上拉加载")
@@ -70,8 +63,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
             
         }, failure: { error in
             print(error)
-            
-            
+            self.curPage -= 1
         })
         self.tableView.reloadData()
     }
@@ -80,36 +72,25 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     func headerRefresh(){
         print("下拉刷新.")
         
-        self.curPage = 1
         GetMyFoundAPI.getMyFound(page: 1, success: { (myFounds) in
             self.myFound = myFounds
             print(self.myFound)
-            
+            self.curPage = 1
             //结束刷新
             self.tableView.mj_header.endRefreshing()
             self.tableView.reloadData()
-            
-            
-            
         }, failure: { error in
             print(error)
             
         })
-        
-        
     }
     
-
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         id = myFound[indexPath.row].id
         
         tableView.deselectRow(at: indexPath, animated: true)
         let detailView = LFDetailViewController()
         detailView.id = id
-        
-        
         self.navigationController?.pushViewController(detailView, animated: true)
     }
 
@@ -120,9 +101,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        
         return myFound.count
-        
     }
     
     
@@ -138,9 +117,6 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
             
             cell.initMyUI(pic: pic, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
             return cell
-            
-            
-            
         }
         
         let cell = MyLostFoundTableViewCell()
@@ -148,9 +124,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(sender: )), for: .touchUpInside)
         let pic = myFound[indexPath.row].picture
         cell.initMyUI(pic: pic, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
-        
-        
-        
+
         return cell
     }
     func editButtonTapped(sender: UIButton) {
@@ -158,9 +132,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         let cell = sender.superView(of: UITableViewCell.self)!
         let indexPath = tableView.indexPath(for: cell)
         id = myFound[(indexPath?[1])!].id
-        print(id)
-        
-        print("indexPath：\(indexPath!)")
+
         let vc = PublishLostViewController()
         let index = 1
         vc.index = index
@@ -171,20 +143,12 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     
 
     func inverseButtonTapped(sender: UIButton) {
-        //        let cell = superUITableViewCell(of: inverseButton)!
-        
         let cell = sender.superView(of: UITableViewCell.self)!
         let indexPath = tableView.indexPath(for: cell)
         id = myFound[(indexPath?[1])!].id
-        print(id)
-        
-        print("indexPath：\(indexPath!)")
-        
+
         GetInverseAPI.getInverse(id: id, success: { (code) in
-            
-            print(code)
             self.refresh()
-            
         }, failure: { error in
             print(error)
         })

@@ -22,16 +22,15 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     
     var function = [
         ["添加图片"],
-        ["标题*","时间","地点"],
+        ["标题 *","时间","地点"],
         [],
-        ["姓名*","联系电话*"],
+        ["姓名 *","联系电话 *"],
         ["物品描述"],
-        ["刊登时长*"],
+        ["刊登时长 *"],
         []
     ]
     
     var text = [
-        
         0: [""],
         1: ["(不超过11个字)","请填写详细时间","请填写校区及详细地点"],
         2: ["",""],
@@ -41,7 +40,6 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     ]
     
     var header = [
-        
         0: ["发布图片"],
         1: ["详细信息"],
         2: ["类型"],
@@ -70,12 +68,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.backgroundColor = UIColor(hex6:  0xeeeeee);
-        //        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PublishLostCell");
-        
-        //        self.tableView.register(SectionCell.self, forHeaderFooterViewReuseIdentifier: "Section")
-        //
-        //        self.tableView.register(MarkCustomCell.self, forHeaderFooterViewReuseIdentifier: "Mark")
-        
+
         self.tableView.estimatedRowHeight = 500;
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.view.addSubview(tableView);
@@ -118,10 +111,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        
         let header = SectionCell()
-        
         
         switch section {
         case 0:
@@ -138,7 +128,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             header.label.text = "发布时长"
         case 6:
             if index == 1 {
-            header.label.text = "物品状态"
+                header.label.text = "物品状态"
             } else {
                 break
             }
@@ -161,10 +151,9 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 6{
             return 180
-        }else if section == 0{
+        } else if section == 0{
             return 50
-        }
-        else {
+        } else {
             return 30
         }
     }
@@ -223,11 +212,8 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         
         switch (indexPath.section) {
         case 0:
-            
             if let cell = tableView.dequeueReusableCell(withIdentifier: "UpLoadingCell" + "\(indexPath)") as? UpLoadingPicCell {
                 cell.selectionStyle = UITableViewCellSelectionStyle.none
-                
-                
                 return cell
             } else {
                 let cell = UpLoadingPicCell(style: .default, reuseIdentifier: "UpLoadingCell" + "\(indexPath)")
@@ -236,15 +222,29 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             }
         case 5:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "LFPickerCell" + "\(indexPath)") as? LFPickerCell {
-                cell.textLabel?.text = function[indexPath.section][indexPath.row]
+                let text = function[indexPath.section][indexPath.row]
+                if text.last == "*" {
+                    let attributedString = NSMutableAttributedString(string: text)
+                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.red], range: NSMakeRange(text.count-1, 1))
+                    cell.textLabel?.attributedText = attributedString
+                } else {
+                    cell.textLabel?.text = text
+                }
                 cell.delegate = self
-                
                 
                 return cell
             } else {
                 
                 let cell = LFPickerCell(style: .default, reuseIdentifier: "LFPickerCell" + "\(indexPath)")
-                cell.textLabel?.text = function[indexPath.section][indexPath.row]
+                let text = function[indexPath.section][indexPath.row]
+                if text.last == "*" {
+                    let attributedString = NSMutableAttributedString(string: text)
+                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.red], range: NSMakeRange(text.count-1, 1))
+                    cell.textLabel?.attributedText = attributedString
+                } else {
+                    cell.textLabel?.text = text
+                }
+//                cell.textLabel?.text = function[indexPath.section][indexPath.row]
                 cell.delegate = self
                 return cell
             }
@@ -262,7 +262,17 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
                 cell.delegate = self
                 
                 cell.cellkey = returnKeys[indexPath.section]?[indexPath.row]
-                cell.textLabel?.text = function[indexPath.section][indexPath.row];
+
+                let string = function[indexPath.section][indexPath.row]
+                if string.last == "*" {
+                    let attributedString = NSMutableAttributedString(string: string)
+                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.red], range: NSMakeRange(string.count-1, 1))
+                    cell.textLabel?.attributedText = attributedString
+                } else {
+                    cell.textLabel?.text = string
+                }
+
+//                cell.textLabel?.text = function[indexPath.section][indexPath.row];
                 cell.addTargetMethod()
                 cell.textFieldDidEndEditing(cell.textField)
                 return cell
@@ -279,17 +289,19 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
                 //                cell.textField.resignFirstResponder();
                 
                 cell.delegate = self
-                
                 cell.cellkey = returnKeys[indexPath.section]?[indexPath.row]
-                
                 cell.addTargetMethod()
-                
-                cell.textLabel?.text = function[indexPath.section][indexPath.row];
-                
+//                cell.textLabel?.text = function[indexPath.section][indexPath.row];
+                let string = function[indexPath.section][indexPath.row]
+                if string.last == "*" {
+                    let attributedString = NSMutableAttributedString(string: string)
+                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.red], range: NSMakeRange(string.count-1, 1))
+                    cell.textLabel?.attributedText = attributedString
+                } else {
+                    cell.textLabel?.text = string
+                }
                 return cell;
             }
-            
-            
         }
         
     }
@@ -330,37 +342,14 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     }
     // 确定按钮的回调
     func tapped(){
-        
-        print("Release success")
-        print(markDict)
-        //        LostAPI.fabu(markdic: markdic, success: {
-        //            _ in
-        //        })
-        
 
-        PostLostAPI.postLost(markDic: markDict, tag: pushTag, success: {
-            
-            dic in
-            print(self.pushTag)
+        PostLostAPI.postLost(markDic: markDict, tag: pushTag, success: { dic in
             let successVC = PublishSuccessViewController()
             self.navigationController?.pushViewController(successVC, animated: true)
-        }, failure: { error
-            in
+        }, failure: { error in
             print(error)
         })
-        //        }
-        print(markDict)
     }
-    
-    
-    
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-    }
-
     
     func comfirmButtonTapped() {
         //        LostAPI.fabu(name: )
@@ -368,15 +357,9 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     
     func means(input:String,key:String){
         //        var markdic:[String: String] = [:]
-        
-        
-        
         markDict[key] = input
         markDict["other_tag"] = ""
-        
     }
-    
-    
 }
 
 // Mark -- ImagePickerControllerDelegate
@@ -391,21 +374,9 @@ extension PublishLostViewController: UIImagePickerControllerDelegate {
                 DispatchQueue.main.async {
                     cell.addPictureImage.image = image
                 }
-                //                cell.addPictureImage.image = image
-                
-                
             }
- 
         }
-        
-        //            cell.addPictureImage.image = image
-        //            var v: UIView?
-        //            v = UIImageView()
-        //            if let v = v as? UIImageView {
-        //            }
-        
-        //            self.tableView.reloadData()
-        
+
         picker.dismiss(animated: true, completion: nil)
     }
 }
@@ -431,7 +402,6 @@ extension PublishLostViewController: UIGestureRecognizerDelegate {
     }
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if NSStringFromClass(touch.view!.classForCoder) == "UITableViewCellContentView" {
-            
             return false
         }
         return true
