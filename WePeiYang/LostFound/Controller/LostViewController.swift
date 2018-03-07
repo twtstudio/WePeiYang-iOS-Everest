@@ -25,11 +25,13 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         
         configUI()
         promptUI()
-        refresh()
+        //        refresh()
 
         self.lostView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.lostView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
-        }
+
+        self.lostView.mj_header.beginRefreshing()
+    }
     
     func configUI() {
         lostView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height-110), collectionViewLayout: layout)
@@ -42,6 +44,8 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         self.automaticallyAdjustsScrollViewInsets = false
         layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height:  270)
         layout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
+
+        self.view.addSubview(lostView)
     }
     
     func promptUI() {
@@ -57,6 +61,9 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         titleLabel.textAlignment = .center
         self.promptView.addSubview(titleLabel)
         self.promptView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
+
+        self.view.addSubview(promptView)
+        promptView.isHidden = true
     }
     // 网络的异步请求
     func refresh() {
@@ -74,10 +81,12 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
 
     func selectView() {
         if lostList.count == 0 {
-            self.view.addSubview(self.promptView)
+            self.promptView.isHidden = false
+//            self.view.addSubview(self.promptView)
         } else {
-            self.view.addSubview(self.lostView)
-            self.lostView.reloadData()
+            self.promptView.isHidden = true
+//            self.view.addSubview(self.lostView)
+//            self.lostView.reloadData()
         }
     }
     
@@ -139,9 +148,8 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
             cell.initUI(pic: picURL, title: lostList[indexPath.row].title ,mark: Int(lostList[indexPath.row].detail_type)!, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
 
             return cell
-
         }
-        let cell = LostFoundCollectionViewCell()
+        let cell = LostFoundCollectionViewCell(frame: .zero)
 
         let picURL = lostList[indexPath.row].picture
         cell.initUI(pic: picURL, title: lostList[indexPath.row].title ,mark: Int(lostList[indexPath.row].detail_type)!, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
