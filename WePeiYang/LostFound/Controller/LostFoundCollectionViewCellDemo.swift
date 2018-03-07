@@ -57,7 +57,7 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
                 self.pictureImage.contentMode = .scaleAspectFit
                 self.pictureImage.snp.makeConstraints{
                     make in
-                    make.top.equalToSuperview().offset(0.1)
+                    make.top.equalToSuperview()
                     make.left.equalToSuperview()//.offset(10)
                     make.right.equalToSuperview()//.offset(-5)
                     make.height.equalTo(height)
@@ -82,7 +82,7 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
         }
         pictureImage.snp.makeConstraints{
             make in
-            make.top.equalToSuperview().offset(0.1)
+            make.top.equalToSuperview()
             make.left.equalToSuperview()//.offset(10)
             make.right.equalToSuperview()//.offset(-5)
             make.height.equalTo(200)

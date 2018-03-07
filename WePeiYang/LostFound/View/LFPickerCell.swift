@@ -76,26 +76,25 @@ class LFPickerCell: UITableViewCell {
         
         
         pickerView = UIPickerView()
-        textField = UITextField()
+        textField = UIButton()
         textField.inputView = pickerView
         textField.borderStyle = .roundedRect
         textField.placeholder = "请输入天数"
-        
+
         textField.textAlignment = .center
         self.addSubview(textField)
         
         
-        //        pickerView.selectRow(1, inComponent: 0, animated: true)
-        //        self.addSubview(pickerView)
-        
+//                pickerView.selectRow(1, inComponent: 0, animated: true)
+//                self.addSubview(pickerView)
+
         pickerView.delegate = self
         pickerView.dataSource = self
         
         textField.delegate = self
         
-        
+//
         textField.snp.makeConstraints{
-            
             make in
             make.top.equalToSuperview().offset(5)
             make.right.equalToSuperview().offset(-5)
