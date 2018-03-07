@@ -12,7 +12,26 @@ struct ClasstableDataManager {
 
     static func getClassTable(success: @escaping (ClassTableModel)->(), failure: @escaping (String)->()) {
         SolaSessionManager.solaSession(type: .get, url: "/classtable", parameters: nil, success: { dic in
-            if let model = Mapper<ClassTableModel>().map(JSONObject: dic["data"]) {
+            if var model = Mapper<ClassTableModel>().map(JSONObject: dic["data"]) {
+                var colorConfig = [String: Int]()
+                model.classes = model.classes.map { course in
+                    var course = course
+                    if let colorIndex = colorConfig[course.courseName] {
+                        course.setColorIndex(index: colorIndex)
+                    } else {
+                        var index = 0
+                        repeat {
+                            index = Int(arc4random()) % Metadata.Color.fluentColors.count
+                        } while colorConfig.values.contains(index)
+                        course.setColorIndex(index: index)
+                        colorConfig[course.courseName] = index
+                    }
+
+                    
+//                    Metadata.Color.fluentColors.
+                    return course
+                }
+
                 success(model)
             } else {
                 failure("解析失败")

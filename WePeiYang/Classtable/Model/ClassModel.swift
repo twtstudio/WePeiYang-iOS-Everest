@@ -22,6 +22,7 @@ struct ClassModel: Mappable {
     var college = ""
     var campus = ""
     var ext = ""
+    var colorIndex = 0
 
     init?(map: Map) {}
     
@@ -39,8 +40,14 @@ struct ClassModel: Mappable {
         college <- map["college"]
         campus <- map["campus"]
         ext <- map["ext"]
+
+        colorIndex <- map["colorindex"]
     }
-    
+
+    mutating func setColorIndex(index: Int) {
+        colorIndex = index
+    }
+
     func `class`(of day: Int) -> ClassModel? {
         var newClass = self
         newClass.arrange = arrange.filter({ $0.day == day })

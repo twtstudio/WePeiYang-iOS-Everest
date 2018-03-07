@@ -10,6 +10,7 @@ import UIKit
 import SafariServices
 import StoreKit
 import SwiftMessages
+import WebKit
 
 class DetailSettingViewController: UIViewController {
     enum SettingTitle: String {
@@ -49,14 +50,17 @@ class DetailSettingViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+//        navigationController?.navigationBar.isTranslucent = false
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white)!, for: .default)
+
+//        self.navigationController?.setNavigationBarHidden(false, animated: false)
+//        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        // 因为这个方法不会取消左滑back手势
-        self.navigationController?.navigationBar.isHidden = true
+//        // 因为这个方法不会取消左滑back手势
+//        self.navigationController?.navigationBar.isHidden = true
 //        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
     }
 
@@ -145,15 +149,22 @@ extension DetailSettingViewController: UITableViewDelegate {
             return
 
         case (1, .join):
+//            // 因为这个方法不会取消左滑back手势
+//            self.navigationController?.navigationBar.isHidden = true
+//            let vc = ProgressWebViewController()
+//            vc.webView.load(URLRequest(url: URL(string: "https://coder.twtstudio.com/join")!))
+//            self.navigationController?.pushViewController(vc, animated: true)
+
             let safariVC = SFSafariViewController(url: URL(string: "https://coder.twtstudio.com/join")!, entersReaderIfAvailable: false)
             safariVC.delegate = self
             safariVC.modalPresentationStyle = .overFullScreen
             self.navigationController?.pushViewController(safariVC, animated: true)
         case (1, .EULA):
+            let webVC = SupportWebViewController(url: URL(string: "https://support.twtstudio.com/category/1/%E5%85%AC%E5%91%8A")!)
             let safariVC = SFSafariViewController(url: URL(string: "https://support.twtstudio.com/category/1/%E5%85%AC%E5%91%8A")!, entersReaderIfAvailable: false)
             safariVC.delegate = self
             safariVC.modalPresentationStyle = .overFullScreen
-            self.navigationController?.pushViewController(safariVC, animated: true)
+            self.navigationController?.pushViewController(webVC, animated: true)
         case (1, .feedback):
             let safariVC = SFSafariViewController(url: URL(string: "https://support.twtstudio.com/category/6/%E7%A7%BB%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF")!, entersReaderIfAvailable: false)
             safariVC.delegate = self
@@ -211,3 +222,40 @@ extension DetailSettingViewController: SKStoreProductViewControllerDelegate {
     }
 }
 
+//fileprivate extension SFSafariViewController {
+//    open override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        self.navigationController?.navigationBar.isHidden = true
+//    }
+//}
+
+class SupportWebViewController: ProgressWebViewController {
+    let url: URL
+
+    init(url: URL) {
+        self.url = url
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        webView.load(URLRequest(url: url))
+    }
+
+    override func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        super.webView(webView, didFinish: navigation)
+        webView.evaluateJavaScript("document.title", completionHandler: { (title, _) in
+            self.navigationItem.title = title as? String
+        })
+    }
+}
