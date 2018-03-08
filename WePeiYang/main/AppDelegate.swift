@@ -157,6 +157,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let info = notification.request.content.userInfo
         print("iOS 10 foreground userInfo: \(info)")
+
+        if notification.request.trigger is UNPushNotificationTrigger {
+            // 远程通知
+        } else {
+            // 本地通知
+        }
         completionHandler([.sound, .alert])
     }
 

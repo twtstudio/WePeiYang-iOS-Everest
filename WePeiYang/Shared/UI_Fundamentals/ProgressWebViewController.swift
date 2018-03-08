@@ -135,6 +135,7 @@ extension ProgressWebViewController {
                 UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
                     self.progressView.alpha = 0
                 }, completion: { finished in
+//                    self.showLeftBarButtonItem()
                     self.progressView.setProgress(0, animated: false)
                 })
             }
@@ -148,12 +149,29 @@ extension ProgressWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         webView.isHidden = false
         progressView.isHidden = false
+
+//        reloadButton.isHidden = true
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         webView.isHidden = false
         showLeftBarButtonItem()
         refreshControl.endRefreshing()
+
+        // 太粗暴
+//        if let url = webView.url,
+//            url.absoluteString.contains("login.twtstudio.com/sso/login") {
+//            webView.evaluateJavaScript(
+//                """
+//                document.querySelector("input[name='twt_name']").value = "\(TwTUser.shared.username)"
+//                document.querySelector("input[name='password']").value = "\(TwTUser.shared.password)"
+//                evObj = document.createEvent('MouseEvents');
+//                evObj.initMouseEvent( 'click', true, true, window, 1, 12, 345, 7, 220, false, false, true, false, 0, null );
+//                document.querySelector("button").dispatchEvent(evObj);
+//                """ , completionHandler: { (result, error) in
+//
+//            })
+//        }
     }
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {

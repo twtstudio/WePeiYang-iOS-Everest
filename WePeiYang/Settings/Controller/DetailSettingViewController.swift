@@ -141,6 +141,8 @@ extension DetailSettingViewController: UITableViewDelegate {
         let title = titles[indexPath.section].1[indexPath.row]
         switch (indexPath.section, title) {
         case (0, .notification):
+            let notificationVC = NotificationSettingViewController()
+            self.navigationController?.pushViewController(notificationVC, animated: true)
             return
         case (0, .modules):
             let settingsVC = ModulesSettingsViewController()
@@ -149,28 +151,14 @@ extension DetailSettingViewController: UITableViewDelegate {
             return
 
         case (1, .join):
-//            // 因为这个方法不会取消左滑back手势
-//            self.navigationController?.navigationBar.isHidden = true
-//            let vc = ProgressWebViewController()
-//            vc.webView.load(URLRequest(url: URL(string: "https://coder.twtstudio.com/join")!))
-//            self.navigationController?.pushViewController(vc, animated: true)
-
-            let safariVC = SFSafariViewController(url: URL(string: "https://coder.twtstudio.com/join")!, entersReaderIfAvailable: false)
-            safariVC.delegate = self
-            safariVC.modalPresentationStyle = .overFullScreen
-            self.navigationController?.pushViewController(safariVC, animated: true)
+            let webVC = SupportWebViewController(url: URL(string: "https://coder.twtstudio.com/join")!)
+            self.navigationController?.pushViewController(webVC, animated: true)
         case (1, .EULA):
             let webVC = SupportWebViewController(url: URL(string: "https://support.twtstudio.com/category/1/%E5%85%AC%E5%91%8A")!)
-            let safariVC = SFSafariViewController(url: URL(string: "https://support.twtstudio.com/category/1/%E5%85%AC%E5%91%8A")!, entersReaderIfAvailable: false)
-            safariVC.delegate = self
-            safariVC.modalPresentationStyle = .overFullScreen
             self.navigationController?.pushViewController(webVC, animated: true)
         case (1, .feedback):
-            let safariVC = SFSafariViewController(url: URL(string: "https://support.twtstudio.com/category/6/%E7%A7%BB%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF")!, entersReaderIfAvailable: false)
-            safariVC.delegate = self
-            safariVC.modalPresentationStyle = .overFullScreen
-            self.navigationController?.pushViewController(safariVC, animated: true)
-
+            let webVC = SupportWebViewController(url: URL(string: "https://support.twtstudio.com/category/6/%E7%A7%BB%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF")!)
+            self.navigationController?.pushViewController(webVC, animated: true)
         case (2, .share):
             let shareVC = UIActivityViewController(activityItems: [UIImage(named: "AppIcon40x40")!, "我发现「微北洋」超好用！一起来吧！", URL(string: "https://mobile.twt.edu.cn/wpy/index.html")!], applicationActivities: [])
             // TODO: iPad
@@ -196,7 +184,7 @@ extension DetailSettingViewController: UITableViewDelegate {
                 TwTUser.shared.delete()
                 tableView.reloadData()
                 NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
-                print("log out")
+                self.navigationController?.popViewController(animated: true)
             })
             let cancelAction = UIAlertAction(title: "算啦", style: .cancel, handler: { (result) in
                 print("Canceled")
@@ -222,14 +210,6 @@ extension DetailSettingViewController: SKStoreProductViewControllerDelegate {
     }
 }
 
-//fileprivate extension SFSafariViewController {
-//    open override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        self.navigationController?.navigationBar.isHidden = true
-//    }
-//}
-
 class SupportWebViewController: ProgressWebViewController {
     let url: URL
 
@@ -244,11 +224,13 @@ class SupportWebViewController: ProgressWebViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        webView.frame.origin.y = 0
         webView.load(URLRequest(url: url))
     }
 

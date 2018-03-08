@@ -12,28 +12,28 @@ import SwiftMessages
 
 class LoginViewController: UIViewController {
 
-    var videoPlayer: AVPlayer!
+//    var videoPlayer: AVPlayer!
     var usernameField: UITextField!
     var passwordField: UITextField!
     var loginButton: UIButton!
     var dismissButton: UIButton!
-    var playerLayer: AVPlayerLayer!
-    
+//    var playerLayer: AVPlayerLayer!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = Bundle.main.url(forResource: "FlowingColor", withExtension: "mp4")
-        videoPlayer = AVPlayer(url: url!)
-        videoPlayer.isMuted = true
-        playerLayer = AVPlayerLayer(player: videoPlayer)
-        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        playerLayer.frame = view.frame
-        view.layer.addSublayer(playerLayer)
-        videoPlayer.isMuted = true
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(loopVideo), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-        videoPlayer.play()
-        
+//        let url = Bundle.main.url(forResource: "FlowingColor", withExtension: "mp4")
+//        videoPlayer = AVPlayer(url: url!)
+//        videoPlayer.isMuted = true
+//        playerLayer = AVPlayerLayer(player: videoPlayer)
+//        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+//        playerLayer.frame = view.frame
+//        view.layer.addSublayer(playerLayer)
+//        videoPlayer.isMuted = true
+//
+//        NotificationCenter.default.addObserver(self, selector: #selector(loopVideo), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+//        videoPlayer.play()
+
         // Do any additional setup after loading the view, typically from a nib.
         let titleLabel: UILabel = {
             let label = UILabel()
@@ -108,7 +108,7 @@ class LoginViewController: UIViewController {
         loginButton.layer.borderWidth = 0.5
         loginButton.layer.borderColor = UIColor(white: 1, alpha: 0.8).cgColor;
         
-        dismissButton = UIButton(frame: CGRect(x: view.frame.width, y: view.frame.size.height*4.0/5.0, width: 30, height: 20))
+        dismissButton = UIButton(frame: CGRect(x: view.frame.width, y: view.frame.size.height*3.6/5.0, width: 30, height: 20))
         dismissButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         dismissButton.setTitle("暂不登录", for: .normal)
 //        dismissButton.titleLabel?.sizeToFit()
@@ -156,6 +156,7 @@ class LoginViewController: UIViewController {
         AccountManager.getToken(username: username, password: password, success: { token in
             TwTUser.shared.token = token
             TwTUser.shared.username = username
+            TwTUser.shared.password = password
             TwTUser.shared.save()
             self.extraProcedures()
             // FIXME: login success
@@ -165,18 +166,18 @@ class LoginViewController: UIViewController {
         })
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        videoPlayer.pause()
-    }
-    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        videoPlayer.pause()
+//    }
+//
     @objc func dismissLogin() {
         dismiss(animated: true, completion: nil)
     }
-    
-    @objc func loopVideo() {
-        videoPlayer.seek(to: CMTime(seconds: 0, preferredTimescale: 1))
-        videoPlayer.play()
-    }
+//
+//    @objc func loopVideo() {
+//        videoPlayer.seek(to: CMTime(seconds: 0, preferredTimescale: 1))
+//        videoPlayer.play()
+//    }
 
     // 登录成功
     func extraProcedures() {

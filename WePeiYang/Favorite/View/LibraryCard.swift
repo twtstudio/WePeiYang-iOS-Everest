@@ -122,6 +122,8 @@ class LibraryCard: CardView {
 //        contentView.setNeedsUpdateConstraints()
 //        self.contentView.layoutIfNeeded()
 
+        self.setNeedsUpdateConstraints()
+        self.layoutIfNeeded()
         self.setNeedsDisplay()
 
 //        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {

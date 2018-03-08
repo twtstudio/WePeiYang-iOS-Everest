@@ -169,6 +169,7 @@
 		36B2C899203DB8DB00AD2E3F /* ClassWidgetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B2C898203DB8DB00AD2E3F /* ClassWidgetCell.swift */; };
 		36B2C89A203DC90B00AD2E3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51C456B1FD122F700652435 /* Assets.xcassets */; };
 		36B2C89B203DE86700AD2E3F /* TwTUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5091F1903D70078816D /* TwTUser.swift */; };
+		36B8F2EA205110A60080083C /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B8F2E9205110A60080083C /* NotificationSettingViewController.swift */; };
 		36CAD44A201B8EAA006F85E3 /* ClassTableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CAD449201B8EAA006F85E3 /* ClassTableHelper.swift */; };
 		36CAD44C201B9194006F85E3 /* ClassTableCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CAD44B201B9194006F85E3 /* ClassTableCard.swift */; };
 		36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0FE73201861BD0014E667 /* ClassDetailViewController.swift */; };
@@ -182,7 +183,6 @@
 		36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EE1EC84ED90064373A /* DeviceStatus.swift */; };
 		36E56BC61FC512230009BD6F /* CourseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E56BC51FC512230009BD6F /* CourseListView.swift */; };
 		36F285092049B7D50095A3D4 /* ModulesSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F285082049B7D50095A3D4 /* ModulesSettingsViewController.swift */; };
-		36F5BDCE1F9E196200CDDF74 /* FlowingColor.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 36F5BDCD1F9E17A600CDDF74 /* FlowingColor.mp4 */; };
 		36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F631EC1FAB31C500E3261F /* BicycleUserBindViewController.swift */; };
 		36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F631ED1FAB31C500E3261F /* BicycleServiceMapController.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
@@ -435,6 +435,7 @@
 		369D92082015D97A004BA1D0 /* WeekItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekItemCell.swift; sourceTree = "<group>"; };
 		36A9C31F204C56CD0018B6B3 /* ProgressWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressWebViewController.swift; sourceTree = "<group>"; };
 		36B2C898203DB8DB00AD2E3F /* ClassWidgetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassWidgetCell.swift; sourceTree = "<group>"; };
+		36B8F2E9205110A60080083C /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
 		36CAD449201B8EAA006F85E3 /* ClassTableHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableHelper.swift; sourceTree = "<group>"; };
 		36CAD44B201B9194006F85E3 /* ClassTableCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableCard.swift; sourceTree = "<group>"; };
 		36D0FE73201861BD0014E667 /* ClassDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
@@ -445,7 +446,6 @@
 		36E56BC51FC512230009BD6F /* CourseListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseListView.swift; sourceTree = "<group>"; };
 		36F285082049B7D50095A3D4 /* ModulesSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesSettingsViewController.swift; sourceTree = "<group>"; };
 		36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		36F5BDCD1F9E17A600CDDF74 /* FlowingColor.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = FlowingColor.mp4; sourceTree = "<group>"; };
 		36F631EC1FAB31C500E3261F /* BicycleUserBindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleUserBindViewController.swift; sourceTree = "<group>"; };
 		36F631ED1FAB31C500E3261F /* BicycleServiceMapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleServiceMapController.swift; sourceTree = "<group>"; };
 		3E2AFF1235C9C87488CB407A /* Pods-WePeiYangWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.release.xcconfig"; sourceTree = "<group>"; };
@@ -902,6 +902,7 @@
 			isa = PBXGroup;
 			children = (
 				0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */,
+				36B8F2E9205110A60080083C /* NotificationSettingViewController.swift */,
 				3667E1CF201CB98800E82241 /* DetailSettingViewController.swift */,
 				36F285082049B7D50095A3D4 /* ModulesSettingsViewController.swift */,
 			);
@@ -1248,7 +1249,6 @@
 			isa = PBXGroup;
 			children = (
 				A51C456B1FD122F700652435 /* Assets.xcassets */,
-				36F5BDCD1F9E17A600CDDF74 /* FlowingColor.mp4 */,
 			);
 			name = Resources;
 			path = WePeiYang/Resources;
@@ -1544,7 +1544,6 @@
 				A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */,
 				36366B331FAB8A84001F72A0 /* BicycleUserBindViewController.xib in Resources */,
 				A554C4BE1F99F84900022A01 /* ParkingSpotsLocs.json in Resources */,
-				36F5BDCE1F9E196200CDDF74 /* FlowingColor.mp4 in Resources */,
 				36449E671FA4BABA0036766B /* PartyHandInViewController.xib in Resources */,
 				36449E6A1FA4BABA0036766B /* GradeDetailViewController.xib in Resources */,
 				36449E6B1FA4BABA0036766B /* GradeCheckViewController.xib in Resources */,
@@ -1837,6 +1836,7 @@
 				3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */,
 				A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */,
 				A51C45681FD0227800652435 /* WLANBindingViewController.swift in Sources */,
+				36B8F2EA205110A60080083C /* NotificationSettingViewController.swift in Sources */,
 				B102541D1EC8547E0064373A /* SpringButton.swift in Sources */,
 				36449E861FA4BAD10036766B /* TheoryClassicsTableViewController.swift in Sources */,
 				365936951F1E60A9003CE578 /* ScoreHeaderView.swift in Sources */,

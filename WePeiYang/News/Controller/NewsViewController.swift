@@ -295,6 +295,7 @@ extension NewsViewController: UITableViewDataSource {
 //                    ma
 //                }
             }
+            cell.selectionStyle = .none
 
             // init 轮播图BannerView
         case 1:
@@ -332,6 +333,7 @@ extension NewsViewController: UITableViewDataSource {
                 make.width.equalToSuperview()
                 make.height.equalTo(200)
             }
+            cell.selectionStyle = .none
         case 2:
             let titleLabel = UILabel(text: "新闻", color: .black)
             titleLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.heavy)
@@ -345,6 +347,7 @@ extension NewsViewController: UITableViewDataSource {
                 make.height.equalTo(40)
                 make.bottom.equalToSuperview()
             }
+            cell.selectionStyle = .none
         case var row where row > 2 && row - 2 < newsList.count:
             row = row - 2
             let news = newsList[row]
