@@ -98,7 +98,8 @@ class CourseCell: UITableViewCell {
             self.alpha = 1
             let colors = Metadata.Color.fluentColors
 
-            let index = Int(arc4random()) % colors.count
+            // 确保安全
+            let index = course.colorIndex % colors.count
             contentView.backgroundColor = colors[index]
             contentView.alpha = 0.7
 

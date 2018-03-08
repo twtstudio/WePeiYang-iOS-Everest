@@ -1980,7 +1980,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang.WePeiYangWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "008c7954-32b7-4e82-bf67-7c371d314b5c";
+				PROVISIONING_PROFILE = "4b9a5f71-bab8-4c99-8068-a6445db3b2c4";
 				PROVISIONING_PROFILE_SPECIFIER = cn.edu.twt.WeiPeiYang.WePeiYangWidget.dev;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -2144,7 +2144,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d140e629-afda-4d31-af21-4a7c3b682479";
+				PROVISIONING_PROFILE = "1484b82f-0775-4a16-9cc6-2d2196b9b77e";
 				PROVISIONING_PROFILE_SPECIFIER = cn.edu.twt.WeiPeiYang.dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYang/WePeiYang-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

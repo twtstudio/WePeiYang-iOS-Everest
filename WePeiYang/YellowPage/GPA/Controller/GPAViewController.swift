@@ -161,7 +161,7 @@ class GPAViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.extendedLayoutIncludesOpaqueBars = true
 //        self.navigationController?.navigationBar.tintColor = UIColor.gpaPink
 
         // set termSwitchView
@@ -226,8 +226,9 @@ class GPAViewController: UIViewController {
         // CGRect(x: 0, y: -44, width: self.view.width, height: UIScreen.main.bounds.height)
         tableView = UITableView(frame: self.view.bounds, style: .plain)
 //        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 44, 0);
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 64, right: 0)
-        
+        self.automaticallyAdjustsScrollViewInsets = false
+//        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 64, right: 0)
+
         tableView.delegate = self
         tableView.dataSource = self
         self.view.backgroundColor = .white
@@ -307,8 +308,10 @@ class GPAViewController: UIViewController {
             print("没有成绩")
             return
         }
-        self.load()
-        self.lineChartView.highlightValue(x: Double(lastSelect), dataSetIndex: 0, callDelegate: true)
+        DispatchQueue.main.async {
+            self.load()
+            self.lineChartView.highlightValue(x: Double(self.lastSelect), dataSetIndex: 0, callDelegate: true)
+        }
     }
     
     func load() {
@@ -570,6 +573,7 @@ extension GPAViewController: UIScrollViewDelegate {
                 self.navigationController?.navigationBar.isTranslucent = false
                 return
             }
+            self.navigationController?.navigationBar.isTranslucent = true
             self.navigationController?.navigationBar.alpha = min(offset * 0.02, 1)
             let image = UIImage(color: UIColor.gpaPink, size: CGSize(width: self.view.width, height: 64))
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
