@@ -19,11 +19,13 @@ class CourseCell: UITableViewCell {
         titleLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
         titleLabel.numberOfLines = 0
         titleLabel.textColor = .white
+        titleLabel.textAlignment = .center
         titleLabel.sizeToFit()
         
         roomLabel.font = UIFont.systemFont(ofSize: 12)
         roomLabel.numberOfLines = 0
         roomLabel.textColor = .white
+        roomLabel.textAlignment = .center
         roomLabel.sizeToFit()
 
         contentView.layer.cornerRadius = 4
@@ -68,6 +70,7 @@ class CourseCell: UITableViewCell {
         contentView.backgroundColor = UIColor(red:0.91, green:0.93, blue:0.96, alpha:1.00)
         titleLabel.textColor = .lightGray
         titleLabel.text = "无"
+        titleLabel.textAlignment = .center
         titleLabel.sizeToFit()
         roomLabel.text = ""
         titleLabel.snp.remakeConstraints { make in

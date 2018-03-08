@@ -237,7 +237,7 @@ class ClassTableViewController: UIViewController {
                 if oldTable.updatedAt > table.updatedAt {
                     // 如果新的还不如旧的
                     // 那就不刷新
-                    SwiftMessages.showWarningMessage(body: "服务器故障\n缓存时间: \(oldTable.updatedAt)")
+                    SwiftMessages.showWarningMessage(body: "服务器故障\n缓存时间: \(oldTable.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
                     return
                 }
             }
@@ -257,7 +257,8 @@ class ClassTableViewController: UIViewController {
             self.weekCourseDict = [:]
             let courses = self.getCourse(table: table, week: self.currentWeek)
             // 和本周的差距
-            SwiftMessages.showSuccessMessage(body: "刷新成功\n更新时间: \(table.updatedAt)")
+            SwiftMessages.showSuccessMessage(body: "刷新成功\n更新时间: \(table.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
+
             self.listView.load(courses: courses, weeks: 0)
         }, failure: { errorMessage in
             SwiftMessages.showErrorMessage(body: errorMessage)

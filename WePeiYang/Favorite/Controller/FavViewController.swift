@@ -169,7 +169,9 @@ class FavViewController: UIViewController {
     // 重新加载数据
     @objc func refreshCards(info: Notification) {
         for key in Array(cardDict.keys) {
-            cardDict[key]!.refresh()
+            if key != .library {
+                cardDict[key]!.refresh()
+            }
         }
         switch info.name {
         case NotificationName.NotificationUserDidLogin.name:
@@ -240,7 +242,7 @@ extension FavViewController {
     func initLibraryCard() {
         let card = LibraryCard()
 
-//        card.refresh()
+        card.refresh()
         cardDict[Module.library] = card
     }
 }

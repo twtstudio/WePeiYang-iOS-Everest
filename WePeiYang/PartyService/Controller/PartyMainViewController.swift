@@ -115,15 +115,16 @@ class PartyMainViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            self.navigationController?.navigationBar.shadowImage = UIImage()
-            self.navigationController?.navigationBar.isTranslucent = true
-            self.navigationController?.navigationBar.barStyle = .default
-//        self.navigationController?.jz_navigationBarBackgroundAlpha = 0
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.barStyle = .default
+        //        self.navigationController?.jz_navigationBarBackgroundAlpha = 0
         self.navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.barStyle = .black
-//        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+        //        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
 
         
     }

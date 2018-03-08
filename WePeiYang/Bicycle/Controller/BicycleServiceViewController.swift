@@ -24,6 +24,7 @@ class BicycleServiceViewController: WMPageController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(red: 0.0 / 255.0, green: 174.0 / 255.0, blue: 101.0 / 255.0, alpha: 1.0))!, for: .default)
 //        navigationController?.navigationBar.barTintColor = UIColor(red: 0.0 / 255.0, green: 174.0 / 255.0, blue: 101.0 / 255.0, alpha: 1.0)
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(red: 0.0 / 255.0, green: 174.0 / 255.0, blue: 101.0 / 255.0, alpha: 1.0)), for: .default)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         self.navigationController?.navigationBar.shadowImage = UIImage()
 
         // addIcon
