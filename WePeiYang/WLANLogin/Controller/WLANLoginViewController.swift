@@ -137,6 +137,8 @@ class WLANLoginViewController: WMPageController {
                     
                     let heightForTextView = heightForView(text: "已经登录啦", fontsize: UIFont.systemFont(ofSize: 24), width: UIScreen.main.bounds.width - 20 * 2, xpos: 20) * 2.4
                     
+                    // TODO: Auto-fill the accoutnTextField and passwordTextField if there's information in TWTUser.
+                    
                     accountTextField = UITextField()
                     accountTextField.frame = CGRect(x: 20, y: WiFiImageView.frame.height - WiFiImageView.frame.height * 0.6 + heightForTextView, width: UIScreen.main.bounds.width - 20 * 2, height: 30)
                     accountTextField.placeholder = "请输入账号"
@@ -150,6 +152,11 @@ class WLANLoginViewController: WMPageController {
                     passwordTextField.isSecureTextEntry = true
                     self.view.addSubview(accountTextField)
                     self.view.addSubview(passwordTextField)
+                    
+                    if let fooAccount = TwTUser.shared.WLANAccount, let fooPassword = TwTUser.shared.WLANPassword {
+                        accountTextField.text = fooAccount
+                        passwordTextField.text = fooPassword
+                    }
                     
                     // use loginButton as logoutButton because I don't wanna declare a button once more.
                     loginButton = UIButton()
