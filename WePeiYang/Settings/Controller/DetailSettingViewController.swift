@@ -171,10 +171,28 @@ extension DetailSettingViewController: UITableViewDelegate {
             let appid = "785509141"
             let storeVC = SKStoreProductViewController()
             storeVC.delegate = self
+            var config = SwiftMessages.Config()
+            config.presentationContext = .viewController(self)
+            config.presentationStyle = .center
+            config.dimMode = .gray(interactive: true)
+            config.duration = .forever
+            SwiftMessages.show(config: config, viewProvider: { () -> UIView in
+//                let containerView = UIView(frame: CGRect(center: self.view.center, size: CGSize(width: 60, height: 60)))
+//                let containerView = UIView(frame: CGRect(center: self.view.center, size: CGSize(width: 60, height: 60)))
+//                containerView.alpha = 0.7
+//                containerView.backgroundColor = .black
+                let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+//                indicator.center = containerView.center
+                indicator.startAnimating()
+//                containerView.addSubview(indicator)
+                return indicator
+            })
+            
             storeVC.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: appid], completionBlock: { (result, error) in
                 if let error = error {
                     SwiftMessages.showErrorMessage(body: error.localizedDescription)
                 } else {
+                    SwiftMessages.hide()
                     self.present(storeVC, animated: true, completion: nil)
                 }
             })

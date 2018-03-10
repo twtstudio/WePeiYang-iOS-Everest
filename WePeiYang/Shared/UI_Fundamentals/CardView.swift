@@ -144,7 +144,7 @@ class CardView: UIView {
         self.layout(rect: rect)
     }
 
-    func refresh() {
+    open func refresh() {
 
     }
 
@@ -260,6 +260,11 @@ extension CardView {
             msgLabel.textColor = textColor
             msgLabel.sizeToFit()
             msgLabel.center = blankView.center
+            if TwTUser.shared.token == nil {
+                msgLabel.text = "请先登录"
+                msgLabel.sizeToFit()
+                return
+            }
             return
         case .empty(let msg, let textColor):
             blankView.isHidden = false

@@ -1,5 +1,3 @@
-
-
 //
 //  ScoreHeaderView.swift
 //  WePeiYang
@@ -66,7 +64,11 @@ class ScoreHeaderView: UIView {
         totalGPALabel.y = topPadding
         totalCreditLabel.y = topPadding
         
-        
+        totalScoreLabel.text = "不"
+        totalGPALabel.text = "知"
+        totalCreditLabel.text = "道"
+
+
         self.addSubview(totalScoreLabel)
         self.addSubview(totalGPALabel)
         self.addSubview(totalCreditLabel)

@@ -21,18 +21,6 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let url = Bundle.main.url(forResource: "FlowingColor", withExtension: "mp4")
-//        videoPlayer = AVPlayer(url: url!)
-//        videoPlayer.isMuted = true
-//        playerLayer = AVPlayerLayer(player: videoPlayer)
-//        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-//        playerLayer.frame = view.frame
-//        view.layer.addSublayer(playerLayer)
-//        videoPlayer.isMuted = true
-//
-//        NotificationCenter.default.addObserver(self, selector: #selector(loopVideo), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-//        videoPlayer.play()
 
         // Do any additional setup after loading the view, typically from a nib.
         let titleLabel: UILabel = {
@@ -45,63 +33,43 @@ class LoginViewController: UIViewController {
             label.center.y = view.frame.size.height*1/5
             return label
         }()
-        
-//        let blurEffect = UIBlurEffect(style: .extraLight)
-//        let blurView = UIVisualEffectView(effect: blurEffect)
-//        blurView.frame = view.frame
-//        view.addSubview(blurView)
-//
-//        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
-//        let visualEffectView = UIVisualEffectView(effect: vibrancyEffect)
-//        visualEffectView.frame = view.frame
-//        //        visualEffectView.frame = titleLabel.frame
-//        blurView.contentView.addSubview(visualEffectView)
-//        //        titleLabel.frame.origin = CGPoint(x: 0, y: 0)
-//        visualEffectView.contentView.addSubview(titleLabel)
 
-        //        usernameField = UITextField(frame: CGRect(center: CGPoint(x: view.center.x, y: view.frame.size.height*1.5/5.0), size: CGSize(width: 200, height: 40)))
-        
         let textFieldWidth: CGFloat = 250
 
-        usernameField = UITextField(frame: CGRect(center: CGPoint(x: view.center.x, y: view.frame.size.height*2.0/5.0), size: CGSize(width: textFieldWidth, height: 40)))
-        passwordField = UITextField(frame: CGRect(center: CGPoint(x: view.center.x, y: view.frame.size.height*2.4/5.0), size: CGSize(width: textFieldWidth, height: 40)))
-    
-        
-        usernameField.textColor = .white
-        usernameField.backgroundColor = UIColor(white: 1, alpha: 0.1);
-        usernameField.layer.cornerRadius = 3;
-        usernameField.layer.borderWidth = 0.5
+        self.view.backgroundColor = UIColor(red:0.11, green:0.64, blue:0.90, alpha:1.00)
+
+        let usernameLabel = UILabel(frame: CGRect(center: CGPoint(x: view.center.x, y: view.frame.size.height*1.9/5.0), size: CGSize(width: textFieldWidth, height: 20)))
+        usernameLabel.text = "天外天用户名"
+        usernameLabel.font = UIFont.systemFont(ofSize: 12)
+        usernameLabel.textColor = .lightGray
+
+        usernameField = UITextField(frame: CGRect(center: CGPoint(x: view.center.x, y: view.frame.size.height*2.0/5.0), size: CGSize(width: textFieldWidth, height: 30)))
+        usernameField.textColor = .darkGray
+        usernameField.backgroundColor = .white
         usernameField.keyboardType = .asciiCapable
         usernameField.isSecureTextEntry = false
-        usernameField.layer.borderColor = UIColor(white: 1, alpha: 0.8).cgColor;
-        usernameField.placeholder = "用户名"
+//        usernameField.placeholder = "用户名"
         usernameField.clearButtonMode = .always
         usernameField.autocapitalizationType = .none
-        
+        usernameField.borderStyle = .none
+
+
+        let passwordLabel = UILabel(frame: CGRect(center: CGPoint(x: view.center.x, y: view.frame.size.height*2.3/5.0), size: CGSize(width: textFieldWidth, height: 20)))
+        passwordLabel.text = "天外天密码"
+        passwordLabel.font = UIFont.systemFont(ofSize: 12)
+        passwordLabel.textColor = .lightGray
+
+        passwordField = UITextField(frame: CGRect(center: CGPoint(x: view.center.x, y: view.frame.size.height*2.4/5.0), size: CGSize(width: textFieldWidth, height: 30)))
         passwordField.textColor = .white
-        passwordField.backgroundColor = UIColor(white: 1, alpha: 0.1);
-        passwordField.layer.cornerRadius = 3;
-        passwordField.layer.borderWidth = 0.5
+        passwordField.textColor = .darkGray
+        passwordField.backgroundColor = .white
         passwordField.keyboardType = .asciiCapable
         passwordField.isSecureTextEntry = true
-        passwordField.layer.borderColor = UIColor(white: 1, alpha: 0.8).cgColor;
-        passwordField.placeholder = "密码"
+//        passwordField.layer.borderColor = UIColor(white: 1, alpha: 0.8).cgColor;
+//        passwordField.placeholder = "密码"
         passwordField.clearButtonMode = .always
-        
-        let userNameIconImageView = UIImageView(image: UIImage(named: "ic_account_circle")!.withRenderingMode(.alwaysTemplate))
-        userNameIconImageView.frame = CGRect(x: 0, y: 0, width: 34, height: 22)
-        userNameIconImageView.tintColor = UIColor.white
-        userNameIconImageView.contentMode = .scaleAspectFit
-        usernameField.leftView = userNameIconImageView
-        usernameField.leftViewMode = .always
-        
-        let passwordIconImageView = UIImageView(image: UIImage(named: "ic_lock")!.with(color: .white).withRenderingMode(.alwaysOriginal))
-        passwordIconImageView.frame = CGRect(x: 0, y: 0, width: 34, height: 22)
-        passwordIconImageView.contentMode = .scaleAspectFit
-        userNameIconImageView.tintColor = UIColor.white
-        passwordField.leftView = passwordIconImageView
-        passwordField.leftViewMode = .always
-        
+        passwordField.borderStyle = .none
+
         loginButton = UIButton(frame: CGRect(x: (view.frame.size.width-textFieldWidth)/2, y: passwordField.frame.origin.y + passwordField.frame.size.height + 20, width: textFieldWidth, height: 38))
         loginButton.setTitle("登  录", for: UIControlState())
         loginButton.layer.cornerRadius = 3;
@@ -115,11 +83,9 @@ class LoginViewController: UIViewController {
         dismissButton.sizeToFit()
         dismissButton.center = CGPoint(x: view.center.x, y: view.frame.height*4.8/5)
         
-//        visualEffectView.contentView.addSubview(usernameField)
-//        visualEffectView.contentView.addSubview(passwordField)
-//        visualEffectView.contentView.addSubview(loginButton)
-//        visualEffectView.contentView.addSubview(dismissButton)
         view.addSubview(titleLabel)
+        view.addSubview(usernameLabel)
+        view.addSubview(passwordLabel)
         view.addSubview(usernameField)
         view.addSubview(passwordField)
         view.addSubview(loginButton)

@@ -166,6 +166,7 @@ class GPAViewController: UIViewController {
         // set termSwitchView
         termSwitchView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: 60)
         termLabel.center = termSwitchView.center
+        termLabel.text = "未知学期"
         termSwitchView.addSubview(termLabel)
         leftButton.frame = CGRect(x: UIScreen.main.bounds.width/4, y: termLabel.y, width: 20, height: 20)
         leftButton.adjustsImageWhenHighlighted = true

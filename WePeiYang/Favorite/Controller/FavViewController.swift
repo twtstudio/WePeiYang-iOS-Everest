@@ -169,9 +169,9 @@ class FavViewController: UIViewController {
     // 重新加载数据
     @objc func refreshCards(info: Notification) {
         for key in Array(cardDict.keys) {
-            if key != .library {
+//            if key != .library {
                 cardDict[key]!.refresh()
-            }
+//            }
         }
         switch info.name {
         case NotificationName.NotificationUserDidLogin.name:

@@ -112,6 +112,9 @@ class LibraryCard: CardView {
             make.bottom.equalToSuperview().offset(-10)
         }
 
+        self.contentView.setNeedsUpdateConstraints()
+        self.contentView.layoutIfNeeded()
+
         blankView.snp.remakeConstraints { make in
             make.top.equalTo(tableView.snp.top)
             make.left.equalTo(tableView.snp.left)
@@ -122,9 +125,9 @@ class LibraryCard: CardView {
 //        contentView.setNeedsUpdateConstraints()
 //        self.contentView.layoutIfNeeded()
 
-        self.setNeedsUpdateConstraints()
-        self.layoutIfNeeded()
-        self.setNeedsDisplay()
+        self.contentView.setNeedsUpdateConstraints()
+        self.contentView.layoutIfNeeded()
+        self.contentView.setNeedsDisplay()
 
 //        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
 //            self.setNeedsDisplay()
@@ -165,7 +168,6 @@ extension LibraryCard: UITableViewDataSource {
         cell.detailTextLabel?.text = "应还时间: " + book.returnTime
         return cell
     }
-
 }
 
 // MARK: 点击事件

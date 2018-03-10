@@ -232,14 +232,13 @@ class ClassTableViewController: UIViewController {
     
     @objc func load() {
         ClasstableDataManager.getClassTable(success: { table in
-            if let oldTable = self.table {
-                // 如果有 table
-                if oldTable.updatedAt > table.updatedAt {
-                    // 如果新的还不如旧的
-                    // 那就不刷新
-                    SwiftMessages.showWarningMessage(body: "服务器故障\n缓存时间: \(oldTable.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
-                    return
-                }
+            if let oldTable = self.table,
+                oldTable.updatedAt > table.updatedAt,
+                table.updatedAt.contains("2017-04-01") {
+                // 如果新的还不如旧的
+                // 那就不刷新
+                SwiftMessages.showWarningMessage(body: "服务器故障\n缓存时间: \(oldTable.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
+                return
             }
             let string = table.toJSONString() ?? ""
             CacheManager.store(object: string, in: .group, as: "classtable/classtable.json")
