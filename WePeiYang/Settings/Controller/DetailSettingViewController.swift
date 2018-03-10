@@ -27,41 +27,29 @@ class DetailSettingViewController: UIViewController {
         case quit = "退出登录"
     }
 
+
     var tableView: UITableView!
-//    let titles = [("设置", ["推送设置", "模块设置", "关联账号设置"]),
-//                  ("关于", ["加入我们", "用户协议", "建议与反馈"]),
-//                  ("其他", ["推荐给朋友", "给微北洋评分", "退出登录"])]
     let titles: [(String, [SettingTitle])] = [
         ("设置", [.notification, .modules, .accounts]),
                   ("关于", [.join, .EULA, .feedback]),
                   ("其他", [.share, .rate, .quit])]
 
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isTranslucent = false
-//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-//        self.navigationController?.navigationBar.shadowImage = UIImage()
-//        self.navigationController?.navigationBar.tintColor = .black
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white)!, for: .default)
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
-//        self.navigationController?.navigationBar.barStyle = .default
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        navigationController?.navigationBar.isTranslucent = false
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white)!, for: .default)
-
-//        self.navigationController?.setNavigationBarHidden(false, animated: false)
-//        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 //        // 因为这个方法不会取消左滑back手势
-//        self.navigationController?.navigationBar.isHidden = true
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
     }
 
     override func viewDidLoad() {
@@ -171,23 +159,8 @@ extension DetailSettingViewController: UITableViewDelegate {
             let appid = "785509141"
             let storeVC = SKStoreProductViewController()
             storeVC.delegate = self
-            var config = SwiftMessages.Config()
-            config.presentationContext = .viewController(self)
-            config.presentationStyle = .center
-            config.dimMode = .gray(interactive: true)
-            config.duration = .forever
-            SwiftMessages.show(config: config, viewProvider: { () -> UIView in
-//                let containerView = UIView(frame: CGRect(center: self.view.center, size: CGSize(width: 60, height: 60)))
-//                let containerView = UIView(frame: CGRect(center: self.view.center, size: CGSize(width: 60, height: 60)))
-//                containerView.alpha = 0.7
-//                containerView.backgroundColor = .black
-                let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
-//                indicator.center = containerView.center
-                indicator.startAnimating()
-//                containerView.addSubview(indicator)
-                return indicator
-            })
-            
+            SwiftMessages.showLoading()
+
             storeVC.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: appid], completionBlock: { (result, error) in
                 if let error = error {
                     SwiftMessages.showErrorMessage(body: error.localizedDescription)

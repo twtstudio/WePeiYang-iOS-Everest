@@ -135,9 +135,17 @@ class SettingsViewController: UIViewController {
     }
     
     @objc func login() {
-        let loginVC = LoginViewController()
-//        self.navigationController?.pushViewController(loginVC, animated: true)
-        self.present(loginVC, animated: true, completion: nil)
+        let loginView = LoginView()
+
+        var config = SwiftMessages.defaultConfig
+        config.presentationStyle = .center
+        config.duration = .forever
+        config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+        config.presentationContext  = .window(windowLevel: UIWindowLevelStatusBar)
+        SwiftMessages.show(config: config, view: loginView)
+
+//        let loginVC = LoginViewController()
+//        self.present(loginVC, animated: true, completion: nil)
     }
     
     func unbind(indexPathAtRow: Int) {

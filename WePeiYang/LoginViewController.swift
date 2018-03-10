@@ -93,6 +93,26 @@ class LoginViewController: UIViewController {
 
         loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
         dismissButton.addTarget(self, action: #selector(dismissLogin), for: .touchUpInside)
+
+
+//        let loginView = MessageView.viewFromNib(layout: .centeredView)
+//        loginView.configureBackgroundView(width: 250)
+//        loginView.configureContent(title: "Hey There!", body: "Please try swiping to dismiss this message.", iconImage: nil, iconText: "🦄", buttonImage: nil, buttonTitle: "No Thanks") { _ in
+//            SwiftMessages.hide()
+//        }
+//        loginView.backgroundView.backgroundColor = UIColor.init(white: 0.97, alpha: 1)
+//        loginView.backgroundView.layer.cornerRadius = 10
+
+//            let loginView = UINib(nibName: "LoginView", bundle: nil).instantiate(withOwner: self, options: nil).first! as! LoginView
+        let loginView = LoginView()
+//        loginView.configureBackgroundView(width: 250)
+
+        var config = SwiftMessages.defaultConfig
+        config.presentationStyle = .center
+        config.duration = .forever
+        config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+        config.presentationContext  = .window(windowLevel: UIWindowLevelStatusBar)
+        SwiftMessages.show(config: config, view: loginView)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

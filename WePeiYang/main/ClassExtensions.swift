@@ -466,14 +466,18 @@ extension SwiftMessages {
         view.configureTheme(theme)
 
         var config = SwiftMessages.Config()
-//        if let vc = UIViewController.current {
-////            public let UIWindowLevelNormal: UIWindowLevel
-////            public let UIWindowLevelAlert: UIWindowLevel
-////            public let UIWindowLevelStatusBar: UIWindowLevel
-//            config.presentationContext = PresentationContext.viewController(vc)
-//        } else {
-            config.presentationContext = context
-//        }
+        config.presentationContext = context
+        SwiftMessages.show(config: config, view: view)
+    }
+
+    static func showLoading() {
+        let nib = UINib(nibName: "LoadingView", bundle: nil)
+        let view = nib.instantiate(withOwner: nil, options: nil).first as! UIView
+        var config = SwiftMessages.Config()
+        config.presentationContext = .window(windowLevel: UIWindowLevelAlert)
+        config.presentationStyle = .center
+        config.dimMode = .gray(interactive: true)
+        config.duration = .forever
         SwiftMessages.show(config: config, view: view)
     }
 }
