@@ -133,16 +133,12 @@ class SettingsViewController: UIViewController {
             make.bottom.equalTo(avatarView.snp.bottom).offset(-5)
         }
     }
-    
-    @objc func login() {
-        let loginView = LoginView()
 
-        var config = SwiftMessages.defaultConfig
-        config.presentationStyle = .center
-        config.duration = .forever
-        config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
-        config.presentationContext  = .window(windowLevel: UIWindowLevelStatusBar)
-        SwiftMessages.show(config: config, view: loginView)
+    @objc func login() {
+        guard TwTUser.shared.token == nil else {
+            return
+        }
+        showLoginView()
 
 //        let loginVC = LoginViewController()
 //        self.present(loginVC, animated: true, completion: nil)
@@ -335,4 +331,15 @@ extension SettingsViewController: UITableViewDelegate {
             self.present(alert, animated: true, completion: nil)
         }
     }
+}
+
+func showLoginView(success: (()->())? = nil) {
+    let loginView = LoginView()
+    loginView.successHandler = success
+    var config = SwiftMessages.defaultConfig
+    config.presentationStyle = .center
+    config.duration = .forever
+    config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+    config.presentationContext  = .window(windowLevel: UIWindowLevelStatusBar)
+    SwiftMessages.show(config: config, view: loginView)
 }

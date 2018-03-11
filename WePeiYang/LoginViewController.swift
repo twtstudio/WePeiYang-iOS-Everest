@@ -173,11 +173,11 @@ class LoginViewController: UIViewController {
 
         }, failure: nil)
         
-        Applicant.sharedInstance.getStudentNumber {
-            UserDefaults.standard.set(Applicant.sharedInstance.studentNumber, forKey: "studentID")
-            UserDefaults.standard.set(Applicant.sharedInstance.realName, forKey: "studentName")
-//            //log.word("fuckin awesome")/
-        }
+//        Applicant.sharedInstance.getStudentNumber {
+//            UserDefaults.standard.set(Applicant.sharedInstance.studentNumber, forKey: "studentID")
+//            UserDefaults.standard.set(Applicant.sharedInstance.realName, forKey: "studentName")
+////            //log.word("fuckin awesome")/
+//        }
 
         GPASessionManager.getGPA(success: { model in
             if let string = model.toJSONString() {

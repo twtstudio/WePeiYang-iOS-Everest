@@ -221,7 +221,7 @@ extension FavViewController {
         let gpaNC = UINavigationController(rootViewController: gpaVC)
         card.shouldPresent(gpaNC, from: self)
 //        card.shouldPush(gpaVC, from: self)
-
+        card.delegate = self
         cardDict[Module.gpa] = card
     }
 
@@ -229,6 +229,8 @@ extension FavViewController {
         let card = ClassTableCard()
         var table: ClassTableModel?
 
+        card.delegate = self
+        
         defer {
             let classtableVC = ClassTableViewController()
             let classtableNC = UINavigationController(rootViewController: classtableVC)
@@ -317,5 +319,16 @@ extension FavViewController: UIViewControllerPreviewingDelegate {
 
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         show(viewControllerToCommit, sender: self)
+    }
+}
+
+extension FavViewController: CardViewDelegate {
+    func cardIsTapped(card: CardView) {
+        if TwTUser.shared.token == nil {
+            card.superVC = nil
+            showLoginView()
+        } else {
+            card.superVC = self
+        }
     }
 }

@@ -9,10 +9,10 @@
 import Foundation
 
 class Applicant: NSObject {
-    
+
     //FIXME: 还是需要保证数据的正确，再加载UI
-    var realName: String? = UserDefaults.standard.object(forKey: "studentName") as? String
-    var studentNumber: String? = UserDefaults.standard.object(forKey: "studentID") as? String
+    var realName: String? = TwTUser.shared.realname
+    var studentNumber: String = TwTUser.shared.schoolID
     var personalStatus = [[String: Any]]()
     var scoreOf20Course = [[String: Any]]()
     var applicantGrade = [[String: Any]]()
@@ -47,13 +47,9 @@ class Applicant: NSObject {
             
             self.realName = fooRealName
             self.studentNumber = fooStudentNumber
-            
+
             UserDefaults.standard.set(self.studentNumber, forKey: "studentID")
             UserDefaults.standard.set(self.realName, forKey: "studentName")
-//            UserDefaults.standard.setObject(self.studentNumber, forKey: "studentID")
-//            UserDefaults.standard.setObject(self.realName, forKey: "studentName")
-            //log.word("registered!")/
-            
             success()
         }, failure: { error in
 //            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
@@ -153,7 +149,7 @@ class Applicant: NSObject {
     
     func get20score(_ doSomething: @escaping () -> ()) {
         
-        let parameters = ["page": "api", "do": "20score", "sno": studentNumber!]
+        let parameters = ["page": "api", "do": "20score", "sno": studentNumber]
         
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: "", parameters: parameters, success: { dict in
             if dict["status"] as? NSNumber == 1 {
@@ -207,7 +203,7 @@ class Applicant: NSObject {
     
     func getGrade(_ testType: String, doSomething: @escaping () -> ()) {
         
-        let parameters = ["page": "api", "do": "\(testType)_gradecheck", "sno": studentNumber!]
+        let parameters = ["page": "api", "do": "\(testType)_gradecheck", "sno": studentNumber]
 
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: nil, parameters: parameters, success: { dic in
             guard dic["status"] as? NSNumber == 1 else {
@@ -284,7 +280,7 @@ class Applicant: NSObject {
     
     func complain(_ ID: String, testType: String, title: String, content: String, doSomething: @escaping () -> ()) {
         
-        let parameters = ["page": "api", "do": "\(testType)_shensu", "sno": studentNumber!, "test_id": ID, "title": title, "content": content]
+        let parameters = ["page": "api", "do": "\(testType)_shensu", "sno": studentNumber, "test_id": ID, "title": title, "content": content]
         
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: nil, parameters: parameters, success: { dict in
             

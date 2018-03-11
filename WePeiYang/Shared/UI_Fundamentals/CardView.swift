@@ -187,6 +187,8 @@ class CardView: UIView {
 extension CardView {
     func cellTapped() {
         self.delegate?.cardIsTapped(card: self)
+
+
         if let superVC = superVC,
             let detailVC = detailVC {
 //            originalFrame = self.convert(self.bounds, to: superVC.view)

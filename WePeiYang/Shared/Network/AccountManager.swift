@@ -9,17 +9,6 @@
 
 import Foundation
 
-let TOKEN_SAVE_KEY = "twtToken"
-let ID_SAVE_KEY = "twtId"
-let TJU_BIND_KEY = "bindTju"
-let CLASSTABLE_CACHE_KEY = "CLASSTABLE_CACHE"
-let CLASSTABLE_COLOR_CONFIG_KEY = "CLASSTABLE_COLOR_CONFIG"
-let CLASSTABLE_TERM_START_KEY = "CLASSTABLE_TERM_START"
-let GPA_CACHE = "gpaCache"
-let GPA_USER_NAME_CACHE = "gpaUserNameAndPassword"
-let ALLOW_SPOTLIGHT_KEY = "allowSpotlightIndex"
-
-
 struct AccountManager {
 //    static func removeToken() {
 //        UserDefaults.standard.removeObject(forKey: TOKEN_SAVE_KEY)
@@ -34,14 +23,13 @@ struct AccountManager {
 //    }
     
     static func getToken(username: String, password: String, success: ((String)->())?, failure: ((Error?)->())?) {
-        let para: Dictionary<String, String> = ["twtuname": username, "twtpasswd": password]
+        let para: [String: String] = ["twtuname": username, "twtpasswd": password]
         SolaSessionManager.solaSession(type: .get, url: "/auth/token/get", token: nil, parameters: para, success: { dic in
-            if let data = dic["data"] as? Dictionary<String, AnyObject> {
+            if let data = dic["data"] as? [String: Any] {
                 if let token = data["token"] as? String {
                     success?(token)
                 }
             }
-            
         }, failure: { error in
             failure?(error)
         })

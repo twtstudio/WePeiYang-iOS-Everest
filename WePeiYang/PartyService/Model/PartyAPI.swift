@@ -13,13 +13,9 @@ struct PartyAPI {
     // static let studentID: String? = "3014218099"
     
     static var studentID: String? {
-        /*guard let foo = Applicant.sharedInstance.studentNumber else {
-         return nil
-         }
-         return foo*/
-        
-        let foo = UserDefaults.standard.object(forKey: "studentID") as? String
-        return foo
+//        let foo = UserDefaults.standard.object(forKey: "studentID") as? String
+//        return foo
+        return TwTUser.shared.schoolID
     }
     
     

@@ -58,6 +58,8 @@ class TwTUser: Codable {
     func delete() {
         CacheManager.clear(directory: .group)
         Storage.remove("user.json", from: .group)
+//        UserDefaults.standard
+        UserDefaults.standard.removeSuite(named: suiteName)
         TwTUser.shared = TwTUser()
     }
 }

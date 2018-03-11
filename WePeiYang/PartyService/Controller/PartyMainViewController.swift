@@ -90,7 +90,7 @@ class PartyMainViewController: UIViewController {
         avatarBackGround.layer.shadowPath = shadowPath.CGPath
         */
         
-        if let foo = UserDefaults.standard.object(forKey: "studentName") as? String {
+        if let foo = TwTUser.shared.realname {
             aNameLabel = UILabel(text: foo, color: .white)
         } else {
             aNameLabel = UILabel(text: "获取姓名失败", color: .white)

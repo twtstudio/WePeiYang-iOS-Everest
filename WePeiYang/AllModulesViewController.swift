@@ -9,17 +9,17 @@
 import UIKit
 
 class AllModulesViewController: UIViewController {
-    typealias ModuleData = (title: String, image: UIImage, class: AnyClass)
+    typealias ModuleData = (title: String, image: UIImage, class: AnyClass, needLogin: Bool)
     fileprivate let modules: [ModuleData] = [
-        (title: "GPA", image: UIImage(named: "gpaBtn")!, class: GPAViewController.self),
-        (title: "课程表", image: UIImage(named: "classtableBtn")!, class: ClassTableViewController.self),
-        (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self),
-        (title: "自行车", image: UIImage(named: "bicycleBtn")!, class: BicycleServiceViewController.self),
-        (title: "党建", image: UIImage(named: "partyBtn")!, class: PartyMainViewController.self),
-        (title: "商城", image: UIImage(named: "mallBtn")!, class: MallViewController.self),
-//        (title: "阅读", image: UIImage(named: "readBtn")!, class: ReadViewController.self),
-        (title: "黄页", image: UIImage(named: "yellowPageBtn")!, class: YellowPageMainViewController.self),
-        (title: "上网", image: UIImage(named: "bicycleBtn")!, class: WLANLoginViewController.self)]
+        (title: "GPA", image: UIImage(named: "gpaBtn")!, class: GPAViewController.self, needLogin: true),
+        (title: "课程表", image: UIImage(named: "classtableBtn")!, class: ClassTableViewController.self, needLogin: true),
+        (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self, needLogin: false),
+        (title: "自行车", image: UIImage(named: "bicycleBtn")!, class: BicycleServiceViewController.self, needLogin: true),
+        (title: "党建", image: UIImage(named: "partyBtn")!, class: PartyMainViewController.self, needLogin: true),
+        (title: "商城", image: UIImage(named: "mallBtn")!, class: MallViewController.self, needLogin: false),
+//        (title: "阅读", image: UIImage(named: "readBtn")!, class: ReadViewController.self, needLogin: true),
+        (title: "黄页", image: UIImage(named: "yellowPageBtn")!, class: YellowPageMainViewController.self, needLogin: false),
+        (title: "上网", image: UIImage(named: "bicycleBtn")!, class: WLANLoginViewController.self, needLogin: true)]
     
     var collectionView: UICollectionView!
     // The below override will not be called if current viewcontroller is controlled by a UINavigationController
@@ -116,6 +116,15 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if modules[indexPath.row].needLogin && TwTUser.shared.token == nil {
+            showLoginView(success: {
+                if let vc = (self.modules[indexPath.row].class as? UIViewController.Type)?.init() {
+                    vc.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            })
+            return
+        }
         // instantiate a view controller by its class
         if let vc = (modules[indexPath.row].class as? UIViewController.Type)?.init() {
             vc.hidesBottomBarWhenPushed = true

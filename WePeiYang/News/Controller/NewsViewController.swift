@@ -449,6 +449,13 @@ extension NewsViewController: UICollectionViewDataSource {
         label.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
         imgView.addSubview(label)
         cell.contentView.addSubview(imgView)
+
+        // TODO: 阴影
+        cell.layer.shadowRadius = 3.0
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOffset = CGSize(width: 0, height: 3)
+        cell.layer.masksToBounds = false
+
         return cell
     }
 

@@ -67,6 +67,10 @@ class LibraryCard: CardView {
     func remakeConstraints() {
         let padding: CGFloat = 20
 
+        contentView.snp.remakeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
         titleLabel.snp.remakeConstraints { make in
             make.left.equalToSuperview().offset(padding)
             make.top.equalToSuperview().offset(padding)
