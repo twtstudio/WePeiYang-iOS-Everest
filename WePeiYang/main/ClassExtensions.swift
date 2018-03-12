@@ -534,7 +534,7 @@ extension UIFont {
         return UIFont.systemFont(ofSize: size)
     }
 
-    static func flexibleSystemOf(ofSize size: CGFloat, weight: UIFont.Weight) -> UIFont {
+    static func flexibleSystemFont(ofSize size: CGFloat, weight: UIFont.Weight) -> UIFont {
         let size = (UIScreen.main.bounds.size.width / 375.0) * size
         return UIFont.systemFont(ofSize: size, weight: weight)
     }

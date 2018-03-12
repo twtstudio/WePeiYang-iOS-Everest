@@ -85,13 +85,32 @@ class CourseCell: UITableViewCell {
     func dismissIdle() {
         // 还原
         titleLabel.textColor = .white
+//        titleLabel.snp.updateConstraints { make in
+//            make.top.equalToSuperview().offset(3)
+//            make.left.equalToSuperview().offset(3)
+//            make.right.equalToSuperview().offset(-3)
+//        }
+//        contentView.setNeedsUpdateConstraints()
+//        contentView.layoutIfNeeded()
         titleLabel.snp.remakeConstraints { make in
             make.top.equalToSuperview().offset(3)
             make.left.equalToSuperview().offset(3)
             make.right.equalToSuperview().offset(-3)
         }
-        contentView.setNeedsUpdateConstraints()
-        contentView.layoutIfNeeded()
+
+        roomLabel.snp.remakeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom)
+            make.bottom.lessThanOrEqualTo(contentView.snp.bottom)
+            //            make.bottom.equalToSuperview()
+            make.left.equalToSuperview().offset(3)
+            make.right.equalToSuperview().offset(-3)
+        }
+
+        contentView.snp.remakeConstraints { make in
+            make.top.left.equalToSuperview().offset(1)
+            make.bottom.right.equalToSuperview().offset(-1)
+        }
+
     }
 
     func load(course: ClassModel) {

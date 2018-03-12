@@ -151,11 +151,7 @@ class GPAViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         self.navigationController?.navigationBar.tintColor = .white
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-//        self.navigationController?.navigationBar.isTranslucent = true
-//        self.navigationController?.navigationBar.alpha = 1
         scrollViewDidScroll(tableView)
     }
     
@@ -342,7 +338,7 @@ class GPAViewController: UIViewController {
         
         // keep the sorting method, and refresh the tableView
         segmentValueChanged(sender: segmentView)
-        tableView.reloadData()
+//        tableView.reloadData()
 //        lineChartView.highlightValue(x: 0, dataSetIndex: 0)
     }
 
@@ -370,9 +366,9 @@ class GPAViewController: UIViewController {
         }
 
         if entrys.count > 0 {
-                let fakeLastEntry = ChartDataEntry(x: Double(entrys.count), y: entrys[entrys.count-1].y)
+                let fakeLastEntry = ChartDataEntry(x: Double(entrys.count+1), y: entrys[entrys.count-1].y)
                 entrys.append(fakeLastEntry)
-                let fakeFirstEntry = ChartDataEntry(x: -1, y: entrys[0].y)
+                let fakeFirstEntry = ChartDataEntry(x: -2, y: entrys[0].y)
                 entrys.insert(fakeFirstEntry, at: 0)
         }
         
@@ -392,7 +388,7 @@ class GPAViewController: UIViewController {
         dataSet.setColor(UIColor(red:0.98, green:0.49, blue:0.41, alpha:1.00))
         lineChartView.data = LineChartData(dataSet: dataSet)
         lineChartView.zoomOut()
-        lineChartView.zoomToCenter(scaleX: 1.15, scaleY: 1)
+        lineChartView.zoomToCenter(scaleX: 1.2, scaleY: 1)
     }
     
     func setupRadarChartView() {
@@ -412,6 +408,8 @@ class GPAViewController: UIViewController {
         dataSet.fillColor = .white
 //        dataSet.fillAlpha = 1
         dataSet.fillAlpha = 0.5
+        //
+//        dataSet.valueFont = UIFont.flexibleSystemFont(ofSize: 18)
         dataSet.drawFilledEnabled = true
         dataSet.setDrawHighlightIndicators(false)
         dataSet.setColor(.white)
@@ -570,7 +568,7 @@ extension GPAViewController: UIScrollViewDelegate {
             self.title = currentTerm?.name
             if offset > 520 {
                 self.navigationController?.navigationBar.alpha = 1
-                self.navigationController?.navigationBar.isTranslucent = false
+//                self.navigationController?.navigationBar.isTranslucent = false
 //                self.navigationController?.navigationBar.isOpaque = true
                 return
             }

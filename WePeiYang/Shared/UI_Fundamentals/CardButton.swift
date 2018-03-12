@@ -19,13 +19,21 @@ class CardButton: UIButton {
 
     func setTitle(_ title: String) {
         self.backgroundColor = UIColor(red:0.99, green:0.19, blue:0.35, alpha:1.00)
-        let attrString = NSAttributedString(string: title, attributes: [NSAttributedStringKey.font: UIFont.flexibleSystemOf(ofSize: 16, weight: UIFont.Weight.black), NSAttributedStringKey.foregroundColor: UIColor.white])
+        let attrString = NSAttributedString(string: title, attributes: [NSAttributedStringKey.font: UIFont.flexibleSystemFont(ofSize: 16, weight: UIFont.Weight.black), NSAttributedStringKey.foregroundColor: UIColor.white])
 
         setAttributedTitle(attrString, for: .normal)
         titleLabel?.sizeToFit()
         self.sizeToFit()
-        width += 20
+//        let size = attrString.boundingRect(with: CGSize(width: CGFloat.infinity, height: 50), options: .usesLineFragmentOrigin, context: nil).size
+//        width = size.width + 25
+//        height = size.height + 5
+
+        width += 25
         height += 5
+//        self.setNeedsLayout()
+//        self.layoutIfNeeded()
+//        self.setNeedsUpdateConstraints()
+//        self.updateConstraintsIfNeeded()
     }
 
     required init?(coder aDecoder: NSCoder) {

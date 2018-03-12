@@ -24,9 +24,11 @@ class NewsDetailViewController: ProgressWebViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        // 因为这个方法不会取消左滑back手势
-        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white), for: .default)
+//        self.navigationController?.setNavigationBarHidden(false, animated: false)
+//        // 因为这个方法不会取消左滑back手势
+//        self.navigationController?.navigationBar.isHidden = true
     }
 
     override func viewDidLoad() {
@@ -43,11 +45,12 @@ class NewsDetailViewController: ProgressWebViewController {
 //        webView.frame.size.width -= 40
 
         // 不显示竖直的滚动条
-        for subview in webView.subviews {
-            if let scrollView = subview as? UIScrollView {
-                scrollView.showsVerticalScrollIndicator = false
-            }
-        }
+//        for subview in webView.subviews {
+//            if let scrollView = subview as? UIScrollView {
+//                scrollView.showsVerticalScrollIndicator = false
+//            }
+//        }
+        self.navigationController?.hidesBarsOnSwipe = true
 
         SolaSessionManager.solaSession(type: .get, url: "/news/\(index)", token: nil, parameters: nil, success: { dict in
             if let topModel = try? NewsDetailTopModel(data: dict.jsonData()) {
@@ -69,10 +72,11 @@ class NewsDetailViewController: ProgressWebViewController {
         else{
             sheying = ""
         }
-        let str = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no\"><link rel=\"stylesheet\" href=\"https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\" crossorigin=\"anonymous\"><h2 style=\"text-align: center;>\(model.subject)</h2><h3 style=\"text-align: center;\">\(model.subject)</h3><h5 style=\"text-align: left;\">阅读:\(model.visitcount)</h5>" + content +
+        let str = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no\"><link rel=\"stylesheet\" href=\"https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\" crossorigin=\"anonymous\"><body style=\"padding: 10px 15px;\"><h2 style=\"text-align: center;>\(model.subject)</h2><h3 style=\"text-align: center;\">\(model.subject)</h3><h5 style=\"text-align: left;\">阅读:\(model.visitcount)</h5>" + content +
             "<h5 style=\"text-align: left;\">供稿:\(model.gonggao)</h5><h5 style=\"text-align: left;\">审稿:\(model.shengao)</h5>" +
-            sheying +
-        "<h5 style=\"text-align: left;\">新闻来源:\(model.newscome)</h5>"
+            (model.sheying == "" ? "" :
+            "<h5 style=\"text-align: left;\">摄影:\(model.sheying)</h5></body>") +
+        "<h5 style=\"text-align: left;\">新闻来源:\(model.newscome)</h5></body>"
         return str
     }
 }

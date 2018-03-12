@@ -12,7 +12,11 @@ class ScoreHeaderView: UIView {
     let totalScoreLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 27, weight: UIFont.Weight.light)
+        if deviceWidth == CGFloat.iPhoneSEWidth {
+            label.font = UIFont.systemFont(ofSize: 23, weight: UIFont.Weight.light)
+        } else {
+            label.font = UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.light)
+        }
         label.textAlignment = .center
         label.sizeToFit()
         return label
@@ -20,7 +24,11 @@ class ScoreHeaderView: UIView {
     let totalGPALabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 27, weight: UIFont.Weight.light)
+        if deviceWidth == CGFloat.iPhoneSEWidth {
+            label.font = UIFont.systemFont(ofSize: 23, weight: UIFont.Weight.light)
+        } else {
+            label.font = UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.light)
+        }
         label.textAlignment = .center
         label.sizeToFit()
         return label
@@ -28,7 +36,11 @@ class ScoreHeaderView: UIView {
     let totalCreditLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 27, weight: UIFont.Weight.light)
+        if deviceWidth == CGFloat.iPhoneSEWidth {
+            label.font = UIFont.systemFont(ofSize: 23, weight: UIFont.Weight.light)
+        } else {
+            label.font = UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.light)
+        }
         label.textAlignment = .center
         label.sizeToFit()
         return label

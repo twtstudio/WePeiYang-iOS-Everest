@@ -60,6 +60,8 @@ class DetailSettingViewController: UIViewController {
         tableView.contentInset.bottom = 100
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = deviceWidth == .iPhoneSEWidth ? 35 : 44
+
 
         self.view.addSubview(tableView)
 //        tableView.backgroundColor = .white
@@ -83,7 +85,7 @@ extension DetailSettingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = titles[indexPath.section].1[indexPath.row].rawValue
-        cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        cell.textLabel?.font = UIFont.flexibleSystemFont(ofSize: 15)
         return cell
     }
 }
@@ -171,13 +173,13 @@ extension DetailSettingViewController: UITableViewDelegate {
             })
         case (2, .quit):
             let alert = UIAlertController(title: "确定要退出吗？", message: nil, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "好的", style: .destructive, handler: { (result) in
+            let okAction = UIAlertAction(title: "确定", style: .destructive, handler: { (result) in
                 TwTUser.shared.delete()
                 tableView.reloadData()
                 NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
                 self.navigationController?.popViewController(animated: true)
             })
-            let cancelAction = UIAlertAction(title: "算啦", style: .cancel, handler: { (result) in
+            let cancelAction = UIAlertAction(title: "不确定", style: .cancel, handler: { (result) in
                 print("Canceled")
             })
             alert.addAction(okAction)

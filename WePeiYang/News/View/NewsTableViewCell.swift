@@ -44,7 +44,7 @@ class NewsTableViewCell: UITableViewCell {
             }
 
             let imageWidth = screenWidth*2.0/5 - 30
-            let imageHeight = imageWidth * 3.0 / 4.0
+            let imageHeight = imageWidth * 3.0 / 4.0 + 5
 
             contentView.addSubview(imgView)
             imgView.snp.makeConstraints { make in
@@ -86,7 +86,7 @@ class NewsTableViewCell: UITableViewCell {
             }
 
             let imageWidth = screenWidth*2.0/5 - 30
-            let imageHeight = imageWidth * 3.0 / 4.0
+            let imageHeight = imageWidth * 3.0 / 4.0 + 5
 
             contentView.addSubview(imgView)
             imgView.snp.makeConstraints { make in

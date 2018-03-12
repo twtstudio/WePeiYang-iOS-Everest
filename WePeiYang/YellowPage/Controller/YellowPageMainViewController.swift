@@ -61,9 +61,11 @@ class YellowPageMainViewController: UIViewController {
         }
         // FIXME: MsgDisplay Loading
         //MsgDisplay.showLoading()
+        SwiftMessages.showLoading()
 
         PhoneBook.shared.load(success: {
             self.tableView.reloadData()
+            SwiftMessages.hide()
         }, failure: {
             PhoneBook.checkVersion {
                 self.tableView.reloadData()
@@ -286,7 +288,7 @@ extension YellowPageMainViewController: UITableViewDelegate {
         // FIXME: setBarColor
 //        self.navigationController?.navigationBar.isTranslucent = UINavigationBar.appearance().isTranslucent
 //        self.navigationController?.navigationBar.shadowImage = UINavigationBar.appearance().shadowImage
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+//        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     
