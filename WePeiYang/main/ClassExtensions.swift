@@ -525,3 +525,17 @@ extension CGFloat {
     }
 }
 
+extension UIFont {
+//    #define kScreenWidthRatio  (UIScreen.mainScreen.bounds.size.width / 375.0)
+//    #define kScreenHeightRatio (UIScreen.mainScreen.bounds.size.height / 667.0)
+//    #define AdaptedWidth(x)  ceilf((x) * kScreenWidthRatio)
+    static func flexibleSystemFont(ofSize size: CGFloat) -> UIFont {
+        let size = (UIScreen.main.bounds.size.width / 375.0) * size
+        return UIFont.systemFont(ofSize: size)
+    }
+
+    static func flexibleSystemOf(ofSize size: CGFloat, weight: UIFont.Weight) -> UIFont {
+        let size = (UIScreen.main.bounds.size.width / 375.0) * size
+        return UIFont.systemFont(ofSize: size, weight: weight)
+    }
+}

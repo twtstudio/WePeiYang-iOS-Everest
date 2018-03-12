@@ -47,7 +47,7 @@ class LibraryCard: CardView {
 
         contentView.addSubview(toggleButton)
         toggleButton.setTitle("展开")
-        toggleButton.tag = 0
+        toggleButton.tag = LibCardState.fold.rawValue
         toggleButton.layer.cornerRadius = toggleButton.height/2
         toggleButton.tapAction = toggle
 
@@ -80,7 +80,7 @@ class LibraryCard: CardView {
 
         var divideSpacing: CGFloat = 30
         if UIScreen.main.bounds.width <= .iPhoneSEWidth {
-            divideSpacing = 12
+            divideSpacing = 15
         }
 
         let height = self.height - 125
@@ -119,12 +119,13 @@ class LibraryCard: CardView {
         self.contentView.setNeedsUpdateConstraints()
         self.contentView.layoutIfNeeded()
 
-        blankView.snp.remakeConstraints { make in
+        blankView.snp.updateConstraints { make in
             make.top.equalTo(tableView.snp.top)
             make.left.equalTo(tableView.snp.left)
             make.right.equalTo(tableView.snp.right)
-//            make.bottom.equalTo(toggleButton.snp.bottom)
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(toggleButton.snp.bottom)
+            make.height.equalTo(height + 10 + toggleButton.height)
+//            make.bottom.equalToSuperview()
         }
 //        contentView.setNeedsUpdateConstraints()
 //        self.contentView.layoutIfNeeded()
@@ -216,6 +217,7 @@ extension LibraryCard {
                 }
                 if self.toggleButton.tag == 0 {
                     self.toggleButton.setTitle("展开(\(max(LibraryDataContainer.shared.books.count-2, 0)))")
+                    self.toggleButton.sizeToFit()
                 }
                 self.tableView.reloadData()
                 // 缓存起来撒
@@ -233,30 +235,38 @@ extension LibraryCard {
     }
 
     func refresh(sender: CardButton) {
+        // 先折叠 再刷新
+        if toggleButton.tag == LibCardState.unfold.rawValue {
+            toggle(sender: toggleButton)
+        }
+
         getBooks(success: {
             self.setState(.data)
             SwiftMessages.showSuccessMessage(body: "借阅列表刷新成功", context: SwiftMessages.PresentationContext.window(windowLevel: UIWindowLevelStatusBar), layout: MessageView.Layout.statusLine)
         })
     }
+    private enum LibCardState: Int {
+        case fold = 0
+        case unfold = 1
+    }
 
     func toggle(sender: CardButton) {
-        // TODO: 没有数据时
         var height: CGFloat = 0
-        if sender.tag == 0 {
+        if sender.tag == LibCardState.fold.rawValue {
             // 展开
-            height = tableView.rowHeight * CGFloat(max(LibraryDataContainer.shared.books.count, 2)) + 145
+            height = tableView.rowHeight * CGFloat(max(LibraryDataContainer.shared.books.count, 2)) + 125
             sender.setTitle("收起")
-            sender.tag = 1
+            sender.tag = LibCardState.unfold.rawValue
         } else {
             // 收起
-            height = tableView.rowHeight * 2 + 145
+            height = tableView.rowHeight * 2 + 125
             let moreCount = LibraryDataContainer.shared.books.count-2
             if moreCount > 0 {
                 sender.setTitle("展开(\(moreCount))")
             } else {
                 sender.setTitle("展开")
             }
-            sender.tag = 0
+            sender.tag = LibCardState.fold.rawValue
         }
         self.height = height
         remakeConstraints()

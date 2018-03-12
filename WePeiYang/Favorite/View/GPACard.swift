@@ -97,6 +97,9 @@ class GPACard: CardView {
     override func refresh() {
         super.refresh()
         setState(.loading("加载中...", .white))
+        guard TwTUser.shared.token != nil else {
+            return
+        }
         CacheManager.retreive("gpa/gpa.json", from: .group, as: String.self, success: { string in
             if let model = Mapper<GPAModel>().map(JSONString: string) {
                 if model.terms.count > 1 {

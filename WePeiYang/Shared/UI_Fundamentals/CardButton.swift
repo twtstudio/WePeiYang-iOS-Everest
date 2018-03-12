@@ -19,7 +19,7 @@ class CardButton: UIButton {
 
     func setTitle(_ title: String) {
         self.backgroundColor = UIColor(red:0.99, green:0.19, blue:0.35, alpha:1.00)
-        let attrString = NSAttributedString(string: title, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.black), NSAttributedStringKey.foregroundColor: UIColor.white])
+        let attrString = NSAttributedString(string: title, attributes: [NSAttributedStringKey.font: UIFont.flexibleSystemOf(ofSize: 16, weight: UIFont.Weight.black), NSAttributedStringKey.foregroundColor: UIColor.white])
 
         setAttributedTitle(attrString, for: .normal)
         titleLabel?.sizeToFit()

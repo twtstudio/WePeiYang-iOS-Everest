@@ -10,9 +10,14 @@ import UIKit
 import ObjectMapper
 
 class ClassTableCard: CardView {
-    let titleLabel = UILabel()
-    let subtitleLabel = UILabel()
-    var cells: [CourseCell] = []
+    fileprivate let titleLabel = UILabel()
+    fileprivate let subtitleLabel = UILabel()
+    fileprivate var cells: [CourseCell] = []
+    fileprivate var day = "今天" {
+        didSet {
+            self.subtitleLabel.text = self.day + "的课程"
+        }
+    }
     
     override func initialize() {
         super.initialize()
@@ -26,7 +31,7 @@ class ClassTableCard: CardView {
 
         subtitleLabel.frame = CGRect(x: padding, y: padding + 20 - 5, width: 200, height: 30)
         // TODO: 明天的课程
-        subtitleLabel.text = "今天的课程"
+        subtitleLabel.text = day + "的课程"
         subtitleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.semibold)
         subtitleLabel.textColor = .black
         subtitleLabel.sizeToFit()
@@ -67,6 +72,9 @@ class ClassTableCard: CardView {
         super.refresh()
         self.setState(.loading("加载中...", .darkGray))
 
+        guard TwTUser.shared.token != nil else {
+            return
+        }
         CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
             guard let table = Mapper<ClassTableModel>().map(JSONString: string) else {
                 return
@@ -81,13 +89,21 @@ class ClassTableCard: CardView {
             let weekString = formatter.string(from: NSNumber(value: week)) ?? DateTool.getChineseNumber(number: week)
             self.titleLabel.text = "第" + weekString + "周" + " " + weekday
             self.titleLabel.sizeToFit()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            let time = dateFormatter.string(from: Date())
+            var offset = 0
+            if  time > "21:30" && time < "23:59" {
+                self.day = "明天"
+                offset = 1
+            }
 
-            var courses = ClassTableHelper.getTodayCourse(table: table).filter { course in
+            var courses = ClassTableHelper.getTodayCourse(table: table, offset: offset).filter { course in
                 return course.courseName != ""
             }
 
             if courses.count == 0 {
-                self.setState(.empty("今天没有课，做点有趣的事情吧！", .darkGray))
+                self.setState(.empty(self.day + "没有课，做点有趣的事情吧！", .darkGray))
             } else {
                 self.setState(.data)
             }

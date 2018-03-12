@@ -10,13 +10,18 @@ import Foundation
 import ObjectMapper
 
 struct ClassTableHelper {
-    static func getTodayCourse(table: ClassTableModel) -> [ClassModel] {
+    static func getTodayCourse(table: ClassTableModel, offset: Int = 0) -> [ClassModel] {
         let now = Date()
         let termStart = Date(timeIntervalSince1970: Double(table.termStart))
         let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
         let currentWeek = Int(week)
         let cal = Calendar.current
         var weekday = cal.component(.weekday, from: now)
+
+        // offset天以后
+        weekday += offset
+        weekday = (weekday - 1) % 7 + 1
+
         // 周日
         if weekday == 1 {
             weekday = 6
