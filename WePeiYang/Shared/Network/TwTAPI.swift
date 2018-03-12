@@ -10,7 +10,8 @@
 
 import UIKit
 
-let baseURL = "https://open.twtstudio.com/"
-struct TwTAPI {
-    static let `self` = baseURL + "api/v2/auth/self"
-}
+//let baseURL = "https://open.twtstudio.com/"
+//struct TwTAPI {
+//    static let `self` = baseURL + "api/v2/auth/self"
+//}
+

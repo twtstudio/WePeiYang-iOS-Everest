@@ -43,41 +43,51 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if #available(iOSApplicationExtension 10.0, *) {
-            extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-        }
-
         let width = UIScreen.main.bounds.width
-        dayLabel = UILabel(frame: CGRect(x: 70, y: 20, width: width - 70 - 20, height: 20))
+        dayLabel = UILabel(frame: CGRect(x: 90, y: 20, width: width - 90 - 20, height: 20))
         dayLabel.textAlignment = .center
         dayLabel.font = UIFont.preferredFont(forTextStyle: .body)
-//        dayLabel.text = ""
-        dayLabel.textColor = .gray
         self.view.addSubview(dayLabel)
 
         let tableViewHeight = 50 as CGFloat
         self.preferredContentSize = CGSize(width: width, height: tableViewHeight + 20)
 
-        tableView = UITableView(frame: CGRect(x: 70, y: 50, width: width - 70, height: 50))
+        tableView = UITableView(frame: CGRect(x: 70, y: 55, width: width - 70, height: 50))
         tableView.rowHeight = tableViewHeight
         tableView.allowsSelection = false
         imgView = UIImageView(frame: CGRect(x: 20, y: 20, width: 40, height: 40))
         imgView.image = #imageLiteral(resourceName: "ic_wifi-1")
-        // imgView.image = #imageLiteral(resourceName: "bicycleBtn")
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(buttonTapped))
+        imgView.addGestureRecognizer(gestureRecognizer)
+        imgView.isUserInteractionEnabled = true
+//        hintLabel.addGestureRecognizer(gestureRecognizer)
+//        hintLabel.isUserInteractionEnabled = true
 
-        hintLabel = UILabel(frame: CGRect(x: 20, y: 65, width: 40, height: 15))
+        hintLabel = UILabel(frame: CGRect(x: 20, y: 65, width: 60, height: 15))
         hintLabel.textColor = .gray
         hintLabel.textAlignment = .center
+//        hintLabel.numberOfLines = 0
         hintLabel.font = UIFont.systemFont(ofSize: 10)
-        hintLabel.text = "请稍候"
+        setHint(message: "一键上网")
 
         messageLabel = UILabel(frame: CGRect(x: 70, y: 50, width: width - 70, height: 50))
-        messageLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        if UIScreen.main.bounds.width == 320 {
+            messageLabel.font = UIFont.systemFont(ofSize: 14)
+        } else {
+            messageLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        }
         messageLabel.textAlignment = .center
-        messageLabel.textColor = .gray
         messageLabel.text = "今天没有课，做点有趣的事情吧！"
         self.view.addSubview(messageLabel)
         messageLabel.isHidden = true
+
+        if Double(DeviceStatus.deviceOSVersion)! >= 10.0 {
+            dayLabel.textColor = .gray
+            messageLabel.textColor = .gray
+        } else {
+            dayLabel.textColor = .white
+            messageLabel.textColor = .white
+        }
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -89,31 +99,79 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         layout()
     }
 
+    func setHint(message: String) {
+        hintLabel.text = message
+        hintLabel.sizeToFit()
+        hintLabel.center.x = imgView.center.x
+    }
+
+    @objc func buttonTapped() {
+        guard let text = hintLabel.text else {
+            return
+        }
+
+        switch text {
+        case "注销":
+            hintLabel.text = "请稍候"
+            WLANHelper.logout(success: {
+                self.setHint(message: "一键上网")
+                self.hintLabel.tag = 0
+            }, failure: { msg in
+                self.hintLabel.tag = -1
+                self.hintLabel.text = msg
+            })
+        case "一键上网":
+            self.setHint(message: "请稍候")
+            WLANHelper.login(success: {
+                self.hintLabel.text = "注销"
+                self.hintLabel.tag = 0
+            }, failure: { msg in
+                self.hintLabel.tag = -2
+                self.hintLabel.text = msg
+            })
+        case "绑定信息":
+//            UIApplication.shared.
+            return
+        case "请稍候":
+            return
+        default:
+            if hintLabel.tag == -1 {
+                self.setHint(message: "注销")
+                buttonTapped()
+            } else if hintLabel.tag == -2 {
+                self.setHint(message: "一键上网")
+                buttonTapped()
+            }
+        }
+        hintLabel.sizeToFit()
+    }
+
     @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         switch activeDisplayMode {
         case .compact:
             tableView.frame.size.height = tableView.rowHeight + 20
-            self.preferredContentSize.height = tableView.rowHeight + 20 + 20
+            self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height)
         case .expanded:
-            tableView.frame.size.height = CGFloat(classes.count) * tableView.rowHeight + 20
-            self.preferredContentSize.height = CGFloat(classes.count) * tableView.rowHeight + 20 + 20 + 20
+            tableView.frame.size.height = max(1, CGFloat(classes.count)) * tableView.rowHeight + 20
+            self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height + 20)
         }
         layout()
     }
 
     func layout() {
-
+        if #available(iOSApplicationExtension 10.0, *) {
+            extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+        } else {
+            tableView.frame.size.height = max(1, CGFloat(classes.count)) * tableView.rowHeight + 20
+            self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height + 20)
+        }
     }
 
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-//        if let dic = CacheManager.loadGroupCache(withKey: ClassTableKey) as? [String: Any], let table = Mapper<ClassTableModel>().map(JSON: dic) {
-//            self.classes = table.classes.filter { model in
-//                return model.arrange.count > 0
-//            }
-//            tableView.reloadData()
-//            completionHandler(NCUpdateResult.newData)
-//        }
+        if #available(iOSApplicationExtension 10.0, *) {
+            extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+        }
 
         if let termStart = CacheManager.loadGroupCache(withKey: "TermStart") as? Date {
             let now = Date()
@@ -126,22 +184,40 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             let comps = cal.dateComponents([.month, .day], from: now)
 
             dayLabel.text = weekday + " \(comps.month!)月\(comps.day!)日 " + "第\(week)周"
+            dayLabel.sizeToFit()
         }
-
 
         TwTUser.shared.load(success: {
             CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
                 if let table = Mapper<ClassTableModel>().map(JSONString: string) {
+
+                    let termStart = Date(timeIntervalSince1970: TimeInterval(table.termStart))
+                    let now = Date()
+                    let week = Int(now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1)
+                    let cal = Calendar.current
+                    let weekday = DateTool.getChineseWeekDay()
+                    let formatter = NumberFormatter()
+                    formatter.locale = Locale(identifier: "zh_CN")
+                    formatter.numberStyle = .spellOut
+                    let comps = cal.dateComponents([.month, .day], from: now)
+
+                    self.dayLabel.text = weekday + " \(comps.month!)月\(comps.day!)日 " + "第\(week)周"
+                    self.dayLabel.sizeToFit()
+
+//                    self.classes = table.classes
                     self.classes = ClassTableHelper.getTodayCourse(table: table).filter { course in
                         return course.courseName != "" && course.arrange.count > 0
                     }
                     self.tableView.reloadData()
+                    self.layout()
                     completionHandler(NCUpdateResult.newData)
                 }
             }, failure: {
+                self.layout()
                 completionHandler(NCUpdateResult.failed)
             })
         }, failure: {
+            self.layout()
             completionHandler(NCUpdateResult.failed)
         })
         // Perform any setup necessary in order to update the view.
@@ -171,17 +247,14 @@ extension TodayViewController: UITableViewDataSource {
         cell.coursenameLabel.frame.size.width = UIScreen.main.bounds.width - 120
         let rangeText = "\(arrange.start)-\(arrange.end)节"
         var timeText = ""
-//        if arrange.start <= timeArray.count && arrange.end <= timeArray.count {
-//            let timeStart = timeArray[arrange.start-1].start
-//            let timeEnd = timeArray[arrange.end-1].end
-            timeText = arrange.startTime + "-" + arrange.endTime
-            let formatter = DateFormatter()
-            formatter.dateFormat = "HH:mm:ss"
-            let time = formatter.string(from: Date())
-            if time >= arrange.startTime && time <= arrange.endTime {
-                cell.coursenameLabel.text = model.courseName + " (当前课程)"
-            }
-//        }
+
+        timeText = arrange.startTime + "-" + arrange.endTime
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        let time = formatter.string(from: Date())
+        if time >= arrange.startTime && time <= arrange.endTime {
+            cell.coursenameLabel.text = model.courseName + " (当前课程)"
+        }
         cell.infoLabel.text = rangeText + " " + timeText
 
         if arrange.room != "" && arrange.room != "无" {

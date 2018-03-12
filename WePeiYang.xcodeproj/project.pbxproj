@@ -51,6 +51,16 @@
 		36073D1F1F225D2A001317A7 /* ReviewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D181F225D2A001317A7 /* ReviewListViewController.swift */; };
 		36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D191F225D2A001317A7 /* SearchViewController.swift */; };
 		36073D241F22713B001317A7 /* ReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D231F22713B001317A7 /* ReadViewController.swift */; };
+		3613DA172056F1B9000867AE /* LoginAndLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586543620514E860069CF53 /* LoginAndLogout.swift */; };
+		3613DA182056F56A000867AE /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
+		3613DA192056F571000867AE /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E21EC84ED90064373A /* SolaSessionManager.swift */; };
+		3613DA1A2056F65C000867AE /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TwTKeychain.swift */; };
+		3613DA1B2056F664000867AE /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EE1EC84ED90064373A /* DeviceStatus.swift */; };
+		3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */; };
+		3613DA1F2056F6D4000867AE /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D526E42041C4150074EB2B /* DebugLog.swift */; };
+		3613DA222056F740000867AE /* UniversalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA212056F740000867AE /* UniversalExtension.swift */; };
+		3613DA232056F745000867AE /* UniversalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA212056F740000867AE /* UniversalExtension.swift */; };
+		3613DA25205702E0000867AE /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364F1FB8837D00413CF2 /* KeyChain.swift */; };
 		361F8853204AF92100BCFA19 /* HomePageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F884E204AF92100BCFA19 /* HomePageHelper.swift */; };
 		361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F884F204AF92100BCFA19 /* NewsModel.swift */; };
 		361F8855204AF92100BCFA19 /* GalleryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F8850204AF92100BCFA19 /* GalleryModel.swift */; };
@@ -329,6 +339,9 @@
 		36073D181F225D2A001317A7 /* ReviewListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewListViewController.swift; sourceTree = "<group>"; };
 		36073D191F225D2A001317A7 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		36073D231F22713B001317A7 /* ReadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadViewController.swift; sourceTree = "<group>"; };
+		3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMessagesExtension.swift; sourceTree = "<group>"; };
+		3613DA212056F740000867AE /* UniversalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalExtension.swift; sourceTree = "<group>"; };
+		3613DA242056F877000867AE /* WidgetBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WidgetBridgingHeader.h; sourceTree = "<group>"; };
 		361F884E204AF92100BCFA19 /* HomePageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageHelper.swift; sourceTree = "<group>"; };
 		361F884F204AF92100BCFA19 /* NewsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		361F8850204AF92100BCFA19 /* GalleryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryModel.swift; sourceTree = "<group>"; };
@@ -845,6 +858,7 @@
 			children = (
 				365A465E2036EFCC00738963 /* WePeiYangWidget.entitlements */,
 				365A46512036EFB800738963 /* TodayViewController.swift */,
+				3613DA242056F877000867AE /* WidgetBridgingHeader.h */,
 				36B2C898203DB8DB00AD2E3F /* ClassWidgetCell.swift */,
 				365A46562036EFB800738963 /* Info.plist */,
 			);
@@ -1187,6 +1201,7 @@
 				365A46452035E35500738963 /* Storage.swift */,
 				36D526E42041C4150074EB2B /* DebugLog.swift */,
 				368C3C89204DAB4F00C1E6B6 /* WPYCustomError.swift */,
+				3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1226,6 +1241,7 @@
 			children = (
 				B102540A1EC8520A0064373A /* AppDelegate.swift */,
 				B102540B1EC8520A0064373A /* ClassExtensions.swift */,
+				3613DA212056F740000867AE /* UniversalExtension.swift */,
 				B102540C1EC8520A0064373A /* Info.plist */,
 			);
 			path = main;
@@ -1485,6 +1501,9 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 						};
 					};
 					B19DAB851E6EF5C2004A50B5 = {
@@ -1494,6 +1513,9 @@
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
 								enabled = 1;
 							};
 							com.apple.Push = {
@@ -1695,16 +1717,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3613DA1F2056F6D4000867AE /* DebugLog.swift in Sources */,
 				36B2C899203DB8DB00AD2E3F /* ClassWidgetCell.swift in Sources */,
 				36B2C89B203DE86700AD2E3F /* TwTUser.swift in Sources */,
+				3613DA182056F56A000867AE /* WLANLoginAPIs.swift in Sources */,
+				3613DA172056F1B9000867AE /* LoginAndLogout.swift in Sources */,
 				36B2C894203A80D100AD2E3F /* ClassModel.swift in Sources */,
+				3613DA1B2056F664000867AE /* DeviceStatus.swift in Sources */,
 				36B2C892203A806C00AD2E3F /* CacheManager.swift in Sources */,
 				36B2C895203A80D600AD2E3F /* ArrangeModel.swift in Sources */,
+				3613DA1A2056F65C000867AE /* TwTKeychain.swift in Sources */,
 				3685D9F2204D97A200BA6C3D /* DateTool.swift in Sources */,
+				3613DA192056F571000867AE /* SolaSessionManager.swift in Sources */,
+				3613DA232056F745000867AE /* UniversalExtension.swift in Sources */,
 				36B2C897203A82B000AD2E3F /* ClassTableHelper.swift in Sources */,
 				365A46522036EFB800738963 /* TodayViewController.swift in Sources */,
 				36B2C89120388DF200AD2E3F /* LibraryModel.swift in Sources */,
 				36B2C8902038898400AD2E3F /* Storage.swift in Sources */,
+				3613DA25205702E0000867AE /* KeyChain.swift in Sources */,
 				36B2C896203A80F700AD2E3F /* log.swift in Sources */,
 				36B2C893203A80CB00AD2E3F /* ClassTableModel.swift in Sources */,
 			);
@@ -1795,6 +1825,7 @@
 				36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */,
 				36E56BC61FC512230009BD6F /* CourseListView.swift in Sources */,
 				0C3ADF491F697EE100388C19 /* PublishCustomCell.swift in Sources */,
+				3613DA222056F740000867AE /* UniversalExtension.swift in Sources */,
 				364BDF721FDAE1EF00E61B65 /* GPACard.swift in Sources */,
 				0C3ADF431F697EE100388C19 /* LostFoundModel.swift in Sources */,
 				0C3ADF351F697EE100388C19 /* DetailViewController.swift in Sources */,
@@ -1836,6 +1867,7 @@
 				0C3ADF381F697EE100388C19 /* LostFoundDetailModel.swift in Sources */,
 				365936911F1E60A9003CE578 /* GPASessionManager.swift in Sources */,
 				365936931F1E60A9003CE578 /* GPATermModel.swift in Sources */,
+				3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */,
 				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
 				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
 				A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */,
@@ -1984,6 +2016,7 @@
 				PROVISIONING_PROFILE = "4b9a5f71-bab8-4c99-8068-a6445db3b2c4";
 				PROVISIONING_PROFILE_SPECIFIER = cn.edu.twt.WeiPeiYang.WePeiYangWidget.dev;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYangWidget/WidgetBridgingHeader.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2016,6 +2049,7 @@
 				PROVISIONING_PROFILE = "e107f6ec-4399-4946-a71e-48836288606a";
 				PROVISIONING_PROFILE_SPECIFIER = "wpy widget provision";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYangWidget/WidgetBridgingHeader.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

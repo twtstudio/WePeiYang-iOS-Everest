@@ -13,7 +13,6 @@
 
 
 import UIKit
-import SwiftMessages
 
 extension UILabel {
     convenience init(text: String, color: UIColor) {
@@ -355,21 +354,6 @@ extension UIViewController {
     }
 }
 
-extension String {
-    var sha1: String {
-        get {
-            let data = self.data(using: String.Encoding.utf8)!
-            var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
-            data.withUnsafeBytes {
-                _ = CC_SHA1($0, CC_LONG(data.count), &digest)
-            }
-            let hexBytes = digest.map { String(format: "%02hhx", $0) }
-            return hexBytes.joined()
-        }
-    }
-}
-
-
 
 // TODO: from hex to displayP3 and hsb
 extension UIColor {
@@ -441,47 +425,6 @@ extension CGRect {
     }
 }
 
-extension SwiftMessages {
-    static func showInfoMessage(title: String = "", body: String, context: PresentationContext = .automatic, layout: MessageView.Layout = .cardView) {
-        message(title: title, body: body, theme: .info, context: context, layout: layout)
-    }
-
-    static func showSuccessMessage(title: String = "", body: String, context: PresentationContext = .automatic, layout: MessageView.Layout = .cardView) {
-        message(title: title, body: body, theme: .success, context: context, layout: layout)
-    }
-
-    static func showWarningMessage(title: String = "", body: String, context: PresentationContext = .automatic, layout: MessageView.Layout = .cardView) {
-        message(title: title, body: body, theme: .warning, context: context, layout: layout)
-    }
-
-    static func showErrorMessage(title: String = "", body: String, context: PresentationContext = .automatic, layout: MessageView.Layout = .cardView) {
-        message(title: title, body: body, theme: .error, context: context, layout: layout)
-    }
-
-    static func message(title: String, body: String, theme: Theme, context: PresentationContext = .automatic, layout: MessageView.Layout = .cardView) {
-        let view = MessageView.viewFromNib(layout: layout)
-        view.configureContent(title: title, body: body)
-        view.button?.isHidden = true
-
-        view.configureTheme(theme)
-
-        var config = SwiftMessages.Config()
-        config.presentationContext = context
-        SwiftMessages.show(config: config, view: view)
-    }
-
-    static func showLoading() {
-        let nib = UINib(nibName: "LoadingView", bundle: nil)
-        let view = nib.instantiate(withOwner: nil, options: nil).first as! UIView
-        var config = SwiftMessages.Config()
-        config.presentationContext = .window(windowLevel: UIWindowLevelAlert)
-        config.presentationStyle = .center
-        config.dimMode = .gray(interactive: true)
-        config.duration = .forever
-        SwiftMessages.show(config: config, view: view)
-    }
-}
-
 extension Data {
     //将Data转换为String
     var hexString: String {
@@ -525,17 +468,4 @@ extension CGFloat {
     }
 }
 
-extension UIFont {
-//    #define kScreenWidthRatio  (UIScreen.mainScreen.bounds.size.width / 375.0)
-//    #define kScreenHeightRatio (UIScreen.mainScreen.bounds.size.height / 667.0)
-//    #define AdaptedWidth(x)  ceilf((x) * kScreenWidthRatio)
-    static func flexibleSystemFont(ofSize size: CGFloat) -> UIFont {
-        let size = (UIScreen.main.bounds.size.width / 375.0) * size
-        return UIFont.systemFont(ofSize: size)
-    }
 
-    static func flexibleSystemFont(ofSize size: CGFloat, weight: UIFont.Weight) -> UIFont {
-        let size = (UIScreen.main.bounds.size.width / 375.0) * size
-        return UIFont.systemFont(ofSize: size, weight: weight)
-    }
-}

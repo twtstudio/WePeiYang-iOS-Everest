@@ -179,7 +179,7 @@ extension DetailSettingViewController: UITableViewDelegate {
                 NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
                 self.navigationController?.popViewController(animated: true)
             })
-            let cancelAction = UIAlertAction(title: "不确定", style: .cancel, handler: { (result) in
+            let cancelAction = UIAlertAction(title: "不了", style: .cancel, handler: { (result) in
                 print("Canceled")
             })
             alert.addAction(okAction)

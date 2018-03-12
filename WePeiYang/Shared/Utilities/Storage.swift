@@ -30,7 +30,8 @@ struct Storage {
         case .documents:
             searchDirectory = .documentDirectory
         case .group:
-            return FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.WePeiYang")!
+            // FIXME: 这里竟然会错
+            return FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.WePeiYang") ?? FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         }
         if let url = FileManager.default.urls(for: searchDirectory, in: .userDomainMask).first {
             return url

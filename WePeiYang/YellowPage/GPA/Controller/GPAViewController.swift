@@ -223,7 +223,7 @@ class GPAViewController: UIViewController {
         tableView = UITableView(frame: self.view.bounds, style: .plain)
 //        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 44, 0);
 //        self.automaticallyAdjustsScrollViewInsets = false
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 64, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
 
         tableView.delegate = self
         tableView.dataSource = self

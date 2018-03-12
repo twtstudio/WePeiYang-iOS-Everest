@@ -20,7 +20,7 @@ class WLANBindingViewController: UIViewController {
     var bindButton: UIButton!
     var logoutButton: UIButton!
     var dismissButton: UIButton!
-    var serviceButton: UIButton!
+//    var serviceButton: UIButton!
     var logoImage: UIImage!
     var logoImageView: UIImageView!
     var warningText: UITextView!
@@ -72,21 +72,21 @@ class WLANBindingViewController: UIViewController {
         bindButton.addTarget(self, action: #selector(bind), for: .touchUpInside)
         self.view.addSubview(bindButton)
         
-        serviceButton = UIButton()
-        serviceButton.setTitle("自服务", for: .normal)
-        serviceButton.isUserInteractionEnabled = true
-        serviceButton.backgroundColor = UIColor(hex6: 0xd3d3d3)
-        serviceButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
-        serviceButton.layer.borderWidth = 2
-        serviceButton.layer.cornerRadius = 5
-        serviceButton.addTarget(self, action: #selector(showService), for: .touchUpInside)
-        self.view.addSubview(serviceButton)
-        serviceButton.snp.makeConstraints { (make) -> Void in
-            make.left.equalTo((self.view.frame.size.width-textFieldWidth)/2)
-            make.right.equalTo(-(self.view.frame.size.width-textFieldWidth)/2)
-            make.top.equalTo(bindButton.snp.bottom).offset(10)
-        }
-        
+//        serviceButton = UIButton()
+//        serviceButton.setTitle("自服务", for: .normal)
+//        serviceButton.isUserInteractionEnabled = true
+//        serviceButton.backgroundColor = UIColor(hex6: 0xd3d3d3)
+//        serviceButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
+//        serviceButton.layer.borderWidth = 2
+//        serviceButton.layer.cornerRadius = 5
+//        serviceButton.addTarget(self, action: #selector(showService), for: .touchUpInside)
+//        self.view.addSubview(serviceButton)
+//        serviceButton.snp.makeConstraints { (make) -> Void in
+//            make.left.equalTo((self.view.frame.size.width-textFieldWidth)/2)
+//            make.right.equalTo(-(self.view.frame.size.width-textFieldWidth)/2)
+//            make.top.equalTo(bindButton.snp.bottom).offset(10)
+//        }
+
         dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: bindButton.y + bindButton.height + 20, width: 30, height: 20))
         dismissButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         dismissButton.setTitleColor(UIColor.gray, for: .normal)
@@ -97,7 +97,7 @@ class WLANBindingViewController: UIViewController {
         self.view.addSubview(dismissButton)
         
         // Get WLAN status
-        SolaSessionManager.solaSession(type: .get, baseURL: baseURL, url: WLANLoginAPIs.getStatus, token: TwTUser.shared.token, parameters: nil, success: { dictionary in
+        SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.getStatus, token: nil, parameters: nil, success: { dictionary in
             print(dictionary)
         }, failure: nil)
         
@@ -115,7 +115,7 @@ class WLANBindingViewController: UIViewController {
             loginInfo["username"] = usernameTextField.text
             loginInfo["password"] = passwordTextField.text
             
-            SolaSessionManager.solaSession(type: .get, baseURL: baseURL, url: WLANLoginAPIs.loginURL,  parameters: loginInfo, success: { dictionary in
+            SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL,  parameters: loginInfo, success: { dictionary in
                 
                 print(dictionary)
                 print("Succeeded")
@@ -125,12 +125,13 @@ class WLANBindingViewController: UIViewController {
                 }
 
                 if errorCode == -1 {
-                    TwTUser.shared.tjuBindingState = true
+                    TwTUser.shared.WLANBindingState = true
                     TwTUser.shared.WLANAccount = loginInfo["username"]
                     TwTUser.shared.WLANPassword = loginInfo["password"]
                     TwTUser.shared.save()
+                    KeychainService.saveWLAN(account: loginInfo["username"]!, password: loginInfo["password"]!)
                     SwiftMessages.showSuccessMessage(body: "绑定成功！")
-                    NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("WLAN", true))
+                    NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
                     self.dismiss(animated: true, completion: nil)
                     print("TJUBindingState:")
                     print(TwTUser.shared.tjuBindingState)
@@ -154,7 +155,7 @@ class WLANBindingViewController: UIViewController {
         loginInfo["tjuuname"] = usernameTextField.text
         loginInfo["tjupasswd"] = passwordTextField.text
         
-        SolaSessionManager.solaSession(type: .get, baseURL: baseURL, url: WLANLoginAPIs.loginURL, parameters: loginInfo, success: { dictionary in
+        SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL, parameters: loginInfo, success: { dictionary in
             
             print(dictionary)
             print("Succeeded")

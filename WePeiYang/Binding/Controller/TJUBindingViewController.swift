@@ -107,7 +107,7 @@ class TJUBindingViewController: UIViewController {
             loginInfo["tjuuname"] = usernameTextField.text
             loginInfo["tjupasswd"] = passwordTextField.text
             
-            SolaSessionManager.solaSession(type: .get, baseURL: baseURL, url: "api/v1/auth/bind/tju",  parameters: loginInfo, success: { dictionary in
+            SolaSessionManager.solaSession(type: .get, url: "/auth/bind/tju",  parameters: loginInfo, success: { dictionary in
                 
                 print(dictionary)
                 print("Succeeded")
@@ -148,7 +148,7 @@ class TJUBindingViewController: UIViewController {
         loginInfo["tjuuname"] = usernameTextField.text
         loginInfo["tjupasswd"] = passwordTextField.text
         
-        SolaSessionManager.solaSession(type: .get, baseURL: baseURL, url: "api/v1/auth/unbind/tju", token: TwTUser.shared.token, parameters: loginInfo, success: { dictionary in
+        SolaSessionManager.solaSession(type: .get, url: "/auth/unbind/tju", token: TwTUser.shared.token, parameters: loginInfo, success: { dictionary in
             
             print(dictionary)
             print("Succeeded")

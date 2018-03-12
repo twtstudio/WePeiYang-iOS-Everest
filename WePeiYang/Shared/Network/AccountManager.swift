@@ -148,7 +148,7 @@ struct AccountManager {
     }
     
     static func getSelf(success: (()->())?, failure: (()->())?) {
-        SolaSessionManager.solaSession(type: .get, baseURL: "", url: TwTAPI.`self`, parameters: nil, success: { dict in
+        SolaSessionManager.solaSession(type: .get, baseURL: "https://open.twtstudio.com", url: "/api/v2/auth/self", parameters: nil, success: { dict in
             if let accounts = dict["accounts"] as? [String: Any],
                 let tju = accounts["tju"] as? Bool,
                 let lib = accounts["lib"] as? Bool,

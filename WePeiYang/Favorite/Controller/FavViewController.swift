@@ -326,7 +326,9 @@ extension FavViewController: CardViewDelegate {
     func cardIsTapped(card: CardView) {
         if TwTUser.shared.token == nil {
             card.superVC = nil
-            showLoginView()
+            showLoginView(success: {
+//                card.superVC = self
+            })
         } else {
             card.superVC = self
         }

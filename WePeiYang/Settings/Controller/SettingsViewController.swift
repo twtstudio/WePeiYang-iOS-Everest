@@ -45,16 +45,7 @@ class SettingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-//        self.navigationController?.navigationBar.isTranslucent = true
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//        self.navigationController?.navigationBar.shadowImage = UIImage()
         tableView.reloadData()
-        //        navigationController?.navigationBar.barStyle = .black
-        //        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
-        //        //Changing NavigationBar Title color
-        //        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Metadata.Color.naviTextColor]
-        //
-        //        navigationItem.title = "设置"
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -161,7 +152,7 @@ class SettingsViewController: UIViewController {
             return
         }
         
-        SolaSessionManager.solaSession(type: .get, baseURL: baseURL, url: unbindURL, token: TwTUser.shared.token, success: { dictionary in
+        SolaSessionManager.solaSession(type: .get, url: unbindURL, token: TwTUser.shared.token, success: { dictionary in
             print(dictionary)
             print("Succeeded")
             guard let errorCode: Int = dictionary["error_code"] as? Int else {
@@ -171,8 +162,6 @@ class SettingsViewController: UIViewController {
             if errorCode == -1 {
                 TwTUser.shared.tjuBindingState = false
                 TwTUser.shared.save()
-                print(indexPathAtRow)
-                print(TwTUser.shared.tjuBindingState)
                 // services[].status can't get renewed data each time user unbinds
                 // self.services[indexPathAtRow].status = false
                 self.tableView.reloadData()

@@ -8,86 +8,62 @@
 
 import Foundation
 
-func WLANLogin() {
-    guard let account: String = TwTUser.shared.WLANAccount, let password: String = TwTUser.shared.password else {
-        let infoNotProvidedAlert = UIAlertController(title: "请绑定校园网账号", message: nil, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "好的", style: .default, handler: { (result) in
-            print("OK.")
-        })
-        infoNotProvidedAlert.addAction(okAction)
-        // self.present(infoNotProvidedAlert, animated: true, completion: nil)
-        return
-    }
-    
-    var loginInfo: [String: String] = [String: String]()
-    loginInfo["username"] = account
-    loginInfo["password"] = password
-    
-    SolaSessionManager.solaSession(type: .get, baseURL: baseURL, url: WLANLoginAPIs.loginURL,  parameters: loginInfo, success: { dictionary in
-        
-        print(dictionary)
-        print("Succeeded")
-        guard let errorCode: Int = dictionary["error_code"] as? Int,
-            let errMsg = dictionary["message"] as? String else {
+struct WLANHelper {
+    static func login(success: @escaping ()->(), failure: @escaping (String)->()) {
+        guard let account = TwTUser.shared.WLANAccount,
+            let password = TwTUser.shared.WLANPassword else {
+                failure("请绑定个人账号")
                 return
         }
-        
-        if errorCode == -1 {
-            // SwiftMessages.showSuccessMessage(body: "绑定成功！")
-            // NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("WLAN", true))
-            // self.dismiss(animated: true, completion: nil)
-            // print("TJUBindingState:")
-            // print(TwTUser.shared.tjuBindingState)
-        } else if errorCode == 50002 {
-            // SwiftMessages.showErrorMessage(body: "密码错误")
-        } else {
-            // SwiftMessages.showErrorMessage(body: errMsg)
-        }
-    }, failure: { error in
-        // SwiftMessages.showErrorMessage(body: error.localizedDescription)
-    })
-}
 
-func WLANLogout() {
-    guard let account: String = TwTUser.shared.WLANAccount, let password: String = TwTUser.shared.password else {
-        let infoNotProvidedAlert = UIAlertController(title: "请绑定校园网账号", message: nil, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "好的", style: .default, handler: { (result) in
-            print("OK.")
+        var loginInfo = [String: String]()
+        loginInfo["username"] = account
+        loginInfo["password"] = password
+
+        SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL, parameters: loginInfo, success: { dict in
+            guard let errorCode = dict["error_code"] as? Int,
+                let errMsg = dict["message"] as? String else {
+                    failure("解析错误")
+                    return
+            }
+            print(errMsg)
+            if errorCode == -1 {
+                success()
+            } else if errorCode == 50002 {
+                failure("密码错误")
+            } else {
+                failure(errMsg)
+            }
+        }, failure: { error in
+            failure(error.localizedDescription)
         })
-        infoNotProvidedAlert.addAction(okAction)
-        // self.present(infoNotProvidedAlert, animated: true, completion: nil)
-        return
     }
-    
-    var loginInfo: [String: String] = [String: String]()
-    loginInfo["username"] = account
-    loginInfo["password"] = password
-    
-    SolaSessionManager.solaSession(type: .get, baseURL: baseURL, url: WLANLoginAPIs.loginURL, parameters: loginInfo, success: { dictionary in
-        
-        print(dictionary)
-        print("Succeeded")
-        guard let errorCode: Int = dictionary["error_code"] as? Int,
-            let errMsg = dictionary["message"] as? String else {
+
+    static func logout(success: @escaping ()->(), failure: @escaping (String)->()) {
+        guard let account = TwTUser.shared.WLANAccount,
+            let password = TwTUser.shared.WLANPassword else {
+                failure("请绑定账号")
                 return
         }
-        
-        if errorCode == -1 {
-            // TwTUser.shared.tjuBindingState = false
-            // TwTUser.shared.save()
-            // SwiftMessages.showSuccessMessage(body: "解绑成功！")
-            // self.dismiss(animated: true, completion: nil)
-            print("TJUBindingState:")
-            print(TwTUser.shared.tjuBindingState)
-        } else {
-            // SwiftMessages.showErrorMessage(body: errMsg)
-        }
-    }, failure: { error in
-        debugLog(error)
-        print("Failed")
-        // SwiftMessages.showErrorMessage(body: error.localizedDescription)
-    })
+
+        var loginInfo = [String: String]()
+        loginInfo["username"] = account
+        loginInfo["password"] = password
+
+        SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL, parameters: loginInfo, success: { dict in
+            guard let errorCode = dict["error_code"] as? Int,
+                let errMsg = dict["message"] as? String else {
+                    failure("解析错误")
+                    return
+            }
+
+            if errorCode == -1 {
+                success()
+            } else {
+                failure(errMsg)
+            }
+        }, failure: { error in
+            failure(error.localizedDescription)
+        })
+    }
 }
-
-
-

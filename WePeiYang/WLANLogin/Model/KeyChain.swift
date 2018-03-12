@@ -31,26 +31,37 @@ let kSecMatchLimitValue = NSString(format: kSecMatchLimit)
 let kSecReturnDataValue = NSString(format: kSecReturnData)
 let kSecMatchLimitOneValue = NSString(format: kSecMatchLimitOne)
 
-public class KeychainService: NSObject {
+struct KeychainService {
     
     /**
      * Exposed methods to perform save and load queries.
      */
     
-    public class func savePassword(token: NSString) {
-        self.save(service: passwordKey as NSString, data: token)
+    public static func savePassword(token: String) {
+        self.save(service: passwordKey, data: token)
     }
     
-    public class func loadPassword() -> NSString? {
-        return self.load(service: passwordKey as NSString)
+    public static func loadPassword() -> String? {
+        return self.load(service: passwordKey)
     }
-    
+
+    public static func saveWLAN(account: String, password: String) {
+        self.save(service: "WLANAccount", data: account)
+        self.save(service: "WLANPassword", data: password)
+    }
+
+    public static func getWLAN() -> (account: String?, password: String?) {
+        let account = self.load(service: "WLANAccount") as String?
+        let password = self.load(service: "WLANPassword") as String?
+        return (account: account, password: password)
+    }
+
     /**
      * Internal methods for querying the keychain.
      */
     
-    private class func save(service: NSString, data: NSString) {
-        let dataFromString: NSData = data.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false)! as NSData
+    private static func save(service: String, data: String) {
+        let dataFromString: NSData = data.data(using: .utf8, allowLossyConversion: false)! as NSData
         
         // Instantiate a new default keychain query
         let keychainQuery: NSMutableDictionary = NSMutableDictionary(objects: [kSecClassGenericPasswordValue, service, userAccount, dataFromString], forKeys: [kSecClassValue, kSecAttrServiceValue, kSecAttrAccountValue, kSecValueDataValue])
@@ -62,7 +73,7 @@ public class KeychainService: NSObject {
         SecItemAdd(keychainQuery as CFDictionary, nil)
     }
     
-    private class func load(service: NSString) -> NSString? {
+    private static func load(service: String) -> String? {
         // Instantiate a new default keychain query
         // Tell the query to return a result
         // Limit our results to one item
@@ -72,11 +83,11 @@ public class KeychainService: NSObject {
         
         // Search for the keychain items
         let status: OSStatus = SecItemCopyMatching(keychainQuery, &dataTypeRef)
-        var contentsOfKeychain: NSString? = nil
+        var contentsOfKeychain: String? = nil
         
         if status == errSecSuccess {
             if let retrievedData = dataTypeRef as? NSData {
-                contentsOfKeychain = NSString(data: retrievedData as Data, encoding: String.Encoding.utf8.rawValue)
+                contentsOfKeychain = String(data: retrievedData as Data, encoding: .utf8)
             }
         } else {
             print("Nothing was retrieved from the keychain. Status code \(status)")

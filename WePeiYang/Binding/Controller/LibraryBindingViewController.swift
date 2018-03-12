@@ -111,7 +111,7 @@ class LibraryBindingViewController: UIViewController {
             var loginInfo: [String: String] = [String: String]()
             loginInfo["libpasswd"] = passwordTextField.text
             
-            SolaSessionManager.solaSession(type: .get, baseURL: baseURL, url: "api/v1/auth/bind/lib", token: TwTUser.shared.token, parameters: loginInfo, success: { dictionary in
+            SolaSessionManager.solaSession(type: .get, url: "/auth/bind/lib", token: TwTUser.shared.token, parameters: loginInfo, success: { dictionary in
                 
                 print(dictionary)
                 print("Succeeded")
@@ -148,7 +148,7 @@ class LibraryBindingViewController: UIViewController {
         
         // unbind tju account
         
-        SolaSessionManager.solaSession(type: .get, baseURL: baseURL, url: "api/v1/auth/unbind/lib", token: TwTUser.shared.token, parameters: nil, success: { dictionary in
+        SolaSessionManager.solaSession(type: .get, url: "/auth/unbind/lib", token: TwTUser.shared.token, parameters: nil, success: { dictionary in
             
             print(dictionary)
             print("Succeeded")

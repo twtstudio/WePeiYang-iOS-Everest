@@ -4,13 +4,13 @@ use_frameworks!
 
 def shared_pods
   pod 'ObjectMapper', '~> 3.1'
+  pod 'Alamofire'
 end
 
 target 'WePeiYang' do
   # Pods for WePeiYang
   shared_pods
   
-  pod 'Alamofire'
   pod 'JBChartView'
   pod 'SnapKit', '3.2.0'
   pod 'SDWebImage'

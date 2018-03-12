@@ -217,7 +217,7 @@ extension LibraryCard {
                 }
                 if self.toggleButton.tag == 0 {
                     self.toggleButton.setTitle("展开(\(max(LibraryDataContainer.shared.books.count-2, 0)))")
-                    self.toggleButton.sizeToFit()
+                    self.remakeConstraints()
                 }
                 self.tableView.reloadData()
                 // 缓存起来撒
