@@ -15,12 +15,12 @@ class ClassWidgetCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         coursenameLabel.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.regular)
-        if Double(DeviceStatus.deviceOSVersion)! >= 10.0 {
-            coursenameLabel.textColor = .darkGray
-            infoLabel.textColor = .gray
-        } else {
+        if DeviceStatus.deviceOSVersion.starts(with: "9") {
             coursenameLabel.textColor = .lightText
             infoLabel.textColor = .lightGray
+        } else {
+            coursenameLabel.textColor = .darkGray
+            infoLabel.textColor = .gray
         }
         coursenameLabel.frame = CGRect(x: 20, y: 5, width: 200, height: 20)
         contentView.addSubview(coursenameLabel)

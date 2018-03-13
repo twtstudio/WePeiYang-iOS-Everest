@@ -12,7 +12,7 @@ struct WLANHelper {
     static func login(success: @escaping ()->(), failure: @escaping (String)->()) {
         guard let account = TwTUser.shared.WLANAccount,
             let password = TwTUser.shared.WLANPassword else {
-                failure("请绑定个人账号")
+                failure("请绑定账号")
                 return
         }
 
@@ -26,7 +26,6 @@ struct WLANHelper {
                     failure("解析错误")
                     return
             }
-            print(errMsg)
             if errorCode == -1 {
                 success()
             } else if errorCode == 50002 {
@@ -50,7 +49,7 @@ struct WLANHelper {
         loginInfo["username"] = account
         loginInfo["password"] = password
 
-        SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL, parameters: loginInfo, success: { dict in
+        SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.logoutURL, parameters: loginInfo, success: { dict in
             guard let errorCode = dict["error_code"] as? Int,
                 let errMsg = dict["message"] as? String else {
                     failure("解析错误")

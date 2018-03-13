@@ -19,7 +19,7 @@ class MallViewController: ProgressWebViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.navigationBar.barStyle = .default
+//        navigationController?.navigationBar.barStyle = .default
     }
 
     override func viewDidLoad() {

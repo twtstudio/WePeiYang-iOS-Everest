@@ -10,7 +10,9 @@ import Foundation
 
 struct WLANLoginAPIs {
     static let loginURL = "/network/login"
-    
+
+    static let logoutURL = "/network/logout"
+
     static let getIPURL = "/network/ip"
     
     static let getStatus = "/network/status"

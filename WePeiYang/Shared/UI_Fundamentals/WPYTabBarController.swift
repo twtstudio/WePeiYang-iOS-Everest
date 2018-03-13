@@ -41,26 +41,32 @@ class WPYTabBarController: UITabBarController {
             
         }
         
-        // Do any additional setup after loading the view.
+        UIApplication.shared.applicationSupportsShakeToEdit = true
+        self.becomeFirstResponder()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    /*
-    // MARK: - Navigation
+//    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
+//        super.motionBegan(motion, with: event)
+////        print("开始摇动")
+//    }
+//
+//    override func motionCancelled(_ motion: UIEventSubtype, with event: UIEvent?) {
+//        super.motionCancelled(motion, with: event)
+////        print("取消摇动")
+//    }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        super.motionEnded(motion, with: event)
+        if let event = event, event.subtype == .motionShake {
+            WLANHelper.login(success: {
+                SwiftMessages.showSuccessMessage(body: "已连接到校园网")
+            }, failure: { msg in
+                SwiftMessages.showErrorMessage(body: msg)
+            })
+//            print("摇动结束")
+        }
     }
-    */
-    
-    
+
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         //TODO: View Controller Transitioning Animation
         

@@ -153,6 +153,7 @@ class NewsViewController: UIViewController {
             group.leave()
         }, failure: { error in
             group.leave()
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
 
         group.enter()
@@ -163,6 +164,7 @@ class NewsViewController: UIViewController {
             group.leave()
         }, failure: { error in
             group.leave()
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
 
         group.enter()
@@ -173,6 +175,7 @@ class NewsViewController: UIViewController {
             self.tableView.reloadData()
         }, failure: { error in
             group.leave()
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
 
         group.notify(queue: .main, execute: {

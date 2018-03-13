@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // To check if network is available
         // Used to determine the network state for WLANLogin
         do {
-            Network.reachability = try Reachability(hostname: "www.bing.com")
+            Network.reachability = try Reachability(hostname: "www.apple.com/cn/")
             do {
                 try Network.reachability?.start()
             } catch let error as Network.Error {

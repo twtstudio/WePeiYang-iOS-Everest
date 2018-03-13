@@ -112,8 +112,8 @@ class WLANBindingViewController: UIViewController {
         
         if usernameTextField.hasText && passwordTextField.hasText {
             var loginInfo: [String: String] = [String: String]()
-            loginInfo["username"] = usernameTextField.text
-            loginInfo["password"] = passwordTextField.text
+            loginInfo["username"] = usernameTextField.text!
+            loginInfo["password"] = passwordTextField.text!
             
             SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL,  parameters: loginInfo, success: { dictionary in
                 

@@ -26,21 +26,14 @@ class WLANLoginViewController: WMPageController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(hex6: 0x00a1e9))!, for: .default)
-//        self.navigationController?.navigationBar.barTintColor = UIColor(hex6: 0x00a1e9)
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         self.navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.setNavigationBarHidden(false, animated: animated)
+
+//        Network.reachability = try! Reachability(hostname: "www.apple.com/cn/")
+//        try! Network.reachability?.start()
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +49,7 @@ class WLANLoginViewController: WMPageController {
         WiFiImageView.frame = CGRect(x: 0, y: -70, width: UIScreen.main.bounds.width, height: self.view.bounds.height)
         self.view.addSubview(WiFiImageView)
         
-        updateUserInterface(WiFiImageView)
+        updateUserInterface()
     }
     
     override func didReceiveMemoryWarning() {
@@ -64,14 +57,14 @@ class WLANLoginViewController: WMPageController {
         // Dispose of any resources that can be recreated.
     }
     
-    func updateUserInterface(_ WiFiImageView: UIImageView) {
-        guard let networkStatus = Network.reachability?.status else { return }
+    func updateUserInterface() {
+        guard let reachability = Network.reachability else { return }
         print("\nReachability Summary")
-        print("Status:", networkStatus)
-        print("HostName:", Network.reachability?.hostname ?? "nil")
-        print("Reachable:", Network.reachability?.isReachable ?? "nil")
-        print("Wifi:", Network.reachability?.isReachableViaWiFi ?? "nil")
-        print(getWiFiSSID() ?? "nil", "\n")
+        print("Status:", reachability.status)
+//        print("HostName:", reachability.hostname)
+        print("Reachable:", reachability.isReachable)
+        print("Wifi:", reachability.isReachableViaWiFi)
+        print(getWiFiSSID() ?? "nil")
         
         /*
          guard let isReady: Bool = Network.reachability?.isReachable, (getWiFiSSID() == "tjuwlan" || getWiFiSSID() == "tjuwlan-lib") && isReady else {
@@ -81,111 +74,53 @@ class WLANLoginViewController: WMPageController {
          }
          */
         
-        switch networkStatus {
-        case .wifi:
+        switch reachability.status {
+        case .unreachable:
             if getWiFiSSID() == "tjuwlan" || getWiFiSSID() == "tjuwlan-lib" {
-                if !(Network.reachability?.isReachable)! {
-                    accountTextField = UITextField()
-                    accountTextField.frame = CGRect(x: 20, y: WiFiImageView.frame.height - WiFiImageView.frame.height * 0.6, width: UIScreen.main.bounds.width - 20 * 2, height: 30)
-                    accountTextField.placeholder = "请输入账号"
-                    accountTextField.keyboardType = .numberPad
-                    accountTextField.borderStyle = .roundedRect
-                    passwordTextField = UITextField()
-                    passwordTextField.frame = CGRect(x: 20, y: WiFiImageView.frame.height * 0.4 + 40, width: UIScreen.main.bounds.width - 20 * 2, height: 30)
-                    passwordTextField.placeholder = "请输入密码"
-                    passwordTextField.keyboardType = .default
-                    passwordTextField.borderStyle = .roundedRect
-                    passwordTextField.isSecureTextEntry = true
-                    self.view.addSubview(accountTextField)
-                    self.view.addSubview(passwordTextField)
-                    
-                    loginButton = UIButton()
-                    loginButton.frame = CGRect(x: 20, y: WiFiImageView.frame.height * 0.4 + 40 + 50 + 20, width: UIScreen.main.bounds.width - 20 * 2, height: 40)
-                    loginButton.setTitle("登 录", for: .normal)
-                    loginButton.setTitleColor(.white, for: .normal)
-                    loginButton.isUserInteractionEnabled = true
-                    loginButton.backgroundColor = UIColor(hex6: 0x00a1e9)
-                    // to make button rounded rect
-                    loginButton.layer.borderColor = UIColor(hex6: 0x00a1e9).cgColor
-                    loginButton.layer.borderWidth = 2
-                    loginButton.layer.cornerRadius = 5
-                    loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
-                    self.view.addSubview(loginButton)
-                    
-                    serviceButton = UIButton()
-                    serviceButton.setTitle("自服务", for: .normal)
-                    serviceButton.isUserInteractionEnabled = true
-                    serviceButton.backgroundColor = UIColor(hex6: 0xd3d3d3)
-                    serviceButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
-                    serviceButton.layer.borderWidth = 2
-                    serviceButton.layer.cornerRadius = 5
-                    serviceButton.addTarget(self, action: #selector(showService), for: .touchUpInside)
-                    self.view.addSubview(serviceButton)
-                    serviceButton.snp.makeConstraints { (make) -> Void in
-                        make.left.equalTo(20)
-                        make.right.equalTo(-20)
-                        make.top.equalTo(loginButton.snp.bottom).offset(10)
-                    }
-                } else {
-                    warningText = UILabel()
-                    warningText.text = "已经登录啦"
-                    warningText.font = UIFont.systemFont(ofSize: 24)
-                    warningText.textColor = UIColor(hex6: 0xd3d3d3)
-                    warningText.frame = CGRect(x: 20, y: WiFiImageView.frame.height - WiFiImageView.frame.height * 0.6, width: UIScreen.main.bounds.width - 20 * 2, height: 100)
-                    warningText.textAlignment = .center
-                    self.view.addSubview(warningText)
-                    
-                    let heightForTextView = heightForView(text: "已经登录啦", fontsize: UIFont.systemFont(ofSize: 24), width: UIScreen.main.bounds.width - 20 * 2, xpos: 20) * 2.4
-                    
-                    // TODO: Auto-fill the accoutnTextField and passwordTextField if there's information in TWTUser.
-                    
-                    accountTextField = UITextField()
-                    accountTextField.frame = CGRect(x: 20, y: WiFiImageView.frame.height - WiFiImageView.frame.height * 0.6 + heightForTextView, width: UIScreen.main.bounds.width - 20 * 2, height: 30)
-                    accountTextField.placeholder = "请输入账号"
-                    accountTextField.keyboardType = .numberPad
-                    accountTextField.borderStyle = .roundedRect
-                    passwordTextField = UITextField()
-                    passwordTextField.frame = CGRect(x: 20, y: WiFiImageView.frame.height * 0.4 + 40 + heightForTextView, width: UIScreen.main.bounds.width - 20 * 2, height: 30)
-                    passwordTextField.placeholder = "请输入密码"
-                    passwordTextField.keyboardType = .default
-                    passwordTextField.borderStyle = .roundedRect
-                    passwordTextField.isSecureTextEntry = true
-                    self.view.addSubview(accountTextField)
-                    self.view.addSubview(passwordTextField)
-                    
-                    if let fooAccount = TwTUser.shared.WLANAccount, let fooPassword = TwTUser.shared.WLANPassword {
-                        accountTextField.text = fooAccount
-                        passwordTextField.text = fooPassword
-                    }
-                    
-                    // use loginButton as logoutButton because I don't wanna declare a button once more.
-                    loginButton = UIButton()
-                    loginButton.frame = CGRect(x: 20, y: WiFiImageView.frame.height * 0.4 + 40 + 30 + 20 + heightForTextView, width: UIScreen.main.bounds.width - 20 * 2, height: 40)
-                    loginButton.setTitle("注 销", for: .normal)
-                    loginButton.setTitleColor(.white, for: .normal)
-                    loginButton.isUserInteractionEnabled = true
-                    loginButton.backgroundColor = UIColor(hex6: 0x00a1e9)
-                    // to make button rounded rect
-                    loginButton.layer.borderColor = UIColor(hex6: 0x00a1e9).cgColor
-                    loginButton.layer.borderWidth = 2
-                    loginButton.layer.cornerRadius = 5
-                    loginButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
-                    self.view.addSubview(loginButton)
-                    
-                    serviceButton = UIButton()
-                    serviceButton.setTitle("自服务", for: .normal)
-                    serviceButton.isUserInteractionEnabled = true
-                    serviceButton.backgroundColor = UIColor(hex6: 0xd3d3d3)
-                    serviceButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
-                    serviceButton.layer.borderWidth = 2
-                    serviceButton.layer.cornerRadius = 5
-                    serviceButton.addTarget(self, action: #selector(showService), for: .touchUpInside)
-                    self.view.addSubview(serviceButton)
-                    serviceButton.snp.makeConstraints { (make) -> Void in
-                        make.left.equalTo(20)
-                        make.right.equalTo(-20)
-                        make.top.equalTo(loginButton.snp.bottom).offset(10)
-                    }
+                accountTextField = UITextField()
+                accountTextField.frame = CGRect(x: 20, y: WiFiImageView.frame.height - WiFiImageView.frame.height * 0.6, width: UIScreen.main.bounds.width - 20 * 2, height: 30)
+                accountTextField.placeholder = "请输入账号"
+                accountTextField.keyboardType = .numberPad
+                accountTextField.borderStyle = .roundedRect
+                passwordTextField = UITextField()
+                passwordTextField.frame = CGRect(x: 20, y: WiFiImageView.frame.height * 0.4 + 40, width: UIScreen.main.bounds.width - 20 * 2, height: 30)
+                passwordTextField.placeholder = "请输入密码"
+                passwordTextField.keyboardType = .default
+                passwordTextField.borderStyle = .roundedRect
+                passwordTextField.isSecureTextEntry = true
+                self.view.addSubview(accountTextField)
+                self.view.addSubview(passwordTextField)
+
+                // auto fill
+                accountTextField.text = TwTUser.shared.WLANAccount
+                passwordTextField.text = TwTUser.shared.WLANPassword
+
+                loginButton = UIButton()
+                loginButton.frame = CGRect(x: 20, y: WiFiImageView.frame.height * 0.4 + 40 + 50 + 20, width: UIScreen.main.bounds.width - 20 * 2, height: 40)
+                loginButton.setTitle("登 录", for: .normal)
+                loginButton.setTitleColor(.white, for: .normal)
+                loginButton.isUserInteractionEnabled = true
+                loginButton.backgroundColor = UIColor(hex6: 0x00a1e9)
+                // to make button rounded rect
+                loginButton.layer.borderColor = UIColor(hex6: 0x00a1e9).cgColor
+                loginButton.layer.borderWidth = 2
+                loginButton.layer.cornerRadius = 5
+                loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
+                self.view.addSubview(loginButton)
+
+                serviceButton = UIButton()
+                serviceButton.setTitle("自服务", for: .normal)
+                serviceButton.isUserInteractionEnabled = true
+                serviceButton.backgroundColor = UIColor(hex6: 0xd3d3d3)
+                serviceButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
+                serviceButton.layer.borderWidth = 2
+                serviceButton.layer.cornerRadius = 5
+                serviceButton.addTarget(self, action: #selector(showService), for: .touchUpInside)
+                self.view.addSubview(serviceButton)
+                serviceButton.snp.makeConstraints { (make) -> Void in
+                    make.left.equalTo(20)
+                    make.right.equalTo(-20)
+                    make.top.equalTo(loginButton.snp.bottom).offset(10)
                 }
             } else {
                 warningText = UILabel()
@@ -196,15 +131,75 @@ class WLANLoginViewController: WMPageController {
                 warningText.textAlignment = .center
                 self.view.addSubview(warningText)
             }
-        case .unreachable:
-            print("Network error, please check reachability")
-            warningText = UILabel()
-            warningText.text = "网络错误，请检查网络连接"
-            warningText.font = UIFont.systemFont(ofSize: 24)
-            warningText.textColor = UIColor(hex6: 0xd3d3d3)
-            warningText.frame = CGRect(x: 20, y: WiFiImageView.frame.height - WiFiImageView.frame.height * 0.6, width: UIScreen.main.bounds.width - 20 * 2, height: 100)
-            warningText.textAlignment = .center
-            self.view.addSubview(warningText)
+        case .wifi:
+                warningText = UILabel()
+                warningText.text = "已经登录啦"
+                warningText.font = UIFont.systemFont(ofSize: 24)
+                warningText.textColor = UIColor(hex6: 0xd3d3d3)
+                warningText.frame = CGRect(x: 20, y: WiFiImageView.frame.height - WiFiImageView.frame.height * 0.6, width: UIScreen.main.bounds.width - 20 * 2, height: 100)
+                warningText.textAlignment = .center
+                self.view.addSubview(warningText)
+
+                let heightForTextView = heightForView(text: "已经登录啦", fontsize: UIFont.systemFont(ofSize: 24), width: UIScreen.main.bounds.width - 20 * 2, xpos: 20) * 2.4
+
+                // TODO: Auto-fill the accoutnTextField and passwordTextField if there's information in TWTUser.
+
+                accountTextField = UITextField()
+                accountTextField.frame = CGRect(x: 20, y: WiFiImageView.frame.height - WiFiImageView.frame.height * 0.6 + heightForTextView, width: UIScreen.main.bounds.width - 20 * 2, height: 30)
+                accountTextField.placeholder = "请输入账号"
+                accountTextField.keyboardType = .numberPad
+                accountTextField.borderStyle = .roundedRect
+                passwordTextField = UITextField()
+                passwordTextField.frame = CGRect(x: 20, y: WiFiImageView.frame.height * 0.4 + 40 + heightForTextView, width: UIScreen.main.bounds.width - 20 * 2, height: 30)
+                passwordTextField.placeholder = "请输入密码"
+                passwordTextField.keyboardType = .default
+                passwordTextField.borderStyle = .roundedRect
+                passwordTextField.isSecureTextEntry = true
+                self.view.addSubview(accountTextField)
+                self.view.addSubview(passwordTextField)
+
+                if let fooAccount = TwTUser.shared.WLANAccount, let fooPassword = TwTUser.shared.WLANPassword {
+                    accountTextField.text = fooAccount
+                    passwordTextField.text = fooPassword
+                }
+
+                // use loginButton as logoutButton because I don't wanna declare a button once more.
+                loginButton = UIButton()
+                loginButton.frame = CGRect(x: 20, y: WiFiImageView.frame.height * 0.4 + 40 + 30 + 20 + heightForTextView, width: UIScreen.main.bounds.width - 20 * 2, height: 40)
+                loginButton.setTitle("注 销", for: .normal)
+                loginButton.setTitleColor(.white, for: .normal)
+                loginButton.isUserInteractionEnabled = true
+                loginButton.backgroundColor = UIColor(hex6: 0x00a1e9)
+                // to make button rounded rect
+                loginButton.layer.borderColor = UIColor(hex6: 0x00a1e9).cgColor
+                loginButton.layer.borderWidth = 2
+                loginButton.layer.cornerRadius = 5
+                loginButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
+                self.view.addSubview(loginButton)
+
+                serviceButton = UIButton()
+                serviceButton.setTitle("自服务", for: .normal)
+                serviceButton.isUserInteractionEnabled = true
+                serviceButton.backgroundColor = UIColor(hex6: 0xd3d3d3)
+                serviceButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
+                serviceButton.layer.borderWidth = 2
+                serviceButton.layer.cornerRadius = 5
+                serviceButton.addTarget(self, action: #selector(showService), for: .touchUpInside)
+                self.view.addSubview(serviceButton)
+                serviceButton.snp.makeConstraints { (make) -> Void in
+                    make.left.equalTo(20)
+                    make.right.equalTo(-20)
+                    make.top.equalTo(loginButton.snp.bottom).offset(10)
+                }
+
+//            print("Network error, please check reachability")
+//            warningText = UILabel()
+//            warningText.text = "网络错误，请检查网络连接"
+//            warningText.font = UIFont.systemFont(ofSize: 24)
+//            warningText.textColor = UIColor(hex6: 0xd3d3d3)
+//            warningText.frame = CGRect(x: 20, y: WiFiImageView.frame.height - WiFiImageView.frame.height * 0.6, width: UIScreen.main.bounds.width - 20 * 2, height: 100)
+//            warningText.textAlignment = .center
+//            self.view.addSubview(warningText)
         case .wwan:
             print("Device connected to cellular")
             warningText = UILabel()
@@ -221,6 +216,14 @@ class WLANLoginViewController: WMPageController {
         print("tring to login to TJUWLAN")
         
         if accountTextField.hasText && passwordTextField.hasText {
+
+            WLANHelper.login(success: {
+                SwiftMessages.showSuccessMessage(body: "登录成功", context: .view(self.view))
+            }, failure: { msg in
+                SwiftMessages.showErrorMessage(body: msg, context: .view(self.view))
+            })
+
+            return
             var loginInfo: [String: Any] = [String: Any]()
             loginInfo["action"] = "login"
             loginInfo["username"] = "\(accountTextField.text!)"
@@ -244,7 +247,7 @@ class WLANLoginViewController: WMPageController {
                 if let responseString = dataResponse.value {
                     if responseString.contains("login_ok") {
                         print("Successfully logged in")
-                        self.updateUserInterface(self.WiFiImageView)
+                        self.updateUserInterface()
                     } else if responseString.contains("You are already online.") {
                         print("Already online")
                         let failAlert = UIAlertController(title: "登录失败", message: "已经在线啦", preferredStyle: .alert)
@@ -317,6 +320,13 @@ class WLANLoginViewController: WMPageController {
         print("tring to logout from TJUWLAN")
         
         if accountTextField.hasText && passwordTextField.hasText {
+            WLANHelper.logout(success: {
+                SwiftMessages.showSuccessMessage(body: "注销成功", context: .view(self.view))
+            }, failure: { msg in
+                SwiftMessages.showErrorMessage(body: msg, context: .view(self.view))
+            })
+
+            return
             var logoutInfo: [String: Any] = [String: Any]()
             logoutInfo["action"] = "logout"
             logoutInfo["username"] = "\(accountTextField.text!)"
@@ -328,7 +338,7 @@ class WLANLoginViewController: WMPageController {
                 
                 if let responseString = dataResponse.value {
                     if responseString.contains("ç½ç»å·²æ­å¼") {
-                        self.updateUserInterface(self.WiFiImageView)
+                        self.updateUserInterface()
                     } else if responseString.contains("æ¨ä¼¼ä¹æªæ¾è¿æ¥å°ç½ç»") {
                         print("Unknown error")
                         let failAlert = UIAlertController(title: "未知错误", message: "请检查网络连接或账号密码拼写", preferredStyle: .alert)
@@ -351,16 +361,9 @@ class WLANLoginViewController: WMPageController {
     }
     
     @objc func showService() {
-        if let url = URL(string: "http://202.113.4.11/") {
-            if #available(iOS 11.0, *) {
-                let config = SFSafariViewController.Configuration()
-                config.entersReaderIfAvailable = true
-                
-                let vc = SFSafariViewController(url: url, configuration: config)
-                present(vc, animated: true)
-            } else {
-                // Fallback on earlier versions
-            }
+        if let url = URL(string: "http://g.tju.edu.cn") {
+            let vc = SFSafariViewController(url: url)
+            present(vc, animated: true)
         }
     }
     
@@ -374,15 +377,4 @@ class WLANLoginViewController: WMPageController {
         label.sizeToFit()
         return label.frame.height
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }

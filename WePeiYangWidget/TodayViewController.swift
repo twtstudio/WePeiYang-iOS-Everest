@@ -10,15 +10,14 @@ import UIKit
 import NotificationCenter
 import ObjectMapper
 
-let ClassTableKey = "ClassTableKey"
-
 class TodayViewController: UIViewController, NCWidgetProviding {
     var tableView: UITableView!
     var imgView: UIImageView!
     var hintLabel: UILabel!
     var messageLabel: UILabel!
     var dayLabel: UILabel!
-    var activeDisplayMode = 0
+    var isOnline = false
+    var displayTomorrowCourse = false
 
     var classes: [ClassModel] = [] {
         willSet {
@@ -66,9 +65,15 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         hintLabel = UILabel(frame: CGRect(x: 20, y: 65, width: 60, height: 15))
         hintLabel.textColor = .gray
         hintLabel.textAlignment = .center
-//        hintLabel.numberOfLines = 0
+        hintLabel.numberOfLines = 0
         hintLabel.font = UIFont.systemFont(ofSize: 10)
-        setHint(message: "一键上网")
+
+        isOnline = UserDefaults.standard.bool(forKey: "isOnline")
+        if isOnline {
+            setHint(message: "注销")
+        } else {
+            setHint(message: "一键上网")
+        }
 
         messageLabel = UILabel(frame: CGRect(x: 70, y: 50, width: width - 70, height: 50))
         if UIScreen.main.bounds.width == 320 {
@@ -81,12 +86,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.view.addSubview(messageLabel)
         messageLabel.isHidden = true
 
-        if Double(DeviceStatus.deviceOSVersion)! >= 10.0 {
-            dayLabel.textColor = .gray
-            messageLabel.textColor = .gray
-        } else {
+        if DeviceStatus.deviceOSVersion.starts(with: "9") {
             dayLabel.textColor = .white
             messageLabel.textColor = .white
+        } else {
+            dayLabel.textColor = .gray
+            messageLabel.textColor = .gray
         }
 
         tableView.delegate = self
@@ -101,7 +106,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
     func setHint(message: String) {
         hintLabel.text = message
-        hintLabel.sizeToFit()
+//        hintLabel.sizeToFit()
+        let size = hintLabel.sizeThatFits(CGSize(width: 60, height: CGFloat.infinity))
+        hintLabel.frame.size = size
         hintLabel.center.x = imgView.center.x
     }
 
@@ -112,22 +119,25 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
         switch text {
         case "注销":
-            hintLabel.text = "请稍候"
+            setHint(message: "请稍候")
             WLANHelper.logout(success: {
                 self.setHint(message: "一键上网")
                 self.hintLabel.tag = 0
+                UserDefaults.standard.set(false, forKey: "isOnline")
             }, failure: { msg in
                 self.hintLabel.tag = -1
-                self.hintLabel.text = msg
+                self.setHint(message: msg)
             })
         case "一键上网":
-            self.setHint(message: "请稍候")
+            setHint(message: "请稍候")
             WLANHelper.login(success: {
-                self.hintLabel.text = "注销"
+                self.setHint(message: "注销")
+                self.isOnline = true
+                UserDefaults.standard.set(true, forKey: "isOnline")
                 self.hintLabel.tag = 0
             }, failure: { msg in
                 self.hintLabel.tag = -2
-                self.hintLabel.text = msg
+                self.setHint(message: msg)
             })
         case "绑定信息":
 //            UIApplication.shared.
@@ -136,14 +146,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             return
         default:
             if hintLabel.tag == -1 {
-                self.setHint(message: "注销")
+                setHint(message: "注销")
                 buttonTapped()
             } else if hintLabel.tag == -2 {
-                self.setHint(message: "一键上网")
+                setHint(message: "一键上网")
                 buttonTapped()
             }
         }
-        hintLabel.sizeToFit()
     }
 
     @available(iOSApplicationExtension 10.0, *)
@@ -153,8 +162,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             tableView.frame.size.height = tableView.rowHeight + 20
             self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height)
         case .expanded:
-            tableView.frame.size.height = max(1, CGFloat(classes.count)) * tableView.rowHeight + 20
-            self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height + 20)
+            if classes.count == 0 {
+                tableView.frame.size.height = tableView.rowHeight + 20
+                self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height)
+            } else {
+                tableView.frame.size.height = CGFloat(classes.count) * tableView.rowHeight + 40
+                self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height + 20)
+            }
         }
         layout()
     }
@@ -173,6 +187,19 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         }
 
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        let time = dateFormatter.string(from: Date())
+        var offset = 0
+        if  time > "21:30" && time < "23:59" {
+            displayTomorrowCourse = true
+            offset = 1
+        } else {
+            offset = 0
+            displayTomorrowCourse = false
+        }
+
+        // 如果登出也可以用
         if let termStart = CacheManager.loadGroupCache(withKey: "TermStart") as? Date {
             let now = Date()
             let week = Int(now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1)
@@ -205,7 +232,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                     self.dayLabel.sizeToFit()
 
 //                    self.classes = table.classes
-                    self.classes = ClassTableHelper.getTodayCourse(table: table).filter { course in
+                    self.classes = ClassTableHelper.getTodayCourse(table: table, offset: offset).filter { course in
                         return course.courseName != "" && course.arrange.count > 0
                     }
                     self.tableView.reloadData()
@@ -245,14 +272,17 @@ extension TodayViewController: UITableViewDataSource {
         let arrange = model.arrange.first!
         cell.coursenameLabel.text = model.courseName
         cell.coursenameLabel.frame.size.width = UIScreen.main.bounds.width - 120
-        let rangeText = "\(arrange.start)-\(arrange.end)节"
-        var timeText = ""
+        var rangeText = "\(arrange.start)-\(arrange.end)节"
 
-        timeText = arrange.startTime + "-" + arrange.endTime
+        if displayTomorrowCourse {
+            rangeText = "明天 " + rangeText
+        }
+
+        let timeText = arrange.startTime + "-" + arrange.endTime
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         let time = formatter.string(from: Date())
-        if time >= arrange.startTime && time <= arrange.endTime {
+        if time >= arrange.startTime && time <= arrange.endTime && !displayTomorrowCourse {
             cell.coursenameLabel.text = model.courseName + " (当前课程)"
         }
         cell.infoLabel.text = rangeText + " " + timeText

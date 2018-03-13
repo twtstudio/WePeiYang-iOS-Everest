@@ -32,10 +32,17 @@ struct HomePageHelper {
     }
 
     static func getGallery(success: @escaping ([GalleryModel])->(), failure: @escaping (Error)->()) {
-        if let galleries = try? Galleries(fromURL: URL(string: "https://www.twt.edu.cn/mapi/galleries/index")!) {
-            success(galleries)
-        } else {
-            failure(WPYCustomError("请求出错"))
+        let queue = DispatchQueue(label: "\(Date().description)+gallery")
+        queue.async {
+            if let galleries = try? Galleries(fromURL: URL(string: "https://www.twt.edu.cn/mapi/galleries/index")!) {
+                DispatchQueue.main.async {
+                    success(galleries)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    failure(WPYCustomError("请求出错"))
+                }
+            }
         }
     }
 }

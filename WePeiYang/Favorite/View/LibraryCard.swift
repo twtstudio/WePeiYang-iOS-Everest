@@ -123,6 +123,7 @@ class LibraryCard: CardView {
             make.top.equalTo(tableView.snp.top)
             make.left.equalTo(tableView.snp.left)
             make.right.equalTo(tableView.snp.right)
+//            make.bottom.equalTo(tableView.snp.bottom).offset(10+toggleButton.height+5)
             make.bottom.equalTo(toggleButton.snp.bottom)
             make.height.equalTo(height + 10 + toggleButton.height)
 //            make.bottom.equalToSuperview()
@@ -216,7 +217,12 @@ extension LibraryCard {
                     self.setState(.empty("没有待还的书籍", .gray))
                 }
                 if self.toggleButton.tag == 0 {
-                    self.toggleButton.setTitle("展开(\(max(LibraryDataContainer.shared.books.count-2, 0)))")
+                    let leftCount = LibraryDataContainer.shared.books.count - 2
+                    if leftCount == 0 {
+                        self.toggleButton.setTitle("展开")
+                    } else {
+                        self.toggleButton.setTitle("展开(\(leftCount))")
+                    }
                     self.remakeConstraints()
                 }
                 self.tableView.reloadData()
