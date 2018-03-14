@@ -139,6 +139,10 @@ class LoginView: MessageView {
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
+
+        if TwTUser.shared.username != "" {
+            usernameField.text = TwTUser.shared.username
+        }
     }
 }
 

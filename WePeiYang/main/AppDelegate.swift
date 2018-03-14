@@ -29,16 +29,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // FIXME: 没有加载成功
             NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
             AccountManager.getSelf(success:{
-//                NotificationCenter.default.post(name: NotificationName.NotificationCardWillRefresh.name, object: nil)
-            }, failure: nil)
+
+            }, failure: {
+                
+            })
         }, failure: {
             // 让他重新登录
         })
 
-//        AccountManager.getSelf(success: nil, failure: nil)
-//        AccountManager.checkToken(failure: {
-//            // 让他重新登录
-//        })
 
         mainTabVC = WPYTabBarController()
         

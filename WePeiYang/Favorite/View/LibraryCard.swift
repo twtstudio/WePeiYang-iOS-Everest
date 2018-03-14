@@ -119,7 +119,7 @@ class LibraryCard: CardView {
         self.contentView.setNeedsUpdateConstraints()
         self.contentView.layoutIfNeeded()
 
-        blankView.snp.updateConstraints { make in
+        blankView.snp.remakeConstraints { make in
             make.top.equalTo(tableView.snp.top)
             make.left.equalTo(tableView.snp.left)
             make.right.equalTo(tableView.snp.right)
@@ -212,13 +212,14 @@ extension LibraryCard {
             if let data = try? JSONSerialization.data(withJSONObject: dict, options: .init(rawValue: 0)),
                 let response = try? LibraryResponse(data: data) {
                 LibraryDataContainer.shared.response = response
-                self.setState(.data)
                 if response.data.books.count == 0 {
-                    self.setState(.empty("没有待还的书籍", .gray))
+                    self.setState(.empty("没有借阅书籍", .gray))
+                } else {
+                    self.setState(.data)
                 }
-                if self.toggleButton.tag == 0 {
+                if self.toggleButton.tag == LibCardState.fold.rawValue {
                     let leftCount = LibraryDataContainer.shared.books.count - 2
-                    if leftCount == 0 {
+                    if leftCount <= 0 {
                         self.toggleButton.setTitle("展开")
                     } else {
                         self.toggleButton.setTitle("展开(\(leftCount))")
@@ -232,11 +233,11 @@ extension LibraryCard {
 //                Storage.store(response, in: .caches, as: CacheFilenameKey.libUserInfo.name)
                 success?()
             } else {
-                self.setState(.failed("解析失败"))
+                self.setState(.failed("解析失败", .gray))
                 // TODO: 解析错误
             }
         }, failure: { err in
-            self.setState(.failed(err.localizedDescription))
+            self.setState(.failed(err.localizedDescription, .gray))
         })
     }
 
@@ -247,7 +248,6 @@ extension LibraryCard {
         }
 
         getBooks(success: {
-            self.setState(.data)
             SwiftMessages.showSuccessMessage(body: "借阅列表刷新成功", context: SwiftMessages.PresentationContext.window(windowLevel: UIWindowLevelStatusBar), layout: MessageView.Layout.statusLine)
         })
     }

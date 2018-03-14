@@ -114,9 +114,10 @@ class WLANBindingViewController: UIViewController {
             var loginInfo: [String: String] = [String: String]()
             loginInfo["username"] = usernameTextField.text!
             loginInfo["password"] = passwordTextField.text!
-            
+
+            SwiftMessages.showLoading()
             SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL,  parameters: loginInfo, success: { dictionary in
-                
+                SwiftMessages.hide()
                 print(dictionary)
                 print("Succeeded")
                 guard let errorCode: Int = dictionary["error_code"] as? Int,
@@ -141,6 +142,7 @@ class WLANBindingViewController: UIViewController {
                     SwiftMessages.showErrorMessage(body: errMsg)
                 }
             }, failure: { error in
+                SwiftMessages.hide()
                 SwiftMessages.showErrorMessage(body: error.localizedDescription)
             })
         } else {
@@ -154,11 +156,10 @@ class WLANBindingViewController: UIViewController {
         var loginInfo: [String: String] = [String: String]()
         loginInfo["tjuuname"] = usernameTextField.text
         loginInfo["tjupasswd"] = passwordTextField.text
-        
+
+        SwiftMessages.showLoading()
         SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL, parameters: loginInfo, success: { dictionary in
-            
-            print(dictionary)
-            print("Succeeded")
+            SwiftMessages.hide()
             guard let errorCode: Int = dictionary["error_code"] as? Int,
                 let errMsg = dictionary["message"] as? String else {
                     return
@@ -167,17 +168,17 @@ class WLANBindingViewController: UIViewController {
             if errorCode == -1 {
                 TwTUser.shared.tjuBindingState = false
                 TwTUser.shared.save()
+                SwiftMessages.hide()
                 SwiftMessages.showSuccessMessage(body: "解绑成功！")
                 self.dismiss(animated: true, completion: nil)
                 print("TJUBindingState:")
                 print(TwTUser.shared.tjuBindingState)
             } else {
+                SwiftMessages.hide()
                 SwiftMessages.showErrorMessage(body: errMsg)
             }
         }, failure: { error in
-            
-            debugLog(error)
-            print("Failed")
+            SwiftMessages.hide()
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
     }
@@ -188,15 +189,8 @@ class WLANBindingViewController: UIViewController {
     
     @objc func showService() {
         if let url = URL(string: "http://202.113.4.11/") {
-            if #available(iOS 11.0, *) {
-                let config = SFSafariViewController.Configuration()
-                config.entersReaderIfAvailable = true
-                
-                let vc = SFSafariViewController(url: url, configuration: config)
-                present(vc, animated: true)
-            } else {
-                // Fallback on earlier versions
-            }
+            let vc = SFSafariViewController(url: url)
+            present(vc, animated: true)
         }
     }
 }

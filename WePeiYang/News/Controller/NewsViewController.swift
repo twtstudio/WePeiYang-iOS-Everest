@@ -20,6 +20,7 @@ class NewsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
@@ -45,8 +46,7 @@ class NewsViewController: UIViewController {
         //Changing NavigationBar Title color
 //        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Metadata.Color.naviTextColor]
         // This is for removing the dark shadows when transitioning
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.isNavigationBarHidden = true
+//        navigationController?.isNavigationBarHidden = true
         navigationItem.title = "资讯"
         view.backgroundColor = .white
         setupUI()

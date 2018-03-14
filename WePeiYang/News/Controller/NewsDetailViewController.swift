@@ -24,6 +24,7 @@ class NewsDetailViewController: ProgressWebViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white), for: .default)
 //        self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -34,6 +35,8 @@ class NewsDetailViewController: ProgressWebViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        webView.frame.origin.y = navigationController?.navigationBar.height ?? webView.frame.origin.y
+        webView.height -= 10
         title = "详情"
 
         if #available(iOS 10.0, *) {
@@ -52,13 +55,16 @@ class NewsDetailViewController: ProgressWebViewController {
 //        }
         self.navigationController?.hidesBarsOnSwipe = true
 
+        SwiftMessages.showLoading()
         SolaSessionManager.solaSession(type: .get, url: "/news/\(index)", token: nil, parameters: nil, success: { dict in
+            SwiftMessages.hide()
             if let topModel = try? NewsDetailTopModel(data: dict.jsonData()) {
                 self.news = topModel.data
                 let html = self.FEProcessor(model: topModel.data, content: topModel.data.content)
                 self.webView.loadHTMLString(html, baseURL: nil)
             }
         }, failure: { error in
+            SwiftMessages.hide()
             // TODO: tap reload
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })

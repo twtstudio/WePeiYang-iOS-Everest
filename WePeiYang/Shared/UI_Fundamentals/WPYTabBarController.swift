@@ -58,9 +58,18 @@ class WPYTabBarController: UITabBarController {
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         super.motionEnded(motion, with: event)
         if let event = event, event.subtype == .motionShake {
+//            let isOnline = (CacheManager.loadGroupCache(withKey: "isOnline") as? Bool) ?? false
+//            if isOnline {
+//
+//            } else {
+//
+//            }
             WLANHelper.login(success: {
+                SwiftMessages.hideAll()
                 SwiftMessages.showSuccessMessage(body: "已连接到校园网")
+//                CacheManager.saveGroupCache(with: true, key: "isOnline")
             }, failure: { msg in
+                SwiftMessages.hideAll()
                 SwiftMessages.showErrorMessage(body: msg)
             })
 //            print("摇动结束")

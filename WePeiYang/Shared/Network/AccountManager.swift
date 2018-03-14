@@ -149,6 +149,23 @@ struct AccountManager {
     
     static func getSelf(success: (()->())?, failure: (()->())?) {
         SolaSessionManager.solaSession(type: .get, baseURL: "https://open.twtstudio.com", url: "/api/v2/auth/self", parameters: nil, success: { dict in
+            if let errorno = dict["error_code"] as? Int,
+                let message = dict["message"] as? String,
+            message == "token expired" || errorno == 10003 {
+                guard TwTUser.shared.username != "", TwTUser.shared.password != "" else {
+                    SwiftMessages.showWarningMessage(body: "登录过期，请重新登录")
+                    showLoginView()
+                    return
+                }
+                
+                AccountManager.getToken(username: TwTUser.shared.username, password: TwTUser.shared.password, success: { token in
+                    TwTUser.shared.token = token
+                    TwTUser.shared.save()
+                }, failure: { error in
+
+                })
+            }
+
             if let accounts = dict["accounts"] as? [String: Any],
                 let tju = accounts["tju"] as? Bool,
                 let lib = accounts["lib"] as? Bool,

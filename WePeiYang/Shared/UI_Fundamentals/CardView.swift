@@ -244,7 +244,7 @@ extension CardView {
         case loading(String, UIColor)
         case empty(String, UIColor)
         case data
-        case failed(String)
+        case failed(String, UIColor)
     }
 
     func setState(_ state: State) {
@@ -277,9 +277,17 @@ extension CardView {
             msgLabel.sizeToFit()
             msgLabel.center = blankView.center
             return
-        // TODO: 失败
-        default:
+        case .failed(let msg, let textColor):
+            blankView.isHidden = false
+            self.bringSubview(toFront: blankView)
+            self.bringSubview(toFront: msgLabel)
+            msgLabel.text = msg
+            msgLabel.textColor = textColor
+            msgLabel.sizeToFit()
+            msgLabel.center = blankView.center
             return
+//        default:
+//            return
         }
     }
 }

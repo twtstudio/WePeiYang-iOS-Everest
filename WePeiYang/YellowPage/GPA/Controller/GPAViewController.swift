@@ -261,6 +261,8 @@ class GPAViewController: UIViewController {
             if let model = Mapper<GPAModel>().map(JSONString: string) {
                 self.loadModel(model: model)
             }
+        }, failure: {
+            SwiftMessages.showLoading()
         })
 
 //        if let dic = CacheManager.loadGroupCache(withKey: GPAKey) as? [String: Any],
@@ -272,6 +274,7 @@ class GPAViewController: UIViewController {
     // 刷新数据
     @objc func refresh() {
         GPASessionManager.getGPA(success: { model in
+            SwiftMessages.hide()
             self.loadModel(model: model)
             // 数据有效 存起来
             if model.terms.count > 0 {
@@ -282,6 +285,7 @@ class GPAViewController: UIViewController {
             }
             SwiftMessages.showSuccessMessage(body: "刷新成功")
         }, failure: { error in
+            SwiftMessages.hide()
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
             debugLog(error)
         })

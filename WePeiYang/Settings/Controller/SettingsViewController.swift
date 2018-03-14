@@ -323,6 +323,7 @@ extension SettingsViewController: UITableViewDelegate {
 }
 
 func showLoginView(success: (()->())? = nil) {
+    SwiftMessages.hideAll()
     let loginView = LoginView()
     loginView.successHandler = success
     var config = SwiftMessages.defaultConfig

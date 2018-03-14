@@ -29,7 +29,7 @@ class DetailSettingViewController: UIViewController {
 
 
     var tableView: UITableView!
-    let titles: [(String, [SettingTitle])] = [
+    var titles: [(String, [SettingTitle])] = [
         ("设置", [.notification, .modules, .accounts]),
                   ("关于", [.join, .EULA, .feedback]),
                   ("其他", [.share, .rate, .quit])]
@@ -70,6 +70,9 @@ class DetailSettingViewController: UIViewController {
 
         // 据说可以移除转场阴影
 //        navigationController?.navigationBar.isTranslucent = false
+        if TwTUser.shared.token == nil {
+            titles[2].1.removeLast()
+        }
     }
 }
 
