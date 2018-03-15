@@ -26,8 +26,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        TwTUser.shared.load() // load token and so on
         TwTUser.shared.load(success: {
             UIApplication.shared.applicationIconBadgeNumber = 0
-            // FIXME: 没有加载成功
             NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
+
+            WLANHelper.getStatus(success: { isOnline in
+
+            }, failure: { _ in
+
+            })
             AccountManager.getSelf(success:{
 
             }, failure: {

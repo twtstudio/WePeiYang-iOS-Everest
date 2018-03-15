@@ -32,154 +32,125 @@ class BicycleUser {
     static let sharedInstance = BicycleUser()
     private init() {}
     
-    func auth(presentViewController: @escaping () -> ()) {
+    func auth(success: @escaping () -> (), failure: ((String)->())? = nil) {
         
-        // FIXME: token
-        let parameters = ["wpy_tk": "\(TwTUser.shared.token ?? "")}"]
-        
-        
-        
-        SolaSessionManager.solaSession(type: .post, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.authURL, parameters: parameters, success: { dic in
-            
-            //log.obj(dic!)/
-            guard dic["errno"] as? NSNumber == 0 else {
-                //                MsgDisplay.showErrorMsg(dic?.objectForKey("errmsg") as? String)
-                return
+        let parameters = ["wpy_tk": "\(TwTUser.shared.token!)"]
+
+        // FIXME: sola 为啥不能用
+        Alamofire.request(BicycleAPIs.rootURL+BicycleAPIs.authURL, method: .post, parameters: parameters, headers: nil).responseJSON { response in
+            switch response.result {
+            case .success:
+                if let data = response.result.value,
+                    let dict = data as? [String: Any] {
+                    if let errno = dict["errno"] as? Int,
+                        errno == 0,
+                        let data = dict["data"] as? [String: Any],
+                        let status = data["status"] as? Int,
+                        let version = data["version"] as? Int,
+                        let token = data["token"] as? String,
+                        let expire = data["expire"] as? Int {
+                        self.status = status
+                        self.version = version
+                        self.bikeToken = token
+                        self.expire = expire
+                        success()
+                    } else {
+                        failure?((dict["errmsg"] as? String) ?? "解析失败")
+                    }
+                }
+            case .failure(let error):
+                failure?(error.localizedDescription)
             }
-            
-            let dict = dic["data"] as? NSDictionary
-            //print(dict)
-            guard let fooStatus = dict?["status"] as? Int,
-                let fooVersion = dict?["version"] as? Int,
-                let fooBikeToken = dict?["token"] as? String,
-                let fooExpire = dict?["expire"] as? Int
-                else {
-                    //                    MsgDisplay.showErrorMsg("用户认证失败，请重新登陆试试")
-                    return
-            }
-            
-            //            MsgDisplay.dismiss()
-            self.status = fooStatus
-            self.version = fooVersion
-            self.bikeToken = fooBikeToken
-            self.expire = fooExpire
-            
-            presentViewController()
-            
-        }, failure: { error in
-            //            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
-            print("error: \(error)")
-        })
-        
-        //        manager.request(BicycleAPIs.authURL, parameters: parameters, progress: { (progress: Progress) in
-        //
-        //            //MsgDisplay.showLoading()
-        //
-        //            }, success: { (task: URLSessionDataTask, responseObject: AnyObject?) in
-        //
-        //            let dic = responseObject as? NSDictionary
-        //            //log.obj(dic!)/
-        //            guard dic?.objectForKey("errno") as? NSNumber == 0 else {
-        //                MsgDisplay.showErrorMsg(dic?.objectForKey("errmsg") as? String)
-        //                return
-        //            }
-        //
-        //            let dict = dic?.objectForKey("data") as? NSDictionary
-        //            //print(dict)
-        //            guard let fooStatus = dict?.objectForKey("status") as? NSNumber,
-        //                let fooVersion = dict?.objectForKey("version") as? NSNumber,
-        //                let fooBikeToken = dict?.objectForKey("token") as? String,
-        //                let fooExpire = dict?.objectForKey("expire") as? Int
-        //                else {
-        //                    MsgDisplay.showErrorMsg("用户认证失败，请重新登陆试试")
-        //                    return
-        //            }
-        //
-        //            MsgDisplay.dismiss()
-        //            self.status = fooStatus
-        //            self.version = fooVersion
-        //            self.bikeToken = fooBikeToken
-        //            self.expire = fooExpire
-        //
-        //            presentViewController()
-        //
-        //        }, failure: { (task: URLSessionDataTask?, error: NSError) in
-        //            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
-        //            print("error: \(error)")
-        //        })
-        
+        }
     }
     
-    func getCardlist(idnum: String, doSomething: @escaping () -> ()) {
+    func getCardlist(idnum: String, doSomething: @escaping () -> (), failure: ((String)->())? = nil) {
         
         let parameters = ["auth_token": bikeToken!, "idnum": idnum]
-        
-        SolaSessionManager.solaSession(type: .get, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.cardURL, parameters: parameters, success: { dic in
-            
-            guard dic["errno"] as? Int == 0 else {
-                print(dic["errmsg"]!)
-                return
-            }
-            
-            if let data = dic["data"] as? [[String:Any]] {
-                self.cardList.removeAll()
-                for dict in data {
-                    let cardInfo = dict as Dictionary
-                    self.cardList.append(Card(dict: cardInfo))
+
+
+
+
+//        Alamofire.request(BicycleAPIs.rootURL+BicycleAPIs.cardURL, method: .get, parameters: parameters, headers: nil)
+        Alamofire.request(BicycleAPIs.rootURL+BicycleAPIs.cardURL, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: ["Accept": "application/json"]).responseJSON { response in
+            switch response.result {
+            case .success:
+                if let data = response.result.value,
+                    let dict = data as? [String: Any] {
+                    guard dict["errno"] as? Int == 0 else {
+                        failure?((dict["errmsg"] as? String) ?? "解析失败")
+                        return
+                    }
+
+                    if let data = dict["data"] as? [[String:Any]] {
+                        self.cardList.removeAll()
+                        for dic in data {
+                            let cardInfo = dic as Dictionary
+                            self.cardList.append(Card(dict: cardInfo))
+                        }
+                        doSomething()
+                    }
                 }
+            case .failure(let error):
+                failure?(error.localizedDescription)
             }
-            
-            doSomething()
-            
-        }, failure: { error in
-            print("error: \(error)")
-        })
-        
-        //        manager.request(BicycleAPIs.cardURL, parameters: parameters, progress: { (progress: Progress) in
-        //
-        ////            MsgDisplay.showLoading()
-        //
-        //            }, success: { (task: URLSessionDataTask, responseObject: AnyObject?) in
-        //
-        //            let dic = responseObject as? NSDictionary
-        //            //log.obj(dic!)/
-        //            guard dic?.objectForKey("errno") as? NSNumber == 0 else {
-        //                MsgDisplay.showErrorMsg(dic?.objectForKey("errmsg") as? String)
-        //                return
-        //            }
-        //
-        //            MsgDisplay.dismiss()
-        //            let list = dic?.objectForKey("data") as? NSArray
-        //
-        //            self.cardList.removeAll()
-        //            for dict in list! {
-        //                let cardInfo = dict as? NSDictionary
-        //                self.cardList.append(Card(dict: cardInfo!))
-        //            }
-        //            doSomething()
-        //
-        //        }, failure: { (task: URLSessionDataTask?, error: NSError) in
-        //            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
-        //            print("error: \(error)")
-        //        })
+        }
+
+//        SolaSessionManager.solaSession(type: .get, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.cardURL, parameters: parameters, success: { dic in
+//
+//            guard dic["errno"] as? Int == 0 else {
+//                print(dic["errmsg"]!)
+//                return
+//            }
+//
+//            if let data = dic["data"] as? [[String:Any]] {
+//                self.cardList.removeAll()
+//                for dict in data {
+//                    let cardInfo = dict as Dictionary
+//                    self.cardList.append(Card(dict: cardInfo))
+//                }
+//            }
+//
+//            doSomething()
+//
+//        }, failure: { error in
+//            print("error: \(error)")
+//        })
     }
     
-    func bindCard(id: String, sign: String, doSomething: @escaping () -> ()) {
+    func bindCard(id: String, sign: String, doSomething: @escaping () -> (), failure: ((String)->())? = nil) {
         
         let parameters = ["auth_token": bikeToken!, "id": id, "sign": sign]
-        
-        SolaSessionManager.solaSession(type: .post, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.bindURL, parameters: parameters, success: { dic in
-            
-            guard dic["errno"] as? Int == 0 else {
-                return
+
+
+        Alamofire.request(BicycleAPIs.rootURL+BicycleAPIs.bindURL, method: .post, parameters: parameters, headers: nil).responseJSON { response in
+            switch response.result {
+            case .success:
+                if let data = response.result.value,
+                    let dict = data as? [String: Any] {
+                    guard dict["errno"] as? Int == 0 else {
+                        failure?((dict["errmsg"] as? String) ?? "解析失败")
+                        return
+                    }
+                    doSomething()
+                }
+            case .failure(let error):
+                failure?(error.localizedDescription)
             }
-            
-            doSomething()
-            
-        }, failure: { error in
-            print("error: \(error)")
-        })
-        
+        }
+
+//        SolaSessionManager.solaSession(type: .post, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.bindURL, parameters: parameters, success: { dic in
+//
+//            guard dic["errno"] as? Int == 0 else {
+//                return
+//            }
+//
+//            doSomething()
+//
+//        }, failure: { error in
+//            print("error: \(error)")
+//        })
+
         //        let manager = Alamofire.SessionManager()
         //
         //        manager.request(BicycleAPIs.bindURL, parameters: parameters, progress: { (progress: Progress) in

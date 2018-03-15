@@ -36,18 +36,7 @@ class LibraryBindingViewController: UIViewController {
         logoImageView = UIImageView.init(image: logoImage)
         logoImageView.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*1.0/5.0), size: CGSize(width: imageViewWidth, height: imageViewWidth / imageRatio))
         self.view.addSubview(logoImageView)
-        
-        captionLabel = UILabel()
-        captionLabel.textAlignment = .center
-        captionLabel.text = "天外天账户与图书馆关联"
-        captionLabel.font = UIFont.systemFont(ofSize: 13)
-        captionLabel.textColor = UIColor(hex6: 0xd3d3d3)
-        self.view.addSubview(captionLabel)
-        captionLabel.snp.makeConstraints { make in
-            make.center.equalTo(logoImageView)
-            make.top.equalTo(logoImageView.snp.bottom).offset(logoImageView.height * 0.5 + 10)
-        }
-        
+
         let textFieldWidth: CGFloat = 250
         passwordTextField = UITextField()
         passwordTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*2.0/5.0), size: CGSize(width: textFieldWidth, height: 40))
@@ -57,7 +46,19 @@ class LibraryBindingViewController: UIViewController {
         passwordTextField.isSecureTextEntry = true
         passwordTextField.clearButtonMode = .always
         self.view.addSubview(passwordTextField)
-        
+
+        captionLabel = UILabel()
+        captionLabel.textAlignment = .center
+        captionLabel.text = "默认密码是 000000 或 666666"
+        captionLabel.font = UIFont.systemFont(ofSize: 13)
+        captionLabel.textColor = UIColor(hex6: 0xd3d3d3)
+        self.view.addSubview(captionLabel)
+        captionLabel.snp.makeConstraints { make in
+            make.left.equalTo(passwordTextField.snp.left)
+            make.bottom.equalTo(passwordTextField.snp.top).offset(-10)
+        }
+
+
         bindButton = UIButton()
         bindButton.frame = CGRect(x: (self.view.frame.size.width-textFieldWidth)/2, y: passwordTextField.frame.origin.y + passwordTextField.frame.size.height + 20, width: textFieldWidth, height: 38)
         bindButton.setTitle("绑 定", for: .normal)
@@ -98,13 +99,23 @@ class LibraryBindingViewController: UIViewController {
         self.view.addSubview(dismissButton)
  
         self.view.backgroundColor = .white
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
-    
+
+    @objc func keyboardWillShow(notification: NSNotification) {
+        self.view.frame.origin.y = -40
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y = 0
+    }
+
+
     @objc func bind() {
         
         if passwordTextField.hasText {

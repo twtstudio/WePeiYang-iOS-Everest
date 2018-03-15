@@ -71,21 +71,7 @@ class WLANBindingViewController: UIViewController {
         bindButton.layer.cornerRadius = 5
         bindButton.addTarget(self, action: #selector(bind), for: .touchUpInside)
         self.view.addSubview(bindButton)
-        
-//        serviceButton = UIButton()
-//        serviceButton.setTitle("自服务", for: .normal)
-//        serviceButton.isUserInteractionEnabled = true
-//        serviceButton.backgroundColor = UIColor(hex6: 0xd3d3d3)
-//        serviceButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
-//        serviceButton.layer.borderWidth = 2
-//        serviceButton.layer.cornerRadius = 5
-//        serviceButton.addTarget(self, action: #selector(showService), for: .touchUpInside)
-//        self.view.addSubview(serviceButton)
-//        serviceButton.snp.makeConstraints { (make) -> Void in
-//            make.left.equalTo((self.view.frame.size.width-textFieldWidth)/2)
-//            make.right.equalTo(-(self.view.frame.size.width-textFieldWidth)/2)
-//            make.top.equalTo(bindButton.snp.bottom).offset(10)
-//        }
+
 
         dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: bindButton.y + bindButton.height + 20, width: 30, height: 20))
         dismissButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
@@ -96,18 +82,14 @@ class WLANBindingViewController: UIViewController {
         dismissButton.addTarget(self, action: #selector(dismissBinding), for: .touchUpInside)
         self.view.addSubview(dismissButton)
         
-        // Get WLAN status
-        SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.getStatus, token: nil, parameters: nil, success: { dictionary in
-            print(dictionary)
-        }, failure: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
-    
+
     @objc func bind() {
         
         if usernameTextField.hasText && passwordTextField.hasText {
@@ -118,8 +100,6 @@ class WLANBindingViewController: UIViewController {
             SwiftMessages.showLoading()
             SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL,  parameters: loginInfo, success: { dictionary in
                 SwiftMessages.hide()
-                print(dictionary)
-                print("Succeeded")
                 guard let errorCode: Int = dictionary["error_code"] as? Int,
                     let errMsg = dictionary["message"] as? String else {
                         return
@@ -134,8 +114,6 @@ class WLANBindingViewController: UIViewController {
                     SwiftMessages.showSuccessMessage(body: "绑定成功！")
                     NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
                     self.dismiss(animated: true, completion: nil)
-                    print("TJUBindingState:")
-                    print(TwTUser.shared.tjuBindingState)
                 } else if errorCode == 50002 {
                     SwiftMessages.showErrorMessage(body: "密码错误")
                 } else {
@@ -151,8 +129,6 @@ class WLANBindingViewController: UIViewController {
     }
     
     func cancelLogin() {
-        
-        // unbind tju account
         var loginInfo: [String: String] = [String: String]()
         loginInfo["tjuuname"] = usernameTextField.text
         loginInfo["tjupasswd"] = passwordTextField.text
@@ -196,14 +172,12 @@ class WLANBindingViewController: UIViewController {
 }
 
 extension WLANBindingViewController {
-
-    func hideKeyboard() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(WLANBindingViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+    @objc func keyboardWillShow(notification: NSNotification) {
+        self.view.frame.origin.y = -40
     }
 
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
+    @objc func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y = 0
     }
 }
 

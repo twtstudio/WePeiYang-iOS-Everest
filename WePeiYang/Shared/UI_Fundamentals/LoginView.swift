@@ -144,6 +144,10 @@ class LoginView: MessageView {
             usernameField.text = TwTUser.shared.username
         }
     }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 // 这部分应该是 Controller 在做 但我不知道怎么样比较合适
@@ -189,9 +193,9 @@ extension LoginView {
 
         })
 
-        BicycleUser.sharedInstance.auth {
+        BicycleUser.sharedInstance.auth(success: {
             NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("bike", TwTUser.shared.bicycleBindingState))
-        }
+        })
 
         ClasstableDataManager.getClassTable(success: { model in
             if let string = model.toJSONString() {
@@ -205,28 +209,11 @@ extension LoginView {
 
 extension LoginView {
     @objc func keyboardWillShow(notification: NSNotification) {
-//        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
-//        let keyboardFrame: NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
-//        let keyboardRectangle = keyboardFrame.cgRectValue
-//        let keyboardHeight = keyboardRectangle.height
-
-//        UIView.animate(withDuration: 0.5, animations: {
-//            self.view.frame.origin.y = -keyboardHeight
-//        })
-//        self.snp.updateConstraints { make in
-//            make.top.equalToSuperview().offset(30-keyboardHeight)
-//        }
         self.frame.origin.y = 20
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
         self.frame.origin.y = (UIScreen.main.bounds.height - self.frame.height)/2
-//        self.snp.updateConstraints { make in
-//            make.top.equalToSuperview().offset(30)
-//        }
-//        UIView.animate(withDuration: 0.5, animations: {
-//            self.view.frame.origin.y = 0
-//        })
     }
 }
 

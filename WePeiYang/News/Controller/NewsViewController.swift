@@ -332,10 +332,12 @@ extension NewsViewController: UITableViewDataSource {
             cell.contentView.addSubview(galleryView)
             galleryView.snp.makeConstraints { make in
                 make.top.equalTo(titleLabel.snp.bottom).offset(20)
-                make.bottom.left.right.equalToSuperview()
+                make.left.right.equalToSuperview()
+                make.bottom.equalToSuperview().offset(-10)
                 make.width.equalToSuperview()
                 make.height.equalTo(200)
             }
+            galleryView.layer.masksToBounds = false
             cell.selectionStyle = .none
         case 2:
             let titleLabel = UILabel(text: "新闻", color: .black)
@@ -453,10 +455,17 @@ extension NewsViewController: UICollectionViewDataSource {
         imgView.addSubview(label)
         cell.contentView.addSubview(imgView)
 
-        // TODO: 阴影
-        cell.layer.shadowRadius = 3.0
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOffset = CGSize(width: 0, height: 3)
+//        // TODO: 阴影
+//        cell.layer.shadowRadius = 3.0
+//        cell.layer.shadowColor = UIColor.black.cgColor
+//        cell.layer.shadowOffset = CGSize(width: 0, height: 3)
+//        cell.layer.masksToBounds = false
+
+        cell.layer.cornerRadius = 15
+        cell.layer.shadowRadius = 4
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
+
+        cell.layer.shadowOpacity = 0.5
         cell.layer.masksToBounds = false
 
         return cell

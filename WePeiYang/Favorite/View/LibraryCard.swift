@@ -61,10 +61,15 @@ class LibraryCard: CardView {
     }
 
     override func refresh() {
+        guard TwTUser.shared.libBindingState == true else {
+            self.setState(.failed("请绑定图书馆", .gray))
+            return
+        }
 
         CacheManager.retreive("lib/info.json", from: .group, as: LibraryResponse.self, success: { response in
             LibraryDataContainer.shared.response = response
             self.tableView.reloadData()
+            self.setState(.data)
         }, failure: {
             self.refreshBooks(sender: self.refreshButton)
 //            refresh()
@@ -238,7 +243,7 @@ extension LibraryCard {
                 CacheManager.store(object: response, in: .group, as: "lib/info.json")
                 success?()
             } else {
-                self.setState(.failed("加载", .gray))
+                self.setState(.failed("加载中", .gray))
                 // TODO: 解析错误
             }
         }, failure: { err in

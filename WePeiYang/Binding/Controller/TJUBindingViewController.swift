@@ -93,13 +93,14 @@ class TJUBindingViewController: UIViewController {
         dismissButton.addTarget(self, action: #selector(dismissBinding), for: .touchUpInside)
         self.view.addSubview(dismissButton)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
-    
+
     @objc func bind() {
         
         if usernameTextField.hasText && passwordTextField.hasText {
@@ -150,8 +151,6 @@ class TJUBindingViewController: UIViewController {
         
         SolaSessionManager.solaSession(type: .get, url: "/auth/unbind/tju", token: TwTUser.shared.token, parameters: loginInfo, success: { dictionary in
             
-            print(dictionary)
-            print("Succeeded")
             guard let errorCode: Int = dictionary["error_code"] as? Int else {
                 return
             }
@@ -160,20 +159,12 @@ class TJUBindingViewController: UIViewController {
                 TwTUser.shared.tjuBindingState = false
                 TwTUser.shared.save()
                 self.dismiss(animated: true, completion: nil)
-                print("TJUBindingState:")
-                print(TwTUser.shared.tjuBindingState)
             } else {
-                let alert = UIAlertController(title: "未知错误", message: nil, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "好的", style: .default, handler: { (result) in
-                    print("OK.")
-                })
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
+                let message = dictionary["message"] as? String
+                SwiftMessages.showErrorMessage(body: message ?? "解析错误")
             }
         }, failure: { error in
-            
-            debugLog(error)
-            print("Failed")
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
             self.dismiss(animated: true, completion: nil)
             
         })
@@ -183,14 +174,11 @@ class TJUBindingViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        self.view.frame.origin.y = -40
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y = 0
+    }
 }

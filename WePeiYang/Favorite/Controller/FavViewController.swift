@@ -60,8 +60,16 @@ class FavViewController: UIViewController {
         let statusBarHeight: CGFloat = UIScreen.main.bounds.height == 812 ? 44 : 20
         let tabBarHeight = self.tabBarController?.tabBar.height ?? 0
 
+
+        let placeholderLabel = UILabel(text: "什么都不加你还想看什么😒", color: .lightGray)
+        placeholderLabel.font = UIFont.flexibleSystemFont(ofSize: 20, weight: .medium)
+        placeholderLabel.sizeToFit()
+        view.addSubview(placeholderLabel)
+
         cardTableView = UITableView(frame: CGRect(x: 0, y: statusBarHeight, width: deviceWidth, height: deviceHeight-statusBarHeight-tabBarHeight), style: .grouped)
-//        view = cardTableView
+
+        placeholderLabel.center = cardTableView.center
+
         view.addSubview(cardTableView)
 
         cardTableView.delegate = self
@@ -109,26 +117,16 @@ class FavViewController: UIViewController {
                 let indexPath = IndexPath(row: row, section: 0)
                 let cell = self.cardTableView.cellForRow(at: indexPath)
 
-                //                self.cardTableView.beginUpdates()
-                //                card.snp.remakeConstraints { make in
-                //                    make.top.equalToSuperview().offset(10)
-                //                    make.bottom.equalToSuperview().offset(-10)
-                //                    make.height.equalTo(height)
-                //                    make.left.equalToSuperview().offset(15)
-                //                    make.right.equalToSuperview().offset(-15)
-                //                }
                 self.cellHeights[row] = height
 
                 card.snp.updateConstraints { make in
                     make.height.equalTo(height)
                 }
 
-                //                cell?.contentView.updateConstraintsIfNeeded()
-
-                //                card.updateConstraintsIfNeeded()
+                card.setNeedsUpdateConstraints()
                 cell?.setNeedsUpdateConstraints()
                 UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
-                    //                    card.layoutIfNeeded()
+                    card.layoutIfNeeded()
                     //                    cell?.contentView.layoutIfNeeded()
                     cell?.layoutIfNeeded()
                 }, completion: { _ in
@@ -168,6 +166,16 @@ class FavViewController: UIViewController {
 
     // 重新加载数据
     @objc func refreshCards(info: Notification) {
+        let showCount = modules.map({ $0.1 })
+            .reduce(0, { (lastResult, show) in
+                return show ? lastResult + 1 : lastResult
+            })
+        if showCount == 0 {
+            view.sendSubview(toBack: cardTableView)
+        } else {
+            view.bringSubview(toFront: cardTableView)
+        }
+
         for item in modules {
             // 如果 show == true
             if item.1 {

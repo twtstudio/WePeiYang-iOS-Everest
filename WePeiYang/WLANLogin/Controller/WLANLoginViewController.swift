@@ -49,7 +49,15 @@ class WLANLoginViewController: UIViewController {
         WiFiImageView = UIImageView.init(image: WiFiImage)
         WiFiImageView.frame = CGRect(x: 0, y: -70, width: UIScreen.main.bounds.width, height: self.view.bounds.height)
         self.view.addSubview(WiFiImageView)
-        
+
+
+//         Get WLAN status
+//        WLANHelper.getStatus(success: { _ in
+//
+//        }, failure: { errMsg in
+//
+//        })
+
         updateUserInterface()
     }
     

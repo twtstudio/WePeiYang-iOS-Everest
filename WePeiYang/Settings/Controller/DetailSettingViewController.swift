@@ -11,6 +11,7 @@ import SafariServices
 import StoreKit
 import SwiftMessages
 import WebKit
+import PopupDialog
 
 class DetailSettingViewController: UIViewController {
     enum SettingTitle: String {
@@ -139,6 +140,32 @@ extension DetailSettingViewController: UITableViewDelegate {
             let notificationVC = NotificationSettingViewController()
             self.navigationController?.pushViewController(notificationVC, animated: true)
             return
+        case (0, .shakeWiFi):
+            let status = UserDefaults.standard.bool(forKey: "shakeWiFiEnabled")
+            let popup: PopupDialog
+            if status {
+                // 开启状态
+                popup = PopupDialog(title: "摇一摇上网", message: "要关闭摇一摇联网吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+
+                let cancelButton = DefaultButton(title: "取消", action: nil)
+
+                let defaultButton = DestructiveButton(title: "关闭", dismissOnTap: true) {
+                    UserDefaults.standard.set(false, forKey: "shakeWiFiEnabled")
+                }
+                popup.addButtons([cancelButton, defaultButton])
+            } else {
+                // 开启状态
+                popup = PopupDialog(title: "摇一摇上网", message: "要开启摇一摇联网吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+
+                let cancelButton = CancelButton(title: "取消", action: nil)
+
+                let defaultButton = DefaultButton(title: "开启", dismissOnTap: true) {
+                    UserDefaults.standard.set(true, forKey: "shakeWiFiEnabled")
+                }
+                popup.addButtons([cancelButton, defaultButton])
+            }
+            self.present(popup, animated: true, completion: nil)
+            return
         case (0, .modules):
             let settingsVC = ModulesSettingsViewController()
             self.navigationController?.pushViewController(settingsVC, animated: true)
@@ -146,7 +173,7 @@ extension DetailSettingViewController: UITableViewDelegate {
             return
 
         case (1, .join):
-            let webVC = SupportWebViewController(url: URL(string: "https://coder.twtstudio.com/join")!)
+            let webVC = SupportWebViewController(url: URL(string: "https://coder.twtstudio.com/")!)
             self.navigationController?.pushViewController(webVC, animated: true)
         case (1, .EULA):
             let webVC = SupportWebViewController(url: URL(string: "https://support.twtstudio.com/category/1/%E5%85%AC%E5%91%8A")!)
@@ -178,19 +205,19 @@ extension DetailSettingViewController: UITableViewDelegate {
 //                }
 //            })
         case (2, .quit):
-            let alert = UIAlertController(title: "确定要退出吗？", message: nil, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "确定", style: .destructive, handler: { (result) in
+            let popup = PopupDialog(title: "退出", message: "确定要退出吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+
+            let cancelButton = CancelButton(title: "不了", action: nil)
+
+            let defaultButton = DestructiveButton(title: "退出", dismissOnTap: true) {
                 TwTUser.shared.delete()
                 tableView.reloadData()
                 NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
                 self.navigationController?.popViewController(animated: true)
-            })
-            let cancelAction = UIAlertAction(title: "不了", style: .cancel, handler: { (result) in
-                print("Canceled")
-            })
-            alert.addAction(okAction)
-            alert.addAction(cancelAction)
-            self.present(alert, animated: true, completion: nil)
+            }
+            popup.addButtons([cancelButton, defaultButton])
+            self.present(popup, animated: true, completion: nil)
+            
         default:
             return
         }
