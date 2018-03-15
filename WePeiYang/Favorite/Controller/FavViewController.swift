@@ -28,6 +28,7 @@ class FavViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         navigationController?.navigationBar.shadowImage = UIImage()
         //
         //        navigationController?.navigationBar.barStyle = .black

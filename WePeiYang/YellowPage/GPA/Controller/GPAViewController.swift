@@ -237,6 +237,7 @@ class GPAViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: NotificationName.NotificationAppraiseDidSucceed.name, object: nil)
 
+        hidesBottomBarWhenPushed = true
 
         if isModal {
             let image = UIImage(named: "ic_back")!

@@ -10,9 +10,8 @@ import UIKit
 import PopupDialog
 
 class WPYTabBarController: UITabBarController {
-    
     private let tabBarVCDelegate = WPYTabBarControllerDelegate()
-    
+    // FIXME: should be private
     convenience init(viewControllers: [UIViewController]?) {
         self.init()
         

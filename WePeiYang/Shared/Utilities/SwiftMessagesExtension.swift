@@ -43,6 +43,7 @@ extension SwiftMessages {
         let view = nib.instantiate(withOwner: nil, options: nil).first as! UIView
         var config = SwiftMessages.Config()
         config.presentationContext = .window(windowLevel: UIWindowLevelAlert)
+        config.interactiveHide = false
         config.presentationStyle = .center
         config.dimMode = .gray(interactive: true)
         config.duration = .forever

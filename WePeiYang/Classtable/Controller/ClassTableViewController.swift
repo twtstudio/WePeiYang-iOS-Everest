@@ -80,6 +80,7 @@ class ClassTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isTranslucent = false
+        hidesBottomBarWhenPushed = true
         self.view.backgroundColor = .white
         initNavBar()
 

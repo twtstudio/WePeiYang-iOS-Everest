@@ -12,6 +12,13 @@ struct ClasstableDataManager {
 
     static func getClassTable(success: @escaping (ClassTableModel)->(), failure: @escaping (String)->()) {
         SolaSessionManager.solaSession(type: .get, url: "/classtable", parameters: nil, success: { dic in
+            if let error_code = dic["error_code"] as? Int,
+                error_code != -1,
+                let message = dic["message"] as? String {
+                    failure(message)
+                return
+            }
+
             if var model = Mapper<ClassTableModel>().map(JSONObject: dic["data"]) {
                 var colorConfig = [String: Int]()
                 model.classes = model.classes.map { course in

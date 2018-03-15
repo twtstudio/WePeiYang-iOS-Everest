@@ -80,6 +80,8 @@ class BicycleServiceViewController: WMPageController {
             }
         }
 
+        hidesBottomBarWhenPushed = true
+
         BicycleUser.sharedInstance.auth(success: {})
         super.viewDidLoad()
         
