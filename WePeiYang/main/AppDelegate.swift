@@ -76,7 +76,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = mainTabVC
         //UINavigationController(rootViewController: mainTabVC)
         window?.makeKeyAndVisible()
-        
+
+//        if true {
+//            let helper = OnBoardHelper()
+//            helper.showAlert()
+//        }
+
         // To check if network is available
         // Used to determine the network state for WLANLogin
         do {

@@ -43,7 +43,7 @@ class LibraryCard: CardView {
         contentView.addSubview(refreshButton)
         refreshButton.setTitle("刷新")
         refreshButton.layer.cornerRadius = refreshButton.height/2
-        refreshButton.tapAction = refresh
+        refreshButton.tapAction = refreshBooks
 
         contentView.addSubview(toggleButton)
         toggleButton.setTitle("展开")
@@ -61,7 +61,14 @@ class LibraryCard: CardView {
     }
 
     override func refresh() {
-        refresh(sender: refreshButton)
+
+        CacheManager.retreive("lib/info.json", from: .group, as: LibraryResponse.self, success: { response in
+            LibraryDataContainer.shared.response = response
+            self.tableView.reloadData()
+        }, failure: {
+            self.refreshBooks(sender: self.refreshButton)
+//            refresh()
+        })
     }
 
     func remakeConstraints() {
@@ -152,14 +159,14 @@ extension LibraryCard: UITableViewDataSource {
         let book = LibraryDataContainer.shared.books[indexPath.row]
 
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-DD"
+        dateFormatter.dateFormat = "YYYY-MM-dd"
 
         var image = #imageLiteral(resourceName: "感叹号")
         // 如果还没到还书时间
-        if let date = dateFormatter.date(from: book.returnTime),
-            date >= Date() {
+        if dateFormatter.string(from: Date()) <= book.returnTime {
             image = #imageLiteral(resourceName: "对号")
         }
+
 
         let imageSize = CGSize(width: 25, height: 25)
         image = UIImage.resizedImage(image: image, scaledToSize: imageSize)
@@ -229,11 +236,9 @@ extension LibraryCard {
                 self.tableView.reloadData()
                 // 缓存起来撒
                 CacheManager.store(object: response, in: .group, as: "lib/info.json")
-//                Storage.store(response, in: .group, as: "lib")
-//                Storage.store(response, in: .caches, as: CacheFilenameKey.libUserInfo.name)
                 success?()
             } else {
-                self.setState(.failed("解析失败", .gray))
+                self.setState(.failed("加载", .gray))
                 // TODO: 解析错误
             }
         }, failure: { err in
@@ -241,7 +246,8 @@ extension LibraryCard {
         })
     }
 
-    func refresh(sender: CardButton) {
+    // 真正的请求
+    func refreshBooks(sender: CardButton) {
         // 先折叠 再刷新
         if toggleButton.tag == LibCardState.unfold.rawValue {
             toggle(sender: toggleButton)

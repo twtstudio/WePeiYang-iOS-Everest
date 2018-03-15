@@ -17,6 +17,7 @@ class DetailSettingViewController: UIViewController {
         case notification = "推送设置"
         case modules = "模块设置"
         case accounts = "关联账号设置"
+        case shakeWiFi = "摇一摇登录校园网"
 
         case join = "加入我们"
         case EULA = "用户协议"
@@ -30,9 +31,10 @@ class DetailSettingViewController: UIViewController {
 
     var tableView: UITableView!
     var titles: [(String, [SettingTitle])] = [
-        ("设置", [.notification, .modules, .accounts]),
-                  ("关于", [.join, .EULA, .feedback]),
-                  ("其他", [.share, .rate, .quit])]
+        //        ("设置", [.notification, .modules, .accounts]),
+        ("设置", [.shakeWiFi, .modules]),
+        ("关于", [.join, .EULA, .feedback]),
+        ("其他", [.share, .rate, .quit])]
 
 
     override func viewWillAppear(_ animated: Bool) {
@@ -161,19 +163,20 @@ extension DetailSettingViewController: UITableViewDelegate {
 //            }
             self.present(shareVC, animated: true, completion: nil)
         case (2, .rate):
-            let appid = "785509141"
-            let storeVC = SKStoreProductViewController()
-            storeVC.delegate = self
-            SwiftMessages.showLoading()
-
-            storeVC.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: appid], completionBlock: { (result, error) in
-                if let error = error {
-                    SwiftMessages.showErrorMessage(body: error.localizedDescription)
-                } else {
-                    SwiftMessages.hide()
-                    self.present(storeVC, animated: true, completion: nil)
-                }
-            })
+            UIApplication.shared.openURL(URL(string: "itms-apps://itunes.apple.com/cn/app/%E5%BE%AE%E5%8C%97%E6%B4%8B/id785509141?mt=8")!)
+//            let appid = "785509141"
+//            let storeVC = SKStoreProductViewController()
+//            storeVC.delegate = self
+//            SwiftMessages.showLoading()
+//
+//            storeVC.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: appid], completionBlock: { (result, error) in
+//                if let error = error {
+//                    SwiftMessages.showErrorMessage(body: error.localizedDescription)
+//                } else {
+//                    SwiftMessages.hide()
+//                    self.present(storeVC, animated: true, completion: nil)
+//                }
+//            })
         case (2, .quit):
             let alert = UIAlertController(title: "确定要退出吗？", message: nil, preferredStyle: .alert)
             let okAction = UIAlertAction(title: "确定", style: .destructive, handler: { (result) in

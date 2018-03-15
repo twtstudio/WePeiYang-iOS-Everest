@@ -168,11 +168,22 @@ class FavViewController: UIViewController {
 
     // 重新加载数据
     @objc func refreshCards(info: Notification) {
-        for key in Array(cardDict.keys) {
-//            if key != .library {
-                cardDict[key]!.refresh()
-//            }
+        for item in modules {
+            // 如果 show == true
+            if item.1 {
+                cardDict[item.0]!.refresh()
+            }
         }
+
+//        for key in Array(cardDict.keys) {
+//////            if key != .library {
+////            if modules.first(where: { (module, show) -> Bool in
+////                return module == key
+////            })
+//                cardDict[key]!.refresh()
+//////            }
+//        }
+
         switch info.name {
         case NotificationName.NotificationUserDidLogin.name:
             cardTableView.reloadData()

@@ -89,6 +89,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if DeviceStatus.deviceOSVersion.starts(with: "9") {
             dayLabel.textColor = .white
             messageLabel.textColor = .white
+            imgView.image = #imageLiteral(resourceName: "ic_wifi-1").withRenderingMode(.alwaysTemplate)
+            imgView.tintColor = .white
+            hintLabel.textColor = .white
         } else {
             dayLabel.textColor = .gray
             messageLabel.textColor = .gray
@@ -177,7 +180,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if #available(iOSApplicationExtension 10.0, *) {
             extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         } else {
-            tableView.frame.size.height = max(1, CGFloat(classes.count)) * tableView.rowHeight + 20
+            tableView.frame.size.height = max(1, CGFloat(classes.count)) * tableView.rowHeight + 40
             self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height + 20)
         }
     }
