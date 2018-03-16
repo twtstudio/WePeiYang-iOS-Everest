@@ -67,9 +67,17 @@ class BicycleCardListViewController: UITableViewController, UIAlertViewDelegate 
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         choosenRow = indexPath.row
+        let choosenCard = BicycleUser.sharedInstance.cardList[choosenRow];
+
         let alertVC = UIAlertController(title: "提示", message: "确定绑定此卡?", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "确定", style: .default, handler: { action in
-
+            BicycleUser.sharedInstance.bindCard(id: choosenCard.id!, sign: choosenCard.sign!, doSomething: {
+                BicycleUser.sharedInstance.status = 1;//坑：毕竟这样不太稳妥
+                UserDefaults.standard.setValue(1, forKey: "BicycleStatus")
+                TwTUser.shared.bicycleBindingState = true
+            }, failure: { _ in
+                SwiftMessages.showErrorMessage(body: "绑定失败")
+            })
         })
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
 

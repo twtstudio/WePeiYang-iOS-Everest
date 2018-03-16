@@ -68,7 +68,9 @@ class YellowPageMainViewController: UIViewController {
             self.tableView.reloadData()
             SwiftMessages.hide()
         }, failure: {
+            SwiftMessages.hide()
             PhoneBook.checkVersion {
+                SwiftMessages.hide()
                 self.tableView.reloadData()
             }
         })

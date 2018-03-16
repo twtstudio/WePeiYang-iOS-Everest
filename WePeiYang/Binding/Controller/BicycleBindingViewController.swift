@@ -82,7 +82,12 @@ class BicycleBindingViewController: UIViewController {
 
         BicycleUser.sharedInstance.auth(success: {
             BicycleUser.sharedInstance.getCardlist(idnum: IDCardNumber, doSomething: {
-                SwiftMessages.showSuccessMessage(body: "绑定成功👏🏻")
+                let card = BicycleUser.sharedInstance.cardList.first!
+                BicycleUser.sharedInstance.bindCard(id: card.id!, sign: card.sign!, doSomething: {
+                    SwiftMessages.showSuccessMessage(body: "绑定成功👏🏻")
+                }, failure: { errMsg in
+                    SwiftMessages.showErrorMessage(body: errMsg)
+                })
             })
         }, failure: { errMsg in
             SwiftMessages.showErrorMessage(body: errMsg)

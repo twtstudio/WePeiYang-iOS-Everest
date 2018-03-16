@@ -210,6 +210,8 @@ extension DetailSettingViewController: UITableViewDelegate {
             let cancelButton = CancelButton(title: "不了", action: nil)
 
             let defaultButton = DestructiveButton(title: "退出", dismissOnTap: true) {
+                UserDefaults.standard.set(true, forKey: "shakeWiFiEnabled")
+                UserDefaults.standard.set(false, forKey: "isOnline")
                 TwTUser.shared.delete()
                 tableView.reloadData()
                 NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)

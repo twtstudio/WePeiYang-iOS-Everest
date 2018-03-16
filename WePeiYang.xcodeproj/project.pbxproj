@@ -169,6 +169,9 @@
 		369B2D4A20151542009352A8 /* DateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369B2D4920151542009352A8 /* DateTool.swift */; };
 		369D92072015D914004BA1D0 /* WeekSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D92062015D914004BA1D0 /* WeekSelectView.swift */; };
 		369D92092015D97A004BA1D0 /* WeekItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D92082015D97A004BA1D0 /* WeekItemCell.swift */; };
+		36A74EB1205BAD0300DD1EC3 /* AlertPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A74EAE205BAD0200DD1EC3 /* AlertPageViewController.swift */; };
+		36A74EB2205BAD0300DD1EC3 /* AlertOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A74EAF205BAD0200DD1EC3 /* AlertOnboarding.swift */; };
+		36A74EB3205BAD0300DD1EC3 /* AlertChildPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A74EB0205BAD0200DD1EC3 /* AlertChildPageViewController.swift */; };
 		36A9C320204C56CD0018B6B3 /* ProgressWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A9C31F204C56CD0018B6B3 /* ProgressWebViewController.swift */; };
 		36B2C8902038898400AD2E3F /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A46452035E35500738963 /* Storage.swift */; };
 		36B2C89120388DF200AD2E3F /* LibraryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364922A020260CDC00DFDC35 /* LibraryModel.swift */; };
@@ -452,6 +455,9 @@
 		369B2D4920151542009352A8 /* DateTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTool.swift; sourceTree = "<group>"; };
 		369D92062015D914004BA1D0 /* WeekSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSelectView.swift; sourceTree = "<group>"; };
 		369D92082015D97A004BA1D0 /* WeekItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekItemCell.swift; sourceTree = "<group>"; };
+		36A74EAE205BAD0200DD1EC3 /* AlertPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPageViewController.swift; sourceTree = "<group>"; };
+		36A74EAF205BAD0200DD1EC3 /* AlertOnboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertOnboarding.swift; sourceTree = "<group>"; };
+		36A74EB0205BAD0200DD1EC3 /* AlertChildPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertChildPageViewController.swift; sourceTree = "<group>"; };
 		36A9C31F204C56CD0018B6B3 /* ProgressWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressWebViewController.swift; sourceTree = "<group>"; };
 		36B2C898203DB8DB00AD2E3F /* ClassWidgetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassWidgetCell.swift; sourceTree = "<group>"; };
 		36B8F2E9205110A60080083C /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
@@ -941,6 +947,9 @@
 		3681C0A2205B0217005DF5AF /* OnBoard */ = {
 			isa = PBXGroup;
 			children = (
+				36A74EB0205BAD0200DD1EC3 /* AlertChildPageViewController.swift */,
+				36A74EAF205BAD0200DD1EC3 /* AlertOnboarding.swift */,
+				36A74EAE205BAD0200DD1EC3 /* AlertPageViewController.swift */,
 				3681C0A3205B027A005DF5AF /* AlertChildPageViewController.xib */,
 			);
 			path = OnBoard;
@@ -1793,6 +1802,7 @@
 				A53602671FC6E36100E3D1AF /* LibraryBindingViewController.swift in Sources */,
 				A586543720514E860069CF53 /* LoginAndLogout.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
+				36A74EB2205BAD0300DD1EC3 /* AlertOnboarding.swift in Sources */,
 				36449E6C1FA4BABA0036766B /* FunctionListTableViewCell.swift in Sources */,
 				36449E701FA4BABA0036766B /* CourseDetailReadingView.swift in Sources */,
 				36A9C320204C56CD0018B6B3 /* ProgressWebViewController.swift in Sources */,
@@ -1839,6 +1849,7 @@
 				0C3ADF471F697EE100388C19 /* MarkCustomCell.swift in Sources */,
 				0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */,
 				36922AE21FCAEA1E00AD44F3 /* GPAModel.swift in Sources */,
+				36A74EB1205BAD0300DD1EC3 /* AlertPageViewController.swift in Sources */,
 				361F885D204AF92D00BCFA19 /* BannerScrollView.swift in Sources */,
 				36FCC2DD20555F8F003379AE /* AnimateButton.swift in Sources */,
 				3685D9F1204D276100BA6C3D /* NewsDetailModel.swift in Sources */,
@@ -1898,6 +1909,7 @@
 				3659367D1F1E5FAE003CE578 /* YellowPageSearchViewController.swift in Sources */,
 				0C3ADF4B1F697EE100388C19 /* UpLoadingPicCell.swift in Sources */,
 				3659366F1F1E37B8003CE578 /* SearchView.swift in Sources */,
+				36A74EB3205BAD0300DD1EC3 /* AlertChildPageViewController.swift in Sources */,
 				A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */,
 				361F8856204AF92100BCFA19 /* HomePageModel.swift in Sources */,
 				36449E881FA4BAD10036766B /* PartySignUpViewController.swift in Sources */,

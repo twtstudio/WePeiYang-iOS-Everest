@@ -34,7 +34,7 @@ struct WLANHelper {
             } else if errorCode == 50002 {
                 failure("密码错误")
             } else {
-                failure(errMsg+"\n"+"已为你保存账号")
+                failure(errMsg)
             }
         }, failure: { error in
             failure(error.localizedDescription)

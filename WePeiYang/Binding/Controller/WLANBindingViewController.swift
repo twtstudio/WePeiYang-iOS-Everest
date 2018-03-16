@@ -38,7 +38,7 @@ class WLANBindingViewController: UIViewController {
         let imageRatio: CGFloat = logoImage.size.width / logoImage.size.height
         let imageViewWidth: CGFloat = UIScreen.main.bounds.width * 0.6
         logoImageView = UIImageView.init(image: logoImage)
-        logoImageView.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*1.5/5.0), size: CGSize(width: imageViewWidth, height: imageViewWidth / imageRatio))
+        logoImageView.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*1.0/5.0), size: CGSize(width: imageViewWidth, height: imageViewWidth / imageRatio))
         self.view.addSubview(logoImageView)
         
         let textFieldWidth: CGFloat = 250
@@ -121,7 +121,10 @@ class WLANBindingViewController: UIViewController {
                 }
             }, failure: { error in
                 SwiftMessages.hide()
-                SwiftMessages.showErrorMessage(body: error.localizedDescription)
+                TwTUser.shared.WLANAccount = self.usernameTextField.text!
+                TwTUser.shared.WLANPassword = self.passwordTextField.text!
+
+                SwiftMessages.showErrorMessage(body: error.localizedDescription + "\n" + "已为你保存账号")
             })
         } else {
             SwiftMessages.showWarningMessage(body: "请填写账号和密码")
@@ -147,8 +150,6 @@ class WLANBindingViewController: UIViewController {
                 SwiftMessages.hide()
                 SwiftMessages.showSuccessMessage(body: "解绑成功！")
                 self.dismiss(animated: true, completion: nil)
-                print("TJUBindingState:")
-                print(TwTUser.shared.tjuBindingState)
             } else {
                 SwiftMessages.hide()
                 SwiftMessages.showErrorMessage(body: errMsg)

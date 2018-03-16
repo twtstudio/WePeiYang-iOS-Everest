@@ -9,7 +9,6 @@
 import UIKit
 import WMPageController
 import UserNotifications
-import AlertOnboarding
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -83,27 +82,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UINavigationController(rootViewController: mainTabVC)
         window?.makeKeyAndVisible()
 
-
-        if let info = Bundle.main.infoDictionary,
-            let nowVersion = info[kCFBundleVersionKey as String] as? String {
-            let lastVersion = UserDefaults.standard.string(forKey: "lastVersion") ?? ""
-            if lastVersion != nowVersion {
-                UserDefaults.standard.set(nowVersion, forKey: "lastVersion")
-                let arrayOfImage = ["ic_welcome_gpa", "ic_welcome_classtable", "ic_welcome_bike", "ic_welcome_bike"]
-                let arrayOfTitle = ["成绩查询", "课程表", "自行车", "一键上网"]
-                let arrayOfDescription = ["全新设计的成绩详情页，各科成绩直观比较",
-                                          "不只是传统课表，今明日课程提醒、widget 快速查看课程等温馨功能，只为让你的学习生活更加便利",
-                                          "担心车没还上、找不到最近可用车位？打开微北洋，即时查询各种信息",
-                                          "打开 widget 一键上网。\n更有摇一摇上网功能，应用内摇一摇，轻松上网"]
-                let alertView = AlertOnboarding(arrayOfImage: arrayOfImage, arrayOfTitle: arrayOfTitle, arrayOfDescription: arrayOfDescription)
-                alertView.percentageRatioHeight = 1
-                alertView.percentageRatioWidth = 1
-                //... and show it !
-                alertView.show()
-            }
-        }
-
-
 //        // To check if network is available
 //        // Used to determine the network state for WLANLogin
 //        do {
@@ -119,9 +97,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            debugLog(error)
 //        }
 
+        // new features
+        showOnBoard()
         registerShortcutItems()
 
         return true
+    }
+
+    func showOnBoard() {
+        if let info = Bundle.main.infoDictionary,
+            let nowVersion = info[kCFBundleVersionKey as String] as? String {
+            let lastVersion = UserDefaults.standard.string(forKey: "lastVersion") ?? ""
+            if lastVersion != nowVersion {
+                UserDefaults.standard.set(nowVersion, forKey: "lastVersion")
+                let arrayOfImage = ["ic_welcome_gpa", "ic_welcome_classtable", "ic_welcome_bike", "ic_welcome_network"]
+                let arrayOfTitle = ["成绩查询", "课程表", "自行车", "一键上网"]
+                let arrayOfDescription = ["全新设计的成绩详情页，各科成绩直观比较",
+                                          "不只是传统课表，今明日课程提醒、widget 快速查看课程等温馨功能，只为让你的学习生活更加便利",
+                                          "担心车没还上、找不到最近可用车位？打开微北洋，即时查询各种信息",
+                                          "打开 widget 一键上网。\n更有摇一摇上网功能，应用内摇一摇，轻松上网"]
+                let alertView = AlertOnboarding(arrayOfImage: arrayOfImage, arrayOfTitle: arrayOfTitle, arrayOfDescription: arrayOfDescription)
+                
+                alertView.percentageRatioHeight = 1
+                alertView.percentageRatioWidth = 1
+                alertView.titleGotItButton = "开启新版微北洋"
+                alertView.titleSkipButton = "跳过"
+                //... and show it !
+                alertView.show()
+            }
+        }
     }
 
     func registerShortcutItems() {

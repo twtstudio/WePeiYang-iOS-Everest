@@ -13,13 +13,13 @@ class AllModulesViewController: UIViewController {
     fileprivate let modules: [ModuleData] = [
         (title: "GPA", image: UIImage(named: "gpaBtn")!, class: GPAViewController.self, needLogin: true),
         (title: "课程表", image: UIImage(named: "classtableBtn")!, class: ClassTableViewController.self, needLogin: true),
-        (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self, needLogin: false),
+//        (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self, needLogin: false),
         (title: "自行车", image: UIImage(named: "bicycleBtn")!, class: BicycleServiceViewController.self, needLogin: true),
         (title: "党建", image: UIImage(named: "partyBtn")!, class: PartyMainViewController.self, needLogin: true),
         (title: "商城", image: UIImage(named: "mallBtn")!, class: MallViewController.self, needLogin: false),
 //        (title: "阅读", image: UIImage(named: "readBtn")!, class: ReadViewController.self, needLogin: true),
         (title: "黄页", image: UIImage(named: "yellowPageBtn")!, class: YellowPageMainViewController.self, needLogin: false),
-        (title: "上网", image: UIImage(named: "bicycleBtn")!, class: WLANLoginViewController.self, needLogin: true)]
+        (title: "上网", image: UIImage(named: "networkBtn")!, class: WLANLoginViewController.self, needLogin: true)]
     
     var collectionView: UICollectionView!
     // The below override will not be called if current viewcontroller is controlled by a UINavigationController

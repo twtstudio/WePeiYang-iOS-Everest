@@ -72,7 +72,7 @@ class BicycleUser {
 
 
 //        Alamofire.request(BicycleAPIs.rootURL+BicycleAPIs.cardURL, method: .get, parameters: parameters, headers: nil)
-        Alamofire.request(BicycleAPIs.rootURL+BicycleAPIs.cardURL, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: ["Accept": "application/json"]).responseJSON { response in
+        Alamofire.request(BicycleAPIs.rootURL+BicycleAPIs.cardURL, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: ["Accept": "application/json"]).responseJSON { response in
             switch response.result {
             case .success:
                 if let data = response.result.value,
