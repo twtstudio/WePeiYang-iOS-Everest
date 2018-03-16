@@ -233,7 +233,6 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
     
     deinit {
         collectionView?.delegate = nil
-        print("BannerScrollView  deinit")
     }
     
     // MARK: layoutSubviews、willMove

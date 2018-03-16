@@ -123,9 +123,6 @@ class LibraryBindingViewController: UIViewController {
             loginInfo["libpasswd"] = passwordTextField.text
             
             SolaSessionManager.solaSession(type: .get, url: "/auth/bind/lib", token: TwTUser.shared.token, parameters: loginInfo, success: { dictionary in
-                
-                print(dictionary)
-                print("Succeeded")
                 guard let errorCode: Int = dictionary["error_code"] as? Int,
                 let errMsg = dictionary["message"] as? String else {
                     return
@@ -138,15 +135,10 @@ class LibraryBindingViewController: UIViewController {
                     NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("lib", true))
                     SwiftMessages.showSuccessMessage(body: "绑定成功！")
                     self.dismiss(animated: true, completion: nil)
-                    print("TJUBindingState:")
-                    print(TwTUser.shared.libBindingState)
                 } else {
                     SwiftMessages.showErrorMessage(body: "密码错误！")
                 }
             }, failure: { error in
-                
-                debugLog(error)
-                print("Failed")
                 SwiftMessages.showErrorMessage(body: error.localizedDescription)
             })
         } else {
@@ -192,14 +184,7 @@ class LibraryBindingViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
-    */
-
 }

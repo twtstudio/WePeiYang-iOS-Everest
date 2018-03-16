@@ -99,7 +99,7 @@ class WLANBindingViewController: UIViewController {
 
             SwiftMessages.showLoading()
             SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL,  parameters: loginInfo, success: { dictionary in
-                SwiftMessages.hide()
+                SwiftMessages.hideLoading()
                 guard let errorCode: Int = dictionary["error_code"] as? Int,
                     let errMsg = dictionary["message"] as? String else {
                         return
@@ -120,7 +120,7 @@ class WLANBindingViewController: UIViewController {
                     SwiftMessages.showErrorMessage(body: errMsg)
                 }
             }, failure: { error in
-                SwiftMessages.hide()
+                SwiftMessages.hideLoading()
                 TwTUser.shared.WLANAccount = self.usernameTextField.text!
                 TwTUser.shared.WLANPassword = self.passwordTextField.text!
 
@@ -138,7 +138,7 @@ class WLANBindingViewController: UIViewController {
 
         SwiftMessages.showLoading()
         SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL, parameters: loginInfo, success: { dictionary in
-            SwiftMessages.hide()
+            SwiftMessages.hideLoading()
             guard let errorCode: Int = dictionary["error_code"] as? Int,
                 let errMsg = dictionary["message"] as? String else {
                     return
@@ -155,7 +155,7 @@ class WLANBindingViewController: UIViewController {
                 SwiftMessages.showErrorMessage(body: errMsg)
             }
         }, failure: { error in
-            SwiftMessages.hide()
+            SwiftMessages.hideLoading()
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
     }
@@ -169,6 +169,10 @@ class WLANBindingViewController: UIViewController {
             let vc = SFSafariViewController(url: url)
             present(vc, animated: true)
         }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
 }
 

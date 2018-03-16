@@ -1,4 +1,3 @@
-
 //
 //  YellowPageCell.swift
 //  YellowPage
@@ -9,7 +8,6 @@
 //
 
 import UIKit
-import SnapKit
 import SwiftMessages
 
 
@@ -143,22 +141,6 @@ class YellowPageCell: UITableViewCell {
         phoneLabel = UILabel()
         let attributedString = NSAttributedString(string: model.phone, attributes: [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue, NSAttributedStringKey.foregroundColor: UIColor.blue])
         
-        phoneLabel.attributedText = attributedString
-        //        phoneLabel.font = UIFont.flexibleFont(with: 14)
-        // TODO: flexibleFont
-        phoneLabel.font = UIFont.systemFont(ofSize: 14)
-        phoneLabel.sizeToFit()
-        self.contentView.addSubview(phoneLabel)
-        phoneLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(13)
-            make.left.equalTo(contentView).offset(15)
-            make.bottom.equalTo(contentView).offset(-10)
-        }
-        phoneLabel.isUserInteractionEnabled = true
-//        let labelTapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped(model:)))
-//        phoneLabel.addGestureRecognizer(labelTapGesture)
-        
-        
         likeView = ExtendedButton()
         likeView.setImage(UIImage(named: model.isFavorite ? "like" : "dislike"), for: .normal)
 
@@ -170,7 +152,21 @@ class YellowPageCell: UITableViewCell {
             make.centerY.equalTo(phoneLabel.snp.centerY)
         }
         likeView.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
-        
+
+
+        phoneLabel.attributedText = attributedString
+        phoneLabel.font = UIFont.systemFont(ofSize: 14)
+        phoneLabel.sizeToFit()
+        self.contentView.addSubview(phoneLabel)
+        phoneLabel.snp.makeConstraints { make in
+            make.top.equalTo(nameLabel.snp.bottom).offset(13)
+            make.left.equalTo(contentView).offset(15)
+            make.bottom.equalTo(contentView).offset(-10)
+            make.right.lessThanOrEqualTo(likeView.snp.left).offset(-10)
+        }
+        phoneLabel.isUserInteractionEnabled = true
+
+
         let phoneView = ExtendedButton()
         phoneView.setImage(UIImage(named: "phone"), for: .normal)
     

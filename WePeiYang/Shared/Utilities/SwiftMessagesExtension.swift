@@ -26,7 +26,7 @@ extension SwiftMessages {
         message(title: title, body: body, theme: .error, context: context, layout: layout)
     }
 
-    static func message(title: String, body: String, theme: Theme, context: PresentationContext = .automatic, layout: MessageView.Layout = .cardView) {
+    static func message(title: String, body: String, theme: Theme, context: PresentationContext? = nil, layout: MessageView.Layout = .cardView) {
         let view = MessageView.viewFromNib(layout: layout)
         view.configureContent(title: title, body: body)
         view.button?.isHidden = true
@@ -34,11 +34,23 @@ extension SwiftMessages {
         view.configureTheme(theme)
 
         var config = SwiftMessages.Config()
-        config.presentationContext = context
+        config.presentationContext = context ?? .automatic
+        if let top = UIViewController.top as? UINavigationController {
+            config.presentationContext = .view(top.view)
+        } else if let top = UIViewController.top?.navigationController {
+            config.presentationContext = .view(top.view)
+        } else if let tabVC = UIViewController.top as? WPYTabBarController,
+            let top = tabVC.selectedViewController as? UINavigationController {
+            config.presentationContext = .view(top.view)
+        }
+
         SwiftMessages.show(config: config, view: view)
     }
 
+    static var otherMessages = SwiftMessages()
+
     static func showLoading() {
+//        var newMessage = SwiftMessages()
         let nib = UINib(nibName: "LoadingView", bundle: nil)
         let view = nib.instantiate(withOwner: nil, options: nil).first as! UIView
         var config = SwiftMessages.Config()
@@ -47,7 +59,11 @@ extension SwiftMessages {
         config.presentationStyle = .center
         config.dimMode = .gray(interactive: true)
         config.duration = .forever
-        SwiftMessages.show(config: config, view: view)
+        otherMessages.show(config: config, view: view)
+    }
+
+    static func hideLoading() {
+        otherMessages.hide()
     }
 }
 

@@ -345,6 +345,6 @@ func showLoginView(success: (()->())? = nil) {
     config.presentationStyle = .center
     config.duration = .forever
     config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
-    config.presentationContext  = .window(windowLevel: UIWindowLevelAlert)
+    config.presentationContext  = .window(windowLevel: UIWindowLevelNormal)
     SwiftMessages.show(config: config, view: loginView)
 }

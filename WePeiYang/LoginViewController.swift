@@ -121,15 +121,6 @@ class LoginViewController: UIViewController {
     
     @objc func login() {
         guard let username = usernameField.text, !username.isEmpty else {
-//            let view = MessageView.viewFromNib(layout: .cardView)
-//            view.configureContent(title: "输入错误", body: "用户名不能为空")
-//            view.alpha = 0.5
-//            view.button?.isHidden = true
-//            view.configureTheme(.error)
-//            var config = SwiftMessages.Config()
-//            config.presentationContext = .window(windowLevel: .infinity)
-//            SwiftMessages.show(config: config, view: view)
-
             SwiftMessages.showErrorMessage(title: "输入错误", body: "用户名不能为空")
             return
         }
@@ -147,8 +138,8 @@ class LoginViewController: UIViewController {
             self.extraProcedures()
             // FIXME: login success
             self.dismiss(animated: true, completion: nil)
-        }, failure: { error in
-            SwiftMessages.showErrorMessage(body: error?.localizedDescription ?? "未知错误❌")
+        }, failure: { errMsg in
+            SwiftMessages.showErrorMessage(body: errMsg)
         })
     }
     
@@ -198,10 +189,6 @@ class LoginViewController: UIViewController {
         }, failure: { str in
             
         })
-
-
-        // FIXME: 上网状态咋获得?
-//        NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("WLAN", TwTUser.shared.WLANBindingState))
     }
     
     deinit {

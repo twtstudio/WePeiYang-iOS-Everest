@@ -51,7 +51,7 @@
 		36073D1F1F225D2A001317A7 /* ReviewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D181F225D2A001317A7 /* ReviewListViewController.swift */; };
 		36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D191F225D2A001317A7 /* SearchViewController.swift */; };
 		36073D241F22713B001317A7 /* ReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D231F22713B001317A7 /* ReadViewController.swift */; };
-		3613DA172056F1B9000867AE /* LoginAndLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586543620514E860069CF53 /* LoginAndLogout.swift */; };
+		3613DA172056F1B9000867AE /* WLANHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586543620514E860069CF53 /* WLANHelper.swift */; };
 		3613DA182056F56A000867AE /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		3613DA192056F571000867AE /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E21EC84ED90064373A /* SolaSessionManager.swift */; };
 		3613DA1A2056F65C000867AE /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TwTKeychain.swift */; };
@@ -219,7 +219,7 @@
 		A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4B81F99E57700022A01 /* SpotDetailsView.swift */; };
 		A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */; };
 		A554C4BE1F99F84900022A01 /* ParkingSpotsLocs.json in Resources */ = {isa = PBXBuildFile; fileRef = A554C4BC1F99EFE300022A01 /* ParkingSpotsLocs.json */; };
-		A586543720514E860069CF53 /* LoginAndLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586543620514E860069CF53 /* LoginAndLogout.swift */; };
+		A586543720514E860069CF53 /* WLANHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586543620514E860069CF53 /* WLANHelper.swift */; };
 		A5E117AF1F99DB8E00C86CA2 /* BicycleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117AE1F99DB8E00C86CA2 /* BicycleUser.swift */; };
 		A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117B01F99DBB700C86CA2 /* timeStampTransfer.swift */; };
 		A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117B21F99DBD700C86CA2 /* ParkingSpots.swift */; };
@@ -497,7 +497,7 @@
 		A554C4B81F99E57700022A01 /* SpotDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailsView.swift; sourceTree = "<group>"; };
 		A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleFitnessTrackerViewCell.swift; sourceTree = "<group>"; };
 		A554C4BC1F99EFE300022A01 /* ParkingSpotsLocs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ParkingSpotsLocs.json; sourceTree = "<group>"; };
-		A586543620514E860069CF53 /* LoginAndLogout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAndLogout.swift; sourceTree = "<group>"; };
+		A586543620514E860069CF53 /* WLANHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANHelper.swift; sourceTree = "<group>"; };
 		A5D695191F8A21AD00022B9A /* WMScrollView+gesture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMScrollView+gesture.m"; sourceTree = "<group>"; };
 		A5D695201F8A21AD00022B9A /* WMScrollView+gesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMScrollView+gesture.h"; sourceTree = "<group>"; };
 		A5D6952E1F8A21AD00022B9A /* BicycleServiceInfoController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BicycleServiceInfoController.xib; sourceTree = "<group>"; };
@@ -1008,7 +1008,7 @@
 				A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */,
 				A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */,
 				A50F364F1FB8837D00413CF2 /* KeyChain.swift */,
-				A586543620514E860069CF53 /* LoginAndLogout.swift */,
+				A586543620514E860069CF53 /* WLANHelper.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1512,7 +1512,7 @@
 								enabled = 1;
 							};
 							com.apple.Keychain = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -1736,7 +1736,7 @@
 				36B2C899203DB8DB00AD2E3F /* ClassWidgetCell.swift in Sources */,
 				36B2C89B203DE86700AD2E3F /* TwTUser.swift in Sources */,
 				3613DA182056F56A000867AE /* WLANLoginAPIs.swift in Sources */,
-				3613DA172056F1B9000867AE /* LoginAndLogout.swift in Sources */,
+				3613DA172056F1B9000867AE /* WLANHelper.swift in Sources */,
 				36B2C894203A80D100AD2E3F /* ClassModel.swift in Sources */,
 				3613DA1B2056F664000867AE /* DeviceStatus.swift in Sources */,
 				36B2C892203A806C00AD2E3F /* CacheManager.swift in Sources */,
@@ -1800,7 +1800,7 @@
 				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
 				A5E117B91F99DCAE00C86CA2 /* Card.swift in Sources */,
 				A53602671FC6E36100E3D1AF /* LibraryBindingViewController.swift in Sources */,
-				A586543720514E860069CF53 /* LoginAndLogout.swift in Sources */,
+				A586543720514E860069CF53 /* WLANHelper.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
 				36A74EB2205BAD0300DD1EC3 /* AlertOnboarding.swift in Sources */,
 				36449E6C1FA4BABA0036766B /* FunctionListTableViewCell.swift in Sources */,

@@ -129,7 +129,7 @@ class LoginView: MessageView {
         contentView.addSubview(loginButton)
         loginButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(passwordField.snp.bottom).offset(40)
+            make.top.equalTo(passwordField.snp.bottom).offset(50)
             make.width.equalTo(100)
             make.height.equalTo(30)
         }
@@ -143,6 +143,9 @@ class LoginView: MessageView {
         if TwTUser.shared.username != "" {
             usernameField.text = TwTUser.shared.username
         }
+        if TwTUser.shared.password != "" {
+            passwordField.text = TwTUser.shared.password
+        }
     }
 
     deinit {
@@ -154,27 +157,30 @@ class LoginView: MessageView {
 extension LoginView {
     @objc func login(button: UIButton) {
         guard let username = usernameField.text, !username.isEmpty else {
-            SwiftMessages.showErrorMessage(body: "用户名不能为空")
+            self.showErrorMessage(title: "用户名不能为空")
             return
         }
 
         guard let password = passwordField.text, !password.isEmpty else {
-            SwiftMessages.showErrorMessage(body: "密码不能为空")
+            self.showErrorMessage(title: "密码不能为空")
             return
         }
+
         SwiftMessages.showLoading()
-    
         AccountManager.getToken(username: username, password: password, success: { token in
             TwTUser.shared.token = token
             TwTUser.shared.username = username
             TwTUser.shared.password = password
             TwTUser.shared.save()
             self.extraProcedures()
+            SwiftMessages.hideLoading()
             SwiftMessages.hideAll()
+            self.showSuccessMessage(title: "登录成功✨")
             self.successHandler?()
-        }, failure: { error in
-//            self.failureHandler?()
-            SwiftMessages.showErrorMessage(body: error?.localizedDescription ?? "未知错误❌")
+        }, failure: { errMsg in
+            SwiftMessages.hideLoading()
+            self.failureHandler?()
+            self.showErrorMessage(title: errMsg)
         })
     }
 
@@ -204,6 +210,24 @@ extension LoginView {
         }, failure: { str in
 
         })
+    }
+}
+
+extension LoginView {
+    private func showErrorMessage(title: String, body: String = "") {
+        let view = MessageView.viewFromNib(layout: .cardView)
+        view.configureContent(title: title, body: body)
+        view.button?.isHidden = true
+        view.configureTheme(.error)
+        SwiftMessages.otherMessages.show(view: view)
+    }
+
+    private func showSuccessMessage(title: String, body: String = "") {
+        let view = MessageView.viewFromNib(layout: .cardView)
+        view.configureContent(title: title, body: body)
+        view.button?.isHidden = true
+        view.configureTheme(.success)
+        SwiftMessages.otherMessages.show(view: view)
     }
 }
 

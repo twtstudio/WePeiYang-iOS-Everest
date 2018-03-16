@@ -22,16 +22,17 @@ struct AccountManager {
 //        // TODO: CSSearchable
 //    }
     
-    static func getToken(username: String, password: String, success: ((String)->())?, failure: ((Error?)->())?) {
+    static func getToken(username: String, password: String, success: ((String)->())?, failure: ((String)->())?) {
         let para: [String: String] = ["twtuname": username, "twtpasswd": password]
         SolaSessionManager.solaSession(type: .get, url: "/auth/token/get", token: nil, parameters: para, success: { dic in
-            if let data = dic["data"] as? [String: Any] {
-                if let token = data["token"] as? String {
-                    success?(token)
-                }
+            if let data = dic["data"] as? [String: Any],
+                let token = data["token"] as? String {
+                success?(token)
+            } else {
+                failure?(dic["message"] as? String ?? "解析失败 请稍候重试")
             }
         }, failure: { error in
-            failure?(error)
+            failure?(error.localizedDescription)
         })
         
     }

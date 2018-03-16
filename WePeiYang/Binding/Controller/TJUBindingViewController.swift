@@ -124,8 +124,6 @@ class TJUBindingViewController: UIViewController {
                     NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("tju", true))
                     SwiftMessages.showSuccessMessage(body: "绑定成功！")
                     self.dismiss(animated: true, completion: nil)
-                    print("TJUBindingState:")
-                    print(TwTUser.shared.tjuBindingState)
                 } else {
                     SwiftMessages.showErrorMessage(body: errMsg)
                 }

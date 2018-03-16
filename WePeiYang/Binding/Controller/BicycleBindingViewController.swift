@@ -85,6 +85,9 @@ class BicycleBindingViewController: UIViewController {
                 let card = BicycleUser.sharedInstance.cardList.first!
                 BicycleUser.sharedInstance.bindCard(id: card.id!, sign: card.sign!, doSomething: {
                     SwiftMessages.showSuccessMessage(body: "绑定成功👏🏻")
+                    TwTUser.shared.bicycleBindingState = true
+                    TwTUser.shared.save()
+                    self.dismiss(animated: true, completion: nil)
                 }, failure: { errMsg in
                     SwiftMessages.showErrorMessage(body: errMsg)
                 })
@@ -97,6 +100,10 @@ class BicycleBindingViewController: UIViewController {
 //            SwiftMessages.showSuccessMessage(body: "绑定成功👏🏻")
 //        })
 
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
     
     @objc func dismissBinding() {

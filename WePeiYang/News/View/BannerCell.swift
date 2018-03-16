@@ -94,7 +94,6 @@ class BannerCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     deinit {
-        print("BannerCell  deinit")
     }
     
     

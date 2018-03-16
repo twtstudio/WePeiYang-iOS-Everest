@@ -1,5 +1,5 @@
 //
-//  LoginAndLogout.swift
+//  WLANHelper.swift
 //  WePeiYang
 //
 //  Created by Tigris on 3/8/18.

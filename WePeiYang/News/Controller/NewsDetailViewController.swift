@@ -57,14 +57,14 @@ class NewsDetailViewController: ProgressWebViewController {
 
         SwiftMessages.showLoading()
         SolaSessionManager.solaSession(type: .get, url: "/news/\(index)", token: nil, parameters: nil, success: { dict in
-            SwiftMessages.hide()
+            SwiftMessages.hideLoading()
             if let topModel = try? NewsDetailTopModel(data: dict.jsonData()) {
                 self.news = topModel.data
                 let html = self.FEProcessor(model: topModel.data, content: topModel.data.content)
                 self.webView.loadHTMLString(html, baseURL: nil)
             }
         }, failure: { error in
-            SwiftMessages.hide()
+            SwiftMessages.hideLoading()
             // TODO: tap reload
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })

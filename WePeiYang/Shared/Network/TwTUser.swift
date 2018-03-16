@@ -32,8 +32,10 @@ class TwTUser: Codable {
     var realname: String?
     
     func save() {
-//        CacheManager.store(object: self, in: .group, as: "user.json")
-        Storage.store(self, in: .group, as: "user.json")
+        let queue = DispatchQueue(label: "com.wpy.cache")
+        queue.async {
+            Storage.store(self, in: .group, as: "user.json")
+        }
     }
 
     func load(success: (()->())?, failure: (()->())?) {
@@ -41,18 +43,16 @@ class TwTUser: Codable {
             failure?()
             return
         }
-
-        let user = Storage.retreive("user.json", from: .group, as: TwTUser.self)
-        if let user = user {
-            TwTUser.shared = user
+        let queue = DispatchQueue(label: "com.wpy.cache")
+        queue.async {
+            let user = Storage.retreive("user.json", from: .group, as: TwTUser.self)
+            if let user = user {
+                TwTUser.shared = user
+                success?()
+            } else {
+                failure?()
+            }
         }
-        success?()
-//        CacheManager.retreive("user.json", from: .group, as: TwTUser.self, success: { user in
-//            TwTUser.shared = user
-//            success?()
-//        }, failure: {
-//            failure?()
-//        })
     }
 
     func delete() {

@@ -233,7 +233,7 @@ class ClassTableViewController: UIViewController {
     
     @objc func load() {
         ClasstableDataManager.getClassTable(success: { table in
-            SwiftMessages.hide()
+            SwiftMessages.hideLoading()
             if let oldTable = self.table,
                 oldTable.updatedAt > table.updatedAt,
                 table.updatedAt.contains("2017-04-01") {
@@ -262,7 +262,7 @@ class ClassTableViewController: UIViewController {
 
             self.listView.load(courses: courses, weeks: 0)
         }, failure: { errorMessage in
-            SwiftMessages.hide()
+            SwiftMessages.hideLoading()
             SwiftMessages.showErrorMessage(body: errorMessage)
         })
     }

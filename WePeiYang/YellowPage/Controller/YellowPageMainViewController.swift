@@ -60,17 +60,15 @@ class YellowPageMainViewController: UIViewController {
             make.left.equalTo(view)
             make.right.equalTo(view)
         }
-        // FIXME: MsgDisplay Loading
-        //MsgDisplay.showLoading()
         SwiftMessages.showLoading()
 
         PhoneBook.shared.load(success: {
             self.tableView.reloadData()
-            SwiftMessages.hide()
+            SwiftMessages.hideLoading()
         }, failure: {
-            SwiftMessages.hide()
+            SwiftMessages.showLoading()
             PhoneBook.checkVersion {
-                SwiftMessages.hide()
+                SwiftMessages.hideLoading()
                 self.tableView.reloadData()
             }
         })

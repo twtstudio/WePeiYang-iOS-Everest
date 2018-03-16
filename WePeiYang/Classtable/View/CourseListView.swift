@@ -240,6 +240,11 @@ class CourseListView: UIView {
         coursesForDay = courses
         self.tableViews.forEach({ $0.reloadData() })
     }
+
+    deinit {
+        self.delegate = nil
+        print("courselistview deinit")
+    }
     
 }
 

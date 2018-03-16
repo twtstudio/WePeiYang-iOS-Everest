@@ -19,13 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // 注册通知
-        registerAppNotification(launchOptions: launchOptions)
-
         window = UIWindow(frame: UIScreen.main.bounds)
-        
+        UIApplication.shared.applicationIconBadgeNumber = 0
+
 //        TwTUser.shared.load() // load token and so on
         TwTUser.shared.load(success: {
-            UIApplication.shared.applicationIconBadgeNumber = 0
             NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
 
             WLANHelper.getStatus(success: { isOnline in
@@ -34,7 +32,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             })
             AccountManager.getSelf(success:{
-
+                if let deviceToken = UserDefaults.standard.string(forKey: "deviceToken"),
+                    let uid = TwTUser.shared.twtid,
+                    let uuid = UIDevice.current.identifierForVendor?.uuidString {
+                    let para = ["utoken": deviceToken, "uid": uid, "udid": uuid]
+                    SolaSessionManager.solaSession(type: .post, url: "/push/token/ENcJ1ZYDBaCvC8aM76RnnrT25FPqQg", token: nil, parameters: para, success: { dict in
+                        print(dict)
+                    }, failure: { err in
+                        print(err)
+                    })
+                }
             }, failure: {
                 
             })
@@ -99,6 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // new features
         showOnBoard()
+        registerAppNotification(launchOptions: launchOptions)
         registerShortcutItems()
 
         return true
@@ -109,6 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let nowVersion = info[kCFBundleVersionKey as String] as? String {
             let lastVersion = UserDefaults.standard.string(forKey: "lastVersion") ?? ""
             if lastVersion != nowVersion {
+                UserDefaults.standard.set(true, forKey: "shakeWiFiEnabled")
                 UserDefaults.standard.set(nowVersion, forKey: "lastVersion")
                 let arrayOfImage = ["ic_welcome_gpa", "ic_welcome_classtable", "ic_welcome_bike", "ic_welcome_network"]
                 let arrayOfTitle = ["成绩查询", "课程表", "自行车", "一键上网"]
@@ -149,6 +158,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        if let _ = ((UIViewController.top as? UITabBarController)?.selectedViewController as? UINavigationController)?.topViewController as? GPAViewController {
+            let frostedView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+            frostedView.frame = UIApplication.shared.keyWindow?.bounds ?? UIScreen.main.bounds
+            UIApplication.shared.keyWindow?.addSubview(frostedView)
+        } else if let _ = (UIViewController.top as? UINavigationController)?.topViewController as? GPAViewController {
+            let frostedView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+            frostedView.frame = UIApplication.shared.keyWindow?.bounds ?? UIScreen.main.bounds
+            UIApplication.shared.keyWindow?.addSubview(frostedView)
+        }
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -162,6 +180,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        if let subviews = UIApplication.shared.keyWindow?.subviews {
+            for subview in subviews {
+                if subview is UIVisualEffectView {
+                    subview.removeFromSuperview()
+                    return
+                }
+            }
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -230,6 +256,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     // 收到推送token
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("------device token: \(deviceToken.hexString)")
+        UserDefaults.standard.set(deviceToken.hexString, forKey: "deviceToken")
     }
 
 
