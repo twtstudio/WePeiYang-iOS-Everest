@@ -40,18 +40,7 @@ class BicycleBindingViewController: UIViewController {
         IDCardNumberTextField.clearButtonMode = .always
         IDCardNumberTextField.autocapitalizationType = .none
         self.view.addSubview(IDCardNumberTextField)
-        
-        /*
-        passwordTextField = UITextField()
-        passwordTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: IDCardNumberTextField.frame.origin.y + IDCardNumberTextField.frame.size.height + 30), size: CGSize(width: textFieldWidth, height: 40))
-        passwordTextField.placeholder = "请输入密码"
-        passwordTextField.keyboardType = .default
-        passwordTextField.borderStyle = .roundedRect
-        passwordTextField.isSecureTextEntry = true
-        passwordTextField.clearButtonMode = .always
-        self.view.addSubview(passwordTextField)
-        */
-        
+
         bindButton = UIButton()
         bindButton.frame = CGRect(x: (self.view.frame.size.width-textFieldWidth)/2, y: IDCardNumberTextField.frame.origin.y + IDCardNumberTextField.frame.height + 20, width: textFieldWidth, height: 38)
         bindButton.setTitle("绑 定", for: .normal)
@@ -65,23 +54,7 @@ class BicycleBindingViewController: UIViewController {
         bindButton.addTarget(self, action: #selector(bind), for: .touchUpInside)
         self.view.addSubview(bindButton)
         
-        /*
-         dismissButton = UIButton()
-         dismissButton.setTitle("暂不绑定", for: .normal)
-         dismissButton.isUserInteractionEnabled = true
-         dismissButton.backgroundColor = UIColor(hex6: 0xd3d3d3)
-         dismissButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
-         dismissButton.layer.borderWidth = 2
-         dismissButton.layer.cornerRadius = 5
-         dismissButton.addTarget(self, action: #selector(dismissBinding), for: .touchUpInside)
-         self.view.addSubview(dismissButton)
-         dismissButton.snp.makeConstraints { (make) -> Void in
-         make.left.equalTo(20)
-         make.right.equalTo(-20)
-         make.top.equalTo(bindButton.snp.bottom).offset(10)
-         }
-         */
-        
+
         dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: bindButton.y + bindButton.height + 20, width: 30, height: 20))
         dismissButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         dismissButton.setTitleColor(UIColor.gray, for: .normal)
@@ -92,15 +65,33 @@ class BicycleBindingViewController: UIViewController {
         self.view.addSubview(dismissButton)
         
         self.view.backgroundColor = .white
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
-    
+
     @objc func bind() {
-        
+        guard let IDCardNumber = IDCardNumberTextField.text else {
+            SwiftMessages.showWarningMessage(body: "不能为空哦")
+            return
+        }
+
+        BicycleUser.sharedInstance.auth(success: {
+            BicycleUser.sharedInstance.getCardlist(idnum: IDCardNumber, doSomething: {
+                SwiftMessages.showSuccessMessage(body: "绑定成功👏🏻")
+            })
+        }, failure: { errMsg in
+            SwiftMessages.showErrorMessage(body: errMsg)
+        })
+
+//        BicycleUser.sharedInstance.getCardlist(idnum: IDCardNumber, doSomething: {
+//            SwiftMessages.showSuccessMessage(body: "绑定成功👏🏻")
+//        })
+
     }
     
     @objc func dismissBinding() {
@@ -108,14 +99,11 @@ class BicycleBindingViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @objc func keyboardWillShow(notification: NSNotification) {
+        self.view.frame.origin.y = -40
     }
-    */
 
+    @objc func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y = 0
+    }
 }

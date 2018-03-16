@@ -24,7 +24,10 @@ struct BorrowingData: Codable {
     let status: String
     let expire: String
     let credit: String
-    let books: [LibraryBook]
+    private let books_wrapper: [LibraryBook]?
+    var books: [LibraryBook] {
+        return books_wrapper ?? []
+    }
     let card: String
     let borrowLimit: Int
     let type: String
@@ -35,13 +38,19 @@ struct BorrowingData: Codable {
         case status = "status"
         case expire = "expire"
         case credit = "credit"
-        case books = "books"
+        case books_wrapper = "books"
         case card = "card"
         case borrowLimit = "borrowLimit"
         case type = "type"
         case borrowAmount = "borrowAmount"
         case name = "name"
     }
+
+//    init(from decoder: Decoder) throws {
+//        self.init(from: decoder)
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        books = try container.decodeNil(forKey: .books) ? [] : try container.decode([LibraryBook].self, forKey: .books)
+//    }
 }
 
 struct LibraryBook: Codable {

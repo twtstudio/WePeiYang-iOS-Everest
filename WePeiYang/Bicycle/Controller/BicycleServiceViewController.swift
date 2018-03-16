@@ -80,9 +80,9 @@ class BicycleServiceViewController: WMPageController {
             }
         }
 
-        BicycleUser.sharedInstance.auth {
-            print("自行车加载成功")
-        }
+        hidesBottomBarWhenPushed = true
+
+        BicycleUser.sharedInstance.auth(success: {})
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.

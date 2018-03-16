@@ -80,6 +80,7 @@ class ClassTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isTranslucent = false
+        hidesBottomBarWhenPushed = true
         self.view.backgroundColor = .white
         initNavBar()
 
@@ -226,12 +227,13 @@ class ClassTableViewController: UIViewController {
                 self.currentDisplayWeek = Int(week)
             }
         }, failure: {
-
+            SwiftMessages.showLoading()
         })
     }
     
     @objc func load() {
         ClasstableDataManager.getClassTable(success: { table in
+            SwiftMessages.hide()
             if let oldTable = self.table,
                 oldTable.updatedAt > table.updatedAt,
                 table.updatedAt.contains("2017-04-01") {
@@ -260,6 +262,7 @@ class ClassTableViewController: UIViewController {
 
             self.listView.load(courses: courses, weeks: 0)
         }, failure: { errorMessage in
+            SwiftMessages.hide()
             SwiftMessages.showErrorMessage(body: errorMessage)
         })
     }

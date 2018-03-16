@@ -7,12 +7,10 @@
 //
 
 import UIKit
-import WMPageController
-import SnapKit
 import Alamofire
 import SafariServices
 
-class WLANLoginViewController: WMPageController {
+class WLANLoginViewController: UIViewController {
     
     var accountTextField: UITextField!
     var passwordTextField: UITextField!
@@ -30,8 +28,10 @@ class WLANLoginViewController: WMPageController {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.setNavigationBarHidden(false, animated: animated)
 
-//        Network.reachability = try! Reachability(hostname: "www.apple.com/cn/")
-//        try! Network.reachability?.start()
+        let manager = Alamofire.NetworkReachabilityManager(host: "www.apple.com/cn")
+
+                Network.reachability = try! Reachability(hostname: "www.apple.com/cn/")
+//        try! Network.reachability?
     }
 
 
@@ -42,13 +42,22 @@ class WLANLoginViewController: WMPageController {
         
         // Set the type of status bar according to the comments written by Allen, .blackTranslucent is deprecated.
         self.navigationController?.navigationBar.barStyle = .black
-        
+
+        self.view.backgroundColor = .white
         self.title = "上网"
         WiFiImage = UIImage(named: "TJU")
         WiFiImageView = UIImageView.init(image: WiFiImage)
         WiFiImageView.frame = CGRect(x: 0, y: -70, width: UIScreen.main.bounds.width, height: self.view.bounds.height)
         self.view.addSubview(WiFiImageView)
-        
+
+
+//         Get WLAN status
+//        WLANHelper.getStatus(success: { _ in
+//
+//        }, failure: { errMsg in
+//
+//        })
+
         updateUserInterface()
     }
     

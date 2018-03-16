@@ -10,13 +10,13 @@ import Foundation
 
 struct BindingAPIs {
     
-    static let bindLIBAccount = "api/v1/auth/bind/lib"
+    static let bindLIBAccount = "/auth/bind/lib"
     
-    static let bindTJUAccount = "api/v1/auth/bind/tju"
+    static let bindTJUAccount = "/auth/bind/tju"
     
-    static let unbindLIBAccount = "api/v1/auth/unbind/lib"
+    static let unbindLIBAccount = "/auth/unbind/lib"
     
-    static let unbindTJUAccount = "api/v1/auth/unbind/tju"
+    static let unbindTJUAccount = "/auth/unbind/tju"
     
     //MARK: Bicycle APIs
     //MARK: For users

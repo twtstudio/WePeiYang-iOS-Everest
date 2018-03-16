@@ -38,7 +38,8 @@ class YellowPageMainViewController: UIViewController {
         titleLabel.textColor = UIColor.white
         titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
-        
+
+        hidesBottomBarWhenPushed = true
         
         let rightButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(YellowPageMainViewController.searchToggle))
         self.navigationItem.rightBarButtonItem = rightButton

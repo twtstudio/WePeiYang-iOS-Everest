@@ -43,7 +43,7 @@ class LibraryCard: CardView {
         contentView.addSubview(refreshButton)
         refreshButton.setTitle("刷新")
         refreshButton.layer.cornerRadius = refreshButton.height/2
-        refreshButton.tapAction = refresh
+        refreshButton.tapAction = refreshBooks
 
         contentView.addSubview(toggleButton)
         toggleButton.setTitle("展开")
@@ -61,7 +61,19 @@ class LibraryCard: CardView {
     }
 
     override func refresh() {
-        refresh(sender: refreshButton)
+        guard TwTUser.shared.libBindingState == true else {
+            self.setState(.failed("请绑定图书馆", .gray))
+            return
+        }
+
+        CacheManager.retreive("lib/info.json", from: .group, as: LibraryResponse.self, success: { response in
+            LibraryDataContainer.shared.response = response
+            self.tableView.reloadData()
+            self.setState(.data)
+        }, failure: {
+            self.refreshBooks(sender: self.refreshButton)
+//            refresh()
+        })
     }
 
     func remakeConstraints() {
@@ -119,7 +131,7 @@ class LibraryCard: CardView {
         self.contentView.setNeedsUpdateConstraints()
         self.contentView.layoutIfNeeded()
 
-        blankView.snp.updateConstraints { make in
+        blankView.snp.remakeConstraints { make in
             make.top.equalTo(tableView.snp.top)
             make.left.equalTo(tableView.snp.left)
             make.right.equalTo(tableView.snp.right)
@@ -152,14 +164,14 @@ extension LibraryCard: UITableViewDataSource {
         let book = LibraryDataContainer.shared.books[indexPath.row]
 
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-DD"
+        dateFormatter.dateFormat = "YYYY-MM-dd"
 
         var image = #imageLiteral(resourceName: "感叹号")
         // 如果还没到还书时间
-        if let date = dateFormatter.date(from: book.returnTime),
-            date >= Date() {
+        if dateFormatter.string(from: Date()) <= book.returnTime {
             image = #imageLiteral(resourceName: "对号")
         }
+
 
         let imageSize = CGSize(width: 25, height: 25)
         image = UIImage.resizedImage(image: image, scaledToSize: imageSize)
@@ -212,13 +224,14 @@ extension LibraryCard {
             if let data = try? JSONSerialization.data(withJSONObject: dict, options: .init(rawValue: 0)),
                 let response = try? LibraryResponse(data: data) {
                 LibraryDataContainer.shared.response = response
-                self.setState(.data)
                 if response.data.books.count == 0 {
-                    self.setState(.empty("没有待还的书籍", .gray))
+                    self.setState(.empty("没有借阅书籍", .gray))
+                } else {
+                    self.setState(.data)
                 }
-                if self.toggleButton.tag == 0 {
+                if self.toggleButton.tag == LibCardState.fold.rawValue {
                     let leftCount = LibraryDataContainer.shared.books.count - 2
-                    if leftCount == 0 {
+                    if leftCount <= 0 {
                         self.toggleButton.setTitle("展开")
                     } else {
                         self.toggleButton.setTitle("展开(\(leftCount))")
@@ -228,26 +241,24 @@ extension LibraryCard {
                 self.tableView.reloadData()
                 // 缓存起来撒
                 CacheManager.store(object: response, in: .group, as: "lib/info.json")
-//                Storage.store(response, in: .group, as: "lib")
-//                Storage.store(response, in: .caches, as: CacheFilenameKey.libUserInfo.name)
                 success?()
             } else {
-                self.setState(.failed("解析失败"))
+                self.setState(.failed("加载中", .gray))
                 // TODO: 解析错误
             }
         }, failure: { err in
-            self.setState(.failed(err.localizedDescription))
+            self.setState(.failed(err.localizedDescription, .gray))
         })
     }
 
-    func refresh(sender: CardButton) {
+    // 真正的请求
+    func refreshBooks(sender: CardButton) {
         // 先折叠 再刷新
         if toggleButton.tag == LibCardState.unfold.rawValue {
             toggle(sender: toggleButton)
         }
 
         getBooks(success: {
-            self.setState(.data)
             SwiftMessages.showSuccessMessage(body: "借阅列表刷新成功", context: SwiftMessages.PresentationContext.window(windowLevel: UIWindowLevelStatusBar), layout: MessageView.Layout.statusLine)
         })
     }

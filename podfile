@@ -21,6 +21,8 @@ target 'WePeiYang' do
   pod 'pop'
   pod 'IGIdenticon'
   pod 'SwiftMessages'
+  pod 'PopupDialog', '~> 0.7'
+  pod 'AlertOnboarding'
 end
 
   

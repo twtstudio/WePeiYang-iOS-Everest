@@ -109,7 +109,7 @@ class GPACard: CardView {
                     self.setState(.empty("◉", .white))
                 }
             } else {
-                self.setState(.failed("加载失败"))
+                self.setState(.failed("加载失败", .white))
             }
         })
     }

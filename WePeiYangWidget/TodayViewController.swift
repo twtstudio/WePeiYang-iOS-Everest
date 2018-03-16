@@ -89,6 +89,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if DeviceStatus.deviceOSVersion.starts(with: "9") {
             dayLabel.textColor = .white
             messageLabel.textColor = .white
+            imgView.image = #imageLiteral(resourceName: "ic_wifi-1").withRenderingMode(.alwaysTemplate)
+            imgView.tintColor = .white
+            hintLabel.textColor = .white
         } else {
             dayLabel.textColor = .gray
             messageLabel.textColor = .gray
@@ -139,7 +142,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                 self.hintLabel.tag = -2
                 self.setHint(message: msg)
             })
-        case "绑定信息":
+        case "请绑定信息":
 //            UIApplication.shared.
             return
         case "请稍候":
@@ -177,15 +180,16 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if #available(iOSApplicationExtension 10.0, *) {
             extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         } else {
-            tableView.frame.size.height = max(1, CGFloat(classes.count)) * tableView.rowHeight + 20
+            tableView.frame.size.height = max(1, CGFloat(classes.count)) * tableView.rowHeight + 40
             self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height + 20)
         }
     }
 
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        if #available(iOSApplicationExtension 10.0, *) {
-            extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-        }
+//        if #available(iOSApplicationExtension 10.0, *) {
+//            extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+//        }
+
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
@@ -215,6 +219,16 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
 
         TwTUser.shared.load(success: {
+            WLANHelper.getStatus(success: { isOnline in
+                if isOnline {
+                    self.setHint(message: "注销")
+                } else {
+                    self.setHint(message: "一键上网")
+                }
+            }, failure: { _ in
+                self.setHint(message: "请绑定信息")
+            })
+
             CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
                 if let table = Mapper<ClassTableModel>().map(JSONString: string) {
 

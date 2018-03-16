@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PopupDialog
 
 enum ServiceBindingState: String {
     case bind = "已绑定"
@@ -143,39 +144,52 @@ class SettingsViewController: UIViewController {
         case 0:
             unbindURL = BindingAPIs.unbindLIBAccount
         case 1:
+            // FIXME: 解绑
             return
+//            BicycleUser.sharedInstance.
         case 2:
             unbindURL = BindingAPIs.unbindTJUAccount
         case 3:
+            TwTUser.shared.WLANAccount = nil
+            TwTUser.shared.WLANPassword = nil
+            TwTUser.shared.WLANBindingState = false
+            TwTUser.shared.save()
+            self.tableView.reloadData()
             return
         default:
             return
         }
         
         SolaSessionManager.solaSession(type: .get, url: unbindURL, token: TwTUser.shared.token, success: { dictionary in
-            print(dictionary)
-            print("Succeeded")
-            guard let errorCode: Int = dictionary["error_code"] as? Int else {
+            guard let errorCode: Int = dictionary["error_code"] as? Int, let message = dictionary["message"] as? String else {
                 return
             }
             
             if errorCode == -1 {
-                TwTUser.shared.tjuBindingState = false
+                SwiftMessages.showSuccessMessage(body: "解绑成功")
+
+                switch indexPathAtRow {
+                case 0:
+                    TwTUser.shared.libBindingState = false
+                case 1:
+                    TwTUser.shared.bicycleBindingState = false
+                case 2:
+                    TwTUser.shared.tjuBindingState = false
+                case 3:
+                    TwTUser.shared.WLANBindingState = false
+                default:
+                    break
+                }
+
                 TwTUser.shared.save()
                 // services[].status can't get renewed data each time user unbinds
                 // self.services[indexPathAtRow].status = false
                 self.tableView.reloadData()
             } else {
-                let alert = UIAlertController(title: "未知错误", message: nil, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "好的", style: .default, handler: { (result) in
-                    print("OK.")
-                })
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
+                SwiftMessages.showErrorMessage(body: message)
             }
         }, failure: { error in
-            debugLog(error)
-            print("Failed")
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
             self.dismiss(animated: true, completion: nil)
         })
     }
@@ -289,12 +303,15 @@ extension SettingsViewController: UITableViewDelegate {
             return
         case (0, _):
             guard let _ = TwTUser.shared.token else {
-                let alert = UIAlertController(title: "先去登录！", message: nil, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "好的", style: .default, handler: { (result) in
-                    print("OK")
-                })
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
+                let popup = PopupDialog(title: "请先登录", message: "绑定账号需要先登录", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+
+                let cancelButton = CancelButton(title: "取消", action: nil)
+
+                let defaultButton = DestructiveButton(title: "确认", dismissOnTap: true) {
+                    showLoginView()
+                }
+                popup.addButtons([cancelButton, defaultButton])
+                self.present(popup, animated: true, completion: nil)
                 return
             }
         default:
@@ -307,22 +324,21 @@ extension SettingsViewController: UITableViewDelegate {
                 self.present(vc, animated: true)
             }
         } else {
-            let alert = UIAlertController(title: "要解绑吗？", message: nil, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "好的", style: .destructive, handler: { (result) in
-                print("OK")
+            let popup = PopupDialog(title: "绑定状态", message: "要解绑吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+
+            let cancelButton = CancelButton(title: "不了", action: nil)
+
+            let defaultButton = DestructiveButton(title: "确认", dismissOnTap: true) {
                 self.unbind(indexPathAtRow: indexPath.row)
-            })
-            let cancelAction = UIAlertAction(title: "算啦", style: .cancel, handler: { (result) in
-                print("Canceled")
-            })
-            alert.addAction(okAction)
-            alert.addAction(cancelAction)
-            self.present(alert, animated: true, completion: nil)
+            }
+            popup.addButtons([cancelButton, defaultButton])
+            self.present(popup, animated: true, completion: nil)
         }
     }
 }
 
 func showLoginView(success: (()->())? = nil) {
+    SwiftMessages.hideAll()
     let loginView = LoginView()
     loginView.successHandler = success
     var config = SwiftMessages.defaultConfig

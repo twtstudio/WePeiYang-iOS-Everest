@@ -11,12 +11,14 @@ import SafariServices
 import StoreKit
 import SwiftMessages
 import WebKit
+import PopupDialog
 
 class DetailSettingViewController: UIViewController {
     enum SettingTitle: String {
         case notification = "推送设置"
         case modules = "模块设置"
         case accounts = "关联账号设置"
+        case shakeWiFi = "摇一摇登录校园网"
 
         case join = "加入我们"
         case EULA = "用户协议"
@@ -29,10 +31,11 @@ class DetailSettingViewController: UIViewController {
 
 
     var tableView: UITableView!
-    let titles: [(String, [SettingTitle])] = [
-        ("设置", [.notification, .modules, .accounts]),
-                  ("关于", [.join, .EULA, .feedback]),
-                  ("其他", [.share, .rate, .quit])]
+    var titles: [(String, [SettingTitle])] = [
+        //        ("设置", [.notification, .modules, .accounts]),
+        ("设置", [.shakeWiFi, .modules]),
+        ("关于", [.join, .EULA, .feedback]),
+        ("其他", [.share, .rate, .quit])]
 
 
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +73,9 @@ class DetailSettingViewController: UIViewController {
 
         // 据说可以移除转场阴影
 //        navigationController?.navigationBar.isTranslucent = false
+        if TwTUser.shared.token == nil {
+            titles[2].1.removeLast()
+        }
     }
 }
 
@@ -134,6 +140,32 @@ extension DetailSettingViewController: UITableViewDelegate {
             let notificationVC = NotificationSettingViewController()
             self.navigationController?.pushViewController(notificationVC, animated: true)
             return
+        case (0, .shakeWiFi):
+            let status = UserDefaults.standard.bool(forKey: "shakeWiFiEnabled")
+            let popup: PopupDialog
+            if status {
+                // 开启状态
+                popup = PopupDialog(title: "摇一摇上网", message: "要关闭摇一摇联网吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+
+                let cancelButton = DefaultButton(title: "取消", action: nil)
+
+                let defaultButton = DestructiveButton(title: "关闭", dismissOnTap: true) {
+                    UserDefaults.standard.set(false, forKey: "shakeWiFiEnabled")
+                }
+                popup.addButtons([cancelButton, defaultButton])
+            } else {
+                // 开启状态
+                popup = PopupDialog(title: "摇一摇上网", message: "要开启摇一摇联网吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+
+                let cancelButton = CancelButton(title: "取消", action: nil)
+
+                let defaultButton = DefaultButton(title: "开启", dismissOnTap: true) {
+                    UserDefaults.standard.set(true, forKey: "shakeWiFiEnabled")
+                }
+                popup.addButtons([cancelButton, defaultButton])
+            }
+            self.present(popup, animated: true, completion: nil)
+            return
         case (0, .modules):
             let settingsVC = ModulesSettingsViewController()
             self.navigationController?.pushViewController(settingsVC, animated: true)
@@ -141,7 +173,7 @@ extension DetailSettingViewController: UITableViewDelegate {
             return
 
         case (1, .join):
-            let webVC = SupportWebViewController(url: URL(string: "https://coder.twtstudio.com/join")!)
+            let webVC = SupportWebViewController(url: URL(string: "https://coder.twtstudio.com/")!)
             self.navigationController?.pushViewController(webVC, animated: true)
         case (1, .EULA):
             let webVC = SupportWebViewController(url: URL(string: "https://support.twtstudio.com/category/1/%E5%85%AC%E5%91%8A")!)
@@ -158,33 +190,34 @@ extension DetailSettingViewController: UITableViewDelegate {
 //            }
             self.present(shareVC, animated: true, completion: nil)
         case (2, .rate):
-            let appid = "785509141"
-            let storeVC = SKStoreProductViewController()
-            storeVC.delegate = self
-            SwiftMessages.showLoading()
-
-            storeVC.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: appid], completionBlock: { (result, error) in
-                if let error = error {
-                    SwiftMessages.showErrorMessage(body: error.localizedDescription)
-                } else {
-                    SwiftMessages.hide()
-                    self.present(storeVC, animated: true, completion: nil)
-                }
-            })
+            UIApplication.shared.openURL(URL(string: "itms-apps://itunes.apple.com/cn/app/%E5%BE%AE%E5%8C%97%E6%B4%8B/id785509141?mt=8")!)
+//            let appid = "785509141"
+//            let storeVC = SKStoreProductViewController()
+//            storeVC.delegate = self
+//            SwiftMessages.showLoading()
+//
+//            storeVC.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: appid], completionBlock: { (result, error) in
+//                if let error = error {
+//                    SwiftMessages.showErrorMessage(body: error.localizedDescription)
+//                } else {
+//                    SwiftMessages.hide()
+//                    self.present(storeVC, animated: true, completion: nil)
+//                }
+//            })
         case (2, .quit):
-            let alert = UIAlertController(title: "确定要退出吗？", message: nil, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "确定", style: .destructive, handler: { (result) in
+            let popup = PopupDialog(title: "退出", message: "确定要退出吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+
+            let cancelButton = CancelButton(title: "不了", action: nil)
+
+            let defaultButton = DestructiveButton(title: "退出", dismissOnTap: true) {
                 TwTUser.shared.delete()
                 tableView.reloadData()
                 NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
                 self.navigationController?.popViewController(animated: true)
-            })
-            let cancelAction = UIAlertAction(title: "不了", style: .cancel, handler: { (result) in
-                print("Canceled")
-            })
-            alert.addAction(okAction)
-            alert.addAction(cancelAction)
-            self.present(alert, animated: true, completion: nil)
+            }
+            popup.addButtons([cancelButton, defaultButton])
+            self.present(popup, animated: true, completion: nil)
+            
         default:
             return
         }

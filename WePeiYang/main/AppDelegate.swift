@@ -9,6 +9,7 @@
 import UIKit
 import WMPageController
 import UserNotifications
+import AlertOnboarding
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,19 +27,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        TwTUser.shared.load() // load token and so on
         TwTUser.shared.load(success: {
             UIApplication.shared.applicationIconBadgeNumber = 0
-            // FIXME: 没有加载成功
             NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
+
+            WLANHelper.getStatus(success: { isOnline in
+
+            }, failure: { _ in
+
+            })
             AccountManager.getSelf(success:{
-//                NotificationCenter.default.post(name: NotificationName.NotificationCardWillRefresh.name, object: nil)
-            }, failure: nil)
+
+            }, failure: {
+                
+            })
         }, failure: {
             // 让他重新登录
         })
 
-//        AccountManager.getSelf(success: nil, failure: nil)
-//        AccountManager.checkToken(failure: {
-//            // 让他重新登录
-//        })
 
         mainTabVC = WPYTabBarController()
         
@@ -78,23 +82,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = mainTabVC
         //UINavigationController(rootViewController: mainTabVC)
         window?.makeKeyAndVisible()
-        
-        // To check if network is available
-        // Used to determine the network state for WLANLogin
-        do {
-            Network.reachability = try Reachability(hostname: "www.apple.com/cn/")
-            do {
-                try Network.reachability?.start()
-            } catch let error as Network.Error {
-                debugLog(error)
-            } catch {
-                debugLog(error)
+
+
+        if let info = Bundle.main.infoDictionary,
+            let nowVersion = info[kCFBundleVersionKey as String] as? String {
+            let lastVersion = UserDefaults.standard.string(forKey: "lastVersion") ?? ""
+            if lastVersion != nowVersion {
+                UserDefaults.standard.set(nowVersion, forKey: "lastVersion")
+                let arrayOfImage = ["ic_welcome_gpa", "ic_welcome_classtable", "ic_welcome_bike", "ic_welcome_bike"]
+                let arrayOfTitle = ["成绩查询", "课程表", "自行车", "一键上网"]
+                let arrayOfDescription = ["全新设计的成绩详情页，各科成绩直观比较",
+                                          "不只是传统课表，今明日课程提醒、widget 快速查看课程等温馨功能，只为让你的学习生活更加便利",
+                                          "担心车没还上、找不到最近可用车位？打开微北洋，即时查询各种信息",
+                                          "打开 widget 一键上网。\n更有摇一摇上网功能，应用内摇一摇，轻松上网"]
+                let alertView = AlertOnboarding(arrayOfImage: arrayOfImage, arrayOfTitle: arrayOfTitle, arrayOfDescription: arrayOfDescription)
+                alertView.percentageRatioHeight = 1
+                alertView.percentageRatioWidth = 1
+                //... and show it !
+                alertView.show()
             }
-        } catch {
-            debugLog(error)
         }
-            
+
+
+//        // To check if network is available
+//        // Used to determine the network state for WLANLogin
+//        do {
+//            Network.reachability = try Reachability(hostname: "www.apple.com/cn/")
+//            do {
+//                try Network.reachability?.start()
+//            } catch let error as Network.Error {
+//                debugLog(error)
+//            } catch {
+//                debugLog(error)
+//            }
+//        } catch {
+//            debugLog(error)
+//        }
+
+        registerShortcutItems()
+
         return true
+    }
+
+    func registerShortcutItems() {
+        // Create Dynamic quick actions using the icon
+        let infos = [
+            (title: "GPA 查询", iconName: "chart-line", type: "com.twtstudio.gpa"),
+            (title: "课程表", iconName: "calendar-text", type: "com.twtstudio.classtable"),
+            (title: "自行车", iconName: "bike", type: "com.twtstudio.bike"),
+            (title: "黄页", iconName: "contact-mail", type: "com.twtstudio.yellowpage")
+        ]
+
+        var shortcutItems = [UIApplicationShortcutItem]()
+        for info in infos {
+            let item = UIApplicationShortcutItem(type: info.type, localizedTitle: info.title, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: info.iconName), userInfo: nil)
+            shortcutItems.append(item)
+        }
+        // Register the Dynamic quick actions to display on the home Screen
+        UIApplication.shared.shortcutItems = shortcutItems
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -117,6 +162,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+}
+
+extension AppDelegate {
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        if TwTUser.shared.token == nil && shortcutItem.type != "com.twtstudio.yellowpage" {
+            SwiftMessages.showWarningMessage(body: "请先登录")
+            return
+        }
+
+        let naviVC = (self.window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController
+        switch shortcutItem.type {
+        case "com.twtstudio.gpa":
+            let gpaVC = GPAViewController()
+            gpaVC.hidesBottomBarWhenPushed = true
+            naviVC?.pushViewController(gpaVC, animated: true)
+        case "com.twtstudio.classtable":
+            let classtableVC = ClassTableViewController()
+            classtableVC.hidesBottomBarWhenPushed = true
+            naviVC?.pushViewController(classtableVC, animated: true)
+        case "com.twtstudio.bike":
+            let bikeVC = BicycleServiceViewController()
+            bikeVC.hidesBottomBarWhenPushed = true
+            naviVC?.pushViewController(bikeVC, animated: true)
+        case "com.twtstudio.yellowpage":
+            let yellowpageVC = YellowPageMainViewController()
+            yellowpageVC.hidesBottomBarWhenPushed = true
+            naviVC?.pushViewController(yellowpageVC, animated: true)
+        default:
+            return
+        }
+        completionHandler(true)
     }
 }
 

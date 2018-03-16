@@ -187,9 +187,9 @@ class LoginViewController: UIViewController {
 
         })
 
-        BicycleUser.sharedInstance.auth {
+        BicycleUser.sharedInstance.auth(success: {
             NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("bike", TwTUser.shared.bicycleBindingState))
-        }
+        })
 
         ClasstableDataManager.getClassTable(success: { model in
             if let string = model.toJSONString() {
