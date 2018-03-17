@@ -58,7 +58,11 @@ class WLANBindingViewController: UIViewController {
         passwordTextField.clearButtonMode = .always
         self.view.addSubview(usernameTextField)
         self.view.addSubview(passwordTextField)
-        
+
+        // Auto fill
+        usernameTextField.text = TwTUser.shared.WLANAccount
+        passwordTextField.text = TwTUser.shared.WLANPassword
+
         bindButton = UIButton()
         bindButton.frame = CGRect(x: (self.view.frame.size.width-textFieldWidth)/2, y: passwordTextField.frame.origin.y + passwordTextField.frame.size.height + 20, width: textFieldWidth, height: 38)
         bindButton.setTitle("绑 定", for: .normal)
@@ -92,7 +96,10 @@ class WLANBindingViewController: UIViewController {
 
     @objc func bind() {
         
-        if usernameTextField.hasText && passwordTextField.hasText {
+        guard usernameTextField.hasText && passwordTextField.hasText else {
+            SwiftMessages.showWarningMessage(body: "请填写账号或密码")
+            return
+        }
             var loginInfo: [String: String] = [String: String]()
             loginInfo["username"] = usernameTextField.text!
             loginInfo["password"] = passwordTextField.text!
@@ -102,6 +109,7 @@ class WLANBindingViewController: UIViewController {
                 SwiftMessages.hideLoading()
                 guard let errorCode: Int = dictionary["error_code"] as? Int,
                     let errMsg = dictionary["message"] as? String else {
+                        SwiftMessages.showErrorMessage(body: "数据解析失败")
                         return
                 }
 
@@ -117,48 +125,47 @@ class WLANBindingViewController: UIViewController {
                 } else if errorCode == 50002 {
                     SwiftMessages.showErrorMessage(body: "密码错误")
                 } else {
-                    SwiftMessages.showErrorMessage(body: errMsg)
+                    TwTUser.shared.WLANAccount = loginInfo["username"]
+                    TwTUser.shared.WLANPassword = loginInfo["password"]
+                    TwTUser.shared.save()
+                    SwiftMessages.showErrorMessage(body: errMsg + "\n" + "已为你保存账号密码")
                 }
             }, failure: { error in
                 SwiftMessages.hideLoading()
                 TwTUser.shared.WLANAccount = self.usernameTextField.text!
                 TwTUser.shared.WLANPassword = self.passwordTextField.text!
-
-                SwiftMessages.showErrorMessage(body: error.localizedDescription + "\n" + "已为你保存账号")
+                SwiftMessages.showErrorMessage(body: error.localizedDescription + "\n" + "已为你保存账号密码")
             })
-        } else {
-            SwiftMessages.showWarningMessage(body: "请填写账号和密码")
-        }
     }
     
-    func cancelLogin() {
-        var loginInfo: [String: String] = [String: String]()
-        loginInfo["tjuuname"] = usernameTextField.text
-        loginInfo["tjupasswd"] = passwordTextField.text
-
-        SwiftMessages.showLoading()
-        SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL, parameters: loginInfo, success: { dictionary in
-            SwiftMessages.hideLoading()
-            guard let errorCode: Int = dictionary["error_code"] as? Int,
-                let errMsg = dictionary["message"] as? String else {
-                    return
-            }
-
-            if errorCode == -1 {
-                TwTUser.shared.tjuBindingState = false
-                TwTUser.shared.save()
-                SwiftMessages.hide()
-                SwiftMessages.showSuccessMessage(body: "解绑成功！")
-                self.dismiss(animated: true, completion: nil)
-            } else {
-                SwiftMessages.hide()
-                SwiftMessages.showErrorMessage(body: errMsg)
-            }
-        }, failure: { error in
-            SwiftMessages.hideLoading()
-            SwiftMessages.showErrorMessage(body: error.localizedDescription)
-        })
-    }
+//    func cancelLogin() {
+//        var loginInfo: [String: String] = [String: String]()
+//        loginInfo["tjuuname"] = usernameTextField.text
+//        loginInfo["tjupasswd"] = passwordTextField.text
+//
+//        SwiftMessages.showLoading()
+//        SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL, parameters: loginInfo, success: { dictionary in
+//            SwiftMessages.hideLoading()
+//            guard let errorCode: Int = dictionary["error_code"] as? Int,
+//                let errMsg = dictionary["message"] as? String else {
+//                    return
+//            }
+//
+//            if errorCode == -1 {
+//                TwTUser.shared.tjuBindingState = false
+//                TwTUser.shared.save()
+//                SwiftMessages.hide()
+//                SwiftMessages.showSuccessMessage(body: "解绑成功！")
+//                self.dismiss(animated: true, completion: nil)
+//            } else {
+//                SwiftMessages.hide()
+//                SwiftMessages.showErrorMessage(body: errMsg)
+//            }
+//        }, failure: { error in
+//            SwiftMessages.hideLoading()
+//            SwiftMessages.showErrorMessage(body: error.localizedDescription)
+//        })
+//    }
     
     @objc func dismissBinding() {
         self.dismiss(animated: true, completion: nil)
