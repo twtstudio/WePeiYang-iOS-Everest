@@ -9,6 +9,7 @@
 
 import UIKit
 import AddressBook
+import PopupDialog
 
 class YellowPageDetailViewController: UIViewController {
     let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), style: .plain)
@@ -27,7 +28,7 @@ class YellowPageDetailViewController: UIViewController {
         self.navigationItem.titleView = titleLabel
         
         
-        self.navigationController!.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor.white
         // FIXME: 改变 statusBar 颜色
 //        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
         
@@ -67,8 +68,8 @@ extension YellowPageDetailViewController: UITableViewDataSource {
         
         // FIXME: reuse
         let cell = YellowPageCell(with: .detailed, model: models[indexPath.row])
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(cellTapped(sender:)))
-        cell.phoneLabel.addGestureRecognizer(tapRecognizer)
+//        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(cellTapped(sender:)))
+//        cell.phoneLabel.addGestureRecognizer(tapRecognizer)
         return cell
     }
 }
@@ -87,20 +88,40 @@ extension YellowPageDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.5
     }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? YellowPageCell {
+            cell.phoneLabel.snp.updateConstraints { make in
+                make.left.equalTo(cell.separatorInset.left)
+            }
+
+            cell.nameLabel.snp.updateConstraints { make in
+                make.left.equalTo(cell.separatorInset.left)
+            }
+
+            cell.likeView.snp.updateConstraints { make in
+                make.right.equalToSuperview().offset(-cell.separatorInset.right-20)
+            }
+
+            cell.setNeedsUpdateConstraints()
+            cell.updateConstraintsIfNeeded()
+        }
+    }
 }
 
 extension YellowPageDetailViewController {
-    @objc func cellTapped(sender: UILabel) {
-        let alertVC = UIAlertController(title: "详情", message: "想要做什么？", preferredStyle: .actionSheet)
-        let copyAction = UIAlertAction(title: "复制到剪切板", style: .default) { action in
-            if let superview = sender.superview as? YellowPageCell {
-                superview.longPressed()
-            }
-        }
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { action in
-        }
-        alertVC.addAction(copyAction)
-        alertVC.addAction(cancelAction)
-        self.present(alertVC, animated: true, completion: nil)
-    }
+//    @objc func cellTapped(sender: UILabel) {
+//        let popup = PopupDialog(title: "复制到", message: <#T##String?#>)
+//        let alertVC = UIAlertController(title: "详情", message: "想要做什么？", preferredStyle: .actionSheet)
+//        let copyAction = UIAlertAction(title: "复制到剪切板", style: .default) { action in
+//            if let superview = sender.superview as? YellowPageCell {
+//                superview.longPressed()
+//            }
+//        }
+//        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { action in
+//        }
+//        alertVC.addAction(copyAction)
+//        alertVC.addAction(cancelAction)
+//        self.present(alertVC, animated: true, completion: nil)
+//    }
 }

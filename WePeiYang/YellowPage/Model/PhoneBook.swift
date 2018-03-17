@@ -85,7 +85,7 @@ class PhoneBook {
         self.favorite = (UserDefaults.standard.object(forKey: "YellowPageFavorite") as? [ClientItem]) ?? []
     }
     
-    static func checkVersion(success:@escaping ()->()) {
+    static func checkVersion(success: @escaping ()->(), failure: @escaping ()->()) {
         SolaSessionManager.solaSession(url: PhoneBook.url, success: { dict in
             if let categories = dict["category_list"] as? Array<Dictionary<String, AnyObject>> {
                 var newItems = [ClientItem]()
@@ -107,10 +107,13 @@ class PhoneBook {
                                 newItems.append(ClientItem(name: item_name!, phone: item_phone!, owner: department_name))
                             }
                         }
+                    } else {
                     }
                 }
                 PhoneBook.shared.items = newItems
                 PhoneBook.shared.save()
+            } else {
+                failure()
             }
         })
     }

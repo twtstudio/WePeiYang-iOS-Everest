@@ -35,14 +35,19 @@ extension SwiftMessages {
 
         var config = SwiftMessages.Config()
         config.presentationContext = context ?? .automatic
-        if let top = UIViewController.top as? UINavigationController {
+        if let top = UIViewController.current?.navigationController {
             config.presentationContext = .view(top.view)
-        } else if let top = UIViewController.top?.navigationController {
-            config.presentationContext = .view(top.view)
-        } else if let tabVC = UIViewController.top as? WPYTabBarController,
-            let top = tabVC.selectedViewController as? UINavigationController {
+        } else if let top = UIViewController.current {
             config.presentationContext = .view(top.view)
         }
+//        if let top = UIViewController.top as? UINavigationController {
+//            config.presentationContext = .view(top.view)
+//        } else if let top = UIViewController.top?.navigationController {
+//            config.presentationContext = .view(top.view)
+//        } else if let tabVC = UIViewController.top as? WPYTabBarController,
+//            let top = tabVC.selectedViewController as? UINavigationController {
+//            config.presentationContext = .view(top.view)
+//        }
 
         SwiftMessages.show(config: config, view: view)
     }

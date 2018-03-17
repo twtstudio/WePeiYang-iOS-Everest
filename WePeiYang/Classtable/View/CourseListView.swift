@@ -12,7 +12,8 @@ fileprivate struct C {
     static var cellWidth: CGFloat {
         return (UIScreen.main.bounds.width - classNumberViewWidth) / 7
     }// = 47
-    static let cellHeight: CGFloat = 55
+//    static let cellHeight: CGFloat = 55
+    static let cellHeight: CGFloat = (UIScreen.main.bounds.height*0.9) / 12
     static let dayCount = 7
     static let courseCount = 12
     

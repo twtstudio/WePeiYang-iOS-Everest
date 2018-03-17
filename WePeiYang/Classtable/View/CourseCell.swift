@@ -10,23 +10,19 @@ import UIKit
 
 class CourseCell: UITableViewCell {
     var titleLabel = UILabel()
-    var roomLabel = UILabel()
-    
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentView.addSubview(titleLabel)
-        self.contentView.addSubview(roomLabel)
-        titleLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
+        if isiPad {
+            titleLabel.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.medium)
+        } else {
+            titleLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
+        }
         titleLabel.numberOfLines = 0
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
-        titleLabel.sizeToFit()
-        
-        roomLabel.font = UIFont.systemFont(ofSize: 12)
-        roomLabel.numberOfLines = 0
-        roomLabel.textColor = .white
-        roomLabel.textAlignment = .center
-        roomLabel.sizeToFit()
+//        titleLabel.sizeToFit()
 
         contentView.layer.cornerRadius = 4
         contentView.layer.masksToBounds = true
@@ -35,16 +31,17 @@ class CourseCell: UITableViewCell {
             make.top.equalToSuperview().offset(3)
             make.left.equalToSuperview().offset(3)
             make.right.equalToSuperview().offset(-3)
+            make.bottom.equalToSuperview().offset(-3)
         }
         
-        roomLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom)
-            make.bottom.lessThanOrEqualTo(contentView.snp.bottom)
-//            make.bottom.equalToSuperview()
-            make.left.equalToSuperview().offset(3)
-            make.right.equalToSuperview().offset(-3)
-        }
-        
+//        roomLabel.snp.makeConstraints { make in
+//            make.top.equalTo(titleLabel.snp.bottom)
+////            make.bottom.lessThanOrEqualTo(contentView.snp.bottom)
+//            make.bottom.equalToSuperview().offset(-3)
+//            make.left.equalToSuperview().offset(3)
+//            make.right.equalToSuperview().offset(-3)
+//        }
+
         contentView.snp.makeConstraints { make in
             make.top.left.equalToSuperview().offset(1)
             make.bottom.right.equalToSuperview().offset(-1)
@@ -71,8 +68,8 @@ class CourseCell: UITableViewCell {
         titleLabel.textColor = .lightGray
         titleLabel.text = "无"
         titleLabel.textAlignment = .center
-        titleLabel.sizeToFit()
-        roomLabel.text = ""
+//        titleLabel.sizeToFit()
+//        roomLabel.text = ""
         titleLabel.snp.remakeConstraints { make in
             make.centerX.equalTo(contentView.snp.centerX)
             make.centerY.equalTo(contentView.snp.centerY)
@@ -98,13 +95,13 @@ class CourseCell: UITableViewCell {
             make.right.equalToSuperview().offset(-3)
         }
 
-        roomLabel.snp.remakeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom)
-            make.bottom.lessThanOrEqualTo(contentView.snp.bottom)
-            //            make.bottom.equalToSuperview()
-            make.left.equalToSuperview().offset(3)
-            make.right.equalToSuperview().offset(-3)
-        }
+//        roomLabel.snp.remakeConstraints { make in
+//            make.top.equalTo(titleLabel.snp.bottom)
+//            make.bottom.lessThanOrEqualTo(contentView.snp.bottom)
+//            //            make.bottom.equalToSuperview()
+//            make.left.equalToSuperview().offset(3)
+//            make.right.equalToSuperview().offset(-3)
+//        }
 
         contentView.snp.remakeConstraints { make in
             make.top.left.equalToSuperview().offset(1)
@@ -125,21 +122,20 @@ class CourseCell: UITableViewCell {
             contentView.backgroundColor = colors[index]
             contentView.alpha = 0.7
 
-            // FIXME: 体育课之类的课
-            if course.arrange[0].room != "" {
-                roomLabel.text = "@" + course.arrange[0].room
-                roomLabel.sizeToFit()
-            }
-
             var name = course.courseName
             // FIXME: 会不会不安全噢 看一下调用关系
             if course.courseName.count > 14 && course.arrange.first!.length <= 2 {
                 // 好像已经够安全了噢
                 name = (name as NSString).substring(to: 14) + "..."
             }
-//            titleLabel.text = course.courseName
+
+            // FIXME: 体育课之类的课
+            if course.arrange[0].room != "" {
+                name += "\n@" + course.arrange[0].room
+            }
+
             titleLabel.text = name
-            titleLabel.sizeToFit()
+
         }
     }
 }

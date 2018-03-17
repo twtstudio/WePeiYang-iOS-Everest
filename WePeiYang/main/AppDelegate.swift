@@ -122,7 +122,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let arrayOfImage = ["ic_welcome_gpa", "ic_welcome_classtable", "ic_welcome_bike", "ic_welcome_network"]
                 let arrayOfTitle = ["成绩查询", "课程表", "自行车", "一键上网"]
                 let arrayOfDescription = ["全新设计的成绩详情页，各科成绩直观比较",
-                                          "不只是传统课表，今明日课程提醒、widget 快速查看课程等温馨功能，只为让你的学习生活更加便利",
+                                          "不只是传统课表，还有今明日课程提醒、widget 快速查看课程等温馨功能",
                                           "担心车没还上、找不到最近可用车位？打开微北洋，即时查询各种信息",
                                           "打开 widget 一键上网。\n更有摇一摇上网功能，应用内摇一摇，轻松上网"]
                 let alertView = AlertOnboarding(arrayOfImage: arrayOfImage, arrayOfTitle: arrayOfTitle, arrayOfDescription: arrayOfDescription)
@@ -158,11 +158,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-        if let _ = ((UIViewController.top as? UITabBarController)?.selectedViewController as? UINavigationController)?.topViewController as? GPAViewController {
-            let frostedView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-            frostedView.frame = UIApplication.shared.keyWindow?.bounds ?? UIScreen.main.bounds
-            UIApplication.shared.keyWindow?.addSubview(frostedView)
-        } else if let _ = (UIViewController.top as? UINavigationController)?.topViewController as? GPAViewController {
+        if UIViewController.current is GPAViewController {
             let frostedView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
             frostedView.frame = UIApplication.shared.keyWindow?.bounds ?? UIScreen.main.bounds
             UIApplication.shared.keyWindow?.addSubview(frostedView)

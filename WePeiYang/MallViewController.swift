@@ -13,18 +13,23 @@ class MallViewController: ProgressWebViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
-        navigationController?.navigationBar.barStyle = .black
+//        navigationController?.navigationBar.isHidden = true
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.setBackgroundImage(UIImage(color: .mallOrange), for: .default)
+        navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.barStyle = .black
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        navigationController?.navigationBar.barStyle = .default
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .mallOrange
+//        progressView.y = -64
+        webView.y = 1
         webView.load(URLRequest(url: URL(string: "https://mall.twt.edu.cn/")!))
         self.reloadButton.setTitleColor(UIColor(red:0.75, green:0.75, blue:0.74, alpha:1.00), for: .normal)
     }

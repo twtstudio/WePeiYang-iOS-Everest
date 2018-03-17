@@ -42,16 +42,17 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let width = UIScreen.main.bounds.width
+//        let width = UIScreen.main.bounds.width
+        let width = self.view.frame.size.width
         dayLabel = UILabel(frame: CGRect(x: 90, y: 20, width: width - 90 - 20, height: 20))
         dayLabel.textAlignment = .center
         dayLabel.font = UIFont.preferredFont(forTextStyle: .body)
         self.view.addSubview(dayLabel)
 
-        let tableViewHeight = 50 as CGFloat
+        let tableViewHeight = 70 as CGFloat
         self.preferredContentSize = CGSize(width: width, height: tableViewHeight + 20)
 
-        tableView = UITableView(frame: CGRect(x: 70, y: 55, width: width - 70, height: 50))
+        tableView = UITableView(frame: CGRect(x: 70, y: 75, width: width - 70, height: 50))
         tableView.rowHeight = tableViewHeight
         tableView.allowsSelection = false
         imgView = UIImageView(frame: CGRect(x: 20, y: 20, width: 40, height: 40))
@@ -81,7 +82,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         } else {
             messageLabel.font = UIFont.preferredFont(forTextStyle: .body)
         }
-        messageLabel.textAlignment = .center
+//        messageLabel.textAlignment = .center
         messageLabel.text = "今天没有课，做点有趣的事情吧！"
         self.view.addSubview(messageLabel)
         messageLabel.isHidden = true
@@ -162,8 +163,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         switch activeDisplayMode {
         case .compact:
-            tableView.frame.size.height = tableView.rowHeight + 20
-            self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height)
+            if isiPad {
+                tableView.frame.size.height = tableView.rowHeight
+                self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height)
+            } else {
+                tableView.frame.size.height = tableView.rowHeight + 20
+                self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height)
+            }
         case .expanded:
             if classes.count == 0 {
                 tableView.frame.size.height = tableView.rowHeight + 20
@@ -313,4 +319,8 @@ extension TodayViewController: UITableViewDataSource {
 
 extension TodayViewController: UITableViewDelegate {
 
+}
+
+var isiPad: Bool {
+    return UIDevice.current.model == "iPad"
 }

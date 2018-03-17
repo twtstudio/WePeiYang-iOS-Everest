@@ -96,10 +96,17 @@ class NewsViewController: UIViewController {
         
         self.automaticallyAdjustsScrollViewInsets = false
 
+        newsHeaderView = NewsHeaderView(withTitle: "News")
+
         let statusBarHeight: CGFloat = UIScreen.main.bounds.height == 812 ? 44 : 20
         let tabBarHeight = self.tabBarController?.tabBar.height ?? 0
         // MARK: - init TableView
-        tableView = UITableView(frame: CGRect(x: 0, y: statusBarHeight, width: deviceWidth, height: deviceHeight-statusBarHeight-tabBarHeight), style: .grouped)
+        if isiPad {
+            tableView = UITableView(frame: CGRect(x: deviceWidth/10, y: statusBarHeight, width: deviceWidth*4/5, height: deviceHeight-statusBarHeight-tabBarHeight), style: .grouped)
+        } else {
+            tableView = UITableView(frame: CGRect(x: 0, y: statusBarHeight, width: deviceWidth, height: deviceHeight-statusBarHeight-tabBarHeight), style: .grouped)
+        }
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -111,8 +118,6 @@ class NewsViewController: UIViewController {
         tableView.backgroundColor = .white
         self.view.addSubview(tableView)
 
-        newsHeaderView = NewsHeaderView(withTitle: "News")
-        
         // init refresh
 
         let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(headerRefresh))
@@ -243,7 +248,10 @@ extension NewsViewController: UITableViewDataSource {
         switch indexPath.row {
         case 0:
             // 在bannerBackView上添加一个“咨询”label 和轮播图
-            let bannerBackView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 450))
+            let bannerBackView = UIView(frame: CGRect(x: 0, y: 0, width: deviceWidth, height: 450))
+            if isiPad {
+                bannerBackView.width = deviceWidth*4/5
+            }
             cell.contentView.addSubview(bannerBackView)
             bannerBackView.snp.makeConstraints { make in
                 make.edges.equalToSuperview()
@@ -287,6 +295,9 @@ extension NewsViewController: UITableViewDataSource {
                     return carousel.subject
                 }
                 let bannerView = BannerScrollView(frame: CGRect(x: 0, y: 0, width: bannerWidth, height: bannerHeight), type: .SERVER, imgs: imgs, descs: desc, defaultDotImage: UIImage(named: "defaultDot"), currentDotImage: UIImage(named: "currentDot"))
+                if isiPad {
+                    bannerView.width = bannerWidth*4/5
+                }
                 bannerView.layer.cornerRadius = 15
                 bannerView.layer.masksToBounds = true
                 bannerView.delegate = self

@@ -295,8 +295,13 @@ extension FavViewController: UITableViewDataSource {
                 make.top.equalToSuperview().offset(10)
                 make.bottom.equalToSuperview().offset(-10)
                 make.height.equalTo(cellHeight)
-                make.left.equalToSuperview().offset(15)
-                make.right.equalToSuperview().offset(-15)
+                if isiPad {
+                    make.centerX.equalToSuperview()
+                    make.width.equalToSuperview().multipliedBy(0.6)
+                } else {
+                    make.left.equalToSuperview().offset(15)
+                    make.right.equalToSuperview().offset(-15)
+                }
             }
             cellHeights.append(cellHeight)
             cell?.setNeedsLayout()

@@ -198,10 +198,10 @@ class GPAViewController: UIViewController {
         termSwitchView.addSubview(leftButton)
         termSwitchView.addSubview(rightButton)
         // set lineChartView
-        lineChartView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: 200)
+        lineChartView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: isiPad ? 460 : 200)
         lineChartView.delegate = self
         // set radarChartView
-        radarChartView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: self.view.width)
+        radarChartView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: isiPad ? self.view.width/2 : self.view.width)
         // set segmentView
         segmentContentView.frame =  CGRect(x: 0, y: 0, width: self.view.width, height: 50)
         segmentContentView.layer.masksToBounds = false
@@ -535,13 +535,13 @@ extension GPAViewController: UITableViewDelegate {
         if let type = GPASectionType(rawValue: section) {
             switch type {
             case .summary:
-                return 111
+                return isiPad ? 222 : 111
             case .lineChart:
-                return 260
+                return isiPad ? 520 : 260
             case .padding:
                 return 50
             case .radarChart:
-                return self.view.width
+                return isiPad ? self.view.width/2 : self.view.width
             case .subject:
                 return 52
             }

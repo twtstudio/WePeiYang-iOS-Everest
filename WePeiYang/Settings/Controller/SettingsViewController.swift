@@ -220,19 +220,27 @@ extension SettingsViewController: UITableViewDataSource {
             return 0
         }
     }
-    
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let separator = UIView(frame: CGRect(x: cell.separatorInset.left, y: tableView.rowHeight - 1, width: cell.width - 2*cell.separatorInset.left, height: 1))
+        separator.backgroundColor = .gray
+        separator.alpha = 0.25
+        cell.addSubview(separator)
+        if isiPad {
+            avatarView.snp.updateConstraints { make in
+                make.left.equalToSuperview().offset(cell.separatorInset.left+5)
+            }
+        }
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
             cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
             cell.textLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
             cell.accessoryType = .disclosureIndicator
-            let x: CGFloat = 15
-            let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))
-            separator.backgroundColor = .gray
-            separator.alpha = 0.25
-            cell.addSubview(separator)
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
+
             //            cell.detailTextLabel?.text = services[indexPath.row].status.rawValue
             if services[indexPath.row].status() {
                 cell.detailTextLabel?.text = "已绑定"
@@ -245,11 +253,6 @@ extension SettingsViewController: UITableViewDataSource {
             cell.textLabel?.text = (indexPath.section == 0) ? services[indexPath.row].title : settingTitles[indexPath.row].title
             cell.textLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
             cell.accessoryType = .disclosureIndicator
-            let x: CGFloat = 15
-            let separator = UIView(frame: CGRect(x: x, y: tableView.rowHeight - 1, width: self.view.width - x, height: 1))
-            separator.backgroundColor = .gray
-            separator.alpha = 0.25
-            cell.addSubview(separator)
             return cell
         }
     }

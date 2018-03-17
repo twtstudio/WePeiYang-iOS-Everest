@@ -67,10 +67,13 @@ class YellowPageMainViewController: UIViewController {
             SwiftMessages.hideLoading()
         }, failure: {
             SwiftMessages.showLoading()
-            PhoneBook.checkVersion {
+            PhoneBook.checkVersion(success: {
                 SwiftMessages.hideLoading()
                 self.tableView.reloadData()
-            }
+            }, failure: {
+                SwiftMessages.hideLoading()
+                self.tableView.reloadData()
+            })
         })
 
 //        UIView.performWithoutAnimation {
@@ -93,17 +96,17 @@ class YellowPageMainViewController: UIViewController {
         self.present(searchVC, animated: true, completion: nil)
     }
     
-    @objc func cellTapped(sender: YellowPageCell) {
-        let alertVC = UIAlertController(title: "详情", message: "想要做什么？", preferredStyle: .actionSheet)
-        let copyAction = UIAlertAction(title: "复制到剪切板", style: .default) { action in
-            sender.longPressed()
-        }
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { action in
-        }
-        alertVC.addAction(copyAction)
-        alertVC.addAction(cancelAction)
-        self.present(alertVC, animated: true, completion: nil)
-    }
+//    @objc func cellTapped(sender: YellowPageCell) {
+//        let alertVC = UIAlertController(title: "详情", message: "想要做什么？", preferredStyle: .actionSheet)
+//        let copyAction = UIAlertAction(title: "复制到剪切板", style: .default) { action in
+//            sender.longPressed()
+//        }
+//        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { action in
+//        }
+//        alertVC.addAction(copyAction)
+//        alertVC.addAction(cancelAction)
+//        self.present(alertVC, animated: true, completion: nil)
+//    }
 
 }
 
@@ -181,8 +184,8 @@ extension YellowPageMainViewController: UITableViewDataSource {
                 return cell
             } else { // detailed item
                 let cell = YellowPageCell(with: .detailed, model: favorite[indexPath.row-1])
-                let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(cellTapped(sender:)))
-                cell.phoneLabel.addGestureRecognizer(tapRecognizer)
+//                let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(cellTapped(sender:)))
+//                cell.phoneLabel.addGestureRecognizer(tapRecognizer)
                 return cell
             }
         case let section where section > 1 && section < 2+sections.count:

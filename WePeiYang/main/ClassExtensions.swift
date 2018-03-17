@@ -468,4 +468,6 @@ extension CGFloat {
     }
 }
 
-
+var isiPad: Bool {
+    return UIDevice.current.model == "iPad"
+}

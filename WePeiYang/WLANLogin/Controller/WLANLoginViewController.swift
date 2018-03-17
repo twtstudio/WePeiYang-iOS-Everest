@@ -85,7 +85,7 @@ class WLANLoginViewController: UIViewController {
         accountTextField.snp.makeConstraints { make in
             make.top.equalTo(messageLabel.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-40)
+            make.width.equalTo(self.view.width*0.6)
             make.height.equalTo(30)
         }
         accountTextField.placeholder = "请输入账号"
@@ -98,7 +98,7 @@ class WLANLoginViewController: UIViewController {
         passwordTextField.snp.makeConstraints { make in
             make.top.equalTo(accountTextField.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-40)
+            make.width.equalTo(self.view.width*0.6)
             make.height.equalTo(30)
         }
 
@@ -117,7 +117,8 @@ class WLANLoginViewController: UIViewController {
         loginButton.snp.makeConstraints { make in
             make.top.equalTo(passwordTextField.snp.bottom).offset(25)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-40)
+
+            make.width.equalTo(self.view.width*(isiPad ? 0.4 : 0.6))
             make.height.equalTo(40)
         }
 
@@ -137,7 +138,7 @@ class WLANLoginViewController: UIViewController {
         logoutButton.snp.makeConstraints { make in
             make.top.equalTo(loginButton.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-40)
+            make.width.equalTo(self.view.width*(isiPad ? 0.4 : 0.6))
             make.height.equalTo(40)
         }
 
@@ -156,7 +157,7 @@ class WLANLoginViewController: UIViewController {
         serviceButton.snp.makeConstraints { make in
             make.top.equalTo(logoutButton.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-40)
+            make.width.equalTo(self.view.width*(isiPad ? 0.4 : 0.6))
             make.height.equalTo(40)
         }
 

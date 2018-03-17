@@ -9,6 +9,7 @@
 
 import UIKit
 import SwiftMessages
+import PopupDialog
 
 class LibraryCard: CardView {
     let titleLabel = UILabel()
@@ -172,7 +173,6 @@ extension LibraryCard: UITableViewDataSource {
             image = #imageLiteral(resourceName: "对号")
         }
 
-
         let imageSize = CGSize(width: 25, height: 25)
         image = UIImage.resizedImage(image: image, scaledToSize: imageSize)
         UIGraphicsBeginImageContext(imageSize)
@@ -191,27 +191,31 @@ extension LibraryCard: UITableViewDataSource {
 // MARK: 点击事件
 extension LibraryCard {
     func renew(sender: CardButton) {
-
-        let group = DispatchGroup()
-//        library/renew/{barcode}
-        var count = 0
-        for book in LibraryDataContainer.shared.books {
-            group.enter()
-            SolaSessionManager.solaSession(type: .get, url: "/library/renew/\(book.barcode)", token: "", parameters: nil, success: { dict in
-                // TODO: Check
-                count += 1
-                group.leave()
-            }, failure: { err in
-                group.leave()
-                // TODO: 解析错误
+        let popup = PopupDialog(title: "注意", message: "每个月只能续借一次\n存在逾期未还书籍不能续借")
+        let okButton = DefaultButton(title: "好的") {
+            let group = DispatchGroup()
+            //        library/renew/{barcode}
+            var count = 0
+            for book in LibraryDataContainer.shared.books {
+                group.enter()
+                SolaSessionManager.solaSession(type: .get, url: "/library/renew/\(book.barcode)", token: "", parameters: nil, success: { dict in
+                    // TODO: Check
+                    count += 1
+                    group.leave()
+                }, failure: { err in
+                    group.leave()
+                    SwiftMessages.showErrorMessage(body: err.localizedDescription)
+                })
+            }
+            group.notify(queue: .main, execute: {
+                SwiftMessages.showSuccessMessage(body: "已续借\(count)本书")
+                self.getBooks(success: {
+                    self.tableView.reloadData()
+                })
             })
         }
-        group.notify(queue: .main, execute: {
-            SwiftMessages.showSuccessMessage(body: "成功续借\(count)本书")
-            self.getBooks(success: {
-                self.tableView.reloadData()
-            })
-        })
+        popup.addButton(okButton)
+        UIViewController.current?.present(popup, animated: true, completion: nil)
     }
 
     func updateBookStatus() {

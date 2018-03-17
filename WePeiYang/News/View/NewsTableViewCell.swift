@@ -30,12 +30,19 @@ class NewsTableViewCell: UITableViewCell {
     }
 
     func layout() {
-        let screenWidth = UIScreen.main.bounds.width
+        var screenWidth = UIScreen.main.bounds.width
+        if isiPad {
+            screenWidth = UIScreen.main.bounds.width*4/5
+        }
         switch imageStyle {
         case .right:
             let titleWidth = screenWidth*3.0/5 - 30
             contentView.addSubview(titleLabel)
-            titleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+            if isiPad {
+                titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
+            } else {
+                titleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+            }
             titleLabel.numberOfLines = 0
             titleLabel.snp.makeConstraints { make in
                 make.left.equalToSuperview().offset(15)
@@ -57,7 +64,11 @@ class NewsTableViewCell: UITableViewCell {
 
             contentView.addSubview(detailLabel)
             detailLabel.numberOfLines = 0
-            detailLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+            if isiPad {
+                detailLabel.font = UIFont.systemFont(ofSize: 15)
+            } else {
+                detailLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+            }
             detailLabel.textColor = .lightGray
             detailLabel.snp.makeConstraints { make in
                 make.left.equalToSuperview().offset(15)

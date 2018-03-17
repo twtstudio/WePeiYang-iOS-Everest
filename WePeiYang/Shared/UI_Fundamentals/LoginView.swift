@@ -44,9 +44,17 @@ class LoginView: MessageView {
         installBackgroundView(contentView)
         configureBackgroundView(width: 250)
         contentView.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().offset(30)
-            make.bottom.right.equalToSuperview().offset(-30)
-            make.width.equalTo(250)
+            if isiPad {
+                make.top.equalToSuperview().offset(30)
+                make.bottom.equalToSuperview().offset(-30)
+                make.width.equalToSuperview().multipliedBy(0.6)
+                make.left.equalTo(deviceWidth*0.2)
+                make.right.equalTo(-deviceWidth*0.2)
+            } else {
+                make.top.left.equalToSuperview().offset(30)
+                make.bottom.right.equalToSuperview().offset(-30)
+                make.width.equalTo(250)
+            }
             make.height.equalTo(300)
         }
 
@@ -233,6 +241,9 @@ extension LoginView {
 
 extension LoginView {
     @objc func keyboardWillShow(notification: NSNotification) {
+        if isiPad {
+            return
+        }
         self.frame.origin.y = 20
     }
 

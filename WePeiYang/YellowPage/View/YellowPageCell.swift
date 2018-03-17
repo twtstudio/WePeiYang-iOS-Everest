@@ -100,25 +100,26 @@ class YellowPageCell: UITableViewCell {
             textLabel?.font = UIFont.systemFont(ofSize: 14)
 
             textLabel?.sizeToFit()
-            textLabel?.snp.makeConstraints { make in
-                make.top.equalTo(contentView).offset(11)
-                make.centerY.equalTo(contentView)
-                make.left.equalTo(contentView).offset(15)
-                make.bottom.equalTo(contentView).offset(-11)
-            }
+//            textLabel?.snp.makeConstraints { make in
+//                make.top.equalTo(contentView).offset(11)
+//                make.centerY.equalTo(contentView)
+//                make.left.equalTo(contentView).offset(15)
+//                make.bottom.equalTo(contentView).offset(-11)
+//            }
         case .detailed:
             fatalError("这个方法请调用func init(with style: YellowPageCellStyle, model: ClientItem)")
         }
         
     }
-    
+
+    var nameLabel: UILabel!
     convenience init(with style: YellowPageCellStyle, model: ClientItem) {
         self.init(style: .default, reuseIdentifier: style.rawValue)
         guard style == .detailed else {
             return
         }
         self.detailedModel = model
-        let nameLabel = UILabel()
+        nameLabel = UILabel()
         nameLabel.text = model.name
 //        nameLabel.font = UIFont.flexibleFont(with: 14)
         // TODO: flexibleFont
@@ -149,7 +150,7 @@ class YellowPageCell: UITableViewCell {
             make.width.equalTo(20)
             make.height.equalTo(20)
             make.right.equalTo(contentView).offset(-14)
-            make.centerY.equalTo(phoneLabel.snp.centerY)
+            make.top.equalTo(nameLabel.snp.bottom).offset(13)
         }
         likeView.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
 
@@ -159,18 +160,19 @@ class YellowPageCell: UITableViewCell {
         phoneLabel.sizeToFit()
         self.contentView.addSubview(phoneLabel)
         phoneLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(13)
             make.left.equalTo(contentView).offset(15)
             make.bottom.equalTo(contentView).offset(-10)
+            make.centerY.equalTo(likeView.snp.centerY)
             make.right.lessThanOrEqualTo(likeView.snp.left).offset(-10)
         }
         phoneLabel.isUserInteractionEnabled = true
-
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
+        phoneLabel.addGestureRecognizer(gesture)
 
         let phoneView = ExtendedButton()
         phoneView.setImage(UIImage(named: "phone"), for: .normal)
     
-        phoneView.addTarget(self, action: #selector(phoneTapped), for: .touchUpInside)
+        phoneView.addTarget(self, action: #selector(phoneTapped(button:)), for: .touchUpInside)
         
         self.contentView.addSubview(phoneView)
         phoneView.snp.makeConstraints { make in
@@ -199,16 +201,16 @@ class YellowPageCell: UITableViewCell {
         }
     }
     
-    @objc func phoneTapped() {
-        UIApplication.shared.openURL(URL(string: "telprompt://\(self.detailedModel.phone)")!)
+    @objc func phoneTapped(button: UIButton) {
+        if let url = URL(string: "telprompt://\(self.detailedModel.phone)") {
+            UIApplication.shared.openURL(url)
+        }
     }
     
-    @objc func longPressed() {
+    @objc func longPressed(sender: UITapGestureRecognizer) {
         if let text = UIPasteboard.general.string, text != self.detailedModel.phone {
             UIPasteboard.general.string = self.detailedModel.phone
         }
-        // FIXME: MsgDisplay
         SwiftMessages.showSuccessMessage(title: "操作成功", body: "已经复制到剪切板")
-        // MsgDisplay.showSuccessMsg("已经复制到剪切板")
     }
 }
