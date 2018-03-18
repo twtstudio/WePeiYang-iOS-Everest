@@ -24,7 +24,7 @@ class SignUpTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func signUp(_ sender: UIButton!) {
+    @objc func signUp(_ sender: UIButton!) {
         
         switch sender.tag {
             

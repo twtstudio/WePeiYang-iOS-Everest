@@ -41,7 +41,7 @@ class InfoViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
 // MARK: push to viewcontroller
-    func sectionTapped(sender: UITapGestureRecognizer)
+    @objc func sectionTapped(sender: UITapGestureRecognizer)
     {
         guard let tag = sender.view?.tag else{
             return

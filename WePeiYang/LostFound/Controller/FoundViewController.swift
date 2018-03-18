@@ -45,8 +45,8 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         refresh()
         self.foundView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.foundView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
-        self.foundView.mj_footer.isAutomaticallyHidden = true
-        
+//        self.foundView.mj_footer.isAutomaticallyHidden = true
+
         
         
     }
@@ -57,13 +57,13 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
             self.foundView.reloadData()
             
         }, failure: { error in
-            print(error)
+            debugLog(error)
             
         })
     }
     
     //底部上拉加载
-    func footerLoad() {
+    @objc func footerLoad() {
         print("上拉加载")
         self.curPage += 1
         GetFoundAPI.getFound(page: curPage, success: { (losts) in
@@ -73,7 +73,7 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
             self.foundView.reloadData()
             
         }, failure: { error in
-            print(error)
+            debugLog(error)
             
             
         })
@@ -81,7 +81,7 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     //顶部下拉刷新
-    func headerRefresh(){
+    @objc func headerRefresh(){
         print("下拉刷新.")
         
         self.curPage = 1
@@ -96,7 +96,7 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             
         }, failure: { error in
-            print(error)
+            debugLog(error)
             
         })
         

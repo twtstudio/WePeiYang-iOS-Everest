@@ -24,8 +24,8 @@ class AllQuizViewController: UIViewController,UICollectionViewDelegate,UICollect
         self.view.addSubview(bgView)
         
         //改变 statusBar 颜色
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-        
+//        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+        navigationController?.navigationBar.barStyle = .black
         let downArrow = UIButton(backgroundImageName: "ic_arrow_down", desiredSize: CGSize(width: 88, height: 24))
         downArrow?.tintColor = UIColor.white
         
@@ -55,7 +55,7 @@ class AllQuizViewController: UIViewController,UICollectionViewDelegate,UICollect
         
     }
 
-    func dismissAnimated() {
+    @objc func dismissAnimated() {
         self.dismiss(animated: true, completion: nil)
     }
     

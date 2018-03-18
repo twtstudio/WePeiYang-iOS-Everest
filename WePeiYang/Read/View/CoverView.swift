@@ -44,8 +44,10 @@ class CoverView: UIView {
         }(UIImageView())
         
         computedBGView = UIView()
-        
-        //coverView.setImageWithURL(NSURL(string: book.coverURL))
+        if let url = URL(string: book.coverURL) {
+            coverView.sd_setImage(with: url)
+//            coverView.setImageWithURL(NSURL(string: book.coverURL))
+        }
         titleLabel = {
             $0.font = UIFont.boldSystemFont(ofSize: 24)
             $0.numberOfLines = 1
@@ -112,11 +114,18 @@ class CoverView: UIView {
       //  let imageURL = NSURL(string: book.coverURL)
         
 //        let fuckStr = book.coverURL.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-        let fuckStr = book.coverURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        _ = URL(string: fuckStr)
+        let fuckStr = book.coverURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
 //        let imageRequest = NSURLRequest(url: fuckURL!)
-        
-        // FIXME: image
+        if let url = URL(string: fuckStr) {
+            coverView.sd_setImage(with: url, completed: { (image, error, type, url) in
+                guard error != nil else {
+                    // FIXME: LOG ERROR
+                    return
+                }
+                
+            })
+            
+        }
 //        coverView.setImageWithURLRequest(imageRequest, placeholderImage: nil, success: { (_, _, img) in
 //            if img.size.height > img.size.width {
 //                self.coverView.image = UIImage.resizedImageKeepingRatio(img, scaledToWidth: UIScreen.main.bounds.width / 2)
@@ -295,7 +304,7 @@ private extension UIButton {
 
 
 extension CoverView: UIWebViewDelegate {
-    func presentRateView() {
+    @objc func presentRateView() {
         let rateView = RateView(rating: 3.0, id: "\(book.id)")
         //self.addSubview(rateView)
         
@@ -327,14 +336,14 @@ extension CoverView: UIWebViewDelegate {
         UIViewController.current?.navigationItem.setHidesBackButton(false, animated: true)
     }
     
-    func favourite() {
+    @objc func favourite() {
         User.shared.addFavorite(id: "\(self.book.id)") {
 //            MsgDisplay.showSuccessMsg("添加成功")
         }
         //Call `favourite` method of a user
     }
     
-    func tapToSeeMore() {
+    @objc func tapToSeeMore() {
         
         let blurEffect = UIBlurEffect(style: .light)
         let frostView = UIVisualEffectView(effect: blurEffect)
@@ -383,7 +392,7 @@ extension CoverView: UIWebViewDelegate {
 //        summaryDetailView.addGestureRecognizer(tap)
     }
     
-    func tapAgainToDismiss() {
+    @objc func tapAgainToDismiss() {
         for fooView in (UIViewController.current?.view.subviews)! {
             if fooView is UIVisualEffectView {
                 UIView.animate(withDuration: 0.7, animations: {

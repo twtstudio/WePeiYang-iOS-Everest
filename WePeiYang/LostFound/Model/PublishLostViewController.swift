@@ -106,7 +106,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         self.tableView.endEditing(true)
     }
     
@@ -167,9 +167,9 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 6{
+        if section == 6 {
             return 180
-        }else if section == 0{
+        } else if section == 0 {
             return 50
         }
         else {
@@ -295,12 +295,8 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
                 
                 return cell;
             }
-            
-            
         }
-        
     }
-    
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
@@ -352,7 +348,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    func tapped(){
+    @objc func tapped(){
         
         print("Release success")
         print(markDict)
@@ -373,37 +369,26 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             self.navigationController?.pushViewController(successVC, animated: true)
         }, failure: { error
             in
-            print(error)
+            debugLog(error)
         })
         //        }
         print(markDict)
     }
-    
-    
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
     }
 
-    
     func comfirmButtonTapped() {
         //        LostAPI.fabu(name: )
     }
     
     func means(input:String,key:String){
         //        var markdic:[String: String] = [:]
-        
-        
-        
         markDict[key] = input
         markDict["other_tag"] = ""
-        
     }
-    
-    
 }
 
 // Mark -- ImagePickerControllerDelegate

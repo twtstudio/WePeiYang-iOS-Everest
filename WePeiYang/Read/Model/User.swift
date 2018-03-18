@@ -27,7 +27,7 @@ class User {
     static let shared: User = User()
     private init() {}
     
-    func getReviews(success: @escaping (Void)->(Void)) {
+    func getReviews(success: @escaping ()->()) {
         var fooReviewList: [Review] = []
         ReadBeacon.request(ReadAPI.reviewURL, failureMessage: "评论提交失败") { dict in
             if let data = dict["data"] as? Array<NSDictionary> {
@@ -53,7 +53,7 @@ class User {
         }
     }
     
-    func getBookShelf(success: @escaping (Void)->(Void)) {
+    func getBookShelf(success: @escaping ()->()) {
         ReadBeacon.request(ReadAPI.bookshelfURL, failureMessage: "获取收藏数据失败") { dict in
             if let data = dict["data"] as? Array<NSDictionary> {
                 for dic in data {
@@ -71,7 +71,7 @@ class User {
         }
     }
     
-    func like(method: LikeMethod, reviewID: String, success: @escaping (Void)->(Void)) {
+    func like(method: LikeMethod, reviewID: String, success: @escaping ()->()) {
         let url = method == .like ? ReadAPI.addLikeURL+reviewID : ReadAPI.resLikeURL+reviewID
         let msg = method == .like ? "点赞" : "取消"
         ReadBeacon.request(url, failureMessage: msg+"失败") { dict in
@@ -87,7 +87,7 @@ class User {
         }
     }
 
-    func commitReview(content: String?, bookid: String, rating: Double, success: @escaping (Void)->(Void)) {
+    func commitReview(content: String?, bookid: String, rating: Double, success: @escaping ()->()) {
         if let content = content {
             let para = ["content": content, "id": bookid, "score": rating] as [String: Any]
             ReadBeacon.request(ReadAPI.commitReviewURL, method: .post, parameters: para, failureMessage: "评论失败") { dict in
@@ -101,21 +101,21 @@ class User {
         }
     }
 
-    func addFavorite(id: String, success: @escaping (Void)->(Void)) {
+    func addFavorite(id: String, success: @escaping ()->()) {
         let url = ReadAPI.addBookShelfURL + id
         ReadBeacon.request(url, failureMessage: "添加失败") { dict in
             success()
         }
     }
 
-    func delFavorite(id: String, success: @escaping (Void)->(Void)) {
+    func delFavorite(id: String, success: @escaping ()->()) {
         let url = ReadAPI.delBookShelfURL + id
         ReadBeacon.request(url, failureMessage: "删除失败") { dict in
             success()
         }
     }
     
-    func getToken(success: @escaping (String)->(Void)) {
+    func getToken(success: @escaping (String)->()) {
         
         guard let token = TwTUser.shared.token else {
             // FIXME: MsgDisplay

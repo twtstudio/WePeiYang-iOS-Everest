@@ -1,4 +1,4 @@
-//
+ //
 //  ClientItem.swift
 //  WePeiYang
 //
@@ -9,10 +9,10 @@
 import Foundation
 
 class ClientItem: NSObject, NSCoding {
-    var name = ""
-    var phone = ""
+    var name: String
+    var phone: String
     var isFavorite = false
-    var owner: String = ""
+    var owner: String
     
     init(name: String, phone: String, owner: String) {
         self.name = name
@@ -20,11 +20,10 @@ class ClientItem: NSObject, NSCoding {
         self.owner = owner
     }
     
-    
-    
     required init?(coder aDecoder: NSCoder) {
         name = aDecoder.decodeObject(forKey: "yp_name") as! String
         phone = aDecoder.decodeObject(forKey: "yp_phone") as! String
+//        isFavorite = aDecoder.decodeObject(forKey: "yp_isFavorite") as! Bool
         isFavorite = aDecoder.decodeBool(forKey: "yp_isFavorite")
         owner = aDecoder.decodeObject(forKey: "yp_owner") as! String
     }

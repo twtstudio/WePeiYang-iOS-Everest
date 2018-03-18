@@ -194,7 +194,7 @@ extension TwentyCourseDetailViewController {
     }
     
     
-    func startQuiz() {
+    @objc func startQuiz() {
         
         let courseID = (self.detailList[0]?.courseID)!
         Courses.Study20.getQuiz(of: courseID) {

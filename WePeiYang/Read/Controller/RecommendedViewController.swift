@@ -25,7 +25,8 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
+        
     }
     
     
@@ -202,7 +203,7 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
             //添加页面到滚动面板里
             for (seq, banner) in Recommender.shared.bannerList.enumerated() {
                 let imageView = UIImageView()
-//                imageView.setImageWithURL(NSURL(string: banner.image)!);
+                imageView.sd_setImage(with: URL(string: banner.image), completed: nil)
                 imageView.frame = CGRect(x: CGFloat(seq)*UIScreen.main.bounds.width, y: 0,
                                          width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width*0.375)
                 imageView.isUserInteractionEnabled = true
@@ -254,7 +255,7 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     //点击页控件时事件处理
-    func pageChanged(sender: UIPageControl) {
+    @objc func pageChanged(sender: UIPageControl) {
         //根据点击的页数，计算scrollView需要显示的偏移量
         var frame = headerScrollView.frame
         frame.origin.x = frame.size.width * CGFloat(sender.currentPage)
@@ -270,13 +271,17 @@ class RecommendedViewController: UIViewController, UITableViewDelegate, UITableV
         print("Push Detail View Controller, bookID: \(bookID)")
     }
     
-    func pushWebPage() {
+    @objc func pushWebPage() {
         if #available(iOS 9.0, *) {
             let url = URL(string: Recommender.shared.bannerList[pageControl.currentPage].url)!
             let safariController = SFSafariViewController(url: url, entersReaderIfAvailable: true)
             self.present(safariController, animated: true, completion: nil)
 //            presentViewController(safariController, animated: true, completion: nil)
         } else {
+            if let url = URL(string: Recommender.shared.bannerList[pageControl.currentPage].url) {
+                let safariVC = SFSafariViewController(url: url)
+                self.navigationController?.pushViewController(safariVC, animated: true)
+            }
             // FIXME: web app
 //            let webController = WebAppViewController(address: Recommender.shared.bannerList[pageControl.currentPage].url)
 //            self.navigationController?.pushViewController(webController, animated: true)

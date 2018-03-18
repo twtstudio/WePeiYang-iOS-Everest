@@ -75,8 +75,8 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
 //        footer.isAutomaticallyHidden = true
         self.lostView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.lostView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
-        self.lostView.mj_footer.isAutomaticallyHidden = true
-        
+//        self.lostView.mj_footer.isAutomaticallyHidden = true
+
         }
     
     
@@ -89,12 +89,12 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
             
             
             , failure: { error in
-                print(error)
+                debugLog(error)
             } )
     }
     
 
-    func tapped(){
+    @objc func tapped(){
         let vc = PublishLostViewController()
         
         self.navigationController?.pushViewController(vc, animated: true)
@@ -103,7 +103,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     }
     
     //底部上拉加载
-    func footerLoad() {
+    @objc func footerLoad() {
         print("上拉加载")
         self.curPage += 1
         GetLostAPI.getLost(page: curPage, success: { (losts) in
@@ -113,7 +113,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
             self.lostView.reloadData()
         
         }, failure: { error in
-            print(error)
+            debugLog(error)
         
         
         })
@@ -121,7 +121,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     }
     
     //顶部下拉刷新
-    func headerRefresh(){
+    @objc func headerRefresh(){
         print("下拉刷新.")
         
         self.curPage = 1
@@ -136,7 +136,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
             
         
         }, failure: { error in
-            print(error)
+            debugLog(error)
         
         })
 

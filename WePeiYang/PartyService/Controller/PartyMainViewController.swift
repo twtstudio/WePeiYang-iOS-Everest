@@ -45,7 +45,7 @@ class PartyMainViewController: UIViewController {
         super.viewDidLoad()
         
         //personalStatusButton.addTarget(self, action: #selector(PartyMainViewController.personalStatusButtonTapped(_:)), for: .touchUpInside)
-        
+
         functionTableView.delegate = self
         functionTableView.dataSource = self
         functionTableView.tableFooterView = UIView()
@@ -90,7 +90,7 @@ class PartyMainViewController: UIViewController {
         avatarBackGround.layer.shadowPath = shadowPath.CGPath
         */
         
-        if let foo = UserDefaults.standard.object(forKey: "studentName") as? String {
+        if let foo = TwTUser.shared.realname {
             aNameLabel = UILabel(text: foo, color: .white)
         } else {
             aNameLabel = UILabel(text: "获取姓名失败", color: .white)
@@ -115,20 +115,23 @@ class PartyMainViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            self.navigationController?.navigationBar.shadowImage = UIImage()
-            self.navigationController?.navigationBar.isTranslucent = true
-            self.navigationController?.navigationBar.barStyle = .default
-//        self.navigationController?.jz_navigationBarBackgroundAlpha = 0
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.barStyle = .default
+        //        self.navigationController?.jz_navigationBarBackgroundAlpha = 0
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-        
+        navigationController?.navigationBar.barStyle = .black
+        //        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        UIApplication.shared.setStatusBarStyle(.default, animated: true)
+//        UIApplication.shared.setStatusBarStyle(.default, animated: true)
+        navigationController?.navigationBar.barStyle = .default
         guard Applicant.sharedInstance.realName != nil else {
             //log.word("not found")/
             return
@@ -302,7 +305,7 @@ extension PartyMainViewController {
         
     }
     
-    func changeAvatar() {
+    @objc func changeAvatar() {
         
         UIView.animate(withDuration: 0.3, animations: {
             self.anAvatar.alpha = 0
@@ -323,7 +326,7 @@ extension PartyMainViewController {
 
 extension UIColor {
     static var partyRed: UIColor {
-        return UIColor(colorLiteralRed: 240.0/255.0, green: 22.0/255.0, blue: 22.0/255.0, alpha: 1.0)
+        return UIColor(red: 240.0/255.0, green: 22.0/255.0, blue: 22.0/255.0, alpha: 1.0)
     }
 }
 

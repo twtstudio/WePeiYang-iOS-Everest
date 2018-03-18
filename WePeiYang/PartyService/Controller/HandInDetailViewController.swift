@@ -54,10 +54,11 @@ class HandInDetailViewController: UIViewController {
         self.view.addSubview(bgView)
         
         //改变 statusBar 颜色
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+//        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+        navigationController?.navigationBar.barStyle = .black
     }
     
-    func submit() {
+    @objc func submit() {
         
         guard !(titleTextField.text?.isEmpty)! else {
 //            MsgDisplay.showErrorMsg("标题不能为空")

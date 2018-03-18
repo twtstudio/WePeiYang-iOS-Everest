@@ -10,7 +10,7 @@ import UIKit
 
 class Checkbox: UIButton {
     
-    let partyGray = UIColor(colorLiteralRed: 149.0/255.0, green: 149.0/255.0, blue: 149.0/255.0, alpha: 1)
+    let partyGray = UIColor(red: 149.0/255.0, green: 149.0/255.0, blue: 149.0/255.0, alpha: 1)
     
     typealias Quiz = Courses.Study20.Quiz
     /*
@@ -103,7 +103,7 @@ class Checkbox: UIButton {
         self.addTarget(self, action: #selector(Checkbox.beTapped), for: .touchUpInside)
     }
     
-    func beTapped() {
+    @objc func beTapped() {
         
         if self.belongsToMany {
             self.wasChosen = !self.wasChosen

@@ -9,16 +9,17 @@
 import UIKit
 
 class AllModulesViewController: UIViewController {
-    typealias ModuleData = (title: String, image: UIImage, class: AnyClass)
+    typealias ModuleData = (title: String, image: UIImage, class: AnyClass, needLogin: Bool)
     fileprivate let modules: [ModuleData] = [
-        (title: "GPA", image: UIImage(named: "gpaBtn")!, class: GPAViewController.self),
-        (title: "课程表", image: UIImage(named: "classtableBtn")!, class: GPAViewController.self),
-        (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self),
-        (title: "自行车", image: UIImage(named: "bicycleBtn")!, class: GPAViewController.self),
-        (title: "党建", image: UIImage(named: "partyBtn")!, class: PartyMainViewController.self),
-        (title: "探索", image: UIImage(named: "msBtn")!, class: GPAViewController.self),
-        (title: "阅读", image: UIImage(named: "readBtn")!, class: ReadViewController.self),
-        (title: "黄页", image: UIImage(named: "yellowPageBtn")!, class: YellowPageMainViewController.self)]
+        (title: "GPA", image: UIImage(named: "gpaBtn")!, class: GPAViewController.self, needLogin: true),
+        (title: "课程表", image: UIImage(named: "classtableBtn")!, class: ClassTableViewController.self, needLogin: true),
+//        (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self, needLogin: false),
+        (title: "自行车", image: UIImage(named: "bicycleBtn")!, class: BicycleServiceViewController.self, needLogin: true),
+        (title: "党建", image: UIImage(named: "partyBtn")!, class: PartyMainViewController.self, needLogin: true),
+        (title: "商城", image: UIImage(named: "mallBtn")!, class: MallViewController.self, needLogin: false),
+//        (title: "阅读", image: UIImage(named: "readBtn")!, class: ReadViewController.self, needLogin: true),
+        (title: "黄页", image: UIImage(named: "yellowPageBtn")!, class: YellowPageMainViewController.self, needLogin: false),
+        (title: "上网", image: UIImage(named: "networkBtn")!, class: WLANLoginViewController.self, needLogin: true)]
     
     var collectionView: UICollectionView!
     // The below override will not be called if current viewcontroller is controlled by a UINavigationController
@@ -26,12 +27,7 @@ class AllModulesViewController: UIViewController {
     //    override var preferredStatusBarStyle: UIStatusBarStyle {
     //        return .lightContent
     //    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        super.viewWillAppear(animated)
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // 3D Touch
@@ -66,10 +62,22 @@ class AllModulesViewController: UIViewController {
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.navigationBar.isTranslucent = true
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
 }
 
@@ -97,7 +105,7 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
         if indexPath.section == 0 {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UICollectionElementKindSectionHeader", for: indexPath)
             let label = UILabel(text: "更多功能")
-            label.font = UIFont.systemFont(ofSize: 35, weight: UIFontWeightHeavy)
+            label.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.heavy)
             label.x = 15
             label.y = 25
             label.sizeToFit()
@@ -108,6 +116,15 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if modules[indexPath.row].needLogin && TwTUser.shared.token == nil {
+            showLoginView(success: {
+                if let vc = (self.modules[indexPath.row].class as? UIViewController.Type)?.init() {
+                    vc.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            })
+            return
+        }
         // instantiate a view controller by its class
         if let vc = (modules[indexPath.row].class as? UIViewController.Type)?.init() {
             vc.hidesBottomBarWhenPushed = true

@@ -9,10 +9,10 @@
 import Foundation
 
 class Applicant: NSObject {
-    
+
     //FIXME: 还是需要保证数据的正确，再加载UI
-    var realName: String? = UserDefaults.standard.object(forKey: "studentName") as? String
-    var studentNumber: String? = UserDefaults.standard.object(forKey: "studentID") as? String
+    var realName: String? = TwTUser.shared.realname
+    var studentNumber: String = TwTUser.shared.schoolID
     var personalStatus = [[String: Any]]()
     var scoreOf20Course = [[String: Any]]()
     var applicantGrade = [[String: Any]]()
@@ -25,12 +25,13 @@ class Applicant: NSObject {
     fileprivate override init(){}
     
     //TODO: 未完成
-    func getStudentNumber(_ success: @escaping (Void) -> Void) {
+    func getStudentNumber(_ success: @escaping () -> Void) {
         //TODO:这样做还不够优雅，应该在登录完成之后自动重新加载
-        guard let token = UserDefaults.standard.object(forKey: "twtToken") as? String else {
+        guard let token = TwTUser.shared.token else {
+            // FIXME: log something and login
 //            MsgDisplay.showErrorMsg("你需要登录才能访问党建功能")
-            let loginVC = LoginViewController()
-            UIViewController.current?.present(loginVC, animated: true, completion: nil)
+//            let loginVC = LoginViewController()
+//            UIViewController.current?.present(loginVC, animated: true, completion: nil)
             return
         }
         
@@ -46,13 +47,9 @@ class Applicant: NSObject {
             
             self.realName = fooRealName
             self.studentNumber = fooStudentNumber
-            
+
             UserDefaults.standard.set(self.studentNumber, forKey: "studentID")
             UserDefaults.standard.set(self.realName, forKey: "studentName")
-//            UserDefaults.standard.setObject(self.studentNumber, forKey: "studentID")
-//            UserDefaults.standard.setObject(self.realName, forKey: "studentName")
-            //log.word("registered!")/
-            
             success()
         }, failure: { error in
 //            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
@@ -152,7 +149,7 @@ class Applicant: NSObject {
     
     func get20score(_ doSomething: @escaping () -> ()) {
         
-        let parameters = ["page": "api", "do": "20score", "sno": studentNumber!]
+        let parameters = ["page": "api", "do": "20score", "sno": studentNumber]
         
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: "", parameters: parameters, success: { dict in
             if dict["status"] as? NSNumber == 1 {
@@ -206,7 +203,7 @@ class Applicant: NSObject {
     
     func getGrade(_ testType: String, doSomething: @escaping () -> ()) {
         
-        let parameters = ["page": "api", "do": "\(testType)_gradecheck", "sno": studentNumber!]
+        let parameters = ["page": "api", "do": "\(testType)_gradecheck", "sno": studentNumber]
 
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: nil, parameters: parameters, success: { dic in
             guard dic["status"] as? NSNumber == 1 else {
@@ -283,7 +280,7 @@ class Applicant: NSObject {
     
     func complain(_ ID: String, testType: String, title: String, content: String, doSomething: @escaping () -> ()) {
         
-        let parameters = ["page": "api", "do": "\(testType)_shensu", "sno": studentNumber!, "test_id": ID, "title": title, "content": content]
+        let parameters = ["page": "api", "do": "\(testType)_shensu", "sno": studentNumber, "test_id": ID, "title": title, "content": content]
         
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: nil, parameters: parameters, success: { dict in
             
@@ -332,20 +329,21 @@ class Applicant: NSObject {
         
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.handInURL, url: "", token: nil, parameters: parameters, success: { dict in
             guard dict["status"] as? Int == 1 else {
-//                MsgDisplay.showErrorMsg(dict["msg"] as! String)
+                if let msg = dict["msg"] as? String {
+                    SwiftMessages.showErrorMessage(body: msg)
+                }
                 return
             }
             
             if let msg = dict["msg"] as? String {
-//                MsgDisplay.showSuccessMsg(msg)
+                SwiftMessages.showSuccessMessage(body: msg)
             } else {
-//                MsgDisplay.showSuccessMsg("递交成功")
+                SwiftMessages.showSuccessMessage(body: "递交成功")
             }
             
             doSomething()
         }, failure: { error in
-//            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
-            print("error: \(error)")
+            SwiftMessages.showSuccessMessage(body: error.localizedDescription)
         })
         
 //        let manager = AFHTTPSessionManager()

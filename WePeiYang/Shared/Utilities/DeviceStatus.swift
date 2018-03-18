@@ -21,7 +21,7 @@ struct DeviceStatus {
     }
     
     static func appVersion() -> String {
-        return getInfo(withKey: "CFBundleVersion")
+        return getInfo(withKey: "CFBundleShortVersionString")
     }
     
     static func appBuild() -> String {

@@ -13,6 +13,10 @@ class PartySignUpViewController: UIViewController {
     var tableView: UITableView!
     let bgView = UIView(color: .partyRed)
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.barStyle = .black
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,10 +31,10 @@ class PartySignUpViewController: UIViewController {
 //        self.navigationController!.jz_navigationBarBackgroundAlpha = 0;
 
         //改变 statusBar 颜色
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-        
+//        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+//        navigationController?.navigationBar.barStyle = .black
         //改变背景颜色
-        view.backgroundColor = UIColor(colorLiteralRed: 0.95, green: 0.95, blue: 0.95, alpha: 1)
+        view.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
         
         tableView = UITableView()
         
@@ -117,11 +121,11 @@ extension PartySignUpViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     /*
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView_ tableView: UITableView, heightForFooterInSection section: Int -> CGFloat {
         return 5
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: (UIApplication.shared.keyWindow?.frame.size.width)!, height: 5))
         
         return footerView

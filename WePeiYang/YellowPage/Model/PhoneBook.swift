@@ -11,9 +11,9 @@ import UIKit
 import Alamofire
 
 let YELLOWPAGE_SAVE_KEY = "YellowPageItems"
-class PhoneBook: NSObject {
+class PhoneBook {
     static let shared = PhoneBook()
-    private override init() {}
+    private init() {}
     
     static let url = "/yellowpage/data3"
     var favorite: [ClientItem] = []
@@ -85,7 +85,7 @@ class PhoneBook: NSObject {
         self.favorite = (UserDefaults.standard.object(forKey: "YellowPageFavorite") as? [ClientItem]) ?? []
     }
     
-    static func checkVersion(success:@escaping ()->()) {
+    static func checkVersion(success: @escaping ()->(), failure: @escaping ()->()) {
         SolaSessionManager.solaSession(url: PhoneBook.url, success: { dict in
             if let categories = dict["category_list"] as? Array<Dictionary<String, AnyObject>> {
                 var newItems = [ClientItem]()
@@ -107,10 +107,13 @@ class PhoneBook: NSObject {
                                 newItems.append(ClientItem(name: item_name!, phone: item_phone!, owner: department_name))
                             }
                         }
+                    } else {
                     }
                 }
                 PhoneBook.shared.items = newItems
                 PhoneBook.shared.save()
+            } else {
+                failure()
             }
         })
     }
@@ -155,8 +158,8 @@ extension PhoneBook {
             //解码器
             let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
             //通过归档时设置的关键字Checklist还原lists
-            if let array = unarchiver.decodeObject(forKey: YELLOWPAGE_SAVE_KEY) as? Array<ClientItem>,
-                let favorite = unarchiver.decodeObject(forKey: "yp_favorite_key") as? Array<ClientItem>,
+            if let array = unarchiver.decodeObject(forKey: YELLOWPAGE_SAVE_KEY) as? [ClientItem],
+                let favorite = unarchiver.decodeObject(forKey: "yp_favorite_key") as? [ClientItem],
                 let members = unarchiver.decodeObject(forKey: "yp_member_key") as? [String: [String]],
                 let sections = unarchiver.decodeObject(forKey: "yp_section_key") as? [String] {
                 guard array.count > 0 else {
