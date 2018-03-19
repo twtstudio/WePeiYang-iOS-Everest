@@ -49,10 +49,16 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         dayLabel.font = UIFont.preferredFont(forTextStyle: .body)
         self.view.addSubview(dayLabel)
 
-        let tableViewHeight = 70 as CGFloat
-        self.preferredContentSize = CGSize(width: width, height: tableViewHeight + 20)
-
-        tableView = UITableView(frame: CGRect(x: 70, y: 75, width: width - 70, height: 50))
+        var tableViewHeight: CGFloat
+        if isiPad {
+            tableViewHeight = 70
+            tableView = UITableView(frame: CGRect(x: 70, y: 75, width: width - 70, height: tableViewHeight))
+            self.preferredContentSize = CGSize(width: width, height: tableViewHeight + 20)
+        } else {
+            tableViewHeight = 50 as CGFloat
+            self.preferredContentSize = CGSize(width: width, height: tableViewHeight + 20)
+            tableView = UITableView(frame: CGRect(x: 70, y: 55, width: width - 70, height: tableViewHeight))
+        }
         tableView.rowHeight = tableViewHeight
         tableView.allowsSelection = false
         imgView = UIImageView(frame: CGRect(x: 20, y: 20, width: 40, height: 40))

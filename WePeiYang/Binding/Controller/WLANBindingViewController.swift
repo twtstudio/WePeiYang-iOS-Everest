@@ -128,6 +128,7 @@ class WLANBindingViewController: UIViewController {
                     TwTUser.shared.WLANAccount = loginInfo["username"]
                     TwTUser.shared.WLANPassword = loginInfo["password"]
                     TwTUser.shared.save()
+                    SwiftMessages.hideLoading()
                     SwiftMessages.showErrorMessage(body: errMsg + "\n" + "已为你保存账号密码")
                 }
             }, failure: { error in
