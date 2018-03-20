@@ -80,7 +80,6 @@
 		36366B311FAB8A84001F72A0 /* BicycleServiceNotificationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D695321F8A21AD00022B9A /* BicycleServiceNotificationController.xib */; };
 		36366B321FAB8A84001F72A0 /* BicycleRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D695331F8A21AD00022B9A /* BicycleRecordViewController.xib */; };
 		36366B331FAB8A84001F72A0 /* BicycleUserBindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D695341F8A21AD00022B9A /* BicycleUserBindViewController.xib */; };
-		363CE4BA1FAEB76F00999720 /* TwTAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363CE4B91FAEB76F00999720 /* TwTAPI.swift */; };
 		363D0A701FE006990095DA57 /* LibraryCardDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363D0A6F1FE006990095DA57 /* LibraryCardDataProvider.swift */; };
 		36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E3E1FA4BA9B0036766B /* TwentyCourseQuiz.swift */; };
 		36449E451FA4BA9B0036766B /* PartyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E3F1FA4BA9B0036766B /* PartyAPI.swift */; };
@@ -361,7 +360,6 @@
 		3631D5091F1903D70078816D /* TwTUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTUser.swift; sourceTree = "<group>"; };
 		36366B2D1FAB86B0001F72A0 /* BicycleServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleServiceViewController.swift; sourceTree = "<group>"; };
 		36366B351FAC61B6001F72A0 /* WePeiYang.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WePeiYang.entitlements; sourceTree = "<group>"; };
-		363CE4B91FAEB76F00999720 /* TwTAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTAPI.swift; sourceTree = "<group>"; };
 		363D0A6F1FE006990095DA57 /* LibraryCardDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LibraryCardDataProvider.swift; path = WePeiYang/Favorite/LibraryCardDataProvider.swift; sourceTree = SOURCE_ROOT; };
 		36449E3E1FA4BA9B0036766B /* TwentyCourseQuiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwentyCourseQuiz.swift; path = PartyService/Model/TwentyCourseQuiz.swift; sourceTree = "<group>"; };
 		36449E3F1FA4BA9B0036766B /* PartyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartyAPI.swift; path = PartyService/Model/PartyAPI.swift; sourceTree = "<group>"; };
@@ -1192,7 +1190,6 @@
 			isa = PBXGroup;
 			children = (
 				B10253E01EC84ED90064373A /* AccountManager.swift */,
-				363CE4B91FAEB76F00999720 /* TwTAPI.swift */,
 				B10253E11EC84ED90064373A /* CacheManager.swift */,
 				B10253E21EC84ED90064373A /* SolaSessionManager.swift */,
 				B10253E31EC84ED90064373A /* TwTKeychain.swift */,
@@ -1832,7 +1829,6 @@
 				36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */,
 				0C3ADF361F697EE100388C19 /* FoundViewController.swift in Sources */,
 				361F885E204AF92D00BCFA19 /* BannerCell.swift in Sources */,
-				363CE4BA1FAEB76F00999720 /* TwTAPI.swift in Sources */,
 				36DA7A5E1FA8A35C000DAF2B /* WPYBaseViewController.swift in Sources */,
 				0C3ADF4A1F697EE100388C19 /* SectionCell.swift in Sources */,
 				0C3ADF3E1F697EE100388C19 /* PublishSuccessViewController.swift in Sources */,

@@ -47,15 +47,5 @@ struct ClassModel: Mappable {
     mutating func setColorIndex(index: Int) {
         colorIndex = index
     }
-
-    func `class`(of day: Int) -> ClassModel? {
-        var newClass = self
-        newClass.arrange = arrange.filter({ $0.day == day })
-        if newClass.arrange.isEmpty {
-            return nil
-        } else {
-            return newClass
-        }
-    }
 }
 
