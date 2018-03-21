@@ -78,7 +78,7 @@ class GPACard: CardView {
         let entrys = model.terms.enumerated().map { tuple in
             return ChartDataEntry(x: Double(tuple.offset), y: tuple.element.stat.score)
         }
-        // FIXME: 只有一学期的成绩
+        
         let dataSet = LineChartDataSet(values: entrys, label: nil)
         dataSet.mode = .cubicBezier
         dataSet.drawCirclesEnabled = false
@@ -91,7 +91,6 @@ class GPACard: CardView {
         dataSet.lineWidth = 2
         dataSet.setColor(.white)
         lineChartView.data = LineChartData(dataSet: dataSet)
-//        lineChartView.
     }
 
     override func refresh() {

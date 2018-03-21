@@ -37,9 +37,10 @@ extension SwiftMessages {
         config.presentationContext = context ?? .automatic
         if let top = UIViewController.current?.navigationController {
             config.presentationContext = .view(top.view)
-        } else if let top = UIViewController.current {
+        } 
+//        else if let top = UIViewController.current {
 //            config.presentationContext = .view(top.view)
-        }
+//        }
 
         SwiftMessages.show(config: config, view: view)
     }

@@ -50,15 +50,15 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.view.addSubview(dayLabel)
 
         var tableViewHeight: CGFloat
-        if isiPad {
-            tableViewHeight = 70
-            tableView = UITableView(frame: CGRect(x: 70, y: 75, width: width - 70, height: tableViewHeight))
-            self.preferredContentSize = CGSize(width: width, height: tableViewHeight + 20)
-        } else {
+//        if isiPad {
+//            tableViewHeight = 70
+//            tableView = UITableView(frame: CGRect(x: 70, y: 75, width: width - 70, height: tableViewHeight))
+//            self.preferredContentSize = CGSize(width: width, height: tableViewHeight + 20)
+//        } else {
             tableViewHeight = 50 as CGFloat
             self.preferredContentSize = CGSize(width: width, height: tableViewHeight + 20)
             tableView = UITableView(frame: CGRect(x: 70, y: 55, width: width - 70, height: tableViewHeight))
-        }
+//        }
         tableView.rowHeight = tableViewHeight
         tableView.allowsSelection = false
         imgView = UIImageView(frame: CGRect(x: 20, y: 20, width: 40, height: 40))

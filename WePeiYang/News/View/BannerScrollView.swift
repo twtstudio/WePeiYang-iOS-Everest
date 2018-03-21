@@ -84,14 +84,15 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
     
     
     
-    var autoScrollInterval: Double = 5 {
-        willSet {
-            autoScrollInterval = newValue
-        }
-//        didSet {
-//            autoScrollInterval =
+    var autoScrollInterval: Double = 5
+//    {
+//        willSet {
+//            autoScrollInterval = newValue
 //        }
-    }
+////        didSet {
+////            autoScrollInterval =
+////        }
+//    }
     
     // pageControl
     var pageControlAliment: PageControlAliment = .CenterBottom

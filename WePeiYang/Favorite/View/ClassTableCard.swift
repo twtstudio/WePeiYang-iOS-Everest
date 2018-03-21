@@ -30,7 +30,6 @@ class ClassTableCard: CardView {
         self.addSubview(titleLabel)
 
         subtitleLabel.frame = CGRect(x: padding, y: padding + 20 - 5, width: 200, height: 30)
-        // TODO: 明天的课程
         subtitleLabel.text = day + "的课程"
         subtitleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.semibold)
         subtitleLabel.textColor = .black
