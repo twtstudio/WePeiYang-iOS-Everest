@@ -67,6 +67,10 @@ class LibraryCard: CardView {
             return
         }
 
+        // 首次刷新，之后加载缓存 
+        if LibraryDataContainer.shared.response == nil {
+            self.refreshBooks(sender: self.refreshButton)
+        }
         CacheManager.retreive("lib/info.json", from: .group, as: LibraryResponse.self, success: { response in
             LibraryDataContainer.shared.response = response
             self.tableView.reloadData()
