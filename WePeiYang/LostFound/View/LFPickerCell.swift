@@ -76,7 +76,7 @@ class LFPickerCell: UITableViewCell {
         
         
         pickerView = UIPickerView()
-        textField = UIButton()
+        textField = UITextField()
         textField.inputView = pickerView
         textField.borderStyle = .roundedRect
         textField.placeholder = "请输入天数"

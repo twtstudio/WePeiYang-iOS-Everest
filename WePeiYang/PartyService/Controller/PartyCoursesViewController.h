@@ -11,3 +11,4 @@
 @interface PartyCoursesViewController : WMPageController
 
 @end
+
