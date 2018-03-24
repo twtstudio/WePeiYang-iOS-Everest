@@ -148,11 +148,10 @@ class BicycleServiceViewController: WMPageController {
             let refreshButton = UIBarButtonItem.init(barButtonSystemItem: .refresh, target: self, action: #selector(refreshUserInfo))
             self.navigationItem.rightBarButtonItem = refreshButton
             
-            //BicycleUser.sharedInstance.status?.isEqual(0))! && (!BicycleUser.sharedInstance.bindCancel
-            if (BicycleUser.sharedInstance.status == 0) && (!BicycleUser.sharedInstance.bindCancel) {
-                let bindVC: BicycleUserBindViewController = BicycleUserBindViewController.init(nibName: "BicycleUserBindViewController", bundle: nil)
-                self.navigationController?.pushViewController(bindVC, animated: true)
-            }
+//            if (BicycleUser.sharedInstance.status == 0) && (!BicycleUser.sharedInstance.bindCancel) {
+//                let bindVC: BicycleUserBindViewController = BicycleUserBindViewController.init(nibName: "BicycleUserBindViewController", bundle: nil)
+//                self.navigationController?.pushViewController(bindVC, animated: true)
+//            }
         } else {
             self.titleLabel.text = "公告"
             self.navigationItem.rightBarButtonItem = nil
