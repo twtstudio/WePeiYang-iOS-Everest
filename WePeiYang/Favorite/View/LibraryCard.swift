@@ -52,13 +52,15 @@ class LibraryCard: CardView {
         toggleButton.layer.cornerRadius = toggleButton.height/2
         toggleButton.tapAction = toggle
 
+
         self.height = 240
         remakeConstraints()
     }
 
     override func layout(rect: CGRect) {
         super.layout(rect: rect)
-//        remakeConstraints()
+
+        blankView.frame = CGRect(x: 10, y: 50, width: rect.size.width-20, height: rect.size.height-40-cardRadius)
     }
 
     override func refresh() {
@@ -140,10 +142,8 @@ class LibraryCard: CardView {
             make.top.equalTo(tableView.snp.top)
             make.left.equalTo(tableView.snp.left)
             make.right.equalTo(tableView.snp.right)
-//            make.bottom.equalTo(tableView.snp.bottom).offset(10+toggleButton.height+5)
-            make.bottom.equalTo(toggleButton.snp.bottom)
-            make.height.equalTo(height + 10 + toggleButton.height)
-//            make.bottom.equalToSuperview()
+//            make.bottom.equalTo(toggleButton.snp.bottom)
+            make.bottom.equalToSuperview().offset(-10)
         }
 //        contentView.setNeedsUpdateConstraints()
 //        self.contentView.layoutIfNeeded()
