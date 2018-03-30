@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ClientItem: NSObject, NSCoding {
+class ClientItem1: NSObject, NSCoding {
     var name: String
     var phone: String
     var isFavorite = false
@@ -35,4 +35,11 @@ class ClientItem: NSObject, NSCoding {
         aCoder.encode(owner, forKey: "yp_owner")
     }
 
+}
+
+struct ClientItem: Codable {
+    var name: String
+    var phone: String
+    var isFavorite = false
+    var owner: String
 }

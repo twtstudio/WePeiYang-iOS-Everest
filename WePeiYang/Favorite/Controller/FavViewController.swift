@@ -180,7 +180,7 @@ class FavViewController: UIViewController {
         for item in modules {
             // 如果 show == true
             if item.1 {
-                cardDict[item.0]!.refresh()
+                cardDict[item.0]?.refresh()
             }
         }
 

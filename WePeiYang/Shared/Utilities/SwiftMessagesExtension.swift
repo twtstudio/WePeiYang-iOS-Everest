@@ -66,7 +66,7 @@ extension SwiftMessages {
     }
 
     static func hideLoading() {
-        otherMessages.hide()
+        otherMessages.hideAll()
     }
 }
 

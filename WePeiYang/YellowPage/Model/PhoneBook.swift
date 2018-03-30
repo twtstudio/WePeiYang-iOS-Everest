@@ -47,8 +47,7 @@ class PhoneBook {
                 return
             }
         }
-        let m = model
-        // help? right?
+        var m = model
         m.isFavorite = true
         favorite.append(m)
         success()
@@ -77,22 +76,22 @@ class PhoneBook {
         }
     }
     
-    func saveFavorite() {
-        UserDefaults.standard.set(self.favorite, forKey: "YellowPageFavorite")
-    }
-    
-    func loadFavorite() {
-        self.favorite = (UserDefaults.standard.object(forKey: "YellowPageFavorite") as? [ClientItem]) ?? []
-    }
-    
+//    func saveFavorite() {
+//        UserDefaults.standard.set(self.favorite, forKey: "YellowPageFavorite")
+//    }
+//
+//    func loadFavorite() {
+//        self.favorite = (UserDefaults.standard.object(forKey: "YellowPageFavorite") as? [ClientItem]) ?? []
+//    }
+
     static func checkVersion(success: @escaping ()->(), failure: @escaping ()->()) {
         SolaSessionManager.solaSession(url: PhoneBook.url, success: { dict in
-            if let categories = dict["category_list"] as? Array<Dictionary<String, AnyObject>> {
+            if let categories = dict["category_list"] as? [[String: Any]] {
                 var newItems = [ClientItem]()
                 for category in categories {
                     let category_name = category["category_name"] as! String
                     PhoneBook.shared.sections.append(category_name)
-                    if let departments = category["department_list"] as? Array<Dictionary<String, AnyObject>>{
+                    if let departments = category["department_list"] as? [[String: Any]] {
                         for department in departments {
                             let department_name = department["department_name"] as! String
                             if PhoneBook.shared.members[category_name] != nil {
@@ -100,11 +99,11 @@ class PhoneBook {
                             } else {
                                 PhoneBook.shared.members[category_name] = [department_name]
                             }
-                            let items = department["unit_list"] as! Array<Dictionary<String, String>>
+                            let items = department["unit_list"] as! [[String: String]]
                             for item in items {
                                 let item_name = item["item_name"]
                                 let item_phone = item["item_phone"]
-                                newItems.append(ClientItem(name: item_name!, phone: item_phone!, owner: department_name))
+                                newItems.append(ClientItem(name: item_name!, phone: item_phone!, isFavorite: false, owner: department_name))
                             }
                         }
                     } else {
@@ -112,9 +111,13 @@ class PhoneBook {
                 }
                 PhoneBook.shared.items = newItems
                 PhoneBook.shared.save()
+                success()
+                return
             } else {
                 failure()
+                return
             }
+            failure()
         })
     }
 }
@@ -123,6 +126,15 @@ extension PhoneBook {
     func save() {
         let queue = DispatchQueue.global()
         queue.async {
+            Storage.store(PhoneBook.shared.items, in: .documents, as: "yellowpage/items.json")
+            Storage.store(PhoneBook.shared.members, in: .documents, as: "yellowpage/members.json")
+            Storage.store(PhoneBook.shared.sections, in: .documents, as: "yellowpage/sections.json")
+            Storage.store(PhoneBook.shared.favorite, in: .documents, as: "yellowpage/favorite.json")
+        }
+
+        return
+        let queue1 = DispatchQueue.global()
+        queue1.async {
             let path = self.dataFilePath
             //声明文件管理器
             let defaultManager = FileManager()
@@ -148,7 +160,28 @@ extension PhoneBook {
     }
     
     //读取数据
-    func load(success: ()->(), failure: ()->()) {
+    func load(success: @escaping ()->(), failure: @escaping ()->()) {
+        DispatchQueue.global().sync {
+            if let items = Storage.retreive("yellowpage/items.json", from: .documents, as: [ClientItem].self),
+                let members = Storage.retreive("yellowpage/members.json", from: .documents, as: [String : [String]].self),
+                let sections = Storage.retreive("yellowpage/sections.json", from: .documents, as: [String].self),
+                let favorite = Storage.retreive("yellowpage/favorite.json", from: .documents, as: [ClientItem].self) {
+                PhoneBook.shared.items = items
+                PhoneBook.shared.members = members
+                PhoneBook.shared.sections = sections
+                PhoneBook.shared.favorite = favorite
+                DispatchQueue.main.async {
+                    success()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    failure()
+                }
+            }
+        }
+        return
+
+
         //获取本地数据文件地址
         let path = self.dataFilePath
         //声明文件管理器

@@ -58,7 +58,7 @@ class LibraryCard: CardView {
 
     override func layout(rect: CGRect) {
         super.layout(rect: rect)
-        remakeConstraints()
+//        remakeConstraints()
     }
 
     override func refresh() {
@@ -100,7 +100,7 @@ class LibraryCard: CardView {
             divideSpacing = 15
         }
 
-        let height = self.height - 125
+        let height = self.height - 140
         tableView.snp.remakeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(titleLabel.snp.bottom).offset(20)
@@ -244,7 +244,7 @@ extension LibraryCard {
                     } else {
                         self.toggleButton.setTitle("展开(\(leftCount))")
                     }
-                    self.remakeConstraints()
+//                    self.remakeConstraints()
                 }
                 self.tableView.reloadData()
                 // 缓存起来撒
@@ -276,22 +276,22 @@ extension LibraryCard {
     }
 
     func toggle(sender: CardButton) {
-        var height: CGFloat = 0
-        if sender.tag == LibCardState.fold.rawValue {
+        var height: CGFloat
+        if toggleButton.tag == LibCardState.fold.rawValue {
             // 展开
-            height = tableView.rowHeight * CGFloat(max(LibraryDataContainer.shared.books.count, 2)) + 125
-            sender.setTitle("收起")
-            sender.tag = LibCardState.unfold.rawValue
+            height = tableView.rowHeight * CGFloat(max(LibraryDataContainer.shared.books.count, 2)) + 140
+            toggleButton.setTitle("收起")
+            toggleButton.tag = LibCardState.unfold.rawValue
         } else {
             // 收起
-            height = tableView.rowHeight * 2 + 125
+            height = tableView.rowHeight * 2 + 140
             let moreCount = LibraryDataContainer.shared.books.count-2
             if moreCount > 0 {
-                sender.setTitle("展开(\(moreCount))")
+                toggleButton.setTitle("展开(\(moreCount))")
             } else {
-                sender.setTitle("展开")
+                toggleButton.setTitle("展开")
             }
-            sender.tag = LibCardState.fold.rawValue
+            toggleButton.tag = LibCardState.fold.rawValue
         }
         self.height = height
         remakeConstraints()

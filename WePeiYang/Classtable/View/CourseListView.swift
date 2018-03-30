@@ -21,7 +21,7 @@ fileprivate struct C {
     static let dayNumberViewHeight: CGFloat = 45
 }
 
-protocol CourseListViewDelegate {
+protocol CourseListViewDelegate: class {
     /// 选中课程
     ///
     /// - Parameters:
@@ -46,7 +46,7 @@ class CourseListView: UIView {
     var updownContentView: UIScrollView!
     var tableViews: [UITableView] = []
     
-    var delegate: CourseListViewDelegate?
+    weak var delegate: CourseListViewDelegate?
     // 周一到周日
     var coursesForDay: [[ClassModel]] = [[], [], [], [], [], [], []]
     
