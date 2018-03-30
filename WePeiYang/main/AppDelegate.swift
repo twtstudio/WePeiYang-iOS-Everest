@@ -272,8 +272,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     // iOS 10: 处理后台点击通知的代理方法
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        let info = response.notification.request.content.userInfo
-        print("iOS 10 background tap userInfo: \(info)")
+        let userInfo = response.notification.request.content.userInfo
+        if let urlString = userInfo["url"] as? String,
+            let url = URL(string: urlString) {
+            UIApplication.shared.openURL(url)
+        }
         completionHandler()
     }
 
@@ -285,6 +288,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             // 后台接受消息进入 app
             // badge清零
             UIApplication.shared.applicationIconBadgeNumber = 0
+
+            if let urlString = userInfo["url"] as? String,
+                let url = URL(string: urlString) {
+                UIApplication.shared.openURL(url)
+            }
         }
         completionHandler(.newData)
     }
