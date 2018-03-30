@@ -57,7 +57,7 @@ struct SolaSessionManager {
         headers["User-Agent"] = DeviceStatus.userAgent
         
         if let twtToken = TwTUser.shared.token {
-            headers["Authorization"] = "Bearer {\(twtToken)}"
+            headers["Authorization"] = "Bearer \(twtToken)"
         } else {
             log.errorMessage("can't load twtToken")/
         }
@@ -129,7 +129,7 @@ struct SolaSessionManager {
         headers["User-Agent"] = DeviceStatus.userAgent
         
         if let twtToken = TwTUser.shared.token {
-            headers["Authorization"] = "Bearer {\(twtToken)}"
+            headers["Authorization"] = "Bearer \(twtToken)"
         } else {
             log.errorMessage("can't load twtToken")/
         }
@@ -227,7 +227,7 @@ struct SolaSessionManager {
         headers["User-Agent"] = DeviceStatus.userAgent
         
         if let twtToken = TwTUser.shared.token {
-            headers["Authorization"] = "Bearer {\(twtToken)}"
+            headers["Authorization"] = "Bearer \(twtToken)"
         } else {
             log.errorMessage("can't load twtToken")/
         }
