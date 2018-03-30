@@ -121,27 +121,30 @@ class PhoneBook {
 
 extension PhoneBook {
     func save() {
-        let path = self.dataFilePath
-        //声明文件管理器
-        let defaultManager = FileManager()
-        if defaultManager.fileExists(atPath: path) {
-            try! defaultManager.removeItem(atPath: path)
-        }
-        
-        let data = NSMutableData()
-        //申明一个归档处理对象
-        let archiver = NSKeyedArchiver(forWritingWith: data)
-        //将lists以对应Checklist关键字进行编码
-        
-        archiver.encode(PhoneBook.shared.items, forKey: YELLOWPAGE_SAVE_KEY)
-        archiver.encode(PhoneBook.shared.favorite, forKey: "yp_favorite_key")
-        archiver.encode(PhoneBook.shared.members, forKey: "yp_member_key")
-        archiver.encode(PhoneBook.shared.sections, forKey: "yp_section_key")
+        let queue = DispatchQueue.global()
+        queue.async {
+            let path = self.dataFilePath
+            //声明文件管理器
+            let defaultManager = FileManager()
+            if defaultManager.fileExists(atPath: path) {
+                try! defaultManager.removeItem(atPath: path)
+            }
 
-        //编码结束
-        archiver.finishEncoding()
-        //数据写入
-        data.write(toFile: self.dataFilePath, atomically: true)
+            let data = NSMutableData()
+            //申明一个归档处理对象
+            let archiver = NSKeyedArchiver(forWritingWith: data)
+            //将lists以对应Checklist关键字进行编码
+
+            archiver.encode(PhoneBook.shared.items, forKey: YELLOWPAGE_SAVE_KEY)
+            archiver.encode(PhoneBook.shared.favorite, forKey: "yp_favorite_key")
+            archiver.encode(PhoneBook.shared.members, forKey: "yp_member_key")
+            archiver.encode(PhoneBook.shared.sections, forKey: "yp_section_key")
+
+            //编码结束
+            archiver.finishEncoding()
+            //数据写入
+            data.write(toFile: self.dataFilePath, atomically: true)
+        }
     }
     
     //读取数据

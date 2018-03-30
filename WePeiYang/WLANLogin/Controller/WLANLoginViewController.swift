@@ -175,7 +175,7 @@ class WLANLoginViewController: UIViewController {
 
         if accountTextField.hasText && passwordTextField.hasText {
 
-            WLANHelper.login(success: {
+            WLANHelper.login(username: accountTextField.text, password: passwordTextField.text ,success: {
                 TwTUser.shared.WLANAccount = self.accountTextField.text
                 TwTUser.shared.WLANPassword = self.passwordTextField.text
                 SwiftMessages.showSuccessMessage(body: "登录成功", context: .view(self.view))
@@ -187,7 +187,7 @@ class WLANLoginViewController: UIViewController {
 
     @objc func logout(button: UIButton) {
         if accountTextField.hasText && passwordTextField.hasText {
-            WLANHelper.logout(success: {
+            WLANHelper.logout(username: accountTextField.text, password: passwordTextField.text, success: {
                 SwiftMessages.showSuccessMessage(body: "注销成功", context: .view(self.view))
             }, failure: { msg in
                 SwiftMessages.showErrorMessage(body: msg, context: .view(self.view))

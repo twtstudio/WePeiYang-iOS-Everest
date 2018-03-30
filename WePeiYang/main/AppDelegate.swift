@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let deviceToken = UserDefaults.standard.string(forKey: "deviceToken"),
                     let uid = TwTUser.shared.twtid,
                     let uuid = UIDevice.current.identifierForVendor?.uuidString {
-                    let para = ["utoken": deviceToken, "uid": uid, "udid": uuid]
+                    let para = ["utoken": deviceToken, "uid": uid, "udid": uuid, "ua": DeviceStatus.deviceModel()]
                     SolaSessionManager.solaSession(type: .post, url: "/push/token/ENcJ1ZYDBaCvC8aM76RnnrT25FPqQg", token: nil, parameters: para, success: { dict in
                         print(dict)
                     }, failure: { err in

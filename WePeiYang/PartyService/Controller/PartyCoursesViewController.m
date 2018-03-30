@@ -63,6 +63,7 @@
     self.progressHeight = 3.0;
     
     [super viewDidLoad];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     // Do any additional setup after loading the view.
 }
 

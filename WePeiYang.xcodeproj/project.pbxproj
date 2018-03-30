@@ -190,7 +190,6 @@
 		36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0FE75201867CF0014E667 /* ArrangeCell.swift */; };
 		36D526E220415A3C0074EB2B /* MallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D526E120415A3C0074EB2B /* MallViewController.swift */; };
 		36D526E52041C4150074EB2B /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D526E42041C4150074EB2B /* DebugLog.swift */; };
-		36DA7A5B1FA8A35C000DAF2B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */; };
 		36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13F3AE71F0CEE5C00F820A5 /* FAB.swift */; };
 		36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E11EC84ED90064373A /* CacheManager.swift */; };
 		36DA7A5E1FA8A35C000DAF2B /* WPYBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254161EC8547E0064373A /* WPYBaseViewController.swift */; };
@@ -468,7 +467,6 @@
 		36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WePeiYang-Bridging-Header.h"; sourceTree = "<group>"; };
 		36E56BC51FC512230009BD6F /* CourseListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseListView.swift; sourceTree = "<group>"; };
 		36F285082049B7D50095A3D4 /* ModulesSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesSettingsViewController.swift; sourceTree = "<group>"; };
-		36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		36F631EC1FAB31C500E3261F /* BicycleUserBindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleUserBindViewController.swift; sourceTree = "<group>"; };
 		36F631ED1FAB31C500E3261F /* BicycleServiceMapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleServiceMapController.swift; sourceTree = "<group>"; };
 		36FCC2D420544E35003379AE /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
@@ -1356,7 +1354,6 @@
 			children = (
 				36366B351FAC61B6001F72A0 /* WePeiYang.entitlements */,
 				B10254091EC8520A0064373A /* main */,
-				36F5BDCB1F9E16FB00CDDF74 /* LoginViewController.swift */,
 				369306911F2B972F008E90DC /* ModuleCollection */,
 				B10253DE1EC84ED90064373A /* Shared */,
 				36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */,
@@ -1853,7 +1850,6 @@
 				A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */,
 				A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */,
 				0C3ADF3F1F697EE100388C19 /* SearchedResultViewController.swift in Sources */,
-				36DA7A5B1FA8A35C000DAF2B /* LoginViewController.swift in Sources */,
 				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
 				36449E8A1FA4BAD10036766B /* PartyPersonalStatusViewController.swift in Sources */,
 				36449E621FA4BABA0036766B /* SignUpTableViewCell.swift in Sources */,

@@ -175,6 +175,7 @@ class ClassTableViewController: UIViewController {
         }
 
         if !isSelecting {
+            // 收起状态 -> 展开状态
             self.weekSelectView.snp.updateConstraints { make in
                 make.top.equalToSuperview()
             }
@@ -182,13 +183,12 @@ class ClassTableViewController: UIViewController {
             // 点开居中
             // TODO: 确定多少比较合适
             if currentDisplayWeek <= 22 && currentDisplayWeek >= 4 {
-                weekSelectView.contentOffset = CGPoint(x: 0, y: (CGFloat(currentDisplayWeek)-3.5)*50)
+                weekSelectView.contentOffset = CGPoint(x: (CGFloat(currentDisplayWeek)-3.5)*50, y: 0)
             }
         } else {
-
+            // 展开状态 -> 收起状态
             if currentDisplayWeek != currentWeek {
                 currentDisplayWeek = currentWeek
-                // FIXME: 刚登录 table 为空？？
                 let courses = self.getCourse(table: table, week: currentWeek)
                 // 跳回当前周
                 listView.load(courses: courses, weeks: 0)
