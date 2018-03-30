@@ -18,7 +18,7 @@ class CourseCell: UITableViewCell {
             titleLabel.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.medium)
         } else {
             if UIScreen.main.bounds.width <= CGFloat.iPhoneSEWidth {
-                titleLabel.font = UIFont.systemFont(ofSize: 10, weight: UIFont.Weight.medium)
+                titleLabel.font = UIFont.systemFont(ofSize: 9, weight: UIFont.Weight.medium)
             } else {
                 titleLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
             }
@@ -27,6 +27,7 @@ class CourseCell: UITableViewCell {
         titleLabel.numberOfLines = 0
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
+//        titleLabel.adjustsFontSizeToFitWidth = true
 
         contentView.layer.cornerRadius = 4
         contentView.layer.masksToBounds = true
