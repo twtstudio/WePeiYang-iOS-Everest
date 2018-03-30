@@ -237,9 +237,10 @@ extension FavViewController {
 
 //        card.refresh()
 
-        let gpaVC = GPAViewController()
-        let gpaNC = UINavigationController(rootViewController: gpaVC)
-        card.shouldPresent(gpaNC, from: self)
+//        let gpaVC = GPAViewController()
+//        let gpaNC = UINavigationController(rootViewController: gpaVC)
+//        card.shouldPresent(gpaNC, from: self)
+        card.shouldPresent(GPAViewController.self, from: self)
 //        card.shouldPush(gpaVC, from: self)
         card.delegate = self
         cardDict[Module.gpa] = card
@@ -252,9 +253,7 @@ extension FavViewController {
         card.delegate = self
         
         defer {
-            let classtableVC = ClassTableViewController()
-            let classtableNC = UINavigationController(rootViewController: classtableVC)
-            card.shouldPresent(classtableNC, from: self)
+            card.shouldPresent(ClassTableViewController.self, from: self)
             cardDict[Module.classtable] = card
         }
 

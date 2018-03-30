@@ -18,7 +18,7 @@ class CourseCell: UITableViewCell {
             titleLabel.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.medium)
         } else {
             if UIScreen.main.bounds.width <= CGFloat.iPhoneSEWidth {
-                titleLabel.font = UIFont.systemFont(ofSize: 9, weight: UIFont.Weight.medium)
+                titleLabel.font = UIFont.systemFont(ofSize: 9.5, weight: UIFont.Weight.medium)
             } else {
                 titleLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
             }
@@ -84,7 +84,7 @@ class CourseCell: UITableViewCell {
             contentView.alpha = 0.7
 
             var name = course.courseName
-            let maxLength =  4*course.arrange.first!.length
+            let maxLength = 4*course.arrange.first!.length
 
             if course.courseName.count > maxLength {
                 name = (name as NSString).substring(to: maxLength) + "..."
