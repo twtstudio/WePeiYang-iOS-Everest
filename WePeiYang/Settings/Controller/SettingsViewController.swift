@@ -144,15 +144,21 @@ class SettingsViewController: UIViewController {
         case 0:
             unbindURL = BindingAPIs.unbindLIBAccount
         case 1:
-            // FIXME: 解绑
+            BicycleUser.sharedInstance.unbind(success: {
+                SwiftMessages.showSuccessMessage(body: "解绑成功")
+                TwTUser.shared.save()
+                self.tableView.reloadData()
+            }, failure: { errmsg in
+                SwiftMessages.showErrorMessage(body: errmsg)
+            })
             return
-//            BicycleUser.sharedInstance.
         case 2:
             unbindURL = BindingAPIs.unbindTJUAccount
         case 3:
             TwTUser.shared.WLANAccount = nil
             TwTUser.shared.WLANPassword = nil
             TwTUser.shared.WLANBindingState = false
+            SwiftMessages.showSuccessMessage(body: "解绑成功")
             TwTUser.shared.save()
             self.tableView.reloadData()
             return
