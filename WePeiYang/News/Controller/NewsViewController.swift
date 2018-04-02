@@ -10,7 +10,6 @@ import UIKit
 import MJRefresh
 import SafariServices
 
-// FIXME: - 使用Tableview为容器，在tableviewCell上添加collectionView并做到高度自适应
 class NewsViewController: UIViewController {
     var homepage: HomePageTopModel?
     var galleryList: [GalleryModel] = []
@@ -20,7 +19,7 @@ class NewsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isTranslucent = false
+//        navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
@@ -381,7 +380,6 @@ extension NewsViewController: UITableViewDataSource {
                 cell.descLabel.text = "阅读: \(news.visitcount) 评论: \(news.comments)"
                 cell.imgView.sd_setImage(with: URL(string: news.pic), completed: nil)
                 cell.imgView.sd_setIndicatorStyle(.gray)
-                // FIXME: ActivityIndicator
                 cell.imgView.sd_setShowActivityIndicatorView(true)
             }
         default:

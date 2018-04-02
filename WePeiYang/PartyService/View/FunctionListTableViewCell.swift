@@ -36,30 +36,6 @@ class FunctionListTableViewCell: UITableViewCell {
         UIGraphicsEndImageContext()
 
         textLabel?.text = desc
-        return
-        let iconView = UIImageView(imageName: iconName, desiredSize: CGSize(width: 30, height: 30))
-    
-        guard let foo = iconView else {
-            return
-        }
-        
-        
-        contentView.addSubview(foo)
-        
-        iconView?.snp.makeConstraints {
-            make in
-            make.left.equalTo(contentView)
-            make.centerY.equalTo(contentView)
-        }
-        
-        let descLabel = UILabel(text: desc)
-        contentView.addSubview(descLabel)
-        descLabel.snp.makeConstraints {
-            make in
-            make.left.equalTo(iconView!.snp.right).offset(5)
-            make.centerY.equalTo(contentView)
-        }
-        
     }
 
 }

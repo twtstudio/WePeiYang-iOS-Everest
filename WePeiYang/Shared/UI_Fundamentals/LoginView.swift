@@ -9,9 +9,9 @@
 import UIKit
 
 class LoginView: MessageView {
-    fileprivate var usernameField: WPYTextField!
-    fileprivate var passwordField: WPYTextField!
-    fileprivate var loginButton: UIButton!
+    fileprivate var usernameField = WPYTextField()
+    fileprivate var passwordField = WPYTextField()
+    fileprivate var loginButton = CardButton()
     var successHandler: (()->())?
     var failureHandler: (()->())?
 
@@ -91,7 +91,6 @@ class LoginView: MessageView {
             make.height.equalTo(28)
         }
 
-        passwordField = WPYTextField()
         passwordField.autocorrectionType = .no
         passwordField.autocapitalizationType = .none
         passwordField.keyboardType = .asciiCapable
@@ -128,7 +127,6 @@ class LoginView: MessageView {
             make.bottom.equalTo(passwordField.snp.bottom).offset(15)
         }
 
-        loginButton = CardButton()
         loginButton.addTarget(self, action: #selector(login(button:)), for: .touchUpInside)
         loginButton.setTitle("登录", for: .normal)
         loginButton.layer.cornerRadius = loginButton.height/2

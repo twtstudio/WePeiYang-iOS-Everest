@@ -11,16 +11,14 @@ import Foundation
 struct WLANHelper {
     static var isOnline = false
 
-    static func login(success: @escaping ()->(), failure: @escaping (String)->()) {
-        guard let account = TwTUser.shared.WLANAccount,
-            let password = TwTUser.shared.WLANPassword else {
+    static func login(username: String? = nil, password: String? = nil, success: @escaping ()->(), failure: @escaping (String)->()) {
+        guard let account = username ?? TwTUser.shared.WLANAccount,
+            let password = password ?? TwTUser.shared.WLANPassword else {
                 failure("请绑定账号")
                 return
         }
 
-        var loginInfo = [String: String]()
-        loginInfo["username"] = account
-        loginInfo["password"] = password
+        let loginInfo = ["username": account, "password": password]
 
         SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL, parameters: loginInfo, success: { dict in
             guard let errorCode = dict["error_code"] as? Int,
@@ -41,9 +39,9 @@ struct WLANHelper {
         })
     }
 
-    static func logout(success: @escaping ()->(), failure: @escaping (String)->()) {
-        guard let account = TwTUser.shared.WLANAccount,
-            let password = TwTUser.shared.WLANPassword else {
+    static func logout(username: String? = nil, password: String? = nil, success: @escaping ()->(), failure: @escaping (String)->()) {
+        guard let account = username ?? TwTUser.shared.WLANAccount,
+            let password = password ?? TwTUser.shared.WLANPassword else {
                 failure("请绑定账号")
                 return
         }
@@ -68,9 +66,9 @@ struct WLANHelper {
         })
     }
 
-    static func getStatus(success: @escaping (Bool)->(), failure: @escaping (String)->()) {
-        guard let account = TwTUser.shared.WLANAccount,
-            let password = TwTUser.shared.WLANPassword else {
+    static func getStatus(username: String? = nil, password: String? = nil, success: @escaping (Bool)->(), failure: @escaping (String)->()) {
+        guard let account = username ?? TwTUser.shared.WLANAccount,
+            let password = password ?? TwTUser.shared.WLANPassword else {
                 failure("请绑定账号")
                 return
         }

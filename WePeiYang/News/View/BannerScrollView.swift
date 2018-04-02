@@ -20,7 +20,7 @@ import UIKit
 class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtocol {
     
     // MARK: 属性
-    var delegate: BannerScrollViewDelegate!
+    weak var delegate: BannerScrollViewDelegate!
     
     var outerPageControlFrame: CGRect? {
         didSet {
@@ -84,14 +84,15 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
     
     
     
-    var autoScrollInterval: Double = 5 {
-        willSet {
-            autoScrollInterval = newValue
-        }
-//        didSet {
-//            autoScrollInterval =
+    var autoScrollInterval: Double = 5
+//    {
+//        willSet {
+//            autoScrollInterval = newValue
 //        }
-    }
+////        didSet {
+////            autoScrollInterval =
+////        }
+//    }
     
     // pageControl
     var pageControlAliment: PageControlAliment = .CenterBottom

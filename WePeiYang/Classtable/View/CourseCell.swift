@@ -17,12 +17,17 @@ class CourseCell: UITableViewCell {
         if isiPad {
             titleLabel.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.medium)
         } else {
-            titleLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
+            if UIScreen.main.bounds.width <= CGFloat.iPhoneSEWidth {
+                titleLabel.font = UIFont.systemFont(ofSize: 9.5, weight: UIFont.Weight.medium)
+            } else {
+                titleLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
+            }
         }
+
         titleLabel.numberOfLines = 0
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
-//        titleLabel.sizeToFit()
+//        titleLabel.adjustsFontSizeToFitWidth = true
 
         contentView.layer.cornerRadius = 4
         contentView.layer.masksToBounds = true
@@ -34,14 +39,6 @@ class CourseCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-3)
         }
         
-//        roomLabel.snp.makeConstraints { make in
-//            make.top.equalTo(titleLabel.snp.bottom)
-////            make.bottom.lessThanOrEqualTo(contentView.snp.bottom)
-//            make.bottom.equalToSuperview().offset(-3)
-//            make.left.equalToSuperview().offset(3)
-//            make.right.equalToSuperview().offset(-3)
-//        }
-
         contentView.snp.makeConstraints { make in
             make.top.left.equalToSuperview().offset(1)
             make.bottom.right.equalToSuperview().offset(-1)
@@ -67,47 +64,11 @@ class CourseCell: UITableViewCell {
         contentView.backgroundColor = UIColor(red:0.91, green:0.93, blue:0.96, alpha:1.00)
         titleLabel.textColor = .lightGray
         titleLabel.text = "无"
-        titleLabel.textAlignment = .center
-//        titleLabel.sizeToFit()
-//        roomLabel.text = ""
-        titleLabel.snp.remakeConstraints { make in
-            make.centerX.equalTo(contentView.snp.centerX)
-            make.centerY.equalTo(contentView.snp.centerY)
-        }
-        contentView.setNeedsUpdateConstraints()
-        contentView.layoutIfNeeded()
     }
 
-    // TODO: 必要性
     func dismissIdle() {
         // 还原
         titleLabel.textColor = .white
-//        titleLabel.snp.updateConstraints { make in
-//            make.top.equalToSuperview().offset(3)
-//            make.left.equalToSuperview().offset(3)
-//            make.right.equalToSuperview().offset(-3)
-//        }
-//        contentView.setNeedsUpdateConstraints()
-//        contentView.layoutIfNeeded()
-        titleLabel.snp.remakeConstraints { make in
-            make.top.equalToSuperview().offset(3)
-            make.left.equalToSuperview().offset(3)
-            make.right.equalToSuperview().offset(-3)
-        }
-
-//        roomLabel.snp.remakeConstraints { make in
-//            make.top.equalTo(titleLabel.snp.bottom)
-//            make.bottom.lessThanOrEqualTo(contentView.snp.bottom)
-//            //            make.bottom.equalToSuperview()
-//            make.left.equalToSuperview().offset(3)
-//            make.right.equalToSuperview().offset(-3)
-//        }
-
-        contentView.snp.remakeConstraints { make in
-            make.top.left.equalToSuperview().offset(1)
-            make.bottom.right.equalToSuperview().offset(-1)
-        }
-
     }
 
     func load(course: ClassModel) {
@@ -123,13 +84,12 @@ class CourseCell: UITableViewCell {
             contentView.alpha = 0.7
 
             var name = course.courseName
-            // FIXME: 会不会不安全噢 看一下调用关系
-            if course.courseName.count > 14 && course.arrange.first!.length <= 2 {
-                // 好像已经够安全了噢
-                name = (name as NSString).substring(to: 14) + "..."
+            let maxLength = 4*course.arrange.first!.length
+
+            if course.courseName.count > maxLength {
+                name = (name as NSString).substring(to: maxLength) + "..."
             }
 
-            // FIXME: 体育课之类的课
             if course.arrange[0].room != "" {
                 name += "\n@" + course.arrange[0].room
             }

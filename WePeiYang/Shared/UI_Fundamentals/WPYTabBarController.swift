@@ -55,15 +55,59 @@ class WPYTabBarController: UITabBarController {
 ////        print("取消摇动")
 //    }
 
+    func checkWiFiStatus() {
+        do {
+            let reachability = try Reachability()
+            try reachability?.start()
+            if let status = reachability?.status {
+                switch status {
+                case .unreachable:
+                    let popup = PopupDialog(title: "摇一摇上网", message: "未检测到网络连接，是否打开 Wi-Fi 设置？", buttonAlignment: .horizontal)
+                    let cancelButton = CancelButton(title: "不了", action: nil)
+                    let openButton = DestructiveButton(title: "打开", action: {
+                        // no internet
+                        if !UIApplication.shared.openURL(URL(string: "prefs:root=WIFI")!) {
+                            UIApplication.shared.openURL(URL(string: "App-Prefs:root=WIFI")!)
+                        }
+                    })
+                    popup.addButtons([cancelButton, openButton])
+                    self.present(popup, animated: true, completion: nil)
+
+                    return
+                case .wifi:
+                    return
+                case .wwan:
+                    let popup = PopupDialog(title: "摇一摇上网", message: "检测到正在使用移动网络，是否打开 Wi-Fi 设置？", buttonAlignment: .horizontal)
+                    let cancelButton = CancelButton(title: "不了", action: nil)
+                    let openButton = DestructiveButton(title: "打开", action: {
+                        // no internet
+                        if !UIApplication.shared.openURL(URL(string: "prefs:root=WIFI")!) {
+                            UIApplication.shared.openURL(URL(string: "App-Prefs:root=WIFI")!)
+                        }
+                    })
+                    popup.addButtons([cancelButton, openButton])
+                    self.present(popup, animated: true, completion: nil)
+                    return
+                }
+            }
+        } catch {
+
+        }
+    }
+
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         super.motionEnded(motion, with: event)
-        let status = UserDefaults.standard.bool(forKey: "shakeWiFiEnabled")
-        // 如果没开启
-        if !status {
-            return
-        }
 
         if let event = event, event.subtype == .motionShake {
+
+            let status = UserDefaults.standard.bool(forKey: "shakeWiFiEnabled")
+            // 如果没开启
+            if !status {
+                return
+            }
+
+            checkWiFiStatus()
+
             if WLANHelper.isOnline {
                 // 询问是否注销
                 let popup = PopupDialog(title: "摇一摇上网", message: "是否要注销校园网登录？", buttonAlignment: .horizontal)

@@ -10,17 +10,6 @@
 import Foundation
 
 struct AccountManager {
-//    static func removeToken() {
-//        UserDefaults.standard.removeObject(forKey: TOKEN_SAVE_KEY)
-//        UserDefaults.standard.removeObject(forKey: ID_SAVE_KEY)
-//        UserDefaults.standard.removeObject(forKey: "readToken")
-//
-//        CacheManager.removeCache(withKey: GPA_CACHE)
-//        CacheManager.removeGroupCache(withKey: CLASSTABLE_TERM_START_KEY)
-//        CacheManager.removeGroupCache(withKey: CLASSTABLE_CACHE_KEY)
-//        CacheManager.removeGroupCache(withKey: CLASSTABLE_COLOR_CONFIG_KEY)
-//        // TODO: CSSearchable
-//    }
     
     static func getToken(username: String, password: String, success: ((String)->())?, failure: ((String)->())?) {
         let para: [String: String] = ["twtuname": username, "twtpasswd": password]
@@ -37,7 +26,6 @@ struct AccountManager {
         
     }
     
-     // FIXME: every time open the app, refresh token
     static func refreshToken(success: (()->())? = nil, failure: (()->())?) {
         SolaSessionManager.solaSession(type: .get, url: "/auth/token/refresh", parameters: nil, success: { dict in
             if let newToken = dict["data"] as? String {
@@ -53,7 +41,6 @@ struct AccountManager {
         }, failure: { error in
             log.error(error)/
             failure?()
-            // FIXME 获取失败我也不知道怎么做 难道要重新登录
             TwTUser.shared.delete()
         }) // refresh finished
     }
@@ -152,7 +139,7 @@ struct AccountManager {
         SolaSessionManager.solaSession(type: .get, baseURL: "https://open.twtstudio.com", url: "/api/v2/auth/self", parameters: nil, success: { dict in
             if let errorno = dict["error_code"] as? Int,
                 let message = dict["message"] as? String,
-            message == "token expired" || errorno == 10003 {
+            message == "token expired" || errorno == 10003 || errorno == 10000 {
                 guard TwTUser.shared.username != "", TwTUser.shared.password != "" else {
                     SwiftMessages.showWarningMessage(body: "登录过期，请重新登录")
                     showLoginView()

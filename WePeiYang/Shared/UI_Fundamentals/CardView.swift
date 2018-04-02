@@ -9,12 +9,12 @@
 
 import UIKit
 
-@objc protocol CardViewDelegate {
+@objc protocol CardViewDelegate: class {
     func cardIsTapped(card: CardView)
 }
 
 class CardView: UIView {
-    var delegate: CardViewDelegate?
+    weak var delegate: CardViewDelegate?
     
     /**
      Should card present detail view controller when tapped.
@@ -80,8 +80,8 @@ class CardView: UIView {
     
     // Private properties
 //    fileprivate var tap = UITapGestureRecognizer()
-    var superVC: UIViewController?
-    var detailVC: UIViewController?
+    weak var superVC: UIViewController?
+    var detailVC: UIViewController.Type?
     var originalFrame = CGRect.zero
     let contentView = UIView()
 
@@ -148,21 +148,18 @@ class CardView: UIView {
 
     }
 
-    func shouldPresent(_ viewController: UIViewController, from superVC: UIViewController) {
+    func shouldPresent(_ viewController: UIViewController.Type, from superVC: UIViewController) {
         shouldPresentDetail = true
         shouldPushDetail = false
         self.superVC = superVC
         self.detailVC = viewController
-        detailVC?.transitioningDelegate = self
     }
     
-    func shouldPush(_ viewController: UIViewController, from superVC: UIViewController) {
+    func shouldPush(_ viewController: UIViewController.Type, from superVC: UIViewController) {
         shouldPresentDetail = false
         shouldPushDetail = true
         self.superVC = superVC
         self.detailVC = viewController
-        detailVC?.hidesBottomBarWhenPushed = true
-        superVC.navigationController?.delegate = self
     }
     /**
      Parallax Effect
@@ -193,8 +190,13 @@ extension CardView {
             let detailVC = detailVC {
 //            originalFrame = self.convert(self.bounds, to: superVC.view)
             if shouldPresentDetail {
+                let detailVC = UINavigationController(rootViewController: detailVC.init())
+                detailVC.transitioningDelegate = self
                 superVC.present(detailVC, animated: true, completion: nil)
             } else if shouldPushDetail {
+                let detailVC = detailVC.init()
+                detailVC.hidesBottomBarWhenPushed = true
+                superVC.navigationController?.delegate = self
                 superVC.navigationController?.pushViewController(detailVC, animated: true)
             }
         } else {

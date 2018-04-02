@@ -52,13 +52,15 @@ class LibraryCard: CardView {
         toggleButton.layer.cornerRadius = toggleButton.height/2
         toggleButton.tapAction = toggle
 
+
         self.height = 240
         remakeConstraints()
     }
 
     override func layout(rect: CGRect) {
         super.layout(rect: rect)
-        remakeConstraints()
+
+        blankView.frame = CGRect(x: 10, y: 50, width: rect.size.width-20, height: rect.size.height-40-cardRadius)
     }
 
     override func refresh() {
@@ -67,6 +69,10 @@ class LibraryCard: CardView {
             return
         }
 
+        // 首次刷新，之后加载缓存 
+        if LibraryDataContainer.shared.response == nil {
+            self.refreshBooks(sender: self.refreshButton)
+        }
         CacheManager.retreive("lib/info.json", from: .group, as: LibraryResponse.self, success: { response in
             LibraryDataContainer.shared.response = response
             self.tableView.reloadData()
@@ -96,7 +102,7 @@ class LibraryCard: CardView {
             divideSpacing = 15
         }
 
-        let height = self.height - 125
+        let height = self.height - 140
         tableView.snp.remakeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(titleLabel.snp.bottom).offset(20)
@@ -136,10 +142,8 @@ class LibraryCard: CardView {
             make.top.equalTo(tableView.snp.top)
             make.left.equalTo(tableView.snp.left)
             make.right.equalTo(tableView.snp.right)
-//            make.bottom.equalTo(tableView.snp.bottom).offset(10+toggleButton.height+5)
-            make.bottom.equalTo(toggleButton.snp.bottom)
-            make.height.equalTo(height + 10 + toggleButton.height)
-//            make.bottom.equalToSuperview()
+//            make.bottom.equalTo(toggleButton.snp.bottom)
+            make.bottom.equalToSuperview().offset(-10)
         }
 //        contentView.setNeedsUpdateConstraints()
 //        self.contentView.layoutIfNeeded()
@@ -240,7 +244,7 @@ extension LibraryCard {
                     } else {
                         self.toggleButton.setTitle("展开(\(leftCount))")
                     }
-                    self.remakeConstraints()
+//                    self.remakeConstraints()
                 }
                 self.tableView.reloadData()
                 // 缓存起来撒
@@ -272,22 +276,22 @@ extension LibraryCard {
     }
 
     func toggle(sender: CardButton) {
-        var height: CGFloat = 0
-        if sender.tag == LibCardState.fold.rawValue {
+        var height: CGFloat
+        if toggleButton.tag == LibCardState.fold.rawValue {
             // 展开
-            height = tableView.rowHeight * CGFloat(max(LibraryDataContainer.shared.books.count, 2)) + 125
-            sender.setTitle("收起")
-            sender.tag = LibCardState.unfold.rawValue
+            height = tableView.rowHeight * CGFloat(max(LibraryDataContainer.shared.books.count, 2)) + 140
+            toggleButton.setTitle("收起")
+            toggleButton.tag = LibCardState.unfold.rawValue
         } else {
             // 收起
-            height = tableView.rowHeight * 2 + 125
+            height = tableView.rowHeight * 2 + 140
             let moreCount = LibraryDataContainer.shared.books.count-2
             if moreCount > 0 {
-                sender.setTitle("展开(\(moreCount))")
+                toggleButton.setTitle("展开(\(moreCount))")
             } else {
-                sender.setTitle("展开")
+                toggleButton.setTitle("展开")
             }
-            sender.tag = LibCardState.fold.rawValue
+            toggleButton.tag = LibCardState.fold.rawValue
         }
         self.height = height
         remakeConstraints()

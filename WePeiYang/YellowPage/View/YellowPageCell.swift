@@ -154,6 +154,16 @@ class YellowPageCell: UITableViewCell {
         }
         likeView.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
 
+        let phoneView = ExtendedButton()
+        phoneView.setImage(UIImage(named: "phone"), for: .normal)
+        phoneView.addTarget(self, action: #selector(phoneTapped(button:)), for: .touchUpInside)
+        self.contentView.addSubview(phoneView)
+        phoneView.snp.makeConstraints { make in
+            make.width.equalTo(20)
+            make.height.equalTo(20)
+            make.right.equalTo(likeView.snp.left).offset(-24)
+            make.centerY.equalTo(likeView)
+        }
 
         phoneLabel.attributedText = attributedString
         phoneLabel.font = UIFont.systemFont(ofSize: 14)
@@ -163,25 +173,12 @@ class YellowPageCell: UITableViewCell {
             make.left.equalTo(contentView).offset(15)
             make.bottom.equalTo(contentView).offset(-10)
             make.centerY.equalTo(likeView.snp.centerY)
-            make.right.lessThanOrEqualTo(likeView.snp.left).offset(-10)
+            make.right.lessThanOrEqualTo(phoneView.snp.left).offset(-10)
         }
         phoneLabel.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
         phoneLabel.addGestureRecognizer(gesture)
 
-        let phoneView = ExtendedButton()
-        phoneView.setImage(UIImage(named: "phone"), for: .normal)
-    
-        phoneView.addTarget(self, action: #selector(phoneTapped(button:)), for: .touchUpInside)
-        
-        self.contentView.addSubview(phoneView)
-        phoneView.snp.makeConstraints { make in
-            make.width.equalTo(20)
-            make.height.equalTo(20)
-            make.right.equalTo(likeView.snp.left).offset(-24)
-            make.centerY.equalTo(phoneLabel.snp.centerY)
-        }
-        
     }
     
     @objc func likeTapped() {

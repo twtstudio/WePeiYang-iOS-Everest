@@ -91,6 +91,8 @@ class BicycleBindingViewController: UIViewController {
                 }, failure: { errMsg in
                     SwiftMessages.showErrorMessage(body: errMsg)
                 })
+            }, failure: { errMsg in
+                SwiftMessages.showErrorMessage(body: errMsg)
             })
         }, failure: { errMsg in
             SwiftMessages.showErrorMessage(body: errMsg)

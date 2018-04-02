@@ -15,7 +15,7 @@ struct ReadBeacon {
             var header = headers ?? HTTPHeaders()
             if headers == nil {
                 header["User-Agent"] = DeviceStatus.userAgent
-                header["Authorization"] = "Bearer {\(token)}"
+                header["Authorization"] = "Bearer \(token)"
             }
             Alamofire.request(url, method: method, parameters: parameters, headers: header).responseJSON { response in
                 switch response.result {
