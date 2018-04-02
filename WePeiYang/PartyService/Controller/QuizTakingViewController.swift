@@ -74,13 +74,12 @@ class QuizTakingViewController: UIViewController {
         let quizSubmitBtn = UIBarButtonItem(title: "交卷", style: UIBarButtonItemStyle.plain, target: self, action: #selector(QuizTakingViewController.submitAnswer))
         
         self.navigationItem.setRightBarButton(quizSubmitBtn, animated: true)
-        
- 
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = .white
 
         lastQuiz.titleLabel?.textColor = .white
         lastQuiz.layer.cornerRadius = 8

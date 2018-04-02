@@ -19,7 +19,7 @@ class TwentyCourseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self.navigationController?.navigationBar.barStyle = .default
         
         self.view.addSubview(self.tableView)
         self.tableView.snp.makeConstraints {

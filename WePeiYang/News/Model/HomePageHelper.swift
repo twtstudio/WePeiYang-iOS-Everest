@@ -14,6 +14,9 @@ struct HomePageHelper {
             if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)),
                 let homepage = try? HomePageTopModel(data: data) {
                 success(homepage)
+            } else {
+                failure(WPYCustomError("解析失败"))
+                //TODO: Error code
             }
         }, failure: { error in
             failure(error)
@@ -25,6 +28,9 @@ struct HomePageHelper {
             if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)),
                 let news = NewsTopModel(data: data) {
                 success(news)
+            } else {
+                failure(WPYCustomError("解析失败"))
+                //TODO: Error code
             }
         }, failure: { error in
             failure(error)

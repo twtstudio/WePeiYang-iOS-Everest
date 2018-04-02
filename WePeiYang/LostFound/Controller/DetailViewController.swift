@@ -18,7 +18,7 @@ class DetailViewController: UIViewController {
     var detailImageView = UIImageView()
     var detailTitleLabel = UILabel()
     let detailApi = DetailAPI()
-    let TWT_URL = "http://open.twtstudio.com/"
+    let TWT_URL = "https://open.twtstudio.com/"
     var imageURL = ""
     
     var id = ""

@@ -33,9 +33,6 @@ struct ClasstableDataManager {
                         course.setColorIndex(index: index)
                         colorConfig[course.courseName] = index
                     }
-
-                    
-//                    Metadata.Color.fluentColors.
                     return course
                 }
 

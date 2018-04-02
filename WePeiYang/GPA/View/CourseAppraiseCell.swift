@@ -28,7 +28,7 @@ class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
     let detailImageButton = UIButton()
     
     var id: Int?
-    private var context = 0 //for kvo
+    fileprivate var context = 0 //for kvo
     convenience init(title: String, style: CourseAppraiseCellStyle, id: Int) {
         self.init()
         
@@ -148,7 +148,7 @@ class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
     }
     
     
-    func detailButtonTapped() {
+    @objc func detailButtonTapped() {
         delegate?.loadDetail()
         if CourseAppraiseManager.shared.detailAppraiseEnabled == true {
             detailImageButton.setImage(UIImage(named: "ic_arrow_up"), for: .normal)

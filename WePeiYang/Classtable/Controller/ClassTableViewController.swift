@@ -182,7 +182,7 @@ class ClassTableViewController: UIViewController {
             // 点开居中
             // TODO: 确定多少比较合适
             if currentDisplayWeek <= 22 && currentDisplayWeek >= 4 {
-                weekSelectView.contentOffset = CGPoint(x: (CGFloat(currentDisplayWeek)-3.5)*50, y: 0)
+                weekSelectView.contentOffset = CGPoint(x: (CGFloat(currentDisplayWeek)-3.5)*50-25, y: 0)
             }
         } else {
             // 展开状态 -> 收起状态
@@ -265,7 +265,6 @@ class ClassTableViewController: UIViewController {
             SwiftMessages.showErrorMessage(body: errorMessage)
         })
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

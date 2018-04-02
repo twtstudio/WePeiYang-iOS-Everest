@@ -44,7 +44,6 @@
         self.bounces = YES;
         //self.menuHeight = 44;
         self.menuViewBottomSpace = -(self.menuHeight + 64.0);
-        
     }
     return self;
 }
@@ -79,6 +78,7 @@
     view.backgroundColor = partyRed;
     view.tag = 1;
     [self.view addSubview:view];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     
 //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 

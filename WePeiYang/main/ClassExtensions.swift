@@ -448,6 +448,12 @@ extension Encodable {
     }
 }
 
+extension Decodable {
+    init(data: Data) throws {
+        self = try JSONDecoder().decode(Self.self, from: data)
+    }
+}
+
 extension Dictionary {
     func jsonData() throws -> Data {
         return try JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted)

@@ -38,7 +38,7 @@ class Applicant: NSObject {
         let parameters = ["token": token]
             // as [String: AnyObject]
         //let parameters = ["token": "aabbcc"]
-        SolaSessionManager.solaSession(type: .get, baseURL: "http://open.twtstudio.com/api/v2/auth/self", url: "", token: nil, parameters: parameters, success: { dict in
+        SolaSessionManager.solaSession(type: .get, baseURL: "https://open.twtstudio.com/api/v2/auth/self", url: "", token: nil, parameters: parameters, success: { dict in
             guard let fooRealName = dict["realname"] as? String,
                 let fooStudentNumber = dict["studentid"] as? String else {
 //                    MsgDisplay.showErrorMsg("获取学号失败，请稍候再试")
@@ -87,7 +87,6 @@ class Applicant: NSObject {
     
     
     func getPersonalStatus(_ doSomething: @escaping () -> ()) {
-        
         
         //AFNetWorking/Alamofire Works
         

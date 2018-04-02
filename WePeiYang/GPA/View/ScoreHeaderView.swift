@@ -1,5 +1,3 @@
-
-
 //
 //  ScoreHeaderView.swift
 //  WePeiYang
@@ -14,7 +12,11 @@ class ScoreHeaderView: UIView {
     let totalScoreLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 27, weight: UIFontWeightLight)
+        if deviceWidth == CGFloat.iPhoneSEWidth {
+            label.font = UIFont.systemFont(ofSize: 23, weight: UIFont.Weight.light)
+        } else {
+            label.font = UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.light)
+        }
         label.textAlignment = .center
         label.sizeToFit()
         return label
@@ -22,7 +24,11 @@ class ScoreHeaderView: UIView {
     let totalGPALabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 27, weight: UIFontWeightLight)
+        if deviceWidth == CGFloat.iPhoneSEWidth {
+            label.font = UIFont.systemFont(ofSize: 23, weight: UIFont.Weight.light)
+        } else {
+            label.font = UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.light)
+        }
         label.textAlignment = .center
         label.sizeToFit()
         return label
@@ -30,7 +36,11 @@ class ScoreHeaderView: UIView {
     let totalCreditLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 27, weight: UIFontWeightLight)
+        if deviceWidth == CGFloat.iPhoneSEWidth {
+            label.font = UIFont.systemFont(ofSize: 23, weight: UIFont.Weight.light)
+        } else {
+            label.font = UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.light)
+        }
         label.textAlignment = .center
         label.sizeToFit()
         return label
@@ -66,7 +76,11 @@ class ScoreHeaderView: UIView {
         totalGPALabel.y = topPadding
         totalCreditLabel.y = topPadding
         
-        
+        totalScoreLabel.text = "不"
+        totalGPALabel.text = "知"
+        totalCreditLabel.text = "道"
+
+
         self.addSubview(totalScoreLabel)
         self.addSubview(totalGPALabel)
         self.addSubview(totalCreditLabel)
@@ -74,15 +88,15 @@ class ScoreHeaderView: UIView {
         // color
         let scoreHintLabel = UILabel(text: "总加权", color: UIColor(red:0.28, green:0.28, blue:0.28, alpha:1.00))
         scoreHintLabel.textAlignment = .center
-        scoreHintLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        scoreHintLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         
         let GPAHintLabel = UILabel(text: "总绩点", color: UIColor(red:0.28, green:0.28, blue:0.28, alpha:1.00))
         GPAHintLabel.textAlignment = .center
-        GPAHintLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        GPAHintLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         
         let creditHintLabel = UILabel(text: "总学分", color: UIColor(red:0.28, green:0.28, blue:0.28, alpha:1.00))
         creditHintLabel.textAlignment = .center
-        creditHintLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        creditHintLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         
         self.addSubview(scoreHintLabel)
         self.addSubview(GPAHintLabel)
