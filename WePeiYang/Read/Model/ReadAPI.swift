@@ -10,7 +10,7 @@
 import Foundation
 
 struct ReadAPI {
-    static let baseURL = "http://book.twtstudio.com/api/"
+    static let baseURL = "https://book.twtstudio.com/api/"
     static let baseURL1 = "http://takooctopus.com/yuepeiyang/public/api/"
     static let bannerURL = baseURL + "banner/5"
     static let recommendedURL = baseURL + "recommended/6"

@@ -7,7 +7,7 @@
 //
 
 struct PartyAPI {
-    static let rootURL = "http://www.twt.edu.cn/party"
+    static let rootURL = "https://www.twt.edu.cn/party"
     
     // Only for test
     // static let studentID: String? = "3014218099"
@@ -38,7 +38,7 @@ struct PartyAPI {
     
     // 20 课答案提交
     
-    static let courseQuizSubmitURL = "http://www.twt.edu.cn/party/?page=api&do=20course_test&sno=\(studentID!)"
+    static let courseQuizSubmitURL = "https://www.twt.edu.cn/party/?page=api&do=20course_test&sno=\(studentID!)"
     
     static func courseQuizSubmitParams(of courseID: String, originalAnswer: [Int], userAnswer: [Int]) -> [String: String] {
         var str1 = ""
@@ -88,7 +88,7 @@ struct PartyAPI {
         return ["page": "api", "do": "probationary_entry2", "test_id": testID, "sno": studentID!]
     }
     
-    static let handInURL = "http://www.twt.edu.cn/party/?page=api&do=fileupload&sno=\(studentID!)"
+    static let handInURL = "https://www.twt.edu.cn/party/?page=api&do=fileupload&sno=\(studentID!)"
 }
 
 private extension String {
