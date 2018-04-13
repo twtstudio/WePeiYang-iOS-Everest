@@ -21,10 +21,11 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         super.viewDidLoad()
         configUI()
         promptUI()
-        refresh()
-        self.promptView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
+//        refresh()
+//        self.promptView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.foundView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.foundView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
+        self.foundView.mj_header.beginRefreshing()
     }
     
     func configUI() {
@@ -40,6 +41,7 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         foundView.dataSource = self
         
         foundView.backgroundColor = UIColor(hex6: 0xeeeeee)
+        self.view.addSubview(foundView)
 
     }
     
@@ -55,6 +57,11 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         titleLabel.text = "暂时没有该类物品,去发布吧!"
         titleLabel.textAlignment = .center
         self.promptView.addSubview(titleLabel)
+        self.promptView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
+        
+        self.view.addSubview(promptView)
+        promptView.isHidden = true
+
     }
     
     func refresh() {
@@ -109,10 +116,12 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     func selectView() {
         if foundList.count == 0 {
-            self.view.addSubview(self.promptView)
+//            self.view.addSubview(self.promptView)
+            self.promptView.isHidden = false
         } else {
-            self.view.addSubview(self.foundView)
-            self.foundView.reloadData()
+//            self.view.addSubview(self.foundView)
+//            self.foundView.reloadData()
+            self.promptView.isHidden = true
         }
         
     }
@@ -138,13 +147,12 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "foundCell", for: indexPath) as? LostFoundCollectionViewCell {
             //        cell.title.text = "这里是内容：\(indexPath.row)"
-            
             let picURL = foundList[indexPath.row].picture
             cell.initUI(pic: picURL, title: foundList[indexPath.row].title, mark: Int(foundList[indexPath.row].detail_type)!, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
             return cell
             
         }
-        let cell = LostFoundCollectionViewCell()
+        let cell = LostFoundCollectionViewCell(frame: .zero)
         let picURL = foundList[indexPath.row].picture
         cell.initUI(pic: picURL, title: foundList[indexPath.row].title, mark: Int(foundList[indexPath.row].detail_type)!, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
         return cell

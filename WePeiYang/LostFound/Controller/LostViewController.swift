@@ -25,7 +25,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         
         configUI()
         promptUI()
-        //        refresh()
+        //refresh()
 
         self.lostView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.lostView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
@@ -36,15 +36,12 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     func configUI() {
         lostView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height-110), collectionViewLayout: layout)
         lostView.register(LostFoundCollectionViewCell.self, forCellWithReuseIdentifier: "lostCell")
-        
         lostView.delegate = self
         lostView.dataSource = self
-        
         lostView.backgroundColor = UIColor(hex6: 0xeeeeee)
         self.automaticallyAdjustsScrollViewInsets = false
         layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height:  270)
         layout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
-
         self.view.addSubview(lostView)
     }
     

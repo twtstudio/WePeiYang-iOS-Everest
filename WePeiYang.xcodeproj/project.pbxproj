@@ -34,6 +34,7 @@
 		0C7AADEE2080C62200B0A2B0 /* MyLostFoundTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7AADD32080C62100B0A2B0 /* MyLostFoundTableViewCell.swift */; };
 		0C7AADEF2080C62200B0A2B0 /* PublishCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7AADD42080C62100B0A2B0 /* PublishCustomCell.swift */; };
 		0C7AADF02080C62200B0A2B0 /* UpLoadingPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7AADD52080C62100B0A2B0 /* UpLoadingPicCell.swift */; };
+		0C7AADF22080C89600B0A2B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C7AADF12080C89500B0A2B0 /* Assets.xcassets */; };
 		0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */; };
 		1B20B1FF52E995B4AC3D3EDE /* Pods_WePeiYangWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E48DF45006ADE8419C6CF0C /* Pods_WePeiYangWidget.framework */; };
 		360339E920247B9D0006A083 /* LibraryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360339E820247B9C0006A083 /* LibraryCard.swift */; };
@@ -184,7 +185,6 @@
 		36B2C896203A80F700AD2E3F /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EF1EC84ED90064373A /* log.swift */; };
 		36B2C897203A82B000AD2E3F /* ClassTableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CAD449201B8EAA006F85E3 /* ClassTableHelper.swift */; };
 		36B2C899203DB8DB00AD2E3F /* ClassWidgetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B2C898203DB8DB00AD2E3F /* ClassWidgetCell.swift */; };
-		36B2C89A203DC90B00AD2E3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51C456B1FD122F700652435 /* Assets.xcassets */; };
 		36B2C89B203DE86700AD2E3F /* TwTUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5091F1903D70078816D /* TwTUser.swift */; };
 		36B8F2EA205110A60080083C /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B8F2E9205110A60080083C /* NotificationSettingViewController.swift */; };
 		36CAD44A201B8EAA006F85E3 /* ClassTableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CAD449201B8EAA006F85E3 /* ClassTableHelper.swift */; };
@@ -205,7 +205,6 @@
 		36FCC2D920545967003379AE /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FCC2D820545967003379AE /* LoginView.swift */; };
 		36FCC2DD20555F8F003379AE /* AnimateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FCC2DC20555F8F003379AE /* AnimateButton.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
-		A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51C456B1FD122F700652435 /* Assets.xcassets */; };
 		A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */; };
 		A50F36501FB8837D00413CF2 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364F1FB8837D00413CF2 /* KeyChain.swift */; };
@@ -330,6 +329,7 @@
 		0C7AADD32080C62100B0A2B0 /* MyLostFoundTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostFoundTableViewCell.swift; sourceTree = "<group>"; };
 		0C7AADD42080C62100B0A2B0 /* PublishCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishCustomCell.swift; sourceTree = "<group>"; };
 		0C7AADD52080C62100B0A2B0 /* UpLoadingPicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpLoadingPicCell.swift; sourceTree = "<group>"; };
+		0C7AADF12080C89500B0A2B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../Desktop/Assets.xcassets; sourceTree = "<group>"; };
 		0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		360339E820247B9C0006A083 /* LibraryCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCard.swift; sourceTree = "<group>"; };
@@ -495,7 +495,6 @@
 		A5197A3C1FDA8F99008C445A /* LibraryAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAPIs.swift; sourceTree = "<group>"; };
 		A51C45671FD0227800652435 /* WLANBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANBindingViewController.swift; sourceTree = "<group>"; };
 		A51C45691FD0477700652435 /* BicycleBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleBindingViewController.swift; sourceTree = "<group>"; };
-		A51C456B1FD122F700652435 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A52C6464207F9D010007D31F /* DBSphereView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBSphereView.m; sourceTree = "<group>"; };
 		A52C6465207F9D020007D31F /* DBMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBMatrix.h; sourceTree = "<group>"; };
 		A52C6466207F9D020007D31F /* DBPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPoint.h; sourceTree = "<group>"; };
@@ -618,15 +617,15 @@
 		0C7AADB82080C62100B0A2B0 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0C7AADBF2080C62100B0A2B0 /* LostFoundPageViewController.swift */,
+				0C7AADC12080C62100B0A2B0 /* LostViewController.swift */,
 				0C7AADB92080C62100B0A2B0 /* FoundViewController.swift */,
 				0C7AADBA2080C62100B0A2B0 /* LFDetailViewController.swift */,
 				0C7AADBB2080C62100B0A2B0 /* LFImagePreviewViewController.swift */,
 				0C7AADBC2080C62100B0A2B0 /* LFSearchedResultViewController.swift */,
 				0C7AADBD2080C62100B0A2B0 /* LostFoundCollectionViewCellDemo.swift */,
 				0C7AADBE2080C62100B0A2B0 /* LostFoundDetailModel.swift */,
-				0C7AADBF2080C62100B0A2B0 /* LostFoundPageViewController.swift */,
 				0C7AADC02080C62100B0A2B0 /* LostFoundSearchViewController.swift */,
-				0C7AADC12080C62100B0A2B0 /* LostViewController.swift */,
 				0C7AADC22080C62100B0A2B0 /* MyFoundViewController.swift */,
 				0C7AADC32080C62100B0A2B0 /* MyLostFoundPageViewController.swift */,
 				0C7AADC42080C62100B0A2B0 /* MyLostViewController.swift */,
@@ -1313,7 +1312,7 @@
 		B156B7891E7A857F00A4C500 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A51C456B1FD122F700652435 /* Assets.xcassets */,
+				0C7AADF12080C89500B0A2B0 /* Assets.xcassets */,
 			);
 			name = Resources;
 			path = WePeiYang/Resources;
@@ -1599,7 +1598,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36B2C89A203DC90B00AD2E3F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1612,7 +1610,7 @@
 				3681C0A8205B027A005DF5AF /* AlertChildPageViewController.xib in Resources */,
 				36366B311FAB8A84001F72A0 /* BicycleServiceNotificationController.xib in Resources */,
 				36366B321FAB8A84001F72A0 /* BicycleRecordViewController.xib in Resources */,
-				A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */,
+				0C7AADF22080C89600B0A2B0 /* Assets.xcassets in Resources */,
 				36366B331FAB8A84001F72A0 /* BicycleUserBindViewController.xib in Resources */,
 				A554C4BE1F99F84900022A01 /* ParkingSpotsLocs.json in Resources */,
 				36449E671FA4BABA0036766B /* PartyHandInViewController.xib in Resources */,
