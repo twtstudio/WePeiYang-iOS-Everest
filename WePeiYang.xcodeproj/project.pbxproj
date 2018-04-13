@@ -211,12 +211,15 @@
 		A5197A3D1FDA8F99008C445A /* LibraryAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5197A3C1FDA8F99008C445A /* LibraryAPIs.swift */; };
 		A51C45681FD0227800652435 /* WLANBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51C45671FD0227800652435 /* WLANBindingViewController.swift */; };
 		A51C456A1FD0477700652435 /* BicycleBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51C45691FD0477700652435 /* BicycleBindingViewController.swift */; };
+		A52C6468207F9D020007D31F /* DBSphereView.m in Sources */ = {isa = PBXBuildFile; fileRef = A52C6464207F9D010007D31F /* DBSphereView.m */; };
+		A52C646B207F9F680007D31F /* CollegeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52C646A207F9F680007D31F /* CollegeModel.swift */; };
 		A53602671FC6E36100E3D1AF /* LibraryBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53602661FC6E36100E3D1AF /* LibraryBindingViewController.swift */; };
 		A53602691FC6EC0500E3D1AF /* TJUBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53602681FC6EC0500E3D1AF /* TJUBindingViewController.swift */; };
 		A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4B01F99E43F00022A01 /* BicycleServiceNotificationController.swift */; };
 		A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4B81F99E57700022A01 /* SpotDetailsView.swift */; };
 		A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */; };
 		A554C4BE1F99F84900022A01 /* ParkingSpotsLocs.json in Resources */ = {isa = PBXBuildFile; fileRef = A554C4BC1F99EFE300022A01 /* ParkingSpotsLocs.json */; };
+		A570C138207F8E2C00AF7050 /* CollegeSphereViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A570C137207F8E2C00AF7050 /* CollegeSphereViewController.swift */; };
 		A586543720514E860069CF53 /* WLANHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586543620514E860069CF53 /* WLANHelper.swift */; };
 		A5E117AF1F99DB8E00C86CA2 /* BicycleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117AE1F99DB8E00C86CA2 /* BicycleUser.swift */; };
 		A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117B01F99DBB700C86CA2 /* timeStampTransfer.swift */; };
@@ -487,12 +490,18 @@
 		A51C45671FD0227800652435 /* WLANBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANBindingViewController.swift; sourceTree = "<group>"; };
 		A51C45691FD0477700652435 /* BicycleBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleBindingViewController.swift; sourceTree = "<group>"; };
 		A51C456B1FD122F700652435 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A52C6464207F9D010007D31F /* DBSphereView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBSphereView.m; sourceTree = "<group>"; };
+		A52C6465207F9D020007D31F /* DBMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBMatrix.h; sourceTree = "<group>"; };
+		A52C6466207F9D020007D31F /* DBPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPoint.h; sourceTree = "<group>"; };
+		A52C6467207F9D020007D31F /* DBSphereView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBSphereView.h; sourceTree = "<group>"; };
+		A52C646A207F9F680007D31F /* CollegeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeModel.swift; sourceTree = "<group>"; };
 		A53602661FC6E36100E3D1AF /* LibraryBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryBindingViewController.swift; sourceTree = "<group>"; };
 		A53602681FC6EC0500E3D1AF /* TJUBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TJUBindingViewController.swift; sourceTree = "<group>"; };
 		A554C4B01F99E43F00022A01 /* BicycleServiceNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleServiceNotificationController.swift; sourceTree = "<group>"; };
 		A554C4B81F99E57700022A01 /* SpotDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailsView.swift; sourceTree = "<group>"; };
 		A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleFitnessTrackerViewCell.swift; sourceTree = "<group>"; };
 		A554C4BC1F99EFE300022A01 /* ParkingSpotsLocs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ParkingSpotsLocs.json; sourceTree = "<group>"; };
+		A570C137207F8E2C00AF7050 /* CollegeSphereViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeSphereViewController.swift; sourceTree = "<group>"; };
 		A586543620514E860069CF53 /* WLANHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANHelper.swift; sourceTree = "<group>"; };
 		A5D695191F8A21AD00022B9A /* WMScrollView+gesture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMScrollView+gesture.m"; sourceTree = "<group>"; };
 		A5D695201F8A21AD00022B9A /* WMScrollView+gesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMScrollView+gesture.h"; sourceTree = "<group>"; };
@@ -875,6 +884,7 @@
 			isa = PBXGroup;
 			children = (
 				3653DD901FBAD0B600501C3B /* ClassTableViewController.swift */,
+				A570C137207F8E2C00AF7050 /* CollegeSphereViewController.swift */,
 				36D0FE73201861BD0014E667 /* ClassDetailViewController.swift */,
 			);
 			path = Controller;
@@ -884,6 +894,7 @@
 			isa = PBXGroup;
 			children = (
 				365A8A1A1FB9BA8500B15443 /* ArrangeModel.swift */,
+				A52C646A207F9F680007D31F /* CollegeModel.swift */,
 				36CAD449201B8EAA006F85E3 /* ClassTableHelper.swift */,
 				365A8A271FB9CA1700B15443 /* ClassModel.swift */,
 				369B2D4920151542009352A8 /* DateTool.swift */,
@@ -896,6 +907,7 @@
 		365A8A1D1FB9BA8500B15443 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A52C6469207F9D090007D31F /* DBSphere */,
 				36E56BC51FC512230009BD6F /* CourseListView.swift */,
 				36D0FE75201867CF0014E667 /* ArrangeCell.swift */,
 				369D92062015D914004BA1D0 /* WeekSelectView.swift */,
@@ -1054,6 +1066,17 @@
 				A5197A3C1FDA8F99008C445A /* LibraryAPIs.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		A52C6469207F9D090007D31F /* DBSphere */ = {
+			isa = PBXGroup;
+			children = (
+				A52C6465207F9D020007D31F /* DBMatrix.h */,
+				A52C6466207F9D020007D31F /* DBPoint.h */,
+				A52C6467207F9D020007D31F /* DBSphereView.h */,
+				A52C6464207F9D010007D31F /* DBSphereView.m */,
+			);
+			path = DBSphere;
 			sourceTree = "<group>";
 		};
 		A53602621FC6E23C00E3D1AF /* Binding */ = {
@@ -1776,6 +1799,8 @@
 				361F8863204AF94200BCFA19 /* NewsTableViewCell.swift in Sources */,
 				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,
 				361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */,
+				A52C646B207F9F680007D31F /* CollegeModel.swift in Sources */,
+				A570C138207F8E2C00AF7050 /* CollegeSphereViewController.swift in Sources */,
 				36073D0D1F223FC1001317A7 /* Search.swift in Sources */,
 				368C3C8A204DAB4F00C1E6B6 /* WPYCustomError.swift in Sources */,
 				A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */,
@@ -1946,6 +1971,7 @@
 				B10253FD1EC84ED90064373A /* log.swift in Sources */,
 				361F8853204AF92100BCFA19 /* HomePageHelper.swift in Sources */,
 				0C3ADF481F697EE100388C19 /* MyLostFoundTableViewCell.swift in Sources */,
+				A52C6468207F9D020007D31F /* DBSphereView.m in Sources */,
 				365A8A251FB9BA8500B15443 /* ClasstableDataManager.swift in Sources */,
 				B10253DA1EC84ED20064373A /* ReadBeacon.swift in Sources */,
 				3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */,

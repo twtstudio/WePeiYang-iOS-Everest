@@ -149,7 +149,9 @@ class ClassTableViewController: UIViewController {
         self.navigationItem.titleView = titleView
         backButton.addTarget(self, action: #selector(toggleWeekSelect), for: .touchUpInside)
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(load))
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(load)),
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCourse))]
     }
     
     @objc func weekCellTapped(sender: UITapGestureRecognizer) {
@@ -264,6 +266,11 @@ class ClassTableViewController: UIViewController {
             SwiftMessages.hideLoading()
             SwiftMessages.showErrorMessage(body: errorMessage)
         })
+    }
+    
+    @objc func addCourse() {
+        let sphereVC = CollegeSphereViewController()
+        self.navigationController?.pushViewController(sphereVC, animated: true)
     }
     
     

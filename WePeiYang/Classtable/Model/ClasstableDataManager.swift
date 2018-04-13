@@ -33,7 +33,6 @@ struct ClasstableDataManager {
                         course.setColorIndex(index: index)
                         colorConfig[course.courseName] = index
                     }
-
                     
 //                    Metadata.Color.fluentColors.
                     return course
@@ -48,4 +47,18 @@ struct ClasstableDataManager {
             failure(error.localizedDescription)
         })
     }
+    
+    static func getCollegeList(success: @escaping ([CollegeModel])->(), failure: @escaping (String)->()) {
+        SolaSessionManager.solaSession(type: .get, url: "/auditClass/college", parameters: nil, success: { dict in
+            if let data = try? JSONSerialization.data(withJSONObject: dict, options: .init(rawValue: 0)),
+                let response = try? CollegeTopModel(data: data) {
+                success(response.data)
+            } else {
+                failure("解析错误")
+            }
+        }, failure: { error in
+            failure(error.localizedDescription)
+        })
+    }
 }
+
