@@ -107,11 +107,10 @@ struct ApplicantTest {
                 
                 guard dict["status"] as? Int == 1 else {
                     guard let msg = dict["msg"] as? String else {
-//                        MsgDisplay.showErrorMsg("报名失败，请稍后重试")
+                        SwiftMessages.showErrorMessage(body: "报名失败，请稍后重试")
                         return
                     }
-                    
-//                    MsgDisplay.showErrorMsg(msg)
+                    SwiftMessages.showErrorMessage(body: msg)
                     return
                 }
                 
@@ -126,7 +125,7 @@ struct ApplicantTest {
                 completion()
 
             }, failure: { error in
-//                MsgDisplay.showErrorMsg("报名失败，请稍后再试")
+                SwiftMessages.showErrorMessage(body: "报名失败，请稍后重试")
             })
             
 //            let manager = AFHTTPSessionManager()
@@ -236,7 +235,7 @@ struct ApplicantTest {
                 }
                 completion()
             }, failure: { error in
-//                MsgDisplay.showErrorMsg("出错啦！")
+                SwiftMessages.showErrorMessage(body: "出错啦！")
             })
             
 //            let manager = AFHTTPSessionManager()
@@ -304,11 +303,10 @@ struct ApplicantTest {
             SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: nil, parameters: PartyAPI.academyEntry2Params(of: testID), success: { dict in
                 guard dict["status"] as? Int == 1 else {
                     guard let msg = dict["msg"] as? String else {
-//                        MsgDisplay.showErrorMsg("报名失败，请稍后重试")
+                        SwiftMessages.showErrorMessage(body: "报名失败，请稍后重试")
                         return
                     }
-                    
-//                    MsgDisplay.showErrorMsg(msg)
+                    SwiftMessages.showErrorMessage(body: msg)
                     return
                 }
                 
@@ -323,7 +321,7 @@ struct ApplicantTest {
                 
                 completion()
             }, failure: { error in
-//                MsgDisplay.showErrorMsg("报名失败，请稍后再试")
+                SwiftMessages.showErrorMessage(body: "报名失败，请稍后重试")
 
             })
             
@@ -501,11 +499,10 @@ struct ApplicantTest {
             SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: nil, parameters: PartyAPI.probationaryEntry2Params(of: trainID), success: { dict in
                 guard dict["status"] as? Int == 1 else {
                     guard let msg = dict["msg"] as? String else {
-//                        MsgDisplay.showErrorMsg("报名失败，请稍后重试")
+                        SwiftMessages.showErrorMessage(body: "报名失败，请稍后重试")
                         return
                     }
-                    
-//                    MsgDisplay.showErrorMsg(msg)
+                    SwiftMessages.showErrorMessage(body: msg)
                     return
                 }
                 
@@ -520,7 +517,7 @@ struct ApplicantTest {
                 
                 completion()
             }, failure: { error in
-//                MsgDisplay.showErrorMsg("报名失败，请稍后再试")
+                SwiftMessages.showErrorMessage(body: "报名失败，请稍后再试" + "\n" + error.localizedDescription)
             })
             
 //            let manager = AFHTTPSessionManager()

@@ -139,13 +139,13 @@ class LFDetailViewController: UIViewController {
     
     // Mark -— Share
     
-    func share() {
+    @objc func share() {
         let vc = UIActivityViewController(activityItems: [UIImage(named: "暂无图片")!, "[失物招领]\(self.detailArray[0].title)", URL(string: "http://open.twtstudio.com/lostfound/detail.html#\(id)")!], applicationActivities: [])
         present(vc, animated: true, completion: nil)
 //        print("https://open.twtstudio.com/lostfound/detail.html#\(id)")
     }
     
-    func swipeClicked(recogizer: UITapGestureRecognizer) {
+    @objc func swipeClicked(recogizer: UITapGestureRecognizer) {
         let previewVC = LFImagePreviewViewController(image: image)
 //        self.navigationController?.pushViewController(previewVC, animated: true)
         self.present(previewVC, animated: true, completion: nil)

@@ -15,7 +15,7 @@ class RateView: UIView, UITextViewDelegate {
     
     
     //var rating: Double
-    func dismissAnimated() {
+    @objc func dismissAnimated() {
         UIView.animate(withDuration: 0.7, animations: {
             self.frame = CGRect(x: 0, y: self.frame.height, width: self.frame.width, height: self.frame.height)
         }) { (_: Bool) in
@@ -26,7 +26,7 @@ class RateView: UIView, UITextViewDelegate {
     }
     
     
-    func submitRating() {
+    @objc func submitRating() {
         var content: String? = nil
         var rating: Double = 3
         for view in self.subviews {
@@ -50,7 +50,7 @@ class RateView: UIView, UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.characters.count < 1 {
+        if textView.text.count < 1 {
             textView.text = "写一点评论吧！"
             textView.textColor = .gray
         }

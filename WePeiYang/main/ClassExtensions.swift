@@ -14,7 +14,6 @@
 
 import UIKit
 
-
 extension UILabel {
     convenience init(text: String, color: UIColor) {
         self.init()
@@ -105,6 +104,16 @@ extension UIView {
 
 }
 
+extension CALayer {
+    func snapshot() -> UIImage? {
+        UIGraphicsBeginImageContext(self.bounds.size)
+        self.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+}
+
 extension UIImage {
     
     static func resizedImage(image: UIImage, scaledToSize newSize: CGSize) -> UIImage{
@@ -191,6 +200,7 @@ extension UIImage {
         
         return newImage
     }
+    
     
     //pure color image
     convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
@@ -331,23 +341,18 @@ extension UIViewController {
         return nil
     }
     
-    
-}
-
-extension String {
-    var sha1: String {
-        get {
-            let data = self.data(using: String.Encoding.utf8)!
-            var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
-            data.withUnsafeBytes {
-                _ = CC_SHA1($0, CC_LONG(data.count), &digest)
-            }
-            let hexBytes = digest.map { String(format: "%02hhx", $0) }
-            return hexBytes.joined()
+    var isModal: Bool {
+        if self.presentingViewController != nil {
+            return true
+        } else if self.navigationController?.presentingViewController?.presentedViewController == self.navigationController  {
+            return true
+        } else if self.tabBarController?.presentingViewController is UITabBarController {
+            return true
         }
+
+        return false
     }
 }
-
 
 
 // TODO: from hex to displayP3 and hsb
@@ -418,4 +423,51 @@ extension CGRect {
         let origin = CGPoint(x: center.x - size.width/2, y: center.y - size.height/2)
         self.init(origin: origin, size: size)
     }
+}
+
+extension Data {
+    //将Data转换为String
+    var hexString: String {
+        return withUnsafeBytes {(bytes: UnsafePointer<UInt8>) -> String in
+            let buffer = UnsafeBufferPointer(start: bytes, count: count)
+            return buffer.map {
+                String(format: "%02hhx", $0)}.reduce("", { $0 + $1 })
+        }
+    }
+}
+
+
+// Encodable
+extension Encodable {
+    func jsonData() throws -> Data {
+        return try JSONEncoder().encode(self)
+    }
+
+    func jsonString() throws -> String? {
+        return String(data: try self.jsonData(), encoding: .utf8)
+    }
+}
+
+extension Dictionary {
+    func jsonData() throws -> Data {
+        return try JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted)
+    }
+}
+
+extension CGFloat {
+    static var iPhoneSEWidth: CGFloat {
+        return 320
+    }
+
+    static var iPhone8Width: CGFloat {
+        return 375
+    }
+
+    static var iPhone8PlusWidth: CGFloat {
+        return 414
+    }
+}
+
+var isiPad: Bool {
+    return UIDevice.current.model == "iPad"
 }

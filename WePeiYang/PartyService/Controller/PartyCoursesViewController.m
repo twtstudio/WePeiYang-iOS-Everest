@@ -63,6 +63,7 @@
     self.progressHeight = 3.0;
     
     [super viewDidLoad];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     // Do any additional setup after loading the view.
 }
 
@@ -79,9 +80,13 @@
     view.tag = 1;
     [self.view addSubview:view];
     
-    //改变 statusBar 颜色
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
+}
+
+//改变 statusBar 颜色
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)didReceiveMemoryWarning {

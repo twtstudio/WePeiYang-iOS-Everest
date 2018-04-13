@@ -9,9 +9,19 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>WePeiYangWidget.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>365A464C2036EFB700738963</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B19DAB851E6EF5C2004A50B5</key>
 		<dict>
 			<key>primary</key>

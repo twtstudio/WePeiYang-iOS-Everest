@@ -83,7 +83,8 @@ class LFSearchCustomCell: UITableViewCell {
         return newHeight
     }
     // 循环建立button的回调
-    func buttonTapped(sender: UIButton) {
+
+    @objc func buttonTapped(sender: UIButton) {
         if let text = sender.titleLabel?.text {
             inputText = text
             self.delegate?.buttonTapped()

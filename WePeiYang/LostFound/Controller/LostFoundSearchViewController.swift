@@ -231,7 +231,7 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         self.tableView?.reloadData()
     }
     // 删除按钮的回调
-    func deleteOfButtonTapped(sender: UIButton) {
+    @objc func deleteOfButtonTapped(sender: UIButton) {
         historyNSArray = []
         let path1 = NSHomeDirectory()
         let path = path1 + "/Documents/historySearchList.plist"

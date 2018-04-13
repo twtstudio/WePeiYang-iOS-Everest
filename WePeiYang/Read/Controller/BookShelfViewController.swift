@@ -9,7 +9,7 @@
 
 import UIKit
 
-let bigiPhoneWidth: CGFloat = 375.0
+private let bigiPhoneWidth: CGFloat = 375.0
 
 class BookShelfViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var bookShelf: [MyBook] = []
@@ -37,7 +37,7 @@ class BookShelfViewController: UIViewController, UITableViewDataSource, UITableV
         self.navigationItem.rightBarButtonItem = rightItem
     }
     
-    func editingStateOnChange(sender: UIBarButtonItem) {
+    @objc func editingStateOnChange(sender: UIBarButtonItem) {
         tableView.setEditing(!tableView.isEditing, animated: true)
         if tableView.isEditing {
             self.navigationItem.rightBarButtonItem?.title = "完成"

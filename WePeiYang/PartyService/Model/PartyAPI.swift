@@ -7,42 +7,38 @@
 //
 
 struct PartyAPI {
-    static let rootURL = "http://www.twt.edu.cn/party"
+    static let rootURL = "https://www.twt.edu.cn/party"
     
-    //Only for test
-    //static let studentID: String? = "3014218099"
+    // Only for test
+    // static let studentID: String? = "3014218099"
     
     static var studentID: String? {
-        /*guard let foo = Applicant.sharedInstance.studentNumber else {
-         return nil
-         }
-         return foo*/
-        
-        let foo = UserDefaults.standard.object(forKey: "studentID") as? String
-        return foo
+//        let foo = UserDefaults.standard.object(forKey: "studentID") as? String
+//        return foo
+        return TwTUser.shared.schoolID
     }
     
     
     
-    //个人信息参数
+    // 个人信息参数
     static let personalStatusParams = ["page": "api", "do": "personalstatus", "sno": studentID!]
     
     
-    //20 课简要列表，不知道 sno 要不要传
+    // 20 课简要列表，不知道 sno 要不要传
     static let courseStudyParams = ["page": "api", "do": "applicant_coursestudy", "sno": studentID!]
     
     static func courseStudyDetailParams(of courseID: String) -> [String: String] {
         return ["page": "api", "do": "applicant_coursestudy_detail", "course_id": courseID, "sno": studentID!]
     }
     
-    //20 课答题
+    // 20 课答题
     static func courseQuizParams(of courseID: String) -> [String: String] {
         return ["page": "api", "do": "20course_test", "course_id": courseID, "sno": studentID!]
     }
     
-    //20 课答案提交
+    // 20 课答案提交
     
-    static let courseQuizSubmitURL = "http://www.twt.edu.cn/party/?page=api&do=20course_test&sno=\(studentID!)"
+    static let courseQuizSubmitURL = "https://www.twt.edu.cn/party/?page=api&do=20course_test&sno=\(studentID!)"
     
     static func courseQuizSubmitParams(of courseID: String, originalAnswer: [Int], userAnswer: [Int]) -> [String: String] {
         var str1 = ""
@@ -92,15 +88,15 @@ struct PartyAPI {
         return ["page": "api", "do": "probationary_entry2", "test_id": testID, "sno": studentID!]
     }
     
-    static let handInURL = "http://www.twt.edu.cn/party/?page=api&do=fileupload&sno=\(studentID!)"
+    static let handInURL = "https://www.twt.edu.cn/party/?page=api&do=fileupload&sno=\(studentID!)"
 }
 
 private extension String {
     
     func removeCharsFromEnd(_ count:Int) -> String{
-        let stringLength = self.characters.count
+        let stringLength = self.count
         let substringCount = (stringLength < count) ? 0 : stringLength - count
-        let index: String.Index = self.characters.index(self.startIndex, offsetBy: substringCount)
-        return self.substring(to: index)
+        let index: String.Index = self.index(self.startIndex, offsetBy: substringCount)
+        return String(self[...index])
     }
 }

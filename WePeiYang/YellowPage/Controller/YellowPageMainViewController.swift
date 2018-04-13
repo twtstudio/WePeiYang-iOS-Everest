@@ -38,7 +38,8 @@ class YellowPageMainViewController: UIViewController {
         titleLabel.textColor = UIColor.white
         titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
-        
+
+        hidesBottomBarWhenPushed = true
         
         let rightButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(YellowPageMainViewController.searchToggle))
         self.navigationItem.rightBarButtonItem = rightButton
@@ -46,6 +47,8 @@ class YellowPageMainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.estimatedSectionHeaderHeight = 0
+        tableView.estimatedSectionFooterHeight = 0
         tableView.estimatedRowHeight = 200.5
         tableView.rowHeight = UITableViewAutomaticDimension
         
@@ -57,52 +60,54 @@ class YellowPageMainViewController: UIViewController {
             make.left.equalTo(view)
             make.right.equalTo(view)
         }
-        // FIXME: MsgDisplay Loading
-        //MsgDisplay.showLoading()
+        SwiftMessages.showLoading()
 
         PhoneBook.shared.load(success: {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
+            SwiftMessages.hideLoading()
         }, failure: {
-            PhoneBook.checkVersion {
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
+            SwiftMessages.hideLoading()
+            SwiftMessages.showLoading()
+            PhoneBook.checkVersion(success: {
+                SwiftMessages.hideLoading()
+                self.tableView.reloadData()
+            }, failure: {
+                SwiftMessages.hideLoading()
+                self.tableView.reloadData()
+            })
         })
+
+//        UIView.performWithoutAnimation {
+//            self.tableView.reloadSections([1], with: .none)
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        DispatchQueue.main.async {
-            UIView.performWithoutAnimation {
-                self.tableView.reloadSections([1], with: .none)
-            }
-        }
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(red: 0.1059, green: 0.6352, blue: 0.9019, alpha: 1)), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.barStyle = .black
         self.navigationController!.navigationBar.tintColor = .white
     }
-    
-    func searchToggle() {
+
+    @objc func searchToggle() {
         let searchVC = YellowPageSearchViewController()
         self.present(searchVC, animated: true, completion: nil)
     }
     
-    func cellTapped(sender: YellowPageCell) {
-        let alertVC = UIAlertController(title: "详情", message: "想要做什么？", preferredStyle: .actionSheet)
-        let copyAction = UIAlertAction(title: "复制到剪切板", style: .default) { action in
-            sender.longPressed()
-        }
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { action in
-        }
-        alertVC.addAction(copyAction)
-        alertVC.addAction(cancelAction)
-        self.present(alertVC, animated: true, completion: nil)
-    }
+//    @objc func cellTapped(sender: YellowPageCell) {
+//        let alertVC = UIAlertController(title: "详情", message: "想要做什么？", preferredStyle: .actionSheet)
+//        let copyAction = UIAlertAction(title: "复制到剪切板", style: .default) { action in
+//            sender.longPressed()
+//        }
+//        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { action in
+//        }
+//        alertVC.addAction(copyAction)
+//        alertVC.addAction(cancelAction)
+//        self.present(alertVC, animated: true, completion: nil)
+//    }
 
 }
 
@@ -180,8 +185,8 @@ extension YellowPageMainViewController: UITableViewDataSource {
                 return cell
             } else { // detailed item
                 let cell = YellowPageCell(with: .detailed, model: favorite[indexPath.row-1])
-                let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(cellTapped(sender:)))
-                cell.phoneLabel.addGestureRecognizer(tapRecognizer)
+//                let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(cellTapped(sender:)))
+//                cell.phoneLabel.addGestureRecognizer(tapRecognizer)
                 return cell
             }
         case let section where section > 1 && section < 2+sections.count:
@@ -223,29 +228,32 @@ extension YellowPageMainViewController: UITableViewDelegate {
             tableView.deselectRow(at: indexPath, animated: true)
         case 1: // favorite
             if indexPath.row == 0 {
-                DispatchQueue.main.async {
-                    self.shouldLoadFavorite = !self.shouldLoadFavorite
-                    tableView.reloadSections([1], with: .automatic)
-                }
+                self.shouldLoadFavorite = !self.shouldLoadFavorite
+                tableView.reloadData()
+                // xxx
+//                    tableView.reloadSections([1], with: .none)
             } else {
                 // toggle phone call
             }
         case let section where section > 1 && section < 2+sections.count: //  section
             let n = indexPath.section - 2
             if indexPath.row == 0 {
-                DispatchQueue.main.async {
-                    if self.shouldLoadSections.contains(n) {
-                        // if the section is unfolded
-                        self.shouldLoadSections = self.shouldLoadSections.filter { e in
-                            return e != n
-                        }
-                    } else {
-                        // will unfold the section
-                        self.shouldLoadSections.append(n)
+                if self.shouldLoadSections.contains(n) {
+                    // if the section is unfolded
+                    self.shouldLoadSections = self.shouldLoadSections.filter { e in
+                        return e != n
                     }
-                    // reload data
-                    self.tableView.reloadSections([indexPath.section], with: .automatic)
+                } else {
+                    // will unfold the section
+                    self.shouldLoadSections.append(n)
                 }
+                //                DispatchQueue.main.sync {
+                    // reload data
+                tableView.reloadData()
+                // xxx
+//                    self.tableView.reloadSections([indexPath.section], with: .none)
+                    tableView.scrollToRow(at: IndexPath(row: 0, section: indexPath.section), at: .top, animated: true)
+//               }
             } else {
                 // push to detailed ViewController
                 let detailedVC = YellowPageDetailViewController()
@@ -278,14 +286,10 @@ extension YellowPageMainViewController: UITableViewDelegate {
         } else {
             return 0.001
         }
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        // FIXME: setBarColor
-        self.navigationController?.navigationBar.isTranslucent = UINavigationBar.appearance().isTranslucent
-        self.navigationController?.navigationBar.shadowImage = UINavigationBar.appearance().shadowImage
     }
     
     

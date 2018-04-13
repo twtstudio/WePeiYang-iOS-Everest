@@ -9,44 +9,40 @@
 
 import Foundation
 
-let TOKEN_SAVE_KEY = "twtToken"
-let ID_SAVE_KEY = "twtId"
-let TJU_BIND_KEY = "bindTju"
-let CLASSTABLE_CACHE_KEY = "CLASSTABLE_CACHE"
-let CLASSTABLE_COLOR_CONFIG_KEY = "CLASSTABLE_COLOR_CONFIG"
-let CLASSTABLE_TERM_START_KEY = "CLASSTABLE_TERM_START"
-let GPA_CACHE = "gpaCache"
-let GPA_USER_NAME_CACHE = "gpaUserNameAndPassword"
-let ALLOW_SPOTLIGHT_KEY = "allowSpotlightIndex"
-
-
 struct AccountManager {
     
-//    static func removeToken() {
-//        UserDefaults.standard.removeObject(forKey: TOKEN_SAVE_KEY)
-//        UserDefaults.standard.removeObject(forKey: ID_SAVE_KEY)
-//        UserDefaults.standard.removeObject(forKey: "readToken")
-//
-//        CacheManager.removeCache(withKey: GPA_CACHE)
-//        CacheManager.removeGroupCache(withKey: CLASSTABLE_TERM_START_KEY)
-//        CacheManager.removeGroupCache(withKey: CLASSTABLE_CACHE_KEY)
-//        CacheManager.removeGroupCache(withKey: CLASSTABLE_COLOR_CONFIG_KEY)
-//        // TODO: CSSearchable
-//    }
-    
-    static func getToken(username: String, password: String, success: ((String)->())?, failure: ((Error?)->())?) {
-        let para: Dictionary<String, String> = ["twtuname": username, "twtpasswd": password]
+    static func getToken(username: String, password: String, success: ((String)->())?, failure: ((String)->())?) {
+        let para: [String: String] = ["twtuname": username, "twtpasswd": password]
         SolaSessionManager.solaSession(type: .get, url: "/auth/token/get", token: nil, parameters: para, success: { dic in
-            if let data = dic["data"] as? Dictionary<String, AnyObject> {
-                if let token = data["token"] as? String {
-                    success?(token)
-                }
+            if let data = dic["data"] as? [String: Any],
+                let token = data["token"] as? String {
+                success?(token)
+            } else {
+                failure?(dic["message"] as? String ?? "解析失败 请稍候重试")
             }
-            
         }, failure: { error in
-            failure?(error)
+            failure?(error.localizedDescription)
         })
         
+    }
+    
+    static func refreshToken(success: (()->())? = nil, failure: (()->())?) {
+        SolaSessionManager.solaSession(type: .get, url: "/auth/token/refresh", parameters: nil, success: { dict in
+            if let newToken = dict["data"] as? String {
+                TwTUser.shared.token = newToken
+                TwTUser.shared.save()
+                //啥都不用做
+                success?()
+                return
+            }
+            if let msg = dict["message"] as? String {
+                log.word(msg)/
+            }
+        }, failure: { error in
+            log.error(error)/
+            failure?()
+            TwTUser.shared.delete()
+        }) // refresh finished
     }
     
     static func checkToken(success: (()->())? = nil, failure: (()->())?) {
@@ -139,5 +135,49 @@ struct AccountManager {
         })
     }
     
-    
+    static func getSelf(success: (()->())?, failure: (()->())?) {
+        SolaSessionManager.solaSession(type: .get, baseURL: "https://open.twtstudio.com", url: "/api/v2/auth/self", parameters: nil, success: { dict in
+            if let errorno = dict["error_code"] as? Int,
+                let message = dict["message"] as? String,
+            message == "token expired" || errorno == 10003 || errorno == 10000 {
+                guard TwTUser.shared.username != "", TwTUser.shared.password != "" else {
+                    SwiftMessages.showWarningMessage(body: "登录过期，请重新登录")
+                    showLoginView()
+                    return
+                }
+                
+                AccountManager.getToken(username: TwTUser.shared.username, password: TwTUser.shared.password, success: { token in
+                    TwTUser.shared.token = token
+                    TwTUser.shared.save()
+                }, failure: { error in
+
+                })
+            }
+
+            if let accounts = dict["accounts"] as? [String: Any],
+                let tju = accounts["tju"] as? Bool,
+                let lib = accounts["lib"] as? Bool,
+                let avatar = dict["avatar"] as? String,
+                let realname = dict["realname"] as? String,
+                let twtid = dict["twtid"] as? String,
+                let studentid = dict["studentid"] as? String,
+                let dropout = dict["dropout"] as? String {
+                TwTUser.shared.avatarURL = avatar
+                TwTUser.shared.tjuBindingState = tju
+                TwTUser.shared.libBindingState = lib
+//                TwTUser.shared.bicycleBindingState = 
+                TwTUser.shared.realname = realname
+                TwTUser.shared.twtid = twtid
+                TwTUser.shared.schoolID = studentid
+                TwTUser.shared.dropout = dropout
+                TwTUser.shared.save()
+                success?()
+            }
+        }, failure: { error in
+            // FIXME: 错误
+            debugLog(error)
+            failure?()
+        })
+    }
+
 }

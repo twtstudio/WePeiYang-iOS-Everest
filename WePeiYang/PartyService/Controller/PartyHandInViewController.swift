@@ -48,8 +48,8 @@ class PartyHandInViewController: UIViewController, UITableViewDelegate, UITableV
         self.view.addSubview(bgView)
         
         //改变 statusBar 颜色
-        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-        
+//        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+        navigationController?.navigationBar.barStyle = .black
     }
     
     override func viewDidLoad() {
@@ -187,7 +187,7 @@ class PartyHandInViewController: UIViewController, UITableViewDelegate, UITableV
     //Table View Data Soucre
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        print(Applicant.sharedInstance.handInHandler)
+//        print(Applicant.sharedInstance.handInHandler)
         tableView.deselectRow(at: indexPath, animated: true)
         
         guard contentList[indexPath.section].available == 1 else {

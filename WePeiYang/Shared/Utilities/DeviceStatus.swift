@@ -21,7 +21,7 @@ struct DeviceStatus {
     }
     
     static func appVersion() -> String {
-        return getInfo(withKey: "CFBundleVersion")
+        return getInfo(withKey: "CFBundleShortVersionString")
     }
     
     static func appBuild() -> String {
@@ -37,7 +37,15 @@ struct DeviceStatus {
          NSLog(@"当前系统的版本－－－%@",device_.systemVersion);
          NSLog(@"设备识别码－－－－－%@",device_.identifierForVendor.UUIDString);
          */
-        return UIDevice.current.model
+//        return UIDevice.current.model
+        var size : Int = 0
+        sysctlbyname("hw.machine", nil, &size, nil, 0)
+//        var machine = [CChar](count: size, repeatedValue: 0)
+        var machine = [CChar](repeating: 0, count: size)
+        sysctlbyname("hw.machine", &machine, &size, nil, 0)
+//        return String.fromCString(machine)!
+
+        return String(cString: machine, encoding: .utf8) ?? UIDevice.current.model
     }
 
     private static func getIPAddresses() -> [String: String] {
@@ -101,7 +109,6 @@ struct DeviceStatus {
                 return address
             }
         }
-        // FIXME: Null IPv6 address?
         return preference ? "0.0.0.0": "::"
     }
     

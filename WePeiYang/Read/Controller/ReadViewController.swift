@@ -14,11 +14,15 @@ class ReadViewController: WMPageController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .readRed), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.barStyle = .black
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .readRed), for: .default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.isTranslucent = false
+//        self.navigationController?.navigationBar.tintColor = .white
+//        self.navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.barTintColor = UIColor(red: 0.0 / 255.0, green: 174.0 / 255.0, blue: 101.0 / 255.0, alpha: 1.0)
+
     }
     
     override func viewDidLoad() {
@@ -38,7 +42,7 @@ class ReadViewController: WMPageController {
         
         menuViewBottomSpace = -(self.menuHeight + 64.0)
         
-        menuBGColor = .init(colorLiteralRed: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1)
+        menuBGColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1)
         progressColor = .readRed
         progressHeight = 3.0
         
@@ -49,7 +53,7 @@ class ReadViewController: WMPageController {
         // Do any additional setup after loading the view.
     }
     
-    func pushSearchViewController() {
+    @objc func pushSearchViewController() {
         let svc = SearchViewController()
         svc.view.bounds = self.view.bounds
         svc.modalPresentationStyle = .overCurrentContext

@@ -7,11 +7,11 @@
 //
 
 import UIKit
+import PopupDialog
 
 class WPYTabBarController: UITabBarController {
-    
     private let tabBarVCDelegate = WPYTabBarControllerDelegate()
-    
+    // FIXME: should be private
     convenience init(viewControllers: [UIViewController]?) {
         self.init()
         
@@ -27,9 +27,9 @@ class WPYTabBarController: UITabBarController {
         super.viewDidLoad()
         
         tabBar.isTranslucent = false
-        
+
         delegate = tabBarVCDelegate
-        
+
         selectedIndex = 0
         tabBar.backgroundColor = Metadata.Color.GlobalTabBarBackgroundColor
         tabBar.tintColor = Metadata.Color.WPYAccentColor
@@ -41,26 +41,110 @@ class WPYTabBarController: UITabBarController {
             
         }
         
-        // Do any additional setup after loading the view.
+        UIApplication.shared.applicationSupportsShakeToEdit = true
+        self.becomeFirstResponder()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    /*
-    // MARK: - Navigation
+//    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
+//        super.motionBegan(motion, with: event)
+////        print("开始摇动")
+//    }
+//
+//    override func motionCancelled(_ motion: UIEventSubtype, with event: UIEvent?) {
+//        super.motionCancelled(motion, with: event)
+////        print("取消摇动")
+//    }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func checkWiFiStatus() {
+        do {
+            let reachability = try Reachability()
+            try reachability?.start()
+            if let status = reachability?.status {
+                switch status {
+                case .unreachable:
+                    let popup = PopupDialog(title: "摇一摇上网", message: "未检测到网络连接，是否打开 Wi-Fi 设置？", buttonAlignment: .horizontal)
+                    let cancelButton = CancelButton(title: "不了", action: nil)
+                    let openButton = DestructiveButton(title: "打开", action: {
+                        // no internet
+                        if !UIApplication.shared.openURL(URL(string: "prefs:root=WIFI")!) {
+                            UIApplication.shared.openURL(URL(string: "App-Prefs:root=WIFI")!)
+                        }
+                    })
+                    popup.addButtons([cancelButton, openButton])
+                    self.present(popup, animated: true, completion: nil)
+
+                    return
+                case .wifi:
+                    return
+                case .wwan:
+                    let popup = PopupDialog(title: "摇一摇上网", message: "检测到正在使用移动网络，是否打开 Wi-Fi 设置？", buttonAlignment: .horizontal)
+                    let cancelButton = CancelButton(title: "不了", action: nil)
+                    let openButton = DestructiveButton(title: "打开", action: {
+                        // no internet
+                        if !UIApplication.shared.openURL(URL(string: "prefs:root=WIFI")!) {
+                            UIApplication.shared.openURL(URL(string: "App-Prefs:root=WIFI")!)
+                        }
+                    })
+                    popup.addButtons([cancelButton, openButton])
+                    self.present(popup, animated: true, completion: nil)
+                    return
+                }
+            }
+        } catch {
+
+        }
     }
-    */
-    
-    
+
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        super.motionEnded(motion, with: event)
+
+        if let event = event, event.subtype == .motionShake {
+
+            let status = UserDefaults.standard.bool(forKey: "shakeWiFiEnabled")
+            // 如果没开启
+            if !status {
+                return
+            }
+
+            checkWiFiStatus()
+
+            if WLANHelper.isOnline {
+                // 询问是否注销
+                let popup = PopupDialog(title: "摇一摇上网", message: "是否要注销校园网登录？", buttonAlignment: .horizontal)
+                let cancelButton = CancelButton(title: "不了", action: nil)
+                let logoutButton = DestructiveButton(title: "注销", action: {
+                    WLANHelper.logout(success: {
+                        SwiftMessages.hideAll()
+                        SwiftMessages.showSuccessMessage(body: "校园网已经注销")
+                        if #available(iOS 10.0, *) {
+                            let successNotificationFeedbackGenerator = UINotificationFeedbackGenerator()
+                            successNotificationFeedbackGenerator.prepare()
+                            successNotificationFeedbackGenerator.notificationOccurred(.success)
+                        }
+                    }, failure: { msg in
+                        SwiftMessages.hideAll()
+                        SwiftMessages.showErrorMessage(body: msg)
+                    })
+                })
+                popup.addButtons([cancelButton, logoutButton])
+                self.present(popup, animated: true, completion: nil)
+            } else {
+                WLANHelper.login(success: {
+                    SwiftMessages.hideAll()
+                    SwiftMessages.showSuccessMessage(body: "已连接到校园网")
+                    if #available(iOS 10.0, *) {
+                        let successNotificationFeedbackGenerator = UINotificationFeedbackGenerator()
+                        successNotificationFeedbackGenerator.prepare()
+                        successNotificationFeedbackGenerator.notificationOccurred(.success)
+                    }
+                }, failure: { msg in
+                    SwiftMessages.hideAll()
+                    SwiftMessages.showErrorMessage(body: msg)
+                })
+            }
+        }
+    }
+
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         //TODO: View Controller Transitioning Animation
         
@@ -72,7 +156,7 @@ class WPYTabBarController: UITabBarController {
 
 
 extension WPYTabBarController: ThemeChanging {
-    func changeInto(theme: Theme) {
+    func changeInto(theme: WPYTheme) {
         
     }
 }

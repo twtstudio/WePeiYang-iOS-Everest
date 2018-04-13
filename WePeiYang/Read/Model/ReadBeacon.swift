@@ -10,12 +10,12 @@ import Foundation
 import Alamofire
 
 struct ReadBeacon {
-    static func request(_ url: String, method: HTTPMethod = HTTPMethod.get, parameters: [String: Any]? = [:], headers: [String: String]? = nil, failureMessage: String?, failure: ((Dictionary<String, AnyObject>)->(Void))? = nil, success: @escaping (Dictionary<String, AnyObject>)->(Void)) {
+    static func request(_ url: String, method: HTTPMethod = HTTPMethod.get, parameters: [String: Any]? = [:], headers: [String: String]? = nil, failureMessage: String?, failure: ((Dictionary<String, AnyObject>)->())? = nil, success: @escaping (Dictionary<String, AnyObject>)->()) {
         User.shared.getToken { token in
             var header = headers ?? HTTPHeaders()
             if headers == nil {
                 header["User-Agent"] = DeviceStatus.userAgent
-                header["Authorization"] = "Bearer {\(token)}"
+                header["Authorization"] = "Bearer \(token)"
             }
             Alamofire.request(url, method: method, parameters: parameters, headers: header).responseJSON { response in
                 switch response.result {

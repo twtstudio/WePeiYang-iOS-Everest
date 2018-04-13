@@ -148,7 +148,7 @@ class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
     }
     
     
-    func detailButtonTapped() {
+    @objc func detailButtonTapped() {
         delegate?.loadDetail()
         if CourseAppraiseManager.shared.detailAppraiseEnabled == true {
             detailImageButton.setImage(UIImage(named: "ic_arrow_up"), for: .normal)

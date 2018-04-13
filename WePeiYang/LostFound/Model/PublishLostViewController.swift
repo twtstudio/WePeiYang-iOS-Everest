@@ -95,7 +95,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         self.tableView.endEditing(true)
     }
     
@@ -226,7 +226,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
                 let text = function[indexPath.section][indexPath.row]
                 if text.last == "*" {
                     let attributedString = NSMutableAttributedString(string: text)
-                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.red], range: NSMakeRange(text.count-1, 1))
+                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSMakeRange(text.count-1, 1))
                     cell.textLabel?.attributedText = attributedString
                 } else {
                     cell.textLabel?.text = text
@@ -240,7 +240,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
                 let text = function[indexPath.section][indexPath.row]
                 if text.last == "*" {
                     let attributedString = NSMutableAttributedString(string: text)
-                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.red], range: NSMakeRange(text.count-1, 1))
+                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSMakeRange(text.count-1, 1))
                     cell.textLabel?.attributedText = attributedString
                 } else {
                     cell.textLabel?.text = text
@@ -267,7 +267,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
                 let string = function[indexPath.section][indexPath.row]
                 if string.last == "*" {
                     let attributedString = NSMutableAttributedString(string: string)
-                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.red], range: NSMakeRange(string.count-1, 1))
+                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSMakeRange(string.count-1, 1))
                     cell.textLabel?.attributedText = attributedString
                 } else {
                     cell.textLabel?.text = string
@@ -296,7 +296,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
                 let string = function[indexPath.section][indexPath.row]
                 if string.last == "*" {
                     let attributedString = NSMutableAttributedString(string: string)
-                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.red], range: NSMakeRange(string.count-1, 1))
+                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSMakeRange(string.count-1, 1))
                     cell.textLabel?.attributedText = attributedString
                 } else {
                     cell.textLabel?.text = string
@@ -342,7 +342,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     // 确定按钮的回调
-    func tapped(){
+    @objc func tapped(){
 
         PostLostAPI.postLost(markDic: markDict, tag: pushTag, success: { dic in
             let successVC = PublishSuccessViewController()

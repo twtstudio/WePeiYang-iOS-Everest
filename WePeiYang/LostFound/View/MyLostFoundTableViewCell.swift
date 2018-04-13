@@ -51,9 +51,6 @@ class MyLostFoundTableViewCell: UITableViewCell {
         contentView.addSubview(placeLabel)
         contentView.addSubview(editButton)
         contentView.addSubview(inverseButton)
-
-
-
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -67,7 +64,6 @@ class MyLostFoundTableViewCell: UITableViewCell {
             let picURL = "暂无图片"
             pictureImageView.image = UIImage(named: picURL)
         }
-
         pictureImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
             make.left.equalToSuperview().offset(15)
@@ -83,7 +79,8 @@ class MyLostFoundTableViewCell: UITableViewCell {
             isBackLabel.text = "已找到!"
         }
         isBackLabel.numberOfLines = 1
-        isBackLabel.font = UIFont.italicSystemFont(ofSize: 20)
+
+        isBackLabel.font = UIFont.italicSystemFont(ofSize: 18)
         isBackLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
             make.left.equalTo(pictureImageView.snp.right).offset(10)

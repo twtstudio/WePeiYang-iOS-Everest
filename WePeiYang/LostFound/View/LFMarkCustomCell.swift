@@ -94,8 +94,8 @@ class LFMarkCustomCell: UITableViewCell {
     }
 
     // button的回调
-    func buttonTapped(sender: UIButton) {
-        
+
+    @objc func buttonTapped(sender: UIButton) {
         
         if let title = sender.titleLabel?.text {
             

@@ -111,7 +111,7 @@ class ReviewCell: UITableViewCell {
         
         timestamp.textColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
         if #available(iOS 8.2, *) {
-            timestamp.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
+            timestamp.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light)
         } else {
             // Fallback on earlier versions
         }
@@ -123,7 +123,7 @@ class ReviewCell: UITableViewCell {
         }
         
         if #available(iOS 8.2, *) {
-            like.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
+            like.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light)
         } else {
             // Fallback on earlier versions
         }
@@ -168,7 +168,7 @@ class ReviewCell: UITableViewCell {
         
     }
     
-    func likeTapped() {
+    @objc func likeTapped() {
         
         
         if self.heartView.tag == 0 {
@@ -202,9 +202,9 @@ class ReviewCell: UITableViewCell {
         let fooString = "《\(title)》\(content)"
         let mutableAttributedString = NSMutableAttributedString(string: fooString)
         let bookTitleColor = UIColor(red:0.87, green:0.31, blue:0.22, alpha:1.00)
-        mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: bookTitleColor,range: NSRange(location:0, length: title.characters.count+2))
-        mutableAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.gray, range: NSRange(location:title.characters.count+2, length: content.characters.count))
-        mutableAttributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "Arial", size: 14.0)!, range: NSRange(location: 0, length: fooString.characters.count))
+        mutableAttributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: bookTitleColor,range: NSRange(location:0, length: title.count+2))
+        mutableAttributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.gray, range: NSRange(location:title.count+2, length: content.count))
+        mutableAttributedString.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "Arial", size: 14.0)!, range: NSRange(location: 0, length: fooString.count))
         
         return mutableAttributedString
     }

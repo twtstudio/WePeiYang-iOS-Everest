@@ -54,7 +54,7 @@ class LFPickerCell: UITableViewCell {
     }
     
 
-    func finishTapped(sender: UIButton) {
+    @objc func finishTapped(sender: UIButton) {
         
 //        delegate?.means(input: textField.text!, key: "duration")
         

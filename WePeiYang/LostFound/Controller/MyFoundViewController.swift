@@ -5,7 +5,6 @@
 //  Created by Hado on 2017/7/3.
 //  Copyright © 2017年 twtstudio. All rights reserved.
 //
-
 import UIKit
 import MJRefresh
 
@@ -17,11 +16,11 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     let header = MJRefreshNormalHeader()
     var curPage: Int = 0
     var id = 0
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        
         configUI()
         refresh()
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
@@ -50,9 +49,9 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         })
         
     }
-
+    
     //底部上拉加载
-    func footerLoad() {
+    @objc func footerLoad() {
         print("上拉加载")
         self.curPage += 1
         GetMyFoundAPI.getMyFound(page: curPage, success: { (myFounds) in
@@ -69,7 +68,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     //顶部下拉刷新
-    func headerRefresh(){
+    @objc func headerRefresh(){
         print("下拉刷新.")
         
         GetMyFoundAPI.getMyFound(page: 1, success: { (myFounds) in
@@ -93,7 +92,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         detailView.id = id
         self.navigationController?.pushViewController(detailView, animated: true)
     }
-
+    
     
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -124,15 +123,15 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(sender: )), for: .touchUpInside)
         let pic = myFound[indexPath.row].picture
         cell.initMyUI(pic: pic, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
-
+        
         return cell
     }
-    func editButtonTapped(sender: UIButton) {
+    @objc func editButtonTapped(sender: UIButton) {
         
         let cell = sender.superView(of: UITableViewCell.self)!
         let indexPath = tableView.indexPath(for: cell)
         id = myFound[(indexPath?[1])!].id
-
+        
         let vc = PublishLostViewController()
         let index = 1
         vc.index = index
@@ -141,12 +140,12 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         
     }
     
-
-    func inverseButtonTapped(sender: UIButton) {
+    
+    @objc func inverseButtonTapped(sender: UIButton) {
         let cell = sender.superView(of: UITableViewCell.self)!
         let indexPath = tableView.indexPath(for: cell)
         id = myFound[(indexPath?[1])!].id
-
+        
         GetInverseAPI.getInverse(id: "\(id)", success: { (code) in
             self.refresh()
         }, failure: { error in
@@ -156,5 +155,3 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
 }
-
-

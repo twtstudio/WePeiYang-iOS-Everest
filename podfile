@@ -1,25 +1,32 @@
 # Uncomment the next line to define a global platform for your project
- platform :ios, '9.0'
+platform :ios, '9.0'
+use_frameworks!
+
+def shared_pods
+  pod 'ObjectMapper', '~> 3.1'
+  pod 'Alamofire'
+end
 
 target 'WePeiYang' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
-  pod 'Alamofire'
+  # Pods for WePeiYang
+  shared_pods
+  
+  pod 'JBChartView'
   pod 'SnapKit', '3.2.0'
   pod 'SDWebImage'
   pod 'Charts', '3.0.2'
-  pod 'ObjectMapper', '~> 3.1'
-#  pod 'ActionButton’, '0.1.5’
-#  pod "LiquidFloatingActionButton"
   pod 'MJRefresh', '~> 3.1.12'
+  pod 'JBChartView'
   pod 'WMPageController', '2.3.0'
   pod 'pop'
   pod 'IGIdenticon'
-  # Pods for WePeiYang
-
-  target 'WePeiYangTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
+  pod 'SwiftMessages'
+  pod 'PopupDialog', '~> 0.7'
+#  pod 'AlertOnboarding'
 end
+
+  
+target 'WePeiYangWidget' do
+  shared_pods
+end
+

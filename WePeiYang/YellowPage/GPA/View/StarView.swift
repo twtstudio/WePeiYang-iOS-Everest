@@ -16,7 +16,7 @@ class StarView: UIView {
     let star_half = "star_half"
     var starSize: CGFloat = 0
     
-    dynamic var rating: Double = 0
+    @objc dynamic var rating: Double = 0
     var stars: [UIButton] = []
     
     func loadStars() {
@@ -93,7 +93,7 @@ class StarView: UIView {
 
 extension StarView {
     
-    func starGetsTapped(sender: UIButton) {
+    @objc func starGetsTapped(sender: UIButton) {
         //log.word("hello")/
         self.rating = Double(sender.tag) + 1
         

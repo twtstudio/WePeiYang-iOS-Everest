@@ -17,7 +17,7 @@ class CourseDetailReadingView: UIView, UIWebViewDelegate {
         // Drawing code
     }
     */
-    func dismissAnimated() {
+    @objc func dismissAnimated() {
         //log.word("haha")/
         UIView.animate(withDuration: 0.7, animations: {
             self.frame = CGRect(x: 0, y: self.frame.height, width: self.frame.width, height: self.frame.height)
@@ -50,12 +50,11 @@ extension CourseDetailReadingView {
             make.top.left.bottom.right.equalTo(self)
         }
         
-        frostView.addSubview(downArrow!)
+        self.addSubview(downArrow!)
         downArrow!.snp.makeConstraints {
             make in
             make.top.equalTo(frostView).offset(28)
             make.centerX.equalTo(frostView)
-            
         }
         
         if detail.articleIsHidden == "1" {
@@ -85,7 +84,7 @@ extension CourseDetailReadingView {
             let timeLabel = UILabel(text: detail.courseInsertTime!, fontSize:13)
             timeLabel.textColor = .gray
             
-            frostView.addSubview(nameLabel)
+            self.addSubview(nameLabel)
             nameLabel.snp.makeConstraints {
                 make in
                 make.left.equalTo(frostView).offset(24)
@@ -93,14 +92,14 @@ extension CourseDetailReadingView {
                 make.right.equalTo(frostView).offset(-28)
             }
             
-            frostView.addSubview(timeLabel)
+            self.addSubview(timeLabel)
             timeLabel.snp.makeConstraints {
                 make in
                 make.left.equalTo(nameLabel)
                 make.top.equalTo(nameLabel.snp.bottom).offset(14)
             }
             
-            frostView.addSubview(contentView)
+            self.addSubview(contentView)
             contentView.snp.makeConstraints {
                 make in
                 make.left.equalTo(frostView).offset(18)

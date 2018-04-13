@@ -1,4 +1,3 @@
-
 //
 //  YellowPageCell.swift
 //  YellowPage
@@ -9,7 +8,7 @@
 //
 
 import UIKit
-import SnapKit
+import SwiftMessages
 
 
 // haeder: the view on top
@@ -101,25 +100,26 @@ class YellowPageCell: UITableViewCell {
             textLabel?.font = UIFont.systemFont(ofSize: 14)
 
             textLabel?.sizeToFit()
-            textLabel?.snp.makeConstraints { make in
-                make.top.equalTo(contentView).offset(11)
-                make.centerY.equalTo(contentView)
-                make.left.equalTo(contentView).offset(15)
-                make.bottom.equalTo(contentView).offset(-11)
-            }
+//            textLabel?.snp.makeConstraints { make in
+//                make.top.equalTo(contentView).offset(11)
+//                make.centerY.equalTo(contentView)
+//                make.left.equalTo(contentView).offset(15)
+//                make.bottom.equalTo(contentView).offset(-11)
+//            }
         case .detailed:
             fatalError("这个方法请调用func init(with style: YellowPageCellStyle, model: ClientItem)")
         }
         
     }
-    
+
+    var nameLabel: UILabel!
     convenience init(with style: YellowPageCellStyle, model: ClientItem) {
         self.init(style: .default, reuseIdentifier: style.rawValue)
         guard style == .detailed else {
             return
         }
         self.detailedModel = model
-        let nameLabel = UILabel()
+        nameLabel = UILabel()
         nameLabel.text = model.name
 //        nameLabel.font = UIFont.flexibleFont(with: 14)
         // TODO: flexibleFont
@@ -140,23 +140,7 @@ class YellowPageCell: UITableViewCell {
         
         
         phoneLabel = UILabel()
-        let attributedString = NSAttributedString(string: model.phone, attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue, NSForegroundColorAttributeName: UIColor.blue])
-        
-        phoneLabel.attributedText = attributedString
-        //        phoneLabel.font = UIFont.flexibleFont(with: 14)
-        // TODO: flexibleFont
-        phoneLabel.font = UIFont.systemFont(ofSize: 14)
-        phoneLabel.sizeToFit()
-        self.contentView.addSubview(phoneLabel)
-        phoneLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(13)
-            make.left.equalTo(contentView).offset(15)
-            make.bottom.equalTo(contentView).offset(-10)
-        }
-        phoneLabel.isUserInteractionEnabled = true
-//        let labelTapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped(model:)))
-//        phoneLabel.addGestureRecognizer(labelTapGesture)
-        
+        let attributedString = NSAttributedString(string: model.phone, attributes: [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue, NSAttributedStringKey.foregroundColor: UIColor.blue])
         
         likeView = ExtendedButton()
         likeView.setImage(UIImage(named: model.isFavorite ? "like" : "dislike"), for: .normal)
@@ -166,26 +150,38 @@ class YellowPageCell: UITableViewCell {
             make.width.equalTo(20)
             make.height.equalTo(20)
             make.right.equalTo(contentView).offset(-14)
-            make.centerY.equalTo(phoneLabel.snp.centerY)
+            make.top.equalTo(nameLabel.snp.bottom).offset(13)
         }
         likeView.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
-        
+
         let phoneView = ExtendedButton()
         phoneView.setImage(UIImage(named: "phone"), for: .normal)
-    
-        phoneView.addTarget(self, action: #selector(phoneTapped), for: .touchUpInside)
-        
+        phoneView.addTarget(self, action: #selector(phoneTapped(button:)), for: .touchUpInside)
         self.contentView.addSubview(phoneView)
         phoneView.snp.makeConstraints { make in
             make.width.equalTo(20)
             make.height.equalTo(20)
             make.right.equalTo(likeView.snp.left).offset(-24)
-            make.centerY.equalTo(phoneLabel.snp.centerY)
+            make.centerY.equalTo(likeView)
         }
-        
+
+        phoneLabel.attributedText = attributedString
+        phoneLabel.font = UIFont.systemFont(ofSize: 14)
+        phoneLabel.sizeToFit()
+        self.contentView.addSubview(phoneLabel)
+        phoneLabel.snp.makeConstraints { make in
+            make.left.equalTo(contentView).offset(15)
+            make.bottom.equalTo(contentView).offset(-10)
+            make.centerY.equalTo(likeView.snp.centerY)
+            make.right.lessThanOrEqualTo(phoneView.snp.left).offset(-10)
+        }
+        phoneLabel.isUserInteractionEnabled = true
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
+        phoneLabel.addGestureRecognizer(gesture)
+
     }
     
-    func likeTapped() {
+    @objc func likeTapped() {
         if detailedModel.isFavorite {
             PhoneBook.shared.removeFavorite(with: self.detailedModel) {
                 self.likeView.setImage(UIImage(named: "dislike"), for: .normal)
@@ -202,15 +198,16 @@ class YellowPageCell: UITableViewCell {
         }
     }
     
-    func phoneTapped() {
-        UIApplication.shared.openURL(NSURL(string: "telprompt://\(self.detailedModel.phone)")! as URL)
+    @objc func phoneTapped(button: UIButton) {
+        if let url = URL(string: "telprompt://\(self.detailedModel.phone)") {
+            UIApplication.shared.openURL(url)
+        }
     }
     
-    func longPressed() {
+    @objc func longPressed(sender: UITapGestureRecognizer) {
         if let text = UIPasteboard.general.string, text != self.detailedModel.phone {
             UIPasteboard.general.string = self.detailedModel.phone
         }
-        // FIXME: MsgDisplay
-        // MsgDisplay.showSuccessMsg("已经复制到剪切板")
+        SwiftMessages.showSuccessMessage(title: "操作成功", body: "已经复制到剪切板")
     }
 }

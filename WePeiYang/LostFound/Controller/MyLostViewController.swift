@@ -56,7 +56,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     //底部上拉加载
-    func footerLoad() {
+    @objc func footerLoad() {
         self.curPage += 1
         GetMyLostAPI.getMyLost(page: curPage, success: { (MyLosts) in
             self.myLost += MyLosts
@@ -70,7 +70,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     //顶部下拉刷新
-    func headerRefresh(){
+    @objc func headerRefresh(){
         GetMyLostAPI.getMyLost(page: 1, success: { (MyLosts) in
             self.myLost = MyLosts
             self.curPage = 1
@@ -125,7 +125,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     // 修改按钮的回调
-    func editButtonTapped(editButton: UIButton) {
+    @objc func editButtonTapped(editButton: UIButton) {
 
         let cell = editButton.superView(of: UITableViewCell.self)!
         let indexPath = tableView.indexPath(for: cell)
@@ -140,7 +140,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     // 翻转的按钮的回调
-    func inverseButtonTapped(inverseButton: UIButton) {
+    @objc func inverseButtonTapped(inverseButton: UIButton) {
         //        let cell = superUITableViewCell(of: inverseButton)!
         
         let cell = inverseButton.superView(of: UITableViewCell.self)!
