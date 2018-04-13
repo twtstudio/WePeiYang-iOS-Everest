@@ -331,8 +331,6 @@
 		0C7AADD52080C62100B0A2B0 /* UpLoadingPicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpLoadingPicCell.swift; sourceTree = "<group>"; };
 		0C7AADF12080C89500B0A2B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../Desktop/Assets.xcassets; sourceTree = "<group>"; };
 		0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		0CF7F0E5201B13F600033E55 /* LFSearchCellOfHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFSearchCellOfHeight.swift; sourceTree = "<group>"; };
-		0CF914651FDA690500DF11F3 /* LFSearchCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFSearchCustomCell.swift; sourceTree = "<group>"; };
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		360339E820247B9C0006A083 /* LibraryCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCard.swift; sourceTree = "<group>"; };
 		36042DB71FC7BB270016E859 /* CourseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
@@ -585,7 +583,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36B8F2C9204F00750080083C /* Alamofire.framework in Frameworks */,
 				52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1386,13 +1383,13 @@
 		B19DAB881E6EF5C2004A50B5 /* WePeiYang */ = {
 			isa = PBXGroup;
 			children = (
-				0C7AADB72080C62100B0A2B0 /* LostFound */,
 				36366B351FAC61B6001F72A0 /* WePeiYang.entitlements */,
 				B10254091EC8520A0064373A /* main */,
 				369306911F2B972F008E90DC /* ModuleCollection */,
 				B10253DE1EC84ED90064373A /* Shared */,
 				36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */,
 				36575FBE2051C78B00A1A558 /* LaunchScreen.storyboard */,
+				0C7AADB72080C62100B0A2B0 /* LostFound */,
 				3641470820471CC500F6DFD5 /* News */,
 				A53602621FC6E23C00E3D1AF /* Binding */,
 				A5197A381FDA850A008C445A /* Library */,
@@ -1623,7 +1620,6 @@
 				36449E681FA4BABA0036766B /* PartyComplainViewController.xib in Resources */,
 				36575FBF2051C78B00A1A558 /* LaunchScreen.storyboard in Resources */,
 				36449E691FA4BABA0036766B /* HandInDetailViewController.xib in Resources */,
-				0C9CCF0D1FDE2BB20030CFF6 /* Assets.xcassets in Resources */,
 				36449E5F1FA4BABA0036766B /* TwentyCourseScoreViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

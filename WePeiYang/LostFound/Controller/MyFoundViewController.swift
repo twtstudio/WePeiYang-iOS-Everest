@@ -22,9 +22,10 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         
         
         configUI()
-        refresh()
+        //refresh()
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
+        self.tableView.mj_header.beginRefreshing()
     }
     
     func configUI() {
@@ -45,7 +46,6 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
             self.tableView.reloadData()
         }, failure: {error in
             print(error)
-            
         })
         
     }
@@ -56,8 +56,12 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         self.curPage += 1
         GetMyFoundAPI.getMyFound(page: curPage, success: { (myFounds) in
             self.myFound += myFounds
-            
-            self.tableView.mj_footer.endRefreshing()
+            if myFounds.count == 0 {
+                self.tableView.mj_footer.endRefreshingWithNoMoreData()
+                self.curPage -= 1
+            } else {
+                self.tableView.mj_footer.endRefreshing()
+            }
             self.tableView.reloadData()
             
         }, failure: { error in
@@ -77,10 +81,10 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
             self.curPage = 1
             //结束刷新
             self.tableView.mj_header.endRefreshing()
+            self.tableView.mj_footer.resetNoMoreData()
             self.tableView.reloadData()
         }, failure: { error in
             print(error)
-            
         })
     }
     
@@ -93,10 +97,14 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         self.navigationController?.pushViewController(detailView, animated: true)
     }
     
-    
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.01
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor(hex6: 0xeeeeee)
+        return view
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
