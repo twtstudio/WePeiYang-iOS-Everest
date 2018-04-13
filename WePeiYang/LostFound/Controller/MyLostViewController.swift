@@ -17,7 +17,7 @@ let TWT_URL = "http://open.twtstudio.com/"
 
 class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
-    var id = ""
+    var id = 0
     var tableView: UITableView!
     var myLost: [MyLostFoundModel] = []
     let footer = MJRefreshAutoNormalFooter()
@@ -34,17 +34,14 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func configUI() {
         self.title = "我的"
-        
         self.tableView = UITableView(frame: CGRect.init(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height-110), style: .grouped)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
         self.tableView.register(MyLostFoundTableViewCell.self, forCellReuseIdentifier: "MyCell")
-        
         self.tableView.estimatedRowHeight = 500
         self.tableView.rowHeight = UITableViewAutomaticDimension
         //        self.automaticallyAdjustsScrollViewInsets = false
-        
         self.view.addSubview(tableView!)
     }
     
@@ -109,7 +106,6 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
             cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
-            //
             let pic = myLost[indexPath.row].picture
             print(pic)
             cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
@@ -151,7 +147,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let indexPath = tableView.indexPath(for: cell)
         id = myLost[(indexPath?[1])!].id
 
-        GetInverseAPI.getInverse(id: id, success: { (code) in
+        GetInverseAPI.getInverse(id: "\(id)", success: { (code) in
             self.refresh()
         }, failure: { error in
             print(error)

@@ -16,7 +16,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     let footer = MJRefreshAutoNormalFooter()
     let header = MJRefreshNormalHeader()
     var curPage: Int = 0
-    var id = ""
+    var id = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,7 +147,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         let indexPath = tableView.indexPath(for: cell)
         id = myFound[(indexPath?[1])!].id
 
-        GetInverseAPI.getInverse(id: id, success: { (code) in
+        GetInverseAPI.getInverse(id: "\(id)", success: { (code) in
             self.refresh()
         }, failure: { error in
             print(error)

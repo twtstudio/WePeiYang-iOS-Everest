@@ -18,7 +18,7 @@ class LFDetailViewController: UIViewController {
     let detailApi = DetailAPI()
     var imageURL = ""
     
-    var id = ""
+    var id = 0
 //    var detailLabel = UILabel()
     var Y = 30
     
@@ -57,7 +57,7 @@ class LFDetailViewController: UIViewController {
     
     // Mark -- 更新UI
     func refresh() {
-        detailApi.getDetail(id: id, success: { (details) in
+        detailApi.getDetail(id: "\(id)", success: { (details) in
             self.detailArray = details
             self.detailDisplayArray = [self.detailArray[0].time,self.detailArray[0].place, "\(self.detailArray[0].detail_type)", self.detailArray[0].name, self.detailArray[0].phone, self.detailArray[0].item_description]
 

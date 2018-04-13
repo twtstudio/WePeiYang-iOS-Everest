@@ -23,7 +23,7 @@ class GetLostAPI{
                     let title = lost["title"] as? String ?? ""
                     let picture = lost["picture"] as? String ?? ""
                     let place = lost["place"] as? String ?? ""
-                    let id = lost["id"] as? String ?? ""
+                    let id = lost["id"] as? Int ?? 0
                     let isback = lost["isback"] as? String ?? ""
                     let name = lost["name"] as? String ?? ""
                     let phone = lost["phone"] as? String ?? ""
@@ -60,7 +60,7 @@ class GetFoundAPI {
                     let title = found["title"] as? String ?? ""
                     let picture = found["picture"] as? String ?? ""
                     let place = found["place"] as? String ?? ""
-                    let id = found["id"] as? String ?? ""
+                    let id = found["id"] as? Int ?? 0
                     let isback = found["isback"] as? String ?? ""
                     let name = found["name"] as? String ?? ""
                     let phone = found["phone"] as? String ?? ""
@@ -95,7 +95,7 @@ class GetMyLostAPI {
                     let title = lost["title"] as? String ?? ""
                     let picture = lost["picture"] as? String ?? ""
                     let place = lost["place"] as? String ?? ""
-                    let id = lost["id"] as? String ?? ""
+                    let id = lost["id"] as? Int ?? 0
                     let isback = lost["isback"] as? String ?? ""
                     let name = lost["name"] as? String ?? ""
                     let phone = lost["phone"] as? String ?? ""
@@ -128,7 +128,7 @@ class GetMyFoundAPI {
                     let title = found["title"] as? String ?? ""
                     let picture = found["picture"] as? String ?? ""
                     let place = found["place"] as? String ?? ""
-                    let id = found["id"] as? String ?? ""
+                    let id = found["id"] as? Int ?? 0
                     let isback = found["isback"] as? String ?? ""
                     let name = found["name"] as? String ?? ""
                     let phone = found["phone"] as? String ?? ""
@@ -164,7 +164,7 @@ class DetailAPI {
                     let title = detailData["title"] as? String ?? ""
                     let picture =  detailData["picture"] as? String ?? ""
                     let place = detailData["place"] as? String ?? ""
-                    let id = detailData["id"] as? String ?? ""
+                    let id = detailData["id"] as? Int ?? 0
                     let name = detailData["name"] as? String ?? ""
                     let phone = detailData["phone"] as? String ?? ""
                     let item_description = detailData["item_description"] as? String ?? ""
@@ -213,7 +213,7 @@ class GetSearchAPI {
                         let title = search["title"] as? String ?? ""
                         let picture = search["picture"] as? String ?? ""
                         let place = search["place"] as? String ?? ""
-                        let id = search["id"] as? String ?? ""
+                        let id = search["id"] as? Int ?? 0
                         let isback = search["isback"] as? String ?? ""
                         let name = search["name"] as? String ?? ""
                         let phone = search["phone"] as? String ?? ""
@@ -249,7 +249,7 @@ class PostLostAPI {
 class GetInverseAPI {
     
     static func getInverse(id: String, success: @escaping (Int)->(), failure: @escaping (Error)->()){
-        SolaSessionManager.solaSession(type: .get, url: "/lostfound/inverse/\(id)", success: { dic in
+        SolaSessionManager.solaSession(type: .get, url: "/lostfound/inverse/" + "\(id)", success: { dic in
             if let error_code = dic["error_code"] as? Int {
                 success(error_code)
             }

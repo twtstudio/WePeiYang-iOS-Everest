@@ -10,7 +10,7 @@ import UIKit
 
 class LostFoundModel {
     
-    var id = ""
+    var id = 0
     var detail_type = ""
     var time = ""
     var picture = ""
@@ -20,7 +20,7 @@ class LostFoundModel {
     var isback = ""
     var name = ""
     
-    init(id: String, title: String, detail_type: String, time: String, picture: String, place: String, phone: String, isback: String, name: String) {
+    init(id: Int, title: String, detail_type: String, time: String, picture: String, place: String, phone: String, isback: String, name: String) {
     
         self.id = id
         self.title = title
