@@ -26,7 +26,19 @@ class CollegeSphereViewController: UIViewController {
     
     func load() {
         ClasstableDataManager.getCollegeList(success: { list in
-            
+            let count = list.count
+            var collegeList = [UIButton]()
+            for i in 0..<count {
+                let button = UIButton()
+                button.setTitle(list[i].collegeName, for: .normal)
+                button.setTitleColor(Metadata.Color.fluentColors[i], for: .normal)
+                button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
+                button.frame = CGRect(x: 0, y: 0, width: 60, height: 20)
+                button.addTarget(self, action: #selector(self.buttonPressed), for: .touchUpInside)
+                collegeList.append(button)
+                self.sphereView.addSubview(button)
+            }
+            self.sphereView.setCloudTags(collegeList)
 //            let buttons = list.map { model in
 //                let button = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 20))
 //                button.setTitle(model.collegeName, for: .normal)
@@ -36,5 +48,9 @@ class CollegeSphereViewController: UIViewController {
         }, failure: { errMsg in
             SwiftMessages.showErrorMessage(body: errMsg)
         })
+    }
+    
+    @objc func buttonPressed() {
+        
     }
 }
