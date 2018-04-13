@@ -8,13 +8,10 @@
 
 import UIKit
 
-class MarkCustomCell: UITableViewCell {
+class LFMarkCustomCell: UITableViewCell {
     
     var delegate: PublishLostViewController?
-    
-    
-    
-    
+
     let buttonArray = ["身份证","饭卡","手机","钥匙","书包","手表&饰品","U盘&硬盘","水杯","钱包","银行卡","书","伞","其他"]
     let types = ["1", "2", "3","4","5","6","7","8","9","10","11","12","13"]
     var functionDic:[Int : Array<String>] = [:]
@@ -22,91 +19,81 @@ class MarkCustomCell: UITableViewCell {
     let label = UILabel()
     
     let currenWidth: CGFloat = 40
-    
-//    var totalLength: CGFloat = 0
     var currentLength: CGFloat = 0
-    
     var buttonSeccen = 0
-    
     var currentY: CGFloat = 50
     var currentX: CGFloat = 10
+    var button = UIButton()
     
-//    func textSize(text : String , font : UIFont , maxSize : CGSize) -> CGSize{
-//        return text.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], attributes: [NSFontAttributeName : font], context: nil).size
-//    }
-
-    
-    
-
-        func enumerated() {
-        
-        for (index, name) in buttonArray.enumerated() {
-        
-            
-
-//            totalLength = currentLength
-            // 50 margin
-
-            if currentX  < self.frame.size.width {
-           // currentLengtn 不对，2017/10/26改的currentX
-                let button = UIButton(frame: CGRect(x: currentX, y: currentY, width: currenWidth, height: 30))
+    // 循环建立button
+    func enumerated() {
                 
-                button.setTitle(name, for: .normal)
+        for (index, name) in buttonArray.enumerated() {
+            
+            buttonOfSize()
+            button.setTitle(name, for: .normal)
+            button.sizeToFit()
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+            buttonOfRestrict()
+            currentLength = currentX + button.frame.size.width
+            if currentLength  < self.frame.size.width  {
+                
                 button.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
-                self.addSubview(button)
-                button.backgroundColor = UIColor(hex6: 0xd9d9d9)
-                button.setTitleColor(UIColor.black, for: .normal)
-                button.setTitleColor(UIColor.init(hex6: 0x00a1e9), for: .selected)
+                self.contentView.addSubview(button)
                 buttonAllArray.append(button)
-
-                button.sizeToFit()
-
-                currentLength = currentLength + button.frame.size.width+25
-                currentX = currentX + button.frame.size.width+25
-               button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-            
-            }
-            
-            else {
+                currentX = currentX + button.frame.size.width + 15
+            } else {
                 currentY += 40
                 currentX = 10
                 
-                let button = UIButton(frame: CGRect(x: currentX, y: currentY, width:
-                    width, height: 30))
-                
+                buttonOfSize()
                 button.setTitle(name, for: .normal)
-                button.backgroundColor = UIColor(hex6: 0xd9d9d9)
-                button.setTitleColor(UIColor.white, for: .highlighted)
-                button.setTitleColor(UIColor.black, for: .normal)
-
-                button.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
-                self.addSubview(button)
-                buttonAllArray.append(button)
-                button.tag = index
-
                 button.sizeToFit()
                 button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-//                totalLength = 0
-                currentLength = 0
-                currentX =  currentX + button.frame.size.width+25
                 
-//                print(button.frame.size.width)
-            
+                button.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
+                self.contentView.addSubview(button)
+                
+                buttonAllArray.append(button)
+                button.tag = index
+                buttonOfRestrict()
+                currentLength = 0
+                currentX =  currentX + button.frame.size.width + 15
             }
-            
         }
 //            contentView.backgroundColor = UIColor(hex6: 0xeeeeee)
-            addSubview(label)
-            
-            label.font = UIFont.boldSystemFont(ofSize: 15)
-            label.textColor = UIColor(hex6: 0x00a1e9)
-            
-            label.frame = CGRect(x:10, y:5, width:100, height:20)
-        
-        
-    
+        titleOfLabelBuild()
     }
- 
+    // Mark -- ButtonOfSize --
+    func buttonOfSize() {
+        button = UIButton(frame: CGRect(x: currentX, y: currentY, width: currenWidth, height: 30))
+//        button.backgroundColor = UIColor(hex6: 0xeeeeee)
+        button.backgroundColor = UIColor(hex6: 0xd9d9d9)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor.init(hex6: 0x00a1e9), for: .selected)
+        button.layer.cornerRadius = 16
+        button.frame.size.height = 30
+    }
+    // Mark -- ButtonOfRestrict --
+    func buttonOfRestrict() {
+        if button.frame.size.width > self.frame.size.width - 40 {
+            button.frame.size.width = self.frame.size.width - 40
+        }
+        if button.frame.size.width < 40 {
+            button.frame.size.width = 40
+        }
+    }
+    // Mark -- TitleOfButtonBuild --
+    func titleOfLabelBuild() {
+        addSubview(label)
+        
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.textColor = UIColor(hex6: 0x00a1e9)
+        
+        label.frame = CGRect(x:10, y:5, width:100, height:20)
+    }
+
+    // button的回调
     @objc func buttonTapped(sender: UIButton) {
         
         
@@ -120,23 +107,19 @@ class MarkCustomCell: UITableViewCell {
                 self.delegate?.means(input: types[index], key: "detail_type")
                 switch types[index] {
                 case "1":
-                    self.delegate?.function[2] = ["卡号*","姓名*"]
+                    self.delegate?.function[2] = ["卡号 *","姓名 *"]
                 case "2":
-                    self.delegate?.function[2] = ["卡号*","姓名*"]
+                    self.delegate?.function[2] = ["卡号 *","姓名 *"]
                 case "10":
-                    self.delegate?.function[2] = ["卡号*","姓名*"]
+                    self.delegate?.function[2] = ["卡号 *","姓名 *"]
                 default:
                     self.delegate?.function[2] = []
                     
                 }
-                
-                                
-                for indexAll in buttonAllArray
-                {
+                // 点击button颜色转变
+                for indexAll in buttonAllArray {
                     indexAll.backgroundColor = UIColor(hex6: 0xd9d9d9)
                     indexAll.setTitleColor(.black, for: .normal)
-                    
-                    
                 }
                 
                 sender.backgroundColor = UIColor(hex6: 0x00a1e9)
@@ -151,9 +134,7 @@ class MarkCustomCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-
-        
+  
         // Initialization code
     }
 

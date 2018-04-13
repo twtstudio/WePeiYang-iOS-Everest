@@ -20,18 +20,10 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
     var markImage = UIImageView()
     var timeImage = UIImageView()
     var placeImage = UIImageView()
-//    let screenWidth = UIScreen.main.bounds.width
-    
-    
 
-    
    override init(frame: CGRect){
    
         super.init(frame: frame)
-        
-//        title = UILabel(frame: CGRect(x:30, y: 0, width: UIScreen.main.bounds.width, height: 50))
-//    
-//        title.textColor = UIColor.black
         self.backgroundColor = UIColor.white
     
         self.addSubview(titleLable)
@@ -65,7 +57,7 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
                 self.pictureImage.contentMode = .scaleAspectFit
                 self.pictureImage.snp.makeConstraints{
                     make in
-                    make.top.equalToSuperview().offset(0.1)
+                    make.top.equalToSuperview()
                     make.left.equalToSuperview()//.offset(10)
                     make.right.equalToSuperview()//.offset(-5)
                     make.height.equalTo(height)
@@ -86,41 +78,19 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
                     make.bottom.equalTo(self.markImage.snp.top).offset(-5)
                     
                 }
-                
-                
-
-            
             }
         }
-        
-//        let image = UIImage(named: URL(string: pic))
-//        pictureImage.image = image
-//        
-//        let imageHeight = image?.size.height ?? 200
-//        let imageWidth = image?.size.width ?? 200
-//        let width: CGFloat = UIScreen.main.bounds.size.width/2-10
-//        let ratio = imageWidth/width
-//        let height = imageHeight/ratio
-//        pictureImage.contentMode = .scaleAspectFit
-
         pictureImage.snp.makeConstraints{
             make in
-            make.top.equalToSuperview().offset(0.1)
+            make.top.equalToSuperview()
             make.left.equalToSuperview()//.offset(10)
             make.right.equalToSuperview()//.offset(-5)
             make.height.equalTo(200)
-//            make.wi
-//            make.bottom.equalTo(titleLable.snp.top).offset(-50)
-//            make.width.height.equalTo(contentView.bounds.width*(3/5))
-
         }
         
         titleLable.text = title
         titleLable.numberOfLines = 0
-//        titleLable.preferredMaxLayoutWidth = contentView.bounds.width
-//        titleLable.font = UIFont.italicSystemFont(ofSize: 10)
-        titleLable.snp.makeConstraints{
-            make in
+        titleLable.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(pictureImage.frame.height+10)
             make.left.equalToSuperview().offset(10)
             make.right.equalToSuperview().offset(-5)
@@ -130,18 +100,14 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
         
         nameLabel.text = "\(mark)"
         nameLabel.numberOfLines = 0
-        nameLabel.snp.makeConstraints{
-            
-            make in
+        nameLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLable.snp.bottom).offset(5)
             make.left.equalTo(markImage.snp.right).offset(10)
             make.bottom.equalTo(timeLabel.snp.top).offset(-5)
         
         }
         markImage.image = #imageLiteral(resourceName: "物品")
-        markImage.snp.makeConstraints{
-            
-            make in
+        markImage.snp.makeConstraints { make in
             make.top.equalTo(titleLable.snp.bottom).offset(5)
             make.left.equalToSuperview().offset(10)
             make.bottom.equalTo(timeImage.snp.top).offset(-5)
@@ -149,9 +115,7 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
         }
         
         timeImage.image = #imageLiteral(resourceName: "时间")
-        timeImage.snp.makeConstraints{
-            
-            make in
+        timeImage.snp.makeConstraints { make in
             make.top.equalTo(markImage.snp.bottom).offset(5)
             make.left.equalToSuperview().offset(10)
             make.bottom.equalTo(placeImage.snp.top).offset(-5)
@@ -160,17 +124,13 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
         
         timeLabel.text = time
         timeLabel.numberOfLines = 0
-        timeLabel.snp.makeConstraints{
-            
-            make in
+        timeLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(5)
             make.left.equalTo(timeImage.snp.right).offset(10)
         }
         
         placeImage.image = #imageLiteral(resourceName: "地点")
-        placeImage.snp.makeConstraints{
-            
-            make in
+        placeImage.snp.makeConstraints { make in
             make.top.equalTo(timeImage.snp.bottom).offset(5)
             make.left.equalToSuperview().offset(10)
             make.bottom.equalToSuperview().offset(-5)
@@ -179,22 +139,10 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
         
         placeLabel.text = place
         placeLabel.numberOfLines = 0
-        placeLabel.snp.makeConstraints{
-            
-            make in
+        placeLabel.snp.makeConstraints { make in
             make.top.equalTo(timeLabel.snp.bottom).offset(5)
             make.left.equalTo(placeImage.snp.right).offset(10)
             make.bottom.equalToSuperview().offset(-5)
-        
         }
-        
-    
     }
-    
-
-    
-    
-
-    
-    
 }
