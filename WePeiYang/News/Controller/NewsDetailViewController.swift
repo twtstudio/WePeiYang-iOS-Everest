@@ -53,7 +53,7 @@ class NewsDetailViewController: ProgressWebViewController {
 //                scrollView.showsVerticalScrollIndicator = false
 //            }
 //        }
-        self.navigationController?.hidesBarsOnSwipe = true
+//        self.navigationController?.hidesBarsOnSwipe = true
 
         SwiftMessages.showLoading()
         SolaSessionManager.solaSession(type: .get, url: "/news/\(index)", token: nil, parameters: nil, success: { dict in

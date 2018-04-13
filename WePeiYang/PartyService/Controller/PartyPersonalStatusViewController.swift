@@ -124,7 +124,6 @@ class PartyPersonalStatusViewController: UIViewController, UIScrollViewDelegate 
         }
         
         mainScrollView.contentSize = CGSize(width:(UIApplication.shared.keyWindow?.frame.size.width)!, height: 944)
-        print("aa\(mainScrollView.frame.size.width)")
         /*let scrollView1 = UIScrollView(frame: CGRectMake(-287.5, 48, 932, 164))
         mainScrollView.addSubview(scrollView1)
         let scrollView2 = UIScrollView(frame: CGRectMake(-287.5, 572, 932, 164))

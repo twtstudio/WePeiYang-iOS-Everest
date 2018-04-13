@@ -17,12 +17,10 @@ class Card: NSObject {
         id = dict["id"] as? String
         sign = dict["sign"] as? String
         record = dict["record"] as? Dictionary
-        /*
-         action = dict["action"] as? NSNumber
-         station = dict["station"] as? NSNumber
-         dev = dict["dev"] as? NSNumber
-         time = dict["time"] as? NSNumber
-         */
+//        action = dict["action"] as? NSNumber
+//        station = dict["station"] as? NSNumber
+//        dev = dict["dev"] as? NSNumber
+//        time = dict["time"] as? NSNumber
     }
 }
 

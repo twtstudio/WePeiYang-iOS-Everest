@@ -139,7 +139,7 @@ struct AccountManager {
         SolaSessionManager.solaSession(type: .get, baseURL: "https://open.twtstudio.com", url: "/api/v2/auth/self", parameters: nil, success: { dict in
             if let errorno = dict["error_code"] as? Int,
                 let message = dict["message"] as? String,
-            message == "token expired" || errorno == 10003 {
+            message == "token expired" || errorno == 10003 || errorno == 10000 {
                 guard TwTUser.shared.username != "", TwTUser.shared.password != "" else {
                     SwiftMessages.showWarningMessage(body: "登录过期，请重新登录")
                     showLoginView()

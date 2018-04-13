@@ -11,7 +11,7 @@ import Foundation
 struct BicycleAPIs {
     
     //MARK: For users
-    static let rootURL = "http://bike.twtstudio.com/api.php/"
+    static let rootURL = "https://bike.twtstudio.com/api.php/"
     
     static let authURL = "user/auth"
     

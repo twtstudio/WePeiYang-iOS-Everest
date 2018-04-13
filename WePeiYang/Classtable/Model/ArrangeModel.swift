@@ -61,6 +61,9 @@ struct ArrangeModel: Mappable {
         day <- (map["day"], transform)
         start <- (map["start"], transform)
         end <- (map["end"], transform)
+//        day <- map["day"]
+//        start <- map["start"]
+//        end <- map["end"]
         room <- map["room"]
     }
 }

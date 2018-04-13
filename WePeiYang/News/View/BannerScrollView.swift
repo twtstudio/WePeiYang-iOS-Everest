@@ -20,7 +20,7 @@ import UIKit
 class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtocol {
     
     // MARK: 属性
-    var delegate: BannerScrollViewDelegate!
+    weak var delegate: BannerScrollViewDelegate!
     
     var outerPageControlFrame: CGRect? {
         didSet {

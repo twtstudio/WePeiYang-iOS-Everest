@@ -8,6 +8,7 @@
 
 import UIKit
 import WMPageController
+import PopupDialog
 
 class BicycleServiceViewController: WMPageController {
     var titleLabel: UILabel!
@@ -148,11 +149,21 @@ class BicycleServiceViewController: WMPageController {
             let refreshButton = UIBarButtonItem.init(barButtonSystemItem: .refresh, target: self, action: #selector(refreshUserInfo))
             self.navigationItem.rightBarButtonItem = refreshButton
             
-            //BicycleUser.sharedInstance.status?.isEqual(0))! && (!BicycleUser.sharedInstance.bindCancel
-            if (BicycleUser.sharedInstance.status == 0) && (!BicycleUser.sharedInstance.bindCancel) {
-                let bindVC: BicycleUserBindViewController = BicycleUserBindViewController.init(nibName: "BicycleUserBindViewController", bundle: nil)
-                self.navigationController?.pushViewController(bindVC, animated: true)
+            if TwTUser.shared.bicycleBindingState == false {
+                let popup = PopupDialog(title: "请先绑定自行车账号", message: "没有绑定账号，请先绑定账号。", image: nil, buttonAlignment: .horizontal, gestureDismissal: false, hideStatusBar: false, completion: {
+                    self.navigationController?.popViewController(animated: true)
+                })
+                let cancelButton = CancelButton(title: "取消", action: {
+                    self.navigationController?.popViewController(animated: true)
+                })
+                let okButton = DefaultButton(title: "好的", action: {
+                    let bindVC = BicycleBindingViewController()
+                    self.present(bindVC, animated: true, completion: nil)
+                })
+                popup.addButtons([cancelButton, okButton])
+                self.present(popup, animated: true, completion: nil)
             }
+//            refreshUserInfo()
         } else {
             self.titleLabel.text = "公告"
             self.navigationItem.rightBarButtonItem = nil

@@ -34,10 +34,15 @@ extension SwiftMessages {
         view.configureTheme(theme)
 
         var config = SwiftMessages.Config()
-        config.presentationContext = context ?? .automatic
-        if let top = UIViewController.current?.navigationController {
-            config.presentationContext = .view(top.view)
-        } 
+        if let context = context {
+            config.presentationContext = context
+        } else {
+            if let top = UIViewController.current?.navigationController {
+                config.presentationContext = .view(top.view)
+            } else {
+                config.presentationContext = .automatic
+            }
+        }
 //        else if let top = UIViewController.current {
 //            config.presentationContext = .view(top.view)
 //        }
@@ -61,7 +66,7 @@ extension SwiftMessages {
     }
 
     static func hideLoading() {
-        otherMessages.hide()
+        otherMessages.hideAll()
     }
 }
 

@@ -47,11 +47,9 @@ class QuizView: UIView {
             }
         }
         if fooArr != [] {
-            
             Courses.Study20.courseQuizes[self.tag]?.chosenOnesAtIndex = fooArr
             log.any(fooArr)/
 //            log.any(Courses.Study20.courseQuizes[self.tag]?.chosenOnesAtIndex)/
-
         }
     }
     
@@ -97,7 +95,6 @@ extension QuizView {
             for index in chosenOnesIndices {
                 optionButtons[index].backgroundColor = .green
                 optionButtons[index].wasChosen = true
-                
             }
         }
         
@@ -114,8 +111,6 @@ extension QuizView {
             foo.numberOfLines = 0
             return foo
         }()
-        
-        
         
         self.originalAnswerWeight = Int(quiz.answer)!
         
@@ -163,11 +158,7 @@ extension QuizView {
                 make.right.equalTo(self).offset(-20)
             }
         }
-        
-        
     }
-    
-    
 }
 
 private extension UILabel {

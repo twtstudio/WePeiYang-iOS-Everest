@@ -128,7 +128,7 @@ class User {
         } else {
             var headers = HTTPHeaders()
             headers["User-Agent"] = DeviceStatus.userAgent
-            headers["Authorization"] = "Bearer {\(token)}"
+            headers["Authorization"] = "Bearer \(token)"
             
             SolaSessionManager.solaSession(type: .get, baseURL: ReadAPI.tokenURL, url: "?wpy_token=\(token)", parameters: nil, success: { dict in
                 if let data = dict["data"] as? Dictionary<String, AnyObject>,

@@ -17,11 +17,17 @@ class CourseCell: UITableViewCell {
         if isiPad {
             titleLabel.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.medium)
         } else {
-            titleLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
+            if UIScreen.main.bounds.width <= CGFloat.iPhoneSEWidth {
+                titleLabel.font = UIFont.systemFont(ofSize: 9.5, weight: UIFont.Weight.medium)
+            } else {
+                titleLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
+            }
         }
+
         titleLabel.numberOfLines = 0
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
+//        titleLabel.adjustsFontSizeToFitWidth = true
 
         contentView.layer.cornerRadius = 4
         contentView.layer.masksToBounds = true
@@ -78,8 +84,10 @@ class CourseCell: UITableViewCell {
             contentView.alpha = 0.7
 
             var name = course.courseName
-            if course.courseName.count > 14 && course.arrange.first!.length <= 2 {
-                name = (name as NSString).substring(to: 14) + "..."
+            let maxLength = 4*course.arrange.first!.length
+
+            if course.courseName.count > maxLength {
+                name = (name as NSString).substring(to: maxLength) + "..."
             }
 
             if course.arrange[0].room != "" {
