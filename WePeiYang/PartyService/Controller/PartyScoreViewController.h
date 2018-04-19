@@ -11,3 +11,4 @@
 @interface PartyScoreViewController : WMPageController
 
 @end
+

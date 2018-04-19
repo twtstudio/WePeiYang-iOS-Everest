@@ -104,7 +104,6 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
             make.top.equalTo(titleLable.snp.bottom).offset(5)
             make.left.equalTo(markImage.snp.right).offset(10)
             make.bottom.equalTo(timeLabel.snp.top).offset(-5)
-        
         }
         markImage.image = #imageLiteral(resourceName: "物品")
         markImage.snp.makeConstraints { make in

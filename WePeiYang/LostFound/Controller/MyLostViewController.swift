@@ -27,9 +27,10 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
-        refresh()
+        //refresh()
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         self.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
+        self.tableView.mj_header.beginRefreshing()
     }
     
     func configUI() {
@@ -39,7 +40,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.dataSource = self
         self.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
         self.tableView.register(MyLostFoundTableViewCell.self, forCellReuseIdentifier: "MyCell")
-        self.tableView.estimatedRowHeight = 500
+        self.tableView.estimatedRowHeight = 200
         self.tableView.rowHeight = UITableViewAutomaticDimension
         //        self.automaticallyAdjustsScrollViewInsets = false
         self.view.addSubview(tableView!)
@@ -60,11 +61,15 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.curPage += 1
         GetMyLostAPI.getMyLost(page: curPage, success: { (MyLosts) in
             self.myLost += MyLosts
-            self.tableView.mj_footer.endRefreshing()
+            if MyLosts.count == 0 {
+                self.tableView.mj_footer.endRefreshingWithNoMoreData()
+                self.curPage -= 1
+            } else {
+                self.tableView.mj_footer.endRefreshing()
+            }
             self.tableView.reloadData()
         }, failure: { error in
             print(error)
-            self.curPage -= 1
         })
         self.tableView.reloadData()
     }
@@ -76,6 +81,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.curPage = 1
             //结束刷新
             self.tableView.mj_header.endRefreshing()
+            self.tableView.mj_footer.resetNoMoreData()
             self.tableView.reloadData()
         }, failure: { error in
             print(error)
@@ -95,6 +101,11 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return 0.01
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor(hex6: 0xeeeeee)
+        return view
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return myLost.count

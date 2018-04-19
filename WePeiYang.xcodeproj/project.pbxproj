@@ -34,7 +34,6 @@
 		0C7AADEE2080C62200B0A2B0 /* MyLostFoundTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7AADD32080C62100B0A2B0 /* MyLostFoundTableViewCell.swift */; };
 		0C7AADEF2080C62200B0A2B0 /* PublishCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7AADD42080C62100B0A2B0 /* PublishCustomCell.swift */; };
 		0C7AADF02080C62200B0A2B0 /* UpLoadingPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7AADD52080C62100B0A2B0 /* UpLoadingPicCell.swift */; };
-		0CA96BF9208224B60002A20C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CA96BF8208224B60002A20C /* Assets.xcassets */; };
 		0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */; };
 		1B20B1FF52E995B4AC3D3EDE /* Pods_WePeiYangWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E48DF45006ADE8419C6CF0C /* Pods_WePeiYangWidget.framework */; };
 		360339E920247B9D0006A083 /* LibraryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360339E820247B9C0006A083 /* LibraryCard.swift */; };
@@ -302,6 +301,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0C1BFBC120886D3C00FCA183 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = file; name = Assets.xcassets; path = ../../../../Desktop/Assets.xcassets; sourceTree = "<group>"; };
 		0C7AADB92080C62100B0A2B0 /* FoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundViewController.swift; sourceTree = "<group>"; };
 		0C7AADBA2080C62100B0A2B0 /* LFDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFDetailViewController.swift; sourceTree = "<group>"; };
 		0C7AADBB2080C62100B0A2B0 /* LFImagePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFImagePreviewViewController.swift; sourceTree = "<group>"; };
@@ -329,7 +329,6 @@
 		0C7AADD32080C62100B0A2B0 /* MyLostFoundTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostFoundTableViewCell.swift; sourceTree = "<group>"; };
 		0C7AADD42080C62100B0A2B0 /* PublishCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishCustomCell.swift; sourceTree = "<group>"; };
 		0C7AADD52080C62100B0A2B0 /* UpLoadingPicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpLoadingPicCell.swift; sourceTree = "<group>"; };
-		0CA96BF8208224B60002A20C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		360339E820247B9C0006A083 /* LibraryCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCard.swift; sourceTree = "<group>"; };
@@ -1312,7 +1311,7 @@
 		B156B7891E7A857F00A4C500 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0CA96BF8208224B60002A20C /* Assets.xcassets */,
+				0C1BFBC120886D3C00FCA183 /* Assets.xcassets */,
 			);
 			name = Resources;
 			path = WePeiYang/Resources;
@@ -1383,13 +1382,13 @@
 		B19DAB881E6EF5C2004A50B5 /* WePeiYang */ = {
 			isa = PBXGroup;
 			children = (
-				0C7AADB72080C62100B0A2B0 /* LostFound */,
 				36366B351FAC61B6001F72A0 /* WePeiYang.entitlements */,
 				B10254091EC8520A0064373A /* main */,
 				369306911F2B972F008E90DC /* ModuleCollection */,
 				B10253DE1EC84ED90064373A /* Shared */,
 				36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */,
 				36575FBE2051C78B00A1A558 /* LaunchScreen.storyboard */,
+				0C7AADB72080C62100B0A2B0 /* LostFound */,
 				3641470820471CC500F6DFD5 /* News */,
 				A53602621FC6E23C00E3D1AF /* Binding */,
 				A5197A381FDA850A008C445A /* Library */,

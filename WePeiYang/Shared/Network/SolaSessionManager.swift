@@ -148,7 +148,7 @@ struct SolaSessionManager {
                 case .success(let upload, _, _):
                     upload.responseJSON { response in
                         if let data = response.result.value  {
-                            if let dict = data as? Dictionary<String, Any>, dict["error_code"] as? Int == 0 {
+                            if let dict = data as? Dictionary<String, Any>, dict["error_code"] as? Int == -1 {
                                 success?(dict)
                             } else {
 //                                HUD.hide()
@@ -196,7 +196,9 @@ struct SolaSessionManager {
     }
     
     static func upload(dictionay: [String : Any], url: String, method: HTTPMethod = .post, progressBlock: ((Progress)->())? = nil, failure: ((Error)->())? = nil, success: (([String : Any])->())?) {
-        
+        let fullurl = TWT_ROOT_URL + url
+        print(fullurl)
+
         var dataDict = [String: Data]()
         var paraDict = [String: String]()
         for item in dictionay {
@@ -246,11 +248,11 @@ struct SolaSessionManager {
                 case .success(let upload, _, _):
                     upload.responseJSON { response in
                         if let data = response.result.value  {
-                            if let dict = data as? Dictionary<String, Any>, dict["error_code"] as? Int == 0 {
+                            if let dict = data as? Dictionary<String, Any>, dict["error_code"] as? Int == -1 {
                                 success?(dict)
                             } else {
-                                //                                HUD.hide()
-                                //                                HUD.flash(.label((data as? [String: Any])?["data"] as? String), delay: 1.0)
+//                                                                HUD.hide()
+//                                                                HUD.flash(.label((data as? [String: Any])?["data"] as? String), delay: 1.0)
                             }
                         }
                     }

@@ -79,6 +79,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
             isBackLabel.text = "已找到!"
         }
         isBackLabel.numberOfLines = 1
+
         isBackLabel.font = UIFont.italicSystemFont(ofSize: 18)
         isBackLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)

@@ -41,6 +41,5 @@ class LostFoundDetailModel {
         self.publish_end = publish_end
         self.other_tag = other_tag
         self.type = type
-        
     }
 }

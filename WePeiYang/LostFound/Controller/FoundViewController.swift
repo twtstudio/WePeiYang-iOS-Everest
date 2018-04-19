@@ -42,7 +42,6 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         foundView.backgroundColor = UIColor(hex6: 0xeeeeee)
         self.view.addSubview(foundView)
-
     }
     
     func promptUI() {
@@ -61,7 +60,6 @@ class FoundViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         self.view.addSubview(promptView)
         promptView.isHidden = true
-
     }
     
     func refresh() {

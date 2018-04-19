@@ -69,12 +69,11 @@ class LFDetailViewController: UIViewController {
                 labels.append(label)
                 label.numberOfLines = 0
                 self.view.addSubview(label)
-                label.text = name
                 if index == 2, let mark = Int(name) {
                     label.text = self.markArray[mark]
                 }
                 label.textColor = .lightGray
-//                label.text = name
+                label.text = name
                 label.sizeToFit()
 
                 if index == 0 {
