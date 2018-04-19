@@ -119,8 +119,6 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         }
     }
     
-
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if searchOfMessage == "noSearch" {
             if indexPath.row == 0 {
@@ -132,9 +130,6 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         else {
             return 50
         }
-        
-
-        
     }
     // 在进行输入时的代理
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -149,14 +144,12 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
                 if index.lowercased().hasPrefix(searchText.lowercased()) {
                     self.searchArray.append(index)
                    // print(searchArray)
-                    
                 }
             }
             searchOfMessage = "searched"
         }
         self.tableView.reloadData()
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -167,6 +160,7 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         self.navigationController?.pushViewController(searchVC, animated: true)
         }
     }
+    
     // 点击搜索，保存记录
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchArray = self.historyArray.filter{ (mark) -> Bool in
@@ -187,10 +181,7 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
             print(searchOfMessage)
         searchOfMessage = "noSearch"
         self.tableView.reloadData()
-        
         }
-        
-        
     }
     // cell内部的button没有能力进行界面跳转的权力，需要委托一下
     func buttonTapped() {
@@ -240,9 +231,6 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         self.tableView.reloadData()
     }
     
-
-    
-    
     // 界面迭代处理
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -251,11 +239,7 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         self.tableView.reloadData()
     }
 
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    
-    
 }

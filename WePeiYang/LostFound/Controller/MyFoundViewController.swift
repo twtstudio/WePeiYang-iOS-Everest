@@ -19,8 +19,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+    
         configUI()
         //refresh()
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
@@ -153,7 +152,6 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         let cell = sender.superView(of: UITableViewCell.self)!
         let indexPath = tableView.indexPath(for: cell)
         id = myFound[(indexPath?[1])!].id
-        
         GetInverseAPI.getInverse(id: "\(id)", success: { (code) in
             self.refresh()
         }, failure: { error in

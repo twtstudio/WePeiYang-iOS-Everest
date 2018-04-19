@@ -36,18 +36,14 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
         layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height:  270)
         //        layout.minimumInteritemSpacing = 20
         layout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
-        
         searchedView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height), collectionViewLayout: layout)
-        
         searchedView.register(LostFoundCollectionViewCell.self, forCellWithReuseIdentifier: "searchedCell")
         
         searchedView.delegate = self
         searchedView.dataSource = self
-        
-        searchedView.backgroundColor = UIColor(hex6: 0xeeeeee)
-        
-        self.view.addSubview(searchedView)
 
+        searchedView.backgroundColor = UIColor(hex6: 0xeeeeee)
+        self.view.addSubview(searchedView)
     }
     
     // 为空显示的View,允许刷新
@@ -122,7 +118,6 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
         }, failure: { error in
             print(error)
         })
- 
     }
     
 
