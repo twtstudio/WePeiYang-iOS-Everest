@@ -111,16 +111,3 @@ static DBPoint DBPointMakeRotation(DBPoint point, DBPoint direction, CGFloat ang
 }
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-

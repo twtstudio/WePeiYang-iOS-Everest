@@ -14,7 +14,9 @@ class CollegeSphereViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = .white
         sphereView.frame = self.view.bounds
+        sphereView.y = self.view.height * 0.15
         self.view.addSubview(sphereView)
         loadCache()
         load()
@@ -30,10 +32,12 @@ class CollegeSphereViewController: UIViewController {
             var collegeList = [UIButton]()
             for i in 0..<count {
                 let button = UIButton()
-                button.setTitle(list[i].collegeName, for: .normal)
-                button.setTitleColor(Metadata.Color.fluentColors[i], for: .normal)
-                button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
                 button.frame = CGRect(x: 0, y: 0, width: 60, height: 20)
+                button.center = self.sphereView.center
+                button.setTitle(list[i].collegeName, for: .normal)
+                button.setTitleColor(Metadata.Color.fluentColors[i % Metadata.Color.fluentColors.count], for: .normal)
+                button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
+                button.sizeToFit()
                 button.addTarget(self, action: #selector(self.buttonPressed), for: .touchUpInside)
                 collegeList.append(button)
                 self.sphereView.addSubview(button)
