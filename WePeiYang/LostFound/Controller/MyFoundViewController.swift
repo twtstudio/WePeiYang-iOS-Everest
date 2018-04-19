@@ -95,7 +95,6 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.01
     }
@@ -103,7 +102,6 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return myFound.count
     }
-    
     
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
