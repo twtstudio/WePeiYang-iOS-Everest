@@ -18,9 +18,9 @@ class CourseAppraiseManager {
     var GPASession: String?
     
     static let shared = CourseAppraiseManager()
-    private init() {}
+    fileprivate init() {}
     
-    func submit(successHandler: @escaping ()->()) {
+    func submit(_ successHandler: @escaping ()->()) {
         
         // let manager = AFHTTPSessionManager()
         let parameters = ["lesson_id": lesson_id!,
