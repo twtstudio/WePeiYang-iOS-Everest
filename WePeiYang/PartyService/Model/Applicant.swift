@@ -88,7 +88,6 @@ class Applicant: NSObject {
     
     func getPersonalStatus(_ doSomething: @escaping () -> ()) {
         
-        
         //AFNetWorking/Alamofire Works
         
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: nil, parameters: PartyAPI.personalStatusParams, success: { dict in

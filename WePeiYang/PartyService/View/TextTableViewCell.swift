@@ -35,18 +35,17 @@ extension TextTableViewCell {
         
         
         contentView.addSubview(tapToSeeDetailLabel)
-        tapToSeeDetailLabel.snp.makeConstraints {
-            make in
+        tapToSeeDetailLabel.snp.makeConstraints { make in
             make.right.equalTo(contentView).offset(-14)
             make.centerY.equalTo(contentView)
         }
         
         contentView.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints {
-            make in
+        nameLabel.snp.makeConstraints { make in
             make.left.equalTo(contentView).offset(14)
             make.centerY.equalTo(contentView)
-            make.right.lessThanOrEqualTo(tapToSeeDetailLabel.snp.left).offset(-20)
+//            make.right.lessThanOrEqualTo(tapToSeeDetailLabel.snp.left).offset(-20)
+            make.width.equalTo(contentView.width * 0.8)
         }
     }
 }

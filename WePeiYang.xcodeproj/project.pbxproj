@@ -222,6 +222,9 @@
 		A554C4BE1F99F84900022A01 /* ParkingSpotsLocs.json in Resources */ = {isa = PBXBuildFile; fileRef = A554C4BC1F99EFE300022A01 /* ParkingSpotsLocs.json */; };
 		A570C138207F8E2C00AF7050 /* CollegeSphereViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A570C137207F8E2C00AF7050 /* CollegeSphereViewController.swift */; };
 		A586543720514E860069CF53 /* WLANHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586543620514E860069CF53 /* WLANHelper.swift */; };
+		A5A531E92088C0890073DE38 /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A531E82088C0890073DE38 /* CourseListViewController.swift */; };
+		A5A531EB208F4E4C0073DE38 /* CourseListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A531EA208F4E4C0073DE38 /* CourseListModel.swift */; };
+		A5A531ED208F53AF0073DE38 /* AuditClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A531EC208F53AF0073DE38 /* AuditClassViewController.swift */; };
 		A5E117AF1F99DB8E00C86CA2 /* BicycleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117AE1F99DB8E00C86CA2 /* BicycleUser.swift */; };
 		A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117B01F99DBB700C86CA2 /* timeStampTransfer.swift */; };
 		A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117B21F99DBD700C86CA2 /* ParkingSpots.swift */; };
@@ -233,6 +236,7 @@
 		A5E117C11F99E01A00C86CA2 /* BicycleCardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C01F99E01A00C86CA2 /* BicycleCardListViewController.swift */; };
 		A5E117C51F99E05200C86CA2 /* BicycleServiceInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C41F99E05200C86CA2 /* BicycleServiceInfoController.swift */; };
 		A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C61F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift */; };
+		A5FE5665208F624A00B94F0D /* PopularClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FE5664208F624A00B94F0D /* PopularClassModel.swift */; };
 		B10253D61EC84ED20064373A /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CD1EC84ED20064373A /* Book.swift */; };
 		B10253D71EC84ED20064373A /* Librarian.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CE1EC84ED20064373A /* Librarian.swift */; };
 		B10253D81EC84ED20064373A /* MyBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CF1EC84ED20064373A /* MyBook.swift */; };
@@ -301,7 +305,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0C1BFBC120886D3C00FCA183 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = file; name = Assets.xcassets; path = ../../../../Desktop/Assets.xcassets; sourceTree = "<group>"; };
+		0C1BFBC120886D3C00FCA183 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../Desktop/Assets.xcassets; sourceTree = "<group>"; };
 		0C7AADB92080C62100B0A2B0 /* FoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundViewController.swift; sourceTree = "<group>"; };
 		0C7AADBA2080C62100B0A2B0 /* LFDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFDetailViewController.swift; sourceTree = "<group>"; };
 		0C7AADBB2080C62100B0A2B0 /* LFImagePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFImagePreviewViewController.swift; sourceTree = "<group>"; };
@@ -507,6 +511,9 @@
 		A554C4BC1F99EFE300022A01 /* ParkingSpotsLocs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ParkingSpotsLocs.json; sourceTree = "<group>"; };
 		A570C137207F8E2C00AF7050 /* CollegeSphereViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeSphereViewController.swift; sourceTree = "<group>"; };
 		A586543620514E860069CF53 /* WLANHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANHelper.swift; sourceTree = "<group>"; };
+		A5A531E82088C0890073DE38 /* CourseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewController.swift; sourceTree = "<group>"; };
+		A5A531EA208F4E4C0073DE38 /* CourseListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListModel.swift; sourceTree = "<group>"; };
+		A5A531EC208F53AF0073DE38 /* AuditClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditClassViewController.swift; sourceTree = "<group>"; };
 		A5D695191F8A21AD00022B9A /* WMScrollView+gesture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMScrollView+gesture.m"; sourceTree = "<group>"; };
 		A5D695201F8A21AD00022B9A /* WMScrollView+gesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMScrollView+gesture.h"; sourceTree = "<group>"; };
 		A5D6952E1F8A21AD00022B9A /* BicycleServiceInfoController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BicycleServiceInfoController.xib; sourceTree = "<group>"; };
@@ -526,6 +533,7 @@
 		A5E117C01F99E01A00C86CA2 /* BicycleCardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleCardListViewController.swift; sourceTree = "<group>"; };
 		A5E117C41F99E05200C86CA2 /* BicycleServiceInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleServiceInfoController.swift; sourceTree = "<group>"; };
 		A5E117C61F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleNotificationDetailViewController.swift; sourceTree = "<group>"; };
+		A5FE5664208F624A00B94F0D /* PopularClassModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularClassModel.swift; sourceTree = "<group>"; };
 		B10253CD1EC84ED20064373A /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		B10253CE1EC84ED20064373A /* Librarian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Librarian.swift; sourceTree = "<group>"; };
 		B10253CF1EC84ED20064373A /* MyBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBook.swift; sourceTree = "<group>"; };
@@ -892,6 +900,8 @@
 			children = (
 				3653DD901FBAD0B600501C3B /* ClassTableViewController.swift */,
 				A570C137207F8E2C00AF7050 /* CollegeSphereViewController.swift */,
+				A5A531E82088C0890073DE38 /* CourseListViewController.swift */,
+				A5A531EC208F53AF0073DE38 /* AuditClassViewController.swift */,
 				36D0FE73201861BD0014E667 /* ClassDetailViewController.swift */,
 			);
 			path = Controller;
@@ -902,6 +912,8 @@
 			children = (
 				365A8A1A1FB9BA8500B15443 /* ArrangeModel.swift */,
 				A52C646A207F9F680007D31F /* CollegeModel.swift */,
+				A5FE5664208F624A00B94F0D /* PopularClassModel.swift */,
+				A5A531EA208F4E4C0073DE38 /* CourseListModel.swift */,
 				36CAD449201B8EAA006F85E3 /* ClassTableHelper.swift */,
 				365A8A271FB9CA1700B15443 /* ClassModel.swift */,
 				369B2D4920151542009352A8 /* DateTool.swift */,
@@ -1618,7 +1630,6 @@
 				36449E681FA4BABA0036766B /* PartyComplainViewController.xib in Resources */,
 				36575FBF2051C78B00A1A558 /* LaunchScreen.storyboard in Resources */,
 				36449E691FA4BABA0036766B /* HandInDetailViewController.xib in Resources */,
-				0CA96BF9208224B60002A20C /* Assets.xcassets in Resources */,
 				36449E5F1FA4BABA0036766B /* TwentyCourseScoreViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1787,6 +1798,7 @@
 				0C7AADF02080C62200B0A2B0 /* UpLoadingPicCell.swift in Sources */,
 				36FCC2D920545967003379AE /* LoginView.swift in Sources */,
 				36449E661FA4BABA0036766B /* PersonalStatusLabel.swift in Sources */,
+				A5A531E92088C0890073DE38 /* CourseListViewController.swift in Sources */,
 				36449E5E1FA4BABA0036766B /* WXWaveView.m in Sources */,
 				360339E920247B9D0006A083 /* LibraryCard.swift in Sources */,
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
@@ -1834,6 +1846,7 @@
 				A586543720514E860069CF53 /* WLANHelper.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
 				36A74EB2205BAD0300DD1EC3 /* AlertOnboarding.swift in Sources */,
+				A5A531ED208F53AF0073DE38 /* AuditClassViewController.swift in Sources */,
 				36449E6C1FA4BABA0036766B /* FunctionListTableViewCell.swift in Sources */,
 				36449E701FA4BABA0036766B /* CourseDetailReadingView.swift in Sources */,
 				36A9C320204C56CD0018B6B3 /* ProgressWebViewController.swift in Sources */,
@@ -1842,8 +1855,10 @@
 				3631D50A1F1903D70078816D /* TwTUser.swift in Sources */,
 				A5E117C51F99E05200C86CA2 /* BicycleServiceInfoController.swift in Sources */,
 				A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */,
+				A5A531EB208F4E4C0073DE38 /* CourseListModel.swift in Sources */,
 				0C7AADED2080C62200B0A2B0 /* LostFoundCollectionViewCell.swift in Sources */,
 				0C7AADDC2080C62200B0A2B0 /* LostFoundPageViewController.swift in Sources */,
+				A5FE5665208F624A00B94F0D /* PopularClassModel.swift in Sources */,
 				36073D0A1F223FC1001317A7 /* ReadStarCell.swift in Sources */,
 				365A46462035E35500738963 /* Storage.swift in Sources */,
 				365936941F1E60A9003CE578 /* CourseAppraiseCell.swift in Sources */,

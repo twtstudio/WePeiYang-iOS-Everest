@@ -47,7 +47,8 @@ extension CourseTableViewCell {
             make in
             make.left.equalTo(contentView).offset(14)
             make.centerY.equalTo(contentView.snp.top).offset(22)
-            make.right.lessThanOrEqualTo(tapToSeeDetailLabel.snp.left).offset(-20)
+//            make.right.lessThanOrEqualTo(tapToSeeDetailLabel.snp.left).offset(-20)
+            make.width.equalTo(contentView.width * 0.8)
         }
        
     }

@@ -60,5 +60,19 @@ struct ClasstableDataManager {
             failure(error.localizedDescription)
         })
     }
+    
+    static func getPopularClass(success: @escaping ([PopularClassModel])->(), failure: @escaping (String)->()) {
+        SolaSessionManager.solaSession(type: .get, url: "/auditClass/popular", parameters: nil, success: { dict in
+            if let data = try? JSONSerialization.data(withJSONObject: dict, options: .init(rawValue: 0)),
+                let response = try? PopularClassTopModel(data: data) {
+                success(response.data)
+            } else {
+                failure("解析错误")
+            }
+        }, failure: { error in
+            failure(error.localizedDescription)
+        })
+    }
+
 }
 

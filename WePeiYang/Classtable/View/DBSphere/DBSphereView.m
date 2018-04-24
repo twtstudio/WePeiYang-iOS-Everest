@@ -191,10 +191,7 @@
         CGPoint velocityP = [gesture velocityInView:self];
         velocity = sqrt(velocityP.x * velocityP.x + velocityP.y * velocityP.y);
         [self inertiaStart];
-
     }
-    
-    
 }
 
 @end

@@ -269,8 +269,8 @@ class ClassTableViewController: UIViewController {
     }
     
     @objc func addCourse() {
-        let sphereVC = CollegeSphereViewController()
-        self.navigationController?.pushViewController(sphereVC, animated: true)
+        let auditClassVC = AuditClassViewController()
+        self.navigationController?.pushViewController(auditClassVC, animated: true)
     }
     
     

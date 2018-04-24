@@ -55,6 +55,7 @@ class CollegeSphereViewController: UIViewController {
     }
     
     @objc func buttonPressed() {
-        
+        let sphereVC = CourseListViewController()
+        self.navigationController?.pushViewController(sphereVC, animated: true)
     }
 }
