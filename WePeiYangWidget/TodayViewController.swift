@@ -56,7 +56,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 //            self.preferredContentSize = CGSize(width: width, height: tableViewHeight + 20)
 //        } else {
             tableViewHeight = 50 as CGFloat
-            self.preferredContentSize = CGSize(width: width, height: tableViewHeight + 20)
+
+        if #available(iOSApplicationExtension 10.0, *) {
+            extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+            if extensionContext?.widgetActiveDisplayMode == NCWidgetDisplayMode.expanded {
+                self.preferredContentSize = CGSize(width: width, height: tableViewHeight + 20)
+            }
+        }
+
             tableView = UITableView(frame: CGRect(x: 70, y: 55, width: width - 70, height: tableViewHeight))
 //        }
         tableView.rowHeight = tableViewHeight
@@ -167,33 +174,38 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
     @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        switch activeDisplayMode {
-        case .compact:
-            if isiPad {
-                tableView.frame.size.height = tableView.rowHeight
-                self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height)
-            } else {
-                tableView.frame.size.height = tableView.rowHeight + 20
-                self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height)
+            switch activeDisplayMode {
+            case .compact:
+                if isiPad {
+                    self.tableView.frame.size.height = self.tableView.rowHeight
+                    self.preferredContentSize = CGSize(width: 0, height: self.tableView.frame.size.height)
+                } else {
+                    self.tableView.frame.size.height = self.tableView.rowHeight + 20
+                    self.preferredContentSize = CGSize(width: 0, height: self.tableView.frame.size.height)
+                }
+            case .expanded:
+                UIView.animate(withDuration: 0.25, animations: {
+                    self.tableView.frame.size.height = max(1, CGFloat(self.classes.count)) * self.tableView.rowHeight + 40
+                    self.preferredContentSize = CGSize(width: 0, height: self.tableView.frame.size.height + 20)
+                })
             }
-        case .expanded:
-            if classes.count == 0 {
-                tableView.frame.size.height = tableView.rowHeight + 20
-                self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height)
-            } else {
-                tableView.frame.size.height = CGFloat(classes.count) * tableView.rowHeight + 40
-                self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height + 20)
-            }
-        }
-        layout()
+        self.layout()
     }
 
     func layout() {
         if #available(iOSApplicationExtension 10.0, *) {
-            extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+//            extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+            if extensionContext?.widgetActiveDisplayMode == NCWidgetDisplayMode.expanded {
+                UIView.animate(withDuration: 0.25, animations: {
+                    self.tableView.frame.size.height = max(1, CGFloat(self.classes.count)) * self.tableView.rowHeight + 40
+                    self.preferredContentSize = CGSize(width: 0, height: self.tableView.frame.size.height + 20)
+                })
+            }
         } else {
-            tableView.frame.size.height = max(1, CGFloat(classes.count)) * tableView.rowHeight + 40
-            self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height + 20)
+            UIView.animate(withDuration: 0.25, animations: {
+                self.tableView.frame.size.height = max(1, CGFloat(self.classes.count)) * self.tableView.rowHeight + 40
+                self.preferredContentSize = CGSize(width: 0, height: self.tableView.frame.size.height + 20)
+            })
         }
     }
 
@@ -201,7 +213,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 //        if #available(iOSApplicationExtension 10.0, *) {
 //            extensionContext?.widgetLargestAvailableDisplayMode = .expanded
 //        }
-
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
