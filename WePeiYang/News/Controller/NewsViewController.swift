@@ -304,9 +304,6 @@ extension NewsViewController: UITableViewDataSource {
                 bannerView.descLabelFont = UIFont.boldSystemFont(ofSize: 25)
                 bannerView.descLabelTextAlignment = .left
                 bannerFooView.addSubview(bannerView)
-//                bannerView.snp.makeConstraints { make in
-//                    ma
-//                }
             }
             cell.selectionStyle = .none
 
