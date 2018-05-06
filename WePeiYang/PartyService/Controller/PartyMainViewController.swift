@@ -120,7 +120,7 @@ class PartyMainViewController: UIViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.barStyle = .default
+//        self.navigationController?.navigationBar.barStyle = .default
         //        self.navigationController?.jz_navigationBarBackgroundAlpha = 0
         self.navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.barStyle = .black

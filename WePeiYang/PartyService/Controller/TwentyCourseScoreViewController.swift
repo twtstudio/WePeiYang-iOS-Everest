@@ -13,6 +13,11 @@ class TwentyCourseScoreViewController: UIViewController, UITableViewDelegate, UI
     @IBOutlet var tableView: UITableView!
     var scoreList = [[String: Any]]()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.barStyle = .black
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,10 +25,12 @@ class TwentyCourseScoreViewController: UIViewController, UITableViewDelegate, UI
         tableView.dataSource = self
         
         Applicant.sharedInstance.get20score({
-            self.scoreList = Applicant.sharedInstance.scoreOf20Course
+            // FIXME: 为什么是空的呢
+            self.scoreList = Applicant.sharedInstance.scoreOf20Course.filter({ dict in
+                return !(dict["course_name"] as! NSObject).isKind(of: NSNull.self) && !(dict["score"] as! NSObject).isKind(of: NSNull.self) && !(dict["complete_time"] as! NSObject).isKind(of: NSNull.self)
+            })
             self.tableView.reloadData()
         })
-        
     }
     
     //iOS 8 fucking bug

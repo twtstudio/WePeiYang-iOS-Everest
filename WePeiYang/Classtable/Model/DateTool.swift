@@ -26,7 +26,7 @@ struct DateTool {
         // 计算当前日期和这周的星期一和星期天差的天数
         var mondayOffset = 0
         if weekDay == 1 {
-            mondayOffset = 1-7
+            mondayOffset = 1 - 7
         } else {
             mondayOffset = cal.firstWeekday - weekDay
         }

@@ -10,10 +10,6 @@ import UIKit
 import SnapKit
 
 class SectionCell: UITableViewHeaderFooterView {
-
-
-    
-    
     let label = UILabel()
 
     override init(reuseIdentifier: String?) {
@@ -25,13 +21,8 @@ class SectionCell: UITableViewHeaderFooterView {
         label.textColor = UIColor(hex6: 0x00a1e9)
         
         label.frame = CGRect(x:10, y:5, width:100, height:20)
-        
-        
-
     }
-    
-
-    
+        
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

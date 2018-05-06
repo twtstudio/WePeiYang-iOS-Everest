@@ -167,17 +167,14 @@ extension Courses.Study20 {
     
     static func submitAnswer(of courseID: String, originalAnswer: [Int], userAnswer: [Int], and completion: @escaping () -> ()) {
         SolaSessionManager.solaSession(type: .post, baseURL: PartyAPI.courseQuizSubmitURL, url: "", token: nil, parameters: PartyAPI.courseQuizSubmitParams(of: courseID, originalAnswer: originalAnswer, userAnswer: userAnswer), success: { dict in
-//            MsgDisplay.dismiss()
             
             log.any(PartyAPI.courseQuizSubmitParams(of: courseID, originalAnswer: originalAnswer, userAnswer: userAnswer))/
-//            log.any(responseObject)/
             
             guard let status = dict["status"] as? Int else {
                 guard let msg = dict["msg"] as? String else {
                     SwiftMessages.showErrorMessage(body: "提交答案失败，别担心，等网络好了，我们会再次帮你提交一遍")
 
-                     Courses.Study20.finalMsgAfterSubmitting = "提交答案失败，别担心，等网络好了，我们会再次帮你提交一遍"
-//                    MsgDisplay.showErrorMsg("网络出问题啦😘")
+                    Courses.Study20.finalMsgAfterSubmitting = "提交答案失败，别担心，等网络好了，我们会再次帮你提交一遍"
                     Courses.Study20.finalMsgAfterSubmitting = "网络出问题啦😘"
                     Courses.Study20.finalStatusAfterSubmitting = 0
                     
