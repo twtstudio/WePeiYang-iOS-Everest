@@ -66,9 +66,9 @@ extension AuditClassViewController: UITableViewDataSource {
 //                return auditClassList.count
 //            }
             // More elegant way to write it
-            return min(auditClassList.count, 4)
+            return min(auditClassList.count + 1, 5)
         case 1:
-            return min(myClassList.count, 4)
+            return min(myClassList.count + 1, 4 + 1)
         case 2:
             return 1
         default:
@@ -86,11 +86,47 @@ extension AuditClassViewController: UITableViewDataSource {
         cell.accessoryType = .disclosureIndicator
         switch indexPath.section {
         case 0:
-            let model = auditClassList[indexPath.row]
-            cell.textLabel?.text = model.course.name
+            if auditClassList.count <= 4 {
+                if indexPath.row == auditClassList.count {
+                    cell.textLabel?.text = "更多"
+                    cell.textLabel?.textColor = UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)
+                    cell.accessoryType = .none
+                } else {
+                    let model = auditClassList[indexPath.row]
+                    cell.textLabel?.text = model.course.name
+                }
+            } else {
+                if indexPath.row == 4 {
+                    cell.textLabel?.text = "更多"
+                    cell.textLabel?.textColor = UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)
+                    cell.accessoryType = .none
+                } else {
+                    let model = auditClassList[indexPath.row]
+                    cell.textLabel?.text = model.course.name
+                }
+            }
         case 1:
-            let model = myClassList[indexPath.row]
-            cell.textLabel?.text = model.course.name
+            if myClassList.count == 0 {
+                cell.textLabel?.text = "暂无"
+                cell.textLabel?.textColor = UIColor.gray
+                cell.accessoryType = .none
+            } else if myClassList.count <= 4 {
+                if indexPath.row == myClassList.count {
+                    cell.textLabel?.text = "更多"
+                    cell.textLabel?.textColor = UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)
+                    cell.accessoryType = .none
+                } else {
+                    cell.textLabel?.text = myClassList[indexPath.row].course.name
+                }
+            } else {
+                if indexPath.row == 4 {
+                    cell.textLabel?.text = "更多"
+                    cell.textLabel?.textColor = UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)
+                    cell.accessoryType = .none
+                } else {
+                    cell.textLabel?.text = myClassList[indexPath.row].course.name
+                }
+            }
         case 2:
             cell.textLabel?.text = "添加自定义课程"
 //            cell.textLabel?.textColor = UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)
@@ -100,17 +136,19 @@ extension AuditClassViewController: UITableViewDataSource {
         default:
             fatalError()
         }
-//        ClasstableDataManager.getPopularClass(success: { dict in
-//            cell.accessoryType = .disclosureIndicator
-//            for i in 0...4 {
-//                cell.textLabel?.text = dict[i].course.name
-//            }
-//            print(dict)
-//
-//        }, failure: { errMsg in
-//            SwiftMessages.showErrorMessage(body: errMsg)
-//        })
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            if indexPath.row == 4 {
+                let allPopularClassesViewController = AllPopularClassesViewController()
+                self.navigationController?.pushViewController(allPopularClassesViewController, animated: true)
+            }
+        default:
+            return
+        }
     }
 }
 

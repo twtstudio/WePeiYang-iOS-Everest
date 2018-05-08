@@ -222,6 +222,7 @@
 		A5A2FA4E2092049600A9AC0C /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A2FA432092049600A9AC0C /* StarView.swift */; };
 		A5A2FA4F2092049600A9AC0C /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A2FA442092049600A9AC0C /* ScoreHeaderView.swift */; };
 		A5A2FA502092049600A9AC0C /* CourseAppraiseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A2FA452092049600A9AC0C /* CourseAppraiseCell.swift */; };
+		A5A2FA52209EDA9300A9AC0C /* AllPopularClassesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A2FA51209EDA9300A9AC0C /* AllPopularClassesViewController.swift */; };
 		A5A531E92088C0890073DE38 /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A531E82088C0890073DE38 /* CourseListViewController.swift */; };
 		A5A531EB208F4E4C0073DE38 /* CourseListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A531EA208F4E4C0073DE38 /* CourseListModel.swift */; };
 		A5A531ED208F53AF0073DE38 /* AuditClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A531EC208F53AF0073DE38 /* AuditClassViewController.swift */; };
@@ -512,6 +513,7 @@
 		A5A2FA432092049600A9AC0C /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		A5A2FA442092049600A9AC0C /* ScoreHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
 		A5A2FA452092049600A9AC0C /* CourseAppraiseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseCell.swift; sourceTree = "<group>"; };
+		A5A2FA51209EDA9300A9AC0C /* AllPopularClassesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPopularClassesViewController.swift; sourceTree = "<group>"; };
 		A5A531E82088C0890073DE38 /* CourseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewController.swift; sourceTree = "<group>"; };
 		A5A531EA208F4E4C0073DE38 /* CourseListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListModel.swift; sourceTree = "<group>"; };
 		A5A531EC208F53AF0073DE38 /* AuditClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditClassViewController.swift; sourceTree = "<group>"; };
@@ -857,6 +859,7 @@
 		365A8A141FB9BA8500B15443 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				A5A2FA51209EDA9300A9AC0C /* AllPopularClassesViewController.swift */,
 				A5A531EC208F53AF0073DE38 /* AuditClassViewController.swift */,
 				36D0FE73201861BD0014E667 /* ClassDetailViewController.swift */,
 				3653DD901FBAD0B600501C3B /* ClassTableViewController.swift */,
@@ -1939,6 +1942,7 @@
 				36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */,
 				3653DD911FBAD0B600501C3B /* ClassTableViewController.swift in Sources */,
 				36F285092049B7D50095A3D4 /* ModulesSettingsViewController.swift in Sources */,
+				A5A2FA52209EDA9300A9AC0C /* AllPopularClassesViewController.swift in Sources */,
 				0C7AADE42080C62200B0A2B0 /* LostFoundAPI.swift in Sources */,
 				3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */,
 				A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */,

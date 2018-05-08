@@ -14,6 +14,7 @@ class CourseCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentView.addSubview(titleLabel)
+        
         if isiPad {
             titleLabel.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.medium)
         } else {
