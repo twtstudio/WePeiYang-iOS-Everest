@@ -373,7 +373,7 @@ extension NewsViewController: UITableViewDataSource {
 
             if let cell = cell as? NewsTableViewCell {
                 cell.titleLabel.text = news.subject
-                cell.detailLabel.text = news.summary
+                cell.detailLabel.text = news.summary.replacingOccurrences(of: "&nbsp;", with: "")
                 cell.descLabel.text = "阅读: \(news.visitcount) 评论: \(news.comments)"
                 cell.imgView.sd_setImage(with: URL(string: news.pic), completed: nil)
                 cell.imgView.sd_setIndicatorStyle(.gray)
@@ -412,7 +412,7 @@ extension NewsViewController: UITableViewDelegate {
         let row = indexPath.row - 2
         tableView.deselectRow(at: indexPath, animated: true)
         let news = newsList[row]
-        let newsVC = NewsDetailViewController(index: news.index)
+        let newsVC = NewsDetailViewController(index: String(news.index))
         newsVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(newsVC, animated: true)
     }

@@ -53,6 +53,7 @@ class BicycleUser {
                 } else {
                     TwTUser.shared.bicycleBindingState = false
                 }
+                TwTUser.shared.save()
                 success()
             } else {
                 failure?((dict["errmsg"] as? String) ?? "解析失败")
@@ -163,6 +164,7 @@ class BicycleUser {
                     return
                 }
                 TwTUser.shared.bicycleBindingState = false
+                TwTUser.shared.save()
                 success()
             }, failure: { error in
                 failure?(error.localizedDescription)

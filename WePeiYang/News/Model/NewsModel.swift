@@ -16,8 +16,8 @@ struct NewsTopModel: Codable {
 }
 
 struct NewsModel: Codable {
-    let index, subject, pic, visitcount: String
-    let comments: Int
+    let subject, pic, visitcount: String
+    let index, comments: Int
     let summary: String
 }
 

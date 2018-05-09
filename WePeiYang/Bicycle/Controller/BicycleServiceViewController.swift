@@ -150,6 +150,7 @@ class BicycleServiceViewController: WMPageController {
             self.navigationItem.rightBarButtonItem = refreshButton
             
             if TwTUser.shared.bicycleBindingState == false {
+                // FIXME: 从“好的”进入 bindingVC 后“暂不绑定” tabBar 会消失
                 let popup = PopupDialog(title: "请先绑定自行车账号", message: "没有绑定账号，请先绑定账号。", image: nil, buttonAlignment: .horizontal, gestureDismissal: false, hideStatusBar: false, completion: {
                     self.navigationController?.popViewController(animated: true)
                 })
@@ -158,7 +159,9 @@ class BicycleServiceViewController: WMPageController {
                 })
                 let okButton = DefaultButton(title: "好的", action: {
                     let bindVC = BicycleBindingViewController()
-                    self.present(bindVC, animated: true, completion: nil)
+                    self.present(bindVC, animated: true, completion: {
+                        self.navigationController?.popViewController(animated: true)
+                    })
                 })
                 popup.addButtons([cancelButton, okButton])
                 self.present(popup, animated: true, completion: nil)

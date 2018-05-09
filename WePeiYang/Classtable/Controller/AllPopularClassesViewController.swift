@@ -55,8 +55,8 @@ extension AllPopularClassesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AllCouseCell")
-        cell?.textLabel?.text = auditClassList[indexPath.row].course.name
-        return cell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AllCourseCell") ?? UITableViewCell(style: .default, reuseIdentifier: "AllCourseCell")
+        cell.textLabel?.text = auditClassList[indexPath.row].course.name
+        return cell
     }
 }
