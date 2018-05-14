@@ -51,8 +51,7 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         self.tableView.estimatedRowHeight = 300
         //估算高度
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        
-
+    
         self.searchController = UISearchController(searchResultsController: nil)
         self.searchController.searchBar.delegate = self
         self.searchController.hidesNavigationBarDuringPresentation = true
@@ -65,8 +64,6 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
 
         self.view.addSubview(delButton)
         self.tableView.separatorStyle = .none
-        
-        
     }
     
     // 预计算搜索历史cell高度
@@ -82,10 +79,6 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
             return searchArray.count
         }
     }
-    
-    
-    
-    
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identify: String = "searchCell"

@@ -13,6 +13,12 @@ class AuditClassViewController: UIViewController {
     var auditClassList = [PopularClassModel]()
     var myClassList = [PopularClassModel]()
     
+    override func viewWillAppear(_ animated: Bool) {
+        if let index = self.tableView.indexPathForSelectedRow {
+            self.tableView.deselectRow(at: index, animated: true)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

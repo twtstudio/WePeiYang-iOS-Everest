@@ -10,6 +10,8 @@ import UIKit
 
 class CollegeSphereViewController: UIViewController {
     let sphereView = DBSphereView()
+    var tableView = UITableView()
+    var searchController = UISearchController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +20,18 @@ class CollegeSphereViewController: UIViewController {
         sphereView.frame = self.view.bounds
         sphereView.y = self.view.height * 0.15
         self.view.addSubview(sphereView)
+        
+        self.tableView = UITableView(frame: self.view.bounds, style: .grouped)
+        
+        self.searchController = UISearchController(searchResultsController: nil)
+        self.searchController.searchBar.delegate = self
+        self.searchController.hidesNavigationBarDuringPresentation = true
+        self.searchController.dimsBackgroundDuringPresentation = false
+        self.definesPresentationContext = true
+        self.searchController.searchBar.searchBarStyle = .minimal
+        self.searchController.searchBar.sizeToFit()
+        self.tableView.tableHeaderView = self.searchController.searchBar
+        
         loadCache()
         load()
     }
@@ -58,4 +72,14 @@ class CollegeSphereViewController: UIViewController {
         let sphereVC = CourseListViewController()
         self.navigationController?.pushViewController(sphereVC, animated: true)
     }
+}
+
+extension CollegeSphereViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+}
+
+extension CollegeSphereViewController: UISearchBarDelegate {
+    
 }
