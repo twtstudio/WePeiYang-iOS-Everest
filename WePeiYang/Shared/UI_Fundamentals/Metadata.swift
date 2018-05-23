@@ -142,6 +142,11 @@ struct Metadata {
                                    UIColor(red: 16.0/255.0, green: 137.0/255.0, blue: 62.0/255.0, alpha: 1),
                                    UIColor(red: 16.0/255.0, green: 124.0/255.0, blue: 16.0/255.0, alpha: 1),
                                    UIColor(red: 126.0/255.0, green: 115.0/255.0, blue: 95.0/255.0, alpha: 1)]
+    
+        //0xfe770b, 0xfb3d3c
+        static let foodReviewsLowColor = UIColor(hex6: 0xfe770b)
+        static let foodReviewsHighColor = UIColor(hex6: 0xfb3d3c)
+    
     }
     
     struct Font {

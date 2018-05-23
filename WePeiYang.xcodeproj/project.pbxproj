@@ -256,6 +256,31 @@
 		B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B9571EC5C21700B8198E /* FavViewController.swift */; };
 		B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */; };
 		B19DABAA1E6EF5C2004A50B5 /* WePeiYangUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */; };
+		DD10816F20AC869F00F12748 /* FoodMainPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD10816E20AC869F00F12748 /* FoodMainPageModel.swift */; };
+		DD10817120AC89A100F12748 /* FoodMainPageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD10817020AC89A100F12748 /* FoodMainPageManager.swift */; };
+		DD10817720ADA18700F12748 /* FoodCommentExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD10817620ADA18700F12748 /* FoodCommentExtensions.swift */; };
+		DD10817920ADA1AF00F12748 /* JNStarRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD10817820ADA1AF00F12748 /* JNStarRateView.swift */; };
+		DD10817B20ADA1EB00F12748 /* FoodCommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD10817A20ADA1EB00F12748 /* FoodCommentCollectionViewCell.swift */; };
+		DD10817D20ADA20D00F12748 /* FoodCommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD10817C20ADA20D00F12748 /* FoodCommentTableViewController.swift */; };
+		DD10818120AF051D00F12748 /* SharedPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD10818020AF051D00F12748 /* SharedPageViewController.swift */; };
+		DD724C5B20B31A6600F239B2 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD724C5A20B31A6600F239B2 /* SearchResultTableViewCell.swift */; };
+		DD724C5D20B3AAA600F239B2 /* StrikeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD724C5C20B3AAA600F239B2 /* StrikeTableView.swift */; };
+		DD74539720B46F4400E72844 /* FloorsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD74539620B46F4400E72844 /* FloorsListView.swift */; };
+		DD74539920B479AB00E72844 /* TwoFloorsDiningHallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD74539820B479AB00E72844 /* TwoFloorsDiningHallViewController.swift */; };
+		DD9028B520A816890015DF83 /* FoodSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9028B420A816890015DF83 /* FoodSearchViewController.swift */; };
+		DDA333F020A147DD004F16C6 /* MainPageTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA333EF20A147DD004F16C6 /* MainPageTabBarController.swift */; };
+		DDA333F220A14A10004F16C6 /* DiningHallTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA333F120A14A10004F16C6 /* DiningHallTableViewCell.swift */; };
+		DDA333F420A14A26004F16C6 /* DiningHallCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA333F320A14A26004F16C6 /* DiningHallCollectionViewCell.swift */; };
+		DDA333F620A14A43004F16C6 /* DeliciousFoodReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA333F520A14A43004F16C6 /* DeliciousFoodReviewsTableViewCell.swift */; };
+		DDA333F820A14AA6004F16C6 /* DeliciousFoodBoardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA333F720A14AA6004F16C6 /* DeliciousFoodBoardTableViewCell.swift */; };
+		DDA333FA20A14AF7004F16C6 /* FoodReviewsMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA333F920A14AF7004F16C6 /* FoodReviewsMainViewController.swift */; };
+		DDA333FC20A19405004F16C6 /* PersonalPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA333FB20A19405004F16C6 /* PersonalPageViewController.swift */; };
+		DDA333FE20A1FE2C004F16C6 /* AdvertisementBoardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA333FD20A1FE2C004F16C6 /* AdvertisementBoardTableViewCell.swift */; };
+		DDA3340020A41C22004F16C6 /* DeliciousFoodReviewsAndPicturesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA333FF20A41C22004F16C6 /* DeliciousFoodReviewsAndPicturesTableViewCell.swift */; };
+		DDA3340620A4649E004F16C6 /* OneFloorDiningHallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3340520A4649E004F16C6 /* OneFloorDiningHallViewController.swift */; };
+		DDA3340820A464B5004F16C6 /* DiningHallChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3340720A464B5004F16C6 /* DiningHallChildViewController.swift */; };
+		DDA3340A20A465AB004F16C6 /* FoodCatalogueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3340920A465AB004F16C6 /* FoodCatalogueTableViewCell.swift */; };
+		DDA3340C20A465BC004F16C6 /* FoodDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3340B20A465BC004F16C6 /* FoodDetailTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -553,6 +578,31 @@
 		B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WePeiYangUITests.swift; sourceTree = "<group>"; };
 		B19DABAB1E6EF5C2004A50B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D77E7BD11F959EB50A5A0DED /* Pods-WePeiYangWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.debug.xcconfig"; sourceTree = "<group>"; };
+		DD10816E20AC869F00F12748 /* FoodMainPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodMainPageModel.swift; sourceTree = "<group>"; };
+		DD10817020AC89A100F12748 /* FoodMainPageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodMainPageManager.swift; sourceTree = "<group>"; };
+		DD10817620ADA18700F12748 /* FoodCommentExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCommentExtensions.swift; sourceTree = "<group>"; };
+		DD10817820ADA1AF00F12748 /* JNStarRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNStarRateView.swift; sourceTree = "<group>"; };
+		DD10817A20ADA1EB00F12748 /* FoodCommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCommentCollectionViewCell.swift; sourceTree = "<group>"; };
+		DD10817C20ADA20D00F12748 /* FoodCommentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCommentTableViewController.swift; sourceTree = "<group>"; };
+		DD10818020AF051D00F12748 /* SharedPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedPageViewController.swift; sourceTree = "<group>"; };
+		DD724C5A20B31A6600F239B2 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
+		DD724C5C20B3AAA600F239B2 /* StrikeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrikeTableView.swift; sourceTree = "<group>"; };
+		DD74539620B46F4400E72844 /* FloorsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloorsListView.swift; sourceTree = "<group>"; };
+		DD74539820B479AB00E72844 /* TwoFloorsDiningHallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoFloorsDiningHallViewController.swift; sourceTree = "<group>"; };
+		DD9028B420A816890015DF83 /* FoodSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSearchViewController.swift; sourceTree = "<group>"; };
+		DDA333EF20A147DD004F16C6 /* MainPageTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageTabBarController.swift; sourceTree = "<group>"; };
+		DDA333F120A14A10004F16C6 /* DiningHallTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHallTableViewCell.swift; sourceTree = "<group>"; };
+		DDA333F320A14A26004F16C6 /* DiningHallCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHallCollectionViewCell.swift; sourceTree = "<group>"; };
+		DDA333F520A14A43004F16C6 /* DeliciousFoodReviewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliciousFoodReviewsTableViewCell.swift; sourceTree = "<group>"; };
+		DDA333F720A14AA6004F16C6 /* DeliciousFoodBoardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliciousFoodBoardTableViewCell.swift; sourceTree = "<group>"; };
+		DDA333F920A14AF7004F16C6 /* FoodReviewsMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodReviewsMainViewController.swift; sourceTree = "<group>"; };
+		DDA333FB20A19405004F16C6 /* PersonalPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPageViewController.swift; sourceTree = "<group>"; };
+		DDA333FD20A1FE2C004F16C6 /* AdvertisementBoardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementBoardTableViewCell.swift; sourceTree = "<group>"; };
+		DDA333FF20A41C22004F16C6 /* DeliciousFoodReviewsAndPicturesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliciousFoodReviewsAndPicturesTableViewCell.swift; sourceTree = "<group>"; };
+		DDA3340520A4649E004F16C6 /* OneFloorDiningHallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneFloorDiningHallViewController.swift; sourceTree = "<group>"; };
+		DDA3340720A464B5004F16C6 /* DiningHallChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHallChildViewController.swift; sourceTree = "<group>"; };
+		DDA3340920A465AB004F16C6 /* FoodCatalogueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCatalogueTableViewCell.swift; sourceTree = "<group>"; };
+		DDA3340B20A465BC004F16C6 /* FoodDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1354,10 +1404,11 @@
 			children = (
 				36366B351FAC61B6001F72A0 /* WePeiYang.entitlements */,
 				B10254091EC8520A0064373A /* main */,
-				369306911F2B972F008E90DC /* ModuleCollection */,
 				B10253DE1EC84ED90064373A /* Shared */,
+				369306911F2B972F008E90DC /* ModuleCollection */,
 				36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */,
 				36575FBE2051C78B00A1A558 /* LaunchScreen.storyboard */,
+				DDA333EA20A1423A004F16C6 /* FoodReviews */,
 				3641470820471CC500F6DFD5 /* News */,
 				A53602621FC6E23C00E3D1AF /* Binding */,
 				A5197A381FDA850A008C445A /* Library */,
@@ -1405,6 +1456,150 @@
 				6E48DF45006ADE8419C6CF0C /* Pods_WePeiYangWidget.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DD10817420ADA11E00F12748 /* FoodComment */ = {
+			isa = PBXGroup;
+			children = (
+				DD10817620ADA18700F12748 /* FoodCommentExtensions.swift */,
+				DD10817820ADA1AF00F12748 /* JNStarRateView.swift */,
+				DD10817A20ADA1EB00F12748 /* FoodCommentCollectionViewCell.swift */,
+				DD10817C20ADA20D00F12748 /* FoodCommentTableViewController.swift */,
+			);
+			path = FoodComment;
+			sourceTree = "<group>";
+		};
+		DD10817F20AF04DD00F12748 /* SharedPage */ = {
+			isa = PBXGroup;
+			children = (
+				DD10818020AF051D00F12748 /* SharedPageViewController.swift */,
+			);
+			path = SharedPage;
+			sourceTree = "<group>";
+		};
+		DD9028B020A816250015DF83 /* FoodSearch */ = {
+			isa = PBXGroup;
+			children = (
+				DD9028B320A8165D0015DF83 /* Model */,
+				DD9028B220A816570015DF83 /* View */,
+				DD9028B120A8164F0015DF83 /* Controller */,
+			);
+			path = FoodSearch;
+			sourceTree = "<group>";
+		};
+		DD9028B120A8164F0015DF83 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DD9028B420A816890015DF83 /* FoodSearchViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		DD9028B220A816570015DF83 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DD724C5A20B31A6600F239B2 /* SearchResultTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DD9028B320A8165D0015DF83 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DDA333EA20A1423A004F16C6 /* FoodReviews */ = {
+			isa = PBXGroup;
+			children = (
+				DD10817F20AF04DD00F12748 /* SharedPage */,
+				DD10817420ADA11E00F12748 /* FoodComment */,
+				DD9028B020A816250015DF83 /* FoodSearch */,
+				DDA3340120A4638A004F16C6 /* DiningHallDetail */,
+				DDA333EB20A14409004F16C6 /* MainPage */,
+			);
+			path = FoodReviews;
+			sourceTree = "<group>";
+		};
+		DDA333EB20A14409004F16C6 /* MainPage */ = {
+			isa = PBXGroup;
+			children = (
+				DDA333EE20A14430004F16C6 /* Model */,
+				DDA333ED20A14424004F16C6 /* View */,
+				DDA333EC20A1441B004F16C6 /* Controller */,
+			);
+			path = MainPage;
+			sourceTree = "<group>";
+		};
+		DDA333EC20A1441B004F16C6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DDA333EF20A147DD004F16C6 /* MainPageTabBarController.swift */,
+				DDA333F920A14AF7004F16C6 /* FoodReviewsMainViewController.swift */,
+				DDA333FB20A19405004F16C6 /* PersonalPageViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		DDA333ED20A14424004F16C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DDA333F320A14A26004F16C6 /* DiningHallCollectionViewCell.swift */,
+				DDA333F120A14A10004F16C6 /* DiningHallTableViewCell.swift */,
+				DDA333F720A14AA6004F16C6 /* DeliciousFoodBoardTableViewCell.swift */,
+				DDA333FD20A1FE2C004F16C6 /* AdvertisementBoardTableViewCell.swift */,
+				DDA333F520A14A43004F16C6 /* DeliciousFoodReviewsTableViewCell.swift */,
+				DDA333FF20A41C22004F16C6 /* DeliciousFoodReviewsAndPicturesTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DDA333EE20A14430004F16C6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DD10816E20AC869F00F12748 /* FoodMainPageModel.swift */,
+				DD10817020AC89A100F12748 /* FoodMainPageManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DDA3340120A4638A004F16C6 /* DiningHallDetail */ = {
+			isa = PBXGroup;
+			children = (
+				DDA3340420A463C6004F16C6 /* Model */,
+				DDA3340320A463C0004F16C6 /* View */,
+				DDA3340220A463B9004F16C6 /* Controller */,
+			);
+			path = DiningHallDetail;
+			sourceTree = "<group>";
+		};
+		DDA3340220A463B9004F16C6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DDA3340520A4649E004F16C6 /* OneFloorDiningHallViewController.swift */,
+				DD74539820B479AB00E72844 /* TwoFloorsDiningHallViewController.swift */,
+				DDA3340720A464B5004F16C6 /* DiningHallChildViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		DDA3340320A463C0004F16C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DDA3340920A465AB004F16C6 /* FoodCatalogueTableViewCell.swift */,
+				DDA3340B20A465BC004F16C6 /* FoodDetailTableViewCell.swift */,
+				DD74539620B46F4400E72844 /* FloorsListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DDA3340420A463C6004F16C6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DD724C5C20B3AAA600F239B2 /* StrikeTableView.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1499,43 +1694,48 @@
 				TargetAttributes = {
 					365A464C2036EFB700738963 = {
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = TYRRVX7RWJ;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = 358P3P2LMY;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Keychain = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
 					B19DAB851E6EF5C2004A50B5 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = TYRRVX7RWJ;
+						DevelopmentTeam = 358P3P2LMY;
 						LastSwiftMigration = 0810;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
+								enabled = 0;
+							};
+							com.apple.BackgroundModes = {
+								enabled = 0;
 							};
 							com.apple.Keychain = {
 								enabled = 0;
 							};
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
 					B19DAB991E6EF5C2004A50B5 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = TYRRVX7RWJ;
+						LastSwiftMigration = 0930;
 						ProvisioningStyle = Automatic;
 						TestTargetID = B19DAB851E6EF5C2004A50B5;
 					};
 					B19DABA41E6EF5C2004A50B5 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = TYRRVX7RWJ;
+						LastSwiftMigration = 0930;
 						ProvisioningStyle = Automatic;
 						TestTargetID = B19DAB851E6EF5C2004A50B5;
 					};
@@ -1765,6 +1965,8 @@
 				0C3ADF371F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift in Sources */,
 				36073D081F223FC1001317A7 /* CoverView.swift in Sources */,
 				36073D0C1F223FC1001317A7 /* ReviewCell.swift in Sources */,
+				DDA333FC20A19405004F16C6 /* PersonalPageViewController.swift in Sources */,
+				DD724C5D20B3AAA600F239B2 /* StrikeTableView.swift in Sources */,
 				36073D1E1F225D2A001317A7 /* RecommendedViewController.swift in Sources */,
 				365261561FB9F83400025B8A /* ClassTableModel.swift in Sources */,
 				36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */,
@@ -1773,6 +1975,7 @@
 				36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */,
 				36CAD44A201B8EAA006F85E3 /* ClassTableHelper.swift in Sources */,
 				36449E481FA4BA9B0036766B /* ApplicantTest.swift in Sources */,
+				DD10817D20ADA20D00F12748 /* FoodCommentTableViewController.swift in Sources */,
 				361F8863204AF94200BCFA19 /* NewsTableViewCell.swift in Sources */,
 				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,
 				361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */,
@@ -1791,17 +1994,20 @@
 				364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */,
 				36449E491FA4BA9B0036766B /* Applicant.swift in Sources */,
 				36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */,
+				DD10816F20AC869F00F12748 /* FoodMainPageModel.swift in Sources */,
 				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
 				A5E117B91F99DCAE00C86CA2 /* Card.swift in Sources */,
 				A53602671FC6E36100E3D1AF /* LibraryBindingViewController.swift in Sources */,
 				A586543720514E860069CF53 /* WLANHelper.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
+				DDA333FA20A14AF7004F16C6 /* FoodReviewsMainViewController.swift in Sources */,
 				36A74EB2205BAD0300DD1EC3 /* AlertOnboarding.swift in Sources */,
 				36449E6C1FA4BABA0036766B /* FunctionListTableViewCell.swift in Sources */,
 				36449E701FA4BABA0036766B /* CourseDetailReadingView.swift in Sources */,
 				36A9C320204C56CD0018B6B3 /* ProgressWebViewController.swift in Sources */,
 				36449E831FA4BAD00036766B /* TwentyCourseViewController.swift in Sources */,
 				36449E8D1FA4BAD10036766B /* PartyCoursesViewController.m in Sources */,
+				DDA333FE20A1FE2C004F16C6 /* AdvertisementBoardTableViewCell.swift in Sources */,
 				3631D50A1F1903D70078816D /* TwTUser.swift in Sources */,
 				A5E117C51F99E05200C86CA2 /* BicycleServiceInfoController.swift in Sources */,
 				A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */,
@@ -1818,6 +2024,7 @@
 				0C3ADF3B1F697EE100388C19 /* MyFoundViewController.swift in Sources */,
 				A51C456A1FD0477700652435 /* BicycleBindingViewController.swift in Sources */,
 				365936711F1E38B8003CE578 /* YellowPageSearchHistoryCell.swift in Sources */,
+				DDA333F220A14A10004F16C6 /* DiningHallTableViewCell.swift in Sources */,
 				B10254051EC84EE00064373A /* PhoneBook.swift in Sources */,
 				36758FDD1FDA851C0023A99C /* CardView.swift in Sources */,
 				A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */,
@@ -1825,7 +2032,9 @@
 				361F8857204AF92100BCFA19 /* NewsReporter.swift in Sources */,
 				36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */,
 				0C3ADF361F697EE100388C19 /* FoundViewController.swift in Sources */,
+				DDA3340620A4649E004F16C6 /* OneFloorDiningHallViewController.swift in Sources */,
 				361F885E204AF92D00BCFA19 /* BannerCell.swift in Sources */,
+				DD10817B20ADA1EB00F12748 /* FoodCommentCollectionViewCell.swift in Sources */,
 				36DA7A5E1FA8A35C000DAF2B /* WPYBaseViewController.swift in Sources */,
 				0C3ADF4A1F697EE100388C19 /* SectionCell.swift in Sources */,
 				0C3ADF3E1F697EE100388C19 /* PublishSuccessViewController.swift in Sources */,
@@ -1835,8 +2044,10 @@
 				36E56BC61FC512230009BD6F /* CourseListView.swift in Sources */,
 				0C3ADF491F697EE100388C19 /* PublishCustomCell.swift in Sources */,
 				3613DA222056F740000867AE /* UniversalExtension.swift in Sources */,
+				DD10817720ADA18700F12748 /* FoodCommentExtensions.swift in Sources */,
 				364BDF721FDAE1EF00E61B65 /* GPACard.swift in Sources */,
 				0C3ADF431F697EE100388C19 /* LostFoundModel.swift in Sources */,
+				DDA3340020A41C22004F16C6 /* DeliciousFoodReviewsAndPicturesTableViewCell.swift in Sources */,
 				0C3ADF351F697EE100388C19 /* DetailViewController.swift in Sources */,
 				36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */,
 				0C3ADF471F697EE100388C19 /* MarkCustomCell.swift in Sources */,
@@ -1852,6 +2063,7 @@
 				0C3ADF3F1F697EE100388C19 /* SearchedResultViewController.swift in Sources */,
 				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
 				36449E8A1FA4BAD10036766B /* PartyPersonalStatusViewController.swift in Sources */,
+				DDA333F620A14A43004F16C6 /* DeliciousFoodReviewsTableViewCell.swift in Sources */,
 				36449E621FA4BABA0036766B /* SignUpTableViewCell.swift in Sources */,
 				369D92092015D97A004BA1D0 /* WeekItemCell.swift in Sources */,
 				36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */,
@@ -1865,11 +2077,14 @@
 				361F8855204AF92100BCFA19 /* GalleryModel.swift in Sources */,
 				36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */,
 				B102541C1EC8547E0064373A /* Metadata.swift in Sources */,
+				DD10817120AC89A100F12748 /* FoodMainPageManager.swift in Sources */,
 				B10253D91EC84ED20064373A /* ReadAPI.swift in Sources */,
 				36D526E220415A3C0074EB2B /* MallViewController.swift in Sources */,
 				36449E651FA4BABA0036766B /* QuizCell.swift in Sources */,
+				DD74539720B46F4400E72844 /* FloorsListView.swift in Sources */,
 				36449E461FA4BA9B0036766B /* Courses.swift in Sources */,
 				3659368F1F1E60A9003CE578 /* CourseAppraiseManager.swift in Sources */,
+				DDA333F420A14A26004F16C6 /* DiningHallCollectionViewCell.swift in Sources */,
 				36366B2E1FAB86B0001F72A0 /* BicycleServiceViewController.swift in Sources */,
 				36449E611FA4BABA0036766B /* TextTableViewCell.swift in Sources */,
 				3659368E1F1E60A9003CE578 /* GPAViewController.swift in Sources */,
@@ -1892,6 +2107,7 @@
 				36F285092049B7D50095A3D4 /* ModulesSettingsViewController.swift in Sources */,
 				3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */,
 				A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */,
+				DD10818120AF051D00F12748 /* SharedPageViewController.swift in Sources */,
 				A51C45681FD0227800652435 /* WLANBindingViewController.swift in Sources */,
 				36B8F2EA205110A60080083C /* NotificationSettingViewController.swift in Sources */,
 				B102541D1EC8547E0064373A /* SpringButton.swift in Sources */,
@@ -1912,6 +2128,7 @@
 				A5E117AF1F99DB8E00C86CA2 /* BicycleUser.swift in Sources */,
 				369140AF2020CBA30022BA3F /* NotificationName.swift in Sources */,
 				36D526E52041C4150074EB2B /* DebugLog.swift in Sources */,
+				DDA333F020A147DD004F16C6 /* MainPageTabBarController.swift in Sources */,
 				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
 				36073D091F223FC1001317A7 /* RateView.swift in Sources */,
 				B10253D61EC84ED20064373A /* Book.swift in Sources */,
@@ -1930,18 +2147,25 @@
 				36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */,
 				36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */,
 				A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */,
+				DDA3340C20A465BC004F16C6 /* FoodDetailTableViewCell.swift in Sources */,
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
 				36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */,
+				DD724C5B20B31A6600F239B2 /* SearchResultTableViewCell.swift in Sources */,
 				36449E8F1FA4BAD10036766B /* HandInDetailViewController.swift in Sources */,
+				DDA333F820A14AA6004F16C6 /* DeliciousFoodBoardTableViewCell.swift in Sources */,
 				A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */,
 				361F8862204AF94200BCFA19 /* NewsHeaderView.swift in Sources */,
+				DD9028B520A816890015DF83 /* FoodSearchViewController.swift in Sources */,
 				369D92072015D914004BA1D0 /* WeekSelectView.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
 				3659367C1F1E5FAE003CE578 /* YellowPageMainViewController.swift in Sources */,
 				369B2D4A20151542009352A8 /* DateTool.swift in Sources */,
 				B10253D71EC84ED20064373A /* Librarian.swift in Sources */,
 				0C2C8D921F7BC48400D3A5E2 /* LFPickerCell.swift in Sources */,
+				DDA3340A20A465AB004F16C6 /* FoodCatalogueTableViewCell.swift in Sources */,
+				DD74539920B479AB00E72844 /* TwoFloorsDiningHallViewController.swift in Sources */,
 				B10254211EC8547E0064373A /* WPYLabel.swift in Sources */,
+				DD10817920ADA1AF00F12748 /* JNStarRateView.swift in Sources */,
 				A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */,
 				B10253FD1EC84ED90064373A /* log.swift in Sources */,
 				361F8853204AF92100BCFA19 /* HomePageHelper.swift in Sources */,
@@ -1954,6 +2178,7 @@
 				B10253F01EC84ED90064373A /* AccountManager.swift in Sources */,
 				0C3ADF441F697EE100388C19 /* MyLostFoundModel.swift in Sources */,
 				36073D1C1F225D2A001317A7 /* InfoViewController.swift in Sources */,
+				DDA3340820A464B5004F16C6 /* DiningHallChildViewController.swift in Sources */,
 				A53602691FC6EC0500E3D1AF /* TJUBindingViewController.swift in Sources */,
 				0C3ADF3C1F697EE100388C19 /* MyLostFoundPageViewController.swift in Sources */,
 				B10254041EC84EE00064373A /* ClientItem.swift in Sources */,
@@ -2012,19 +2237,18 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = WePeiYangWidget/WePeiYangWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 358P3P2LMY;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang.WePeiYangWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang.zhao.WePeiYangWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4b9a5f71-bab8-4c99-8068-a6445db3b2c4";
-				PROVISIONING_PROFILE_SPECIFIER = cn.edu.twt.WeiPeiYang.WePeiYangWidget.dev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYangWidget/WidgetBridgingHeader.h";
 				SWIFT_VERSION = 4.0;
@@ -2045,19 +2269,18 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = WePeiYangWidget/WePeiYangWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 358P3P2LMY;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang.WePeiYangWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang.zhao.WePeiYangWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e107f6ec-4399-4946-a71e-48836288606a";
-				PROVISIONING_PROFILE_SPECIFIER = "wpy widget provision";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYangWidget/WidgetBridgingHeader.h";
 				SWIFT_VERSION = 4.0;
@@ -2096,6 +2319,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 358P3P2LMY;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2153,6 +2377,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jiayi Li (TYRRVX7RWJ)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 358P3P2LMY;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2182,15 +2407,15 @@
 				CODE_SIGN_ENTITLEMENTS = WePeiYang/WePeiYang.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang.zhao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1484b82f-0775-4a16-9cc6-2d2196b9b77e";
-				PROVISIONING_PROFILE_SPECIFIER = cn.edu.twt.WeiPeiYang.dev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYang/WePeiYang-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -2206,17 +2431,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = WePeiYang/WePeiYang.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/WePeiYang/main/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang.zhao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d71ea4b6-a066-4c55-ac6a-b789bfad3b8b";
-				PROVISIONING_PROFILE_SPECIFIER = "wpy provision";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/WePeiYang/WePeiYang-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

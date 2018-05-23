@@ -121,7 +121,7 @@ extension UIImage {
         image.draw(in: CGRect(x: 0.0, y: 0, width: newSize.width, height: newSize.height))
         let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-        return newImage
+        return newImage.withRenderingMode(.alwaysOriginal)
     }
     
     
