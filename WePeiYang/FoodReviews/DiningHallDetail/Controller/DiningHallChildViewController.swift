@@ -61,7 +61,7 @@ class DiningHallChildViewController: UIViewController {
         foodCatalogueTableView.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.top.bottom.equalToSuperview()
-            make.width.equalTo(80)
+            make.width.equalTo(90)
         }
         
         foodDetailTableView.snp.makeConstraints { make in

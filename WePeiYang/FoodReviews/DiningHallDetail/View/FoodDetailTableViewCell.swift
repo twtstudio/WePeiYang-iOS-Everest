@@ -97,7 +97,7 @@ class FoodDetailTableViewCell: UITableViewCell {
         likeButton.snp.makeConstraints { make in
             make.left.equalTo(imgView.snp.right).offset(10)
             make.bottom.equalTo(imgView.snp.bottom)
-            make.width.height.equalTo(15)
+            make.width.height.equalTo(18)
         }
         likeCountLabel.snp.makeConstraints { make in
             make.left.equalTo(likeButton.snp.right).offset(5)
@@ -108,7 +108,7 @@ class FoodDetailTableViewCell: UITableViewCell {
         commentButton.snp.makeConstraints { make in
             make.left.equalTo(likeCountLabel.snp.right).offset(10)
             make.bottom.equalTo(imgView.snp.bottom)
-            make.width.height.equalTo(15)
+            make.width.height.equalTo(18)
         }
         commentCountLabel.snp.makeConstraints { make in
             make.left.equalTo(commentButton.snp.right).offset(5)
@@ -117,9 +117,9 @@ class FoodDetailTableViewCell: UITableViewCell {
             make.width.equalTo(30)
         }
         collectButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(10)
+            make.right.equalToSuperview().inset(15)
             make.bottom.equalTo(imgView.snp.bottom)
-            make.width.height.equalTo(15)
+            make.width.height.equalTo(18)
         }
         
        
