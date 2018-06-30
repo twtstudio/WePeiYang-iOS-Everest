@@ -23,6 +23,7 @@ class DetailSettingViewController: UIViewController {
         case join = "加入我们"
         case EULA = "用户协议"
         case feedback = "建议与反馈"
+        case qqGroup = "加入反馈QQ群"
 
         case share = "推荐给朋友"
         case rate = "给微北洋评分"
@@ -34,7 +35,7 @@ class DetailSettingViewController: UIViewController {
     var titles: [(String, [SettingTitle])] = [
         //        ("设置", [.notification, .modules, .accounts]),
         ("设置", [.shakeWiFi, .modules]),
-        ("关于", [.join, .EULA, .feedback]),
+        ("关于", [.join, .EULA, .feedback, .qqGroup]),
         ("其他", [.share, .rate, .quit])]
 
 
@@ -181,6 +182,11 @@ extension DetailSettingViewController: UITableViewDelegate {
         case (1, .feedback):
             let webVC = SupportWebViewController(url: URL(string: "https://support.twtstudio.com/category/6/%E7%A7%BB%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF")!)
             self.navigationController?.pushViewController(webVC, animated: true)
+        case (1, .qqGroup):
+            let urlString = "mqqapi://card/show_pslcard?src_type=internal&version=1&uin=738068756&card_type=group&source=qrcode&jump_from=&auth="
+            if !UIApplication.shared.openURL(URL(string: urlString)!) {
+                SwiftMessages.showWarningMessage(body: "没有找到QQ")
+            }
         case (2, .share):
             let shareVC = UIActivityViewController(activityItems: [UIImage(named: "AppIcon40x40")!, "我发现「微北洋」超好用！一起来吧！", URL(string: "https://mobile.twt.edu.cn/wpy/index.html")!], applicationActivities: [])
             // TODO: iPad

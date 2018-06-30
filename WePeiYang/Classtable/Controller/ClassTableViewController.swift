@@ -330,6 +330,17 @@ extension ClassTableViewController {
         
         for day in 0..<7 {
             var array = coursesForDay[day]
+
+            for (idx1, item1) in array.enumerated() {
+                 for (idx2, item2) in array.enumerated() {
+                    if idx1 != idx2 {
+                        if item1.arrange.first!.intersect(with: item2.arrange.first!) {
+                            array[idx1].peers.append(array[idx2])
+                            array.remove(at: idx2)
+                        }
+                    }
+                }
+            }
             // 按课程开始时间排序
             array.sort(by: { a, b in
                 return a.arrange[0].start < b.arrange[0].start
@@ -428,6 +439,10 @@ extension ClassTableViewController: CourseListViewDelegate {
         if course.courseName == "" {
             // TODO: 手动添加课程
             return
+        }
+
+        if course.peers.count > 0 {
+            print(course.courseName + course.peers.reduce("", { ", " + $0 + $1.courseName }))
         }
 
         // 相似课程

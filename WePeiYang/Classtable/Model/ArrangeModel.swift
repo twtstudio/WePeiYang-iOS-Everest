@@ -66,4 +66,8 @@ struct ArrangeModel: Mappable {
 //        end <- map["end"]
         room <- map["room"]
     }
+
+    func intersect(with another: ArrangeModel) -> Bool {
+        return start <= another.start && end >= another.end
+    }
 }
