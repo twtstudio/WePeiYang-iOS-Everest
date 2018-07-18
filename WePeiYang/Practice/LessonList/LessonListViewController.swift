@@ -14,7 +14,7 @@ class LessonListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var lessonsName = ["党史党章1", "党史党章1", "党史党章1"]
     
-    let tableView = UITableView(frame: CGRect(x: 0, y: 64, width: sWid, height: sHeight - 64), style: .grouped)
+    let tableView = UITableView(frame: CGRect(x: 0, y: 64, width: deviceWidth, height: deviceHeight - 64), style: .grouped)
     
     override func viewDidLoad() {
         super.viewDidLoad()

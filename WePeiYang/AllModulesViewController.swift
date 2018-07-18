@@ -19,8 +19,9 @@ class AllModulesViewController: UIViewController {
         (title: "商城", image: UIImage(named: "mallBtn")!, class: MallViewController.self, needLogin: false),
 //        (title: "阅读", image: UIImage(named: "readBtn")!, class: ReadViewController.self, needLogin: true),
         (title: "黄页", image: UIImage(named: "yellowPageBtn")!, class: YellowPageMainViewController.self, needLogin: false),
-        (title: "上网", image: UIImage(named: "networkBtn")!, class: WLANLoginViewController.self, needLogin: true)]
-
+        (title: "上网", image: UIImage(named: "networkBtn")!, class: WLANLoginViewController.self, needLogin: true),
+        (title: "刷题", image: UIImage(named: "studysearchBtn")!, class: PracticeHomeViewController.self, needLogin: false)]
+    
     var collectionView: UICollectionView!
 
     override func viewDidLoad() {
