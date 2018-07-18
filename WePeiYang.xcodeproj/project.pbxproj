@@ -202,6 +202,10 @@
 		36FCC2D920545967003379AE /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FCC2D820545967003379AE /* LoginView.swift */; };
 		36FCC2DD20555F8F003379AE /* AnimateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FCC2DC20555F8F003379AE /* AnimateButton.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
+		780CCE1020FEE3B600FFBE7A /* HeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780CCE0B20FEE3B600FFBE7A /* HeadView.swift */; };
+		780CCE1120FEE3B600FFBE7A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780CCE0C20FEE3B600FFBE7A /* HomeView.swift */; };
+		780CCE1220FEE3B600FFBE7A /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780CCE0D20FEE3B600FFBE7A /* UserView.swift */; };
+		780CCE1320FEE3B600FFBE7A /* PracticeHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780CCE0F20FEE3B600FFBE7A /* PracticeHomeViewController.swift */; };
 		A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51C456B1FD122F700652435 /* Assets.xcassets */; };
 		A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */; };
@@ -481,6 +485,10 @@
 		3E2AFF1235C9C87488CB407A /* Pods-WePeiYangWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.release.xcconfig"; sourceTree = "<group>"; };
 		6E48DF45006ADE8419C6CF0C /* Pods_WePeiYangWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F6749BFC82CF9191336C6C5 /* Pods_WePeiYangTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		780CCE0B20FEE3B600FFBE7A /* HeadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadView.swift; sourceTree = "<group>"; };
+		780CCE0C20FEE3B600FFBE7A /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		780CCE0D20FEE3B600FFBE7A /* UserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
+		780CCE0F20FEE3B600FFBE7A /* PracticeHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeHomeViewController.swift; sourceTree = "<group>"; };
 		8405C859FC95C5E72E0F9BD7 /* Pods-WePeiYang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.release.xcconfig"; sourceTree = "<group>"; };
 		9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.debug.xcconfig"; sourceTree = "<group>"; };
@@ -989,6 +997,41 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		780CCE0920FEE3B600FFBE7A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		780CCE0A20FEE3B600FFBE7A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				780CCE0B20FEE3B600FFBE7A /* HeadView.swift */,
+				780CCE0C20FEE3B600FFBE7A /* HomeView.swift */,
+				780CCE0D20FEE3B600FFBE7A /* UserView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		780CCE0E20FEE3B600FFBE7A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				780CCE0F20FEE3B600FFBE7A /* PracticeHomeViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		780CCE1420FEE41E00FFBE7A /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				780CCE0E20FEE3B600FFBE7A /* Controller */,
+				780CCE0920FEE3B600FFBE7A /* Model */,
+				780CCE0A20FEE3B600FFBE7A /* View */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
 		80B33C5178ED19C33022F16B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1410,6 +1453,7 @@
 		B585F34F20FE36E400950C00 /* Practice */ = {
 			isa = PBXGroup;
 			children = (
+				780CCE1420FEE41E00FFBE7A /* HomePage */,
 				B585F35020FE36E400950C00 /* Model.swift */,
 				B585F35120FE36E400950C00 /* Memorize */,
 				B585F35320FE36E400950C00 /* QuestionsScrollView.swift */,
@@ -1867,6 +1911,7 @@
 				A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */,
 				A5E117C11F99E01A00C86CA2 /* BicycleCardListViewController.swift in Sources */,
 				361F8857204AF92100BCFA19 /* NewsReporter.swift in Sources */,
+				780CCE1320FEE3B600FFBE7A /* PracticeHomeViewController.swift in Sources */,
 				36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */,
 				B585F35820FE36E400950C00 /* Model.swift in Sources */,
 				0C3ADF361F697EE100388C19 /* FoundViewController.swift in Sources */,
@@ -1943,6 +1988,7 @@
 				36B8F2EA205110A60080083C /* NotificationSettingViewController.swift in Sources */,
 				B102541D1EC8547E0064373A /* SpringButton.swift in Sources */,
 				36449E861FA4BAD10036766B /* TheoryClassicsTableViewController.swift in Sources */,
+				780CCE1020FEE3B600FFBE7A /* HeadView.swift in Sources */,
 				365936951F1E60A9003CE578 /* ScoreHeaderView.swift in Sources */,
 				36449E451FA4BA9B0036766B /* PartyAPI.swift in Sources */,
 				3659367D1F1E5FAE003CE578 /* YellowPageSearchViewController.swift in Sources */,
@@ -1981,7 +2027,9 @@
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
 				36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */,
 				36449E8F1FA4BAD10036766B /* HandInDetailViewController.swift in Sources */,
+				780CCE1220FEE3B600FFBE7A /* UserView.swift in Sources */,
 				A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */,
+				780CCE1120FEE3B600FFBE7A /* HomeView.swift in Sources */,
 				361F8862204AF94200BCFA19 /* NewsHeaderView.swift in Sources */,
 				369D92072015D914004BA1D0 /* WeekSelectView.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,

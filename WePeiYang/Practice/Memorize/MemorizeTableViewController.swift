@@ -11,12 +11,12 @@ import UIKit
 import SnapKit
 
 class MemorizeViewController: UIViewController {
-    let qScrollViewH: CGFloat = CGFloat(0.8 * sHeight)
-    let qScrollViewW: CGFloat = CGFloat(sWid)
-    let qH = CGFloat(0.5 * sHeight)
-    let saperatorW = 0.9 * sWid
-    let buttonsViewW = 0.35 * sWid
-    let buttonsViewH = 0.03 * sHeight
+    let qScrollViewH: CGFloat = CGFloat(0.8 * deviceHeight)
+    let qScrollViewW: CGFloat = CGFloat(deviceWidth)
+    let qH = CGFloat(0.5 * deviceHeight)
+    let saperatorW = 0.9 * deviceWidth
+    let buttonsViewW = 0.35 * deviceWidth
+    let buttonsViewH = 0.03 * deviceHeight
 
     
     var questions: [UIView] = []
@@ -74,8 +74,8 @@ class MemorizeViewController: UIViewController {
             return btn
         }()
         
-        let offsetY = 0.2 * sHeight
-        let offsetX = 0.25 * sWid
+        let offsetY = 0.2 * deviceHeight
+        let offsetX = 0.25 * deviceWidth
         view.addSubview(buttonsView)
         buttonsView.snp.makeConstraints { (make) in
             make.width.equalTo(buttonsViewW)
