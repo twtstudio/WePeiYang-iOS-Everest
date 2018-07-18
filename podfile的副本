@@ -1,0 +1,33 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+use_frameworks!
+
+def shared_pods
+  pod 'ObjectMapper', '~> 3.1'
+  pod 'Alamofire'
+end
+
+#'3.2.0'
+
+target 'WePeiYang' do
+  # Pods for WePeiYang
+  shared_pods
+  
+  pod 'JBChartView'
+  pod 'SnapKit', '~> 4.0.0'
+  pod 'SDWebImage'
+  pod 'Charts', '3.0.5'
+  pod 'MJRefresh', '~> 3.1.12'
+  pod 'JBChartView'
+  pod 'WMPageController', '2.3.0'
+  pod 'pop'
+  pod 'IGIdenticon'
+  pod 'SwiftMessages'
+ pod 'PopupDialog', '~> 0.7'
+end
+
+  
+target 'WePeiYangWidget' do
+  shared_pods
+end
+

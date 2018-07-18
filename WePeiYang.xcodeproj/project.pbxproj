@@ -201,6 +201,12 @@
 		DD0B762B2158CBA6009A392C /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B76202158CBA5009A392C /* StarView.swift */; };
 		DD0B762C2158CBA6009A392C /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B76212158CBA5009A392C /* ScoreHeaderView.swift */; };
 		DD0B762D2158CBA6009A392C /* CourseAppraiseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B76222158CBA5009A392C /* CourseAppraiseCell.swift */; };
+		B585F35820FE36E400950C00 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35020FE36E400950C00 /* Model.swift */; };
+		B585F35920FE36E400950C00 /* MemorizeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35220FE36E400950C00 /* MemorizeTableViewController.swift */; };
+		B585F35A20FE36E400950C00 /* QuestionsScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35320FE36E400950C00 /* QuestionsScrollView.swift */; };
+		B585F35B20FE36E400950C00 /* PracticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35420FE36E400950C00 /* PracticeModel.swift */; };
+		B585F35C20FE36E400950C00 /* LessonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35620FE36E400950C00 /* LessonListViewController.swift */; };
+		B585F35D20FE36E400950C00 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35720FE36E400950C00 /* File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -421,6 +427,12 @@
 		B19DABA51E6EF5C2004A50B5 /* WePeiYangUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WePeiYangUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WePeiYangUITests.swift; sourceTree = "<group>"; };
 		B19DABAB1E6EF5C2004A50B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B585F35020FE36E400950C00 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		B585F35220FE36E400950C00 /* MemorizeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemorizeTableViewController.swift; sourceTree = "<group>"; };
+		B585F35320FE36E400950C00 /* QuestionsScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsScrollView.swift; sourceTree = "<group>"; };
+		B585F35420FE36E400950C00 /* PracticeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeModel.swift; sourceTree = "<group>"; };
+		B585F35620FE36E400950C00 /* LessonListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonListViewController.swift; sourceTree = "<group>"; };
+		B585F35720FE36E400950C00 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		D77E7BD11F959EB50A5A0DED /* Pods-WePeiYangWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.debug.xcconfig"; sourceTree = "<group>"; };
 		DD0B75DD2158C6ED009A392C /* YellowPageSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageSearchViewController.swift; sourceTree = "<group>"; };
 		DD0B75DE2158C6ED009A392C /* YellowPageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageDetailViewController.swift; sourceTree = "<group>"; };
@@ -1036,6 +1048,7 @@
 				DD0B76142158CBA5009A392C /* GPA */,
 				DD0B75CC2158C6ED009A392C /* YellowPage */,
 				36366B351FAC61B6001F72A0 /* WePeiYang.entitlements */,
+				B585F34F20FE36E400950C00 /* Practice */,
 				B10254091EC8520A0064373A /* main */,
 				369306911F2B972F008E90DC /* ModuleCollection */,
 				B10253DE1EC84ED90064373A /* Shared */,
@@ -1070,6 +1083,35 @@
 				B19DABAB1E6EF5C2004A50B5 /* Info.plist */,
 			);
 			path = WePeiYangUITests;
+			sourceTree = "<group>";
+		};
+		B585F34F20FE36E400950C00 /* Practice */ = {
+			isa = PBXGroup;
+			children = (
+				B585F35020FE36E400950C00 /* Model.swift */,
+				B585F35120FE36E400950C00 /* Memorize */,
+				B585F35320FE36E400950C00 /* QuestionsScrollView.swift */,
+				B585F35420FE36E400950C00 /* PracticeModel.swift */,
+				B585F35520FE36E400950C00 /* LessonList */,
+				B585F35720FE36E400950C00 /* File.swift */,
+			);
+			path = Practice;
+			sourceTree = "<group>";
+		};
+		B585F35120FE36E400950C00 /* Memorize */ = {
+			isa = PBXGroup;
+			children = (
+				B585F35220FE36E400950C00 /* MemorizeTableViewController.swift */,
+			);
+			path = Memorize;
+			sourceTree = "<group>";
+		};
+		B585F35520FE36E400950C00 /* LessonList */ = {
+			isa = PBXGroup;
+			children = (
+				B585F35620FE36E400950C00 /* LessonListViewController.swift */,
+			);
+			path = LessonList;
 			sourceTree = "<group>";
 		};
 		D33D5F603943FDFD415D167A /* Frameworks */ = {
@@ -1532,6 +1574,7 @@
 				36449E891FA4BAD10036766B /* PartyScoreViewController.m in Sources */,
 				36FCC2D920545967003379AE /* LoginView.swift in Sources */,
 				36449E661FA4BABA0036766B /* PersonalStatusLabel.swift in Sources */,
+				B585F35B20FE36E400950C00 /* PracticeModel.swift in Sources */,
 				36449E5E1FA4BABA0036766B /* WXWaveView.m in Sources */,
 				DD0B75F42158C6ED009A392C /* YellowPageDetailViewController.swift in Sources */,
 				360339E920247B9D0006A083 /* LibraryCard.swift in Sources */,
@@ -1550,6 +1593,9 @@
 				361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */,
 				368C3C8A204DAB4F00C1E6B6 /* WPYCustomError.swift in Sources */,
 				A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */,
+				36073D1A1F225D2A001317A7 /* BookDetailViewController.swift in Sources */,
+				B585F35C20FE36E400950C00 /* LessonListViewController.swift in Sources */,
+				B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */,
 				36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */,
 				36449E641FA4BABA0036766B /* QuizView.swift in Sources */,
 				DD0B75F72158C6ED009A392C /* PhoneBook.swift in Sources */,
@@ -1592,6 +1638,8 @@
 				36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */,
 				DD0B76252158CBA6009A392C /* GPATermModel.swift in Sources */,
 				DD0B75FB2158C6ED009A392C /* YellowPageCell.swift in Sources */,
+				B585F35820FE36E400950C00 /* Model.swift in Sources */,
+				0C3ADF361F697EE100388C19 /* FoundViewController.swift in Sources */,
 				361F885E204AF92D00BCFA19 /* BannerCell.swift in Sources */,
 				36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */,
 				36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */,
@@ -1602,6 +1650,8 @@
 				361F885D204AF92D00BCFA19 /* BannerScrollView.swift in Sources */,
 				DD0B76282158CBA6009A392C /* GPASessionManager.swift in Sources */,
 				3685D9F1204D276100BA6C3D /* NewsDetailModel.swift in Sources */,
+				0C3ADF421F697EE100388C19 /* LostFoundAPI.swift in Sources */,
+				B585F35A20FE36E400950C00 /* QuestionsScrollView.swift in Sources */,
 				A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */,
 				A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */,
 				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
@@ -1611,6 +1661,7 @@
 				369D92092015D97A004BA1D0 /* WeekItemCell.swift in Sources */,
 				36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */,
 				DD0B762A2158CBA6009A392C /* GPAStatModel.swift in Sources */,
+				B585F35D20FE36E400950C00 /* File.swift in Sources */,
 				36449E841FA4BAD10036766B /* TwentyCourseScoreViewController.swift in Sources */,
 				36449E6D1FA4BABA0036766B /* FinalView.swift in Sources */,
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
@@ -1658,6 +1709,7 @@
 				364922A120260CDC00DFDC35 /* LibraryModel.swift in Sources */,
 				363D0A701FE006990095DA57 /* LibraryCardDataProvider.swift in Sources */,
 				A5E117B71F99DC9400C86CA2 /* NotificationList.swift in Sources */,
+				B585F35920FE36E400950C00 /* MemorizeTableViewController.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
 				36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */,
 				A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */,
