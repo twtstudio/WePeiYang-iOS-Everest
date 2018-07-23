@@ -9,7 +9,9 @@
 import Foundation
 
 struct Question {
-    let title: String?
-    let optionA: String?
-    
+    let id: Int?
+    let course_id: Int?
+    let type: Int?
+    let content: String?
+    let option: [Dictionary<String, String>]?
 }

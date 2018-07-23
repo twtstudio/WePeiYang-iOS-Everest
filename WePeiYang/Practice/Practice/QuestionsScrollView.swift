@@ -17,9 +17,9 @@ class QuestionsScrollView: UIScrollView {
     ///   - questions: An Array
     ///   - wid: the Width of this UI
     ///   - h: the Height of this UI
-    func creatScrollView(questionsView: [UIView], answersView:[UIView], wid: CGFloat, h: CGFloat) {
+    func creatScrollView(questionsView: [UIView], answersView:[UIView], wid: CGFloat, h: CGFloat, qvH: CGFloat, avH: CGFloat) {
         for i in 0..<questionsView.count {
-            let qScrollViewH: CGFloat = 0.6 * h
+//            let qScrollViewH: CGFloat = 0.6 * h
             
             let view = UIView(frame: CGRect(x: CGFloat(i) * wid, y: 0, width: wid, height: h))
             view.backgroundColor = .white
@@ -28,7 +28,7 @@ class QuestionsScrollView: UIScrollView {
             view.addSubview(questionsView[i])
             questionsView[i].snp.makeConstraints { (make) in
                 make.width.equalTo(wid)
-                make.height.equalTo(qScrollViewH)
+                make.height.equalTo(qvH)
                 make.left.equalTo(view)
                 make.top.equalTo(view)
             }
@@ -36,7 +36,7 @@ class QuestionsScrollView: UIScrollView {
             view.addSubview(answersView[i])
             answersView[i].snp.makeConstraints { (make) in
                 make.width.equalTo(wid)
-                make.height.equalTo(0.5 * qScrollViewH)
+                make.height.equalTo(avH)
                 make.bottom.equalTo(view)
                 make.left.equalTo(view)
             }
@@ -49,9 +49,3 @@ class QuestionsScrollView: UIScrollView {
     }
 }
 
-class QuestionTableView: UITableView {
-    func setupQuestion(question: Question) {
-        
-    }
-    
-}
