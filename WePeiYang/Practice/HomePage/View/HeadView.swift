@@ -10,56 +10,20 @@ import UIKit
 
 class HeadView: UIView {
     
-    /* 蓝色渐变背景 */
+    /* 蓝色背景 */
     let headBackgroundView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: deviceWidth, height: deviceHeight/4))
+        let headBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: deviceWidth, height: 64))
+        headBackgroundView.backgroundColor = .practiceBlue
         
-        /* 设置渐变 */
-        let topColor = UIColor.init(hex6: 0x43AAFA, alpha: 1.0) // 深蓝
-        let buttomColor = UIColor.init(hex6: 0x44C3EB, alpha: 1.0) // 天蓝
-        let grandientColors = [topColor.cgColor, buttomColor.cgColor]
+        // 设置圆角 //
+        headBackgroundView.setCorners([.bottomLeft, .bottomRight], radius: 20)
         
-        let grandientLocations: [NSNumber] = [0.0, 1.0]
-        let grandientLayer = CAGradientLayer()
-        grandientLayer.colors = grandientColors
-        grandientLayer.locations = grandientLocations
-        
-        grandientLayer.frame = view.frame
-        view.layer.insertSublayer(grandientLayer, at: 0)
-        
-        /* 设置圆角 */
-        view.corner(byRoundingCorners: [UIRectCorner.bottomLeft, UIRectCorner.bottomRight], radii: deviceWidth/8)
-        
-        return view
+        return headBackgroundView
     }()
-    
-    /* 标题 */
-    let headLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: deviceWidth/6, y: deviceHeight/18, width: deviceWidth/4, height: deviceHeight/24))
-        
-        label.text = "天外天刷题"
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.textAlignment = NSTextAlignment.center
-        label.textColor = UIColor.white
-        
-        return label
-    }()
-    
-    /* 顶部按钮 (返回, 搜索) */
-    static func addTopButton(withImage image: UIImage, andX x: CGFloat) -> UIButton {
-        let topButton = UIButton(frame: CGRect(x: x, y: deviceHeight/18, width: deviceHeight/24, height: deviceHeight/24))
-        
-        topButton.setImage(image, for: .normal)
-        
-        return topButton
-    }
-    
-    let topBackButton = addTopButton(withImage: #imageLiteral(resourceName: "practiceBack"), andX: deviceHeight/48)
-    let topSearchButton = addTopButton(withImage: #imageLiteral(resourceName: "practiceSearch"), andX: deviceWidth-deviceHeight*(1/24 + 1/48))
     
     /* 切换按钮 (题库, 我的) */
     static func addOptionButton(withText text: String, andX x: CGFloat) -> UIButton {
-        let optionButton = UIButton(frame: CGRect(x: x, y: deviceHeight/9, width: deviceWidth/10, height: deviceHeight/24))
+        let optionButton = UIButton(frame: CGRect(x: x, y: 10, width: deviceWidth/2, height: 44))
         
         optionButton.setTitle(text, for: .normal)
         optionButton.setTitleColor(UIColor.white, for: .normal)
@@ -67,28 +31,25 @@ class HeadView: UIView {
         return optionButton
     }
     
-    let userOptionButton = addOptionButton(withText: "我的", andX: deviceWidth - deviceWidth * (1/10 + 1/4))
-    let homeOptionButton = addOptionButton(withText: "题库", andX: deviceWidth/4)
+    let userOptionButton = addOptionButton(withText: "我的", andX: deviceWidth/2)
+    let homeOptionButton = addOptionButton(withText: "题库", andX: 0)
     
+    /* 白色指示条 */
     let underLine: UIView = {
-        let view = UIView(frame: CGRect(x: deviceWidth * 3/5, y: deviceHeight * (1/9 + 1/24), width: deviceWidth/5, height: 2))
-        view.backgroundColor = UIColor.white
-        return view
+        let underLine = UIView(frame: CGRect(x: deviceWidth * 2/3, y: 54, width: deviceWidth/6, height: 2))
+        underLine.backgroundColor = .white
+        return underLine
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.clear
         
         self.addSubview(headBackgroundView)
-        self.addSubview(headLabel)
         
-        self.addSubview(topBackButton)
-        self.addSubview(topSearchButton)
-        
+        userOptionButton.isEnabled = false
         self.addSubview(userOptionButton)
         self.addSubview(homeOptionButton)
-        userOptionButton.isEnabled = false
+        
         self.addSubview(underLine)
     }
     
@@ -99,10 +60,9 @@ class HeadView: UIView {
 }
 
 extension UIView {
-    
-    // 设置独立圆角
-    func corner(byRoundingCorners corners: UIRectCorner, radii: CGFloat) {
-        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radii, height: radii))
+    // 设置独立圆角 //
+    func setCorners(_ corners: UIRectCorner, radius: CGFloat) {
+        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         
         let maskLayer = CAShapeLayer()
         
@@ -111,5 +71,4 @@ extension UIView {
         
         self.layer.mask = maskLayer
     }
-    
 }
