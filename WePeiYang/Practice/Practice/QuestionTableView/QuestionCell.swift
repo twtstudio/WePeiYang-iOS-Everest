@@ -11,14 +11,13 @@ import UIKit
 import SnapKit
 
 extension QuestionViewParameters {
-    static let qFont = UIFont.systemFont(ofSize: 16) 
+    static let qFont = UIFont.systemFont(ofSize: 17) 
 }
 
 class QuestionCell: UITableViewCell {
 
     let qLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-//        label.backgroundColor = .green
         label.numberOfLines = 0
         label.textAlignment = .left
         label.adjustsFontSizeToFitWidth = true

@@ -9,11 +9,13 @@
 import Foundation
 
 struct QuestionViewParameters {
+    static let questionViewW = 0.9 * deviceWidth
+    static let questionViewH = 0.48 * deviceHeight
     static let cellH = 0.04 * deviceHeight
-    static let optionGap = 0.02 * deviceHeight
+    static let optionGap = 0.06 * deviceHeight
 }
 
-class QuestionTableView: UITableView{
+class QuestionTableView: UITableView {
     
     var content: String?
     var options: [String?] = []
@@ -21,7 +23,7 @@ class QuestionTableView: UITableView{
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
         
-        content =  "以下不属于共同的论证评价标准的是()。以下不属于共同的论证评价标准的是()。以下不属于共同的论"
+        content =  "以下不属于共同的论证评价标准的是()。以下不属于共同的论证评价标准的是()。"
         options = ["逻辑标准", "修辞标准", "论辩标准", "分析标准"]
         
         initTableView()
@@ -30,6 +32,7 @@ class QuestionTableView: UITableView{
     func initTableView() {
         self.separatorStyle = .none
         self.showsVerticalScrollIndicator = false
+        self.bounces = false
         self.delegate = self
         self.dataSource = self
     }
@@ -59,7 +62,6 @@ extension QuestionTableView: UITableViewDataSource {
         case 0:
             let questionCell = QuestionCell()
             questionCell.initQCell(question: content)
-            questionCell.height = 80
             return questionCell
         case 1:
             return OptionsCell()
@@ -70,7 +72,9 @@ extension QuestionTableView: UITableViewDataSource {
         }
 
     }
- 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        cellForRow(at: indexPath)?.contentView
+    }
 }
 
 extension QuestionTableView: UITableViewDelegate {
@@ -86,19 +90,24 @@ extension QuestionTableView: UITableViewDelegate {
         switch indexPath.item {
         case 0:
             if let question = content {
-                return question.calculateHeightWithConstrained(width: frame.width, font: QuestionViewParameters.qFont)
+                let height = question.calculateHeightWithConstrained(width: frame.width, font: QuestionViewParameters.qFont) < 35 ? 35 : question.calculateHeightWithConstrained(width: frame.width, font: QuestionViewParameters.qFont)
+                return height
             } else {
                 return 44
             }
+            
         case 1:
             return 0.02 * deviceHeight
+            
         default:
             if let option = options[indexPath.item - 2] {
-                let height = option.calculateHeightWithConstrained(width: QuestionViewParameters.optionLabelW, font: QuestionViewParameters.aFont) + QuestionViewParameters.optionsOffsetY * 2 + QuestionViewParameters.optionGap
-                return height
+                let height = option.calculateHeightWithConstrained(width: QuestionViewParameters.optionLabelW, font: QuestionViewParameters.aFont) + QuestionViewParameters.optionsOffsetY * 2
+                let oHeight = height < 60 ? 60 : height
+                return oHeight
             } else {
                 return QuestionViewParameters.cellH
             }
+            
         }
 
     }
