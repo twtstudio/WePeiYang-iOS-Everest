@@ -12,7 +12,7 @@ import UIKit
 extension QuestionViewParameters {
     static let optionLabelW = 0.7 * deviceWidth
     static let optionsOffsetY = 0.007 * deviceHeight
-    static let aFont = UIFont.systemFont(ofSize: 14)
+    static let aFont = UIFont.systemFont(ofSize: 17)
 }
 
 class OptionsCell: UITableViewCell {
@@ -20,7 +20,6 @@ class OptionsCell: UITableViewCell {
     let offset = 0.01 * deviceWidth
     
     let btnImages: [UIImage] = [#imageLiteral(resourceName: "A"), #imageLiteral(resourceName: "B"), #imageLiteral(resourceName: "C"), #imageLiteral(resourceName: "D"), #imageLiteral(resourceName: "E")]
-    let oFont = UIFont.systemFont(ofSize: 14)
     
     let optionIcon: UIImageView = {
         let btn = UIImageView(frame: .zero)
@@ -29,7 +28,6 @@ class OptionsCell: UITableViewCell {
     
     let optionLabel: UILabel = {
         let label = UILabel()
-//        label.backgroundColor = .yellow
         label.numberOfLines = 0
         label.textAlignment = .left
         label.adjustsFontSizeToFitWidth = true
@@ -58,10 +56,10 @@ class OptionsCell: UITableViewCell {
         
         if let content = optionsContent {
             optionLabel.text = content
-            optionLabel.font = oFont
+            optionLabel.font = QuestionViewParameters.aFont
             optionLabel.snp.makeConstraints { (make) in
                 make.width.equalTo(QuestionViewParameters.optionLabelW)
-                make.height.equalTo(content.calculateHeightWithConstrained(width: CGFloat(QuestionViewParameters.optionLabelW), font: oFont))
+                make.height.equalTo(content.calculateHeightWithConstrained(width: CGFloat(QuestionViewParameters.optionLabelW), font: QuestionViewParameters.aFont))
                 make.left.equalTo(optionIcon).offset(btnWidth + offset)
                 make.top.equalTo(self).offset(QuestionViewParameters.optionsOffsetY)
             }

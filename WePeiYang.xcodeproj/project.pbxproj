@@ -265,7 +265,15 @@
 		B585F35A20FE36E400950C00 /* QuestionsScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35320FE36E400950C00 /* QuestionsScrollView.swift */; };
 		B585F35B20FE36E400950C00 /* PracticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35420FE36E400950C00 /* PracticeModel.swift */; };
 		B585F35C20FE36E400950C00 /* LessonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35620FE36E400950C00 /* LessonListViewController.swift */; };
-		B585F35D20FE36E400950C00 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35720FE36E400950C00 /* File.swift */; };
+		B585F35D20FE36E400950C00 /* QuestionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35720FE36E400950C00 /* QuestionTableView.swift */; };
+		B585F365210066BD00950C00 /* MemorizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F364210066BD00950C00 /* MemorizeView.swift */; };
+		B585F3672102F40700950C00 /* QuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F3662102F40700950C00 /* QuestionCell.swift */; };
+		B585F36921034F5600950C00 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F36821034F5600950C00 /* Extension.swift */; };
+		B585F36B2103586A00950C00 /* OptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F36A2103586A00950C00 /* OptionsCell.swift */; };
+		B585F36D21035F8400950C00 /* TestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F36C21035F8400950C00 /* TestController.swift */; };
+		B585F36F2105A01800950C00 /* ExerciseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F36E2105A01800950C00 /* ExerciseCollectionViewController.swift */; };
+		B585F3732105B91A00950C00 /* ExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F3722105B91A00950C00 /* ExerciseCell.swift */; };
+		B585F37821074E2B00950C00 /* AnswerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F37721074E2B00950C00 /* AnswerScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -571,7 +579,15 @@
 		B585F35320FE36E400950C00 /* QuestionsScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsScrollView.swift; sourceTree = "<group>"; };
 		B585F35420FE36E400950C00 /* PracticeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeModel.swift; sourceTree = "<group>"; };
 		B585F35620FE36E400950C00 /* LessonListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonListViewController.swift; sourceTree = "<group>"; };
-		B585F35720FE36E400950C00 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		B585F35720FE36E400950C00 /* QuestionTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableView.swift; sourceTree = "<group>"; };
+		B585F364210066BD00950C00 /* MemorizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizeView.swift; sourceTree = "<group>"; };
+		B585F3662102F40700950C00 /* QuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCell.swift; sourceTree = "<group>"; };
+		B585F36821034F5600950C00 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		B585F36A2103586A00950C00 /* OptionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCell.swift; sourceTree = "<group>"; };
+		B585F36C21035F8400950C00 /* TestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestController.swift; sourceTree = "<group>"; };
+		B585F36E2105A01800950C00 /* ExerciseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCollectionViewController.swift; sourceTree = "<group>"; };
+		B585F3722105B91A00950C00 /* ExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCell.swift; sourceTree = "<group>"; };
+		B585F37721074E2B00950C00 /* AnswerScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerScrollView.swift; sourceTree = "<group>"; };
 		D77E7BD11F959EB50A5A0DED /* Pods-WePeiYangWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1453,13 +1469,9 @@
 		B585F34F20FE36E400950C00 /* Practice */ = {
 			isa = PBXGroup;
 			children = (
+				B585F3622100619000950C00 /* Practice */,
 				780CCE1420FEE41E00FFBE7A /* HomePage */,
-				B585F35020FE36E400950C00 /* Model.swift */,
-				B585F35120FE36E400950C00 /* Memorize */,
-				B585F35320FE36E400950C00 /* QuestionsScrollView.swift */,
-				B585F35420FE36E400950C00 /* PracticeModel.swift */,
 				B585F35520FE36E400950C00 /* LessonList */,
-				B585F35720FE36E400950C00 /* File.swift */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -1467,7 +1479,9 @@
 		B585F35120FE36E400950C00 /* Memorize */ = {
 			isa = PBXGroup;
 			children = (
-				B585F35220FE36E400950C00 /* MemorizeTableViewController.swift */,
+				B585F361210049A600950C00 /* Model */,
+				B585F3632100669600950C00 /* View */,
+				B585F3602100499500950C00 /* Controller */,
 			);
 			path = Memorize;
 			sourceTree = "<group>";
@@ -1478,6 +1492,104 @@
 				B585F35620FE36E400950C00 /* LessonListViewController.swift */,
 			);
 			path = LessonList;
+			sourceTree = "<group>";
+		};
+		B585F35E20FEEE0500950C00 /* Quize */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Quize;
+			sourceTree = "<group>";
+		};
+		B585F35F2100498400950C00 /* QuestionTableView */ = {
+			isa = PBXGroup;
+			children = (
+				B585F35720FE36E400950C00 /* QuestionTableView.swift */,
+				B585F3662102F40700950C00 /* QuestionCell.swift */,
+				B585F36A2103586A00950C00 /* OptionsCell.swift */,
+			);
+			path = QuestionTableView;
+			sourceTree = "<group>";
+		};
+		B585F3602100499500950C00 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B585F35220FE36E400950C00 /* MemorizeTableViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B585F361210049A600950C00 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B585F35020FE36E400950C00 /* Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B585F3622100619000950C00 /* Practice */ = {
+			isa = PBXGroup;
+			children = (
+				B585F3752105B95300950C00 /* main */,
+				B585F3702105B88800950C00 /* Exercise */,
+				B585F35E20FEEE0500950C00 /* Quize */,
+				B585F35120FE36E400950C00 /* Memorize */,
+				B585F37621074DFF00950C00 /* AnswerView */,
+				B585F35F2100498400950C00 /* QuestionTableView */,
+			);
+			path = Practice;
+			sourceTree = "<group>";
+		};
+		B585F3632100669600950C00 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B585F364210066BD00950C00 /* MemorizeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B585F3702105B88800950C00 /* Exercise */ = {
+			isa = PBXGroup;
+			children = (
+				B585F3742105B92200950C00 /* Controller */,
+				B585F3712105B8D300950C00 /* View */,
+			);
+			path = Exercise;
+			sourceTree = "<group>";
+		};
+		B585F3712105B8D300950C00 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B585F3722105B91A00950C00 /* ExerciseCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B585F3742105B92200950C00 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B585F36E2105A01800950C00 /* ExerciseCollectionViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B585F3752105B95300950C00 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				B585F36821034F5600950C00 /* Extension.swift */,
+				B585F35420FE36E400950C00 /* PracticeModel.swift */,
+				B585F36C21035F8400950C00 /* TestController.swift */,
+				B585F35320FE36E400950C00 /* QuestionsScrollView.swift */,
+			);
+			path = main;
+			sourceTree = "<group>";
+		};
+		B585F37621074DFF00950C00 /* AnswerView */ = {
+			isa = PBXGroup;
+			children = (
+				B585F37721074E2B00950C00 /* AnswerScrollView.swift */,
+			);
+			path = AnswerView;
 			sourceTree = "<group>";
 		};
 		D33D5F603943FDFD415D167A /* Frameworks */ = {
@@ -1844,6 +1956,7 @@
 				36449E661FA4BABA0036766B /* PersonalStatusLabel.swift in Sources */,
 				B585F35B20FE36E400950C00 /* PracticeModel.swift in Sources */,
 				36449E5E1FA4BABA0036766B /* WXWaveView.m in Sources */,
+				B585F3732105B91A00950C00 /* ExerciseCell.swift in Sources */,
 				360339E920247B9D0006A083 /* LibraryCard.swift in Sources */,
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
 				36042DB81FC7BB270016E859 /* CourseCell.swift in Sources */,
@@ -1854,6 +1967,7 @@
 				36073D0C1F223FC1001317A7 /* ReviewCell.swift in Sources */,
 				36073D1E1F225D2A001317A7 /* RecommendedViewController.swift in Sources */,
 				365261561FB9F83400025B8A /* ClassTableModel.swift in Sources */,
+				B585F36921034F5600950C00 /* Extension.swift in Sources */,
 				36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */,
 				365936961F1E60A9003CE578 /* StarView.swift in Sources */,
 				A5197A3D1FDA8F99008C445A /* LibraryAPIs.swift in Sources */,
@@ -1862,6 +1976,7 @@
 				36449E481FA4BA9B0036766B /* ApplicantTest.swift in Sources */,
 				361F8863204AF94200BCFA19 /* NewsTableViewCell.swift in Sources */,
 				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,
+				B585F37821074E2B00950C00 /* AnswerScrollView.swift in Sources */,
 				361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */,
 				36073D0D1F223FC1001317A7 /* Search.swift in Sources */,
 				368C3C8A204DAB4F00C1E6B6 /* WPYCustomError.swift in Sources */,
@@ -1879,6 +1994,7 @@
 				364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */,
 				36449E491FA4BA9B0036766B /* Applicant.swift in Sources */,
 				36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */,
+				B585F3672102F40700950C00 /* QuestionCell.swift in Sources */,
 				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
 				A5E117B91F99DCAE00C86CA2 /* Card.swift in Sources */,
 				A53602671FC6E36100E3D1AF /* LibraryBindingViewController.swift in Sources */,
@@ -1918,6 +2034,7 @@
 				361F885E204AF92D00BCFA19 /* BannerCell.swift in Sources */,
 				36DA7A5E1FA8A35C000DAF2B /* WPYBaseViewController.swift in Sources */,
 				0C3ADF4A1F697EE100388C19 /* SectionCell.swift in Sources */,
+				B585F36D21035F8400950C00 /* TestController.swift in Sources */,
 				0C3ADF3E1F697EE100388C19 /* PublishSuccessViewController.swift in Sources */,
 				0C3ADF401F697EE100388C19 /* LostFoundSearchViewController.swift in Sources */,
 				36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */,
@@ -1933,6 +2050,7 @@
 				0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */,
 				36922AE21FCAEA1E00AD44F3 /* GPAModel.swift in Sources */,
 				36A74EB1205BAD0300DD1EC3 /* AlertPageViewController.swift in Sources */,
+				B585F365210066BD00950C00 /* MemorizeView.swift in Sources */,
 				361F885D204AF92D00BCFA19 /* BannerScrollView.swift in Sources */,
 				36FCC2DD20555F8F003379AE /* AnimateButton.swift in Sources */,
 				3685D9F1204D276100BA6C3D /* NewsDetailModel.swift in Sources */,
@@ -1946,7 +2064,7 @@
 				36449E621FA4BABA0036766B /* SignUpTableViewCell.swift in Sources */,
 				369D92092015D97A004BA1D0 /* WeekItemCell.swift in Sources */,
 				36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */,
-				B585F35D20FE36E400950C00 /* File.swift in Sources */,
+				B585F35D20FE36E400950C00 /* QuestionTableView.swift in Sources */,
 				36449E841FA4BAD10036766B /* TwentyCourseScoreViewController.swift in Sources */,
 				36449E6D1FA4BABA0036766B /* FinalView.swift in Sources */,
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
@@ -1960,8 +2078,10 @@
 				B10253D91EC84ED20064373A /* ReadAPI.swift in Sources */,
 				36D526E220415A3C0074EB2B /* MallViewController.swift in Sources */,
 				36449E651FA4BABA0036766B /* QuizCell.swift in Sources */,
+				B585F36B2103586A00950C00 /* OptionsCell.swift in Sources */,
 				36449E461FA4BA9B0036766B /* Courses.swift in Sources */,
 				3659368F1F1E60A9003CE578 /* CourseAppraiseManager.swift in Sources */,
+				B585F36F2105A01800950C00 /* ExerciseCollectionViewController.swift in Sources */,
 				36366B2E1FAB86B0001F72A0 /* BicycleServiceViewController.swift in Sources */,
 				36449E611FA4BABA0036766B /* TextTableViewCell.swift in Sources */,
 				3659368E1F1E60A9003CE578 /* GPAViewController.swift in Sources */,

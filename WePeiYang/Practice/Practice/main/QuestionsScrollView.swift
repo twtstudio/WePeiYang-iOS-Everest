@@ -45,7 +45,6 @@ class QuestionsScrollView: UIScrollView {
         self.contentSize = CGSize(width: CGFloat(questionsView.count) * wid, height: h)
         self.isPagingEnabled = true
         self.bounces = false
-        
     }
 }
 
