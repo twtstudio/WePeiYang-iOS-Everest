@@ -21,10 +21,10 @@ class HomeView: UIView {
     
     let courseName = ["    党课", "形势与政策", "  网课", "其他    "]
     
-    let partyCourse = addTopCourse(withImage: #imageLiteral(resourceName: "partyCourse"), andX: deviceWidth/10, andWidth: deviceWidth/10)
-    let situationAndPolicy = addTopCourse(withImage: #imageLiteral(resourceName: "situationAndPolicy"), andX: deviceWidth * (2/10 + 2/15), andWidth: deviceWidth/10)
-    let onlineCourse = addTopCourse(withImage: #imageLiteral(resourceName: "onlineCourse"), andX: deviceWidth * (3/10 + 4/15), andWidth: deviceWidth/10 + 10)
-    let other = addTopCourse(withImage: #imageLiteral(resourceName: "other"), andX: deviceWidth * (4/10 + 2/5) + 10, andWidth: deviceWidth/10)
+    let partyCourse = addTopCourse(withImage: #imageLiteral(resourceName: "practicePartyCourse"), andX: deviceWidth/10, andWidth: deviceWidth/10)
+    let situationAndPolicy = addTopCourse(withImage: #imageLiteral(resourceName: "practiceSituationAndPolicy"), andX: deviceWidth * (2/10 + 2/15), andWidth: deviceWidth/10)
+    let onlineCourse = addTopCourse(withImage: #imageLiteral(resourceName: "practiceOnlineCourse"), andX: deviceWidth * (3/10 + 4/15), andWidth: deviceWidth/10 + 10)
+    let other = addTopCourse(withImage: #imageLiteral(resourceName: "practiceOther"), andX: deviceWidth * (4/10 + 2/5) + 10, andWidth: deviceWidth/10)
     
     func addCourseName(_ name: String, andX x: CGFloat) -> UILabel {
         let courseNameLabel = UILabel(frame: CGRect(x: x, y: deviceHeight/18 + deviceWidth/10, width: deviceWidth/4, height: deviceHeight/18))
@@ -101,7 +101,7 @@ class HomeView: UIView {
     let currentPracticeInformation: UILabel = {
         let informationLabel = UILabel(frame: CGRect(x: deviceWidth/15, y: deviceWidth/10 + deviceHeight/36, width: deviceWidth*13/15, height: deviceHeight/24))
         
-        informationLabel.text = "高等数学下册选择 🤔                       13/107"
+        informationLabel.text = "高等数学下册选择 🤔                       10/110"
         informationLabel.textColor = UIColor.darkGray
         
         return informationLabel

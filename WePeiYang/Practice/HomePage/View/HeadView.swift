@@ -21,30 +21,6 @@ class HeadView: UIView {
         return headBackgroundView
     }()
     
-    /* 标题 */
-    let headLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: deviceWidth/6, y: deviceHeight/18, width: deviceWidth/4, height: deviceHeight/24))
-        
-        label.text = "天外天刷题"
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.textAlignment = NSTextAlignment.center
-        label.textColor = UIColor.white
-        
-        return label
-    }()
-    
-    /* 顶部按钮 (返回, 搜索) */
-    static func addTopButton(withImage image: UIImage, andX x: CGFloat) -> UIButton {
-        let topButton = UIButton(frame: CGRect(x: x, y: deviceHeight/18, width: deviceHeight/24, height: deviceHeight/24))
-        
-        topButton.setImage(image, for: .normal)
-        
-        return topButton
-    }
-    
-    let topBackButton = addTopButton(withImage: #imageLiteral(resourceName: "practiceBack"), andX: deviceHeight/48)
-    let topSearchButton = addTopButton(withImage: #imageLiteral(resourceName: "practiceSearch"), andX: deviceWidth-deviceHeight * (1/24 + 1/48))
-    
     /* 切换按钮 (题库, 我的) */
     static func addOptionButton(withText text: String, andX x: CGFloat) -> UIButton {
         let optionButton = UIButton(frame: CGRect(x: x, y: 10, width: deviceWidth/2, height: 44))
