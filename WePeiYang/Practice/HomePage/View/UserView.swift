@@ -107,52 +107,52 @@ class UserView: UIView {
         super.init(frame: frame)
         
         /* 用户信息 */
-        // 用户头像
+        // 用户头像 //
         userHeadView.frame = CGRect(x: 30, y: 20, width: 88, height: 88)
         self.addSubview(userHeadView)
         
-        // 用户昵称
+        // 用户昵称 //
         userNameLabel.frame = CGRect(x: userHeadView.frame.maxX + 20, y: userHeadView.frame.minY, width: deviceWidth - userHeadView.frame.maxX - 50, height: 44)
         self.addSubview(userNameLabel)
         
-        // 头衔图标
+        // 头衔图标 //
         userTitleView.frame = CGRect(x: userNameLabel.frame.minX, y: userNameLabel.frame.maxY, width: 44, height: 44)
         self.addSubview(userTitleView)
         
-        // 用户头衔
+        // 用户头衔 //
         userTitleLabel.frame = CGRect(x: userTitleView.frame.maxX, y: userNameLabel.frame.maxY, width: userNameLabel.frame.size.width - userTitleView.frame.size.width, height: 44)
         self.addSubview(userTitleLabel)
         
         /* 练习信息 */
-        // 顶部蓝线
+        // 顶部蓝线 //
         topHorizontalLine.frame = CGRect(x: 20, y: userHeadView.frame.maxY + 20, width: deviceWidth - 40, height: 1)
         self.addSubview(topHorizontalLine)
         
-        // 已练习题目数
+        // 已练习题目数 //
         practicedQuestionNumber.frame = CGRect(x: topHorizontalLine.frame.minX, y: topHorizontalLine.frame.maxY + 15, width: deviceWidth / 2 - 20, height: 44)
         self.addSubview(practicedQuestionNumber)
         
-        // 已练习题目标签
+        // 已练习题目标签 //
         practicedQuestionLabel.frame = CGRect(x: practicedQuestionNumber.frame.minX, y: practicedQuestionNumber.frame.maxY, width: practicedQuestionNumber.frame.width, height: 33)
         self.addSubview(practicedQuestionLabel)
         
-        // 正确率
+        // 正确率 //
         correctRate.frame = CGRect(x: practicedQuestionLabel.frame.minX, y: practicedQuestionLabel.frame.maxY, width: practicedQuestionLabel.frame.width, height: 33)
         self.addSubview(correctRate)
         
-        // 已练习科目数
+        // 已练习科目数 //
         practicedCourseNumber.frame = CGRect(x: deviceWidth / 2, y: practicedQuestionNumber.frame.minY, width: practicedQuestionNumber.frame.width, height: 44)
         self.addSubview(practicedCourseNumber)
         
-        // 已练习科目标签
+        // 已练习科目标签 //
         practicedCourseLabel.frame = CGRect(x: practicedCourseNumber.frame.minX, y: practicedCourseNumber.frame.maxY, width: practicedCourseNumber.frame.width, height: 33)
         self.addSubview(practicedCourseLabel)
         
-        // 底部蓝线
+        // 底部蓝线 //
         bottomHorizontalLine.frame = CGRect(x: topHorizontalLine.frame.minX, y: correctRate.frame.maxY + 15, width: topHorizontalLine.frame.width, height: 1)
         self.addSubview(bottomHorizontalLine)
         
-        // 中部蓝线
+        // 中部蓝线 //
         verticalLine.center = CGPoint(x: deviceWidth / 2, y: topHorizontalLine.frame.maxY + 26)
         verticalLine.frame.size = CGSize(width: 1, height: 88)
         self.addSubview(verticalLine)

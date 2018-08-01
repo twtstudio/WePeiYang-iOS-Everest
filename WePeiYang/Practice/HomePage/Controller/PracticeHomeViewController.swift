@@ -14,16 +14,20 @@ class PracticeHomeViewController: UIViewController {
     
     let contentScrollView = UIScrollView()
     
-    let userTableView = UITableView(frame: CGRect(), style: .grouped) // UserView()
-    let UserViewCellTitle = ["练习历史", "我的错题", "我的收藏", "我的上传"]
-    let UserViewCellIcon = [#imageLiteral(resourceName: "practiceHistory"), #imageLiteral(resourceName: "practiceWrong"), #imageLiteral(resourceName: "practiceCollection"), #imageLiteral(resourceName: "practiceUpload")]
+    let userTableView = UITableView(frame: CGRect(), style: .grouped)
+    let UserViewCellTitles = ["练习历史", "我的错题", "我的收藏", "我的上传"]
+    let UserViewCellIcons = [#imageLiteral(resourceName: "practiceHistory"), #imageLiteral(resourceName: "practiceWrong"), #imageLiteral(resourceName: "practiceCollection"), #imageLiteral(resourceName: "practiceUpload")]
+    let userView = UserView()
     
-    let homeView = HomeView()
-    
+    let homeTableView = UITableView(frame: CGRect(), style: .grouped)
+    let HomeHeaderTitles = ["党课", "形政", "网课", "其他"]
+    let HomeHeaderIcons = [#imageLiteral(resourceName: "practicePartyCourse"), #imageLiteral(resourceName: "practiceSituationAndPolicy"), #imageLiteral(resourceName: "practiceOnlineCourse"), #imageLiteral(resourceName: "practiceOther")]
+    let homeCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: deviceWidth, height: 150), collectionViewLayout: UICollectionViewFlowLayout())
+    let HomeViewCellStyles: [HomeViewCellStyle] = [.quickSelect, .latestInformation, .currentPractice]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = .white
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +58,8 @@ class PracticeHomeViewController: UIViewController {
         headView.frame = CGRect(x: 0, y: -1/3, width: deviceWidth, height: 64)
         headView.userOptionButton.addTarget(self, action: #selector(optionButtonClick), for: .touchUpInside)
         headView.homeOptionButton.addTarget(self, action: #selector(optionButtonClick), for: .touchUpInside)
+        headView.userOptionButton.isEnabled = false
+        headView.homeOptionButton.isEnabled = true
         self.view.addSubview(headView)
 
         /* 滑动视图 */
@@ -77,8 +83,12 @@ class PracticeHomeViewController: UIViewController {
         contentScrollView.addSubview(userTableView)
         
         /* "题库" 视图 */
-        homeView.frame = CGRect(x: 0, y: 0, width: deviceWidth, height: contentScrollView.frame.height)
-        contentScrollView.addSubview(homeView)
+        homeTableView.frame = CGRect(x: 0, y: 0, width: deviceWidth, height: contentScrollView.frame.height)
+        homeTableView.backgroundColor = .clear
+        homeTableView.separatorColor = .clear
+        homeTableView.delegate = self
+        homeTableView.dataSource = self
+        contentScrollView.addSubview(homeTableView)
     }
     
     // 点击按钮切换, 改变白色指示条位置与按钮可用状态 //
@@ -134,7 +144,12 @@ extension PracticeHomeViewController: UITableViewDataSource {
         
         // "我的" 视图 - 单元个数 //
         case userTableView:
-            return UserViewCellTitle.count
+            return UserViewCellTitles.count
+            
+        // "题库" 视图 - 单元个数 //
+        case homeTableView:
+            return HomeViewCellStyles.count
+            
         default:
             return 0
         }
@@ -147,19 +162,26 @@ extension PracticeHomeViewController: UITableViewDataSource {
         
         // "我的" 视图 - 单元 //
         case userTableView:
-            let cell = UITableViewCell(style: .default, reuseIdentifier: "UserViewCell")
+            let userViewCell = UITableViewCell()
+            // let cell = UITableViewCell(style: .default, reuseIdentifier: "UserViewCell")
             
             // 自定义系统默认 UITableViewCell 的 imageView 大小 //
-            cell.imageView?.image = UserViewCellIcon[row]
+            userViewCell.imageView?.image = UserViewCellIcons[row]
             UIGraphicsBeginImageContextWithOptions(CGSize(width: 32, height: 32), false, UIScreen.main.scale)
-            cell.imageView?.image?.draw(in: CGRect(x: 0, y: 0, width: 32, height: 32))
-            cell.imageView?.image = UIGraphicsGetImageFromCurrentImageContext()
+            userViewCell.imageView?.image?.draw(in: CGRect(x: 0, y: 0, width: 32, height: 32))
+            userViewCell.imageView?.image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             
-            cell.textLabel?.text = UserViewCellTitle[row]
-            cell.accessoryType = .disclosureIndicator
+            userViewCell.textLabel?.text = UserViewCellTitles[row]
+            userViewCell.accessoryType = .disclosureIndicator
             
-            return cell
+            return userViewCell
+            
+        // "题库" 视图 - 单元 //
+        case homeTableView:
+            let homeViewCell = HomeViewCell(withStyle: HomeViewCellStyles[row])
+            return homeViewCell
+        
         default:
             return UITableViewCell()
         }
@@ -176,6 +198,11 @@ extension PracticeHomeViewController: UITableViewDelegate {
         // "我的" 视图 - 单元高度 //
         case userTableView:
             return 44
+            
+        // "题库" 视图 - 单元高度 //
+        case homeTableView:
+            return HomeViewCell(withStyle: HomeViewCellStyles[indexPath.row]).cellHeight
+        
         default:
             return 0
         }
@@ -187,6 +214,11 @@ extension PracticeHomeViewController: UITableViewDelegate {
         // "我的" 视图 - 头视图高度 //
         case userTableView:
             return section == 0 ? 300 : 0
+            
+        // "题库" 视图 - 头视图高度 //
+        case homeTableView:
+            return section == 0 ? 128 : 0
+        
         default:
             return 0
         }
@@ -199,19 +231,18 @@ extension PracticeHomeViewController: UITableViewDelegate {
         case userTableView:
             if section != 0 { return nil }
             
-            let userView = UserView()
             userView.userHeadView.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "account_circle")!.with(color: .gray))
 
-            if TwTUser.shared.token != nil {
+            if TwTUser.shared.token != nil { // 已登录
                 userView.userNameLabel.text = TwTUser.shared.username
-                userView.userTitleLabel.text = "刷题小火箭" // 称号
+                userView.userTitleLabel.text = "刷题飞人" // 称号
                 userView.practicedQuestionNumber.text = "1010" // 已练习题目数
                 userView.practicedCourseNumber.text = "10" // 已练习科目数
                 
-                let correctRateText = NSMutableAttributedString(string: "正确率 98%") // 正确率
+                let correctRateText = NSMutableAttributedString(string: "正确率 98%") // 正确率 (使用富文本改变字体)
                 correctRateText.addAttribute(.foregroundColor, value: UIColor.darkGray, range: NSMakeRange(0, 4))
                 userView.correctRate.attributedText = correctRateText
-            } else {
+            } else { // 未登录
                 userView.userNameLabel.text = "我的昵称"
                 userView.userTitleLabel.text = "我的称号"
                 userView.practicedQuestionNumber.text = "0"
@@ -223,10 +254,90 @@ extension PracticeHomeViewController: UITableViewDelegate {
             }
             
             return userView
+        
+        // "题库" 视图 - 头视图 //
+        case homeTableView:
+            if section != 0 { return nil }
+            
+            homeCollectionView.delegate = self
+            homeCollectionView.dataSource = self
+            
+            return homeCollectionView
+            
         default:
             return nil
         }
         
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let row = indexPath.row
+        
+        switch row {
+        case 0:
+            // 练习历史 //
+            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+            return
+        case 1:
+            // 我的错题 //
+            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+            return
+        case 2:
+            // 我的收藏 //
+            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+            return
+        case 3:
+            // 我的上传 //
+            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+            return
+        default:
+            return
+        }
+    }
+    
+}
+
+/* 集合视图数据 */
+extension PracticeHomeViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return HomeHeaderTitles.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let row = indexPath.row
+        
+        collectionView.backgroundColor = .clear
+        collectionView.register(HomeHeaderCell.self, forCellWithReuseIdentifier: "homeHeaderCell")
+        
+        let homeHeaderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "homeHeaderCell", for: indexPath) as! HomeHeaderCell
+        
+        homeHeaderCell.courseImage.image = HomeHeaderIcons[row]
+        homeHeaderCell.courseName.text = HomeHeaderTitles[row]
+        
+        if row == 2 { // 居然是长方形的图标
+            homeHeaderCell.courseImage.frame.size.width += 10
+            homeHeaderCell.courseImage.frame.origin.x -= 5
+        }
+        
+        return homeHeaderCell
+    }
+    
+}
+
+/* 集合视图代理和布局 */
+extension PracticeHomeViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (deviceWidth - 100) / 4, height: 80)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 27, left: 20, bottom: 20, right: 20)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // <#code#>
     }
     
 }
