@@ -10,18 +10,26 @@ import UIKit
 
 class PracticeHomeViewController: UIViewController {
     
+    /* 顶部切换视图 */
     let headView = HeadView()
     
+    /* 底层滑动视图 */
     let contentScrollView = UIScrollView()
+    // 滑动视图内容状态 //
+    var isAtRight = true // 滑动视图默认在右, 即显示 "我的" 视图
     
+    /* "我的" 视图 */
     let userTableView = UITableView(frame: CGRect(), style: .grouped)
     let UserViewCellTitles = ["练习历史", "我的错题", "我的收藏", "我的上传"]
     let UserViewCellIcons = [#imageLiteral(resourceName: "practiceHistory"), #imageLiteral(resourceName: "practiceWrong"), #imageLiteral(resourceName: "practiceCollection"), #imageLiteral(resourceName: "practiceUpload")]
+    // "我的" 顶部个人信息 //
     let userView = UserView()
     
+    /* "题库" 视图 */
     let homeTableView = UITableView(frame: CGRect(), style: .grouped)
     let HomeHeaderTitles = ["党课", "形政", "网课", "其他"]
     let HomeHeaderIcons = [#imageLiteral(resourceName: "practicePartyCourse"), #imageLiteral(resourceName: "practiceSituationAndPolicy"), #imageLiteral(resourceName: "practiceOnlineCourse"), #imageLiteral(resourceName: "practiceOther")]
+    // "我的" 顶部课程信息 //
     let homeCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: deviceWidth, height: 150), collectionViewLayout: UICollectionViewFlowLayout())
     let HomeViewCellStyles: [HomeViewCellStyle] = [.quickSelect, .latestInformation, .currentPractice]
     
@@ -58,8 +66,9 @@ class PracticeHomeViewController: UIViewController {
         headView.frame = CGRect(x: 0, y: -1/3, width: deviceWidth, height: 64)
         headView.userOptionButton.addTarget(self, action: #selector(optionButtonClick), for: .touchUpInside)
         headView.homeOptionButton.addTarget(self, action: #selector(optionButtonClick), for: .touchUpInside)
-        headView.userOptionButton.isEnabled = false
-        headView.homeOptionButton.isEnabled = true
+        headView.userOptionButton.isEnabled = !isAtRight // 滑动视图在左 -> "我的" 不可用
+        headView.homeOptionButton.isEnabled = isAtRight // 滑动视图在右 -> "题库" 可用
+        if !isAtRight { headView.underLine.frame.origin.x = deviceWidth / 6 } // 白色指示条默认在右, 非默认则调整位置
         self.view.addSubview(headView)
 
         /* 滑动视图 */
@@ -67,7 +76,7 @@ class PracticeHomeViewController: UIViewController {
         contentScrollView.delegate = self
         
         contentScrollView.contentSize = CGSize(width: 2 * deviceWidth, height: contentScrollView.frame.height)
-        contentScrollView.contentOffset = CGPoint(x: deviceWidth, y: 0)
+        if isAtRight { contentScrollView.contentOffset = CGPoint(x: deviceWidth, y: 0) } // 滑动视图默认在右, 非默认则为系统初试位置
         
         contentScrollView.showsHorizontalScrollIndicator = false
         contentScrollView.showsVerticalScrollIndicator = false
@@ -99,9 +108,11 @@ class PracticeHomeViewController: UIViewController {
             case self.headView.userOptionButton:
                 tempX += deviceWidth / 2
                 self.contentScrollView.contentOffset = CGPoint(x: deviceWidth, y: 0)
+                self.isAtRight = true
             case self.headView.homeOptionButton:
                 tempX -= deviceWidth / 2
                 self.contentScrollView.contentOffset = CGPoint(x: 0, y: 0)
+                self.isAtRight = false
             default:
                 break
             }
@@ -129,8 +140,10 @@ extension PracticeHomeViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if headView.underLine.center.x < deviceWidth / 2 {
             (self.headView.userOptionButton.isEnabled, self.headView.homeOptionButton.isEnabled) = (true, false)
+            isAtRight = false
         } else {
             (self.headView.userOptionButton.isEnabled, self.headView.homeOptionButton.isEnabled) = (false, true)
+            isAtRight = true
         }
     }
     
@@ -163,7 +176,6 @@ extension PracticeHomeViewController: UITableViewDataSource {
         // "我的" 视图 - 单元 //
         case userTableView:
             let userViewCell = UITableViewCell()
-            // let cell = UITableViewCell(style: .default, reuseIdentifier: "UserViewCell")
             
             // 自定义系统默认 UITableViewCell 的 imageView 大小 //
             userViewCell.imageView?.image = UserViewCellIcons[row]
@@ -180,6 +192,9 @@ extension PracticeHomeViewController: UITableViewDataSource {
         // "题库" 视图 - 单元 //
         case homeTableView:
             let homeViewCell = HomeViewCell(withStyle: HomeViewCellStyles[row])
+            
+            homeViewCell.selectionStyle = .none
+            
             return homeViewCell
         
         default:
@@ -273,6 +288,8 @@ extension PracticeHomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row
         
+        if tableView == homeTableView { return }
+        
         switch row {
         case 0:
             // 练习历史 //
@@ -280,8 +297,7 @@ extension PracticeHomeViewController: UITableViewDelegate {
             return
         case 1:
             // 我的错题 //
-            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
-            return
+            self.navigationController?.pushViewController(PracticeWrongViewController(), animated: true)
         case 2:
             // 我的收藏 //
             // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
@@ -293,6 +309,8 @@ extension PracticeHomeViewController: UITableViewDelegate {
         default:
             return
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
@@ -315,7 +333,7 @@ extension PracticeHomeViewController: UICollectionViewDataSource {
         homeHeaderCell.courseImage.image = HomeHeaderIcons[row]
         homeHeaderCell.courseName.text = HomeHeaderTitles[row]
         
-        if row == 2 { // 居然是长方形的图标
+        if row == 2 { // 居然是长方形的图标也太难为强迫症了吧
             homeHeaderCell.courseImage.frame.size.width += 10
             homeHeaderCell.courseImage.frame.origin.x -= 5
         }
