@@ -25,7 +25,7 @@ class HomeViewCell: UITableViewCell {
     /* 单元标题 */
     let cellTitleLabel = UILabel(text: "", fontSize: 21)
     
-    // 单元高度 //
+    /* 单元高度 */
     var cellHeight: CGFloat = 0.0
     
     // 创建课程气泡按钮 (自动换行) 方法 //
@@ -37,11 +37,8 @@ class HomeViewCell: UITableViewCell {
             let bubbleButton = UIButton(frame: CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33))
             
             bubbleButton.setTitle(titleArray[index], for: .normal)
-            bubbleButton.setTitleColor(.practiceBlue, for: .normal)
-            
-            bubbleButton.layer.cornerRadius = bubbleButton.frame.height / 2
-            bubbleButton.layer.borderColor = UIColor.practiceBlue.cgColor
-            bubbleButton.layer.borderWidth = 1
+            bubbleButton.setPracticeBubbleButton()
+            bubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
             
             if 20 + edgeWidth + length > deviceWidth - 40 {
                 edgeWidth = 0
@@ -74,11 +71,11 @@ class HomeViewCell: UITableViewCell {
         switch style {
         
         // 快速选择 //
-        case .quickSelect:
-            addBubbleCourseButton(intoSuperView: self.contentView, withTitleArray: ["项目管理学", "美学原理", "高等数学", "从爱因斯坦到霍金宇宙", "古典诗词鉴赏", "社会心理学"]) // 考虑写在 Controller 里
+        case .quickSelect: // 文本考虑在 Controller 中设定, addTarget 方法与课程 id 相关
+            addBubbleCourseButton(intoSuperView: self.contentView, withTitleArray: ["项目管理学", "美学原理", "高等数学", "从爱因斯坦到霍金宇宙", "古典诗词鉴赏", "社会心理学"])
         
         // 最新消息 //
-        case .latestInformation:
+        case .latestInformation: // 来源暂时没有
             let latestInformationMessage = UILabel(text: "高等数学下册选择已更新", color: .darkGray)
             latestInformationMessage.sizeToFit()
             latestInformationMessage.frame.origin = CGPoint(x: cellTitleLabel.frame.minX, y: cellTitleLabel.frame.maxY + 10)
@@ -90,7 +87,7 @@ class HomeViewCell: UITableViewCell {
             self.contentView.addSubview(latestInformationTime)
             
         // 当前练习 //
-        case .currentPractice:
+        case .currentPractice: // 文本考虑在 Controller 中设定
             let currentPracticeCourse = UILabel(text: "高等数学下册选择", color: .darkGray)
             currentPracticeCourse.sizeToFit()
             currentPracticeCourse.frame.origin = CGPoint(x: cellTitleLabel.frame.minX, y: cellTitleLabel.frame.maxY + 10)
@@ -100,8 +97,24 @@ class HomeViewCell: UITableViewCell {
             currentPracticeMessage.sizeToFit()
             currentPracticeMessage.frame.origin = CGPoint(x: deviceWidth - currentPracticeMessage.frame.size.width - 20, y: cellTitleLabel.frame.maxY + 10)
             self.contentView.addSubview(currentPracticeMessage)
+            
+            let continueBubbleButton = UIButton(frame: CGRect(x: deviceWidth - 152, y: currentPracticeCourse.frame.maxY + 10, width: 64, height: 33))
+            continueBubbleButton.setTitle("继续", for: .normal)
+            continueBubbleButton.setPracticeBubbleButton()
+            continueBubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
+            self.contentView.addSubview(continueBubbleButton)
+            
+            let abandonBubbleButton = UIButton(frame: CGRect(x: deviceWidth - 84, y: continueBubbleButton.frame.origin.y, width: 64, height: 33))
+            abandonBubbleButton.setTitle("放弃", for: .normal)
+            abandonBubbleButton.setPracticeBubbleButton()
+            abandonBubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
+            self.contentView.addSubview(abandonBubbleButton)
         }
         cellHeight = (self.contentView.subviews.last?.frame.maxY)! + 20
+    }
+    
+    @objc func clickBubbleButton(view: UIView) {
+        view.setBounceAnimation()
     }
     
 }
@@ -131,4 +144,15 @@ class HomeHeaderCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+}
+
+extension UIButton {
+    // 刷题气泡按钮 //
+    func setPracticeBubbleButton() {
+        // 注意先设置 UIButton 的 frame 后再调用, 因为 layer 基于 size 才有效
+        self.setTitleColor(.practiceBlue, for: .normal)
+        self.layer.cornerRadius = self.frame.height / 2
+        self.layer.borderColor = UIColor.practiceBlue.cgColor
+        self.layer.borderWidth = 1
+    }
 }

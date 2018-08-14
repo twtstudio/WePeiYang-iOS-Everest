@@ -46,6 +46,7 @@ class PracticeWrongViewController: UIViewController {
     
 }
 
+/* 表单视图数据 */
 extension PracticeWrongViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,8 +59,15 @@ extension PracticeWrongViewController: UITableViewDataSource {
     
 }
 
+/* 表单视图代理 */
 extension PracticeWrongViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        return
+    }
     
 }
