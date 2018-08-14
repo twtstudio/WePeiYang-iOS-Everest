@@ -355,7 +355,7 @@ extension PracticeHomeViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // <#code#>
+        collectionView.cellForItem(at: indexPath)?.setBounceAnimation()
     }
     
 }
@@ -364,5 +364,17 @@ extension UIColor {
     // 刷题蓝色 //
     static var practiceBlue: UIColor {
         return UIColor(red: 67.0/255.0, green: 170.0/255.0, blue: 250.0/255.0, alpha: 1.0)
+    }
+}
+
+extension UIView {
+    // 弹簧动画 //
+    func setBounceAnimation() {
+        UIView.animate(withDuration: 0.1, delay: 0, options: [.allowUserInteraction, .curveEaseIn],
+                       animations: { self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8) },
+                       completion: { isFinished in })
+        UIView.animate(withDuration: 0.1, delay: 0.1, options: [.allowUserInteraction, .curveEaseIn],
+                       animations: { self.transform = CGAffineTransform.identity },
+                       completion: { isFinished in })
     }
 }
