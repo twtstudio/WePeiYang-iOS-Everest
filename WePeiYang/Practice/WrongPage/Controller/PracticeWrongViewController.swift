@@ -10,6 +10,9 @@ import UIKit
 
 class PracticeWrongViewController: UIViewController {
     
+    /* 错题模型 */
+    var practiceWrong: PracticeWrongModel!
+    
     let practiceWrongTableView = UITableView(frame: CGRect(), style: .grouped)
     
     let practiceWrongNumber = 5 // 从 exam.twtstudio.com/api/student 的 error_number 获取
@@ -17,11 +20,13 @@ class PracticeWrongViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        
-        practiceWrongTableView.frame = self.view.bounds
-        practiceWrongTableView.delegate = self
-        practiceWrongTableView.dataSource = self
-        self.view.addSubview(practiceWrongTableView)
+
+        /* 错题模型 */
+        PracticeWrongHelper.getWrong(success: { practiceWrong in
+            self.practiceWrong = practiceWrong
+            self.practiceWrongTableView.reloadData()
+            print(practiceWrong.status, practiceWrong.tid, practiceWrong.wrongQuestions)
+        }) { error in }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,6 +47,11 @@ class PracticeWrongViewController: UIViewController {
         titleLabel.textColor = .white
         titleLabel.sizeToFit()
         navigationItem.titleView = titleLabel
+        
+        practiceWrongTableView.frame = self.view.bounds
+        practiceWrongTableView.delegate = self
+        practiceWrongTableView.dataSource = self
+        self.view.addSubview(practiceWrongTableView)
     }
     
 }

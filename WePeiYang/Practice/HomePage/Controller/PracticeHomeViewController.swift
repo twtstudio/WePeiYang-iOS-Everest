@@ -10,6 +10,9 @@ import UIKit
 
 class PracticeHomeViewController: UIViewController {
     
+    /* 用户模型 */
+    var practiceStudent: PracticeStudentModel!
+    
     /* 顶部切换视图 */
     let headView = HeadView()
     
@@ -36,6 +39,12 @@ class PracticeHomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+
+        /* 用户模型 */
+        PracticeStudentHelper.getStudent(success: { practiceStudent in
+            self.practiceStudent = practiceStudent
+            self.userTableView.reloadData()
+        }) { error in }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +66,10 @@ class PracticeHomeViewController: UIViewController {
         titleLabel.textColor = .white
         titleLabel.sizeToFit()
         navigationItem.titleView = titleLabel
+        
+        /* 返回 */
+        let practiceBack = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = practiceBack
         
         /* 搜索 */
         let practiceSearch = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(self.practiceSearch))
@@ -246,18 +259,18 @@ extension PracticeHomeViewController: UITableViewDelegate {
         case userTableView:
             if section != 0 { return nil }
             
-            userView.userHeadView.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "account_circle")!.with(color: .gray))
-
-            if TwTUser.shared.token != nil { // 已登录
-                userView.userNameLabel.text = TwTUser.shared.username
-                userView.userTitleLabel.text = "刷题飞人" // 称号
-                userView.practicedQuestionNumber.text = "1010" // 已练习题目数
-                userView.practicedCourseNumber.text = "10" // 已练习科目数
+            if let practiceStudent = practiceStudent {
+                userView.userHeadView.sd_setImage(with: URL(string: practiceStudent.data.avatarURL), placeholderImage: UIImage(named: "account_circle")!.with(color: .gray)) // 头像
+                userView.userNameLabel.text = practiceStudent.data.twtName // 昵称
+                userView.userTitleLabel.text = practiceStudent.data.title.titleName // 称号
+                userView.practicedQuestionNumber.text = practiceStudent.data.quesMessage.doneNumber // 已练习题目数
+                userView.practicedCourseNumber.text = "\(practiceStudent.data.quesMessage.rememberCourseNumber)" // 已练习科目数
                 
-                let correctRateText = NSMutableAttributedString(string: "正确率 98%") // 正确率 (使用富文本改变字体)
+                let correctRateString = String(Int(100 - Double(practiceStudent.data.quesMessage.errorNumber)! / Double(practiceStudent.data.quesMessage.doneNumber)! * 100))
+                let correctRateText = NSMutableAttributedString(string: "正确率 \(correctRateString)%") // 使用富文本改变字体
                 correctRateText.addAttribute(.foregroundColor, value: UIColor.darkGray, range: NSMakeRange(0, 4))
-                userView.correctRate.attributedText = correctRateText
-            } else { // 未登录
+                userView.correctRate.attributedText = correctRateText // 正确率
+            } else {
                 userView.userNameLabel.text = "我的昵称"
                 userView.userTitleLabel.text = "我的称号"
                 userView.practicedQuestionNumber.text = "0"

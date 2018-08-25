@@ -145,6 +145,8 @@
 		780CCE1220FEE3B600FFBE7A /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780CCE0D20FEE3B600FFBE7A /* UserView.swift */; };
 		780CCE1320FEE3B600FFBE7A /* PracticeHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780CCE0F20FEE3B600FFBE7A /* PracticeHomeViewController.swift */; };
 		78238C3021198D69007CC844 /* WrongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78238C2F21198D69007CC844 /* WrongView.swift */; };
+		786A342A213150370078120A /* PracticeStudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786A3429213150370078120A /* PracticeStudentModel.swift */; };
+		786A342D213176050078120A /* PracticeWrongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786A342C213176050078120A /* PracticeWrongModel.swift */; };
 		78865AC42112F2A00055161F /* PracticeWrongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78865AC32112F2A00055161F /* PracticeWrongViewController.swift */; };
 		A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51C456B1FD122F700652435 /* Assets.xcassets */; };
 		A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
@@ -384,6 +386,8 @@
 		780CCE0D20FEE3B600FFBE7A /* UserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		780CCE0F20FEE3B600FFBE7A /* PracticeHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeHomeViewController.swift; sourceTree = "<group>"; };
 		78238C2F21198D69007CC844 /* WrongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongView.swift; sourceTree = "<group>"; };
+		786A3429213150370078120A /* PracticeStudentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeStudentModel.swift; sourceTree = "<group>"; };
+		786A342C213176050078120A /* PracticeWrongModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeWrongModel.swift; sourceTree = "<group>"; };
 		78865AC32112F2A00055161F /* PracticeWrongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeWrongViewController.swift; sourceTree = "<group>"; };
 		8405C859FC95C5E72E0F9BD7 /* Pods-WePeiYang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.release.xcconfig"; sourceTree = "<group>"; };
 		9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -761,13 +765,6 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		780CCE0920FEE3B600FFBE7A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		780CCE0A20FEE3B600FFBE7A /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -790,16 +787,33 @@
 			isa = PBXGroup;
 			children = (
 				780CCE0E20FEE3B600FFBE7A /* Controller */,
-				780CCE0920FEE3B600FFBE7A /* Model */,
+				786A34282131501C0078120A /* Model */,
 				780CCE0A20FEE3B600FFBE7A /* View */,
 			);
 			path = HomePage;
+			sourceTree = "<group>";
+		};
+		786A34282131501C0078120A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				786A3429213150370078120A /* PracticeStudentModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		786A342B213175B90078120A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				786A342C213176050078120A /* PracticeWrongModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		78865AC02112F0F00055161F /* WrongPage */ = {
 			isa = PBXGroup;
 			children = (
 				78865AC12112F25F0055161F /* Controller */,
+				786A342B213175B90078120A /* Model */,
 				78865AC22112F2680055161F /* View */,
 			);
 			path = WrongPage;
@@ -1838,6 +1852,7 @@
 				B585F36D21035F8400950C00 /* TestController.swift in Sources */,
 				0C3ADF3E1F697EE100388C19 /* PublishSuccessViewController.swift in Sources */,
 				0C3ADF401F697EE100388C19 /* LostFoundSearchViewController.swift in Sources */,
+				786A342D213176050078120A /* PracticeWrongModel.swift in Sources */,
 				36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */,
 				36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */,
 				36E56BC61FC512230009BD6F /* CourseListView.swift in Sources */,
@@ -1882,6 +1897,11 @@
 				B585F36F2105A01800950C00 /* ExerciseCollectionViewController.swift in Sources */,
 				36366B2E1FAB86B0001F72A0 /* BicycleServiceViewController.swift in Sources */,
 				36449E611FA4BABA0036766B /* TextTableViewCell.swift in Sources */,
+				3659368E1F1E60A9003CE578 /* GPAViewController.swift in Sources */,
+				0C3ADF381F697EE100388C19 /* LostFoundDetailModel.swift in Sources */,
+				365936911F1E60A9003CE578 /* GPASessionManager.swift in Sources */,
+				786A342A213150370078120A /* PracticeStudentModel.swift in Sources */,
+				365936931F1E60A9003CE578 /* GPATermModel.swift in Sources */,
 				3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */,
 				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
 				365B5399216E5F4000A808EE /* ClassTableSettingViewController.swift in Sources */,
