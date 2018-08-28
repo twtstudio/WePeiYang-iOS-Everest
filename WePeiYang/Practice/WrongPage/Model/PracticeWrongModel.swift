@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct PracticeWrongHelper {
+struct PracticeWrongHelper { // 测试数据先用 /0 (收藏), 有真的之后再用 /1 (错题)
     static func getWrong(success: @escaping (PracticeWrongModel)->(), failure: @escaping (Error)->()) {
-        SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.special + "/getQues/1", token: TwTUser.shared.token, success: { dic in
+        SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.special + "/getQues/0", success: { dic in
             if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let practiceWrong = try? PracticeWrongModel(data: data) {
                 success(practiceWrong)
             }
@@ -23,16 +23,15 @@ struct PracticeWrongHelper {
 struct PracticeWrongModel: Codable {
     let status: Int
     let tid: String
-    let wrongQuestions: [WrongQuestion]
+    let ques: [Que]
 }
 
-struct WrongQuestion: Codable {
-    let id, classID, courseID, type: Int
-    let content: String
+struct Que: Codable {
+    let id: Int
+    let classID, courseID, type, content: String
     let option: [String]
     let answer: String
     let isCollected, isMistake: Int
-    let errorOption: String
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -41,7 +40,6 @@ struct WrongQuestion: Codable {
         case type, content, option, answer
         case isCollected = "is_collected"
         case isMistake = "is_mistake"
-        case errorOption = "error_option"
     }
 }
 
@@ -64,12 +62,12 @@ extension PracticeWrongModel {
     func with(
         status: Int? = nil,
         tid: String? = nil,
-        wrongQuestions: [WrongQuestion]? = nil
+        ques: [Que]? = nil
         ) -> PracticeWrongModel {
         return PracticeWrongModel(
             status: status ?? self.status,
             tid: tid ?? self.tid,
-            wrongQuestions: wrongQuestions ?? self.wrongQuestions
+            ques: ques ?? self.ques
         )
     }
     
@@ -82,9 +80,9 @@ extension PracticeWrongModel {
     }
 }
 
-extension WrongQuestion {
+extension Que {
     init(data: Data) throws {
-        self = try newJSONDecoder().decode(WrongQuestion.self, from: data)
+        self = try newJSONDecoder().decode(Que.self, from: data)
     }
     
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -100,17 +98,16 @@ extension WrongQuestion {
     
     func with(
         id: Int? = nil,
-        classID: Int? = nil,
-        courseID: Int? = nil,
-        type: Int? = nil,
+        classID: String? = nil,
+        courseID: String? = nil,
+        type: String? = nil,
         content: String? = nil,
         option: [String]? = nil,
         answer: String? = nil,
         isCollected: Int? = nil,
-        isMistake: Int? = nil,
-        errorOption: String? = nil
-        ) -> WrongQuestion {
-        return WrongQuestion(
+        isMistake: Int? = nil
+        ) -> Que {
+        return Que(
             id: id ?? self.id,
             classID: classID ?? self.classID,
             courseID: courseID ?? self.courseID,
@@ -119,8 +116,7 @@ extension WrongQuestion {
             option: option ?? self.option,
             answer: answer ?? self.answer,
             isCollected: isCollected ?? self.isCollected,
-            isMistake: isMistake ?? self.isMistake,
-            errorOption: errorOption ?? self.errorOption
+            isMistake: isMistake ?? self.isMistake
         )
     }
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PracticeAPI {
+struct PracticeAPI { // 参考 Bike 模块, 考虑单独抽出为一个文件
     
     static let root = "https://exam.twtstudio.com/api"
     
@@ -22,7 +22,7 @@ struct PracticeAPI {
 
 struct PracticeStudentHelper {
     static func getStudent(success: @escaping (PracticeStudentModel)->(), failure: @escaping (Error)->()) {
-        SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.student, token: TwTUser.shared.token, success: { dic in
+        SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.student, success: { dic in
             if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let practiceStudent = try? PracticeStudentModel(data: data) {
                 success(practiceStudent)
             }

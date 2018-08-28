@@ -13,10 +13,9 @@ class PracticeWrongViewController: UIViewController {
     /* 错题模型 */
     var practiceWrong: PracticeWrongModel!
     
-    let practiceWrongTableView = UITableView(frame: CGRect(), style: .grouped)
-    
-    let practiceWrongNumber = 5 // 从 exam.twtstudio.com/api/student 的 error_number 获取
-    
+    /* 错题列表视图 */
+    let practiceWrongTableView = UITableView(frame: CGRect(), style: .plain)
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -25,7 +24,15 @@ class PracticeWrongViewController: UIViewController {
         PracticeWrongHelper.getWrong(success: { practiceWrong in
             self.practiceWrong = practiceWrong
             self.practiceWrongTableView.reloadData()
-            print(practiceWrong.status, practiceWrong.tid, practiceWrong.wrongQuestions)
+            
+            // 错题不为零时显示错题数
+            if practiceWrong.ques.count != 0 {
+                let titleLabel = UILabel(text: "我的错题 (\(practiceWrong.ques.count))")
+                titleLabel.font = UIFont.boldSystemFont(ofSize: 21)
+                titleLabel.textColor = .white
+                titleLabel.sizeToFit()
+                self.navigationItem.titleView = titleLabel
+            }
         }) { error in }
     }
     
@@ -60,11 +67,18 @@ class PracticeWrongViewController: UIViewController {
 extension PracticeWrongViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return practiceWrongNumber
+        if practiceWrong == nil { return 0 }
+        return practiceWrong.ques.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        if practiceWrong == nil { return UITableViewCell() }
+        
+        let wrongViewCell = WrongViewCell(byModel: practiceWrong, withIndex: indexPath.row)
+        
+        wrongViewCell.selectionStyle = .none
+        
+        return wrongViewCell
     }
     
 }
@@ -72,8 +86,8 @@ extension PracticeWrongViewController: UITableViewDataSource {
 /* 表单视图代理 */
 extension PracticeWrongViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {        
+        return WrongViewCell(byModel: practiceWrong, withIndex: indexPath.row).cellHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -58,7 +58,7 @@ class PracticeHomeViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.tintColor = .white
-        let barHeight = (navigationController?.navigationBar.y)! + (navigationController?.navigationBar.height)!
+        let barHeight = (navigationController?.navigationBar.frame.origin.y)! + (navigationController?.navigationBar.frame.size.height)!
         
         /* 标题 */
         let titleLabel = UILabel(text: "天外天刷题")
