@@ -18,12 +18,16 @@ struct PracticeWrongHelper { // 测试数据先用 /0 (收藏), 有真的之后�
             failure(error)
         }
     }
+    
+    static func deleteWrong(quesType: String, quesID: String) {
+        SolaSessionManager.solaSession(type: .post, baseURL: PracticeAPI.root, url: PracticeAPI.special + "/deleteQues/1", parameters: ["ques_type": quesType, "ques_id": quesID])//, success: <#T##(([String : Any]) -> ())?##(([String : Any]) -> ())?##([String : Any]) -> ()#>, failure: <#T##((Error) -> ())?##((Error) -> ())?##(Error) -> ()#>)
+    }
 }
 
 struct PracticeWrongModel: Codable {
     let status: Int
     let tid: String
-    let ques: [Que]
+    var ques: [Que] // 基于数据和页面改为变量
 }
 
 struct Que: Codable {
