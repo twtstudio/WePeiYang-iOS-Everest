@@ -22,7 +22,7 @@ class WrongViewCell: UITableViewCell {
     let questionContentLabel = UILabel()
     
     /* 题目选项 */
-    var lastExistLabel = UILabel() // 实际用于计算高度
+    var lastDynamicLabel = UILabel() // 用于计算动态高度
     
     /* 题目答案 */
     let answerContentLabel = UILabel()
@@ -68,10 +68,10 @@ class WrongViewCell: UITableViewCell {
                 questionOptionLabel.setFlexibleHeight(andFixedWidth: deviceWidth - 40)
                 contentView.addSubview(questionOptionLabel)
                 labelMaxY = Int(questionOptionLabel.frame.maxY - questionContentLabel.frame.maxY)
-                if i == practiceWrong.ques[index].option.count - 1 { lastExistLabel = questionOptionLabel }
+                if i == practiceWrong.ques[index].option.count - 1 { lastDynamicLabel = questionOptionLabel }
             }
         } else {
-            lastExistLabel = questionContentLabel
+            lastDynamicLabel = questionContentLabel
         }
         
         // 题目答案 //
@@ -79,34 +79,34 @@ class WrongViewCell: UITableViewCell {
         answerContentLabel.textColor = .practiceBlue
         answerContentLabel.font = UIFont.boldSystemFont(ofSize: 18)
         answerContentLabel.sizeToFit()
-        answerContentLabel.frame.origin = CGPoint(x: questionContentLabel.frame.origin.x, y: lastExistLabel.frame.maxY + 20)
+        answerContentLabel.frame.origin = CGPoint(x: questionContentLabel.frame.origin.x, y: lastDynamicLabel.frame.maxY + 20)
         contentView.addSubview(answerContentLabel)
         
         // 收藏图标 //
-        isCollectedIcon.frame = CGRect(x: deviceWidth - 82, y: lastExistLabel.frame.maxY + 18, width: 22, height: 22)
+        isCollectedIcon.frame = CGRect(x: deviceWidth - 82, y: lastDynamicLabel.frame.maxY + 18, width: 22, height: 22)
         isCollectedIcon.setImage(#imageLiteral(resourceName: "practiceIsCollected"), for: .normal)
-        isCollectedIcon.setImage(#imageLiteral(resourceName: "practiceIsntCollected"), for: .highlighted)
-        isCollectedIcon.isHighlighted = practiceWrong.ques[index].isCollected == 0
-        isCollectedIcon.addTarget(self, action: #selector(clickIsIcon), for: .touchUpInside)
+        isCollectedIcon.setImage(#imageLiteral(resourceName: "practiceIsCollected"), for: .highlighted)
+        isCollectedIcon.setImage(#imageLiteral(resourceName: "practiceIsntCollected"), for: .selected)
+        isCollectedIcon.addTarget(self, action: #selector(switchIcon), for: .touchUpInside)
         contentView.addSubview(isCollectedIcon)
         
-        // 错题图标 //
-        isWrongIcon.frame = CGRect(x: deviceWidth - 42, y: lastExistLabel.frame.maxY + 18, width: 22, height: 22)
+        // 错题图标 // (等 API 真了, 考虑错题和收藏的区别应该简化 )
+        isWrongIcon.frame = CGRect(x: deviceWidth - 42, y: lastDynamicLabel.frame.maxY + 18, width: 22, height: 22)
         isWrongIcon.setImage(#imageLiteral(resourceName: "practiceIsWrong"), for: .normal)
-        isWrongIcon.setImage(#imageLiteral(resourceName: "practiceIsntWrong"), for: .highlighted) // 考虑错题和收藏的区别应该简化 (等 API 真了)
-        isWrongIcon.isHighlighted = practiceWrong.ques[index].isMistake == 0
-        isWrongIcon.addTarget(self, action: #selector(clickIsIcon), for: .touchUpInside)
+        isWrongIcon.setImage(#imageLiteral(resourceName: "practiceIsWrong"), for: .highlighted)
+        isWrongIcon.setImage(#imageLiteral(resourceName: "practiceIsntWrong"), for: .selected)
+        isWrongIcon.addTarget(self, action: #selector(switchIcon), for: .touchUpInside)
         contentView.addSubview(isWrongIcon)
         
         cellHeight = answerContentLabel.frame.maxY + 20
     }
     
-    @objc func clickIsIcon(button: UIButton) {
-        let tempButton = UIButton()
-        tempButton.setImage(button.image(for: .normal), for: .normal)
-        button.setImage(button.image(for: .highlighted), for: .normal)
-        button.setImage(tempButton.image(for: .normal), for: .highlighted)
-        button.setBounceAnimation()
+    @objc func switchIcon(button: UIButton) {
+        button.setBounceAnimation {_ in
+            button.setImage(button.image(for: .selected), for: .highlighted)
+            button.setImage(button.image(for: .normal), for: .selected)
+            button.setImage(button.image(for: .highlighted), for: .normal)
+        }
     }
     
 }

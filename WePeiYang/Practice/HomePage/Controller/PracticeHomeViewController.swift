@@ -295,7 +295,30 @@ extension PracticeHomeViewController: UITableViewDelegate {
         default:
             return nil
         }
-        
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        switch tableView {
+            
+        // "我的" 视图 - 底视图 //
+        case userTableView:
+            if section != 0 { return nil }
+            
+            let mottoLabel = UILabel(text: "\nPractice Makes Perfect.\n— Jason C.\n", color: .darkGray)
+            mottoLabel.font = UIFont(name: "Zapfino", size: 16) // "Bradley Hand" "Chalkboard SE"
+            mottoLabel.textAlignment = .center
+            mottoLabel.numberOfLines = 0
+            mottoLabel.frame = CGRect(x: 0, y: 0, width: deviceWidth, height: 0)
+            
+            return mottoLabel
+           
+        // "题库" 视图 - 底视图 //
+        case homeTableView:
+            return nil
+            
+        default:
+            return nil
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -307,23 +330,22 @@ extension PracticeHomeViewController: UITableViewDelegate {
         case 0:
             // 练习历史 //
             // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
-            return
+            tableView.deselectRow(at: indexPath, animated: true)
         case 1:
             // 我的错题 //
             self.navigationController?.pushViewController(PracticeWrongViewController(), animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         case 2:
             // 我的收藏 //
             // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
-            return
+            tableView.deselectRow(at: indexPath, animated: true)
         case 3:
             // 我的上传 //
             // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
-            return
+            tableView.deselectRow(at: indexPath, animated: true)
         default:
-            return
+            tableView.deselectRow(at: indexPath, animated: true)
         }
-        
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
@@ -382,12 +404,12 @@ extension UIColor {
 
 extension UIView {
     // 弹簧动画 //
-    func setBounceAnimation() {
+    func setBounceAnimation(_ animations: @escaping (Bool) -> Void = {_ in }) {
         UIView.animate(withDuration: 0.1, delay: 0, options: [.allowUserInteraction, .curveEaseIn],
                        animations: { self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8) },
                        completion: { isFinished in })
         UIView.animate(withDuration: 0.1, delay: 0.1, options: [.allowUserInteraction, .curveEaseIn],
                        animations: { self.transform = CGAffineTransform.identity },
-                       completion: { isFinished in })
+                       completion: { animations }())
     }
 }
