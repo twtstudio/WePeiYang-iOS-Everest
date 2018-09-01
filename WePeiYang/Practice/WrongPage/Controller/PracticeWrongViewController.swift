@@ -89,21 +89,42 @@ extension PracticeWrongViewController: UITableViewDataSource {
         let wrongViewCell = WrongViewCell(byModel: practiceWrong, withIndex: indexPath.row)
         
         wrongViewCell.selectionStyle = .none
+        wrongViewCell.isCollectedIcon.addTarget(self, action: #selector(switchFromCollection), for: .touchUpInside)
         wrongViewCell.isWrongIcon.addTarget(self, action: #selector(showRemoveWaring), for: .touchUpInside)
         
         return wrongViewCell
     }
     
-    @objc func showRemoveWaring(button: UIButton) {
+    @objc func switchFromCollection(button: UIButton) {
         let indexPath = self.practiceWrongTableView.indexPath(for: button.superview?.superview as! WrongViewCell)
+        
+        if button.image(for: .normal) == #imageLiteral(resourceName: "practiceIsCollected") {
+            PracticeCollectionHelper.deleteCollection(quesType: (self.practiceWrong?.ques[(indexPath?.row)!].type)!, quesID: String((self.practiceWrong?.ques[(indexPath?.row)!].id)!)) // 删除云端数据
+            SwiftMessages.showSuccessMessage(body: "移除成功")
+        } else {
+            PracticeCollectionHelper.addCollection(quesType: (self.practiceWrong?.ques[(indexPath?.row)!].type)!, quesID: String((self.practiceWrong?.ques[(indexPath?.row)!].id)!)) // 增加云端数据
+            SwiftMessages.showSuccessMessage(body: "收藏成功")
+        }
+        
+        button.switchIconAnimation()
+    }
+    
+    @objc func showRemoveWaring(button: UIButton) {
+        button.setBounceAnimation()
+        
+        let indexPath = self.practiceWrongTableView.indexPath(for: button.superview?.superview as! WrongViewCell)
+        
         let warningCard = PopupDialog(title: "移除", message: "您确定将本题移出错题本?", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
         let cancelButton = CancelButton(title: "再留一段时间", action: nil)
         let removeButton = DestructiveButton(title: "我会了, 移走吧", dismissOnTap: true) {
-            // PracticeWrongHelper.deleteWrong(quesType: (self.practiceWrong?.ques[(indexPath?.row)!].type)!, quesID: String((self.practiceWrong?.ques[(indexPath?.row)!].id)!)) // 等数据来了测试
+            button.switchIconAnimation()
+            PracticeWrongHelper.deleteWrong(quesType: (self.practiceWrong?.ques[(indexPath?.row)!].type)!, quesID: String((self.practiceWrong?.ques[(indexPath?.row)!].id)!)) // 删除云端数据
             self.practiceWrong.ques.remove(at: (indexPath?.row)!) // 删除本地数据
             self.practiceWrongTableView.deleteRows(at: [indexPath!], with: .right) // 删除界面
             self.reloadTitleView() // 刷新标题
+            SwiftMessages.showSuccessMessage(body: "成功移除") // 提示成功
         }
+        
         warningCard.addButtons([cancelButton, removeButton])
         self.present(warningCard, animated: true, completion: nil)
     }
@@ -136,6 +157,22 @@ extension PracticeWrongViewController: UITableViewDelegate {
 }
 
 extension UIButton {
+    // 设置交叉图标 //
+    func setSwitchIcon(forNormalAndHighlighted firstImage: UIImage, andSelected secondImage: UIImage) {
+        self.setImage(firstImage, for: .normal)
+        self.setImage(firstImage, for: .highlighted)
+        self.setImage(secondImage, for: .selected)
+    }
+    
+    // 交换图标动画 //
+    func switchIconAnimation() {
+        self.setBounceAnimation {_ in
+            self.setImage(self.image(for: .selected), for: .highlighted)
+            self.setImage(self.image(for: .normal), for: .selected)
+            self.setImage(self.image(for: .highlighted), for: .normal)
+        }
+    }
+    
     // 利用 OC 的 runtime 特性, 创建属性, 并实现 get \ set 方法
     private struct AssociatedKeys {
         static var indexPath: IndexPath?

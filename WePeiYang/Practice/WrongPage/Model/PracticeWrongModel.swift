@@ -8,19 +8,36 @@
 
 import Foundation
 
-struct PracticeWrongHelper { // 测试数据先用 /0 (收藏), 有真的之后再用 /1 (错题)
+struct PracticeWrongHelper {
     static func getWrong(success: @escaping (PracticeWrongModel)->(), failure: @escaping (Error)->()) {
-        SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.special + "/getQues/0", success: { dic in
-            if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let practiceWrong = try? PracticeWrongModel(data: data) {
+        SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.special + "/getQues/1", success: { dic in
+            // 删除 id 为 null 的题目 (好了后台又改回来了)
+            var newDic = dic
+            var ques = dic["ques"] as! [[String:Any]]
+            var i = 0
+            for que in ques {
+                if que["id"] is NSNull {
+                    ques.remove(at: i)
+                } else { i += 1 }
+            }
+            let lessNumber = (newDic["ques"] as! [[String:Any]]).count - ques.count
+            if lessNumber != 0 { SwiftMessages.showInfoMessage(body: "您错题本中的 \(lessNumber) 道错题已从题库中移除") }
+            newDic["ques"] = ques
+            
+            if let data = try? JSONSerialization.data(withJSONObject: newDic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let practiceWrong = try? PracticeWrongModel(data: data) {
                 success(practiceWrong)
             }
         }) { error in
             failure(error)
+            print("ERROR -- PracticeWrongHelper.getWrong")
         }
     }
     
     static func deleteWrong(quesType: String, quesID: String) {
-        SolaSessionManager.solaSession(type: .post, baseURL: PracticeAPI.root, url: PracticeAPI.special + "/deleteQues/1", parameters: ["ques_type": quesType, "ques_id": quesID])//, success: <#T##(([String : Any]) -> ())?##(([String : Any]) -> ())?##([String : Any]) -> ()#>, failure: <#T##((Error) -> ())?##((Error) -> ())?##(Error) -> ()#>)
+        SolaSessionManager.solaSession(type: .post, baseURL: PracticeAPI.root, url: PracticeAPI.special + "/deleteQues/1", parameters: ["ques_type": quesType, "ques_id": quesID], success: { dic in
+        }) { _ in
+            print("ERROR -- PracticeWrongHelper.deleteWrong")
+        }
     }
 }
 
@@ -131,20 +148,4 @@ extension Que {
     func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
         return String(data: try self.jsonData(), encoding: encoding)
     }
-}
-
-func newJSONDecoder() -> JSONDecoder {
-    let decoder = JSONDecoder()
-    if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
-        decoder.dateDecodingStrategy = .iso8601
-    }
-    return decoder
-}
-
-func newJSONEncoder() -> JSONEncoder {
-    let encoder = JSONEncoder()
-    if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
-        encoder.dateEncodingStrategy = .iso8601
-    }
-    return encoder
 }
