@@ -28,30 +28,31 @@ class HomeViewCell: UITableViewCell {
     /* 单元高度 */
     var cellHeight: CGFloat = 0.0
     
-    // 创建课程气泡按钮 (自动换行) 方法 //
+    // 创建课程气泡按钮 (自动换行) 方法 // // 记得点击事件传入题目 ID
     func addBubbleCourseButton(intoSuperView superView: UIView, withTitleArray titleArray: [String]) {
         var edgeWidth: CGFloat = 0
         var edgeHeight: CGFloat = 54
         for index in 0...titleArray.count - 1 {
             let length = CGFloat(titleArray[index].count) * 20
             let bubbleButton = UIButton(frame: CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33))
-            
+
             bubbleButton.setTitle(titleArray[index], for: .normal)
             bubbleButton.setPracticeBubbleButton()
             bubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
-            
+
             if 20 + edgeWidth + length > deviceWidth - 40 {
                 edgeWidth = 0
                 edgeHeight += bubbleButton.frame.size.height + 16
                 bubbleButton.frame = CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33)
             }
             edgeWidth = bubbleButton.frame.size.width + bubbleButton.frame.origin.x - 20
-            
+
             superView.addSubview(bubbleButton)
         }
     }
     
-    convenience init(withStyle style: HomeViewCellStyle) {
+    // convenience init(byModel practiceStudent: PracticeStudentModel, withStyle style: HomeViewCellStyle) { // 考虑基于模型进行初始化 (参考 WrongViewCell)
+    convenience init(withStyle style: HomeViewCellStyle) { // 考虑基于模型进行初始化 (参考 WrongViewCell)
         self.init(style: .default, reuseIdentifier: style.rawValue)
         
         // 顶部蓝线 //
@@ -73,6 +74,29 @@ class HomeViewCell: UITableViewCell {
         // 快速选择 //
         case .quickSelect: // 文本考虑在 Controller 中设定, addTarget 方法与课程 id 相关
             addBubbleCourseButton(intoSuperView: contentView, withTitleArray: ["项目管理学", "美学原理", "高等数学", "从爱因斯坦到霍金宇宙", "古典诗词鉴赏", "社会心理学"])
+            
+//            var edgeWidth: CGFloat = 0
+//            var edgeHeight: CGFloat = 54
+//            let titleArray = practiceStudent.qSelect
+//            for index in 0...titleArray.count - 1 {
+//                let length = CGFloat(titleArray[index].courseName.count) * 20
+//                let bubbleButton = UIButton(frame: CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33))
+//
+//                bubbleButton.setTitle(titleArray[index].courseName, for: .normal)
+//                bubbleButton.setPracticeBubbleButton()
+//                bubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
+//
+//                if 20 + edgeWidth + length > deviceWidth - 40 {
+//                    edgeWidth = 0
+//                    edgeHeight += bubbleButton.frame.size.height + 16
+//                    bubbleButton.frame = CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33)
+//                }
+//                edgeWidth = bubbleButton.frame.size.width + bubbleButton.frame.origin.x - 20
+//
+//                contentView.addSubview(bubbleButton)
+//
+//                if index == titleArray.count - 1 { cellHeight = bubbleButton.frame.maxY + 20 }
+//            }
         
         // 最新消息 //
         case .latestInformation: // 来源暂时没有
@@ -85,6 +109,8 @@ class HomeViewCell: UITableViewCell {
             latestInformationTime.sizeToFit()
             latestInformationTime.frame.origin = CGPoint(x: deviceWidth - latestInformationTime.frame.size.width - 20, y: cellTitleLabel.frame.maxY + 10)
             contentView.addSubview(latestInformationTime)
+            
+            cellHeight = latestInformationTime.frame.maxY + 20
             
         // 当前练习 //
         case .currentPractice: // 文本考虑在 Controller 中设定
@@ -109,7 +135,10 @@ class HomeViewCell: UITableViewCell {
             abandonBubbleButton.setPracticeBubbleButton()
             abandonBubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
             contentView.addSubview(abandonBubbleButton)
+            
+            cellHeight = abandonBubbleButton.frame.maxY + 20
         }
+        
         cellHeight = (contentView.subviews.last?.frame.maxY)! + 20
     }
     
@@ -122,22 +151,22 @@ class HomeViewCell: UITableViewCell {
 class HomeHeaderCell: UICollectionViewCell {
     
     /* 课程图片 */
-    var courseImage = UIImageView()
+    var classImage = UIImageView()
     
     /* 课程名称 */
-    var courseName = UILabel()
+    var className = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         let length: CGFloat = 33
         
-        courseImage.frame = CGRect(x: (frame.size.width - length) / 2, y: 0, width: length, height: length)
-        addSubview(courseImage)
+        classImage.frame = CGRect(x: (frame.size.width - length) / 2, y: 0, width: length, height: length)
+        addSubview(classImage)
         
-        courseName.frame = CGRect(x: 0, y: length + 10, width: frame.width, height: 33)
-        courseName.textAlignment = .center
-        addSubview(courseName)
+        className.frame = CGRect(x: 0, y: length + 10, width: frame.width, height: 33)
+        className.textAlignment = .center
+        addSubview(className)
     }
     
     required init?(coder aDecoder: NSCoder) {

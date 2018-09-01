@@ -42,7 +42,7 @@ class UserView: UIView {
     }()
     
     /* 用户头衔 */
-    let userTitleLabel = UILabel(text: "", color: .gpaPink)
+    let userTitleLabel = UILabel(text: "", color: .practiceRed)
     
     /* 顶部蓝线 */
     let topHorizontalLine = UIView(color: .practiceBlue)
@@ -72,7 +72,7 @@ class UserView: UIView {
         let correctRate = UILabel()
         
         correctRate.textAlignment = .center
-        correctRate.textColor = .gpaPink
+        correctRate.textColor = .practiceRed
         
         return correctRate
     }()

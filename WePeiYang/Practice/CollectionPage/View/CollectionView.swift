@@ -1,14 +1,14 @@
 //
-//  WrongView.swift
+//  CollectionView.swift
 //  WePeiYang
 //
-//  Created by JasonEWNL on 2018/8/7.
+//  Created by JasonEWNL on 2018/9/1.
 //  Copyright © 2018年 twtstudio. All rights reserved.
 //
 
 import UIKit
 
-class WrongViewCell: UITableViewCell {
+class CollectionViewCell: UITableViewCell {
     
     /* 课程类型 */
     let classTypeBubbleLabel = UILabel()
@@ -30,14 +30,11 @@ class WrongViewCell: UITableViewCell {
     /* 收藏图标 */
     let isCollectedIcon = UIButton()
     
-    /* 错题图标 */
-    let isWrongIcon = UIButton()
-    
     /* 单元高度 */
     var cellHeight: CGFloat = 0.0
     
-    convenience init(byModel practiceWrong: PracticeWrongModel, withIndex index: Int) {
-        self.init(style: .default, reuseIdentifier: "WrongViewCell")
+    convenience init(byModel practiceWrong: PracticeCollectionModel, withIndex index: Int) {
+        self.init(style: .default, reuseIdentifier: "CollectionViewCell")
         
         // 课程类型 //
         classTypeBubbleLabel.text = classTypeDictionary[practiceWrong.ques[index].classID]
@@ -95,42 +92,13 @@ class WrongViewCell: UITableViewCell {
         contentView.addSubview(answerContentLabel)
         
         // 收藏图标 //
-        isCollectedIcon.frame = CGRect(x: deviceWidth - 82, y: lastDynamicLabel.frame.maxY + 18, width: 22, height: 22)
-        
-        if practiceWrong.ques[index].isCollected == 1 {
-            isCollectedIcon.setSwitchIcon(forNormalAndHighlighted: #imageLiteral(resourceName: "practiceIsCollected"), andSelected: #imageLiteral(resourceName: "practiceIsntCollected"))
-        } else {
-            isCollectedIcon.setSwitchIcon(forNormalAndHighlighted: #imageLiteral(resourceName: "practiceIsntCollected"), andSelected: #imageLiteral(resourceName: "practiceIsCollected"))
-        }
-        
+        isCollectedIcon.frame = CGRect(x: deviceWidth - 42, y: lastDynamicLabel.frame.maxY + 18, width: 22, height: 22)
+        isCollectedIcon.setImage(#imageLiteral(resourceName: "practiceIsCollected"), for: .normal)
+        isCollectedIcon.setImage(#imageLiteral(resourceName: "practiceIsCollected"), for: .highlighted)
+        isCollectedIcon.setImage(#imageLiteral(resourceName: "practiceIsntCollected"), for: .selected)
         contentView.addSubview(isCollectedIcon)
-        
-        // 错题图标 //
-        isWrongIcon.frame = CGRect(x: deviceWidth - 42, y: lastDynamicLabel.frame.maxY + 18, width: 22, height: 22)
-        isWrongIcon.setSwitchIcon(forNormalAndHighlighted: #imageLiteral(resourceName: "practiceIsWrong"), andSelected: #imageLiteral(resourceName: "practiceIsntWrong"))
-        contentView.addSubview(isWrongIcon)
         
         cellHeight = answerContentLabel.frame.maxY + 20
     }
     
-}
-
-extension UILabel {
-    // 刷题气泡标签 //
-    func setPracticeBubbleLabel() {
-        // 注意先设置 UILabel 的 frame 后再调用, 因为 layer 基于 size 才有效
-        self.textColor = .practiceBlue
-        self.textAlignment = .center
-        self.layer.cornerRadius = self.frame.height / 2
-        self.layer.borderColor = UIColor.practiceBlue.cgColor
-        self.layer.borderWidth = 1
-    }
-    
-    // 文本自定宽度, 适应高度 //
-    func setFlexibleHeight(andFixedWidth width: CGFloat) {
-        self.frame.size.width = width
-        self.lineBreakMode = .byWordWrapping
-        self.numberOfLines = 0
-        self.sizeToFit()
-    }
 }

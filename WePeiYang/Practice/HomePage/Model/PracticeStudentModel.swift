@@ -28,6 +28,7 @@ struct PracticeStudentHelper {
             }
         }) { error in
             failure(error)
+            print("ERROR -- PracticeStudentHelper.getStudent")
         }
     }
 }
@@ -36,6 +37,7 @@ struct PracticeStudentModel: Codable {
     let status: Int
     let message: String
     let data: PracticeStudentData
+    let qSelect: [QuickSelect]
 }
 
 struct PracticeStudentData: Codable {
@@ -64,17 +66,13 @@ struct HistoryTopModel: Codable {
 
 struct HistoryModel: Codable {
     let type: Int
-    let date, courseID: String
-    let quesType: String?
-    let courseName: String
-    let score: Int?
+    let date, courseID, quesType, courseName: String
     
     enum CodingKeys: String, CodingKey {
         case type, date
         case courseID = "course_id"
         case quesType = "ques_type"
         case courseName = "course_name"
-        case score
     }
 }
 
@@ -100,9 +98,21 @@ struct Title: Codable {
     }
 }
 
+struct QuickSelect: Codable {
+    let id: Int
+    let courseName: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case courseName = "course_name"
+    }
+}
+
+// MARK: Convenience initializers and mutators
+
 extension PracticeStudentModel {
     init(data: Data) throws {
-        self = try JSONDecoder().decode(PracticeStudentModel.self, from: data)
+        self = try newJSONDecoder().decode(PracticeStudentModel.self, from: data)
     }
     
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -119,17 +129,19 @@ extension PracticeStudentModel {
     func with(
         status: Int? = nil,
         message: String? = nil,
-        data: PracticeStudentData? = nil
+        data: PracticeStudentData? = nil,
+        qSelect: [QuickSelect]? = nil
         ) -> PracticeStudentModel {
         return PracticeStudentModel(
             status: status ?? self.status,
             message: message ?? self.message,
-            data: data ?? self.data
+            data: data ?? self.data,
+            qSelect: qSelect ?? self.qSelect
         )
     }
     
     func jsonData() throws -> Data {
-        return try JSONEncoder().encode(self)
+        return try newJSONEncoder().encode(self)
     }
     
     func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
@@ -139,7 +151,7 @@ extension PracticeStudentModel {
 
 extension PracticeStudentData {
     init(data: Data) throws {
-        self = try JSONDecoder().decode(PracticeStudentData.self, from: data)
+        self = try newJSONDecoder().decode(PracticeStudentData.self, from: data)
     }
     
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -176,7 +188,7 @@ extension PracticeStudentData {
     }
     
     func jsonData() throws -> Data {
-        return try JSONEncoder().encode(self)
+        return try newJSONEncoder().encode(self)
     }
     
     func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
@@ -186,7 +198,7 @@ extension PracticeStudentData {
 
 extension HistoryTopModel {
     init(data: Data) throws {
-        self = try JSONDecoder().decode(HistoryTopModel.self, from: data)
+        self = try newJSONDecoder().decode(HistoryTopModel.self, from: data)
     }
     
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -211,7 +223,7 @@ extension HistoryTopModel {
     }
     
     func jsonData() throws -> Data {
-        return try JSONEncoder().encode(self)
+        return try newJSONEncoder().encode(self)
     }
     
     func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
@@ -221,7 +233,7 @@ extension HistoryTopModel {
 
 extension HistoryModel {
     init(data: Data) throws {
-        self = try JSONDecoder().decode(HistoryModel.self, from: data)
+        self = try newJSONDecoder().decode(HistoryModel.self, from: data)
     }
     
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -239,22 +251,20 @@ extension HistoryModel {
         type: Int? = nil,
         date: String? = nil,
         courseID: String? = nil,
-        quesType: String?? = nil,
-        courseName: String? = nil,
-        score: Int?? = nil
+        quesType: String? = nil,
+        courseName: String? = nil
         ) -> HistoryModel {
         return HistoryModel(
             type: type ?? self.type,
             date: date ?? self.date,
             courseID: courseID ?? self.courseID,
             quesType: quesType ?? self.quesType,
-            courseName: courseName ?? self.courseName,
-            score: score ?? self.score
+            courseName: courseName ?? self.courseName
         )
     }
     
     func jsonData() throws -> Data {
-        return try JSONEncoder().encode(self)
+        return try newJSONEncoder().encode(self)
     }
     
     func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
@@ -264,7 +274,7 @@ extension HistoryModel {
 
 extension QuesMessage {
     init(data: Data) throws {
-        self = try JSONDecoder().decode(QuesMessage.self, from: data)
+        self = try newJSONDecoder().decode(QuesMessage.self, from: data)
     }
     
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -295,7 +305,7 @@ extension QuesMessage {
     }
     
     func jsonData() throws -> Data {
-        return try JSONEncoder().encode(self)
+        return try newJSONEncoder().encode(self)
     }
     
     func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
@@ -305,7 +315,7 @@ extension QuesMessage {
 
 extension Title {
     init(data: Data) throws {
-        self = try JSONDecoder().decode(Title.self, from: data)
+        self = try newJSONDecoder().decode(Title.self, from: data)
     }
     
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -328,10 +338,61 @@ extension Title {
     }
     
     func jsonData() throws -> Data {
-        return try JSONEncoder().encode(self)
+        return try newJSONEncoder().encode(self)
     }
     
     func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
         return String(data: try self.jsonData(), encoding: encoding)
     }
+}
+
+extension QuickSelect {
+    init(data: Data) throws {
+        self = try newJSONDecoder().decode(QuickSelect.self, from: data)
+    }
+    
+    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
+        guard let data = json.data(using: encoding) else {
+            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
+        }
+        try self.init(data: data)
+    }
+    
+    init(fromURL url: URL) throws {
+        try self.init(data: try Data(contentsOf: url))
+    }
+    
+    func with(
+        id: Int? = nil,
+        courseName: String? = nil
+        ) -> QuickSelect {
+        return QuickSelect(
+            id: id ?? self.id,
+            courseName: courseName ?? self.courseName
+        )
+    }
+    
+    func jsonData() throws -> Data {
+        return try newJSONEncoder().encode(self)
+    }
+    
+    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
+        return String(data: try self.jsonData(), encoding: encoding)
+    }
+}
+
+func newJSONDecoder() -> JSONDecoder {
+    let decoder = JSONDecoder()
+    if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
+        decoder.dateDecodingStrategy = .iso8601
+    }
+    return decoder
+}
+
+func newJSONEncoder() -> JSONEncoder {
+    let encoder = JSONEncoder()
+    if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
+        encoder.dateEncodingStrategy = .iso8601
+    }
+    return encoder
 }

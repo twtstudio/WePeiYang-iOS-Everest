@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import PopupDialog
+import SwiftMessages
 
 class PracticeHomeViewController: UIViewController {
     
@@ -136,7 +138,7 @@ class PracticeHomeViewController: UIViewController {
     
     // 进入搜索界面 //
     @objc func practiceSearch() {
-        
+        // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
     }
     
 }
@@ -173,7 +175,7 @@ extension PracticeHomeViewController: UITableViewDataSource {
             return UserViewCellTitles.count
             
         // "题库" 视图 - 单元个数 //
-        case homeTableView:
+        case homeTableView: // (BUG EXIST)
             return HomeViewCellStyles.count
             
         default:
@@ -203,7 +205,10 @@ extension PracticeHomeViewController: UITableViewDataSource {
             return userViewCell
             
         // "题库" 视图 - 单元 //
-        case homeTableView:
+        case homeTableView: // (BUG EXIST)
+            // if practiceStudent == nil { return UITableViewCell() }
+            
+            // let homeViewCell = HomeViewCell(byModel: practiceStudent, withStyle: HomeViewCellStyles[row])
             let homeViewCell = HomeViewCell(withStyle: HomeViewCellStyles[row])
             
             homeViewCell.selectionStyle = .none
@@ -228,7 +233,9 @@ extension PracticeHomeViewController: UITableViewDelegate {
             return 44
             
         // "题库" 视图 - 单元高度 //
-        case homeTableView:
+        case homeTableView: // (BUG EXIST)
+            // return 300
+            // return HomeViewCell(byModel: practiceStudent, withStyle: HomeViewCellStyles[indexPath.row]).cellHeight
             return HomeViewCell(withStyle: HomeViewCellStyles[indexPath.row]).cellHeight
         
         default:
@@ -334,18 +341,17 @@ extension PracticeHomeViewController: UITableViewDelegate {
         case 1:
             // 我的错题 //
             self.navigationController?.pushViewController(PracticeWrongViewController(), animated: true)
-            tableView.deselectRow(at: indexPath, animated: true)
         case 2:
             // 我的收藏 //
-            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
-            tableView.deselectRow(at: indexPath, animated: true)
+            self.navigationController?.pushViewController(PracticeCollectionViewController(), animated: true)
         case 3:
             // 我的上传 //
-            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
-            tableView.deselectRow(at: indexPath, animated: true)
+            self.navigationController?.pushViewController(PracticeUploadViewController(), animated: true)
         default:
             tableView.deselectRow(at: indexPath, animated: true)
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
@@ -365,12 +371,12 @@ extension PracticeHomeViewController: UICollectionViewDataSource {
         
         let homeHeaderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "homeHeaderCell", for: indexPath) as! HomeHeaderCell
         
-        homeHeaderCell.courseImage.image = HomeHeaderIcons[row]
-        homeHeaderCell.courseName.text = HomeHeaderTitles[row]
+        homeHeaderCell.classImage.image = HomeHeaderIcons[row]
+        homeHeaderCell.className.text = HomeHeaderTitles[row]
         
         if row == 2 { // 居然是长方形的图标也太难为强迫症了吧
-            homeHeaderCell.courseImage.frame.size.width += 10
-            homeHeaderCell.courseImage.frame.origin.x -= 5
+            homeHeaderCell.classImage.frame.size.width += 10
+            homeHeaderCell.classImage.frame.origin.x -= 5
         }
         
         return homeHeaderCell
@@ -391,6 +397,23 @@ extension PracticeHomeViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.cellForItem(at: indexPath)?.setBounceAnimation()
+        
+        let row = indexPath.row
+        
+        switch row {
+        case 1:
+            let warningCard = PopupDialog(title: "形式与政策", message: "请选择练习模式", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+            let cancelButton = PracticePopupDialogButton(title: "顺序练习", action: nil)
+            let removeButton = PracticePopupDialogButton(title: "模拟考试", dismissOnTap: true) {
+                
+            }
+            warningCard.addButtons([cancelButton, removeButton])
+            self.present(warningCard, animated: true, completion: nil)
+        case 3:
+            SwiftMessages.showWarningMessage(body: "功能完善中\n敬请期待嘤")
+        default:
+            return
+        }
     }
     
 }
@@ -399,6 +422,10 @@ extension UIColor {
     // 刷题蓝色 //
     static var practiceBlue: UIColor {
         return UIColor(red: 67.0/255.0, green: 170.0/255.0, blue: 250.0/255.0, alpha: 1.0)
+    }
+    // 刷题红色 //
+    static var practiceRed: UIColor {
+        return UIColor(red: 252.0/255.0, green: 35.0/255.0, blue: 43.0/255.0, alpha: 1.0)
     }
 }
 
@@ -411,5 +438,13 @@ extension UIView {
         UIView.animate(withDuration: 0.1, delay: 0.1, options: [.allowUserInteraction, .curveEaseIn],
                        animations: { self.transform = CGAffineTransform.identity },
                        completion: { animations }())
+    }
+}
+
+/* 采用 PopupDialog 的专用按钮 */
+class PracticePopupDialogButton: PopupDialogButton {
+    override func setupView() {
+        defaultTitleColor = .practiceBlue
+        super.setupView()
     }
 }
