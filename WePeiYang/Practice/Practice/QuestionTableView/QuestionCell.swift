@@ -10,11 +10,9 @@ import Foundation
 import UIKit
 import SnapKit
 
-extension QuestionViewParameters {
-    static let qFont = UIFont.systemFont(ofSize: 17) 
-}
 
 class QuestionCell: UITableViewCell {
+    let questionViewParameters = QuestionViewParameters()
 
     let qLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -40,12 +38,12 @@ class QuestionCell: UITableViewCell {
     
     func initQCell(question: String?) {
         if let text = question {
-            qLabel.font = QuestionViewParameters.qFont
+            qLabel.font = questionViewParameters.qFont
             qLabel.text = question
 //            qLabel.frame = CGRect(x: 0, y: 0, width: cellWidth, height: text.calculateHeightWithConstrained(width: 80, font: qFont))
-            height = text.calculateHeightWithConstrained(width: CGFloat(QuestionViewParameters.questionViewW), font: QuestionViewParameters.qFont)
+            height = text.calculateHeightWithConstrained(width: CGFloat(questionViewParameters.questionViewW), font: questionViewParameters.qFont)
             qLabel.snp.makeConstraints { (make) in
-                make.width.equalTo(QuestionViewParameters.questionViewW)
+                make.width.equalTo(questionViewParameters.questionViewW)
                 make.height.equalTo(height)
                 make.left.top.equalTo(self)
             }

@@ -216,10 +216,11 @@
 		B585F35820FE36E400950C00 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35020FE36E400950C00 /* Model.swift */; };
 		B585F35920FE36E400950C00 /* MemorizeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35220FE36E400950C00 /* MemorizeTableViewController.swift */; };
 		B585F35A20FE36E400950C00 /* QuestionsScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35320FE36E400950C00 /* QuestionsScrollView.swift */; };
+		B55942A321281C4E00B0931C /* PracticeNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55942A221281C4E00B0931C /* PracticeNetwork.swift */; };
+		B55942A921337D7F00B0931C /* QuesListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55942A821337D7F00B0931C /* QuesListCollectionView.swift */; };
 		B585F35B20FE36E400950C00 /* PracticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35420FE36E400950C00 /* PracticeModel.swift */; };
 		B585F35C20FE36E400950C00 /* LessonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35620FE36E400950C00 /* LessonListViewController.swift */; };
 		B585F35D20FE36E400950C00 /* QuestionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35720FE36E400950C00 /* QuestionTableView.swift */; };
-		B585F365210066BD00950C00 /* MemorizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F364210066BD00950C00 /* MemorizeView.swift */; };
 		B585F3672102F40700950C00 /* QuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F3662102F40700950C00 /* QuestionCell.swift */; };
 		B585F36921034F5600950C00 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F36821034F5600950C00 /* Extension.swift */; };
 		B585F36B2103586A00950C00 /* OptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F36A2103586A00950C00 /* OptionsCell.swift */; };
@@ -227,6 +228,7 @@
 		B585F36F2105A01800950C00 /* ExerciseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F36E2105A01800950C00 /* ExerciseCollectionViewController.swift */; };
 		B585F3732105B91A00950C00 /* ExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F3722105B91A00950C00 /* ExerciseCell.swift */; };
 		B585F37821074E2B00950C00 /* AnswerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F37721074E2B00950C00 /* AnswerScrollView.swift */; };
+		B5EA4BEB211C262A00C6498D /* ExerciseMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EA4BEA211C262A00C6498D /* ExerciseMode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -459,13 +461,11 @@
 		B19DABA51E6EF5C2004A50B5 /* WePeiYangUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WePeiYangUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WePeiYangUITests.swift; sourceTree = "<group>"; };
 		B19DABAB1E6EF5C2004A50B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B585F35020FE36E400950C00 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		B585F35220FE36E400950C00 /* MemorizeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemorizeTableViewController.swift; sourceTree = "<group>"; };
-		B585F35320FE36E400950C00 /* QuestionsScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsScrollView.swift; sourceTree = "<group>"; };
+		B55942A221281C4E00B0931C /* PracticeNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeNetwork.swift; sourceTree = "<group>"; };
+		B55942A821337D7F00B0931C /* QuesListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuesListCollectionView.swift; sourceTree = "<group>"; };
 		B585F35420FE36E400950C00 /* PracticeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeModel.swift; sourceTree = "<group>"; };
 		B585F35620FE36E400950C00 /* LessonListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonListViewController.swift; sourceTree = "<group>"; };
 		B585F35720FE36E400950C00 /* QuestionTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableView.swift; sourceTree = "<group>"; };
-		B585F364210066BD00950C00 /* MemorizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizeView.swift; sourceTree = "<group>"; };
 		B585F3662102F40700950C00 /* QuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCell.swift; sourceTree = "<group>"; };
 		B585F36821034F5600950C00 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		B585F36A2103586A00950C00 /* OptionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCell.swift; sourceTree = "<group>"; };
@@ -473,6 +473,7 @@
 		B585F36E2105A01800950C00 /* ExerciseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCollectionViewController.swift; sourceTree = "<group>"; };
 		B585F3722105B91A00950C00 /* ExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCell.swift; sourceTree = "<group>"; };
 		B585F37721074E2B00950C00 /* AnswerScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerScrollView.swift; sourceTree = "<group>"; };
+		B5EA4BEA211C262A00C6498D /* ExerciseMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseMode.swift; sourceTree = "<group>"; };
 		D77E7BD11F959EB50A5A0DED /* Pods-WePeiYangWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.debug.xcconfig"; sourceTree = "<group>"; };
 		DD0B75DD2158C6ED009A392C /* YellowPageSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageSearchViewController.swift; sourceTree = "<group>"; };
 		DD0B75DE2158C6ED009A392C /* YellowPageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageDetailViewController.swift; sourceTree = "<group>"; };
@@ -1245,6 +1246,14 @@
 			path = WePeiYangUITests;
 			sourceTree = "<group>";
 		};
+		B5452CBC2109D9A400F77BD0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B5EA4BEA211C262A00C6498D /* ExerciseMode.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		B585F34F20FE36E400950C00 /* Practice */ = {
 			isa = PBXGroup;
 			children = (
@@ -1256,16 +1265,6 @@
 				B585F35520FE36E400950C00 /* LessonList */,
 			);
 			path = Practice;
-			sourceTree = "<group>";
-		};
-		B585F35120FE36E400950C00 /* Memorize */ = {
-			isa = PBXGroup;
-			children = (
-				B585F361210049A600950C00 /* Model */,
-				B585F3632100669600950C00 /* View */,
-				B585F3602100499500950C00 /* Controller */,
-			);
-			path = Memorize;
 			sourceTree = "<group>";
 		};
 		B585F35520FE36E400950C00 /* LessonList */ = {
@@ -1293,46 +1292,23 @@
 			path = QuestionTableView;
 			sourceTree = "<group>";
 		};
-		B585F3602100499500950C00 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				B585F35220FE36E400950C00 /* MemorizeTableViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		B585F361210049A600950C00 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				B585F35020FE36E400950C00 /* Model.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		B585F3622100619000950C00 /* Practice */ = {
 			isa = PBXGroup;
 			children = (
 				B585F3752105B95300950C00 /* main */,
 				B585F3702105B88800950C00 /* Exercise */,
 				B585F35E20FEEE0500950C00 /* Quize */,
-				B585F35120FE36E400950C00 /* Memorize */,
 				B585F37621074DFF00950C00 /* AnswerView */,
 				B585F35F2100498400950C00 /* QuestionTableView */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
 		};
-		B585F3632100669600950C00 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				B585F364210066BD00950C00 /* MemorizeView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		B585F3702105B88800950C00 /* Exercise */ = {
 			isa = PBXGroup;
 			children = (
+				B55942A221281C4E00B0931C /* PracticeNetwork.swift */,
+				B5452CBC2109D9A400F77BD0 /* Model */,
 				B585F3742105B92200950C00 /* Controller */,
 				B585F3712105B8D300950C00 /* View */,
 			);
@@ -1343,6 +1319,7 @@
 			isa = PBXGroup;
 			children = (
 				B585F3722105B91A00950C00 /* ExerciseCell.swift */,
+				B55942A821337D7F00B0931C /* QuesListCollectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1361,7 +1338,6 @@
 				B585F36821034F5600950C00 /* Extension.swift */,
 				B585F35420FE36E400950C00 /* PracticeModel.swift */,
 				B585F36C21035F8400950C00 /* TestController.swift */,
-				B585F35320FE36E400950C00 /* QuestionsScrollView.swift */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -1856,6 +1832,7 @@
 				361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */,
 				368C3C8A204DAB4F00C1E6B6 /* WPYCustomError.swift in Sources */,
 				A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */,
+				B55942A921337D7F00B0931C /* QuesListCollectionView.swift in Sources */,
 				36073D1A1F225D2A001317A7 /* BookDetailViewController.swift in Sources */,
 				B585F35C20FE36E400950C00 /* LessonListViewController.swift in Sources */,
 				B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */,
@@ -1896,6 +1873,9 @@
 				361F885C204AF92D00BCFA19 /* BannerPageControl.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
 				A51C456A1FD0477700652435 /* BicycleBindingViewController.swift in Sources */,
+				B55942A321281C4E00B0931C /* PracticeNetwork.swift in Sources */,
+				365936711F1E38B8003CE578 /* YellowPageSearchHistoryCell.swift in Sources */,
+				B10254051EC84EE00064373A /* PhoneBook.swift in Sources */,
 				36758FDD1FDA851C0023A99C /* CardView.swift in Sources */,
 				A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */,
 				A5E117C11F99E01A00C86CA2 /* BicycleCardListViewController.swift in Sources */,
@@ -1924,12 +1904,10 @@
 				0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */,
 				36922AE21FCAEA1E00AD44F3 /* GPAModel.swift in Sources */,
 				36A74EB1205BAD0300DD1EC3 /* AlertPageViewController.swift in Sources */,
-				B585F365210066BD00950C00 /* MemorizeView.swift in Sources */,
 				361F885D204AF92D00BCFA19 /* BannerScrollView.swift in Sources */,
 				DD0B76282158CBA6009A392C /* GPASessionManager.swift in Sources */,
 				3685D9F1204D276100BA6C3D /* NewsDetailModel.swift in Sources */,
 				0C3ADF421F697EE100388C19 /* LostFoundAPI.swift in Sources */,
-				B585F35A20FE36E400950C00 /* QuestionsScrollView.swift in Sources */,
 				A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */,
 				A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */,
 				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
@@ -1993,6 +1971,7 @@
 				369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */,
 				A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */,
 				A5E117AF1F99DB8E00C86CA2 /* BicycleUser.swift in Sources */,
+				B5EA4BEB211C262A00C6498D /* ExerciseMode.swift in Sources */,
 				369140AF2020CBA30022BA3F /* NotificationName.swift in Sources */,
 				B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */,
 				36449E851FA4BAD10036766B /* TwentyCourseDetailViewController.swift in Sources */,
@@ -2000,7 +1979,6 @@
 				364922A120260CDC00DFDC35 /* LibraryModel.swift in Sources */,
 				363D0A701FE006990095DA57 /* LibraryCardDataProvider.swift in Sources */,
 				A5E117B71F99DC9400C86CA2 /* NotificationList.swift in Sources */,
-				B585F35920FE36E400950C00 /* MemorizeTableViewController.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
 				36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */,
 				A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */,

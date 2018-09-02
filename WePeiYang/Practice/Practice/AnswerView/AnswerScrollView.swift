@@ -12,22 +12,26 @@ import UIKit
 struct AnswerViewParameters {
     static let aFont = UIFont.systemFont(ofSize: 16)
     static let resultLabelH = 0.05 * deviceHeight
-    static let answerTextViewH = 0.2 * deviceHeight
+    static var answerTextViewH = 0.2 * deviceHeight
     static let answerViewH = 0.25 * deviceHeight
 }
 
 class AnswerScrollView: UIScrollView {
-    
-    let answerTextView: UITextView = {
-        let textView = UITextView()
-        textView.textColor = .black
-        textView.font = AnswerViewParameters.aFont
-        return textView
-    }()
+    let questionViewParameters = QuestionViewParameters()
+
+//    let answerLabel: UILabel = {
+//        let label = UILabel()
+//        label.textColor = .black
+//        label.textAlignment = .left
+//        label.numberOfLines = 0
+//        label.adjustsFontSizeToFitWidth = true
+//        label.font = AnswerViewParameters.aFont
+//        return label
+//    }()
     
     let label: UILabel = {
         let label = UILabel()
-        label.textColor = .blue
+        label.textColor = UIColor.practiceBlue
         label.font = AnswerViewParameters.aFont
         return label
     }()
@@ -38,16 +42,17 @@ class AnswerScrollView: UIScrollView {
         initScrollView()
         
         self.addSubview(label)
-        self.addSubview(answerTextView)
+//        self.addSubview(answerLabel)
     }
     
-    func creatAnswerView(result: String?, answer: String?) {
-        if let text = result, let answerText = answer {
+    func creatAnswerView(result: String?) {
+        if let text = result {
             label.text = text
-            answerTextView.text = answerText
+//            answerLabel.text = answerText
+//            AnswerViewParameters.answerTextViewH = answerText.calculateHeightWithConstrained(width: questionViewParameters.questionViewW, font: AnswerViewParameters.aFont)
         } else {
-            label.text = ""
-            answerTextView.text = ""
+            label.text = "额，答案飞走了"
+//            answerLabel.text = ""
         }
         
         label.snp.makeConstraints { (make) in
@@ -56,24 +61,25 @@ class AnswerScrollView: UIScrollView {
             make.left.top.equalTo(self)
         }
         
-        answerTextView.snp.makeConstraints { (make) in
-            make.width.equalTo(QuestionViewParameters.questionViewW)
-            make.height.equalTo(AnswerViewParameters.answerTextViewH)
-            make.left.equalTo(self)
-            make.top.equalTo(label).offset(AnswerViewParameters.resultLabelH)
-        }
+//        answerLabel.snp.makeConstraints { (make) in
+//            make.width.equalTo(questionViewParameters.questionViewW)
+//            make.height.equalTo(AnswerViewParameters.answerTextViewH)
+//            make.left.equalTo(self)
+//            make.top.equalTo(label).offset(AnswerViewParameters.resultLabelH)
+//        }
+        self.contentSize = CGSize(width: frame.width, height: AnswerViewParameters.resultLabelH)
+//        self.contentSize = CGSize(width: frame.width, height: AnswerViewParameters.resultLabelH + AnswerViewParameters.answerTextViewH)
     }
     
     private func initScrollView() {
-        self.bounces = false
-        self.showsVerticalScrollIndicator = false
+        self.backgroundColor = .white
+        self.bounces = true
+        self.showsVerticalScrollIndicator = true
         self.showsHorizontalScrollIndicator = false
     }
-    
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
+
 }
