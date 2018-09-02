@@ -8,13 +8,24 @@
 
 import Foundation
 
-struct Question {
+struct QuestionDetails {
     var id: Int?
-    var course_id: Int?
+    var classId: Int?
+    var courseId: Int?
     var type: Int?
     var content: String?
-    var option: [Dictionary<String, String>]?
+    var option: [String]?
+    var correctAnswer: String?
+    var isCollected: Int?
+    var isMistake: Int?
 }
+
+struct Question {
+    var status: Int?
+    var quesDetail: QuestionDetails?
+}
+
+
 
 struct Answer {
     var ques_id: Int?
@@ -35,4 +46,19 @@ struct Results {
     var data: [Result]?
 }
 
+struct PracticeModel {
+    let optionDics: [Int: String] = [2: "A",
+                                     3: "B",
+                                     4: "C",
+                                     5: "D",
+                                     6: "E",
+                                     7: "F"]
+    
+    let optionToIndexDic: [String: Int] = ["A": 0,
+                                           "B": 1,
+                                           "C": 2,
+                                           "D": 3,
+                                           "E": 4,
+                                           "F": 5]
+}
 

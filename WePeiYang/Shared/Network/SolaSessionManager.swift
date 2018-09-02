@@ -31,7 +31,6 @@ struct SolaSessionManager {
     ///   - success: callback if request succeeds
     ///   - failure: callback if request fails
     static func solaSession(type: SessionType = .get, baseURL: String = TWT_ROOT_URL, url: String, token: String? = nil, parameters: [String: String]? = nil, success: (([String: Any])->())? = nil, failure: ((Error)->())? = nil) {
-        
         let fullurl = baseURL + url
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
         var para = parameters ?? [String: String]()
