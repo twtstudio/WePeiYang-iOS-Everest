@@ -54,7 +54,6 @@
 		3613DA172056F1B9000867AE /* WLANHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586543620514E860069CF53 /* WLANHelper.swift */; };
 		3613DA182056F56A000867AE /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		3613DA192056F571000867AE /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E21EC84ED90064373A /* SolaSessionManager.swift */; };
-		3613DA1A2056F65C000867AE /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TwTKeychain.swift */; };
 		3613DA1B2056F664000867AE /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EE1EC84ED90064373A /* DeviceStatus.swift */; };
 		3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */; };
 		3613DA1F2056F6D4000867AE /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D526E42041C4150074EB2B /* DebugLog.swift */; };
@@ -206,7 +205,14 @@
 		780CCE1120FEE3B600FFBE7A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780CCE0C20FEE3B600FFBE7A /* HomeView.swift */; };
 		780CCE1220FEE3B600FFBE7A /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780CCE0D20FEE3B600FFBE7A /* UserView.swift */; };
 		780CCE1320FEE3B600FFBE7A /* PracticeHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780CCE0F20FEE3B600FFBE7A /* PracticeHomeViewController.swift */; };
+		78238C3021198D69007CC844 /* WrongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78238C2F21198D69007CC844 /* WrongView.swift */; };
+		785A093D213A7088007A2E3C /* PracticeCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785A093C213A7088007A2E3C /* PracticeCollectionModel.swift */; };
+		785A0941213A722E007A2E3C /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785A0940213A722E007A2E3C /* CollectionView.swift */; };
+		785A0943213A73DB007A2E3C /* PracticeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785A0942213A73DB007A2E3C /* PracticeCollectionViewController.swift */; };
+		786A342A213150370078120A /* PracticeStudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786A3429213150370078120A /* PracticeStudentModel.swift */; };
+		786A342D213176050078120A /* PracticeWrongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786A342C213176050078120A /* PracticeWrongModel.swift */; };
 		78865AC42112F2A00055161F /* PracticeWrongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78865AC32112F2A00055161F /* PracticeWrongViewController.swift */; };
+		78C5801A21381398003F2C8E /* PracticeUploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5801921381398003F2C8E /* PracticeUploadViewController.swift */; };
 		A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51C456B1FD122F700652435 /* Assets.xcassets */; };
 		A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */; };
@@ -244,7 +250,6 @@
 		B10253DD1EC84ED20064373A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253D41EC84ED20064373A /* User.swift */; };
 		B10253F01EC84ED90064373A /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E01EC84ED90064373A /* AccountManager.swift */; };
 		B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E21EC84ED90064373A /* SolaSessionManager.swift */; };
-		B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TwTKeychain.swift */; };
 		B10253FD1EC84ED90064373A /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EF1EC84ED90064373A /* log.swift */; };
 		B10254041EC84EE00064373A /* ClientItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254011EC84EE00064373A /* ClientItem.swift */; };
 		B10254051EC84EE00064373A /* PhoneBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254021EC84EE00064373A /* PhoneBook.swift */; };
@@ -261,6 +266,7 @@
 		B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B9571EC5C21700B8198E /* FavViewController.swift */; };
 		B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */; };
 		B19DABAA1E6EF5C2004A50B5 /* WePeiYangUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */; };
+		B52824B0213E2CC5009E9226 /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52824AF213E2CC4009E9226 /* TwTKeychain.swift */; };
 		B55942A321281C4E00B0931C /* PracticeNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55942A221281C4E00B0931C /* PracticeNetwork.swift */; };
 		B55942A921337D7F00B0931C /* QuesListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55942A821337D7F00B0931C /* QuesListCollectionView.swift */; };
 		B585F35B20FE36E400950C00 /* PracticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35420FE36E400950C00 /* PracticeModel.swift */; };
@@ -497,7 +503,14 @@
 		780CCE0C20FEE3B600FFBE7A /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		780CCE0D20FEE3B600FFBE7A /* UserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		780CCE0F20FEE3B600FFBE7A /* PracticeHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeHomeViewController.swift; sourceTree = "<group>"; };
+		78238C2F21198D69007CC844 /* WrongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongView.swift; sourceTree = "<group>"; };
+		785A093C213A7088007A2E3C /* PracticeCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCollectionModel.swift; sourceTree = "<group>"; };
+		785A0940213A722E007A2E3C /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
+		785A0942213A73DB007A2E3C /* PracticeCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCollectionViewController.swift; sourceTree = "<group>"; };
+		786A3429213150370078120A /* PracticeStudentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeStudentModel.swift; sourceTree = "<group>"; };
+		786A342C213176050078120A /* PracticeWrongModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeWrongModel.swift; sourceTree = "<group>"; };
 		78865AC32112F2A00055161F /* PracticeWrongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeWrongViewController.swift; sourceTree = "<group>"; };
+		78C5801921381398003F2C8E /* PracticeUploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeUploadViewController.swift; sourceTree = "<group>"; };
 		8405C859FC95C5E72E0F9BD7 /* Pods-WePeiYang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.release.xcconfig"; sourceTree = "<group>"; };
 		9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.debug.xcconfig"; sourceTree = "<group>"; };
@@ -547,7 +560,6 @@
 		B10253E01EC84ED90064373A /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		B10253E11EC84ED90064373A /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		B10253E21EC84ED90064373A /* SolaSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolaSessionManager.swift; sourceTree = "<group>"; };
-		B10253E31EC84ED90064373A /* TwTKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTKeychain.swift; sourceTree = "<group>"; };
 		B10253EE1EC84ED90064373A /* DeviceStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceStatus.swift; sourceTree = "<group>"; };
 		B10253EF1EC84ED90064373A /* log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = log.swift; sourceTree = "<group>"; };
 		B10254011EC84EE00064373A /* ClientItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientItem.swift; sourceTree = "<group>"; };
@@ -575,6 +587,7 @@
 		B19DABA51E6EF5C2004A50B5 /* WePeiYangUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WePeiYangUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WePeiYangUITests.swift; sourceTree = "<group>"; };
 		B19DABAB1E6EF5C2004A50B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B52824AF213E2CC4009E9226 /* TwTKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwTKeychain.swift; path = WePeiYang/Shared/TwTKeychain.swift; sourceTree = SOURCE_ROOT; };
 		B55942A221281C4E00B0931C /* PracticeNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeNetwork.swift; sourceTree = "<group>"; };
 		B55942A821337D7F00B0931C /* QuesListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuesListCollectionView.swift; sourceTree = "<group>"; };
 		B585F35420FE36E400950C00 /* PracticeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeModel.swift; sourceTree = "<group>"; };
@@ -1013,13 +1026,6 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		780CCE0920FEE3B600FFBE7A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		780CCE0A20FEE3B600FFBE7A /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1042,16 +1048,67 @@
 			isa = PBXGroup;
 			children = (
 				780CCE0E20FEE3B600FFBE7A /* Controller */,
-				780CCE0920FEE3B600FFBE7A /* Model */,
+				786A34282131501C0078120A /* Model */,
 				780CCE0A20FEE3B600FFBE7A /* View */,
 			);
 			path = HomePage;
+			sourceTree = "<group>";
+		};
+		785A093A213A702F007A2E3C /* CollectionPage */ = {
+			isa = PBXGroup;
+			children = (
+				785A093E213A71F1007A2E3C /* Controller */,
+				785A093B213A704E007A2E3C /* Model */,
+				785A093F213A7201007A2E3C /* View */,
+			);
+			path = CollectionPage;
+			sourceTree = "<group>";
+		};
+		785A093B213A704E007A2E3C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				785A093C213A7088007A2E3C /* PracticeCollectionModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		785A093E213A71F1007A2E3C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				785A0942213A73DB007A2E3C /* PracticeCollectionViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		785A093F213A7201007A2E3C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				785A0940213A722E007A2E3C /* CollectionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		786A34282131501C0078120A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				786A3429213150370078120A /* PracticeStudentModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		786A342B213175B90078120A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				786A342C213176050078120A /* PracticeWrongModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		78865AC02112F0F00055161F /* WrongPage */ = {
 			isa = PBXGroup;
 			children = (
 				78865AC12112F25F0055161F /* Controller */,
+				786A342B213175B90078120A /* Model */,
 				78865AC22112F2680055161F /* View */,
 			);
 			path = WrongPage;
@@ -1068,8 +1125,25 @@
 		78865AC22112F2680055161F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				78238C2F21198D69007CC844 /* WrongView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		78C5801721381324003F2C8E /* UploadPage */ = {
+			isa = PBXGroup;
+			children = (
+				78C5801821381365003F2C8E /* Controller */,
+			);
+			path = UploadPage;
+			sourceTree = "<group>";
+		};
+		78C5801821381365003F2C8E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				78C5801921381398003F2C8E /* PracticeUploadViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		80B33C5178ED19C33022F16B /* Pods */ = {
@@ -1285,7 +1359,7 @@
 				B10253E01EC84ED90064373A /* AccountManager.swift */,
 				B10253E11EC84ED90064373A /* CacheManager.swift */,
 				B10253E21EC84ED90064373A /* SolaSessionManager.swift */,
-				B10253E31EC84ED90064373A /* TwTKeychain.swift */,
+				B52824AF213E2CC4009E9226 /* TwTKeychain.swift */,
 				3631D5091F1903D70078816D /* TwTUser.swift */,
 			);
 			path = Network;
@@ -1503,6 +1577,8 @@
 			children = (
 				780CCE1420FEE41E00FFBE7A /* HomePage */,
 				78865AC02112F0F00055161F /* WrongPage */,
+				785A093A213A702F007A2E3C /* CollectionPage */,
+				78C5801721381324003F2C8E /* UploadPage */,
 				B585F3622100619000950C00 /* Practice */,
 				B585F35520FE36E400950C00 /* LessonList */,
 			);
@@ -1933,7 +2009,6 @@
 				3613DA1B2056F664000867AE /* DeviceStatus.swift in Sources */,
 				36B2C892203A806C00AD2E3F /* CacheManager.swift in Sources */,
 				36B2C895203A80D600AD2E3F /* ArrangeModel.swift in Sources */,
-				3613DA1A2056F65C000867AE /* TwTKeychain.swift in Sources */,
 				3685D9F2204D97A200BA6C3D /* DateTool.swift in Sources */,
 				3613DA192056F571000867AE /* SolaSessionManager.swift in Sources */,
 				3613DA232056F745000867AE /* UniversalExtension.swift in Sources */,
@@ -2029,6 +2104,7 @@
 				A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */,
 				A5E117C11F99E01A00C86CA2 /* BicycleCardListViewController.swift in Sources */,
 				361F8857204AF92100BCFA19 /* NewsReporter.swift in Sources */,
+				785A093D213A7088007A2E3C /* PracticeCollectionModel.swift in Sources */,
 				780CCE1320FEE3B600FFBE7A /* PracticeHomeViewController.swift in Sources */,
 				36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */,
 				0C3ADF361F697EE100388C19 /* FoundViewController.swift in Sources */,
@@ -2038,6 +2114,7 @@
 				B585F36D21035F8400950C00 /* TestController.swift in Sources */,
 				0C3ADF3E1F697EE100388C19 /* PublishSuccessViewController.swift in Sources */,
 				0C3ADF401F697EE100388C19 /* LostFoundSearchViewController.swift in Sources */,
+				786A342D213176050078120A /* PracticeWrongModel.swift in Sources */,
 				36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */,
 				36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */,
 				36E56BC61FC512230009BD6F /* CourseListView.swift in Sources */,
@@ -2086,10 +2163,11 @@
 				3659368E1F1E60A9003CE578 /* GPAViewController.swift in Sources */,
 				0C3ADF381F697EE100388C19 /* LostFoundDetailModel.swift in Sources */,
 				365936911F1E60A9003CE578 /* GPASessionManager.swift in Sources */,
+				786A342A213150370078120A /* PracticeStudentModel.swift in Sources */,
 				365936931F1E60A9003CE578 /* GPATermModel.swift in Sources */,
 				3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */,
-				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
 				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
+				785A0943213A73DB007A2E3C /* PracticeCollectionViewController.swift in Sources */,
 				A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */,
 				364922A3202620CC00DFDC35 /* CardButton.swift in Sources */,
 				36449E631FA4BABA0036766B /* ScoreTableViewCell.swift in Sources */,
@@ -2097,6 +2175,7 @@
 				0C3ADF391F697EE100388C19 /* LostFoundPageControllerViewController.swift in Sources */,
 				0C3ADF451F697EE100388C19 /* PublishLostViewController.swift in Sources */,
 				36449E8E1FA4BAD10036766B /* PartyComplainViewController.swift in Sources */,
+				785A0941213A722E007A2E3C /* CollectionView.swift in Sources */,
 				361F8867204AF9AA00BCFA19 /* NewsViewController.swift in Sources */,
 				36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */,
 				3653DD911FBAD0B600501C3B /* ClassTableViewController.swift in Sources */,
@@ -2125,6 +2204,7 @@
 				B5EA4BEB211C262A00C6498D /* ExerciseMode.swift in Sources */,
 				369140AF2020CBA30022BA3F /* NotificationName.swift in Sources */,
 				36D526E52041C4150074EB2B /* DebugLog.swift in Sources */,
+				B52824B0213E2CC5009E9226 /* TwTKeychain.swift in Sources */,
 				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
 				36073D091F223FC1001317A7 /* RateView.swift in Sources */,
 				B10253D61EC84ED20064373A /* Book.swift in Sources */,
@@ -2160,10 +2240,12 @@
 				A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */,
 				B10253FD1EC84ED90064373A /* log.swift in Sources */,
 				361F8853204AF92100BCFA19 /* HomePageHelper.swift in Sources */,
+				78C5801A21381398003F2C8E /* PracticeUploadViewController.swift in Sources */,
 				0C3ADF481F697EE100388C19 /* MyLostFoundTableViewCell.swift in Sources */,
 				78865AC42112F2A00055161F /* PracticeWrongViewController.swift in Sources */,
 				365A8A251FB9BA8500B15443 /* ClasstableDataManager.swift in Sources */,
 				B10253DA1EC84ED20064373A /* ReadBeacon.swift in Sources */,
+				78238C3021198D69007CC844 /* WrongView.swift in Sources */,
 				3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */,
 				B10253DD1EC84ED20064373A /* User.swift in Sources */,
 				36CAD44C201B9194006F85E3 /* ClassTableCard.swift in Sources */,

@@ -9,6 +9,14 @@
 import Foundation
 import Alamofire
 
+struct TwTKeychain {
+    static let shared = TwTKeychain()
+    init () {}
+    
+    let appKey = "YPUzdhNPOa8TeozPw0wb"
+    let appSecret = "TyxNrASaYhSjb7XqGDmSAsQBFi3p4L"
+}
+
 enum SessionType {
     case get
     case post

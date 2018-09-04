@@ -23,7 +23,7 @@ class HeadView: UIView {
     
     /* 切换按钮 (题库, 我的) */
     static func addOptionButton(withText text: String, andX x: CGFloat) -> UIButton {
-        let optionButton = UIButton(frame: CGRect(x: x, y: 10, width: deviceWidth/2, height: 44))
+        let optionButton = UIButton(frame: CGRect(x: x, y: 10, width: deviceWidth / 2, height: 44))
         
         optionButton.setTitle(text, for: .normal)
         optionButton.setTitleColor(UIColor.white, for: .normal)
@@ -31,12 +31,12 @@ class HeadView: UIView {
         return optionButton
     }
     
-    let userOptionButton = addOptionButton(withText: "我的", andX: deviceWidth/2)
+    let userOptionButton = addOptionButton(withText: "我的", andX: deviceWidth / 2)
     let homeOptionButton = addOptionButton(withText: "题库", andX: 0)
     
     /* 白色指示条 */
     let underLine: UIView = {
-        let underLine = UIView(frame: CGRect(x: deviceWidth * 2/3, y: 54, width: deviceWidth/6, height: 2))
+        let underLine = UIView(frame: CGRect(x: deviceWidth * 2 / 3, y: 54, width: deviceWidth / 6, height: 2))
         underLine.backgroundColor = .white
         return underLine
     }()
@@ -44,13 +44,13 @@ class HeadView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.addSubview(headBackgroundView)
+        addSubview(headBackgroundView)
         
         userOptionButton.isEnabled = false
-        self.addSubview(userOptionButton)
-        self.addSubview(homeOptionButton)
+        addSubview(userOptionButton)
+        addSubview(homeOptionButton)
         
-        self.addSubview(underLine)
+        addSubview(underLine)
     }
     
     required init?(coder aDecoder: NSCoder) {

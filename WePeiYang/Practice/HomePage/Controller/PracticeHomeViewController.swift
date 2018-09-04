@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import PopupDialog
+import SwiftMessages
 
 class PracticeHomeViewController: UIViewController {
+    
+    /* 用户模型 */
+    var practiceStudent: PracticeStudentModel!
     
     /* 顶部切换视图 */
     let headView = HeadView()
@@ -36,6 +41,12 @@ class PracticeHomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+
+        /* 用户模型 */
+        PracticeStudentHelper.getStudent(success: { practiceStudent in
+            self.practiceStudent = practiceStudent
+            self.userTableView.reloadData()
+        }) { error in }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +60,7 @@ class PracticeHomeViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.tintColor = .white
-        let barHeight = (navigationController?.navigationBar.y)! + (navigationController?.navigationBar.height)!
+        let barHeight = (navigationController?.navigationBar.frame.origin.y)! + (navigationController?.navigationBar.frame.size.height)!
         
         /* 标题 */
         let titleLabel = UILabel(text: "天外天刷题")
@@ -57,6 +68,10 @@ class PracticeHomeViewController: UIViewController {
         titleLabel.textColor = .white
         titleLabel.sizeToFit()
         navigationItem.titleView = titleLabel
+        
+        /* 返回 */
+        let practiceBack = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = practiceBack
         
         /* 搜索 */
         let practiceSearch = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(self.practiceSearch))
@@ -123,7 +138,7 @@ class PracticeHomeViewController: UIViewController {
     
     // 进入搜索界面 //
     @objc func practiceSearch() {
-        
+        // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
     }
     
 }
@@ -160,7 +175,7 @@ extension PracticeHomeViewController: UITableViewDataSource {
             return UserViewCellTitles.count
             
         // "题库" 视图 - 单元个数 //
-        case homeTableView:
+        case homeTableView: // (BUG EXIST)
             return HomeViewCellStyles.count
             
         default:
@@ -190,7 +205,10 @@ extension PracticeHomeViewController: UITableViewDataSource {
             return userViewCell
             
         // "题库" 视图 - 单元 //
-        case homeTableView:
+        case homeTableView: // (BUG EXIST)
+            // if practiceStudent == nil { return UITableViewCell() }
+            
+            // let homeViewCell = HomeViewCell(byModel: practiceStudent, withStyle: HomeViewCellStyles[row])
             let homeViewCell = HomeViewCell(withStyle: HomeViewCellStyles[row])
             
             homeViewCell.selectionStyle = .none
@@ -215,7 +233,9 @@ extension PracticeHomeViewController: UITableViewDelegate {
             return 44
             
         // "题库" 视图 - 单元高度 //
-        case homeTableView:
+        case homeTableView: // (BUG EXIST)
+            // return 300
+            // return HomeViewCell(byModel: practiceStudent, withStyle: HomeViewCellStyles[indexPath.row]).cellHeight
             return HomeViewCell(withStyle: HomeViewCellStyles[indexPath.row]).cellHeight
         
         default:
@@ -246,18 +266,18 @@ extension PracticeHomeViewController: UITableViewDelegate {
         case userTableView:
             if section != 0 { return nil }
             
-            userView.userHeadView.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "account_circle")!.with(color: .gray))
-
-            if TwTUser.shared.token != nil { // 已登录
-                userView.userNameLabel.text = TwTUser.shared.username
-                userView.userTitleLabel.text = "刷题飞人" // 称号
-                userView.practicedQuestionNumber.text = "1010" // 已练习题目数
-                userView.practicedCourseNumber.text = "10" // 已练习科目数
+            if let practiceStudent = practiceStudent {
+                userView.userHeadView.sd_setImage(with: URL(string: practiceStudent.data.avatarURL), placeholderImage: UIImage(named: "account_circle")!.with(color: .gray)) // 头像
+                userView.userNameLabel.text = practiceStudent.data.twtName // 昵称
+                userView.userTitleLabel.text = practiceStudent.data.title.titleName // 称号
+                userView.practicedQuestionNumber.text = practiceStudent.data.quesMessage.doneNumber // 已练习题目数
+                userView.practicedCourseNumber.text = "\(practiceStudent.data.quesMessage.rememberCourseNumber)" // 已练习科目数
                 
-                let correctRateText = NSMutableAttributedString(string: "正确率 98%") // 正确率 (使用富文本改变字体)
+                let correctRateString = String(Int(100 - Double(practiceStudent.data.quesMessage.errorNumber)! / Double(practiceStudent.data.quesMessage.doneNumber)! * 100))
+                let correctRateText = NSMutableAttributedString(string: "正确率 \(correctRateString)%") // 使用富文本改变字体
                 correctRateText.addAttribute(.foregroundColor, value: UIColor.darkGray, range: NSMakeRange(0, 4))
-                userView.correctRate.attributedText = correctRateText
-            } else { // 未登录
+                userView.correctRate.attributedText = correctRateText // 正确率
+            } else {
                 userView.userNameLabel.text = "我的昵称"
                 userView.userTitleLabel.text = "我的称号"
                 userView.practicedQuestionNumber.text = "0"
@@ -282,7 +302,30 @@ extension PracticeHomeViewController: UITableViewDelegate {
         default:
             return nil
         }
-        
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        switch tableView {
+            
+        // "我的" 视图 - 底视图 //
+        case userTableView:
+            if section != 0 { return nil }
+            
+            let mottoLabel = UILabel(text: "\nPractice Makes Perfect.\n— Jason C.\n", color: .darkGray)
+            mottoLabel.font = UIFont(name: "Zapfino", size: 16) // "Bradley Hand" "Chalkboard SE"
+            mottoLabel.textAlignment = .center
+            mottoLabel.numberOfLines = 0
+            mottoLabel.frame = CGRect(x: 0, y: 0, width: deviceWidth, height: 0)
+            
+            return mottoLabel
+           
+        // "题库" 视图 - 底视图 //
+        case homeTableView:
+            return nil
+            
+        default:
+            return nil
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -294,20 +337,18 @@ extension PracticeHomeViewController: UITableViewDelegate {
         case 0:
             // 练习历史 //
             // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
-            return
+            tableView.deselectRow(at: indexPath, animated: true)
         case 1:
             // 我的错题 //
             self.navigationController?.pushViewController(PracticeWrongViewController(), animated: true)
         case 2:
             // 我的收藏 //
-            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
-            return
+            self.navigationController?.pushViewController(PracticeCollectionViewController(), animated: true)
         case 3:
             // 我的上传 //
-            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
-            return
+            self.navigationController?.pushViewController(PracticeUploadViewController(), animated: true)
         default:
-            return
+            tableView.deselectRow(at: indexPath, animated: true)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -330,12 +371,12 @@ extension PracticeHomeViewController: UICollectionViewDataSource {
         
         let homeHeaderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "homeHeaderCell", for: indexPath) as! HomeHeaderCell
         
-        homeHeaderCell.courseImage.image = HomeHeaderIcons[row]
-        homeHeaderCell.courseName.text = HomeHeaderTitles[row]
+        homeHeaderCell.classImage.image = HomeHeaderIcons[row]
+        homeHeaderCell.className.text = HomeHeaderTitles[row]
         
         if row == 2 { // 居然是长方形的图标也太难为强迫症了吧
-            homeHeaderCell.courseImage.frame.size.width += 10
-            homeHeaderCell.courseImage.frame.origin.x -= 5
+            homeHeaderCell.classImage.frame.size.width += 10
+            homeHeaderCell.classImage.frame.origin.x -= 5
         }
         
         return homeHeaderCell
@@ -355,7 +396,24 @@ extension PracticeHomeViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // <#code#>
+        collectionView.cellForItem(at: indexPath)?.setBounceAnimation()
+        
+        let row = indexPath.row
+        
+        switch row {
+        case 1:
+            let warningCard = PopupDialog(title: "形式与政策", message: "请选择练习模式", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+            let cancelButton = PracticePopupDialogButton(title: "顺序练习", action: nil)
+            let removeButton = PracticePopupDialogButton(title: "模拟考试", dismissOnTap: true) {
+                
+            }
+            warningCard.addButtons([cancelButton, removeButton])
+            self.present(warningCard, animated: true, completion: nil)
+        case 3:
+            SwiftMessages.showWarningMessage(body: "功能完善中\n敬请期待嘤")
+        default:
+            return
+        }
     }
     
 }
@@ -364,5 +422,29 @@ extension UIColor {
     // 刷题蓝色 //
     static var practiceBlue: UIColor {
         return UIColor(red: 67.0/255.0, green: 170.0/255.0, blue: 250.0/255.0, alpha: 1.0)
+    }
+    // 刷题红色 //
+    static var practiceRed: UIColor {
+        return UIColor(red: 252.0/255.0, green: 35.0/255.0, blue: 43.0/255.0, alpha: 1.0)
+    }
+}
+
+extension UIView {
+    // 弹簧动画 //
+    func setBounceAnimation(_ animations: @escaping (Bool) -> Void = {_ in }) {
+        UIView.animate(withDuration: 0.1, delay: 0, options: [.allowUserInteraction, .curveEaseIn],
+                       animations: { self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8) },
+                       completion: { isFinished in })
+        UIView.animate(withDuration: 0.1, delay: 0.1, options: [.allowUserInteraction, .curveEaseIn],
+                       animations: { self.transform = CGAffineTransform.identity },
+                       completion: { animations }())
+    }
+}
+
+/* 采用 PopupDialog 的专用按钮 */
+class PracticePopupDialogButton: PopupDialogButton {
+    override func setupView() {
+        defaultTitleColor = .practiceBlue
+        super.setupView()
     }
 }
