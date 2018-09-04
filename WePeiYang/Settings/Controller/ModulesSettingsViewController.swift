@@ -3,6 +3,7 @@
 //  WePeiYang
 //
 //  Created by Halcao on 2018/3/3.
+//  Modified by JasonEWNL on 2018/9/4.
 //  Copyright © 2018年 twtstudio. All rights reserved.
 //
 
@@ -12,6 +13,7 @@ enum Module: String {
     case gpa = "GPA"
     case library = "图书馆"
     case classtable = "课程表"
+    case bicycle = "自行车" // Modified by JasonEWNL
 }
 
 let ModuleArrangementKey = "ModuleArrangementKey"
@@ -59,7 +61,7 @@ class ModulesSettingsViewController: UIViewController {
         self.title = "模块管理"
 //        tableView.allowsSelection = false
 
-        modules = [(.classtable, true), (.gpa, true), (.library, true)]
+        modules = [(.classtable, true), (.gpa, true), (.library, true), (.bicycle, true)] // Modified by JasonEWNL
         if let dict = UserDefaults.standard.dictionary(forKey: ModuleArrangementKey) as? [String: [String: String]] {
             var array: [(Module, Bool, Int)] = []
             for item in dict {
@@ -130,7 +132,11 @@ extension ModulesSettingsViewController: UITableViewDelegate {
         }
 
         dataChanged = true
-        modules.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        // modules.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        // Modified by JasonEWNL
+        let tempModule = modules[sourceIndexPath.row]
+        modules.remove(at: sourceIndexPath.row)
+        modules.insert(tempModule, at: destinationIndexPath.row)
     }
 
 

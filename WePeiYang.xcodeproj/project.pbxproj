@@ -202,6 +202,7 @@
 		36FCC2D920545967003379AE /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FCC2D820545967003379AE /* LoginView.swift */; };
 		36FCC2DD20555F8F003379AE /* AnimateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FCC2DC20555F8F003379AE /* AnimateButton.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
+		78774C73213E05B6008C88EC /* BicycleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78774C72213E05B6008C88EC /* BicycleCard.swift */; };
 		A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51C456B1FD122F700652435 /* Assets.xcassets */; };
 		A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */; };
@@ -475,6 +476,7 @@
 		3E2AFF1235C9C87488CB407A /* Pods-WePeiYangWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.release.xcconfig"; sourceTree = "<group>"; };
 		6E48DF45006ADE8419C6CF0C /* Pods_WePeiYangWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F6749BFC82CF9191336C6C5 /* Pods_WePeiYangTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		78774C72213E05B6008C88EC /* BicycleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleCard.swift; sourceTree = "<group>"; };
 		8405C859FC95C5E72E0F9BD7 /* Pods-WePeiYang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.release.xcconfig"; sourceTree = "<group>"; };
 		9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1320,6 +1322,7 @@
 				360339E820247B9C0006A083 /* LibraryCard.swift */,
 				364BDF711FDAE1EF00E61B65 /* GPACard.swift */,
 				36CAD44B201B9194006F85E3 /* ClassTableCard.swift */,
+				78774C72213E05B6008C88EC /* BicycleCard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1930,6 +1933,7 @@
 				36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */,
 				36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */,
 				A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */,
+				78774C73213E05B6008C88EC /* BicycleCard.swift in Sources */,
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
 				36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */,
 				36449E8F1FA4BAD10036766B /* HandInDetailViewController.swift in Sources */,

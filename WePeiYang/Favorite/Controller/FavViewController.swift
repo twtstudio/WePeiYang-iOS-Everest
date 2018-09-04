@@ -1,8 +1,9 @@
-
+//
 //  FavViewController.swift
 //  WePeiYang
 //
 //  Created by Allen X on 4/28/17.
+//  Modified by JasonEWNL on 2018/9/4.
 //  Copyright © 2017 twtstudio. All rights reserved.
 //
 
@@ -153,7 +154,7 @@ class FavViewController: UIViewController {
 
     // 重新加载顺序
     @objc func reloadOrder() {
-        modules = [(.classtable, true), (.gpa, true), (.library, true)]
+        modules = [(.classtable, true), (.gpa, true), (.library, true), (.bicycle, true)] // Modified by JasonEWNL
         if let dict = UserDefaults.standard.dictionary(forKey: ModuleArrangementKey) as? [String: [String: String]] {
             var array: [(Module, Bool, Int)] = []
             for item in dict {
@@ -221,6 +222,8 @@ class FavViewController: UIViewController {
                 initGPACard()
             case .library:
                 initLibraryCard()
+            case .bicycle: // Modified by JasonEWNL
+                initBicycleCard()
             }
         }
         cardTableView.reloadData()
@@ -265,6 +268,19 @@ extension FavViewController {
 
         card.refresh()
         cardDict[Module.library] = card
+    }
+    
+    func initBicycleCard() { // Modified by JasonEWNL with few bugs
+        let card = BicycleCard()
+        cardDict[Module.bicycle] = card
+        
+        if TwTUser.shared.token == nil {
+            return
+        } else if BicycleUser.sharedInstance.bikeToken == nil {
+            card.shouldPush(BicycleBindingViewController.self, from: self)
+        } else {
+            card.shouldPresent(BicycleServiceViewController.self, from: self) // With backBarButtonItem disappear
+        }
     }
 }
 
