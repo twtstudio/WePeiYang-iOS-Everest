@@ -138,6 +138,4 @@ extension ModulesSettingsViewController: UITableViewDelegate {
         modules.remove(at: sourceIndexPath.row)
         modules.insert(tempModule, at: destinationIndexPath.row)
     }
-
-
 }

@@ -20,8 +20,13 @@ class BicycleCard: CardView {
     
     override func initialize() {
         super.initialize()
-        self.backgroundColor = UIColor(red: 39.0/255.0, green: 174.0/255.0, blue: 27.0/255.0, alpha: 1.0)
-        
+        // Bicycle Green (Refer to Bicycle Module)
+        // self.backgroundColor = UIColor(red: 39.0/255.0, green: 174.0/255.0, blue: 27.0/255.0, alpha: 1.0)
+        // Spring Green (Refer to http://www.sioe.cn/yingyong/yanse-rgb-16/)
+        // self.backgroundColor = UIColor(red: 60.0/255.0, green: 179.0/255.0, blue: 113.0/255.0, alpha: 1.0)
+        // Dark Gray (Refer to discussion)
+        self.backgroundColor = .darkGray
+
         titleLabel.text = "自行车"
         titleLabel.textColor = .white
         titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.semibold)

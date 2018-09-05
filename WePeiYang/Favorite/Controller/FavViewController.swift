@@ -274,12 +274,8 @@ extension FavViewController {
         let card = BicycleCard()
         cardDict[Module.bicycle] = card
         
-        if TwTUser.shared.token == nil {
-            return
-        } else if BicycleUser.sharedInstance.bikeToken == nil {
-            card.shouldPush(BicycleBindingViewController.self, from: self)
-        } else {
-            card.shouldPresent(BicycleServiceViewController.self, from: self) // With backBarButtonItem disappear
+        if TwTUser.shared.token != nil {
+            card.shouldPresent(BicycleServiceViewController.self, from: self)
         }
     }
 }

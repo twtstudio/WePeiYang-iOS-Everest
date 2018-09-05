@@ -3,6 +3,7 @@
 //  WePeiYang
 //
 //  Created by Tigris on 31/08/2017.
+//  Modified by JasonEWNL on 2018/9/5.
 //  Copyright © 2017 twtstudio. All rights reserved.
 //
 
@@ -85,7 +86,16 @@ class BicycleServiceViewController: WMPageController {
         BicycleUser.sharedInstance.auth(success: {})
         super.viewDidLoad()
         
+        if isModal { //  Modified by JasonEWNL
+            let image = UIImage(named: "ic_back")!
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
+        }
+        
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func close() { //  Modified by JasonEWNL
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
