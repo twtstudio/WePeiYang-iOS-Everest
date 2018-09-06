@@ -36,6 +36,12 @@ class TheoryClassicsTableViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+        self.navigationController?.navigationBar.barStyle = .black
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -71,27 +77,28 @@ extension TheoryClassicsTableViewController: UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        /*
-        Courses.StudyText.getTextArticle(with: (textList[indexPath.row]?.fileID)!) { 
-            let article = Courses.StudyText.textArticle
-            
-            guard article != nil else {
-                MsgDisplay.showErrorMsg("这门课暂时没有详情噢！")
+        guard let fileID = textList[indexPath.row]?.fileID else {
+            SwiftMessages.showErrorMessage(body: "加载错误")
+            return
+        }
+        
+        Courses.StudyText.getTextArticle(with: fileID) {
+         
+            guard let article = Courses.StudyText.textArticle else {
+                SwiftMessages.showErrorMessage(body: "这门课暂时没有详情噢！")
                 return
             }
             
-            let readingView = TheoryCourseArticleReadingView(article: article!)
+            let readingView = TheoryCourseArticleReadingView(article: article)
             self.navigationController?.view.addSubview(readingView)
-            readingView.snp.makeConstraints {
-                make in
+            readingView.snp.makeConstraints { make in
                 make.top.equalTo(self.view)
                 make.left.equalTo(self.view)
                 make.bottom.equalTo(self.view)
                 make.right.equalTo(self.view)
             }
-
-            
-        }*/
+        }
 //        MsgDisplay.showErrorMsg("客户端暂时还不能查看「理论经典」文章详情哦！敬请期待！")
+        SwiftMessages.showErrorMessage(body: "客户端暂时还不能查看「理论经典」文章详情哦！敬请期待！")
     }
 }

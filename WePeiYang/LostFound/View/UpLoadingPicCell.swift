@@ -25,27 +25,25 @@ class UpLoadingPicCell: UITableViewCell {
 
             super.frame = newFrame;
             
-//            let addPictureImage = UIImageView()
+            //            let addPictureImage = UIImageView()
             self.addSubview(addPictureImage)
             
-//            addPictureImage.image = UIImage(named: "发布图片")
+            //            addPictureImage.image = UIImage(named: "发布图片")
             addPictureImage.snp.makeConstraints {
                 make in
-                make.top.equalToSuperview().offset(0.1)
-                make.left.equalToSuperview().offset(0.1)
-                make.bottom.equalToSuperview().offset(-0.1)
-                make.right.equalToSuperview().offset(-0.1)
-//                make.width.height.equalTo(contentView.bounds.width*(1/10))
-                make.width.equalTo(40)
-                make.height.equalTo(40)
-            
+                make.top.equalToSuperview()
+                make.left.equalToSuperview()
+                make.bottom.equalToSuperview()
+                make.right.equalToSuperview()
+                //                make.width.height.equalTo(contentView.bounds.width*(1/10))
+//                make.width.equalTo(40)
+//                make.height.equalTo(40)
+
             }
             
         }
-    
-
     }
-        // Initialization code
-    }
+    // Initialization code
+}
 
 

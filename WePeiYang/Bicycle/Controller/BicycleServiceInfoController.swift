@@ -173,13 +173,11 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
         return 3
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         
         var cell = tableView.dequeueReusableCell(withIdentifier: "BicycleInfoCell")
         if cell == nil {
@@ -265,8 +263,6 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
             make.centerY.equalTo(infoLabel)
             make.right.equalTo(infoLabel.snp.left).offset(-8)
         }
-        
-
 
         //chartViewBackground
         let chartBackground = UIImageView(imageName: "BicycleChartBackgroundImage", desiredSize: CGSize(width: view.width-16, height: 220))
@@ -307,15 +303,8 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
         return footerView
     }
     
-    
     //delegate of tableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if indexPath.section == 3 {
-////            M
-////            MsgDisplay.showErrorMsg("暂时没有这个功能哦")
-//            //            MsgDisplay.showErrorMsg("暂时没有这个功能哦")
-//        }
-
         if indexPath.section == 3 {
             if #available(iOS 9.3, *) {
                 let fitnessVC = BicycleFitnessTrackerViewController()
@@ -324,12 +313,8 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
             } else {
                 // Fallback on earlier versions
             }
-            
         }
-        
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
-    
-    
 }
 

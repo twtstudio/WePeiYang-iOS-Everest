@@ -11,9 +11,9 @@ import SDWebImage
 
 class LFImagePreviewViewController: UIViewController {
     
-    var image = ""
+    var imageString = ""
     init(image: String) {
-        self.image = image
+        self.imageString = image
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -36,11 +36,10 @@ class LFImagePreviewViewController: UIViewController {
         scrollView.maximumZoomScale = 2.0
         scrollView.minimumZoomScale = 1.0
         scrollView.delegate = self
-        print(image)
-        
+
         imageView = UIImageView()
-        if image != "" {
-            if let imageURL = URL(string: image) {
+        if imageString != "" {
+            if let imageURL = URL(string: imageString) {
                 imageView.sd_setImage(with: imageURL)
             }
         }
@@ -70,36 +69,35 @@ class LFImagePreviewViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    // 视图显示时,隐藏导航栏
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-    }
+//    // 视图显示时,隐藏导航栏
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        self.navigationController?.setNavigationBarHidden(true, animated: false)
+//    }
+//    
+//    // 视图消失时，显示导航栏
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        self.navigationController?.setNavigationBarHidden(false, animated: false)
+//    }
     
-    // 视图消失时，显示导航栏
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-    }
-    
-    // 隐藏状态栏
-    override var prefersStatusBarHidden: Bool {
-    
-        return true
-    }
+//    // 隐藏状态栏
+//    override var prefersStatusBarHidden: Bool {
+//    
+//        return true
+//    }
     // 单击
     @objc func tapSingleDid(_ ges: UITapGestureRecognizer) {
     
-        if let nav = self.navigationController {
-            nav.setNavigationBarHidden(!nav.isNavigationBarHidden, animated: true)
-        }
+        self.dismiss(animated: true, completion: nil)
+        
     }
     // 双击
     @objc func tapDoubleDid(_ ges: UITapGestureRecognizer) {
     
-        if let nav = self.navigationController {
-            nav.setNavigationBarHidden(true, animated: true)
-        }
+//        if let nav = self.navigationController {
+//            nav.setNavigationBarHidden(true, animated: true)
+//        }
         // 在点击处进行缩放
         UIView.animate(withDuration: 0.5, animations: {
             if self.scrollView.zoomScale == 1.0 {

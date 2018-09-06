@@ -25,6 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         TwTUser.shared.load(success: {
             NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
 
+            BicycleUser.sharedInstance.auth(success: {
+                NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("bike", TwTUser.shared.bicycleBindingState))
+            })
+            
             WLANHelper.getStatus(success: { isOnline in
 
             }, failure: { _ in

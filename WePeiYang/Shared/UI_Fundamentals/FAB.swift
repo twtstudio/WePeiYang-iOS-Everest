@@ -207,12 +207,13 @@ open class FAB: UIButton {
     
     public func dismissAnimated() {
         collapse()
-        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseOut], animations: {
-            self.layer.transform = CATransform3DMakeScale(0.2, 0.2, 0.2)
-            self.plusSignLayer().transform = CATransform3DMakeRotation(270/360*CGFloat.pi, 0, 0, 1)
-            
-            self.alpha = 0
-        }, completion: nil)
+//        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [.curveEaseOut], animations: {
+//            self.layer.transform = CATransform3DMakeScale(0.2, 0.2, 0.2)
+//            self.plusSignLayer().transform = CATransform3DMakeRotation(270/360*CGFloat.pi, 0, 0, 1)
+//            
+//            self.alpha = 0
+//        }, completion: nil)
+        
     }
     
     
@@ -259,7 +260,7 @@ open class FAB: UIButton {
     
     // Collapse the list the subButtons
     @objc fileprivate func collapse() {
-        
+      
         guard currentState == .expanded else {
             return
         }
@@ -273,7 +274,7 @@ open class FAB: UIButton {
             
             for (index, subButton) in self.subButtons.reversed().enumerated() {
                 UIView.animate(withDuration: 0.35, delay: 0.04*TimeInterval(index), usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
-                    subButton.layer.transform = CATransform3DMakeScale(0.2, 0.2, 0.2)
+                    subButton.layer.transform = CATransform3DMakeScale(2, 2, 2)
                     subButton.alpha = 0
                     
                 }, completion: nil)

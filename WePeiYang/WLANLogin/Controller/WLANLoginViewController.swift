@@ -178,6 +178,7 @@ class WLANLoginViewController: UIViewController {
             WLANHelper.login(username: accountTextField.text, password: passwordTextField.text ,success: {
                 TwTUser.shared.WLANAccount = self.accountTextField.text
                 TwTUser.shared.WLANPassword = self.passwordTextField.text
+                TwTUser.shared.save()
                 SwiftMessages.showSuccessMessage(body: "登录成功", context: .view(self.view))
             }, failure: { msg in
                 SwiftMessages.showErrorMessage(body: msg, context: .view(self.view))

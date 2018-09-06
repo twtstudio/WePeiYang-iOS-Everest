@@ -149,7 +149,9 @@ class ClassTableViewController: UIViewController {
         self.navigationItem.titleView = titleView
         backButton.addTarget(self, action: #selector(toggleWeekSelect), for: .touchUpInside)
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(load))
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(load)),
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCourse))]
     }
     
     @objc func weekCellTapped(sender: UITapGestureRecognizer) {
@@ -182,7 +184,7 @@ class ClassTableViewController: UIViewController {
             // 点开居中
             // TODO: 确定多少比较合适
             if currentDisplayWeek <= 22 && currentDisplayWeek >= 4 {
-                weekSelectView.contentOffset = CGPoint(x: (CGFloat(currentDisplayWeek)-3.5)*50, y: 0)
+                weekSelectView.contentOffset = CGPoint(x: (CGFloat(currentDisplayWeek)-3.5)*50-25, y: 0)
             }
         } else {
             // 展开状态 -> 收起状态
@@ -266,6 +268,11 @@ class ClassTableViewController: UIViewController {
         })
     }
     
+    @objc func addCourse() {
+        let auditClassVC = AuditClassViewController()
+        self.navigationController?.pushViewController(auditClassVC, animated: true)
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -331,16 +338,36 @@ extension ClassTableViewController {
         for day in 0..<7 {
             var array = coursesForDay[day]
 
-            for (idx1, item1) in array.enumerated() {
-                 for (idx2, item2) in array.enumerated() {
-                    if idx1 != idx2 {
+            var newArray1 = array.map({ ($0, true) })
+            var newArray2 = array.map({ ($0, true) })
+
+            var resultArray = [ClassModel]()
+            for (idx1, (var item1, flag1)) in newArray1.enumerated() {
+                for (idx2, (item2, flag2)) in newArray2.enumerated() {
+                    if flag2 == true && item1 != item2  {
                         if item1.arrange.first!.intersect(with: item2.arrange.first!) {
-                            array[idx1].peers.append(array[idx2])
-                            array.remove(at: idx2)
+                            item1.peers.append(item2)
+                            newArray2[idx2].1 = false
+                            newArray1[idx2].1 = false
                         }
                     }
                 }
+                if newArray1[idx1].1 {
+                    resultArray.append(item1)
+                }
             }
+            array = resultArray
+
+//            for (idx1, item1) in array.enumerated() {
+//                 for (idx2, item2) in array.enumerated() {
+//                    if idx1 != idx2 {
+//                        if item1.arrange.first!.intersect(with: item2.arrange.first!) {
+//                            array[idx1].peers.append(array[idx2])
+//                            array.remove(at: idx2)
+//                        }
+//                    }
+//                }
+//            }
             // 按课程开始时间排序
             array.sort(by: { a, b in
                 return a.arrange[0].start < b.arrange[0].start
