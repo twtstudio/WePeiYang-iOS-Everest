@@ -8,7 +8,7 @@
 
 import UIKit
 
-fileprivate struct C {
+private struct C {
     static var cellWidth: CGFloat {
         return (UIScreen.main.bounds.width - classNumberViewWidth) / 7
     }// = 47
@@ -16,7 +16,7 @@ fileprivate struct C {
     static let cellHeight: CGFloat = (UIScreen.main.bounds.height*0.9) / 12
     static let dayCount = 7
     static let courseCount = 12
-    
+
     static let classNumberViewWidth: CGFloat = 32 //35
     static let dayNumberViewHeight: CGFloat = 45
 }
@@ -40,28 +40,28 @@ protocol CourseListViewDelegate: class {
 //                        +-- Subview 3 UIView
 class CourseListView: UIView {
     // C stands for Constant
-    
+
     var classNumberView: UIView!
     var dayNumberView: UIView!
     var updownContentView: UIScrollView!
     var tableViews: [UITableView] = []
-    
+
     weak var delegate: CourseListViewDelegate?
     // 周一到周日
     var coursesForDay: [[ClassModel]] = [[], [], [], [], [], [], []]
-    
+
     var monthLabel: UILabel!
     var dayNumberLabels: [UILabel] = []
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func setup() {
         let dayInMonth = DateTool.getCurrentWeekDay()
 
@@ -70,10 +70,10 @@ class CourseListView: UIView {
         updownContentView = UIScrollView(frame: .zero)
         updownContentView.showsVerticalScrollIndicator = false
         updownContentView.bounces = false
-        
+
         self.addSubview(dayNumberView)
-        
-        dayNumberView.layer.borderColor = UIColor(red:0.89, green:0.92, blue:0.93, alpha:1.00).cgColor
+
+        dayNumberView.layer.borderColor = UIColor(red: 0.89, green: 0.92, blue: 0.93, alpha: 1.00).cgColor
         dayNumberView.layer.borderWidth = 1
         // 周几 label 的底板
         dayNumberView.snp.makeConstraints { make in
@@ -82,15 +82,15 @@ class CourseListView: UIView {
             make.right.equalToSuperview()
             make.height.equalTo(C.dayNumberViewHeight)
         }
-        
+
         monthLabel = UILabel(frame: .zero)
 //        monthLabel.font = UIFont.systemFont(ofSize: 12)
         monthLabel.font = UIFont.boldSystemFont(ofSize: 11)
 //        monthLabel.textColor = .lightGray
-        monthLabel.textColor = UIColor(red:0.25, green:0.36, blue:0.47, alpha:1.00)
+        monthLabel.textColor = UIColor(red: 0.25, green: 0.36, blue: 0.47, alpha: 1.00)
         monthLabel.textAlignment = .center
         monthLabel.numberOfLines = 2
-        monthLabel.backgroundColor = UIColor(red:0.96, green:0.98, blue:0.98, alpha:1.00)
+        monthLabel.backgroundColor = UIColor(red: 0.96, green: 0.98, blue: 0.98, alpha: 1.00)
         dayNumberView.addSubview(monthLabel)
         monthLabel.text = dayInMonth[0]
         monthLabel.snp.makeConstraints { make in
@@ -99,18 +99,18 @@ class CourseListView: UIView {
             make.height.equalToSuperview()
             make.width.equalTo(C.classNumberViewWidth)
         }
-        
+
         // 进行周几标签的布局
         var dayTitles = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
         for i in 0..<C.dayCount {
             let label = UILabel(frame: .zero)
-            label.backgroundColor = UIColor(red:0.96, green:0.98, blue:0.98, alpha:1.00)
+            label.backgroundColor = UIColor(red: 0.96, green: 0.98, blue: 0.98, alpha: 1.00)
             label.text = dayTitles[i] + "\n" + dayInMonth[i+1]
             label.textAlignment = .center
             label.font = UIFont.boldSystemFont(ofSize: 11)
 //            label.font = UIFont.systemFont(ofSize: 12)
 //            label.textColor = .lightGray
-            label.textColor = UIColor(red:0.25, green:0.36, blue:0.47, alpha:1.00)
+            label.textColor = UIColor(red: 0.25, green: 0.36, blue: 0.47, alpha: 1.00)
             label.numberOfLines = 2
             dayNumberView.addSubview(label)
             label.snp.makeConstraints { make in
@@ -131,20 +131,19 @@ class CourseListView: UIView {
             dayNumberLabels.append(label)
         }
 
-        
         // 上下滑动的view
         self.addSubview(updownContentView)
         updownContentView.snp.makeConstraints { make in
             make.bottom.left.right.equalToSuperview()
             make.top.equalTo(dayNumberView.snp.bottom)
         }
-        
+
         let contentView = UIView()
         updownContentView.addSubview(contentView)
         contentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
+
         contentView.addSubview(classNumberView)
         classNumberView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -157,11 +156,11 @@ class CourseListView: UIView {
         var courseCountLabels: [UILabel] = []
         for i in 0..<C.courseCount {
             let label = UILabel(frame: .zero)
-            label.backgroundColor = UIColor(red:0.95, green:0.97, blue:0.97, alpha:1.00)
+            label.backgroundColor = UIColor(red: 0.95, green: 0.97, blue: 0.97, alpha: 1.00)
             label.text = "\(i+1)"
             label.textAlignment = .center
             label.font = UIFont.systemFont(ofSize: 12)
-            label.textColor = UIColor(red:0.46, green:0.55, blue:0.62, alpha:1.00)
+            label.textColor = UIColor(red: 0.46, green: 0.55, blue: 0.62, alpha: 1.00)
             classNumberView.addSubview(label)
             label.snp.makeConstraints { make in
                 make.height.equalTo(C.cellHeight)
@@ -180,7 +179,7 @@ class CourseListView: UIView {
         courseCountLabels.last!.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
         }
-        
+
         for i in 0..<7 {
             // 每天的 tableView
             let tableView = UITableView()
@@ -211,12 +210,12 @@ class CourseListView: UIView {
             }
             tableView.isScrollEnabled = false
         }
-        
+
         // 因为 tableView 在 scrollView 上，所以手势被屏蔽了 需要手动添加
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(tableViewTouch(sender:)))
         updownContentView.addGestureRecognizer(recognizer)
     }
-    
+
     @objc func tableViewTouch(sender: UITapGestureRecognizer) {
         // 算出相对第一个 tableView 的点击位置
         let location = sender.location(in: tableViews[0])
@@ -246,18 +245,18 @@ class CourseListView: UIView {
         self.delegate = nil
         print("courselistview deinit")
     }
-    
+
 }
 
 extension CourseListView: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return coursesForDay[tableView.tag].count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 构造 cell
         let model = coursesForDay[tableView.tag][indexPath.row]

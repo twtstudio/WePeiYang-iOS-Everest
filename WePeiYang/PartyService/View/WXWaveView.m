@@ -20,10 +20,8 @@
 @implementation WXWaveView
 
 + (instancetype)addToView:(UIView *)view withFrame:(CGRect)frame {
-    
     WXWaveView *waveView = [[self alloc] initWithFrame:frame];
     [view addSubview:waveView];
-    
     return waveView;
 }
 
@@ -54,9 +52,7 @@
     }
     self.waveShapeLayer = [CAShapeLayer layer];
     self.waveShapeLayer.fillColor = self.waveColor.CGColor;
-    
     [self.layer addSublayer:self.waveShapeLayer];
-    
     self.waveDisplayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(currentWave)];
     [self.waveDisplayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     //NSLog(@"fuckin displayed");
@@ -72,7 +68,6 @@
     self.offsetX -= self.waveSpeed;
     CGFloat width = CGRectGetWidth(self.frame);
     CGFloat height = CGRectGetHeight(self.frame);
-    
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathMoveToPoint(path, NULL, 0, height / 2);
 
@@ -84,7 +79,6 @@
     CGPathAddLineToPoint(path, NULL, width, height);
     CGPathAddLineToPoint(path, NULL, 0, height);
     CGPathCloseSubpath(path);
-    
     self.waveShapeLayer.path = path;
     CGPathRelease(path);
 }
@@ -98,7 +92,6 @@
         self.waveShapeLayer.path = nil;
         self.alpha = 1.f;
     }];
-    
 }
 
 @end

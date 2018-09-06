@@ -14,7 +14,6 @@ class CourseListViewController: UIViewController {
         super.viewDidLoad()
 
         self.view.backgroundColor = .white
-        
-        
+
     }
 }

@@ -1,5 +1,3 @@
-
-
 //
 //  GPATermModel.swift
 //  WePeiYang
@@ -15,7 +13,7 @@ struct GPATermModel: Mappable {
     var classes: [GPAClassModel] = []
     var name: String = ""
     var stat: GPAStatModel!
-    
+
     init?(map: Map) {}
     mutating func mapping(map: Map) {
         term <- map["term"]

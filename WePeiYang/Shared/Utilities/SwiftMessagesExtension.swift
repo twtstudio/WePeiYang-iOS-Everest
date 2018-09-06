@@ -69,4 +69,3 @@ extension SwiftMessages {
         otherMessages.hideAll()
     }
 }
-

@@ -1,4 +1,3 @@
-
 //  FavViewController.swift
 //  WePeiYang
 //
@@ -39,10 +38,10 @@ class FavViewController: UIViewController {
         //        navigationItem.title = "常用"
         refreshCards(info: Notification(name: NotificationName.NotificationCardWillRefresh.name))
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationController?.navigationBar.barStyle = .black
 //        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
         // Changing NavigationBar Title color
@@ -50,17 +49,15 @@ class FavViewController: UIViewController {
         // This is for removing the dark shadows when transitioning
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.isNavigationBarHidden = true
-        
+
         navigationItem.title = "常用"
-        
-        
+
         //        view.backgroundColor = Metadata.Color.GlobalViewBackgroundColor
         view.backgroundColor = .white
 
         self.automaticallyAdjustsScrollViewInsets = false
         let statusBarHeight: CGFloat = UIScreen.main.bounds.height == 812 ? 44 : 20
         let tabBarHeight = self.tabBarController?.tabBar.height ?? 0
-
 
         let placeholderLabel = UILabel(text: "什么都不加你还想看什么😒", color: .lightGray)
         placeholderLabel.font = UIFont.flexibleSystemFont(ofSize: 20, weight: .medium)
@@ -81,8 +78,7 @@ class FavViewController: UIViewController {
         cardTableView.allowsSelection = false
         cardTableView.backgroundColor = .white
         registerForPreviewing(with: self, sourceView: cardTableView)
-        
-        
+
         // init headerView
         headerView = UIView()
         headerView.frame = CGRect(x: 0, y: 0, width: 400, height: 80)
@@ -93,21 +89,21 @@ class FavViewController: UIViewController {
         //        formatter.dateFormat = "EEEE, MMMM d"
         formatter.dateFormat = "EEE, MMMM d"
 
-        dateLabel.textColor = UIColor(red:0.36, green:0.36, blue:0.36, alpha:1.00)
+        dateLabel.textColor = UIColor(red: 0.36, green: 0.36, blue: 0.36, alpha: 1.00)
         dateLabel.text = formatter.string(from: now).uppercased()
         dateLabel.font = UIFont.systemFont(ofSize: 15)
         dateLabel.x = 15
         dateLabel.y = 15
         dateLabel.sizeToFit()
         headerView.addSubview(dateLabel)
-        
+
         let titleLabel = UILabel(text: "Favorite")
         titleLabel.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.heavy)
         titleLabel.x = 15
         titleLabel.y = 35
         titleLabel.sizeToFit()
         headerView.addSubview(titleLabel)
-        NotificationCenter.default.addObserver(forName: NotificationName.NotificationCardWillRefresh.name, object: nil, queue: nil, using: { notification in
+        _ = NotificationCenter.default.addObserver(forName: NotificationName.NotificationCardWillRefresh.name, object: nil, queue: nil, using: { notification in
             // 这个地方很丑陋
             if let info = notification.userInfo,
                 let nameString = info["name"] as? String,
@@ -177,11 +173,9 @@ class FavViewController: UIViewController {
             view.bringSubview(toFront: cardTableView)
         }
 
-        for item in modules {
+        for item in modules where item.1 {
             // 如果 show == true
-            if item.1 {
-                cardDict[item.0]?.refresh()
-            }
+            cardDict[item.0]?.refresh()
         }
 
 //        for key in Array(cardDict.keys) {
@@ -251,7 +245,7 @@ extension FavViewController {
         var table: ClassTableModel?
 
         card.delegate = self
-        
+
         defer {
             card.shouldPresent(ClassTableViewController.self, from: self)
             cardDict[Module.classtable] = card
@@ -272,11 +266,11 @@ extension FavViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return modules.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let module = modules[indexPath.row]
 
@@ -307,7 +301,6 @@ extension FavViewController: UITableViewDataSource {
             cell?.layoutIfNeeded()
         }
 
-
         return cell!
     }
 }
@@ -323,7 +316,7 @@ extension FavViewController: UITableViewDelegate {
         }
         return nil
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return headerView.systemLayoutSizeFitting(.init(width: CGFloat.infinity, height: CGFloat.infinity)).height
     }

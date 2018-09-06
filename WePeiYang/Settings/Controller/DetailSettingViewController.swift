@@ -30,14 +30,12 @@ class DetailSettingViewController: UIViewController {
         case quit = "退出登录"
     }
 
-
     var tableView: UITableView!
     var titles: [(String, [SettingTitle])] = [
         //        ("设置", [.notification, .modules, .accounts]),
         ("设置", [.shakeWiFi, .modules]),
         ("关于", [.join, .EULA, .feedback, .qqGroup]),
         ("其他", [.share, .rate, .quit])]
-
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -66,7 +64,6 @@ class DetailSettingViewController: UIViewController {
         tableView.dataSource = self
         tableView.rowHeight = deviceWidth == .iPhoneSEWidth ? 35 : 44
 
-
         self.view.addSubview(tableView)
 //        tableView.backgroundColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
@@ -81,11 +78,11 @@ class DetailSettingViewController: UIViewController {
 }
 
 extension DetailSettingViewController: UITableViewDataSource {
-    internal func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return titles.count
     }
 
-    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return titles[section].1.count
     }
 
@@ -225,7 +222,7 @@ extension DetailSettingViewController: UITableViewDelegate {
             }
             popup.addButtons([cancelButton, defaultButton])
             self.present(popup, animated: true, completion: nil)
-            
+
         default:
             return
         }

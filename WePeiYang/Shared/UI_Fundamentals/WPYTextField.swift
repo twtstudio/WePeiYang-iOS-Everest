@@ -25,14 +25,12 @@ class WPYTextField: UITextField {
 //        context?.fill(CGRect(x: 0, y: self.height - 0.5, width: self.width, height: 0.5))
 ////        context.
 //    }
-    
 
 }
 
-
 extension WPYTextField: ThemeChanging {
-    
+
     func changeInto(theme: WPYTheme) {
-        
+
     }
 }

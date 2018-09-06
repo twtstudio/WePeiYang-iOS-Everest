@@ -10,7 +10,7 @@ import ObjectMapper
 
 struct ClasstableDataManager {
 
-    static func getClassTable(success: @escaping (ClassTableModel)->(), failure: @escaping (String)->()) {
+    static func getClassTable(success: @escaping (ClassTableModel) -> Void, failure: @escaping (String) -> Void) {
         SolaSessionManager.solaSession(type: .get, url: "/classtable", parameters: nil, success: { dic in
             if let error_code = dic["error_code"] as? Int,
                 error_code != -1,
@@ -33,7 +33,7 @@ struct ClasstableDataManager {
                         course.setColorIndex(index: index)
                         colorConfig[course.courseName] = index
                     }
-                    
+
 //                    Metadata.Color.fluentColors.
                     return course
                 }
@@ -42,13 +42,13 @@ struct ClasstableDataManager {
             } else {
                 failure("解析失败")
             }
-            
+
         }, failure: { error in
             failure(error.localizedDescription)
         })
     }
-    
-    static func getCollegeList(success: @escaping ([CollegeModel])->(), failure: @escaping (String)->()) {
+
+    static func getCollegeList(success: @escaping ([CollegeModel]) -> Void, failure: @escaping (String) -> Void) {
         SolaSessionManager.solaSession(type: .get, url: "/auditClass/college", parameters: nil, success: { dict in
             if let data = try? JSONSerialization.data(withJSONObject: dict, options: .init(rawValue: 0)),
                 let response = try? CollegeTopModel(data: data) {
@@ -60,8 +60,8 @@ struct ClasstableDataManager {
             failure(error.localizedDescription)
         })
     }
-    
-    static func getPopularClass(success: @escaping ([PopularClassModel])->(), failure: @escaping (String)->()) {
+
+    static func getPopularClass(success: @escaping ([PopularClassModel]) -> Void, failure: @escaping (String) -> Void) {
         SolaSessionManager.solaSession(type: .get, url: "/auditClass/popular", parameters: nil, success: { dict in
             if let data = try? JSONSerialization.data(withJSONObject: dict, options: .init(rawValue: 0)),
                 let response = try? PopularClassTopModel(data: data) {
@@ -74,7 +74,7 @@ struct ClasstableDataManager {
         })
     }
 
-    static func getCourseInfo(id: String, success: @escaping (AuditClassModel)->(), failure: @escaping (String)->()) {
+    static func getCourseInfo(id: String, success: @escaping (AuditClassModel) -> Void, failure: @escaping (String) -> Void) {
         SolaSessionManager.solaSession(type: .get, url: "/auditClass/course", parameters: ["course_id": id], success: { dict in
             if let data = try? JSONSerialization.data(withJSONObject: dict, options: .init(rawValue: 0)),
                 let response = try? AuditClassTopModel(data: data) {
@@ -87,7 +87,7 @@ struct ClasstableDataManager {
         })
     }
 
-    static func addAduitCoursesLocal(courses: [ClassModel], failure: (()->())? = nil) {
+    static func addAduitCoursesLocal(courses: [ClassModel], failure: (() -> Void)? = nil) {
         CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
             if var table = Mapper<ClassTableModel>().map(JSONString: string) {
                 var colorConfig = [String: Int]()
@@ -108,7 +108,7 @@ struct ClasstableDataManager {
                                 course.setColorIndex(index: index)
                                 colorConfig[course.courseName] = index
                                 finalResult = true
-                                break;
+                                break
                             }
                         }
 
@@ -128,7 +128,6 @@ struct ClasstableDataManager {
                     return course
                 }
 
-
                 table.classes += newCourses
                 table.updatedAt = Date().description
                 let newString = table.toJSONString() ?? ""
@@ -141,4 +140,3 @@ struct ClasstableDataManager {
         })
     }
 }
-

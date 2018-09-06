@@ -38,22 +38,6 @@
 		1B20B1FF52E995B4AC3D3EDE /* Pods_WePeiYangWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E48DF45006ADE8419C6CF0C /* Pods_WePeiYangWidget.framework */; };
 		360339E920247B9D0006A083 /* LibraryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360339E820247B9C0006A083 /* LibraryCard.swift */; };
 		36042DB81FC7BB270016E859 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36042DB71FC7BB270016E859 /* CourseCell.swift */; };
-		36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFD1F223FC1001317A7 /* BookDetailViewControllerTempView.swift */; };
-		36073D081F223FC1001317A7 /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFE1F223FC1001317A7 /* CoverView.swift */; };
-		36073D091F223FC1001317A7 /* RateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073CFF1F223FC1001317A7 /* RateView.swift */; };
-		36073D0A1F223FC1001317A7 /* ReadStarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D001F223FC1001317A7 /* ReadStarCell.swift */; };
-		36073D0B1F223FC1001317A7 /* RecommendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D011F223FC1001317A7 /* RecommendCell.swift */; };
-		36073D0C1F223FC1001317A7 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D021F223FC1001317A7 /* ReviewCell.swift */; };
-		36073D0D1F223FC1001317A7 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D031F223FC1001317A7 /* Search.swift */; };
-		36073D0E1F223FC1001317A7 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D041F223FC1001317A7 /* SearchResultCell.swift */; };
-		36073D101F223FC1001317A7 /* StatusInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D061F223FC1001317A7 /* StatusInfoCell.swift */; };
-		36073D1A1F225D2A001317A7 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D121F225D2A001317A7 /* BookDetailViewController.swift */; };
-		36073D1B1F225D2A001317A7 /* BookShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D131F225D2A001317A7 /* BookShelfViewController.swift */; };
-		36073D1C1F225D2A001317A7 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D141F225D2A001317A7 /* InfoViewController.swift */; };
-		36073D1E1F225D2A001317A7 /* RecommendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D171F225D2A001317A7 /* RecommendedViewController.swift */; };
-		36073D1F1F225D2A001317A7 /* ReviewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D181F225D2A001317A7 /* ReviewListViewController.swift */; };
-		36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D191F225D2A001317A7 /* SearchViewController.swift */; };
-		36073D241F22713B001317A7 /* ReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36073D231F22713B001317A7 /* ReadViewController.swift */; };
 		3613DA172056F1B9000867AE /* WLANHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586543620514E860069CF53 /* WLANHelper.swift */; };
 		3613DA182056F56A000867AE /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		3613DA192056F571000867AE /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E21EC84ED90064373A /* SolaSessionManager.swift */; };
@@ -241,14 +225,6 @@
 		A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C61F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift */; };
 		A5FE5665208F624A00B94F0D /* PopularClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FE5664208F624A00B94F0D /* PopularClassModel.swift */; };
 		A5FE5667209200FE00B94F0D /* AuditClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FE5666209200FE00B94F0D /* AuditClassCell.swift */; };
-		B10253D61EC84ED20064373A /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CD1EC84ED20064373A /* Book.swift */; };
-		B10253D71EC84ED20064373A /* Librarian.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CE1EC84ED20064373A /* Librarian.swift */; };
-		B10253D81EC84ED20064373A /* MyBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253CF1EC84ED20064373A /* MyBook.swift */; };
-		B10253D91EC84ED20064373A /* ReadAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253D01EC84ED20064373A /* ReadAPI.swift */; };
-		B10253DA1EC84ED20064373A /* ReadBeacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253D11EC84ED20064373A /* ReadBeacon.swift */; };
-		B10253DB1EC84ED20064373A /* Recommender.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253D21EC84ED20064373A /* Recommender.swift */; };
-		B10253DC1EC84ED20064373A /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253D31EC84ED20064373A /* Review.swift */; };
-		B10253DD1EC84ED20064373A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253D41EC84ED20064373A /* User.swift */; };
 		B10253F01EC84ED90064373A /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E01EC84ED90064373A /* AccountManager.swift */; };
 		B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E21EC84ED90064373A /* SolaSessionManager.swift */; };
 		B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TwTKeychain.swift */; };
@@ -340,22 +316,6 @@
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		360339E820247B9C0006A083 /* LibraryCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCard.swift; sourceTree = "<group>"; };
 		36042DB71FC7BB270016E859 /* CourseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
-		36073CFD1F223FC1001317A7 /* BookDetailViewControllerTempView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailViewControllerTempView.swift; sourceTree = "<group>"; };
-		36073CFE1F223FC1001317A7 /* CoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CoverView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		36073CFF1F223FC1001317A7 /* RateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RateView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		36073D001F223FC1001317A7 /* ReadStarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ReadStarCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		36073D011F223FC1001317A7 /* RecommendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RecommendCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		36073D021F223FC1001317A7 /* ReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ReviewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		36073D031F223FC1001317A7 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Search.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		36073D041F223FC1001317A7 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
-		36073D061F223FC1001317A7 /* StatusInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StatusInfoCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		36073D121F225D2A001317A7 /* BookDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BookDetailViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		36073D131F225D2A001317A7 /* BookShelfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookShelfViewController.swift; sourceTree = "<group>"; };
-		36073D141F225D2A001317A7 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
-		36073D171F225D2A001317A7 /* RecommendedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendedViewController.swift; sourceTree = "<group>"; };
-		36073D181F225D2A001317A7 /* ReviewListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewListViewController.swift; sourceTree = "<group>"; };
-		36073D191F225D2A001317A7 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		36073D231F22713B001317A7 /* ReadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadViewController.swift; sourceTree = "<group>"; };
 		3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMessagesExtension.swift; sourceTree = "<group>"; };
 		3613DA212056F740000867AE /* UniversalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalExtension.swift; sourceTree = "<group>"; };
 		3613DA242056F877000867AE /* WidgetBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WidgetBridgingHeader.h; sourceTree = "<group>"; };
@@ -551,14 +511,6 @@
 		A5E117C61F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleNotificationDetailViewController.swift; sourceTree = "<group>"; };
 		A5FE5664208F624A00B94F0D /* PopularClassModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularClassModel.swift; sourceTree = "<group>"; };
 		A5FE5666209200FE00B94F0D /* AuditClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditClassCell.swift; sourceTree = "<group>"; };
-		B10253CD1EC84ED20064373A /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
-		B10253CE1EC84ED20064373A /* Librarian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Librarian.swift; sourceTree = "<group>"; };
-		B10253CF1EC84ED20064373A /* MyBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBook.swift; sourceTree = "<group>"; };
-		B10253D01EC84ED20064373A /* ReadAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadAPI.swift; sourceTree = "<group>"; };
-		B10253D11EC84ED20064373A /* ReadBeacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadBeacon.swift; sourceTree = "<group>"; };
-		B10253D21EC84ED20064373A /* Recommender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recommender.swift; sourceTree = "<group>"; };
-		B10253D31EC84ED20064373A /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
-		B10253D41EC84ED20064373A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B10253E01EC84ED90064373A /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		B10253E11EC84ED90064373A /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		B10253E21EC84ED90064373A /* SolaSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolaSessionManager.swift; sourceTree = "<group>"; };
@@ -684,36 +636,6 @@
 				0C7AADD52080C62100B0A2B0 /* UpLoadingPicCell.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		36073CFC1F223FC1001317A7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				36073CFD1F223FC1001317A7 /* BookDetailViewControllerTempView.swift */,
-				36073CFE1F223FC1001317A7 /* CoverView.swift */,
-				36073CFF1F223FC1001317A7 /* RateView.swift */,
-				36073D001F223FC1001317A7 /* ReadStarCell.swift */,
-				36073D011F223FC1001317A7 /* RecommendCell.swift */,
-				36073D021F223FC1001317A7 /* ReviewCell.swift */,
-				36073D031F223FC1001317A7 /* Search.swift */,
-				36073D041F223FC1001317A7 /* SearchResultCell.swift */,
-				36073D061F223FC1001317A7 /* StatusInfoCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		36073D111F225D2A001317A7 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				36073D121F225D2A001317A7 /* BookDetailViewController.swift */,
-				36073D131F225D2A001317A7 /* BookShelfViewController.swift */,
-				36073D141F225D2A001317A7 /* InfoViewController.swift */,
-				36073D231F22713B001317A7 /* ReadViewController.swift */,
-				36073D171F225D2A001317A7 /* RecommendedViewController.swift */,
-				36073D181F225D2A001317A7 /* ReviewListViewController.swift */,
-				36073D191F225D2A001317A7 /* SearchViewController.swift */,
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		3641470820471CC500F6DFD5 /* News */ = {
@@ -1251,31 +1173,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		B10253CA1EC84ED20064373A /* Read */ = {
-			isa = PBXGroup;
-			children = (
-				36073D111F225D2A001317A7 /* Controller */,
-				36073CFC1F223FC1001317A7 /* View */,
-				B10253CC1EC84ED20064373A /* Model */,
-			);
-			path = Read;
-			sourceTree = "<group>";
-		};
-		B10253CC1EC84ED20064373A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				B10253CD1EC84ED20064373A /* Book.swift */,
-				B10253CE1EC84ED20064373A /* Librarian.swift */,
-				B10253CF1EC84ED20064373A /* MyBook.swift */,
-				B10253D01EC84ED20064373A /* ReadAPI.swift */,
-				B10253D11EC84ED20064373A /* ReadBeacon.swift */,
-				B10253D21EC84ED20064373A /* Recommender.swift */,
-				B10253D31EC84ED20064373A /* Review.swift */,
-				B10253D41EC84ED20064373A /* User.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		B10253DE1EC84ED90064373A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -1468,7 +1365,6 @@
 				B181B9551EC5C21700B8198E /* Favorite */,
 				A5159FDB1FB0731B00B466F2 /* WLANLogin */,
 				365A8A131FB9BA8500B15443 /* ClassTable */,
-				B10253CA1EC84ED20064373A /* Read */,
 				A5D695141F8A21AD00022B9A /* Bicycle */,
 				A5A2FA372092049600A9AC0C /* GPA */,
 				36449E3A1FA4BA660036766B /* PartyService */,
@@ -1537,6 +1433,7 @@
 			buildConfigurationList = B19DABAE1E6EF5C2004A50B5 /* Build configuration list for PBXNativeTarget "WePeiYang" */;
 			buildPhases = (
 				F8D142B23E26238DDC2405BB /* [CP] Check Pods Manifest.lock */,
+				364EE154214162F4002D8568 /* Swiftlint */,
 				B19DAB821E6EF5C2004A50B5 /* Sources */,
 				B19DAB831E6EF5C2004A50B5 /* Frameworks */,
 				B19DAB841E6EF5C2004A50B5 /* Resources */,
@@ -1732,6 +1629,20 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		364EE154214162F4002D8568 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh \"${SRCROOT}/swiftlint.sh\"\n";
+		};
 		433FB015B3FA922FE8E29B31 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1870,9 +1781,6 @@
 				36042DB81FC7BB270016E859 /* CourseCell.swift in Sources */,
 				0C7AADD72080C62200B0A2B0 /* LFDetailViewController.swift in Sources */,
 				3685D9EF204D255700BA6C3D /* NewsDetailViewController.swift in Sources */,
-				36073D081F223FC1001317A7 /* CoverView.swift in Sources */,
-				36073D0C1F223FC1001317A7 /* ReviewCell.swift in Sources */,
-				36073D1E1F225D2A001317A7 /* RecommendedViewController.swift in Sources */,
 				365261561FB9F83400025B8A /* ClassTableModel.swift in Sources */,
 				36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */,
 				A5197A3D1FDA8F99008C445A /* LibraryAPIs.swift in Sources */,
@@ -1884,21 +1792,18 @@
 				361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */,
 				A52C646B207F9F680007D31F /* CollegeModel.swift in Sources */,
 				A570C138207F8E2C00AF7050 /* CollegeSphereViewController.swift in Sources */,
-				36073D0D1F223FC1001317A7 /* Search.swift in Sources */,
 				368C3C8A204DAB4F00C1E6B6 /* WPYCustomError.swift in Sources */,
 				0C7AADE32080C62200B0A2B0 /* LFSearchCellOfHeight.swift in Sources */,
 				0C7AADDF2080C62200B0A2B0 /* MyFoundViewController.swift in Sources */,
 				A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */,
 				A5A2FA492092049600A9AC0C /* GPAModel.swift in Sources */,
 				0C7AADE52080C62200B0A2B0 /* LostFoundModel.swift in Sources */,
-				36073D1A1F225D2A001317A7 /* BookDetailViewController.swift in Sources */,
 				B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */,
 				36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */,
 				B102541B1EC8547E0064373A /* CardViewAndDelegate.swift in Sources */,
 				36449E641FA4BABA0036766B /* QuizView.swift in Sources */,
 				A5A2FA4F2092049600A9AC0C /* ScoreHeaderView.swift in Sources */,
 				0C7AADEB2080C62200B0A2B0 /* LFSearchCustomCell.swift in Sources */,
-				36073D1B1F225D2A001317A7 /* BookShelfViewController.swift in Sources */,
 				365A8A281FB9CA1700B15443 /* ClassModel.swift in Sources */,
 				365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */,
 				A5A2FA462092049600A9AC0C /* GPAViewController.swift in Sources */,
@@ -1926,7 +1831,6 @@
 				0C7AADED2080C62200B0A2B0 /* LostFoundCollectionViewCell.swift in Sources */,
 				0C7AADDC2080C62200B0A2B0 /* LostFoundPageViewController.swift in Sources */,
 				A5FE5665208F624A00B94F0D /* PopularClassModel.swift in Sources */,
-				36073D0A1F223FC1001317A7 /* ReadStarCell.swift in Sources */,
 				365A46462035E35500738963 /* Storage.swift in Sources */,
 				36BD544B208F6D2A00677DE2 /* CourseAppraiseCell.swift in Sources */,
 				36BD5442208F6D2A00677DE2 /* CourseAppraiseViewController.swift in Sources */,
@@ -1936,7 +1840,6 @@
 				365A46482036956700738963 /* CacheFilenameKey.swift in Sources */,
 				36BD5447208F6D2A00677DE2 /* GPAClassModel.swift in Sources */,
 				361F885C204AF92D00BCFA19 /* BannerPageControl.swift in Sources */,
-				36073D0B1F223FC1001317A7 /* RecommendCell.swift in Sources */,
 				0C7AADE72080C62200B0A2B0 /* PublishLostViewController.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
 				0C7AADE92080C62200B0A2B0 /* LFMarkCustomCell.swift in Sources */,
@@ -1982,7 +1885,6 @@
 				36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */,
 				0C7AADE62080C62200B0A2B0 /* MyLostFoundModel.swift in Sources */,
 				B102541C1EC8547E0064373A /* Metadata.swift in Sources */,
-				B10253D91EC84ED20064373A /* ReadAPI.swift in Sources */,
 				36D526E220415A3C0074EB2B /* MallViewController.swift in Sources */,
 				36449E651FA4BABA0036766B /* QuizCell.swift in Sources */,
 				36449E461FA4BA9B0036766B /* Courses.swift in Sources */,
@@ -1994,7 +1896,6 @@
 				A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */,
 				364922A3202620CC00DFDC35 /* CardButton.swift in Sources */,
 				36449E631FA4BABA0036766B /* ScoreTableViewCell.swift in Sources */,
-				36073D0E1F223FC1001317A7 /* SearchResultCell.swift in Sources */,
 				36449E8E1FA4BAD10036766B /* PartyComplainViewController.swift in Sources */,
 				361F8867204AF9AA00BCFA19 /* NewsViewController.swift in Sources */,
 				36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */,
@@ -2015,7 +1916,6 @@
 				A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */,
 				361F8856204AF92100BCFA19 /* HomePageModel.swift in Sources */,
 				36449E881FA4BAD10036766B /* PartySignUpViewController.swift in Sources */,
-				36073D241F22713B001317A7 /* ReadViewController.swift in Sources */,
 				36449E601FA4BABA0036766B /* TheoryCourseArticleReadingView.swift in Sources */,
 				369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */,
 				A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */,
@@ -2023,30 +1923,21 @@
 				369140AF2020CBA30022BA3F /* NotificationName.swift in Sources */,
 				36D526E52041C4150074EB2B /* DebugLog.swift in Sources */,
 				0C7AADD62080C62200B0A2B0 /* FoundViewController.swift in Sources */,
-				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
-				36073D091F223FC1001317A7 /* RateView.swift in Sources */,
-				B10253D61EC84ED20064373A /* Book.swift in Sources */,
 				B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */,
-				B10253DC1EC84ED20064373A /* Review.swift in Sources */,
 				0C7AADDB2080C62200B0A2B0 /* LostFoundDetailModel.swift in Sources */,
 				36449E851FA4BAD10036766B /* TwentyCourseDetailViewController.swift in Sources */,
 				0C7AADD82080C62200B0A2B0 /* LFImagePreviewViewController.swift in Sources */,
 				36449E6E1FA4BABA0036766B /* CourseTableViewCell.swift in Sources */,
 				364922A120260CDC00DFDC35 /* LibraryModel.swift in Sources */,
-				36073D101F223FC1001317A7 /* StatusInfoCell.swift in Sources */,
 				0C7AADEF2080C62200B0A2B0 /* PublishCustomCell.swift in Sources */,
 				363D0A701FE006990095DA57 /* LibraryCardDataProvider.swift in Sources */,
 				3659367B1F1E5FAE003CE578 /* YellowPageDetailViewController.swift in Sources */,
 				A5E117B71F99DC9400C86CA2 /* NotificationList.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
-				36073D1F1F225D2A001317A7 /* ReviewListViewController.swift in Sources */,
-				36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */,
 				36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */,
 				A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */,
 				0C7AADE22080C62200B0A2B0 /* PublishSuccessViewController.swift in Sources */,
 				0C7AADDE2080C62200B0A2B0 /* LostViewController.swift in Sources */,
-				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
-				36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */,
 				36449E8F1FA4BAD10036766B /* HandInDetailViewController.swift in Sources */,
 				A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */,
 				36BD5445208F6D2A00677DE2 /* CourseAppraiseManager.swift in Sources */,
@@ -2056,20 +1947,16 @@
 				3659367C1F1E5FAE003CE578 /* YellowPageMainViewController.swift in Sources */,
 				369B2D4A20151542009352A8 /* DateTool.swift in Sources */,
 				0C7AADE12080C62200B0A2B0 /* MyLostViewController.swift in Sources */,
-				B10253D71EC84ED20064373A /* Librarian.swift in Sources */,
 				B10254211EC8547E0064373A /* WPYLabel.swift in Sources */,
 				A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */,
 				B10253FD1EC84ED90064373A /* log.swift in Sources */,
 				361F8853204AF92100BCFA19 /* HomePageHelper.swift in Sources */,
 				A52C6468207F9D020007D31F /* DBSphereView.m in Sources */,
 				365A8A251FB9BA8500B15443 /* ClasstableDataManager.swift in Sources */,
-				B10253DA1EC84ED20064373A /* ReadBeacon.swift in Sources */,
 				3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */,
-				B10253DD1EC84ED20064373A /* User.swift in Sources */,
 				36CAD44C201B9194006F85E3 /* ClassTableCard.swift in Sources */,
 				0C7AADDD2080C62200B0A2B0 /* LostFoundSearchViewController.swift in Sources */,
 				B10253F01EC84ED90064373A /* AccountManager.swift in Sources */,
-				36073D1C1F225D2A001317A7 /* InfoViewController.swift in Sources */,
 				0C7AADE02080C62200B0A2B0 /* MyLostFoundPageViewController.swift in Sources */,
 				A53602691FC6EC0500E3D1AF /* TJUBindingViewController.swift in Sources */,
 				B10254041EC84EE00064373A /* ClientItem.swift in Sources */,

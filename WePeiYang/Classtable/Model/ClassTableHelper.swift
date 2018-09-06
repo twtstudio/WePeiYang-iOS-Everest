@@ -32,11 +32,10 @@ struct ClassTableHelper {
         let courses = courseForDay[weekday]
         return courses
     }
-    
-    
+
     // 很尴尬 我会优化的
     static func getCourse(table: ClassTableModel, week: Int) -> [[ClassModel]] {
-        
+
         var coursesForDay: [[ClassModel]] = [[], [], [], [], [], [], []]
         var classes = [] as [ClassModel]
         //        var coursesForDay: [[ClassModel]] = []
@@ -47,7 +46,7 @@ struct ClassTableHelper {
                 // TODO: turn gray
                 continue
             }
-            
+
             // 每个 arrange 变成一个
             for arrange in course.arrange {
                 let day = arrange.day-1
@@ -62,7 +61,7 @@ struct ClassTableHelper {
                     // TODO: turn gray
                     continue
                 }
-                
+
                 var newCourse = course
                 newCourse.arrange = [arrange]
                 // TODO: 这个是啥来着?
@@ -70,14 +69,14 @@ struct ClassTableHelper {
                 coursesForDay[day].append(newCourse)
             }
         }
-        
+
         for day in 0..<7 {
             var array = coursesForDay[day]
             // 按课程开始时间排序
             array.sort(by: { a, b in
                 return a.arrange[0].start < b.arrange[0].start
             })
-            
+
             var lastEnd = 0
             for course in array {
                 // 如果两节课之前有空格，加入长度为一的占位符

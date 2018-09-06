@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 
 class LostFoundCollectionViewCell: UICollectionViewCell {
-    
+
     var titleLabel: UILabel!
     var markLabel: UILabel!
     var timeLabel: UILabel!
@@ -23,7 +23,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         titleLabel = UILabel()
         markLabel = UILabel()
         timeLabel = UILabel()
@@ -118,12 +118,12 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
 
         contentView.clipsToBounds = true
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func initUI(pic: String, title: String, mark: Int, time: String, place: String){
+    func initUI(pic: String, title: String, mark: Int, time: String, place: String) {
         if pic != "", let picURL = URL(string: TWT_URL + pic) {
             pictureImageView.sd_setImage(with: picURL)
         } else {
@@ -132,7 +132,6 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
         }
         pictureImageView.contentMode = .scaleAspectFill
 
-        
         titleLabel.text = title
 //        titleLabel.sizeToFit()
 
@@ -146,9 +145,3 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
 //        placeLabel.sizeToFit()
     }
 }
-
-
-
-
-
-

@@ -14,26 +14,26 @@ enum CourseAppraiseCellStyle {
     case edit
 }
 
-protocol CourseAppraiseCellDelegate {
+protocol CourseAppraiseCellDelegate: class {
     func loadDetail()
 }
 
 class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
     var titleLabel = UILabel()
     var starView = StarView(rating: 5, height: 36, tappable: true)
-    var delegate: CourseAppraiseCellDelegate?
+    weak var delegate: CourseAppraiseCellDelegate?
     let textView = UITextView()
     let textViewPlaceHolder = "说点什么..."
     let detailButton = UIButton(title: "详细评价")
     let detailImageButton = UIButton()
-    
+
     var id: Int?
     fileprivate var context = 0 //for kvo
     convenience init(title: String, style: CourseAppraiseCellStyle, id: Int) {
         self.init()
-        
+
         self.id = id
-        
+
         if style == .normal {
             contentView.addSubview(titleLabel)
             titleLabel.text = title
@@ -46,7 +46,7 @@ class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
             titleLabel.numberOfLines = 0
             titleLabel.lineBreakMode = .byCharWrapping
             titleLabel.sizeToFit()
-            
+
             contentView.addSubview(starView)
             starView.snp.makeConstraints {
                 make in
@@ -57,10 +57,8 @@ class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
             let score = CourseAppraiseManager.shared.scoreArray[id]
             starView.stars[score-1].sendActions(for: .touchUpInside)
             starView.addObserver(self, forKeyPath: "rating", options: .new, context: &context)
-            
-        }
-            
-        else if style == .main {
+
+        } else if style == .main {
             contentView.addSubview(titleLabel)
             titleLabel.text = title
             titleLabel.snp.makeConstraints {
@@ -72,7 +70,7 @@ class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
             titleLabel.numberOfLines = 0
             titleLabel.lineBreakMode = .byCharWrapping
             titleLabel.sizeToFit()
-            
+
             contentView.addSubview(starView)
             starView.snp.makeConstraints {
                 make in
@@ -83,7 +81,7 @@ class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
             let score = CourseAppraiseManager.shared.scoreArray[id]
             starView.stars[score-1].sendActions(for: .touchUpInside)
             starView.addObserver(self, forKeyPath: "rating", options: .new, context: &context)
-            
+
             contentView.addSubview(detailImageButton)
             detailImageButton.snp.makeConstraints {
                 make in
@@ -100,7 +98,7 @@ class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
             }
             detailImageButton.tintColor = UIColor.gray
             detailImageButton.addTarget(self, action: #selector(detailButtonTapped), for: .touchUpInside)
-            
+
             contentView.addSubview(detailButton)
             detailButton.snp.makeConstraints {
                 make in
@@ -111,10 +109,7 @@ class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
             }
             detailButton.setTitleColor(UIColor.gray, for: .normal)
             detailButton.addTarget(self, action: #selector(detailButtonTapped), for: .touchUpInside)
-        }
-            
-            
-        else if style == .edit {
+        } else if style == .edit {
             contentView.addSubview(titleLabel)
             titleLabel.text = title
             titleLabel.snp.makeConstraints {
@@ -126,7 +121,7 @@ class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
             titleLabel.numberOfLines = 0
             titleLabel.lineBreakMode = .byCharWrapping
             titleLabel.sizeToFit()
-            
+
             contentView.addSubview(textView)
             textView.snp.makeConstraints {
                 make in
@@ -146,8 +141,7 @@ class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
             textView.font = UIFont(name: "Arial", size: 20)
         }
     }
-    
-    
+
     @objc func detailButtonTapped() {
         delegate?.loadDetail()
         if CourseAppraiseManager.shared.detailAppraiseEnabled == true {
@@ -156,16 +150,15 @@ class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
             detailImageButton.setImage(UIImage(named: "ic_arrow_down"), for: .normal)
         }
     }
-    
-    deinit{
+
+    deinit {
         if id != 5 {
-            starView.removeObserver(self, forKeyPath:"rating")
+            starView.removeObserver(self, forKeyPath: "rating")
         }
     }
-    
-    
-    //MARK: KVO
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+
+    // MARK: KVO
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         //print("Changed to:\(change![NSKeyValueChangeNewKey]!)")
         if let score = change![NSKeyValueChangeKey.newKey] as? Int {
             if id == 4 && CourseAppraiseManager.shared.detailAppraiseEnabled == false { // 总体打分
@@ -177,7 +170,7 @@ class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
             }
         }
     }
-    
+
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == textViewPlaceHolder {
             textView.text = ""
@@ -185,7 +178,7 @@ class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
         }
         textView.becomeFirstResponder()
     }
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text == "" {
             textView.text = textViewPlaceHolder

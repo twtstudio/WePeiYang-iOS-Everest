@@ -17,8 +17,8 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
     var searchedList: [LostFoundModel] = []
     let footer = MJRefreshAutoNormalFooter()
     let header = MJRefreshNormalHeader()
-    var curPage : Int = 1
-    
+    var curPage: Int = 1
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,28 +33,28 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
     func configUI() {
         //        layout.estimatedItemSize = CGSize(width: self.view.frame.size.width/2-10, height: 270)
         //        layout.itemSize =
-        layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height:  270)
+        layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height: 270)
         //        layout.minimumInteritemSpacing = 20
-        layout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
+        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         searchedView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height), collectionViewLayout: layout)
         searchedView.register(LostFoundCollectionViewCell.self, forCellWithReuseIdentifier: "searchedCell")
-        
+
         searchedView.delegate = self
         searchedView.dataSource = self
 
         searchedView.backgroundColor = UIColor(hex6: 0xeeeeee)
         self.view.addSubview(searchedView)
     }
-    
+
     // 为空显示的View,允许刷新
     func promptUI() {
         self.promptView = UIScrollView(frame: UIScreen.main.bounds)
         self.promptView.backgroundColor = UIColor(hex6: 0xeeeeee)
-        let image = UIImageView(frame: CGRect(x: 0, y: 150, width:150, height: 150))
+        let image = UIImageView(frame: CGRect(x: 0, y: 150, width: 150, height: 150))
         image.center = CGPoint(x: self.view.frame.width/2, y: 280)
         image.image = UIImage(named: "箱子")
         self.promptView.addSubview(image)
-        let titleLabel = UILabel(frame: CGRect(x: 0, y: 150, width:200, height: 50))
+        let titleLabel = UILabel(frame: CGRect(x: 0, y: 150, width: 200, height: 50))
         titleLabel.center = CGPoint(x: self.view.frame.width/2, y: 400)
         titleLabel.text = "暂时没有找到该类物品!"
         titleLabel.textAlignment = .center
@@ -64,7 +64,7 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
         self.searchedView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerLoad))
 //        self.searchedView.mj_footer.isAutomaticallyHidden = true
     }
-    
+
     func refresh() {
         GetSearchAPI.getSearch(inputText: inputText, page: 1, success: { (searchs) in
             self.searchedList = searchs
@@ -77,7 +77,7 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
     }
 
     func selectView() {
-        if searchedList.count == 0 {
+        if searchedList.isEmpty {
             self.view.addSubview(self.promptView)
         } else {
             print(searchedList.count)
@@ -100,11 +100,11 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
         })
         self.searchedView.reloadData()
     }
-    
+
     //顶部下拉刷新
-    @objc func headerRefresh(){
+    @objc func headerRefresh() {
         print("下拉刷新.")
-        
+
         GetSearchAPI.getSearch(inputText: inputText, page: 1, success: { (searchs) in
             self.searchedList = searchs
             print(self.searchedList)
@@ -119,47 +119,43 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
             print(error)
         })
     }
-    
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
+
     //某个Cell被选择的事件处理
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
-    {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let id = searchedList[indexPath.row].id
         let detailVC = LFDetailViewController()
         detailVC.id = id
         self.navigationController?.pushViewController(detailVC, animated: true)
-        
+
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return searchedList.count
     }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
-        
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchedCell", for: indexPath) as? LostFoundCollectionViewCell{
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchedCell", for: indexPath) as? LostFoundCollectionViewCell {
             //        cell.title.text = "这里是内容：\(indexPath.row)"
-            
+
             let picURL = searchedList[indexPath.row].picture
             cell.initUI(pic: picURL, title: searchedList[indexPath.row].title, mark: Int(searchedList[indexPath.row].detail_type)!, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
 
             return cell
-            
+
         }
 
         let cell = LostFoundCollectionViewCell()
 
         let picURL = searchedList[indexPath.row].picture
         cell.initUI(pic: picURL, title: searchedList[indexPath.row].title, mark: Int(searchedList[indexPath.row].detail_type)!, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
-        
+
         return cell
     }
-
 
     @objc func backToMain() {
         let mainVC = self.navigationController?.viewControllers[1]

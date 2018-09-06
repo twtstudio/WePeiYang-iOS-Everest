@@ -11,7 +11,7 @@ import UIKit
 class ExtendedButton: UIButton {
     var extendedWidth: CGFloat = 44
     var extendedHeight: CGFloat = 44
-    
+
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         let bounds = self.bounds
         let widthDelta = max(extendedWidth - bounds.size.width, 0)
@@ -20,5 +20,5 @@ class ExtendedButton: UIButton {
         let newBounds = bounds.insetBy(dx: -0.5*widthDelta, dy: -0.5*heightDelta)
         return newBounds.contains(point)
     }
-    
+
 }

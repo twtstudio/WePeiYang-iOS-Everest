@@ -25,28 +25,26 @@ class CourseDetailTableViewCell: UITableViewCell {
 
 extension CourseDetailTableViewCell {
     convenience init(detail: Courses.Study20.Detail) {
-        
+
         let articleNameLabel = UILabel(text: detail.articleName!, fontSize: 14)
         let tapToReadLabel = UILabel(text: "开始阅读", fontSize: 14)
-        
+
         self.init()
-        
+
         contentView.addSubview(tapToReadLabel)
         tapToReadLabel.snp.makeConstraints {
             make in
             make.right.equalTo(contentView).offset(-14)
             make.centerY.equalTo(contentView)
         }
-        
+
         contentView.addSubview(articleNameLabel)
         articleNameLabel.snp.makeConstraints {
             make in
             make.left.equalTo(contentView).offset(14)
             make.centerY.equalTo(contentView)
             make.right.lessThanOrEqualTo(tapToReadLabel.snp.left).offset(-20)
-            
+
         }
     }
 }
-
-

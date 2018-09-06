@@ -12,11 +12,11 @@ struct CollegeTopModel: Codable {
     let errorCode: Int
     let message: String
     let data: [CollegeModel]
-    
+
     init(data: Data) throws {
         self = try JSONDecoder().decode(CollegeTopModel.self, from: data)
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case errorCode = "error_code"
         case message, data
@@ -26,7 +26,7 @@ struct CollegeTopModel: Codable {
 struct CollegeModel: Codable {
     let collegeName: String
     let collegeID: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case collegeName = "college_name"
         case collegeID = "college_id"

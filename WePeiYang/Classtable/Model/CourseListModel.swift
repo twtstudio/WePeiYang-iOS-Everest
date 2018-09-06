@@ -12,7 +12,7 @@ struct AuditClassTopModel: Codable {
     let errorCode: Int
     let message: String
     let data: AuditClassModel
-    
+
     enum CodingKeys: String, CodingKey {
         case errorCode = "error_code"
         case message, data
@@ -29,7 +29,6 @@ private let WeekTypeDic = [
 // 1:
 // 2:
 // 3:单双周
-
 
 struct AuditClassModel: Codable {
     let id: Int
@@ -124,4 +123,3 @@ struct AuditClassInfoModel: Codable {
         case teacher = "teacher"
     }
 }
-

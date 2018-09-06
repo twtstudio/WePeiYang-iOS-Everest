@@ -27,7 +27,7 @@ struct ClassModel: Mappable {
     var peers: [ClassModel] = []
 
     init?(map: Map) {}
-    
+
     mutating func mapping(map: Map) {
         classID <- map["classid"]
         courseID <- map["courseid"]
@@ -50,15 +50,14 @@ struct ClassModel: Mappable {
         colorIndex = index
     }
 
-    static func ==(lhs: ClassModel, rhs: ClassModel) -> Bool {
+    static func == (lhs: ClassModel, rhs: ClassModel) -> Bool {
         guard let arrange1 = lhs.arrange.first, let arrange2 = rhs.arrange.first, rhs.courseID+rhs.teacher == lhs.courseID+lhs.teacher else {
             return false
         }
         return arrange1.start == arrange2.start && arrange1.end == arrange2.end
     }
 
-    static func !=(lhs: ClassModel, rhs: ClassModel) -> Bool {
+    static func != (lhs: ClassModel, rhs: ClassModel) -> Bool {
         return !(lhs == rhs)
     }
 }
-

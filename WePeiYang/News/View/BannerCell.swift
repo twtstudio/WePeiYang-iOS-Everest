@@ -9,17 +9,16 @@
 import UIKit
 import SDWebImage
 
-
 class BannerCell: UICollectionViewCell {
-    
+
     // MARK: 内部属性
     fileprivate var imgView: UIImageView!
     fileprivate var descLabel: UILabel!
     fileprivate var bottomView: UIView!
     fileprivate var twtLabel: UILabel!
-    
+
     // MARK: - 对外方法
-    var imgSource: ImgSource = ImgSource.LOCAL(name: "placeholder")  {
+    var imgSource: ImgSource = ImgSource.LOCAL(name: "placeholder") {
         didSet {
             switch imgSource {
             case let .SERVER(url):
@@ -29,7 +28,7 @@ class BannerCell: UICollectionViewCell {
             }
         }
     }
-    
+
     var placeholderImage: UIImage?
     var descText: String? {
         didSet {
@@ -38,50 +37,49 @@ class BannerCell: UICollectionViewCell {
             descLabel.text = descText
         }
     }
-    
+
     var imageContentModel: UIViewContentMode = .scaleAspectFill {
         didSet {
             imgView.contentMode = imageContentModel
         }
     }
-    
+
     var descLabelFont: UIFont = UIFont(name: "Helvetica-Bold", size: 40)! {
         didSet {
             descLabel.font = descLabelFont
         }
     }
-    
+
     var descLabelTextColor: UIColor = UIColor.black {
         didSet {
             descLabel.textColor = descLabelTextColor
         }
     }
-    
+
     var bottomViewlHeight: CGFloat = 60 {
         didSet {
             descLabel.frame.size.height = bottomViewlHeight
         }
     }
-    
+
     var descLabelTextAlignment: NSTextAlignment = .left {
         didSet {
             descLabel.textAlignment = descLabelTextAlignment
         }
     }
-    
+
     var bottomViewBackgroundColor: UIColor = UIColor.white.withAlphaComponent(1) {
         didSet {
             bottomView.backgroundColor = bottomViewBackgroundColor
         }
     }
-    
+
     override var frame: CGRect {
         didSet {
             bounds.size = frame.size
         }
     }
-    
-    
+
     // MARK: - initialize
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -95,14 +93,13 @@ class BannerCell: UICollectionViewCell {
     }
     deinit {
     }
-    
-    
+
     // MARK: layoutSubviews 方法
     override func layoutSubviews() {
         super.layoutSubviews()
         imgView.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height - bottomViewlHeight)
-        
-        if let _ = descText {
+
+        if descText != nil {
             let margin: CGFloat = 16
             let labelWidth = imgView.bounds.width - 2 * margin
             let bottomViewHeight = bottomViewlHeight
@@ -116,17 +113,16 @@ class BannerCell: UICollectionViewCell {
     }
 }
 
-
 // MARK: - 控件初始化
 extension BannerCell {
-    
+
     fileprivate func setupImgView() {
         imgView = UIImageView()
         imgView.contentMode = imageContentModel
         imgView.clipsToBounds = true
         addSubview(imgView)
     }
-    
+
     fileprivate func setupDescLabel() {
         descLabel = UILabel()
         descLabel.text = descText
@@ -138,7 +134,7 @@ extension BannerCell {
         addSubview(descLabel)
         descLabel.isHidden = true
     }
-    
+
     fileprivate func setupBottomView() {
         bottomView = UIView()
         bottomView.backgroundColor = bottomViewBackgroundColor
@@ -151,4 +147,3 @@ extension BannerCell {
         bottomView.isHidden = true
     }
 }
-

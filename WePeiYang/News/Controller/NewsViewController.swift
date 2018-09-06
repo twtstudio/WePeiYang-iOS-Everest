@@ -36,10 +36,9 @@ class NewsViewController: UIViewController {
 //    var refreshFooter: MJRefreshFooter!
     // iPhone X statusBarHeight
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
 //        navigationController?.navigationBar.barStyle = .black
 //        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
         //Changing NavigationBar Title color
@@ -51,7 +50,7 @@ class NewsViewController: UIViewController {
         setupUI()
         setupData()
     }
-    
+
     func setupData() {
         CacheManager.retreive("news/homepage.json", from: .caches, as: HomePageTopModel.self, success: { homepage in
             self.homepage = homepage
@@ -60,7 +59,7 @@ class NewsViewController: UIViewController {
             HomePageHelper.getHomepage(success: { homepage in
                 self.homepage = homepage
                 self.tableView.reloadData()
-            }, failure: { error in
+            }, failure: { _ in
 
             })
         })
@@ -73,7 +72,7 @@ class NewsViewController: UIViewController {
                 self.galleryList = galleries
                 self.tableView.reloadData()
 
-            }, failure: { error in
+            }, failure: { _ in
 
             })
         })
@@ -85,14 +84,14 @@ class NewsViewController: UIViewController {
             HomePageHelper.getNews(page: self.page, category: self.category, success: { newsList in
                 self.newsList = newsList.data
                 self.tableView.reloadData()
-            }, failure: { error in
+            }, failure: { _ in
 
             })
         })
     }
-    
+
     func setupUI() {
-        
+
         self.automaticallyAdjustsScrollViewInsets = false
 
         newsHeaderView = NewsHeaderView(withTitle: "News")
@@ -105,7 +104,7 @@ class NewsViewController: UIViewController {
         } else {
             tableView = UITableView(frame: CGRect(x: 0, y: statusBarHeight, width: deviceWidth, height: deviceHeight-statusBarHeight-tabBarHeight), style: .grouped)
         }
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -121,7 +120,7 @@ class NewsViewController: UIViewController {
 
         let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(headerRefresh))
         let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(footerLoadMore))
-        
+
         tableView.mj_header = header
         tableView.mj_footer = footer
 
@@ -205,7 +204,7 @@ class NewsViewController: UIViewController {
             if self.tableView.mj_footer.isRefreshing {
                 self.tableView.mj_footer.endRefreshing()
             }
-        }, failure: { error in
+        }, failure: { _ in
             if self.tableView.mj_footer.isRefreshing {
                 self.tableView.mj_footer.endRefreshing()
                 if newCategory == 6 {
@@ -218,7 +217,6 @@ class NewsViewController: UIViewController {
         })
     }
 }
-
 
 // MARK: - 使用contentoffset使label文字大小变化
 extension NewsViewController: UIScrollViewDelegate {
@@ -241,7 +239,7 @@ extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3 + newsList.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
         switch indexPath.row {
@@ -380,7 +378,7 @@ extension NewsViewController: UITableViewDataSource {
                 cell.imgView.sd_setShowActivityIndicatorView(true)
             }
         default:
-            
+
             break
         }
         cell.setNeedsLayout()
@@ -400,7 +398,7 @@ extension NewsViewController: UITableViewDelegate {
         }
         return nil
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 100
     }
@@ -417,7 +415,6 @@ extension NewsViewController: UITableViewDelegate {
         self.navigationController?.pushViewController(newsVC, animated: true)
     }
 }
-
 
 extension NewsViewController: BannerScrollViewDelegate {
     func bannerScrollViewDidSelect(at index: Int, bannerScrollView: BannerScrollView) {
@@ -487,4 +484,3 @@ extension NewsViewController: UICollectionViewDataSource {
 
 extension NewsViewController: UICollectionViewDelegate {
 }
-

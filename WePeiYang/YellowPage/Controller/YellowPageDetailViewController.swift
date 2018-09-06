@@ -13,31 +13,30 @@ import PopupDialog
 
 class YellowPageDetailViewController: UIViewController {
     let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), style: .plain)
-    
+
     var models = [ClientItem]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        
+
         let titleLabel = UILabel(text: self.navigationItem.title!)
         titleLabel.backgroundColor = UIColor.clear
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
         titleLabel.textColor = UIColor.white
         titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
-        
-        
+
         self.navigationController?.navigationBar.tintColor = UIColor.white
         // FIXME: 改变 statusBar 颜色
 //        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
-        
+
         tableView.delegate = self
         tableView.dataSource = self
-        
+
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
-        
+
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.bottom.left.right.equalToSuperview()
@@ -59,13 +58,13 @@ extension YellowPageDetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return models.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         // FIXME: reuse
         let cell = YellowPageCell(with: .detailed, model: models[indexPath.row])
 //        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(cellTapped(sender:)))
@@ -84,7 +83,7 @@ extension YellowPageDetailViewController: UITableViewDelegate {
         separator.backgroundColor = UIColor.lightGray
         return separator
     }
-    
+
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.5
     }

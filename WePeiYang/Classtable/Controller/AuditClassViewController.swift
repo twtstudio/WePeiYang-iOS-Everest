@@ -12,24 +12,24 @@ class AuditClassViewController: UIViewController {
     var tableView: UITableView!
     var auditClassList = [PopularClassModel]()
     var myClassList = [PopularClassModel]()
-    
+
     override func viewWillAppear(_ animated: Bool) {
         if let index = self.tableView.indexPathForSelectedRow {
             self.tableView.deselectRow(at: index, animated: true)
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.backgroundColor = .white
-        
+
         self.navigationItem.title = "添加课程"
-        let titleTextAttribute = [NSAttributedStringKey.foregroundColor : UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)]
+        let titleTextAttribute = [NSAttributedStringKey.foregroundColor: UIColor(red: 0.14, green: 0.69, blue: 0.93, alpha: 1.00)]
         self.navigationController?.navigationBar.titleTextAttributes = titleTextAttribute
         let rightButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchToggle))
         self.navigationItem.rightBarButtonItem = rightButton
-        
+
         tableView = UITableView(frame: self.view.bounds, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
@@ -37,13 +37,12 @@ class AuditClassViewController: UIViewController {
         self.view.addSubview(tableView)
 //        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
-    
-    
+
     @objc func searchToggle() {
         let collegeSphereVC = CollegeSphereViewController()
         self.navigationController?.pushViewController(collegeSphereVC, animated: true)
     }
-    
+
     func load() {
         ClasstableDataManager.getPopularClass(success: { list in
             self.auditClassList = list
@@ -52,9 +51,9 @@ class AuditClassViewController: UIViewController {
             SwiftMessages.showErrorMessage(body: errMsg)
         })
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
+
     }
 }
 
@@ -62,7 +61,7 @@ extension AuditClassViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -81,7 +80,7 @@ extension AuditClassViewController: UITableViewDataSource {
             return 0
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         if let reusableCell = tableView.dequeueReusableCell(withIdentifier: "CourseCell\(indexPath.section)") {
@@ -95,7 +94,7 @@ extension AuditClassViewController: UITableViewDataSource {
             if auditClassList.count <= 4 {
                 if indexPath.row == auditClassList.count {
                     cell.textLabel?.text = "更多"
-                    cell.textLabel?.textColor = UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)
+                    cell.textLabel?.textColor = UIColor(red: 0.14, green: 0.69, blue: 0.93, alpha: 1.00)
                     cell.accessoryType = .none
                 } else {
                     let model = auditClassList[indexPath.row]
@@ -104,7 +103,7 @@ extension AuditClassViewController: UITableViewDataSource {
             } else {
                 if indexPath.row == 4 {
                     cell.textLabel?.text = "更多"
-                    cell.textLabel?.textColor = UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)
+                    cell.textLabel?.textColor = UIColor(red: 0.14, green: 0.69, blue: 0.93, alpha: 1.00)
                     cell.accessoryType = .none
                 } else {
                     let model = auditClassList[indexPath.row]
@@ -112,14 +111,14 @@ extension AuditClassViewController: UITableViewDataSource {
                 }
             }
         case 1:
-            if myClassList.count == 0 {
+            if myClassList.isEmpty {
                 cell.textLabel?.text = "暂无"
                 cell.textLabel?.textColor = UIColor.gray
                 cell.accessoryType = .none
             } else if myClassList.count <= 4 {
                 if indexPath.row == myClassList.count {
                     cell.textLabel?.text = "更多"
-                    cell.textLabel?.textColor = UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)
+                    cell.textLabel?.textColor = UIColor(red: 0.14, green: 0.69, blue: 0.93, alpha: 1.00)
                     cell.accessoryType = .none
                 } else {
                     cell.textLabel?.text = myClassList[indexPath.row].course.name
@@ -127,7 +126,7 @@ extension AuditClassViewController: UITableViewDataSource {
             } else {
                 if indexPath.row == 4 {
                     cell.textLabel?.text = "更多"
-                    cell.textLabel?.textColor = UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)
+                    cell.textLabel?.textColor = UIColor(red: 0.14, green: 0.69, blue: 0.93, alpha: 1.00)
                     cell.accessoryType = .none
                 } else {
                     cell.textLabel?.text = myClassList[indexPath.row].course.name
@@ -144,7 +143,7 @@ extension AuditClassViewController: UITableViewDataSource {
         }
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:

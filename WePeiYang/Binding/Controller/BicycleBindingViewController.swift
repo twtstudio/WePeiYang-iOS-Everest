@@ -9,7 +9,7 @@
 import UIKit
 
 class BicycleBindingViewController: UIViewController {
-    
+
     var IDCardNumberTextField: UITextField!
     var passwordTextField: UITextField!
     var bindButton: UIButton!
@@ -53,7 +53,6 @@ class BicycleBindingViewController: UIViewController {
         bindButton.layer.cornerRadius = 5
         bindButton.addTarget(self, action: #selector(bind), for: .touchUpInside)
         self.view.addSubview(bindButton)
-        
 
         dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: bindButton.y + bindButton.height + 20, width: 30, height: 20))
         dismissButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
@@ -63,7 +62,7 @@ class BicycleBindingViewController: UIViewController {
         dismissButton.center = CGPoint(x: self.view.center.x, y: bindButton.y + bindButton.height + 20)
         dismissButton.addTarget(self, action: #selector(dismissBinding), for: .touchUpInside)
         self.view.addSubview(dismissButton)
-        
+
         self.view.backgroundColor = .white
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
@@ -107,17 +106,16 @@ class BicycleBindingViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-    
+
     @objc func dismissBinding() {
         self.dismiss(animated: true, completion: nil)
     }
-    
 
-    @objc func keyboardWillShow(notification: NSNotification) {
+    @objc func keyboardWillShow(notification: Notification) {
         self.view.frame.origin.y = -40
     }
 
-    @objc func keyboardWillHide(notification: NSNotification) {
+    @objc func keyboardWillHide(notification: Notification) {
         self.view.frame.origin.y = 0
     }
 }

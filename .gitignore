@@ -5,3 +5,5 @@ WePeiYang.xcworkspace/xcuserdata/
 WePeiYang.xcodeproj/xcuserdata/
 WePeiYang.xcodeproj/project.xcworkspace/xcuserdata/
 WePeiYang/Shared/Network/TwTKeychain.swift
+swiftlint.sh
+swiftlint.yml

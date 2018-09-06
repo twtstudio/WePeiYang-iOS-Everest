@@ -28,13 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             BicycleUser.sharedInstance.auth(success: {
                 NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("bike", TwTUser.shared.bicycleBindingState))
             })
-            
-            WLANHelper.getStatus(success: { isOnline in
+
+            WLANHelper.getStatus(success: { _ in
 
             }, failure: { _ in
 
             })
-            AccountManager.getSelf(success:{
+            AccountManager.getSelf(success: {
                 if let deviceToken = UserDefaults.standard.string(forKey: "deviceToken"),
                     let uid = TwTUser.shared.twtid,
                     let uuid = UIDevice.current.identifierForVendor?.uuidString {
@@ -46,41 +46,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     })
                 }
             }, failure: {
-                
+
             })
         }, failure: {
             // 让他重新登录
         })
 
-
         mainTabVC = WPYTabBarController()
-        
+
         let favoriteVC = FavViewController()
         favoriteVC.tabBarItem.image = #imageLiteral(resourceName: "Favored")
         favoriteVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         let favoriteNavigationController = UINavigationController(rootViewController: favoriteVC)
-        
+
         let newsVC = NewsViewController()
         newsVC.tabBarItem.image = #imageLiteral(resourceName: "News")
         newsVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         let infoNavigationController = UINavigationController(rootViewController: newsVC)
-        
+
         let allModulesVC = AllModulesViewController()
         allModulesVC.tabBarItem.image = #imageLiteral(resourceName: "AllModules")
         allModulesVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         let allModulesNavigationController = UINavigationController(rootViewController: allModulesVC)
-        
+
         let settingsVC = SettingsViewController()
         settingsVC.tabBarItem.image = #imageLiteral(resourceName: "Settings")
         settingsVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         let settingsNavigationController = UINavigationController(rootViewController: settingsVC)
-        
+
         mainTabVC.setViewControllers([favoriteNavigationController, infoNavigationController, allModulesNavigationController, settingsNavigationController], animated: true)
-        
+
         UITabBar.appearance().backgroundColor = Metadata.Color.GlobalTabBarBackgroundColor
         UITabBar.appearance().tintColor = Metadata.Color.WPYAccentColor
 //        UITabBar.appearance().isOpaque = true
-        
+
         mainTabVC.selectedIndex = 0
         if #available(iOS 10.0, *) {
             mainTabVC.tabBar.unselectedItemTintColor = Metadata.Color.grayIconColor
@@ -129,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                           "担心车没还上、找不到最近可用车位？打开微北洋，即时查询各种信息",
                                           "打开 widget 一键上网。\n更有摇一摇上网功能，应用内摇一摇，轻松上网"]
                 let alertView = AlertOnboarding(arrayOfImage: arrayOfImage, arrayOfTitle: arrayOfTitle, arrayOfDescription: arrayOfDescription)
-                
+
                 alertView.percentageRatioHeight = 1
                 alertView.percentageRatioWidth = 1
                 alertView.titleGotItButton = "开启新版微北洋"
@@ -180,11 +179,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         if let subviews = UIApplication.shared.keyWindow?.subviews {
-            for subview in subviews {
-                if subview is UIVisualEffectView {
-                    subview.removeFromSuperview()
-                    return
-                }
+            for subview in subviews where subview is UIVisualEffectView {
+                subview.removeFromSuperview()
+                return
             }
         }
     }
@@ -234,7 +231,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         if #available(iOS 10.0, *) {
             let center = UNUserNotificationCenter.current()
             center.delegate = self
-            center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+            center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
                 if granted {
                     log.word("Push notification request succeed")/
                     DispatchQueue.main.async {
@@ -257,7 +254,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         print("------device token: \(deviceToken.hexString)")
         UserDefaults.standard.set(deviceToken.hexString, forKey: "deviceToken")
     }
-
 
     // iOS 10: 处理前台收到通知的代理方法
     @available(iOS 10.0, *)
@@ -285,7 +281,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
 
     // iOS 9
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if application.applicationState == .active {
             // 前台
         } else {

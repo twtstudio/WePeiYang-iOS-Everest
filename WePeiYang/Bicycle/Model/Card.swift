@@ -11,9 +11,9 @@ import Foundation
 class Card: NSObject {
     var id: String?
     var sign: String?
-    var record: Dictionary<String, Any>?
-    
-    init(dict: Dictionary<String, Any>) {
+    var record: [String: Any]?
+
+    init(dict: [String: Any]) {
         id = dict["id"] as? String
         sign = dict["sign"] as? String
         record = dict["record"] as? Dictionary
@@ -23,4 +23,3 @@ class Card: NSObject {
 //        time = dict["time"] as? NSNumber
     }
 }
-

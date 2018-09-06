@@ -11,20 +11,20 @@ import SnapKit
 import SDWebImage
 
 class LFDetailViewController: UIViewController {
-    
+
 //    var detailView : UIView!
     var detailImageView = UIImageView()
     var detailTitleLabel = UILabel()
     let detailApi = DetailAPI()
     var imageURL = ""
-    
+
     var id = 0
 //    var detailLabel = UILabel()
     var Y = 30
-    
-    let detailImageArray = ["详情 时间","详情 地点","详情 分类","详情 姓名","详情 联系方式","附言"]
+
+    let detailImageArray = ["详情 时间", "详情 地点", "详情 分类", "详情 姓名", "详情 联系方式", "附言"]
     var markArray = ["身份证", "饭卡", "手机", "钥匙", "书包", "手表&饰品", "U盘&硬盘", "水杯", "钱包", "银行卡", "书", "伞", "其他"]
-    
+
     var detailArray: [LostFoundDetailModel] = []
     var detailDisplayArray: [String] = []
     var image = ""
@@ -41,11 +41,11 @@ class LFDetailViewController: UIViewController {
     }
     func initUI() {
         self.view.backgroundColor = .white
-        
+
         self.detailImageView.contentMode = .scaleAspectFit
         self.detailImageView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 320)
         self.detailImageView.isUserInteractionEnabled = true
-        
+
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
         self.view.addSubview(detailImageView)
         self.view.addSubview(detailTitleLabel)
@@ -54,13 +54,12 @@ class LFDetailViewController: UIViewController {
         tapSingle.numberOfTouchesRequired = 1
         detailImageView.addGestureRecognizer(tapSingle)
     }
-    
+
     // Mark -- 更新UI
     func refresh() {
         detailApi.getDetail(id: "\(id)", success: { (details) in
             self.detailArray = details
-            self.detailDisplayArray = [self.detailArray[0].time,self.detailArray[0].place, "\(self.detailArray[0].detail_type)", self.detailArray[0].name, self.detailArray[0].phone, self.detailArray[0].item_description]
-
+            self.detailDisplayArray = [self.detailArray[0].time, self.detailArray[0].place, "\(self.detailArray[0].detail_type)", self.detailArray[0].name, self.detailArray[0].phone, self.detailArray[0].item_description]
 
             var lastLabel: UILabel!
             var labels: [UILabel] = []
@@ -120,7 +119,7 @@ class LFDetailViewController: UIViewController {
                 self.detailImageView.sd_setImage(with: URL(string: TWT_URL + self.imageURL))
                 self.image = TWT_URL + self.imageURL
             }
-            
+
             self.detailTitleLabel.text = self.detailArray[0].title
             self.detailTitleLabel.textAlignment = .center
             self.detailTitleLabel.numberOfLines = 0
@@ -136,15 +135,14 @@ class LFDetailViewController: UIViewController {
         })
     }
 
-    
     // Mark -— Share
-    
+
     @objc func share() {
         let vc = UIActivityViewController(activityItems: [UIImage(named: "暂无图片")!, "[失物招领]\(self.detailArray[0].title)", URL(string: "http://open.twtstudio.com/lostfound/detail.html#\(id)")!], applicationActivities: [])
         present(vc, animated: true, completion: nil)
 //        print("https://open.twtstudio.com/lostfound/detail.html#\(id)")
     }
-    
+
     @objc func swipeClicked(recogizer: UITapGestureRecognizer) {
         let previewVC = LFImagePreviewViewController(image: image)
 //        self.navigationController?.pushViewController(previewVC, animated: true)

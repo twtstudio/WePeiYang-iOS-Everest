@@ -10,23 +10,22 @@
 import UIKit
 
 class YellowPageMainViewController: UIViewController {
-    
+
     let titles = ["1895综合服务大厅", "图书馆", "维修服务中心", "校园自行车", "学生宿舍管理中心", "天大医院"]
     let icons = ["icon-1895", "icon-library", "icon-repair", "icon-bike", "icon-building", "icon-hospital"]
-    
+
     let tableView = UITableView(frame: CGRect.zero, style: .grouped)
-    
+
     var sections: [String] {
         return PhoneBook.shared.sections
     }
     var favorite: [ClientItem] {
         return PhoneBook.shared.favorite
     }
-    
+
     var shouldLoadSections: [Int] = [] // contains each section which should be loaded
     var shouldLoadFavorite = false
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -40,20 +39,20 @@ class YellowPageMainViewController: UIViewController {
         self.navigationItem.titleView = titleLabel
 
         hidesBottomBarWhenPushed = true
-        
+
         let rightButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(YellowPageMainViewController.searchToggle))
         self.navigationItem.rightBarButtonItem = rightButton
-        
+
         tableView.delegate = self
         tableView.dataSource = self
-        
+
         tableView.estimatedSectionHeaderHeight = 0
         tableView.estimatedSectionFooterHeight = 0
         tableView.estimatedRowHeight = 200.5
         tableView.rowHeight = UITableViewAutomaticDimension
-        
+
         self.view.addSubview(tableView)
-        
+
         tableView.snp.makeConstraints { make in
             make.top.equalTo(view)
             make.bottom.equalTo(view)
@@ -81,7 +80,7 @@ class YellowPageMainViewController: UIViewController {
 //            self.tableView.reloadSections([1], with: .none)
 //        }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -96,7 +95,7 @@ class YellowPageMainViewController: UIViewController {
         let searchVC = YellowPageSearchViewController()
         self.present(searchVC, animated: true, completion: nil)
     }
-    
+
 //    @objc func cellTapped(sender: YellowPageCell) {
 //        let alertVC = UIAlertController(title: "详情", message: "想要做什么？", preferredStyle: .actionSheet)
 //        let copyAction = UIAlertAction(title: "复制到剪切板", style: .default) { action in
@@ -133,24 +132,22 @@ extension YellowPageMainViewController: UICollectionViewDataSource, UICollection
         cell.load(with: titles[indexPath.row], and: icons[indexPath.row])
         return cell
     }
-    
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(5, 15, 5, 15)
+        return UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 15)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return titles.count
     }
 }
-
 
 // MARK: UITableViewDataSource
 extension YellowPageMainViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2 + sections.count
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: //.commonUsedHeader:
@@ -168,7 +165,7 @@ extension YellowPageMainViewController: UITableViewDataSource {
             return 0
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
@@ -192,7 +189,7 @@ extension YellowPageMainViewController: UITableViewDataSource {
         case let section where section > 1 && section < 2+sections.count:
             let n = indexPath.section - 2
             let members = PhoneBook.shared.getMembers(with: sections[n])
-            
+
             if indexPath.row == 0 { // section
                 let cell = YellowPageCell(with: .section, name: sections[n])
                 cell.countLabel.text = "\(members.count)"
@@ -217,7 +214,6 @@ extension YellowPageMainViewController: UITableViewDataSource {
         }
     }
 }
-
 
 // MARK: UITableViewDelegate
 extension YellowPageMainViewController: UITableViewDelegate {
@@ -267,7 +263,7 @@ extension YellowPageMainViewController: UITableViewDelegate {
         }
 
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             // don't know why i can't just return 0
@@ -279,7 +275,7 @@ extension YellowPageMainViewController: UITableViewDelegate {
             return 0.001
         }
     }
-    
+
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section < 2 {
             return 7
@@ -287,12 +283,11 @@ extension YellowPageMainViewController: UITableViewDelegate {
             return 0.001
         }
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
-    
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         PhoneBook.shared.save()

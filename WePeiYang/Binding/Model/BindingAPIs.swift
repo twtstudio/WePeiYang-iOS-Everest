@@ -9,12 +9,12 @@
 import Foundation
 
 struct BindingAPIs {
-    
+
     static let bindLIBAccount = "/auth/bind/lib"
-    
+
     static let bindTJUAccount = "/auth/bind/tju"
-    
+
     static let unbindLIBAccount = "/auth/unbind/lib"
-    
+
     static let unbindTJUAccount = "/auth/unbind/tju"
 }

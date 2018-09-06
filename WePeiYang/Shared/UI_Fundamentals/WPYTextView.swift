@@ -17,14 +17,12 @@ class WPYTextView: UITextView {
         // Drawing code
     }
     */
-    
 
 }
-
 
 extension WPYTextView: ThemeChanging {
     // TODO: Conforming to Protocol ThemeChanging
     func changeInto(theme: Theme) {
-        
+
     }
 }

@@ -21,7 +21,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
     var classes: [ClassModel] = [] {
         willSet {
-            if newValue.count == 0 {
+            if newValue.isEmpty {
                 messageLabel.isHidden = false
             } else {
                 messageLabel.isHidden = true
@@ -37,7 +37,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
 
     var nextClass: ClassModel?
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -270,7 +269,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
 //                    self.classes = table.classes
                     self.classes = ClassTableHelper.getTodayCourse(table: table, offset: offset).filter { course in
-                        return course.courseName != "" && course.arrange.count > 0
+                        return course.courseName != "" && !course.arrange.isEmpty
                     }
                     self.tableView.reloadData()
                     self.layout()
@@ -285,7 +284,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             completionHandler(NCUpdateResult.failed)
         })
         // Perform any setup necessary in order to update the view.
-        
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
@@ -329,7 +327,6 @@ extension TodayViewController: UITableViewDataSource {
             cell.infoLabel.text = text + " @" + arrange.room
         }
         cell.infoLabel.sizeToFit()
-        
         return cell
     }
 }

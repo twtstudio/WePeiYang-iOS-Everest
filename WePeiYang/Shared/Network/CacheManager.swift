@@ -28,8 +28,8 @@ struct CacheManager {
         archiver.finishEncoding()
         toSaveCache.write(toFile: cachePath, atomically: true)
     }
-    
-    static func loadCache(withKey keyStr: String, success: ((Any)->())?, failure: (()->())?) {
+
+    static func loadCache(withKey keyStr: String, success: ((Any) -> Void)?, failure: (() -> Void)?) {
         let cachePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].appending(keyStr)
         let fileManager = FileManager()
         if !fileManager.fileExists(atPath: cachePath) {
@@ -50,7 +50,7 @@ struct CacheManager {
             }
         }
     }
-    
+
     static func removeCache(withKey keyStr: String) {
         let cachePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].appending(keyStr)
         let fileManager = FileManager()
@@ -61,32 +61,32 @@ struct CacheManager {
             log.errorMessage("Cache file \(keyStr) doesn't Exist!")/
         }
     }
-    
+
     static func cacheExists(withKey keyStr: String) -> Bool {
         let cachePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].appending(keyStr)
         return FileManager().fileExists(atPath: cachePath)
     }
-    
+
     static func saveGroupCache(with data: Any, key keyStr: String) {
         let userDefault = UserDefaults(suiteName: suiteName)
         removeGroupCache(withKey: keyStr)
         userDefault?.set(data, forKey: keyStr)
         userDefault?.synchronize()
     }
-    
+
     static func removeGroupCache(withKey keyStr: String) {
         let userDefault = UserDefaults(suiteName: suiteName)
         userDefault?.removeObject(forKey: keyStr)
         userDefault?.synchronize()
     }
-    
+
     static func loadGroupCache(withKey keyStr: String) -> Any? {
         let userDefault = UserDefaults(suiteName: suiteName)
         let cacheData = userDefault?.object(forKey: keyStr)
         return cacheData
     }
 
-    static func loadGroupCacheAsync(withKey keyStr: String, success: @escaping (Any?)->()) {
+    static func loadGroupCacheAsync(withKey keyStr: String, success: @escaping (Any?) -> Void) {
         let queue = DispatchQueue(label: "load_default")
         queue.async {
             let userDefault = UserDefaults(suiteName: suiteName)
@@ -104,7 +104,7 @@ struct CacheManager {
 //            log.errorMessage("Group Cache file \(keyStr) can't load")/
 //        }
 //    }
-    
+
     static func groupCacheExists(withKey keyStr: String) -> Bool {
         let userDefault = UserDefaults(suiteName: suiteName)
         let cacheData = userDefault?.object(forKey: keyStr)
@@ -119,7 +119,7 @@ struct CacheManager {
         Storage.store(["com.wpy.cache": object], in: directory, as: newFilename)
     }
 
-    static func retreive<T: Decodable>(_ filename: String, from directory: Storage.Directory, as type: T.Type, success: @escaping (T)->(), failure: (()->())? = nil) {
+    static func retreive<T: Decodable>(_ filename: String, from directory: Storage.Directory, as type: T.Type, success: @escaping (T) -> Void, failure: (() -> Void)? = nil) {
         guard fileExists(filename: filename, in: directory) else {
             failure?()
             return

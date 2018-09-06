@@ -1,4 +1,3 @@
-
 //
 //  AccountManager.swift
 //  WePeiYang
@@ -10,8 +9,8 @@
 import Foundation
 
 struct AccountManager {
-    
-    static func getToken(username: String, password: String, success: ((String)->())?, failure: ((String)->())?) {
+
+    static func getToken(username: String, password: String, success: ((String) -> Void)?, failure: ((String) -> Void)?) {
         let para: [String: String] = ["twtuname": username, "twtpasswd": password]
         SolaSessionManager.solaSession(type: .get, url: "/auth/token/get", token: nil, parameters: para, success: { dic in
             if let data = dic["data"] as? [String: Any],
@@ -23,10 +22,10 @@ struct AccountManager {
         }, failure: { error in
             failure?(error.localizedDescription)
         })
-        
+
     }
-    
-    static func refreshToken(success: (()->())? = nil, failure: (()->())?) {
+
+    static func refreshToken(success: (() -> Void)? = nil, failure: (() -> Void)?) {
         SolaSessionManager.solaSession(type: .get, url: "/auth/token/refresh", parameters: nil, success: { dict in
             if let newToken = dict["data"] as? String {
                 TwTUser.shared.token = newToken
@@ -44,8 +43,8 @@ struct AccountManager {
             TwTUser.shared.delete()
         }) // refresh finished
     }
-    
-    static func checkToken(success: (()->())? = nil, failure: (()->())?) {
+
+    static func checkToken(success: (() -> Void)? = nil, failure: (() -> Void)?) {
         SolaSessionManager.solaSession(type: .get, url: "/auth/token/check", parameters: nil, success: { dict in
             if let error_code = dict["error_code"] as? Int {
                 if error_code == -1 {
@@ -86,8 +85,8 @@ struct AccountManager {
             failure?()
         })
     }
-    
-    static func bindTju(tjuname: String , tjupwd: String, success: (()->())?, failure: (()->())?) {
+
+    static func bindTju(tjuname: String, tjupwd: String, success: (() -> Void)?, failure: (() -> Void)?) {
         let para = ["tjuuname": tjuname,
                     "tjupasswd": tjupwd]
         SolaSessionManager.solaSession(type: .get, url: "/auth/bind/tju", parameters: para, success: { dict in
@@ -108,8 +107,8 @@ struct AccountManager {
             failure?()
         })
     }
-    
-    static func unbindTju(tjuname: String , tjupwd: String, success: (()->())?, failure: (()->())?) {
+
+    static func unbindTju(tjuname: String, tjupwd: String, success: (() -> Void)?, failure: (() -> Void)?) {
         SolaSessionManager.solaSession(type: .get, url: "/auth/unbind/tju", parameters: nil, success: { dict in
             if let error_code = dict["error_code"] as? Int {
                 if error_code == -1 {
@@ -134,8 +133,8 @@ struct AccountManager {
             failure?()
         })
     }
-    
-    static func getSelf(success: (()->())?, failure: (()->())?) {
+
+    static func getSelf(success: (() -> Void)?, failure: (() -> Void)?) {
         SolaSessionManager.solaSession(type: .get, baseURL: "https://open.twtstudio.com", url: "/api/v2/auth/self", parameters: nil, success: { dict in
             if let errorno = dict["error_code"] as? Int,
                 let message = dict["message"] as? String,
@@ -145,11 +144,11 @@ struct AccountManager {
                     showLoginView()
                     return
                 }
-                
+
                 AccountManager.getToken(username: TwTUser.shared.username, password: TwTUser.shared.password, success: { token in
                     TwTUser.shared.token = token
                     TwTUser.shared.save()
-                }, failure: { error in
+                }, failure: { _ in
 
                 })
             }
@@ -165,8 +164,7 @@ struct AccountManager {
                 TwTUser.shared.avatarURL = avatar
                 TwTUser.shared.tjuBindingState = tju
                 TwTUser.shared.libBindingState = lib
-//                TwTUser.shared.bicycleBindingState = 
-                TwTUser.shared.realname = realname
+//                TwTUser.shared.bicycleBindingState =n                TwTUser.shared.realname = realname
                 TwTUser.shared.twtid = twtid
                 TwTUser.shared.schoolID = studentid
                 TwTUser.shared.dropout = dropout

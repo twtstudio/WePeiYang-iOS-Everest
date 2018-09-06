@@ -8,15 +8,15 @@
 
 import UIKit
 import WMPageController
- 
+
 class LostFoundPageViewController: WMPageController {
-    
+
     var rootView: UIView!
     var fab: FAB!
 //    var data: [(title: String, viewController: UIViewController)] {
 //        return [("丢失", LostViewController()), ("捡到", FoundViewController())]
 //    }
-    
+
     //Mark --导航栏（Navigationbar）的配置
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -35,7 +35,7 @@ class LostFoundPageViewController: WMPageController {
         super.viewWillDisappear(animated)
         fab.removeFromSuperview()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,7 +51,7 @@ class LostFoundPageViewController: WMPageController {
 
         fab = FAB(subActions: [
             (name: "发布丢失信息", function: {
-                
+
                 let vc = PublishLostViewController()
                 vc.pushTag = MyURLState.lostURL.rawValue
                 vc.newTitle = "丢失物品"
@@ -73,10 +73,10 @@ class LostFoundPageViewController: WMPageController {
 //        view.addGestureRecognizer(tap)
         fab.showUp()
     }
-    
+
     func configUI() {
         self.title = "失物招领"
-        
+
         //        let leftBarBtn = UIBarButtonItem(title: "返回", style: .plain, target: #selector(backToPrevious(sender:)), action: nil)
         //        self.navigationItem.leftBarButtonItem = leftBarBtn
 
@@ -93,7 +93,7 @@ class LostFoundPageViewController: WMPageController {
         menuBGColor = .white
         progressColor = UIColor(hex6: 0x00a1e9)
     }
-    
+
     func initNavButton() {
         // 导航栏的设置，代码可以优化
 //        let mine = #imageLiteral(resourceName: "用户")
@@ -107,8 +107,7 @@ class LostFoundPageViewController: WMPageController {
 
         self.navigationItem.rightBarButtonItems = [mineBarButton, searchBarButton]
     }
-    
-    
+
     func refresh() {
         GetFoundAPI.getFound(page: 1, success: { (founds) in
             foundList = founds
@@ -128,12 +127,12 @@ class LostFoundPageViewController: WMPageController {
     func backToPrevious(sender: UIButton) {
          self.navigationController?.popViewController(animated: true)
     }
-    
+
     @objc func mineButton(item: UIBarButtonItem) {
         let vc = MyLostFoundPageViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
+
     @objc func searchButton(item: UIBarButtonItem) {
         let vc = LostFoundSearchViewController()
         self.navigationController?.pushViewController(vc, animated: true)

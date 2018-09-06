@@ -22,7 +22,7 @@ private let timeArray = [(start: "8:30", end: "9:15"),
                  (start: "21:00", end: "21:45")]
 
 struct ArrangeModel: Mappable {
-    
+
     var week = ""
     var day = 0
     var start = 0
@@ -39,7 +39,7 @@ struct ArrangeModel: Mappable {
     }
 
     init?(map: Map) {}
-    
+
     mutating func mapping(map: Map) {
         let transform = TransformOf<Int, String>(fromJSON: { (value: String?) -> Int? in
             // transform value from String? to Int?
@@ -56,7 +56,7 @@ struct ArrangeModel: Mappable {
             }
             return nil
         })
-        
+
         week <- map["week"]
         day <- (map["day"], transform)
         start <- (map["start"], transform)

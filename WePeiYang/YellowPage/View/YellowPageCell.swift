@@ -10,7 +10,6 @@
 import UIKit
 import SwiftMessages
 
-
 // haeder: the view on top
 // section: which can be fold and unfold
 // item: for each item in section
@@ -40,10 +39,10 @@ class YellowPageCell: UITableViewCell {
     var commonView: CommonUsedView! = nil
     var likeView: ExtendedButton! = nil
     var phoneLabel: UILabel!
-    
+
     convenience init(with style: YellowPageCellStyle, name: String) {
         self.init(style: .default, reuseIdentifier: style.rawValue)
-        
+
         self.style = style
         switch style {
         case .header:
@@ -58,7 +57,7 @@ class YellowPageCell: UITableViewCell {
                 make.right.equalTo(contentView)
                 make.bottom.equalTo(contentView)
             }
-            
+
         case .section:
             arrowView.image = UIImage(named: self.canUnfold ? "ic_arrow_right" : "ic_arrow_down")
             arrowView.sizeToFit()
@@ -69,7 +68,7 @@ class YellowPageCell: UITableViewCell {
                 make.left.equalTo(contentView).offset(10)
                 make.centerY.equalTo(contentView)
             }
-            
+
             let label = UILabel()
             self.contentView.addSubview(label)
             // TODO: adjust font size
@@ -84,7 +83,7 @@ class YellowPageCell: UITableViewCell {
                 make.centerY.equalTo(contentView)
                 make.bottom.equalTo(contentView).offset(-15)
             }
-            
+
             countLabel = UILabel()
             self.contentView.addSubview(countLabel)
             countLabel.textColor = UIColor.lightGray
@@ -93,7 +92,7 @@ class YellowPageCell: UITableViewCell {
                 make.left.equalTo(contentView.snp.right).offset(-30)
                 make.centerY.equalTo(contentView)
             }
-            
+
         case .item:
             self.textLabel?.text = name
 //            textLabel?.font = UIFont.flexibleFont(with: 14)
@@ -109,7 +108,7 @@ class YellowPageCell: UITableViewCell {
         case .detailed:
             fatalError("这个方法请调用func init(with style: YellowPageCellStyle, model: ClientItem)")
         }
-        
+
     }
 
     var nameLabel: UILabel!
@@ -126,22 +125,21 @@ class YellowPageCell: UITableViewCell {
         nameLabel.font = UIFont.systemFont(ofSize: 14)
 
         nameLabel.sizeToFit()
-        
+
         // paste
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(YellowPageCell.longPressed))
         self.addGestureRecognizer(longPress)
-        
+
         self.contentView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(10)
             make.left.equalTo(contentView).offset(15)
             //make.bottom.equalTo(nameLabel).offset(-12)
         }
-        
-        
+
         phoneLabel = UILabel()
         let attributedString = NSAttributedString(string: model.phone, attributes: [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue, NSAttributedStringKey.foregroundColor: UIColor.blue])
-        
+
         likeView = ExtendedButton()
         likeView.setImage(UIImage(named: model.isFavorite ? "like" : "dislike"), for: .normal)
 
@@ -180,7 +178,7 @@ class YellowPageCell: UITableViewCell {
         phoneLabel.addGestureRecognizer(gesture)
 
     }
-    
+
     @objc func likeTapped() {
         if detailedModel.isFavorite {
             PhoneBook.shared.removeFavorite(with: self.detailedModel) {
@@ -197,13 +195,13 @@ class YellowPageCell: UITableViewCell {
             // refresh data
         }
     }
-    
+
     @objc func phoneTapped(button: UIButton) {
         if let url = URL(string: "telprompt://\(self.detailedModel.phone)") {
             UIApplication.shared.openURL(url)
         }
     }
-    
+
     @objc func longPressed(sender: UITapGestureRecognizer) {
         if let text = UIPasteboard.general.string, text != self.detailedModel.phone {
             UIPasteboard.general.string = self.detailedModel.phone

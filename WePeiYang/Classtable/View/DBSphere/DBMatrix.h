@@ -28,7 +28,6 @@ static DBMatrix DBMatrixMake(NSInteger column, NSInteger row) {
             matrix.matrix[i][j] = 0;
         }
     }
-    
     return matrix;
 }
 
@@ -61,12 +60,9 @@ static DBPoint DBPointMakeRotation(DBPoint point, DBPoint direction, CGFloat ang
     if (angle == 0) {
         return point;
     }
-    
     CGFloat temp2[1][4] = {point.x, point.y, point.z, 1};
 //    DBMatrix pointM = DBMatrixMakeFromArray(1, 4, *temp2);
-    
     DBMatrix result = DBMatrixMakeFromArray(1, 4, *temp2);
-    
     if (direction.z * direction.z + direction.y * direction.y != 0) {
         CGFloat cos1 = direction.z / sqrt(direction.z * direction.z + direction.y * direction.y);
         CGFloat sin1 = direction.y / sqrt(direction.z * direction.z + direction.y * direction.y);
@@ -74,7 +70,6 @@ static DBPoint DBPointMakeRotation(DBPoint point, DBPoint direction, CGFloat ang
         DBMatrix m1 = DBMatrixMakeFromArray(4, 4, *t1);
         result = DBMatrixMutiply(result, m1);
     }
-    
     if (direction.x * direction.x + direction.y * direction.y + direction.z * direction.z != 0) {
         CGFloat cos2 = sqrt(direction.y * direction.y + direction.z * direction.z) / sqrt(direction.x * direction.x + direction.y * direction.y + direction.z * direction.z);
         CGFloat sin2 = -direction.x / sqrt(direction.x * direction.x + direction.y * direction.y + direction.z * direction.z);
@@ -82,13 +77,11 @@ static DBPoint DBPointMakeRotation(DBPoint point, DBPoint direction, CGFloat ang
         DBMatrix m2 = DBMatrixMakeFromArray(4, 4, *t2);
         result = DBMatrixMutiply(result, m2);
     }
-    
     CGFloat cos3 = cos(angle);
     CGFloat sin3 = sin(angle);
     CGFloat t3[4][4] = {{cos3, sin3, 0, 0}, {-sin3, cos3, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}};
     DBMatrix m3 = DBMatrixMakeFromArray(4, 4, *t3);
     result = DBMatrixMutiply(result, m3);
-    
     if (direction.x * direction.x + direction.y * direction.y + direction.z * direction.z != 0) {
         CGFloat cos2 = sqrt(direction.y * direction.y + direction.z * direction.z) / sqrt(direction.x * direction.x + direction.y * direction.y + direction.z * direction.z);
         CGFloat sin2 = -direction.x / sqrt(direction.x * direction.x + direction.y * direction.y + direction.z * direction.z);
@@ -96,7 +89,6 @@ static DBPoint DBPointMakeRotation(DBPoint point, DBPoint direction, CGFloat ang
         DBMatrix m2_ = DBMatrixMakeFromArray(4, 4, *t2_);
         result = DBMatrixMutiply(result, m2_);
     }
-    
     if (direction.z * direction.z + direction.y * direction.y != 0) {
         CGFloat cos1 = direction.z / sqrt(direction.z * direction.z + direction.y * direction.y);
         CGFloat sin1 = direction.y / sqrt(direction.z * direction.z + direction.y * direction.y);
@@ -104,9 +96,7 @@ static DBPoint DBPointMakeRotation(DBPoint point, DBPoint direction, CGFloat ang
         DBMatrix m1_ = DBMatrixMakeFromArray(4, 4, *t1_);
         result = DBMatrixMutiply(result, m1_);
     }
-    
     DBPoint resultPoint = DBPointMake(result.matrix[0][0], result.matrix[0][1], result.matrix[0][2]);
-    
     return resultPoint;
 }
 

@@ -11,7 +11,7 @@ import Foundation
 struct WLANHelper {
     static var isOnline = false
 
-    static func login(username: String? = nil, password: String? = nil, success: @escaping ()->(), failure: @escaping (String)->()) {
+    static func login(username: String? = nil, password: String? = nil, success: @escaping () -> Void, failure: @escaping (String) -> Void) {
         guard let account = username ?? TwTUser.shared.WLANAccount,
             let password = password ?? TwTUser.shared.WLANPassword else {
                 failure("请绑定账号")
@@ -39,7 +39,7 @@ struct WLANHelper {
         })
     }
 
-    static func logout(username: String? = nil, password: String? = nil, success: @escaping ()->(), failure: @escaping (String)->()) {
+    static func logout(username: String? = nil, password: String? = nil, success: @escaping () -> Void, failure: @escaping (String) -> Void) {
         guard let account = username ?? TwTUser.shared.WLANAccount,
             let password = password ?? TwTUser.shared.WLANPassword else {
                 failure("请绑定账号")
@@ -66,7 +66,7 @@ struct WLANHelper {
         })
     }
 
-    static func getStatus(username: String? = nil, password: String? = nil, success: @escaping (Bool)->(), failure: @escaping (String)->()) {
+    static func getStatus(username: String? = nil, password: String? = nil, success: @escaping (Bool) -> Void, failure: @escaping (String) -> Void) {
         guard let account = username ?? TwTUser.shared.WLANAccount,
             let password = password ?? TwTUser.shared.WLANPassword else {
                 failure("请绑定账号")

@@ -10,11 +10,11 @@ import UIKit
 import SnapKit
 
 class LFSearchCustomCell: UITableViewCell {
-    
-    var functionDic:[Int : Array<String>] = [:]
-    var buttonAllArray:[UIButton] = []
+
+    var functionDic: [Int: [String]] = [:]
+    var buttonAllArray: [UIButton] = []
     let label = UILabel()
-    var delegate: LostFoundSearchViewController?
+    weak var delegate: LostFoundSearchViewController?
     var currentHeight = 0
     // 我也很无奈啊，必须是CGFloat
     let currenWidth: CGFloat = 40
@@ -25,30 +25,29 @@ class LFSearchCustomCell: UITableViewCell {
     let titleLabel = UILabel()
     let deleteButton = UIButton()
     var button = UIButton()
-    
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         self.contentView.addSubview(deleteButton)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // 循环建立button 
-    // 
-    func initMark(array: Array<String>, title: String) -> Int {
+
+    // 循环建立button
+    func initMark(array: [String], title: String) -> Int {
         print(array)
         for (index, name) in array.enumerated() {
-            
+
             buttonOfSize()
             button.setTitle(name, for: .normal)
             button.sizeToFit()
             button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             buttonOfRestrict()
             currentLength = currentX + button.frame.size.width
-            if currentLength  < self.frame.size.width  {
+            if currentLength  < self.frame.size.width {
 
                 button.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
                 self.contentView.addSubview(button)
@@ -57,12 +56,12 @@ class LFSearchCustomCell: UITableViewCell {
             } else {
                 currentY += 40
                 currentX = 10
-                
+
                 buttonOfSize()
                 button.setTitle(name, for: .normal)
                 button.sizeToFit()
                 button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        
+
                 button.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
                 self.contentView.addSubview(button)
 
@@ -73,13 +72,13 @@ class LFSearchCustomCell: UITableViewCell {
                 currentX =  currentX + button.frame.size.width + 10
             }
         }
-        
+
         // cell的标签
         titleOfButtonBuild()
         titleLabel.text = title
         currentHeight = Int(currentY)
         let newHeight = currentHeight + 50
-        
+
         return newHeight
     }
     // 循环建立button的回调
@@ -113,29 +112,23 @@ class LFSearchCustomCell: UITableViewCell {
     func titleOfButtonBuild() {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 15)
         titleLabel.textColor = UIColor(hex6: 0x00a1e9)
-        titleLabel.frame = CGRect(x:10, y:5, width:100, height:20)
+        titleLabel.frame = CGRect(x: 10, y: 5, width: 100, height: 20)
         self.contentView.addSubview(titleLabel)
     }
-    
+
     // 删除按钮UI
     // Mark -- DeleteOfUI --
     func delUI() {
         deleteButton.setImage(UIImage(named: "delete"), for: .normal)
-        
-        deleteButton.snp.makeConstraints {
-            make in
+        deleteButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(5)
             make.right.equalToSuperview().offset(-10)
             make.width.equalTo(40)
             make.height.equalTo(20)
         }
-        deleteButton.imageView?.snp.makeConstraints {
-            make in
+        deleteButton.imageView?.snp.makeConstraints { make in
             make.width.equalTo(20)
             make.height.equalTo(20)
-            
         }
     }
-
 }
-

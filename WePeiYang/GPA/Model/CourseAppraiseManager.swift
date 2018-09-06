@@ -7,7 +7,7 @@
 //
 
 class CourseAppraiseManager {
-    
+
     var scoreArray = [5, 5, 5, 5, 5]
     var detailAppraiseEnabled = false
     var lesson_id: String?
@@ -16,12 +16,12 @@ class CourseAppraiseManager {
     var term: String?
     var note = ""
     var GPASession: String?
-    
+
     static let shared = CourseAppraiseManager()
     fileprivate init() {}
-    
-    func submit(_ successHandler: @escaping ()->()) {
-        
+
+    func submit(_ successHandler: @escaping () -> Void) {
+
         // let manager = AFHTTPSessionManager()
         let parameters = ["lesson_id": lesson_id!,
                           "union_id": union_id!,
@@ -34,17 +34,17 @@ class CourseAppraiseManager {
             "q5": "\(scoreArray[4])",
             "note": note]
         print(parameters)
-        
+
         let url = "/gpa/evaluate?token=\(GPASession!)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        SolaSessionManager.solaSession(type: .duo, url: url!, token: GPASession!, parameters: parameters, success: { dict in
+        SolaSessionManager.solaSession(type: .duo, url: url!, token: GPASession!, parameters: parameters, success: { _ in
             // MsgDisplay.showSuccessMsg("评论成功!")
             successHandler()
-        }, failure: { error in
+        }, failure: { _ in
             // FIXME: display error
 //            MsgDisplay.showErrorMsg("评论失败")
         })
     }
-    
+
     func setInfo(lesson_id: String, union_id: String, course_id: String, term: String, GPASession: String) {
         scoreArray = [5, 5, 5, 5, 5]
         detailAppraiseEnabled = false

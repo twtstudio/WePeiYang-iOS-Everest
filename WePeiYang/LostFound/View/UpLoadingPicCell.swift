@@ -12,22 +12,21 @@ import SnapKit
 class UpLoadingPicCell: UITableViewCell {
     var addPictureImage = UIImageView()
 
-    
-    override var frame: CGRect{
-        
-        didSet{
-            var newFrame = frame;
-            
-            newFrame.origin.x += 10;
-            newFrame.origin.y += 5;
-            newFrame.size.height += 35;
-            newFrame.size.width = newFrame.size.height + 5;
+    override var frame: CGRect {
 
-            super.frame = newFrame;
-            
+        didSet {
+            var newFrame = frame
+
+            newFrame.origin.x += 10
+            newFrame.origin.y += 5
+            newFrame.size.height += 35
+            newFrame.size.width = newFrame.size.height + 5
+
+            super.frame = newFrame
+
             //            let addPictureImage = UIImageView()
             self.addSubview(addPictureImage)
-            
+
             //            addPictureImage.image = UIImage(named: "发布图片")
             addPictureImage.snp.makeConstraints {
                 make in
@@ -40,10 +39,8 @@ class UpLoadingPicCell: UITableViewCell {
 //                make.height.equalTo(40)
 
             }
-            
+
         }
     }
     // Initialization code
 }
-
-

@@ -133,5 +133,4 @@ extension ModulesSettingsViewController: UITableViewDelegate {
         modules.swapAt(sourceIndexPath.row, destinationIndexPath.row)
     }
 
-
 }

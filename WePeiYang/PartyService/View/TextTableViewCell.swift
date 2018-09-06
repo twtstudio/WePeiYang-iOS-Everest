@@ -26,20 +26,19 @@ class TextTableViewCell: UITableViewCell {
 extension TextTableViewCell {
     convenience init(text: Courses.StudyText) {
         self.init()
-        
+
         let nameLabel = UILabel(text: text.fileTitle!)
         let tapToSeeDetailLabel = UILabel(text: "查看详情")
         nameLabel.font = UIFont.boldSystemFont(ofSize: 14.0)
         tapToSeeDetailLabel.font = UIFont.boldSystemFont(ofSize: 14.0)
         //TODO: nameLabel self-sizing
-        
-        
+
         contentView.addSubview(tapToSeeDetailLabel)
         tapToSeeDetailLabel.snp.makeConstraints { make in
             make.right.equalTo(contentView).offset(-14)
             make.centerY.equalTo(contentView)
         }
-        
+
         contentView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { make in
             make.left.equalTo(contentView).offset(14)

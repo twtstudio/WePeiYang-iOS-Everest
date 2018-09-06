@@ -28,7 +28,6 @@ enum NotificationName: String {
     case NotificationCardOrderChanged
 }
 
-
 extension NotificationName {
     // return a notification.name
     var name: Notification.Name {

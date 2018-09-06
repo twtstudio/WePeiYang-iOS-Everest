@@ -12,7 +12,6 @@ import SnapKit
 class PublishSuccessViewController: UIViewController {
     let titleLabel = UILabel()
     let titleImage = UIImageView()
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +23,7 @@ class PublishSuccessViewController: UIViewController {
         self.view.addSubview(successView)
         self.view.addSubview(titleImage)
         self.view.addSubview(titleLabel)
-        
+
         titleImage.image = #imageLiteral(resourceName: "对勾(1)")
         titleImage.snp.makeConstraints { make in
             make.top.equalTo(successView.snp.top).offset(25)
@@ -33,13 +32,13 @@ class PublishSuccessViewController: UIViewController {
             make.height.equalTo(20)
             make.width.equalTo(20)
         }
-        
+
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(successView.snp.top).offset(20)
             make.left.equalTo(titleImage.snp.left).offset(20)
             make.right.equalTo(successView.snp.right).offset(-30)
             make.bottom.equalTo(successView.snp.bottom).offset(-20)
-            
+
         }
     }
 }

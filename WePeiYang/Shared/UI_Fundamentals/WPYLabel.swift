@@ -20,10 +20,9 @@ class WPYLabel: UILabel {
 
 }
 
-
 extension WPYLabel: ThemeChanging {
     // TODO: Conforming to Protocol ThemeChanging
     func changeInto(theme: WPYTheme) {
-        
+
     }
 }

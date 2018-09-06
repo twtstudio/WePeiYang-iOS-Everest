@@ -14,7 +14,7 @@ class CourseCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentView.addSubview(titleLabel)
-        
+
         if isiPad {
             titleLabel.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.medium)
         } else {
@@ -39,17 +39,17 @@ class CourseCell: UITableViewCell {
             make.right.equalToSuperview().offset(-3)
             make.bottom.equalToSuperview().offset(-3)
         }
-        
+
         contentView.snp.makeConstraints { make in
             make.top.left.equalToSuperview().offset(1)
             make.bottom.right.equalToSuperview().offset(-1)
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -62,7 +62,7 @@ class CourseCell: UITableViewCell {
     }
 
     func setIdle() {
-        contentView.backgroundColor = UIColor(red:0.91, green:0.93, blue:0.96, alpha:1.00)
+        contentView.backgroundColor = UIColor(red: 0.91, green: 0.93, blue: 0.96, alpha: 1.00)
         titleLabel.textColor = .lightGray
         titleLabel.text = "无"
     }

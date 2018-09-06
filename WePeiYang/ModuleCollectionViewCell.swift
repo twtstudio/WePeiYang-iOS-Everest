@@ -15,7 +15,7 @@ class ModuleCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         imageView = UIImageView()
         titleLabel = UILabel()
-        
+
         let imageWidth: CGFloat = 62
         imageView.frame = CGRect(x: (self.width-imageWidth)/2, y: 0, width: imageWidth, height: imageWidth)
         titleLabel.frame = CGRect(x: 0, y: imageWidth + 8, width: frame.width, height: 20)
@@ -25,7 +25,7 @@ class ModuleCollectionViewCell: UICollectionViewCell {
         self.addSubview(imageView)
         self.addSubview(titleLabel)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

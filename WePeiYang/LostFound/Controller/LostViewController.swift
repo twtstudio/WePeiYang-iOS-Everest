@@ -11,7 +11,7 @@ import SDWebImage
 import MJRefresh
 
 var lostList: [LostFoundModel] = []
-class LostViewController: UIViewController, UIPageViewControllerDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+class LostViewController: UIViewController, UIPageViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     var lostView: UICollectionView!
     var promptView: UIScrollView!
@@ -22,7 +22,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         configUI()
         promptUI()
         //refresh()
@@ -32,7 +32,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
 
         self.lostView.mj_header.beginRefreshing()
     }
-    
+
     func configUI() {
         lostView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.view.bounds.height-110), collectionViewLayout: layout)
         lostView.register(LostFoundCollectionViewCell.self, forCellWithReuseIdentifier: "lostCell")
@@ -40,19 +40,19 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         lostView.dataSource = self
         lostView.backgroundColor = UIColor(hex6: 0xeeeeee)
         self.automaticallyAdjustsScrollViewInsets = false
-        layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height:  270)
-        layout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
+        layout.itemSize = CGSize(width: self.view.frame.size.width/2-10, height: 270)
+        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         self.view.addSubview(lostView)
     }
-    
+
     func promptUI() {
         self.promptView = UIScrollView(frame: UIScreen.main.bounds)
         self.promptView.backgroundColor = UIColor(hex6: 0xeeeeee)
-        let image = UIImageView(frame: CGRect(x: 0, y: 100, width:150, height: 150))
+        let image = UIImageView(frame: CGRect(x: 0, y: 100, width: 150, height: 150))
         image.center = CGPoint(x: self.view.frame.width/2, y: 170)
         image.image = UIImage(named: "飞")
         self.promptView.addSubview(image)
-        let titleLabel = UILabel(frame: CGRect(x: 0, y: 100, width:240, height: 50))
+        let titleLabel = UILabel(frame: CGRect(x: 0, y: 100, width: 240, height: 50))
         titleLabel.center = CGPoint(x: self.view.frame.width/2, y: 280)
         titleLabel.text = "暂时没有该类物品,去发布吧!"
         titleLabel.textAlignment = .center
@@ -77,7 +77,7 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
     }
 
     func selectView() {
-        if lostList.count == 0 {
+        if lostList.isEmpty {
             self.promptView.isHidden = false
 //            self.view.addSubview(self.promptView)
         } else {
@@ -86,18 +86,18 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
 //            self.lostView.reloadData()
         }
     }
-    
-    func tapped(){
+
+    func tapped() {
         let vc = PublishLostViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
+
     //底部上拉加载
     @objc func footerLoad() {
         self.curPage += 1
         GetLostAPI.getLost(page: curPage, success: { (losts) in
             lostList += losts
-            if losts.count == 0 {
+            if losts.isEmpty {
                 self.lostView.mj_footer.endRefreshingWithNoMoreData()
                 self.curPage -= 1
             } else {
@@ -109,9 +109,9 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
             self.curPage -= 1
         })
     }
-    
+
     //顶部下拉刷新
-    @objc func headerRefresh(){
+    @objc func headerRefresh() {
         GetLostAPI.getLost(page: 1, success: { (losts) in
             lostList = losts
 
@@ -134,25 +134,25 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         detailVC.id = id
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return lostList.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "lostCell", for: indexPath) as? LostFoundCollectionViewCell{
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "lostCell", for: indexPath) as? LostFoundCollectionViewCell {
             let picURL = lostList[indexPath.row].picture
-            cell.initUI(pic: picURL, title: lostList[indexPath.row].title ,mark: Int(lostList[indexPath.row].detail_type)!, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+            cell.initUI(pic: picURL, title: lostList[indexPath.row].title, mark: Int(lostList[indexPath.row].detail_type)!, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
 
             return cell
         }
         let cell = LostFoundCollectionViewCell(frame: .zero)
 
         let picURL = lostList[indexPath.row].picture
-        cell.initUI(pic: picURL, title: lostList[indexPath.row].title ,mark: Int(lostList[indexPath.row].detail_type)!, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+        cell.initUI(pic: picURL, title: lostList[indexPath.row].title, mark: Int(lostList[indexPath.row].detail_type)!, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
         return cell
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

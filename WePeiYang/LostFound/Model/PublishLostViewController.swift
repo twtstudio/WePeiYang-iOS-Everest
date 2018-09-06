@@ -9,36 +9,35 @@
 import UIKit
 import Photos
 
-
 class PublishLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
-    
+
     var tableView: UITableView!
-    var markDict:[String: Any] = [:]
+    var markDict: [String: Any] = [:]
     var mark: LFMarkCustomCell!
     var tag: String!
     var index = 0
     var pushTag = ""
     var newTitle = ""
-    
+
     var function = [
         ["添加图片"],
-        ["标题 *","时间","地点"],
+        ["标题 *", "时间", "地点"],
         [],
-        ["姓名 *","联系电话 *"],
+        ["姓名 *", "联系电话 *"],
         ["物品描述"],
         ["刊登时长 *"],
         []
     ]
-    
+
     var text = [
         0: [""],
-        1: ["(不超过11个字)","请填写详细时间","请填写校区及详细地点"],
-        2: ["",""],
-        3: ["",""],
+        1: ["(不超过11个字)", "请填写详细时间", "请填写校区及详细地点"],
+        2: ["", ""],
+        3: ["", ""],
         4: ["请认真填写物品信息"],
         5: ["默认时间为7day"]
     ]
-    
+
     var header = [
         0: ["发布图片"],
         1: ["详细信息"],
@@ -48,71 +47,68 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         5: ["发布时间"],
         6: ["物品状态"]
         ]
-    
+
     var returnKeys = [
         0: ["pic[]"],
-        1: ["title","time","place"],
-        2: ["card_number","card_name"],
-        3: ["name","phone"],
+        1: ["title", "time", "place"],
+        2: ["card_number", "card_name"],
+        3: ["name", "phone"],
         4: ["item_description"],
         5: ["duration"]
     ]
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         self.title = newTitle
         self.tableView = UITableView(frame: self.view.frame, style: .grouped)
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
-        self.tableView.backgroundColor = UIColor(hex6:  0xeeeeee);
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
 
-        self.tableView.estimatedRowHeight = 500;
-        self.tableView.rowHeight = UITableViewAutomaticDimension;
-        self.view.addSubview(tableView);
-        
+        self.tableView.estimatedRowHeight = 500
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.view.addSubview(tableView)
+
         let tableVC = UITableViewController(style: .grouped)
         tableVC.tableView = self.tableView
         self.addChildViewController(tableVC)
-        
+
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = UIColor(hex6: 0x00a1e9)
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).font = UIFont.systemFont(ofSize: 15)
-        
+
         //        hide()
-        // UIGestureRecognizer截获了touch事件，导致didSelectorRowAtIndexPath无法响应，需要重写UIGestureRecognizerDelegate,在extension中有写到！
+        // UIGestureRecognizer截获了touch事件，导致didSelectorRowIndexPath无法响应，需要重写UIGestureRecognizerDelegate,在extension中有写到！
         touchOutsideTextField()
-        
+
         let headerMark = LFMarkCustomCell()
         headerMark.enumerated()
         headerMark.label.text = "类型"
         headerMark.delegate = self
         mark = headerMark
-        
+
         if index == 1 {
             function[6] = ["是否交还"]
         }
     }
-    
+
     @objc func dismissKeyboard() {
         self.tableView.endEditing(true)
     }
-    
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        
-        let data = self.function[section];
-        return data.count;
+
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        let data = self.function[section]
+        return data.count
     }
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 7
     }
-    
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = SectionCell()
-        
+
         switch section {
         case 0:
             header.label.text = "发布图片"
@@ -137,9 +133,7 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         }
         return header
     }
-    
-    
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 2 {
             return 180
@@ -147,17 +141,17 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             return 30
         }
     }
-    
+
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 6{
+        if section == 6 {
             return 180
-        } else if section == 0{
+        } else if section == 0 {
             return 50
         } else {
             return 30
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.section {
@@ -168,25 +162,25 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             alertVC.view.tintColor = UIColor.black
             let pictureAction = UIAlertAction(title: "从相册中选择图片", style: .default) { _ in
                 if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-                    
+
                     let imagePicker = UIImagePickerController()
                     imagePicker.delegate = self
                     imagePicker.allowsEditing = true
                     imagePicker.sourceType = .savedPhotosAlbum
                     self.present(imagePicker, animated: true) {
-                        
+
                     }
                 }
             }
             let photoAction = UIAlertAction(title: "拍照", style: .destructive) { _ in
                 if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                    
+
                     let imagePicker = UIImagePickerController()
                     imagePicker.delegate = self
                     imagePicker.allowsEditing = true
                     imagePicker.sourceType = .camera
                     self.present(imagePicker, animated: true) {
-                        
+
                     }
                 }
             }
@@ -200,25 +194,22 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             self.present(alertVC, animated: true) {
                 print("foo")
             }
-            
+
         default:
             break
         }
     }
-    
-    
-    
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        
-        
-        switch (indexPath.section) {
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        switch indexPath.section {
         case 0:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "UpLoadingCell" + "\(indexPath)") as? UpLoadingPicCell {
                 cell.selectionStyle = UITableViewCellSelectionStyle.none
                 return cell
             } else {
                 let cell = UpLoadingPicCell(style: .default, reuseIdentifier: "UpLoadingCell" + "\(indexPath)")
-                
+
                 return cell
             }
         case 5:
@@ -226,21 +217,21 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
                 let text = function[indexPath.section][indexPath.row]
                 if text.last == "*" {
                     let attributedString = NSMutableAttributedString(string: text)
-                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSMakeRange(text.count-1, 1))
+                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSRange(location: text.count-1, length: 1))
                     cell.textLabel?.attributedText = attributedString
                 } else {
                     cell.textLabel?.text = text
                 }
                 cell.delegate = self
-                
+
                 return cell
             } else {
-                
+
                 let cell = LFPickerCell(style: .default, reuseIdentifier: "LFPickerCell" + "\(indexPath)")
                 let text = function[indexPath.section][indexPath.row]
                 if text.last == "*" {
                     let attributedString = NSMutableAttributedString(string: text)
-                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSMakeRange(text.count-1, 1))
+                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSRange(location: text.count-1, length: 1))
                     cell.textLabel?.attributedText = attributedString
                 } else {
                     cell.textLabel?.text = text
@@ -252,22 +243,22 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         default:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "PublishLostCell" + "\(indexPath)") as? PublishCustomCell {
                 //                tableView.dequeueReusableCell(withIdentifier: , for: indexPath) as? PublishCustomCell {
-                cell.selectionStyle = UITableViewCellSelectionStyle.none;
+                cell.selectionStyle = UITableViewCellSelectionStyle.none
                 cell.textField.placeholder = text[indexPath.section]?[indexPath.row]
-                cell.textField.becomeFirstResponder();
-                cell.textField.returnKeyType = .next;
-                cell.textField.adjustsFontSizeToFitWidth = true;
-                cell.textField.minimumFontSize = 14;
-                cell.textField.delegate = cell;
-                cell.textField.resignFirstResponder();
+                cell.textField.becomeFirstResponder()
+                cell.textField.returnKeyType = .next
+                cell.textField.adjustsFontSizeToFitWidth = true
+                cell.textField.minimumFontSize = 14
+                cell.textField.delegate = cell
+                cell.textField.resignFirstResponder()
                 cell.delegate = self
-                
+
                 cell.cellkey = returnKeys[indexPath.section]?[indexPath.row]
 
                 let string = function[indexPath.section][indexPath.row]
                 if string.last == "*" {
                     let attributedString = NSMutableAttributedString(string: string)
-                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSMakeRange(string.count-1, 1))
+                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSRange(location: string.count-1, length: 1))
                     cell.textLabel?.attributedText = attributedString
                 } else {
                     cell.textLabel?.text = string
@@ -277,18 +268,18 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
                 cell.addTargetMethod()
                 cell.textFieldDidEndEditing(cell.textField)
                 return cell
-                
+
             } else {
                 let cell = PublishCustomCell(style: .default, reuseIdentifier: "PublishLostCell" + "\(indexPath)")
-                cell.selectionStyle = UITableViewCellSelectionStyle.none;
+                cell.selectionStyle = UITableViewCellSelectionStyle.none
                 cell.textField.placeholder = text[indexPath.section]?[indexPath.row]
                 //                cell.textField.becomeFirstResponder();
-                cell.textField.returnKeyType = .next;
-                cell.textField.adjustsFontSizeToFitWidth = true;
-                cell.textField.minimumFontSize = 14;
-                cell.textField.delegate = cell;
+                cell.textField.returnKeyType = .next
+                cell.textField.adjustsFontSizeToFitWidth = true
+                cell.textField.minimumFontSize = 14
+                cell.textField.delegate = cell
                 //                cell.textField.resignFirstResponder();
-                
+
                 cell.delegate = self
                 cell.cellkey = returnKeys[indexPath.section]?[indexPath.row]
                 cell.addTargetMethod()
@@ -296,28 +287,27 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
                 let string = function[indexPath.section][indexPath.row]
                 if string.last == "*" {
                     let attributedString = NSMutableAttributedString(string: string)
-                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSMakeRange(string.count-1, 1))
+                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSRange(location: string.count-1, length: 1))
                     cell.textLabel?.attributedText = attributedString
                 } else {
                     cell.textLabel?.text = string
                 }
-                return cell;
+                return cell
             }
         }
-        
+
     }
-    
-    
+
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        
+
         if section == 6 {
             let footerView = UIView()
             let trueButton = UIButton()
-            trueButton.setTitle("确 定", for:UIControlState.normal)
-            trueButton.setTitleColor(UIColor.black,for: .normal)
+            trueButton.setTitle("确 定", for: UIControlState.normal)
+            trueButton.setTitleColor(UIColor.black, for: .normal)
             trueButton.sizeToFit()
             trueButton.isUserInteractionEnabled = true
-            
+
             trueButton.frame = CGRect(x: self.view.frame.width/2, y: 80, width: 300, height: 40)
             trueButton.center = CGPoint(x: self.view.frame.width/2, y: 60)
             trueButton.backgroundColor = UIColor(hex6: 0x00a1e9)
@@ -330,33 +320,32 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             trueButton.layer.shadowOpacity = 0.8
             trueButton.layer.shadowColor = UIColor.black.cgColor
             trueButton.layer.shadowOffset = CGSize(width: 1, height: 1)
-            
+
             footerView.addSubview(trueButton)
             trueButton.addTarget(self, action: #selector(tapped), for: .touchUpInside)
-            
+
             print(index)
             return footerView
-        }
-        else{
+        } else {
             return nil
         }
     }
     // 确定按钮的回调
-    @objc func tapped(){
+    @objc func tapped() {
 
-        PostLostAPI.postLost(markDic: markDict, tag: pushTag, success: { dic in
+        PostLostAPI.postLost(markDic: markDict, tag: pushTag, success: { _ in
             let successVC = PublishSuccessViewController()
             self.navigationController?.pushViewController(successVC, animated: true)
         }, failure: { error in
             print(error)
         })
     }
-    
+
     func comfirmButtonTapped() {
         //        LostAPI.fabu(name: )
     }
-    
-    func means(input:String,key:String){
+
+    func means(input: String, key: String) {
         //        var markdic:[String: String] = [:]
         markDict[key] = input
         markDict["other_tag"] = ""
@@ -365,9 +354,9 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
 
 // Mark -- ImagePickerControllerDelegate
 extension PublishLostViewController: UIImagePickerControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
 
             if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? UpLoadingPicCell {
@@ -385,14 +374,12 @@ func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
     picker.dismiss(animated: true, completion: nil)
 }
 
-
-
 extension PublishLostViewController: UINavigationControllerDelegate {
-    
+
 }
 // 点击键盘外弹掉键盘，重写UIGestureRecognizerDelegate
 extension PublishLostViewController: UIGestureRecognizerDelegate {
-    
+
     func touchOutsideTextField() {
         //        let aSelector: Selector = "closeKeyboard"
         //        let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
@@ -408,7 +395,3 @@ extension PublishLostViewController: UIGestureRecognizerDelegate {
         return true
     }
 }
-
-
-
-

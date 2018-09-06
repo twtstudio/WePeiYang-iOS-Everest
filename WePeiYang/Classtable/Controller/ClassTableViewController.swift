@@ -10,7 +10,7 @@ import UIKit
 import ObjectMapper
 
 class ClassTableViewController: UIViewController {
-    
+
     var listView: CourseListView!
     var weekSelectView: WeekSelectView!
     var table: ClassTableModel? {
@@ -30,20 +30,19 @@ class ClassTableViewController: UIViewController {
                 cells.forEach { cell in
                     cell.dismissSelected()
                 }
-                
+
                 if newValue - 1 < cells.count {
                     cells[newValue-1].setSelected()
                 }
             }
 
-            
             backButton.setTitle("第\(newValue)周", for: .normal)
             backButton.sizeToFit()
             backButton.frame.origin.x = (90 - (backButton.width + 15))/2
             if currentWeek != newValue {
-                backButton.setTitleColor(UIColor(red:0.98, green:0.26, blue:0.27, alpha:1.00), for: .normal)
+                backButton.setTitleColor(UIColor(red: 0.98, green: 0.26, blue: 0.27, alpha: 1.00), for: .normal)
             } else {
-                backButton.setTitleColor(UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00), for: .normal)
+                backButton.setTitleColor(UIColor(red: 0.14, green: 0.69, blue: 0.93, alpha: 1.00), for: .normal)
             }
             // 刷新标题栏
             self.navigationItem.titleView?.subviews.forEach { v in
@@ -75,7 +74,7 @@ class ClassTableViewController: UIViewController {
             }
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isTranslucent = false
@@ -121,31 +120,31 @@ class ClassTableViewController: UIViewController {
 
     func initNavBar() {
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 90, height: 30))
-        let downArrow = UIImageView(image: #imageLiteral(resourceName: "ic_arrow_down").with(color: UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)))
+        let downArrow = UIImageView(image: #imageLiteral(resourceName: "ic_arrow_down").with(color: UIColor(red: 0.14, green: 0.69, blue: 0.93, alpha: 1.00)))
         downArrow.frame = CGRect(x: 70, y: 8, width: 15, height: 15)
         downArrow.tag = 2
-        
+
         titleView.addSubview(downArrow)
         backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 30))
         backButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         backButton.setTitle("第\(currentDisplayWeek)周", for: .normal)
-        backButton.setTitleColor(UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00), for: .normal)
+        backButton.setTitleColor(UIColor(red: 0.14, green: 0.69, blue: 0.93, alpha: 1.00), for: .normal)
         backButton.sizeToFit()
         backButton.frame.origin.x = (90 - (backButton.width + 15))/2
         downArrow.frame.origin.x = backButton.frame.origin.x + backButton.width
         backButton.tag = -1
         titleView.addSubview(backButton)
-        
+
         let backLabel = UILabel(frame: CGRect(x: 0, y: 25, width: 75, height: 10))
         backLabel.backgroundColor = .clear
-        backLabel.textColor = UIColor(red:0.98, green:0.26, blue:0.27, alpha:1.00)
+        backLabel.textColor = UIColor(red: 0.98, green: 0.26, blue: 0.27, alpha: 1.00)
         backLabel.textAlignment = .center
         backLabel.font = UIFont.systemFont(ofSize: 8)
         backLabel.text = "返回本周"
         backLabel.isHidden = true
         backLabel.tag = 1
         titleView.addSubview(backLabel)
-        
+
         self.navigationItem.titleView = titleView
         backButton.addTarget(self, action: #selector(toggleWeekSelect), for: .touchUpInside)
 
@@ -153,7 +152,7 @@ class ClassTableViewController: UIViewController {
             UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(load)),
             UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCourse))]
     }
-    
+
     @objc func weekCellTapped(sender: UITapGestureRecognizer) {
 //        guard let cell = sender.view,
 ////        cell.tag - 1 < cells.count,
@@ -163,13 +162,13 @@ class ClassTableViewController: UIViewController {
         }
         let point = sender.location(in: weekSelectView)
         let week = Int(point.x / 50) + 1
-        
+
 //        let week = cell.tag
         let courses = self.getCourse(table: table, week: week)
         listView.load(courses: courses, weeks: week - currentWeek)
         currentDisplayWeek = week
     }
-    
+
     @objc func toggleWeekSelect(sender: UIButton) {
         guard let table = table else {
             return
@@ -202,7 +201,7 @@ class ClassTableViewController: UIViewController {
             }
             isSelecting = false
         }
-        
+
         // 告诉self.view约束需要更新
         self.view.setNeedsUpdateConstraints()
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
@@ -210,7 +209,7 @@ class ClassTableViewController: UIViewController {
         }, completion: { _ in
         })
     }
-    
+
     func loadCache() {
         CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
             if let table = Mapper<ClassTableModel>().map(JSONString: string) {
@@ -231,7 +230,7 @@ class ClassTableViewController: UIViewController {
             SwiftMessages.showLoading()
         })
     }
-    
+
     @objc func load() {
         ClasstableDataManager.getClassTable(success: { table in
             SwiftMessages.hideLoading()
@@ -267,16 +266,15 @@ class ClassTableViewController: UIViewController {
             SwiftMessages.showErrorMessage(body: errorMessage)
         })
     }
-    
+
     @objc func addCourse() {
         let auditClassVC = AuditClassViewController()
         self.navigationController?.pushViewController(auditClassVC, animated: true)
     }
-    
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.tintColor = UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)
+        navigationController?.navigationBar.tintColor = UIColor(red: 0.14, green: 0.69, blue: 0.93, alpha: 1.00)
         navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -300,7 +298,7 @@ extension ClassTableViewController {
             return dict
         }
         // TODO: optimize
-        
+
         var coursesForDay: [[ClassModel]] = [[], [], [], [], [], [], []]
         var classes = [] as [ClassModel]
         //        var coursesForDay: [[ClassModel]] = []
@@ -311,7 +309,7 @@ extension ClassTableViewController {
                 // TODO: turn gray
                 continue
             }
-            
+
             // 每个 arrange 变成一个
             for arrange in course.arrange {
                 let day = arrange.day-1
@@ -326,7 +324,7 @@ extension ClassTableViewController {
                     // TODO: turn gray
                     continue
                 }
-                
+
                 var newCourse = course
                 newCourse.arrange = [arrange]
                 // TODO: 这个是啥来着?
@@ -334,7 +332,7 @@ extension ClassTableViewController {
                 coursesForDay[day].append(newCourse)
             }
         }
-        
+
         for day in 0..<7 {
             var array = coursesForDay[day]
 
@@ -344,7 +342,7 @@ extension ClassTableViewController {
             var resultArray = [ClassModel]()
             for (idx1, (var item1, flag1)) in newArray1.enumerated() {
                 for (idx2, (item2, flag2)) in newArray2.enumerated() {
-                    if flag2 == true && item1 != item2  {
+                    if flag2 == true && item1 != item2 {
                         if item1.arrange.first!.intersect(with: item2.arrange.first!) {
                             item1.peers.append(item2)
                             newArray2[idx2].1 = false
@@ -372,7 +370,7 @@ extension ClassTableViewController {
             array.sort(by: { a, b in
                 return a.arrange[0].start < b.arrange[0].start
             })
-            
+
             var lastEnd = 0
             for course in array {
                 // 如果两节课之前有空格，加入长度为一的占位符
@@ -409,8 +407,7 @@ extension ClassTableViewController {
         weekCourseDict[week] = coursesForDay
         return coursesForDay
     }
-    
-    
+
     // 刷新缩略图
     func updateWeekItem() {
         guard let table = table,
@@ -421,17 +418,17 @@ extension ClassTableViewController {
         cells.sort(by: { a, b in
             a.tag < b.tag
         })
-        
+
         for i in 1...22 {
             let courses = getCourse(table: table, week: i)
             var matrix: [[Bool]] = [[], [], [], [], []]
             for i in 0..<5 {
                 matrix[i] = [false, false, false, false, false]
             }
-            
+
             let items = [1, 3, 5, 7, 9]
             let classes = courses.flatMap { $0 }
-            
+
             // day, index
             var coordinates: [(Int, Int, Bool)] = []
             for course in classes {
@@ -451,7 +448,7 @@ extension ClassTableViewController {
                     matrix[i/2][course.arrange.first!.day-1] = isReal || orig
                 }
             }
-            
+
             let cell = cells[i-1]
             cell.load(courses: matrix, week: i)
         }
@@ -468,7 +465,7 @@ extension ClassTableViewController: CourseListViewDelegate {
             return
         }
 
-        if course.peers.count > 0 {
+        if !course.peers.isEmpty {
             print(course.courseName + course.peers.reduce("", { ", " + $0 + $1.courseName }))
         }
 

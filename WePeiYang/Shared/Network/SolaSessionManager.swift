@@ -19,7 +19,7 @@ let TWT_ROOT_URL = "https://open.twtstudio.com/api/v1"
 let DEV_RECORD_SESSION_INFO = "DEV_RECORD_SESSION_INFO"
 
 struct SolaSessionManager {
-    
+
     /// A primary package of Alamofire, the foundation of network module of WePeiyang
     ///
     /// - Parameters:
@@ -30,18 +30,18 @@ struct SolaSessionManager {
     ///   - parameters: http parameters
     ///   - success: callback if request succeeds
     ///   - failure: callback if request fails
-    static func solaSession(type: SessionType = .get, baseURL: String = TWT_ROOT_URL, url: String, token: String? = nil, parameters: [String: String]? = nil, success: (([String: Any])->())? = nil, failure: ((Error)->())? = nil) {
-        
+    static func solaSession(type: SessionType = .get, baseURL: String = TWT_ROOT_URL, url: String, token: String? = nil, parameters: [String: String]? = nil, success: (([String: Any]) -> Void)? = nil, failure: ((Error) -> Void)? = nil) {
+
         let fullurl = baseURL + url
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
         var para = parameters ?? [String: String]()
         para["t"] = timeStamp
         var fooPara = para
-        
+
         if type == .duo, let token = token {
             fooPara["token"] = token
         }
-        
+
         let keys = fooPara.keys.sorted()
         // encrypt with sha1
         var tmpSign = ""
@@ -52,16 +52,16 @@ struct SolaSessionManager {
         let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1.uppercased()
         para["sign"] = sign
         para["app_key"] = TwTKeychain.shared.appKey
-        
+
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent
-        
+
         if let twtToken = TwTUser.shared.token {
             headers["Authorization"] = "Bearer \(twtToken)"
         } else {
             log.errorMessage("can't load twtToken")/
         }
-        
+
 //        if type == .duo && token != nil{
 //            headers["Authorization"] = "Bearer {\(token)}"
 //        }
@@ -74,18 +74,18 @@ struct SolaSessionManager {
         case .duo:
             method = .post
         }
-        
+
         Alamofire.request(fullurl, method: method, parameters: para, headers: headers).responseJSON { response in
             switch response.result {
             case .success:
-                if let data = response.result.value  {
+                if let data = response.result.value {
                     if let dict = data as? [String: Any] {
                         success?(dict)
                     }
                 }
             case .failure(let error):
                 failure?(error)
-                if let data = response.result.value  {
+                if let data = response.result.value {
                     if let dict = data as? [String: Any],
                     let errmsg = dict["message"] as? String {
                         print(errmsg)
@@ -96,9 +96,9 @@ struct SolaSessionManager {
             }
         }
     }
-    
-    static func upload1(dictionay: [String : Any], url: String, method: HTTPMethod = .put, progressBlock: ((Progress)->())? = nil, failure: ((Error)->())? = nil, success: (([String : Any])->())?) {
-    
+
+    static func upload1(dictionay: [String: Any], url: String, method: HTTPMethod = .put, progressBlock: ((Progress) -> Void)? = nil, failure: ((Error) -> Void)? = nil, success: (([String: Any]) -> Void)?) {
+
         var dataDict = [String: Data]()
         var paraDict = [String: String]()
         for item in dictionay {
@@ -109,25 +109,25 @@ struct SolaSessionManager {
                 paraDict[item.key] = value
             }
         }
-        
+
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
         paraDict["t"] = timeStamp
         var fooPara = paraDict
-        
+
         let keys = fooPara.keys.sorted()
         // encrypt with sha1
         var tmpSign = ""
         for key in keys {
             tmpSign += (key + fooPara[key]!)
         }
-        
+
         let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1.uppercased()
         paraDict["sign"] = sign
         paraDict["app_key"] = TwTKeychain.shared.appKey
-        
+
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent
-        
+
         if let twtToken = TwTUser.shared.token {
             headers["Authorization"] = "Bearer \(twtToken)"
         } else {
@@ -147,8 +147,8 @@ struct SolaSessionManager {
                 switch response {
                 case .success(let upload, _, _):
                     upload.responseJSON { response in
-                        if let data = response.result.value  {
-                            if let dict = data as? Dictionary<String, Any>, dict["error_code"] as? Int == -1 {
+                        if let data = response.result.value {
+                            if let dict = data as? [String: Any], dict["error_code"] as? Int == -1 {
                                 success?(dict)
                             } else {
 //                                HUD.hide()
@@ -161,8 +161,7 @@ struct SolaSessionManager {
                     }
 //                    upload.response(completionHandler: { response in
 //                        print(response)
-//                        
-//                    })
+//n//                    })
                     upload.responseString(completionHandler: { string in
                         guard let data = string.data else {
                             //                            HUD.flash(.labeledError(title: errMsg, subtitle: nil), delay: 1.2)
@@ -172,7 +171,7 @@ struct SolaSessionManager {
                         }
                         do {
                             let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                            if let dict = json as? Dictionary<String, Any> {
+                            if let dict = json as? [String: Any] {
                                 if let err = dict["err"] as? Int, err == 0 {
                                     success?(dict)
                                 } else {
@@ -194,8 +193,8 @@ struct SolaSessionManager {
             })
         }
     }
-    
-    static func upload(dictionay: [String : Any], url: String, method: HTTPMethod = .post, progressBlock: ((Progress)->())? = nil, failure: ((Error)->())? = nil, success: (([String : Any])->())?) {
+
+    static func upload(dictionay: [String: Any], url: String, method: HTTPMethod = .post, progressBlock: ((Progress) -> Void)? = nil, failure: ((Error) -> Void)? = nil, success: (([String: Any]) -> Void)?) {
         let fullurl = TWT_ROOT_URL + url
         print(fullurl)
 
@@ -209,25 +208,25 @@ struct SolaSessionManager {
                 paraDict[item.key] = value
             }
         }
-        
+
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
         paraDict["t"] = timeStamp
         var fooPara = paraDict
-        
+
         let keys = fooPara.keys.sorted()
         // encrypt with sha1
         var tmpSign = ""
         for key in keys {
             tmpSign += (key + fooPara[key]!)
         }
-        
+
         let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1.uppercased()
         paraDict["sign"] = sign
         paraDict["app_key"] = TwTKeychain.shared.appKey
-        
+
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent
-        
+
         if let twtToken = TwTUser.shared.token {
             headers["Authorization"] = "Bearer \(twtToken)"
         } else {
@@ -247,8 +246,8 @@ struct SolaSessionManager {
                 switch response {
                 case .success(let upload, _, _):
                     upload.responseJSON { response in
-                        if let data = response.result.value  {
-                            if let dict = data as? Dictionary<String, Any>, dict["error_code"] as? Int == -1 {
+                        if let data = response.result.value {
+                            if let dict = data as? [String: Any], dict["error_code"] as? Int == -1 {
                                 success?(dict)
                             } else {
 //                                                                HUD.hide()
@@ -271,7 +270,7 @@ struct SolaSessionManager {
                     //                        }
                     //                        do {
                     //                            let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                    //                            if let dict = json as? Dictionary<String, Any> {
+                    //                            if let dict = json as? [String : Any] {
                     //                                if let err = dict["err"] as? Int, err == 0 {
                     //                                    success?(dict)
                     //                                } else {

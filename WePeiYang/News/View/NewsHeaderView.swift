@@ -46,18 +46,18 @@ class NewsHeaderView: UIView {
             let fontSize: CGFloat =  -((16.0*Y) / 33.0) - 892.0/33.0
             self.titleLabel.font = UIFont.init(name: "HelveticaNeue-Bold", size: fontSize)
         }
-        
+
         if Y <= -130 {
             self.titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 36.0)
         }
-        
+
         if Y >= -97 {
             self.titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20.0)
         }
     }
-    
+
     func navigationBarHiddenScrollByY(_ Y: CGFloat) {
         self.titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 36)
-        
+
     }
 }

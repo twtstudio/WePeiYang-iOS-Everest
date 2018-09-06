@@ -13,7 +13,7 @@ import IGIdenticon
 class PartyMainViewController: UIViewController {
 
     //let personalStatusButton = UIButton(title: "查看个人进度")
-    
+
     let functionList = ["查看个人状态", "考试报名", "课程列表", "成绩查询", "递交文件"]
     /*
     let functionList = [["icon": "考试报名", "desc": "考试报名"],
@@ -24,12 +24,12 @@ class PartyMainViewController: UIViewController {
     //let headerView = UIView(color: partyRed)
     let headerView = UIView(color: .partyRed)
     var headerWaveView = WXWaveView()
-    
+
     let anAvatar = UIImageView()
     let avatarBackGround = UIView()
-    
+
     let functionTableView = UITableView()
-    
+
     //FIXME: 如果直接使用 Applicant.sharedInstance.realName! 会直接 found nil
     /*var aNameLabel: UILabel = {
         guard let foo = Applicant.sharedInstance.realName else {
@@ -37,23 +37,21 @@ class PartyMainViewController: UIViewController {
         }
         return UILabel(text: foo, color: )
     }()*/
-    
+
     var aNameLabel: UILabel!
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         //personalStatusButton.addTarget(self, action: #selector(PartyMainViewController.personalStatusButtonTapped(_:)), for: .touchUpInside)
 
         functionTableView.delegate = self
         functionTableView.dataSource = self
         functionTableView.tableFooterView = UIView()
-        
+
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         navigationItem.titleView = titleLabel
-        
-        
+
         //随机头像
         if let randomNumber = UserDefaults.standard.object(forKey: "PartyAvatarNumber") as? Int {
             let imageGenerator = GitHubIdenticon()
@@ -68,19 +66,19 @@ class PartyMainViewController: UIViewController {
             anAvatar.image = imageGenerator.icon(from: fooNum, size: CGSize(width: 88, height: 88))
             UserDefaults.standard.set(NSNumber(value: fooNum as UInt32), forKey: "PartyAvatarNumber")
         }
-        
+
         anAvatar.isUserInteractionEnabled = true
         anAvatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PartyMainViewController.changeAvatar)))
-        
+
         anAvatar.clipsToBounds = true
         anAvatar.layer.cornerRadius = 44
         for subview in anAvatar.subviews {
             subview.layer.cornerRadius = 44
         }
-        
+
         avatarBackGround.layer.cornerRadius = 48
         avatarBackGround.backgroundColor = UIColor.white
-        
+
         /*
         let shadowPath = UIBezierPath(rect: avatarBackGround.bounds)
         avatarBackGround.layer.masksToBounds = false
@@ -89,7 +87,7 @@ class PartyMainViewController: UIViewController {
         avatarBackGround.layer.shadowOpacity = 0.5
         avatarBackGround.layer.shadowPath = shadowPath.CGPath
         */
-        
+
         if let foo = TwTUser.shared.realname {
             aNameLabel = UILabel(text: foo, color: .white)
         } else {
@@ -101,11 +99,10 @@ class PartyMainViewController: UIViewController {
         //headerView.layer.shadowRadius = 5;
         //headerView.layer.shadowOpacity = 0.5;
         headerView.isUserInteractionEnabled = true
-        
+
         computeLayout()
         wave()
-        
-        
+
         // Do any additional setup after loading the view.
     }
 
@@ -113,7 +110,7 @@ class PartyMainViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -126,9 +123,8 @@ class PartyMainViewController: UIViewController {
         navigationController?.navigationBar.barStyle = .black
         //        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
 
-        
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
 //        UIApplication.shared.setStatusBarStyle(.default, animated: true)
         navigationController?.navigationBar.barStyle = .default
@@ -137,8 +133,6 @@ class PartyMainViewController: UIViewController {
             return
         }
     }
-    
-    
 
     /*
 
@@ -151,74 +145,72 @@ class PartyMainViewController: UIViewController {
 
 }
 
-
-//MARK: TableView Delegate Methods
+// MARK: TableView Delegate Methods
 extension PartyMainViewController: UITableViewDelegate, UITableViewDataSource {
-    
+
     //TODO: functionTableView delegate methods
     //TODO: all sorts of functions: SignUp | CourseList | ScoreInfoList | NotificationList
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return functionList.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return FunctionListTableViewCell(iconName: "partyBtn", desc: functionList[indexPath.row])
         //return FunctionListTableViewCell(iconName: functionList[indexPath.row]["icon"], desc: functionList[indexPath.row]["desc"])
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         if indexPath.row == 0 {
             let personalStatusVC = PartyPersonalStatusViewController()
             navigationController?.show(personalStatusVC, sender: nil)
         }
-        
+
         //考试报名
         if indexPath.row == 1 {
             let signupVC = PartySignUpViewController()
             navigationController?.show(signupVC, sender: nil)
         }
-        
+
         //党课学习
         if indexPath.row == 2 {
             let courseVC = PartyCoursesViewController()
             navigationController?.show(courseVC, sender: nil)
         }
-        
+
         //成绩查询
         if indexPath.row == 3 {
             let personalStatusVC = PartyScoreViewController()
             navigationController?.show(personalStatusVC, sender: nil)
 
         }
-        
+
         //递交文件
         if indexPath.row == 4 {
             let partyHandInVC = PartyHandInViewController(nibName: "PartyHandInViewController", bundle: nil)
             navigationController?.show(partyHandInVC, sender: nil)
         }
-        
+
         tableView.deselectRow(at: indexPath, animated: true)
 
     }
-    
+
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 2
     }
-    
+
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: (UIApplication.shared.keyWindow?.frame.size.width)!, height: 2))
-        
+
         return footerView
     }
 }
 
-//MARK: Snapkit Layout
+// MARK: Snapkit Layout
 extension PartyMainViewController {
-    
+
     func computeLayout() {
-        
-        
+
         headerView.addSubview(avatarBackGround)
         avatarBackGround.snp.makeConstraints {
             make in
@@ -226,7 +218,7 @@ extension PartyMainViewController {
             make.centerY.equalTo(headerView.snp.centerY).offset(16)
             make.width.height.equalTo(96)
         }
-        
+
         headerView.addSubview(anAvatar)
         anAvatar.snp.makeConstraints {
             make in
@@ -234,25 +226,21 @@ extension PartyMainViewController {
             make.centerY.equalTo(avatarBackGround)
             make.width.height.equalTo(88)
         }
-        
+
         headerView.addSubview(aNameLabel)
         aNameLabel.snp.makeConstraints {
             make in
             make.top.equalTo(anAvatar.snp.bottom).offset(12)
             make.centerX.equalTo(headerView.snp.centerX)
         }
-        
-        
-        
+
         //headerView.addSubview(personalStatusButton)
         /*personalStatusButton.snp.makeConstraints {
             make in
             make.centerY.equalTo(anAvatar)
             make.left.equalTo(anAvatar.snp.right).offset(5)
         }*/
-        
-    
-        
+
         view.addSubview(headerView)
         headerView.snp.makeConstraints {
             make in
@@ -261,20 +249,19 @@ extension PartyMainViewController {
             make.right.equalTo(view)
             make.bottom.equalTo(aNameLabel.snp.bottom).offset(20)
         }
-        
+
         //self.headerWaveView = WXWaveView.addToView(headerView, withFrame: CGRect(x: 0, y: headerView.bounds.height - 10, width: headerView.bounds.width, height: 10))
-        
-        
+
         //self.functionTableView.tableHeaderView = headerView
         view.addSubview(functionTableView)
-        functionTableView.snp.makeConstraints{
+        functionTableView.snp.makeConstraints {
             make in
             make.top.equalTo(headerView.snp.bottom)
             make.left.equalTo(view)
             make.right.equalTo(view)
             make.bottom.equalTo(view)
         }
-        
+
         headerView.addSubview(headerWaveView)
         headerWaveView.snp.makeConstraints {
             make in
@@ -284,11 +271,11 @@ extension PartyMainViewController {
             make.height.equalTo(10)
         }
         //log.any(CGRectGetHeight(functionTableView.frame))/
-        
+
     }
 }
 
-//MARK: Tapped functions
+// MARK: Tapped functions
 extension PartyMainViewController {
     /*func personalStatusButtonTapped(sender: UIButton!) {
 
@@ -296,21 +283,21 @@ extension PartyMainViewController {
         navigationController?.showViewController(personalStatusVC, sender: nil)
 
     }*/
-    
+
     func wave() {
 
         self.headerWaveView.waveColor = .partyRed
         self.headerWaveView.waveTime = 0.0
         self.headerWaveView.wave()
-        
+
     }
-    
+
     @objc func changeAvatar() {
-        
+
         UIView.animate(withDuration: 0.3, animations: {
             self.anAvatar.alpha = 0
-            }, completion: { flag in
-                
+            }, completion: { _ in
+
 //                let imageGenerator = IGImageGenerator(imageProducer: IGSimpleIdenticon(), hashFunction: IGJenkinsHashFromData)
                 let imageGenerator = GitHubIdenticon()
                 let fooNum = arc4random()
@@ -319,10 +306,9 @@ extension PartyMainViewController {
                 self.anAvatar.alpha = 1
                 UserDefaults.standard.set(NSNumber(value: fooNum as UInt32), forKey: "PartyAvatarNumber")
         })
-        
+
     }
 }
-
 
 extension UIColor {
     static var partyRed: UIColor {

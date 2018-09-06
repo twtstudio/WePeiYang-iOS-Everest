@@ -9,9 +9,9 @@
 import Foundation
 
 class timeStampTransfer: NSObject {
-    
+
     static func stringFromTimeStampWithFormat(format: String, timeStampString: String) -> String {
-        
+
         let second = Int(timeStampString)
         let timeStamp = NSDate(timeIntervalSince1970: Double(second!))
         let dateFormatter = DateFormatter()
@@ -20,4 +20,3 @@ class timeStampTransfer: NSObject {
         return dateFormatter.string(from: timeStamp as Date)
     }
 }
-

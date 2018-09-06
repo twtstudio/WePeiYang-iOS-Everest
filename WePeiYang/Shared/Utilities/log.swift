@@ -21,15 +21,15 @@ enum log {
 
 postfix operator /
 
-postfix func /(toBeLogged: log?) {
+postfix func / (toBeLogged: log?) {
     guard let foo = toBeLogged else {
         return
     }
-    
+
     func log<T>(_ emoji: String, _ object: T) {
         print(emoji + " " + String(describing: object))
     }
-    
+
     switch foo {
     case .error(let error):
         log("❗️", error)

@@ -10,59 +10,42 @@
 //import UIKit
 //
 //protocol HasCardView {
-//    
-//    
-//    static var card: CardView { get }
-//    
-//    static func generateCardView() -> CardView
-//    
-//    
-//}
+//n//n//    static var card: CardView { get }
+//n//    static func generateCardView() -> CardView
+//n//n//}
 //
 //public protocol CardViewDelegete: class, NSObjectProtocol {
-//    
-//    func cardWillRefresh()
+//n//    func cardWillRefresh()
 //    func cardDidRefresh()
 //}
 //
 //public class CardView: UIView {
-//    
-//    
-//    //var foo: UITableViewDelegate
-//    
-//    func drawRect(rect: CGRect) {
-//        
-//        // Set this property to true to optimize the rendering of the View
+//n//n//    //var foo: UITableViewDelegate
+//n//    func drawRect(rect: CGRect) {
+//n//        // Set this property to true to optimize the rendering of the View
 //        // But when setting isOpaque = true, we need to draw every inch of the view with non-transparent elements
 //        isOpaque = true
 //
-//        
-//    }
-//    
-//    convenience init() {
+//n//    }
+//n//    convenience init() {
 //        self.init()
 //    }
-//    
-//    
-//}
+//n//n//}
 //
 //////extension of UIViewController to add a property
 ////extension UIViewController {
 ////    static func generateCardView() -> CardView {
-////        
-////    }
+////n////    }
 ////
 ////    static var card: CardView {
 ////        get {
 ////            return generateCardView()
 ////        }
 ////        set {
-////            
-////        }
+////n////        }
 ////    }
 ////
 ////    private struct fooPropertyStruct {
 ////        static var card: CardView? = nil
 ////    }
-////    
-////}
+////n////}

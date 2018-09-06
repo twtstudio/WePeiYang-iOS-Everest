@@ -15,10 +15,8 @@ class GPACard: CardView {
     let lineChartView: LineChartView = {
         let lineChartView = LineChartView()
         lineChartView.dragEnabled = false
-        for gesture in lineChartView.gestureRecognizers ?? [] {
-            if gesture is UIPinchGestureRecognizer {
-                lineChartView.removeGestureRecognizer(gesture)
-            }
+        for gesture in lineChartView.gestureRecognizers ?? [] where gesture is UIPinchGestureRecognizer {
+            lineChartView.removeGestureRecognizer(gesture)
         }
         lineChartView.pinchZoomEnabled = false
         lineChartView.doubleTapToZoomEnabled = false
@@ -48,21 +46,21 @@ class GPACard: CardView {
     override func initialize() {
         super.initialize()
         let padding: CGFloat = 20
-        
+
         titleLabel.frame = CGRect(x: padding, y: padding, width: 200, height: 30)
         titleLabel.text = "我的GPA"
         titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.semibold)
         titleLabel.textColor = .white
         titleLabel.sizeToFit()
         self.addSubview(titleLabel)
-        
+
         self.backgroundColor = UIColor.gpaPink
         self.addSubview(lineChartView)
     }
-    
+
     override func layout(rect: CGRect) {
         let padding: CGFloat = 20
-        
+
         let layerWidth = rect.width - 2*padding
         let layerHeight = rect.height - 2*padding - 40
 
@@ -78,7 +76,7 @@ class GPACard: CardView {
         let entrys = model.terms.enumerated().map { tuple in
             return ChartDataEntry(x: Double(tuple.offset), y: tuple.element.stat.score)
         }
-        
+
         let dataSet = LineChartDataSet(values: entrys, label: nil)
         dataSet.mode = .cubicBezier
         dataSet.drawCirclesEnabled = false
@@ -113,4 +111,3 @@ class GPACard: CardView {
         })
     }
 }
-

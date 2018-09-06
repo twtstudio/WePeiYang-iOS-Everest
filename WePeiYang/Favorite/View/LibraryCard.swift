@@ -1,4 +1,3 @@
-
 //
 //  LibraryCard.swift
 //  WePeiYang
@@ -20,7 +19,7 @@ class LibraryCard: CardView {
 
     override func initialize() {
         super.initialize()
-        
+
         self.backgroundColor = .white
 
         titleLabel.text = "图书馆"
@@ -52,7 +51,6 @@ class LibraryCard: CardView {
         toggleButton.layer.cornerRadius = toggleButton.height/2
         toggleButton.tapAction = toggle
 
-
         self.height = 240
         remakeConstraints()
     }
@@ -69,7 +67,7 @@ class LibraryCard: CardView {
             return
         }
 
-        // 首次刷新，之后加载缓存 
+        // 首次刷新，之后加载缓存
         if LibraryDataContainer.shared.response == nil {
             self.refreshBooks(sender: self.refreshButton)
         }
@@ -202,7 +200,7 @@ extension LibraryCard {
             var count = 0
             for book in LibraryDataContainer.shared.books {
                 group.enter()
-                SolaSessionManager.solaSession(type: .get, url: "/library/renew/\(book.barcode)", token: "", parameters: nil, success: { dict in
+                SolaSessionManager.solaSession(type: .get, url: "/library/renew/\(book.barcode)", token: "", parameters: nil, success: { _ in
                     // TODO: Check
                     count += 1
                     group.leave()
@@ -226,13 +224,13 @@ extension LibraryCard {
 
     }
 
-    func getBooks(success: (()->())? = nil) {
+    func getBooks(success: (() -> Void)? = nil) {
         self.setState(.loading("加载中...", .gray))
         SolaSessionManager.solaSession(type: .get, url: "/library/user/info", token: "", parameters: nil, success: { dict in
             if let data = try? JSONSerialization.data(withJSONObject: dict, options: .init(rawValue: 0)),
                 let response = try? LibraryResponse(data: data) {
                 LibraryDataContainer.shared.response = response
-                if response.data.books.count == 0 {
+                if response.data.books.isEmpty {
                     self.setState(.empty("没有借阅书籍", .gray))
                 } else {
                     self.setState(.data)
@@ -296,11 +294,10 @@ extension LibraryCard {
         self.height = height
         remakeConstraints()
 
-        let info: [String : Any] = ["name": Module.library.rawValue, "height": height as CGFloat]
+        let info: [String: Any] = ["name": Module.library.rawValue, "height": height as CGFloat]
         NotificationCenter.default.post(name: NotificationName.NotificationCardWillRefresh.name, object: nil, userInfo: info)
     }
 }
 
 extension LibraryCard: UITableViewDelegate {
 }
-
