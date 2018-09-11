@@ -56,8 +56,8 @@ class PracticeCollectionViewController: UIViewController {
     func reloadDataAndView() {
         PracticeCollectionHelper.getCollection(success: { practiceCollection in
             self.practiceCollection = practiceCollection
-            self.practiceCollectionTableView.reloadData()
             self.reloadTitleView()
+            self.practiceCollectionTableView.reloadData()
         }) { error in }
     }
     
@@ -67,7 +67,7 @@ class PracticeCollectionViewController: UIViewController {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 21)
         
         // 错题不为零时显示错题数
-        if practiceCollection.ques.count != 0 { titleLabel.text = "我的收藏 (\(practiceCollection.ques.count))" }
+        if practiceCollection.data.ques.count != 0 { titleLabel.text = "我的收藏 (\(practiceCollection.data.ques.count))" }
         
         titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
@@ -80,7 +80,7 @@ extension PracticeCollectionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if practiceCollection == nil { return 0 }
-        return practiceCollection.ques.count
+        return practiceCollection.data.ques.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -103,9 +103,9 @@ extension PracticeCollectionViewController: UITableViewDataSource {
         let cancelButton = CancelButton(title: "再留一段时间", action: nil)
         let removeButton = DestructiveButton(title: "我会了, 移走吧", dismissOnTap: true) {
             button.switchIconAnimation()
-            PracticeCollectionHelper.deleteCollection(quesType: (self.practiceCollection?.ques[(indexPath?.row)!].type)!, quesID: String((self.practiceCollection?.ques[(indexPath?.row)!].id)!)) // 删除云端数据
-            self.practiceCollection.ques.remove(at: (indexPath?.row)!) // 删除本地数据
-            self.practiceCollectionTableView.deleteRows(at: [indexPath!], with: .right) // 删除界面
+            PracticeCollectionHelper.deleteCollection(quesType: (self.practiceCollection?.data.ques[(indexPath?.row)!].quesType)!, quesID: String((self.practiceCollection?.data.ques[(indexPath?.row)!].quesID)!)) // 删除云端数据
+            self.practiceCollection.data.ques.remove(at: (indexPath?.row)!) // 删除本地数据
+            self.practiceCollectionTableView.deleteRows(at: [indexPath!], with: .right) // 删除界面单元
             self.reloadTitleView() // 刷新标题
             SwiftMessages.showSuccessMessage(body: "移除成功") // 提示成功
         }

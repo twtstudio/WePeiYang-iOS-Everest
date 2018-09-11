@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 import PopupDialog
 import SwiftMessages
 
@@ -31,7 +32,7 @@ class PracticeHomeViewController: UIViewController {
     let userView = UserView()
     
     /* "题库" 视图 */
-    let homeTableView = UITableView(frame: CGRect(), style: .grouped)
+    lazy var homeTableView = UITableView(frame: CGRect(), style: .grouped)
     let HomeHeaderTitles = ["党课", "形政", "网课", "其他"]
     let HomeHeaderIcons = [#imageLiteral(resourceName: "practicePartyCourse"), #imageLiteral(resourceName: "practiceSituationAndPolicy"), #imageLiteral(resourceName: "practiceOnlineCourse"), #imageLiteral(resourceName: "practiceOther")]
     // "我的" 顶部课程信息 //
@@ -46,6 +47,7 @@ class PracticeHomeViewController: UIViewController {
         PracticeStudentHelper.getStudent(success: { practiceStudent in
             self.practiceStudent = practiceStudent
             self.userTableView.reloadData()
+            self.homeTableView.reloadData()
         }) { error in }
     }
     
@@ -78,13 +80,17 @@ class PracticeHomeViewController: UIViewController {
         navigationItem.rightBarButtonItem = practiceSearch
         
         /* 顶部视图 */
-        headView.frame = CGRect(x: 0, y: -1/3, width: deviceWidth, height: 64)
+        headView.frame = CGRect(x: 0, y: 0, width: deviceWidth, height: 64)
         headView.userOptionButton.addTarget(self, action: #selector(optionButtonClick), for: .touchUpInside)
         headView.homeOptionButton.addTarget(self, action: #selector(optionButtonClick), for: .touchUpInside)
         headView.userOptionButton.isEnabled = !isAtRight // 滑动视图在左 -> "我的" 不可用
         headView.homeOptionButton.isEnabled = isAtRight // 滑动视图在右 -> "题库" 可用
         if !isAtRight { headView.underLine.frame.origin.x = deviceWidth / 6 } // 白色指示条默认在右, 非默认则调整位置
         self.view.addSubview(headView)
+        // 额外视图 //
+        let additionalView = UIView(frame: CGRect(x: 0, y: -barHeight, width: deviceWidth, height: barHeight))
+        additionalView.backgroundColor = .practiceBlue
+        headView.addSubview(additionalView)
 
         /* 滑动视图 */
         contentScrollView.frame = CGRect(x: 0, y: headView.frame.size.height, width: deviceWidth, height: deviceHeight - barHeight - headView.frame.height)
@@ -102,6 +108,7 @@ class PracticeHomeViewController: UIViewController {
         /* "我的" 视图 */
         userTableView.frame = CGRect(x: deviceWidth, y: 0, width: deviceWidth, height: contentScrollView.frame.height)
         userTableView.backgroundColor = .clear
+        userTableView.showsVerticalScrollIndicator = false
         userTableView.delegate = self
         userTableView.dataSource = self
         contentScrollView.addSubview(userTableView)
@@ -109,6 +116,7 @@ class PracticeHomeViewController: UIViewController {
         /* "题库" 视图 */
         homeTableView.frame = CGRect(x: 0, y: 0, width: deviceWidth, height: contentScrollView.frame.height)
         homeTableView.backgroundColor = .clear
+        homeTableView.showsVerticalScrollIndicator = false
         homeTableView.separatorColor = .clear
         homeTableView.delegate = self
         homeTableView.dataSource = self
@@ -175,7 +183,7 @@ extension PracticeHomeViewController: UITableViewDataSource {
             return UserViewCellTitles.count
             
         // "题库" 视图 - 单元个数 //
-        case homeTableView: // (BUG EXIST)
+        case homeTableView:
             return HomeViewCellStyles.count
             
         default:
@@ -205,11 +213,10 @@ extension PracticeHomeViewController: UITableViewDataSource {
             return userViewCell
             
         // "题库" 视图 - 单元 //
-        case homeTableView: // (BUG EXIST)
-            // if practiceStudent == nil { return UITableViewCell() }
+        case homeTableView:
+            if practiceStudent == nil { return UITableViewCell() }
             
-            // let homeViewCell = HomeViewCell(byModel: practiceStudent, withStyle: HomeViewCellStyles[row])
-            let homeViewCell = HomeViewCell(withStyle: HomeViewCellStyles[row])
+            let homeViewCell = HomeViewCell(byModel: practiceStudent, withStyle: HomeViewCellStyles[row])
             
             homeViewCell.selectionStyle = .none
             
@@ -233,11 +240,10 @@ extension PracticeHomeViewController: UITableViewDelegate {
             return 44
             
         // "题库" 视图 - 单元高度 //
-        case homeTableView: // (BUG EXIST)
-            // return 300
-            // return HomeViewCell(byModel: practiceStudent, withStyle: HomeViewCellStyles[indexPath.row]).cellHeight
-            return HomeViewCell(withStyle: HomeViewCellStyles[indexPath.row]).cellHeight
-        
+        case homeTableView:
+            if practiceStudent == nil { return 0 }
+            return HomeViewCell(byModel: practiceStudent, withStyle: HomeViewCellStyles[indexPath.row]).cellHeight
+            
         default:
             return 0
         }
@@ -269,15 +275,16 @@ extension PracticeHomeViewController: UITableViewDelegate {
             if let practiceStudent = practiceStudent {
                 userView.userHeadView.sd_setImage(with: URL(string: practiceStudent.data.avatarURL), placeholderImage: UIImage(named: "account_circle")!.with(color: .gray)) // 头像
                 userView.userNameLabel.text = practiceStudent.data.twtName // 昵称
-                userView.userTitleLabel.text = practiceStudent.data.title.titleName // 称号
-                userView.practicedQuestionNumber.text = practiceStudent.data.quesMessage.doneNumber // 已练习题目数
-                userView.practicedCourseNumber.text = "\(practiceStudent.data.quesMessage.rememberCourseNumber)" // 已练习科目数
+                userView.userTitleLabel.text = practiceStudent.data.titleName // 称号
+                userView.practicedQuestionNumber.text = practiceStudent.data.doneCount // 已练习题目数
+                userView.practicedCourseNumber.text = "\(practiceStudent.data.courseCount)" // 已练习科目数
                 
-                let correctRateString = String(Int(100 - Double(practiceStudent.data.quesMessage.errorNumber)! / Double(practiceStudent.data.quesMessage.doneNumber)! * 100))
+                let correctRateString = String(Int(100 - Double(practiceStudent.data.errorCount)! / Double(practiceStudent.data.doneCount)! * 100))
                 let correctRateText = NSMutableAttributedString(string: "正确率 \(correctRateString)%") // 使用富文本改变字体
                 correctRateText.addAttribute(.foregroundColor, value: UIColor.darkGray, range: NSMakeRange(0, 4))
                 userView.correctRate.attributedText = correctRateText // 正确率
             } else {
+                userView.userHeadView.image = #imageLiteral(resourceName: "ic_account_circle")
                 userView.userNameLabel.text = "我的昵称"
                 userView.userTitleLabel.text = "我的称号"
                 userView.practicedQuestionNumber.text = "0"
@@ -401,6 +408,9 @@ extension PracticeHomeViewController: UICollectionViewDelegate, UICollectionView
         let row = indexPath.row
         
         switch row {
+        // case 0:
+            // TODO: 暂时测试使用
+            // self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
         case 1:
             let warningCard = PopupDialog(title: "形式与政策", message: "请选择练习模式", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
             let cancelButton = PracticePopupDialogButton(title: "顺序练习", action: nil)

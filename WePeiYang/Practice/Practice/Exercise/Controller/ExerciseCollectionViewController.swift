@@ -211,18 +211,18 @@ extension ExerciseCollectionViewController {
                 
                 for i in 0..<3 {
                     switch qs[i].quesDetail?.isCollected {
-                    case 0:
+                    case 0?:
                         self.guards[self.indexArray[i]].iscollected = false
-                    case 1:
+                    case 1?:
                         self.guards[self.indexArray[i]].iscollected = true
                     default:
                         break
                     }
                     
                     switch qs[i].quesDetail?.isMistake {
-                    case 0:
+                    case 0?:
                         self.guards[self.indexArray[i]].isMistake = false
-                    case 1:
+                    case 1?:
                         self.guards[self.indexArray[i]].isMistake = true
                     default:
                         break

@@ -25,35 +25,37 @@ class HomeViewCell: UITableViewCell {
     /* 单元标题 */
     let cellTitleLabel = UILabel(text: "", fontSize: 21)
     
+    /* 题目类型 */
+    let questionTypeDictionary = ["0":"单选", "1":"多选", "2":"判断"]
+    
     /* 单元高度 */
     var cellHeight: CGFloat = 0.0
     
-    // 创建课程气泡按钮 (自动换行) 方法 // // 记得点击事件传入题目 ID
-    func addBubbleCourseButton(intoSuperView superView: UIView, withTitleArray titleArray: [String]) {
-        var edgeWidth: CGFloat = 0
-        var edgeHeight: CGFloat = 54
-        for index in 0...titleArray.count - 1 {
-            let length = CGFloat(titleArray[index].count) * 20
-            let bubbleButton = UIButton(frame: CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33))
-
-            bubbleButton.setTitle(titleArray[index], for: .normal)
-            bubbleButton.setPracticeBubbleButton()
-            bubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
-
-            if 20 + edgeWidth + length > deviceWidth - 40 {
-                edgeWidth = 0
-                edgeHeight += bubbleButton.frame.size.height + 16
-                bubbleButton.frame = CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33)
-            }
-            edgeWidth = bubbleButton.frame.size.width + bubbleButton.frame.origin.x - 20
-
-            superView.addSubview(bubbleButton)
-        }
-    }
+    // 创建课程气泡按钮 (自动换行) 方法 //
+//    func addBubbleCourseButton(intoSuperView superView: UIView, withTitleArray titleArray: [String]) {
+//        var edgeWidth: CGFloat = 0
+//        var edgeHeight: CGFloat = 54
+//        for index in 0...titleArray.count - 1 {
+//            let length = CGFloat(titleArray[index].count) * 20
+//            let bubbleButton = UIButton(frame: CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33))
+//
+//            bubbleButton.setTitle(titleArray[index], for: .normal)
+//            bubbleButton.setPracticeBubbleButton()
+//            bubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
+//
+//            if 20 + edgeWidth + length > deviceWidth - 40 {
+//                edgeWidth = 0
+//                edgeHeight += bubbleButton.frame.size.height + 16
+//                bubbleButton.frame = CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33)
+//            }
+//            edgeWidth = bubbleButton.frame.size.width + bubbleButton.frame.origin.x - 20
+//
+//            superView.addSubview(bubbleButton)
+//        }
+//    }
     
-    // convenience init(byModel practiceStudent: PracticeStudentModel, withStyle style: HomeViewCellStyle) { // 考虑基于模型进行初始化 (参考 WrongViewCell)
-    convenience init(withStyle style: HomeViewCellStyle) { // 考虑基于模型进行初始化 (参考 WrongViewCell)
-        self.init(style: .default, reuseIdentifier: style.rawValue)
+    convenience init(byModel practiceStudent: PracticeStudentModel, withStyle style: HomeViewCellStyle) {
+        self.init(style: .default, reuseIdentifier: "HomeViewCell")
         
         // 顶部蓝线 //
         topHorizontalLine.frame = CGRect(x: 20, y: 0, width: deviceWidth - 40, height: 1)
@@ -63,7 +65,7 @@ class HomeViewCell: UITableViewCell {
         leftVerticalLine.frame = CGRect(x: 20, y: 16, width: 3, height: 22)
         contentView.addSubview(leftVerticalLine)
         
-        // 单元标题
+        // 单元标题 //
         cellTitleLabel.frame = CGRect(x: leftVerticalLine.frame.maxX + 12, y: topHorizontalLine.frame.maxY + 10, width: deviceWidth / 2, height: 33)
         cellTitleLabel.text = style.rawValue
         contentView.addSubview(cellTitleLabel)
@@ -72,34 +74,35 @@ class HomeViewCell: UITableViewCell {
         switch style {
         
         // 快速选择 //
-        case .quickSelect: // 文本考虑在 Controller 中设定, addTarget 方法与课程 id 相关
-            addBubbleCourseButton(intoSuperView: contentView, withTitleArray: ["项目管理学", "美学原理", "高等数学", "从爱因斯坦到霍金宇宙", "古典诗词鉴赏", "社会心理学"])
-            
-//            var edgeWidth: CGFloat = 0
-//            var edgeHeight: CGFloat = 54
-//            let titleArray = practiceStudent.qSelect
-//            for index in 0...titleArray.count - 1 {
-//                let length = CGFloat(titleArray[index].courseName.count) * 20
-//                let bubbleButton = UIButton(frame: CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33))
-//
-//                bubbleButton.setTitle(titleArray[index].courseName, for: .normal)
-//                bubbleButton.setPracticeBubbleButton()
-//                bubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
-//
-//                if 20 + edgeWidth + length > deviceWidth - 40 {
-//                    edgeWidth = 0
-//                    edgeHeight += bubbleButton.frame.size.height + 16
-//                    bubbleButton.frame = CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33)
-//                }
-//                edgeWidth = bubbleButton.frame.size.width + bubbleButton.frame.origin.x - 20
-//
-//                contentView.addSubview(bubbleButton)
-//
-//                if index == titleArray.count - 1 { cellHeight = bubbleButton.frame.maxY + 20 }
-//            }
+        case .quickSelect:
+            var edgeWidth: CGFloat = 0
+            var edgeHeight: CGFloat = 54
+            let titleArray = practiceStudent.data.qSelect
+            for index in 0..<titleArray.count {
+                var courseName = titleArray[index].courseName
+                if courseName.hasPrefix("第") { courseName.removeFirst(4) }
+                
+                let length = CGFloat(courseName.count) * 20
+                let bubbleButton = UIButton(frame: CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33))
+
+                bubbleButton.setTitle(courseName, for: .normal)
+                bubbleButton.setPracticeBubbleButton()
+                bubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
+
+                if 20 + edgeWidth + length > deviceWidth - 40 {
+                    edgeWidth = 0
+                    edgeHeight += bubbleButton.frame.size.height + 16
+                    bubbleButton.frame = CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33)
+                }
+                edgeWidth = bubbleButton.frame.size.width + bubbleButton.frame.origin.x - 20
+
+                contentView.addSubview(bubbleButton)
+
+                if index == titleArray.count - 1 { cellHeight = bubbleButton.frame.maxY + 20 }
+            }
         
         // 最新消息 //
-        case .latestInformation: // 来源暂时没有
+        case .latestInformation:
             let latestInformationMessage = UILabel(text: "高等数学下册选择已更新", color: .darkGray)
             latestInformationMessage.sizeToFit()
             latestInformationMessage.frame.origin = CGPoint(x: cellTitleLabel.frame.minX, y: cellTitleLabel.frame.maxY + 10)
@@ -113,13 +116,13 @@ class HomeViewCell: UITableViewCell {
             cellHeight = latestInformationTime.frame.maxY + 20
             
         // 当前练习 //
-        case .currentPractice: // 文本考虑在 Controller 中设定
-            let currentPracticeCourse = UILabel(text: "高等数学下册选择", color: .darkGray)
+        case .currentPractice:
+            let currentPracticeCourse = UILabel(text: practiceStudent.data.currentCourseName + questionTypeDictionary[practiceStudent.data.currentQuesType]!, color: .darkGray)
             currentPracticeCourse.sizeToFit()
             currentPracticeCourse.frame.origin = CGPoint(x: cellTitleLabel.frame.minX, y: cellTitleLabel.frame.maxY + 10)
             contentView.addSubview(currentPracticeCourse)
             
-            let currentPracticeMessage = UILabel(text: "10 / 1010", color: .darkGray)
+            let currentPracticeMessage = UILabel(text: "\(practiceStudent.data.currentCourseDoneCount) / \(practiceStudent.data.currentCourseQuesCount) - 第 \(practiceStudent.data.currentCourseIndex) 题", color: .darkGray)
             currentPracticeMessage.sizeToFit()
             currentPracticeMessage.frame.origin = CGPoint(x: deviceWidth - currentPracticeMessage.frame.size.width - 20, y: cellTitleLabel.frame.maxY + 10)
             contentView.addSubview(currentPracticeMessage)
@@ -183,5 +186,17 @@ extension UIButton {
         self.layer.cornerRadius = self.frame.height / 2
         self.layer.borderColor = UIColor.practiceBlue.cgColor
         self.layer.borderWidth = 1
+    }
+}
+
+extension Array {
+    // 数组随机排序 //
+    public func shuffle() -> Array {
+        var list = self
+        for index in 0..<list.count {
+            let newIndex = Int(arc4random_uniform(UInt32(list.count - index))) + index
+            if index != newIndex { list.swapAt(index, newIndex) }
+        }
+        return list
     }
 }
