@@ -56,8 +56,8 @@ class PracticeWrongViewController: UIViewController {
     func reloadDataAndView() {
         PracticeWrongHelper.getWrong(success: { practiceWrong in
             self.practiceWrong = practiceWrong
-            self.practiceWrongTableView.reloadData()
             self.reloadTitleView()
+            self.practiceWrongTableView.reloadData()
         }) { error in }
     }
     
@@ -67,7 +67,7 @@ class PracticeWrongViewController: UIViewController {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 21)
         
         // 错题不为零时显示错题数
-        if practiceWrong.ques.count != 0 { titleLabel.text = "我的错题 (\(practiceWrong.ques.count))" }
+        if practiceWrong.data.ques.count != 0 { titleLabel.text = "我的错题 (\(practiceWrong.data.ques.count))" }
         
         titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
@@ -80,7 +80,7 @@ extension PracticeWrongViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if practiceWrong == nil { return 0 }
-        return practiceWrong.ques.count
+        return practiceWrong.data.ques.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -99,10 +99,10 @@ extension PracticeWrongViewController: UITableViewDataSource {
         let indexPath = self.practiceWrongTableView.indexPath(for: button.superview?.superview as! WrongViewCell)
         
         if button.image(for: .normal) == #imageLiteral(resourceName: "practiceIsCollected") {
-            PracticeCollectionHelper.deleteCollection(quesType: (self.practiceWrong?.ques[(indexPath?.row)!].type)!, quesID: String((self.practiceWrong?.ques[(indexPath?.row)!].id)!)) // 删除云端数据
+            PracticeCollectionHelper.deleteCollection(quesType: (self.practiceWrong?.data.ques[(indexPath?.row)!].quesType)!, quesID: String((self.practiceWrong?.data.ques[(indexPath?.row)!].quesID)!)) // 删除云端数据
             SwiftMessages.showSuccessMessage(body: "移除成功")
         } else {
-            PracticeCollectionHelper.addCollection(quesType: (self.practiceWrong?.ques[(indexPath?.row)!].type)!, quesID: String((self.practiceWrong?.ques[(indexPath?.row)!].id)!)) // 增加云端数据
+            PracticeCollectionHelper.addCollection(quesType: (self.practiceWrong?.data.ques[(indexPath?.row)!].quesType)!, quesID: String((self.practiceWrong?.data.ques[(indexPath?.row)!].quesID)!)) // 增加云端数据
             SwiftMessages.showSuccessMessage(body: "收藏成功")
         }
         
@@ -118,9 +118,9 @@ extension PracticeWrongViewController: UITableViewDataSource {
         let cancelButton = CancelButton(title: "再留一段时间", action: nil)
         let removeButton = DestructiveButton(title: "我会了, 移走吧", dismissOnTap: true) {
             button.switchIconAnimation()
-            PracticeWrongHelper.deleteWrong(quesType: (self.practiceWrong?.ques[(indexPath?.row)!].type)!, quesID: String((self.practiceWrong?.ques[(indexPath?.row)!].id)!)) // 删除云端数据
-            self.practiceWrong.ques.remove(at: (indexPath?.row)!) // 删除本地数据
-            self.practiceWrongTableView.deleteRows(at: [indexPath!], with: .right) // 删除界面
+            PracticeWrongHelper.deleteWrong(quesType: (self.practiceWrong?.data.ques[(indexPath?.row)!].quesType)!, quesID: String((self.practiceWrong?.data.ques[(indexPath?.row)!].quesID)!)) // 删除云端数据
+            self.practiceWrong.data.ques.remove(at: (indexPath?.row)!) // 删除本地数据
+            self.practiceWrongTableView.deleteRows(at: [indexPath!], with: .right) // 删除界面单元
             self.reloadTitleView() // 刷新标题
             SwiftMessages.showSuccessMessage(body: "成功移除") // 提示成功
         }
