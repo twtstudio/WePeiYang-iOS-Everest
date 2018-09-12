@@ -40,23 +40,19 @@ class WrongViewCell: UITableViewCell {
         self.init(style: .default, reuseIdentifier: "WrongViewCell")
         
         // 课程类型 //
-        var classID = ""
+        var classID = "2"
         let courseID = Int(practiceWrong.data.ques[index].courseID)!
         if courseID == 1 {
             classID = "1"
-        } else if courseID > 21 {
-            classID = "3"
-        } else { classID = "2" }
+        } else if courseID > 21 { classID = "3" }
         
-        classTypeBubbleLabel.text = classTypeDictionary[classID] // FIXME: courseID -> classID
-        classTypeBubbleLabel.frame = CGRect(x: 20, y: 16, width: CGFloat((classTypeBubbleLabel.text?.count)!) * 20 + 24, height: 33)
-        classTypeBubbleLabel.setPracticeBubbleLabel()
+        classTypeBubbleLabel.frame.origin = CGPoint(x: 20, y: 16)
+        classTypeBubbleLabel.setPracticeBubbleLabel(withText: classTypeDictionary[classID]!)
         contentView.addSubview(classTypeBubbleLabel)
         
         // 题目类型 //
-        questionTypeBubbleLabel.text = questionTypeDictionary[practiceWrong.data.ques[index].quesType]
-        questionTypeBubbleLabel.frame = CGRect(x: classTypeBubbleLabel.frame.maxX + 4, y: classTypeBubbleLabel.frame.origin.y, width: CGFloat((questionTypeBubbleLabel.text?.count)!) * 20 + 24, height: 33)
-        questionTypeBubbleLabel.setPracticeBubbleLabel()
+        questionTypeBubbleLabel.frame.origin = CGPoint(x: classTypeBubbleLabel.frame.maxX + 4, y: classTypeBubbleLabel.frame.origin.y)
+        questionTypeBubbleLabel.setPracticeBubbleLabel(withText: questionTypeDictionary[practiceWrong.data.ques[index].quesType]!)
         contentView.addSubview(questionTypeBubbleLabel)
         
         // 题目内容 //
@@ -70,7 +66,7 @@ class WrongViewCell: UITableViewCell {
             var labelMaxY = 0
             for i in 0..<practiceWrong.data.ques[index].option.count {
                 let questionOptionLabel = UILabel()
-                questionOptionLabel.text = "\(String(describing: UnicodeScalar(i + 65)!)). \(practiceWrong.data.ques[index].option[i])"
+                questionOptionLabel.text = "\(String(describing: UnicodeScalar(i + 65)!)). \(practiceWrong.data.ques[index].option[i])" // 利用 Unicode 获得选项字母序号
                 questionOptionLabel.frame.origin = CGPoint(x: questionContentLabel.frame.origin.x, y: questionContentLabel.frame.maxY + CGFloat(labelMaxY + 12))
                 questionOptionLabel.textColor = .darkGray
                 questionOptionLabel.setFlexibleHeight(andFixedWidth: deviceWidth - 40)
@@ -125,10 +121,14 @@ class WrongViewCell: UITableViewCell {
 
 extension UILabel {
     // 刷题气泡标签 //
-    func setPracticeBubbleLabel() {
-        // 注意先设置 UILabel 的 frame 后再调用, 因为 layer 基于 size 才有效
+    func setPracticeBubbleLabel(withText text: String, fontSize: CGFloat = 15) {
+        self.text = text
         self.textColor = .practiceBlue
         self.textAlignment = .center
+        self.font = UIFont.systemFont(ofSize: fontSize)
+        self.sizeToFit()
+        self.width += 19
+        self.height += 12
         self.layer.cornerRadius = self.frame.height / 2
         self.layer.borderColor = UIColor.practiceBlue.cgColor
         self.layer.borderWidth = 1

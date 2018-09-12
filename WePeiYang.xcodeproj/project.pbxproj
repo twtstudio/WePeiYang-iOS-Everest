@@ -206,6 +206,9 @@
 		780CCE1220FEE3B600FFBE7A /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780CCE0D20FEE3B600FFBE7A /* UserView.swift */; };
 		780CCE1320FEE3B600FFBE7A /* PracticeHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780CCE0F20FEE3B600FFBE7A /* PracticeHomeViewController.swift */; };
 		78238C3021198D69007CC844 /* WrongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78238C2F21198D69007CC844 /* WrongView.swift */; };
+		783588FC2147DCE00026167C /* PracticeHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783588FB2147DCE00026167C /* PracticeHistoryViewController.swift */; };
+		783588FF2147E30B0026167C /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783588FE2147E30B0026167C /* HistoryView.swift */; };
+		783589022147E3AE0026167C /* PracticeHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783589012147E3AE0026167C /* PracticeHistoryModel.swift */; };
 		785A093D213A7088007A2E3C /* PracticeCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785A093C213A7088007A2E3C /* PracticeCollectionModel.swift */; };
 		785A0941213A722E007A2E3C /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785A0940213A722E007A2E3C /* CollectionView.swift */; };
 		785A0943213A73DB007A2E3C /* PracticeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785A0942213A73DB007A2E3C /* PracticeCollectionViewController.swift */; };
@@ -504,6 +507,9 @@
 		780CCE0D20FEE3B600FFBE7A /* UserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		780CCE0F20FEE3B600FFBE7A /* PracticeHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeHomeViewController.swift; sourceTree = "<group>"; };
 		78238C2F21198D69007CC844 /* WrongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongView.swift; sourceTree = "<group>"; };
+		783588FB2147DCE00026167C /* PracticeHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeHistoryViewController.swift; sourceTree = "<group>"; };
+		783588FE2147E30B0026167C /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		783589012147E3AE0026167C /* PracticeHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeHistoryModel.swift; sourceTree = "<group>"; };
 		785A093C213A7088007A2E3C /* PracticeCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCollectionModel.swift; sourceTree = "<group>"; };
 		785A0940213A722E007A2E3C /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		785A0942213A73DB007A2E3C /* PracticeCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCollectionViewController.swift; sourceTree = "<group>"; };
@@ -1054,6 +1060,40 @@
 			path = HomePage;
 			sourceTree = "<group>";
 		};
+		783588F92147DCA20026167C /* HistoryPage */ = {
+			isa = PBXGroup;
+			children = (
+				783588FA2147DCBF0026167C /* Controller */,
+				783589002147E3940026167C /* Model */,
+				783588FD2147E2EE0026167C /* View */,
+			);
+			path = HistoryPage;
+			sourceTree = "<group>";
+		};
+		783588FA2147DCBF0026167C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				783588FB2147DCE00026167C /* PracticeHistoryViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		783588FD2147E2EE0026167C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				783588FE2147E30B0026167C /* HistoryView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		783589002147E3940026167C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				783589012147E3AE0026167C /* PracticeHistoryModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		785A093A213A702F007A2E3C /* CollectionPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -1576,6 +1616,7 @@
 			isa = PBXGroup;
 			children = (
 				780CCE1420FEE41E00FFBE7A /* HomePage */,
+				783588F92147DCA20026167C /* HistoryPage */,
 				78865AC02112F0F00055161F /* WrongPage */,
 				785A093A213A702F007A2E3C /* CollectionPage */,
 				78C5801721381324003F2C8E /* UploadPage */,
@@ -2069,6 +2110,7 @@
 				365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */,
 				364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */,
 				36449E491FA4BA9B0036766B /* Applicant.swift in Sources */,
+				783588FF2147E30B0026167C /* HistoryView.swift in Sources */,
 				36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */,
 				B585F3672102F40700950C00 /* QuestionCell.swift in Sources */,
 				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
@@ -2207,6 +2249,7 @@
 				B52824B0213E2CC5009E9226 /* TwTKeychain.swift in Sources */,
 				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
 				36073D091F223FC1001317A7 /* RateView.swift in Sources */,
+				783588FC2147DCE00026167C /* PracticeHistoryViewController.swift in Sources */,
 				B10253D61EC84ED20064373A /* Book.swift in Sources */,
 				B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */,
 				B10253DC1EC84ED20064373A /* Review.swift in Sources */,
@@ -2243,6 +2286,7 @@
 				78C5801A21381398003F2C8E /* PracticeUploadViewController.swift in Sources */,
 				0C3ADF481F697EE100388C19 /* MyLostFoundTableViewCell.swift in Sources */,
 				78865AC42112F2A00055161F /* PracticeWrongViewController.swift in Sources */,
+				783589022147E3AE0026167C /* PracticeHistoryModel.swift in Sources */,
 				365A8A251FB9BA8500B15443 /* ClasstableDataManager.swift in Sources */,
 				B10253DA1EC84ED20064373A /* ReadBeacon.swift in Sources */,
 				78238C3021198D69007CC844 /* WrongView.swift in Sources */,

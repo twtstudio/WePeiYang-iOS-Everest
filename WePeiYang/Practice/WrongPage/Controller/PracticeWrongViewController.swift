@@ -37,13 +37,6 @@ class PracticeWrongViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.tintColor = .white
         
-        /* 标题 */
-        let titleLabel = UILabel(text: "我的错题")
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 21)
-        titleLabel.textColor = .white
-        titleLabel.sizeToFit()
-        navigationItem.titleView = titleLabel
-        
         /* 错题列表视图 */
         practiceWrongTableView.frame = self.view.bounds
         practiceWrongTableView.backgroundColor = .clear
