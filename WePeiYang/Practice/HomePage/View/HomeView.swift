@@ -31,29 +31,6 @@ class HomeViewCell: UITableViewCell {
     /* 单元高度 */
     var cellHeight: CGFloat = 0.0
     
-    // 创建课程气泡按钮 (自动换行) 方法 //
-//    func addBubbleCourseButton(intoSuperView superView: UIView, withTitleArray titleArray: [String]) {
-//        var edgeWidth: CGFloat = 0
-//        var edgeHeight: CGFloat = 54
-//        for index in 0...titleArray.count - 1 {
-//            let length = CGFloat(titleArray[index].count) * 20
-//            let bubbleButton = UIButton(frame: CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33))
-//
-//            bubbleButton.setTitle(titleArray[index], for: .normal)
-//            bubbleButton.setPracticeBubbleButton()
-//            bubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
-//
-//            if 20 + edgeWidth + length > deviceWidth - 40 {
-//                edgeWidth = 0
-//                edgeHeight += bubbleButton.frame.size.height + 16
-//                bubbleButton.frame = CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33)
-//            }
-//            edgeWidth = bubbleButton.frame.size.width + bubbleButton.frame.origin.x - 20
-//
-//            superView.addSubview(bubbleButton)
-//        }
-//    }
-    
     convenience init(byModel practiceStudent: PracticeStudentModel, withStyle style: HomeViewCellStyle) {
         self.init(style: .default, reuseIdentifier: "HomeViewCell")
         
@@ -82,17 +59,16 @@ class HomeViewCell: UITableViewCell {
                 var courseName = titleArray[index].courseName
                 if courseName.hasPrefix("第") { courseName.removeFirst(4) }
                 
-                let length = CGFloat(courseName.count) * 20
-                let bubbleButton = UIButton(frame: CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33))
-
-                bubbleButton.setTitle(courseName, for: .normal)
-                bubbleButton.setPracticeBubbleButton()
+                let bubbleButton = UIButton()
+                bubbleButton.frame.origin = CGPoint(x: 24 + edgeWidth, y: edgeHeight)
+                bubbleButton.setPracticeBubbleButton(withTitle: courseName)
                 bubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
 
+                let length = CGFloat(courseName.count) * 20
                 if 20 + edgeWidth + length > deviceWidth - 40 {
                     edgeWidth = 0
                     edgeHeight += bubbleButton.frame.size.height + 16
-                    bubbleButton.frame = CGRect(x: 24 + edgeWidth, y: edgeHeight, width: length + 24, height: 33)
+                    bubbleButton.frame.origin = CGPoint(x: 24 + edgeWidth, y: edgeHeight)
                 }
                 edgeWidth = bubbleButton.frame.size.width + bubbleButton.frame.origin.x - 20
 
@@ -127,19 +103,13 @@ class HomeViewCell: UITableViewCell {
             currentPracticeMessage.frame.origin = CGPoint(x: deviceWidth - currentPracticeMessage.frame.size.width - 20, y: cellTitleLabel.frame.maxY + 10)
             contentView.addSubview(currentPracticeMessage)
             
-            let continueBubbleButton = UIButton(frame: CGRect(x: deviceWidth - 152, y: currentPracticeCourse.frame.maxY + 10, width: 64, height: 33))
-            continueBubbleButton.setTitle("继续", for: .normal)
-            continueBubbleButton.setPracticeBubbleButton()
+            let continueBubbleButton = UIButton()
+            continueBubbleButton.setPracticeBubbleButton(withTitle: "继续")
+            continueBubbleButton.frame.origin = CGPoint(x: deviceWidth - continueBubbleButton.frame.size.width - 20, y: currentPracticeCourse.frame.maxY + 12)
             continueBubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
             contentView.addSubview(continueBubbleButton)
             
-            let abandonBubbleButton = UIButton(frame: CGRect(x: deviceWidth - 84, y: continueBubbleButton.frame.origin.y, width: 64, height: 33))
-            abandonBubbleButton.setTitle("放弃", for: .normal)
-            abandonBubbleButton.setPracticeBubbleButton()
-            abandonBubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
-            contentView.addSubview(abandonBubbleButton)
-            
-            cellHeight = abandonBubbleButton.frame.maxY + 20
+            cellHeight = continueBubbleButton.frame.maxY + 20
         }
         
         cellHeight = (contentView.subviews.last?.frame.maxY)! + 20
@@ -180,9 +150,12 @@ class HomeHeaderCell: UICollectionViewCell {
 
 extension UIButton {
     // 刷题气泡按钮 //
-    func setPracticeBubbleButton() {
-        // 注意先设置 UIButton 的 frame 后再调用, 因为 layer 基于 size 才有效
+    func setPracticeBubbleButton(withTitle title: String, fontSize: CGFloat = 15) {
+        self.setTitle(title, for: .normal)
         self.setTitleColor(.practiceBlue, for: .normal)
+        self.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
+        self.sizeToFit()
+        self.width += 19
         self.layer.cornerRadius = self.frame.height / 2
         self.layer.borderColor = UIColor.practiceBlue.cgColor
         self.layer.borderWidth = 1

@@ -37,23 +37,19 @@ class CollectionViewCell: UITableViewCell {
         self.init(style: .default, reuseIdentifier: "CollectionViewCell")
         
         // 课程类型 //
-        var classID = ""
+        var classID = "2"
         let courseID = Int(practiceCollection.data.ques[index].courseID)!
         if courseID == 1 {
             classID = "1"
-        } else if courseID > 21 {
-            classID = "3"
-        } else { classID = "2" }
+        } else if courseID > 21 { classID = "3" }
         
-        classTypeBubbleLabel.text = classTypeDictionary[classID] // FIXME: courseID -> classID
-        classTypeBubbleLabel.frame = CGRect(x: 20, y: 16, width: CGFloat((classTypeBubbleLabel.text?.count)!) * 20 + 24, height: 33)
-        classTypeBubbleLabel.setPracticeBubbleLabel()
+        classTypeBubbleLabel.frame.origin = CGPoint(x: 20, y: 16)
+        classTypeBubbleLabel.setPracticeBubbleLabel(withText: classTypeDictionary[classID]!)
         contentView.addSubview(classTypeBubbleLabel)
         
         // 题目类型 //
-        questionTypeBubbleLabel.text = questionTypeDictionary[practiceCollection.data.ques[index].quesType]
-        questionTypeBubbleLabel.frame = CGRect(x: classTypeBubbleLabel.frame.maxX + 4, y: classTypeBubbleLabel.frame.origin.y, width: CGFloat((questionTypeBubbleLabel.text?.count)!) * 20 + 24, height: 33)
-        questionTypeBubbleLabel.setPracticeBubbleLabel()
+        questionTypeBubbleLabel.frame.origin = CGPoint(x: classTypeBubbleLabel.frame.maxX + 4, y: classTypeBubbleLabel.frame.origin.y)
+        questionTypeBubbleLabel.setPracticeBubbleLabel(withText: questionTypeDictionary[practiceCollection.data.ques[index].quesType]!)
         contentView.addSubview(questionTypeBubbleLabel)
         
         // 题目内容 //

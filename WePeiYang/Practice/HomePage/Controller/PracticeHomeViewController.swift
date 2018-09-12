@@ -343,8 +343,7 @@ extension PracticeHomeViewController: UITableViewDelegate {
         switch row {
         case 0:
             // 练习历史 //
-            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
-            tableView.deselectRow(at: indexPath, animated: true)
+            self.navigationController?.pushViewController(PracticeHistoryViewController(), animated: true)
         case 1:
             // 我的错题 //
             self.navigationController?.pushViewController(PracticeWrongViewController(), animated: true)
@@ -355,7 +354,7 @@ extension PracticeHomeViewController: UITableViewDelegate {
             // 我的上传 //
             self.navigationController?.pushViewController(PracticeUploadViewController(), animated: true)
         default:
-            tableView.deselectRow(at: indexPath, animated: true)
+            return
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
