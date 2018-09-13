@@ -3,6 +3,7 @@
 //  WePeiYang
 //
 //  Created by Tigris on 16/8/7.
+//  Modified by JasonEWNL on 2018/9/13.
 //  Copyright © 2016年 Qin Yubo. All rights reserved.
 //
 
@@ -33,7 +34,11 @@ class BicycleUser {
     private init() {}
     
     func auth(success: @escaping () -> (), failure: ((String)->())? = nil) {
-        let parameters = ["wpy_tk": "\(TwTUser.shared.token!)"]
+        
+        // let parameters = ["wpy_tk": "\(TwTUser.shared.token!)"]
+        // Modified by JasonEWNL
+        var parameters: [String: String]
+        if let token = TwTUser.shared.token { parameters = ["wpy_tk": "\(token)"] } else { return }
 
         SolaSessionManager.solaSession(type: .post, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.authURL, parameters: parameters, success: { dict in
             if let errno = dict["errno"] as? Int,
