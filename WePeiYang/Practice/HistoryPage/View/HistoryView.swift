@@ -66,25 +66,30 @@ class HistoryViewCell: UITableViewCell {
         courseNameLabel.sizeToFit()
         contentView.addSubview(courseNameLabel)
         
-        // 练习进度 //
-        if let doneCount = practiceHistory.data[index].doneCount,
-            let quesCount = practiceHistory.data[index].quesCount {
-            practiceProgressLabel.text = "\(doneCount) / \(quesCount) - 第 \(practiceHistory.data[index].doneIndex) 题"
-            practiceProgressLabel.textColor = .darkGray
-            practiceProgressLabel.sizeToFit()
-            practiceProgressLabel.frame.origin = CGPoint(x: deviceWidth - practiceProgressLabel.frame.size.width - 20, y: classTypeLabel.frame.origin.y)
-            contentView.addSubview(practiceProgressLabel)
-        }
-        
-        // 正确率 //
-        if let correctRate = practiceHistory.data[index].score {
-            correctRateLabel.textColor = .red
-            let correctRateText = NSMutableAttributedString(string: "正确率 \(correctRate)%") // 使用富文本改变字体
-            correctRateText.addAttribute(.foregroundColor, value: UIColor.darkGray, range: NSMakeRange(0, 4))
-            correctRateLabel.attributedText = correctRateText
-            correctRateLabel.frame.origin = CGPoint(x: classTypeLabel.frame.origin.x, y: classTypeLabel.frame.maxY + 20)
-            correctRateLabel.sizeToFit()
-            contentView.addSubview(correctRateLabel)
+        switch practiceHistory.data[index].type {
+        case "0":
+            // 练习进度 //
+            if let doneCount = practiceHistory.data[index].doneCount,
+                let quesCount = practiceHistory.data[index].quesCount {
+                practiceProgressLabel.text = "进度: \(doneCount) / \(quesCount) - 第 \(practiceHistory.data[index].doneIndex) 题"
+                practiceProgressLabel.textColor = .darkGray
+                practiceProgressLabel.sizeToFit()
+                practiceProgressLabel.frame.origin = CGPoint(x: classTypeLabel.frame.origin.x, y: classTypeLabel.frame.maxY + 20)
+                contentView.addSubview(practiceProgressLabel)
+            }
+        case "1":
+            // 正确率 //
+            if let correctRate = practiceHistory.data[index].score {
+                correctRateLabel.textColor = .red
+                let correctRateText = NSMutableAttributedString(string: "正确率: \(correctRate)%") // 使用富文本改变字体
+                correctRateText.addAttribute(.foregroundColor, value: UIColor.darkGray, range: NSMakeRange(0, 5))
+                correctRateLabel.attributedText = correctRateText
+                correctRateLabel.frame.origin = CGPoint(x: classTypeLabel.frame.origin.x, y: classTypeLabel.frame.maxY + 20)
+                correctRateLabel.sizeToFit()
+                contentView.addSubview(correctRateLabel)
+            }
+        default:
+            return
         }
         
         // 练习时间 //

@@ -151,6 +151,7 @@ class PracticeHomeViewController: UIViewController {
     
 }
 
+// MARK: -
 /* 滑动视图代理 */
 extension PracticeHomeViewController: UIScrollViewDelegate {
     
@@ -172,6 +173,7 @@ extension PracticeHomeViewController: UIScrollViewDelegate {
     
 }
 
+// MARK: -
 /* 表单视图数据 */
 extension PracticeHomeViewController: UITableViewDataSource {
     
@@ -362,6 +364,7 @@ extension PracticeHomeViewController: UITableViewDelegate {
     
 }
 
+// MARK: -
 /* 集合视图数据 */
 extension PracticeHomeViewController: UICollectionViewDataSource {
     

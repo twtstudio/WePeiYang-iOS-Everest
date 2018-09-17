@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class PracticeHistoryViewController: UIViewController {
     
@@ -19,8 +20,12 @@ class PracticeHistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        practiceHistoryTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+            self.reloadDataAndView()
+            self.practiceHistoryTableView.mj_header.endRefreshing()
+        })
         
-        // 刷新所有 //
+        // 加载数据与视图 //
         self.reloadDataAndView()
     }
     
@@ -36,6 +41,10 @@ class PracticeHistoryViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.tintColor = .white
         
+        /* 刷新 */
+        let practiceRefresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshDataAndView))
+        navigationItem.rightBarButtonItem = practiceRefresh
+        
         /* 历史列表视图 */
         practiceHistoryTableView.frame = self.view.bounds
         practiceHistoryTableView.backgroundColor = .clear
@@ -44,16 +53,7 @@ class PracticeHistoryViewController: UIViewController {
         self.view.addSubview(practiceHistoryTableView)
     }
     
-    // 刷新所有 //
-    func reloadDataAndView() {
-        PracticeHistoryHelper.getHistory(success: { practiceHistory in
-            self.practiceHistory = practiceHistory
-            self.reloadTitleView()
-            self.practiceHistoryTableView.reloadData()
-        }) { error in }
-    }
-    
-    // 刷新标题 //
+    // 加载标题 //
     func reloadTitleView() {
         let titleLabel = UILabel(text: "我的历史", color: .white)
         titleLabel.font = UIFont.boldSystemFont(ofSize: 21)
@@ -65,8 +65,27 @@ class PracticeHistoryViewController: UIViewController {
         self.navigationItem.titleView = titleLabel
     }
     
+    // 加载数据与视图 //
+    func reloadDataAndView() {
+        PracticeHistoryHelper.getHistory(success: { practiceHistory in
+            self.practiceHistory = practiceHistory
+            self.reloadTitleView()
+            self.practiceHistoryTableView.reloadData()
+        }) { error in }
+    }
+    
+    // 刷新数据与视图 //
+    @objc func refreshDataAndView() {
+        practiceHistoryTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+            self.reloadDataAndView()
+            self.practiceHistoryTableView.mj_header.endRefreshing()
+        })
+        practiceHistoryTableView.mj_header.beginRefreshing()
+    }
+    
 }
 
+// MARK: -
 /* 表单视图数据 */
 extension PracticeHistoryViewController: UITableViewDataSource {
     
@@ -108,6 +127,10 @@ extension PracticeHistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(practiceHistory.data[indexPath.row])
     }
     
 }

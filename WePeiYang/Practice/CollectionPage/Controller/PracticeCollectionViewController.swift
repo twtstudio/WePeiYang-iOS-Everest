@@ -7,21 +7,26 @@
 //
 
 import UIKit
+import MJRefresh
 import PopupDialog
 
 class PracticeCollectionViewController: UIViewController {
     
-    /* 错题模型 */
+    /* 收藏模型 */
     var practiceCollection: PracticeCollectionModel!
     
-    /* 错题列表视图 */
+    /* 收藏列表视图 */
     let practiceCollectionTableView = UITableView(frame: CGRect(), style: .grouped)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        practiceCollectionTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+            self.reloadDataAndView()
+            self.practiceCollectionTableView.mj_header.endRefreshing()
+        })
         
-        // 刷新所有 //
+        // 加载数据与视图 //
         self.reloadDataAndView()
     }
     
@@ -37,7 +42,11 @@ class PracticeCollectionViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.tintColor = .white
         
-        /* 错题列表视图 */
+        /* 刷新 */
+        let practiceRefresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshDataAndView))
+        navigationItem.rightBarButtonItem = practiceRefresh
+        
+        /* 收藏列表视图 */
         practiceCollectionTableView.frame = self.view.bounds
         practiceCollectionTableView.backgroundColor = .clear
         practiceCollectionTableView.delegate = self
@@ -45,7 +54,19 @@ class PracticeCollectionViewController: UIViewController {
         self.view.addSubview(practiceCollectionTableView)
     }
     
-    // 刷新所有 //
+    // 加载标题 //
+    func reloadTitleView() {
+        let titleLabel = UILabel(text: "我的收藏", color: .white)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 21)
+        
+        // 收藏不为零时显示错题数
+        if practiceCollection.data.ques.count != 0 { titleLabel.text = "我的收藏 (\(practiceCollection.data.ques.count))" }
+        
+        titleLabel.sizeToFit()
+        self.navigationItem.titleView = titleLabel
+    }
+    
+    // 加载数据与视图 //
     func reloadDataAndView() {
         PracticeCollectionHelper.getCollection(success: { practiceCollection in
             self.practiceCollection = practiceCollection
@@ -54,16 +75,13 @@ class PracticeCollectionViewController: UIViewController {
         }) { error in }
     }
     
-    // 刷新标题 //
-    func reloadTitleView() {
-        let titleLabel = UILabel(text: "我的收藏", color: .white)
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 21)
-        
-        // 错题不为零时显示错题数
-        if practiceCollection.data.ques.count != 0 { titleLabel.text = "我的收藏 (\(practiceCollection.data.ques.count))" }
-        
-        titleLabel.sizeToFit()
-        self.navigationItem.titleView = titleLabel
+    // 刷新数据与视图 //
+    @objc func refreshDataAndView() {
+        practiceCollectionTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+            self.reloadDataAndView()
+            self.practiceCollectionTableView.mj_header.endRefreshing()
+        })
+        practiceCollectionTableView.mj_header.beginRefreshing()
     }
     
 }

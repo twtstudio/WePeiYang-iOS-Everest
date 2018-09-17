@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 import PopupDialog
 
 class PracticeWrongViewController: UIViewController {
@@ -20,8 +21,12 @@ class PracticeWrongViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        practiceWrongTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+            self.reloadDataAndView()
+            self.practiceWrongTableView.mj_header.endRefreshing()
+        })
 
-        // 刷新所有 //
+        // 加载数据与视图 //
         self.reloadDataAndView()
     }
     
@@ -37,6 +42,10 @@ class PracticeWrongViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.tintColor = .white
         
+        /* 刷新 */
+        let practiceRefresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshDataAndView))
+        navigationItem.rightBarButtonItem = practiceRefresh
+        
         /* 错题列表视图 */
         practiceWrongTableView.frame = self.view.bounds
         practiceWrongTableView.backgroundColor = .clear
@@ -45,16 +54,7 @@ class PracticeWrongViewController: UIViewController {
         self.view.addSubview(practiceWrongTableView)
     }
     
-    // 刷新所有 //
-    func reloadDataAndView() {
-        PracticeWrongHelper.getWrong(success: { practiceWrong in
-            self.practiceWrong = practiceWrong
-            self.reloadTitleView()
-            self.practiceWrongTableView.reloadData()
-        }) { error in }
-    }
-    
-    // 刷新标题 //
+    // 加载标题 //
     func reloadTitleView() {
         let titleLabel = UILabel(text: "我的错题", color: .white)
         titleLabel.font = UIFont.boldSystemFont(ofSize: 21)
@@ -64,6 +64,24 @@ class PracticeWrongViewController: UIViewController {
         
         titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
+    }
+    
+    // 加载数据与视图 //
+    func reloadDataAndView() {
+        PracticeWrongHelper.getWrong(success: { practiceWrong in
+            self.practiceWrong = practiceWrong
+            self.reloadTitleView()
+            self.practiceWrongTableView.reloadData()
+        }) { error in }
+    }
+    
+    // 刷新数据与视图 //
+    @objc func refreshDataAndView() {
+        practiceWrongTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+            self.reloadDataAndView()
+            self.practiceWrongTableView.mj_header.endRefreshing()
+        })
+        practiceWrongTableView.mj_header.beginRefreshing()
     }
     
 }
