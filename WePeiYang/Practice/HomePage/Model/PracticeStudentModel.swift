@@ -33,6 +33,7 @@ struct PracticeStudentHelper {
     }
 }
 
+// MARK: -
 struct PracticeStudentModel: Codable {
     let errorCode: Int
     let message: String
@@ -46,11 +47,15 @@ struct PracticeStudentModel: Codable {
 
 struct PracticeStudentData: Codable {
     let id: Int
-    let twtName, userNumber, avatarURL, titleName: String
-    let doneCount, errorCount: String
+    let twtName, userNumber: String
+    let avatarURL: String
+    let titleName, doneCount, errorCount: String
     let courseCount: Int
-    let collectCount, currentCourseID, currentCourseName, currentCourseDoneCount: String
-    let currentQuesType, currentCourseQuesCount, currentCourseIndex, latestCourseName: String
+    let collectCount, currentCourseID, currentCourseName: String
+    let currentCourseDoneCount: Int
+    let currentQuesType, currentCourseQuesCount: String
+    let currentCourseIndex: Int
+    let currentCourseWriteString, latestCourseName: String
     let latestCourseTimestamp: Int
     let qSelect: [QuickSelect]
     
@@ -70,6 +75,7 @@ struct PracticeStudentData: Codable {
         case currentQuesType = "current_ques_type"
         case currentCourseQuesCount = "current_course_ques_count"
         case currentCourseIndex = "current_course_index"
+        case currentCourseWriteString = "current_course_write_string"
         case latestCourseName = "latest_course_name"
         case latestCourseTimestamp = "latest_course_timestamp"
         case qSelect
@@ -86,6 +92,7 @@ struct QuickSelect: Codable {
     }
 }
 
+// MARK: -
 extension PracticeStudentModel {
     init(data: Data) throws {
         self = try newJSONDecoder().decode(PracticeStudentModel.self, from: data)
@@ -151,10 +158,11 @@ extension PracticeStudentData {
         collectCount: String? = nil,
         currentCourseID: String? = nil,
         currentCourseName: String? = nil,
-        currentCourseDoneCount: String? = nil,
+        currentCourseDoneCount: Int? = nil,
         currentQuesType: String? = nil,
         currentCourseQuesCount: String? = nil,
-        currentCourseIndex: String? = nil,
+        currentCourseIndex: Int? = nil,
+        currentCourseWriteString: String? = nil,
         latestCourseName: String? = nil,
         latestCourseTimestamp: Int? = nil,
         qSelect: [QuickSelect]? = nil
@@ -175,6 +183,7 @@ extension PracticeStudentData {
             currentQuesType: currentQuesType ?? self.currentQuesType,
             currentCourseQuesCount: currentCourseQuesCount ?? self.currentCourseQuesCount,
             currentCourseIndex: currentCourseIndex ?? self.currentCourseIndex,
+            currentCourseWriteString: currentCourseWriteString ?? self.currentCourseWriteString,
             latestCourseName: latestCourseName ?? self.latestCourseName,
             latestCourseTimestamp: latestCourseTimestamp ?? self.latestCourseTimestamp,
             qSelect: qSelect ?? self.qSelect

@@ -100,7 +100,7 @@ class HomeViewCell: UITableViewCell {
             
             let currentPracticeMessage = UILabel(text: "\(practiceStudent.data.currentCourseDoneCount) / \(practiceStudent.data.currentCourseQuesCount) - 第 \(practiceStudent.data.currentCourseIndex) 题", color: .darkGray)
             currentPracticeMessage.sizeToFit()
-            currentPracticeMessage.frame.origin = CGPoint(x: deviceWidth - currentPracticeMessage.frame.size.width - 20, y: cellTitleLabel.frame.maxY + 10)
+            currentPracticeMessage.frame.origin = CGPoint(x: currentPracticeCourse.frame.minX, y: currentPracticeCourse.frame.maxY + 16)
             contentView.addSubview(currentPracticeMessage)
             
             let continueBubbleButton = UIButton()
@@ -121,6 +121,7 @@ class HomeViewCell: UITableViewCell {
     
 }
 
+// MARK: -
 class HomeHeaderCell: UICollectionViewCell {
     
     /* 课程图片 */
