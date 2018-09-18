@@ -190,7 +190,6 @@ extension UIButton {
     }
     
     // 引入一个 IndexPath 类型属性, 用于记录 UIButton 所在 UITableViewCell 的 indexPath
-    // 已经利用 .superView.superView 获取到了 UITableViewCell, 此方法暂时废弃
     var indexPath: IndexPath? {
         get { return objc_getAssociatedObject(self, &AssociatedKeys.indexPath) as? IndexPath }
         set { if let newValue = newValue { objc_setAssociatedObject(self, &AssociatedKeys.indexPath, newValue as IndexPath?, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC) } }

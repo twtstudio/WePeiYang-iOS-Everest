@@ -222,11 +222,29 @@ extension PracticeHomeViewController: UITableViewDataSource {
             
             homeViewCell.selectionStyle = .none
             
+            if row == 0 {
+                for bubbleButton in homeViewCell.bubbleButtonArray {
+                    bubbleButton.addTarget(self, action: #selector(clickQuickSelect), for: .touchUpInside)
+                }
+            }
+            
             return homeViewCell
         
         default:
             return UITableViewCell()
         }
+    }
+    
+    @objc func clickQuickSelect(button: UIButton) {
+        // TODO: 等待合并 (以及需要重命名按钮)
+        let title = practiceStudent.data.qSelect[button.tag].courseName
+        let warningCard = PopupDialog(title: title, message: "请选择练习模式", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+        let cancelButton = PracticePopupDialogButton(title: "顺序练习", action: nil)
+        let removeButton = PracticePopupDialogButton(title: "模拟考试", dismissOnTap: true) {
+            
+        }
+        warningCard.addButtons([cancelButton, removeButton])
+        self.present(warningCard, animated: true, completion: nil)
     }
     
 }

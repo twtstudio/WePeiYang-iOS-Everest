@@ -130,7 +130,8 @@ extension PracticeHistoryViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(practiceHistory.data[indexPath.row])
+        // TODO: select action
+        // print(practiceHistory.data[indexPath.row])
     }
     
 }

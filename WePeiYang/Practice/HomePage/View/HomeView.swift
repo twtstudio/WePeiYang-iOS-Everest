@@ -25,6 +25,9 @@ class HomeViewCell: UITableViewCell {
     /* 单元标题 */
     let cellTitleLabel = UILabel(text: "", fontSize: 21)
     
+    /* 快速选择 */
+    var bubbleButtonArray = [UIButton]()
+    
     /* 题目类型 */
     let questionTypeDictionary = ["0":"单选", "1":"多选", "2":"判断"]
     
@@ -60,6 +63,7 @@ class HomeViewCell: UITableViewCell {
                 if courseName.hasPrefix("第") { courseName.removeFirst(4) }
                 
                 let bubbleButton = UIButton()
+                bubbleButton.tag = index
                 bubbleButton.frame.origin = CGPoint(x: 24 + edgeWidth, y: edgeHeight)
                 bubbleButton.setPracticeBubbleButton(withTitle: courseName)
                 bubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
@@ -73,6 +77,7 @@ class HomeViewCell: UITableViewCell {
                 edgeWidth = bubbleButton.frame.size.width + bubbleButton.frame.origin.x - 20
 
                 contentView.addSubview(bubbleButton)
+                bubbleButtonArray.append(bubbleButton)
 
                 if index == titleArray.count - 1 { cellHeight = bubbleButton.frame.maxY + 20 }
             }
