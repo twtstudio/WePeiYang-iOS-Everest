@@ -131,7 +131,10 @@ extension PracticeHistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // TODO: select action
-        // print(practiceHistory.data[indexPath.row])
+        let historyData = practiceHistory.data[indexPath.row]
+        PracticeFigure.practiceType = historyData.type
+        PracticeFigure.classID = historyData.classID
+        PracticeFigure.courseID = historyData.courseID
     }
     
 }

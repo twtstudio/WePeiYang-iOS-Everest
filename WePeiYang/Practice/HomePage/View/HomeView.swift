@@ -17,25 +17,26 @@ enum HomeViewCellStyle: String {
 class HomeViewCell: UITableViewCell {
     
     /* 顶部蓝线 */
-    let topHorizontalLine = UIView(color: .practiceBlue)
+    private let topHorizontalLine = UIView(color: .practiceBlue)
     
     /* 左侧蓝线 */
-    let leftVerticalLine = UIView(color: .practiceBlue)
+    private let leftVerticalLine = UIView(color: .practiceBlue)
     
     /* 单元标题 */
-    let cellTitleLabel = UILabel(text: "", fontSize: 21)
+    private let cellTitleLabel = UILabel(text: "", fontSize: 21)
     
-    /* 快速选择 */
+    /* 快速选择课程按钮 */
     var bubbleButtonArray = [UIButton]()
     
-    /* 题目类型 */
-    let questionTypeDictionary = ["0":"单选", "1":"多选", "2":"判断"]
+    /* 当前练习继续按钮 */
+    let continueBubbleButton = UIButton()
     
     /* 单元高度 */
     var cellHeight: CGFloat = 0.0
     
     convenience init(byModel practiceStudent: PracticeStudentModel, withStyle style: HomeViewCellStyle) {
         self.init(style: .default, reuseIdentifier: "HomeViewCell")
+        let studentData = practiceStudent.data
         
         // 顶部蓝线 //
         topHorizontalLine.frame = CGRect(x: 20, y: 0, width: deviceWidth - 40, height: 1)
@@ -57,58 +58,57 @@ class HomeViewCell: UITableViewCell {
         case .quickSelect:
             var edgeWidth: CGFloat = 0
             var edgeHeight: CGFloat = 54
-            let titleArray = practiceStudent.data.qSelect
+            let titleArray = studentData.qSelect
+            
             for index in 0..<titleArray.count {
                 var courseName = titleArray[index].courseName
                 if courseName.hasPrefix("第") { courseName.removeFirst(4) }
                 
                 let bubbleButton = UIButton()
-                bubbleButton.tag = index
-                bubbleButton.frame.origin = CGPoint(x: 24 + edgeWidth, y: edgeHeight)
+                
                 bubbleButton.setPracticeBubbleButton(withTitle: courseName)
-                bubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
-
-                let length = CGFloat(courseName.count) * 20
-                if 20 + edgeWidth + length > deviceWidth - 40 {
+                if edgeWidth + bubbleButton.frame.size.width > deviceWidth - 20 { // 塞不下就换行
                     edgeWidth = 0
                     edgeHeight += bubbleButton.frame.size.height + 16
-                    bubbleButton.frame.origin = CGPoint(x: 24 + edgeWidth, y: edgeHeight)
                 }
-                edgeWidth = bubbleButton.frame.size.width + bubbleButton.frame.origin.x - 20
-
+                bubbleButton.frame.origin = CGPoint(x: 24 + edgeWidth, y: edgeHeight)
+                
+                bubbleButton.tag = index
+                bubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
                 contentView.addSubview(bubbleButton)
+                
+                edgeWidth = bubbleButton.frame.size.width + bubbleButton.frame.origin.x - 20
                 bubbleButtonArray.append(bubbleButton)
-
-                if index == titleArray.count - 1 { cellHeight = bubbleButton.frame.maxY + 20 }
             }
+            
+            cellHeight = (bubbleButtonArray.last?.frame.maxY)!
         
         // 最新消息 //
         case .latestInformation:
-            let latestInformationMessage = UILabel(text: "高等数学下册选择已更新", color: .darkGray)
+            let latestInformationMessage = UILabel(text: "\(studentData.latestCourseName)已更新", color: .darkGray)
             latestInformationMessage.sizeToFit()
             latestInformationMessage.frame.origin = CGPoint(x: cellTitleLabel.frame.minX, y: cellTitleLabel.frame.maxY + 10)
             contentView.addSubview(latestInformationMessage)
             
-            let latestInformationTime = UILabel(text: "1 小时前", color: .darkGray)
+            let latestInformationTime = UILabel(text: String(studentData.latestCourseTimestamp).date(withFormat: "yyyy-MM-dd hh:mm"), color: .gray)
             latestInformationTime.sizeToFit()
-            latestInformationTime.frame.origin = CGPoint(x: deviceWidth - latestInformationTime.frame.size.width - 20, y: cellTitleLabel.frame.maxY + 10)
+            latestInformationTime.frame.origin = CGPoint(x: deviceWidth - latestInformationTime.frame.size.width - 20, y: latestInformationMessage.frame.maxY + 16)
             contentView.addSubview(latestInformationTime)
             
             cellHeight = latestInformationTime.frame.maxY + 20
             
         // 当前练习 //
         case .currentPractice:
-            let currentPracticeCourse = UILabel(text: practiceStudent.data.currentCourseName + questionTypeDictionary[practiceStudent.data.currentQuesType]!, color: .darkGray)
+            let currentPracticeCourse = UILabel(text: studentData.currentCourseName + PracticeDictionary.questionType[studentData.currentQuesType]!, color: .darkGray)
             currentPracticeCourse.sizeToFit()
             currentPracticeCourse.frame.origin = CGPoint(x: cellTitleLabel.frame.minX, y: cellTitleLabel.frame.maxY + 10)
             contentView.addSubview(currentPracticeCourse)
             
-            let currentPracticeMessage = UILabel(text: "\(practiceStudent.data.currentCourseDoneCount) / \(practiceStudent.data.currentCourseQuesCount) - 第 \(practiceStudent.data.currentCourseIndex) 题", color: .darkGray)
+            let currentPracticeMessage = UILabel(text: "\(studentData.currentCourseDoneCount) / \(studentData.currentCourseQuesCount) - 第 \(studentData.currentCourseIndex) 题", color: .darkGray)
             currentPracticeMessage.sizeToFit()
             currentPracticeMessage.frame.origin = CGPoint(x: currentPracticeCourse.frame.minX, y: currentPracticeCourse.frame.maxY + 16)
             contentView.addSubview(currentPracticeMessage)
             
-            let continueBubbleButton = UIButton()
             continueBubbleButton.setPracticeBubbleButton(withTitle: "继续")
             continueBubbleButton.frame.origin = CGPoint(x: deviceWidth - continueBubbleButton.frame.size.width - 20, y: currentPracticeCourse.frame.maxY + 12)
             continueBubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)

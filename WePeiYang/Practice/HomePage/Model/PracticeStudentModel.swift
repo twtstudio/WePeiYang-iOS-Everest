@@ -20,6 +20,28 @@ struct PracticeAPI { // 参考 Bike 模块, 考虑单独抽出为一个文件
     
 }
 
+struct PracticeDictionary {
+    
+    static let practiceType = ["0":"顺序练习", "1":"模拟考试"]
+    
+    static let questionType = ["0":"单选", "1":"多选", "2":"判断"]
+    
+    static let classType = ["1":"形势与政策", "2":"党课", "3":"网课"]
+    
+}
+
+struct PracticeFigure {
+    
+    static var isAtRight = true
+    
+    static var practiceType = ""
+    
+    static var classID = ""
+    
+    static var courseID = ""
+    
+}
+
 struct PracticeStudentHelper {
     static func getStudent(success: @escaping (PracticeStudentModel)->(), failure: @escaping (Error)->()) {
         SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.student, success: { dic in
