@@ -11,7 +11,7 @@ import UIKit
 class HeadView: UIView {
     
     /* 蓝色背景 */
-    let headBackgroundView: UIView = {
+    private let headBackgroundView: UIView = {
         let headBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: deviceWidth, height: 64))
         headBackgroundView.backgroundColor = .practiceBlue
         
@@ -22,17 +22,17 @@ class HeadView: UIView {
     }()
     
     /* 切换按钮 (题库, 我的) */
-    static func addOptionButton(withText text: String, andX x: CGFloat) -> UIButton {
+    private static func addOptionButton(withText text: String, x: CGFloat) -> UIButton {
         let optionButton = UIButton(frame: CGRect(x: x, y: 10, width: deviceWidth / 2, height: 44))
         
         optionButton.setTitle(text, for: .normal)
-        optionButton.setTitleColor(UIColor.white, for: .normal)
+        optionButton.setTitleColor(.white, for: .normal)
         
         return optionButton
     }
     
-    let userOptionButton = addOptionButton(withText: "我的", andX: deviceWidth / 2)
-    let homeOptionButton = addOptionButton(withText: "题库", andX: 0)
+    let userOptionButton = addOptionButton(withText: "我的", x: deviceWidth / 2)
+    let homeOptionButton = addOptionButton(withText: "题库", x: 0)
     
     /* 白色指示条 */
     let underLine: UIView = {

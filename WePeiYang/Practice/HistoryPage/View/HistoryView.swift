@@ -12,15 +12,12 @@ class HistoryViewCell: UITableViewCell {
     
     /* 练习类型 */
     let practiceTypeBubbleLabel = UILabel()
-    let practiceTypeDictionary = ["0":"顺序练习", "1":"模拟考试"] // 考虑之后抽出
     
     /* 题目类型 */
     let questionTypeBubbleLabel = UILabel()
-    let questionTypeDictionary = ["0":"单选", "1":"多选", "2":"判断"] // 考虑之后抽出
     
     /* 课程类型 */
     let classTypeLabel = UILabel()
-    let classTypeDictionary = ["1":"形势与政策", "2":"党课", "3":"网课"] // 考虑之后抽出
     
     /* 课程名称 */
     let courseNameLabel = UILabel()
@@ -39,47 +36,50 @@ class HistoryViewCell: UITableViewCell {
     
     convenience init(byModel practiceHistory: PracticeHistoryModel, withIndex index: Int) {
         self.init(style: .default, reuseIdentifier: "HistoryViewCell")
+        let historyData = practiceHistory.data[index]
         
         // 练习类型 //
         practiceTypeBubbleLabel.frame.origin = CGPoint(x: 20, y: 16)
-        practiceTypeBubbleLabel.setPracticeBubbleLabel(withText: practiceTypeDictionary[practiceHistory.data[index].type]!)
+        practiceTypeBubbleLabel.setPracticeBubbleLabel(withText: PracticeDictionary.practiceType[historyData.type]!)
         contentView.addSubview(practiceTypeBubbleLabel)
         
         // 题目类型 //
-        if let quesType = practiceHistory.data[index].quesType {
+        if let quesType = historyData.quesType {
             questionTypeBubbleLabel.frame.origin = CGPoint(x: practiceTypeBubbleLabel.frame.maxX + 4, y: practiceTypeBubbleLabel.frame.origin.y)
-            questionTypeBubbleLabel.setPracticeBubbleLabel(withText: questionTypeDictionary[quesType]!)
+            questionTypeBubbleLabel.setPracticeBubbleLabel(withText: PracticeDictionary.questionType[quesType]!)
             contentView.addSubview(questionTypeBubbleLabel)
         }
         
         // 课程类型 //
-        classTypeLabel.text = classTypeDictionary[practiceHistory.data[index].classID]
+        classTypeLabel.text = PracticeDictionary.classType[historyData.classID]
         classTypeLabel.frame.origin = CGPoint(x: practiceTypeBubbleLabel.frame.origin.x, y: practiceTypeBubbleLabel.frame.maxY + 20)
         classTypeLabel.sizeToFit()
         contentView.addSubview(classTypeLabel)
         
         // 课程名称 //
-        var courseName = practiceHistory.data[index].courseName
-        if courseName.hasPrefix("第") { courseName.removeFirst(4) }
-        courseNameLabel.text = courseName
-        courseNameLabel.frame.origin = CGPoint(x: classTypeLabel.frame.maxX + 4, y: classTypeLabel.frame.origin.y)
-        courseNameLabel.sizeToFit()
-        contentView.addSubview(courseNameLabel)
+        if historyData.classID != "1" { // 形势与政策不需要显示
+            var courseName = historyData.courseName
+            if courseName.hasPrefix("第") { courseName.removeFirst(4) }
+            courseNameLabel.text = courseName
+            courseNameLabel.frame.origin = CGPoint(x: classTypeLabel.frame.maxX + 4, y: classTypeLabel.frame.origin.y)
+            courseNameLabel.sizeToFit()
+            contentView.addSubview(courseNameLabel)
+        }
         
-        switch practiceHistory.data[index].type {
-        case "0":
+        switch historyData.type {
+        case "0": // 顺序练习
             // 练习进度 //
-            if let doneCount = practiceHistory.data[index].doneCount,
-                let quesCount = practiceHistory.data[index].quesCount {
-                practiceProgressLabel.text = "进度: \(doneCount) / \(quesCount) - 第 \(practiceHistory.data[index].doneIndex) 题"
+            if let doneCount = historyData.doneCount,
+                let quesCount = historyData.quesCount {
+                practiceProgressLabel.text = "进度: \(doneCount) / \(quesCount) - 第 \(historyData.doneIndex) 题"
                 practiceProgressLabel.textColor = .darkGray
                 practiceProgressLabel.sizeToFit()
                 practiceProgressLabel.frame.origin = CGPoint(x: classTypeLabel.frame.origin.x, y: classTypeLabel.frame.maxY + 20)
                 contentView.addSubview(practiceProgressLabel)
             }
-        case "1":
+        case "1": // 模拟考试
             // 正确率 //
-            if let correctRate = practiceHistory.data[index].score {
+            if let correctRate = historyData.score {
                 correctRateLabel.textColor = .red
                 let correctRateText = NSMutableAttributedString(string: "正确率: \(correctRate)%") // 使用富文本改变字体
                 correctRateText.addAttribute(.foregroundColor, value: UIColor.darkGray, range: NSMakeRange(0, 5))
@@ -93,7 +93,7 @@ class HistoryViewCell: UITableViewCell {
         }
         
         // 练习时间 //
-        practiceTimeLabel.text = self.getDate(byTimestamp: practiceHistory.data[index].timestamp, withFormat: "yyyy-MM-dd hh:mm")
+        practiceTimeLabel.text = historyData.timestamp.date(withFormat: "yyyy-MM-dd hh:mm")
         practiceTimeLabel.textColor = .gray
         practiceTimeLabel.sizeToFit()
         practiceTimeLabel.frame.origin = CGPoint(x: deviceWidth - practiceTimeLabel.frame.size.width - 20, y: classTypeLabel.frame.maxY + 20)
@@ -112,4 +112,17 @@ class HistoryViewCell: UITableViewCell {
         return dateFormatter.string(from: date)
     }
     
+}
+
+extension String {
+    // 时间戳字符串格式化 //
+    func date(withFormat format: String) -> String {
+        let timeInterval = TimeInterval(self)!
+        let date = Date(timeIntervalSince1970: timeInterval)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        
+        return dateFormatter.string(from: date)
+    }
 }
