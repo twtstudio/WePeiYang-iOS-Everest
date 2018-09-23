@@ -21,6 +21,7 @@ class YellowPageSearchViewController: UIViewController {
         super.viewWillAppear(animated)
         history = (UserDefaults.standard.object(forKey: "YellowPageHistory") as? [String]) ?? []
         self.navigationController?.navigationBar.barStyle = .black
+    
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 //        let y = searchView.frame.size.height + searchView.y
@@ -70,7 +71,8 @@ class YellowPageSearchViewController: UIViewController {
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
 
-        view.backgroundColor = UIColor(red:0.16, green:0.64, blue:0.89, alpha:1.00)
+//        view.backgroundColor = UIColor(red:0.16, green:0.64, blue:0.89, alpha:1.00)
+        view.backgroundColor = mainColor
 
         searchView.snp.makeConstraints { make in
             make.top.equalTo(UIApplication.shared.statusBarFrame.size.height)
@@ -105,7 +107,7 @@ class YellowPageSearchViewController: UIViewController {
         tableView.reloadData()
     }
     
-    func deleteTapped(sender: UIButton) {
+    @objc func deleteTapped(sender: UIButton) {
         if let cell = sender.superview as? YellowPageSearchHistoryCell, let indexPath = tableView.indexPath(for: cell) {
             self.history.remove(at: indexPath.row)
             tableView.reloadData()
@@ -193,7 +195,7 @@ extension YellowPageSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if searchView.textField.text == "" && !isSearching {
             let cell = YellowPageSearchHistoryCell(name: history[indexPath.row])
-            cell.deleteView.addTarget(self, action: #selector(delete(_:)), for: .touchUpInside)
+            cell.deleteView.addTarget(self, action: #selector(deleteTapped), for: .touchUpInside)
             return cell
         } else if self.result.count > 0 {
             let cell = YellowPageCell(with: .detailed, model: result[indexPath.row])
@@ -235,7 +237,7 @@ extension YellowPageSearchViewController: UITableViewDelegate {
             // FIXME: replace hint
             label.text = "找不到呢😐"
             label.font = UIFont.boldSystemFont(ofSize: 16)
-            label.textColor = UIColor.magenta
+            label.textColor = mainColor
             label.sizeToFit()
             footerView.addSubview(label)
             label.snp.makeConstraints { make in
@@ -251,7 +253,7 @@ extension YellowPageSearchViewController: UITableViewDelegate {
         let label = UILabel()
         label.text = "清除搜索记录"
         label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.textColor = UIColor.magenta
+        label.textColor = mainColor
         label.sizeToFit()
         footerView.addSubview(label)
         label.snp.makeConstraints { make in

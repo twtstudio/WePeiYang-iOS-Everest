@@ -10,6 +10,9 @@ import Foundation
 
 struct WPYCustomError: Error {
     var description: String
+    var localizedDescription: String {
+        return description
+    }
     init(_ desc: String) {
         description = desc
     }

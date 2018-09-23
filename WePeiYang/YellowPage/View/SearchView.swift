@@ -18,10 +18,11 @@ class SearchView: UIView {
         super.draw(rect)
         backgroundView.frame = rect
         self.addSubview(backgroundView)
-        backButton.setImage(UIImage(named: "ypback"), for: .normal)
-        self.backgroundColor = UIColor(red: 0.1059, green: 0.6352, blue: 0.9019, alpha: 0.5)
-        
-        backgroundView.backgroundColor = UIColor(red: 0.1059, green: 0.6352, blue: 0.9019, alpha: 1)
+        backButton.setImage(UIImage(named: "ypback1"), for: .normal)
+//        self.backgroundColor = UIColor(red: 0.1059, green: 0.6352, blue: 0.9019, alpha: 0.5)
+        self.backgroundColor = mainColor
+        backgroundView.backgroundColor = mainColor
+//        backgroundView.backgroundColor = UIColor(red: 0.1059, green: 0.6352, blue: 0.9019, alpha: 1)
         backButton.adjustsImageWhenHighlighted = false
         backgroundView.addSubview(backButton)
         backButton.snp.makeConstraints { make in
@@ -43,7 +44,7 @@ class SearchView: UIView {
         
         
         let iconView = UIImageView()
-        iconView.image = UIImage(named: "search")
+        iconView.image = UIImage(named: "search1")
         backgroundView.addSubview(iconView)
         iconView.snp.makeConstraints { make in
             make.width.equalTo(20)

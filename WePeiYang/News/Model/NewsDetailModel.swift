@@ -22,9 +22,9 @@ struct NewsDetailTopModel: Codable {
 }
 
 struct NewsDetailModel: Codable {
-    let index, subject, content, newscome: String
+    let subject, content, newscome: String
     let gonggao, shengao, sheying: String
-    let visitcount: Int
+    let visitcount, index: Int
     let comments: [Comment]
 }
 

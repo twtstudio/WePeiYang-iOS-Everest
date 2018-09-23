@@ -8,11 +8,13 @@
 //
 
 import UIKit
-
+let mainColor = UIColor(red: 4/255, green: 76/255, blue: 134/255, alpha: 1)
+let lightGray = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
+let seperateColor = UIColor(red: 235/255.0, green: 237/255.0, blue: 244/255.0, alpha: 1)
 class YellowPageMainViewController: UIViewController {
     
-    let titles = ["1895综合服务大厅", "图书馆", "维修服务中心", "校园自行车", "学生宿舍管理中心", "天大医院"]
-    let icons = ["icon-1895", "icon-library", "icon-repair", "icon-bike", "icon-building", "icon-hospital"]
+    let titles = ["1895综合服务大厅", "图书馆", "维修服务中心", "校园自行车", "学生宿舍管理中心", "北洋医院"]
+    let icons = ["icon-18951", "icon-library1", "icon-repair1", "icon-bike1", "icon-building1", "icon-hospital1"]
     
     let tableView = UITableView(frame: CGRect.zero, style: .grouped)
     
@@ -31,14 +33,6 @@ class YellowPageMainViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.white
-        self.title = "黄页"
-        let titleLabel = UILabel(text: "黄页")
-        titleLabel.backgroundColor = UIColor.clear
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
-        titleLabel.textColor = UIColor.white
-        titleLabel.sizeToFit()
-        self.navigationItem.titleView = titleLabel
-
         hidesBottomBarWhenPushed = true
         
         let rightButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(YellowPageMainViewController.searchToggle))
@@ -52,6 +46,11 @@ class YellowPageMainViewController: UIViewController {
         tableView.estimatedRowHeight = 200.5
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        tableView.backgroundColor = lightGray
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
+        tableView.separatorColor = lightGray
+        tableView.showsVerticalScrollIndicator = false
+        
         self.view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
@@ -61,7 +60,7 @@ class YellowPageMainViewController: UIViewController {
             make.right.equalTo(view)
         }
         SwiftMessages.showLoading()
-
+        
         PhoneBook.shared.load(success: {
             self.tableView.reloadData()
             SwiftMessages.hideLoading()
@@ -76,39 +75,49 @@ class YellowPageMainViewController: UIViewController {
                 self.tableView.reloadData()
             })
         })
-
-//        UIView.performWithoutAnimation {
-//            self.tableView.reloadSections([1], with: .none)
-//        }
+        
+        //        UIView.performWithoutAnimation {
+        //            self.tableView.reloadSections([1], with: .none)
+        //        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.title = "黄页"
+        let titleLabel = UILabel(text: "黄页")
+        titleLabel.backgroundColor = UIColor.clear
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
+        titleLabel.textColor = UIColor.white
+        titleLabel.sizeToFit()
+        self.navigationItem.titleView = titleLabel
+        
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(red: 0.1059, green: 0.6352, blue: 0.9019, alpha: 1)), for: .default)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: mainColor), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.barStyle = .black
+        UIApplication.shared.statusBarStyle = .lightContent
         self.navigationController!.navigationBar.tintColor = .white
     }
-
+    
     @objc func searchToggle() {
         let searchVC = YellowPageSearchViewController()
         self.present(searchVC, animated: true, completion: nil)
     }
     
-//    @objc func cellTapped(sender: YellowPageCell) {
-//        let alertVC = UIAlertController(title: "详情", message: "想要做什么？", preferredStyle: .actionSheet)
-//        let copyAction = UIAlertAction(title: "复制到剪切板", style: .default) { action in
-//            sender.longPressed()
-//        }
-//        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { action in
-//        }
-//        alertVC.addAction(copyAction)
-//        alertVC.addAction(cancelAction)
-//        self.present(alertVC, animated: true, completion: nil)
-//    }
-
+    //    @objc func cellTapped(sender: YellowPageCell) {
+    //        let alertVC = UIAlertController(title: "详情", message: "想要做什么？", preferredStyle: .actionSheet)
+    //        let copyAction = UIAlertAction(title: "复制到剪切板", style: .default) { action in
+    //            sender.longPressed()
+    //        }
+    //        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { action in
+    //        }
+    //        alertVC.addAction(copyAction)
+    //        alertVC.addAction(cancelAction)
+    //        self.present(alertVC, animated: true, completion: nil)
+    //    }
+    
 }
 
 // delegate and dataSource
@@ -127,7 +136,7 @@ extension YellowPageMainViewController: UICollectionViewDataSource, UICollection
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CommonClientCell", for: indexPath) as! CommonClientCell
         cell.load(with: titles[indexPath.row], and: icons[indexPath.row])
@@ -173,9 +182,10 @@ extension YellowPageMainViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             let cell = YellowPageCell(with: .header, name: "")
-//            cell.contentView.height = 200
+            //            cell.contentView.height = 200
             cell.commonView.collectionView.delegate = self
             cell.commonView.collectionView.dataSource = self
+            cell.selectionStyle = .none
             return cell
         case 1:
             if indexPath.row == 0 { // section
@@ -185,8 +195,8 @@ extension YellowPageMainViewController: UITableViewDataSource {
                 return cell
             } else { // detailed item
                 let cell = YellowPageCell(with: .detailed, model: favorite[indexPath.row-1])
-//                let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(cellTapped(sender:)))
-//                cell.phoneLabel.addGestureRecognizer(tapRecognizer)
+                //                let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(cellTapped(sender:)))
+                //                cell.phoneLabel.addGestureRecognizer(tapRecognizer)
                 return cell
             }
         case let section where section > 1 && section < 2+sections.count:
@@ -231,7 +241,7 @@ extension YellowPageMainViewController: UITableViewDelegate {
                 self.shouldLoadFavorite = !self.shouldLoadFavorite
                 tableView.reloadData()
                 // xxx
-//                    tableView.reloadSections([1], with: .none)
+                //                    tableView.reloadSections([1], with: .none)
             } else {
                 // toggle phone call
             }
@@ -248,12 +258,12 @@ extension YellowPageMainViewController: UITableViewDelegate {
                     self.shouldLoadSections.append(n)
                 }
                 //                DispatchQueue.main.sync {
-                    // reload data
+                // reload data
                 tableView.reloadData()
                 // xxx
-//                    self.tableView.reloadSections([indexPath.section], with: .none)
-                    tableView.scrollToRow(at: IndexPath(row: 0, section: indexPath.section), at: .top, animated: true)
-//               }
+                //                    self.tableView.reloadSections([indexPath.section], with: .none)
+                tableView.scrollToRow(at: IndexPath(row: 0, section: indexPath.section), at: .top, animated: true)
+                //               }
             } else {
                 // push to detailed ViewController
                 let detailedVC = YellowPageDetailViewController()
@@ -265,7 +275,7 @@ extension YellowPageMainViewController: UITableViewDelegate {
         default:
             return
         }
-
+        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

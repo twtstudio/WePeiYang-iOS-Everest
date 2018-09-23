@@ -76,6 +76,7 @@ class PhoneBook {
 
     static func checkVersion(success: @escaping ()->(), failure: @escaping ()->()) {
         SolaSessionManager.solaSession(url: PhoneBook.url, success: { dict in
+            // FIXME: should be optimized
             if let categories = dict["category_list"] as? [[String: Any]] {
                 var newItems = [ClientItem]()
                 for category in categories {
@@ -89,14 +90,15 @@ class PhoneBook {
                             } else {
                                 PhoneBook.shared.members[category_name] = [department_name]
                             }
-                            let items = department["unit_list"] as! [[String: String]]
-                            for item in items {
-                                let item_name = item["item_name"]
-                                let item_phone = item["item_phone"]
-                                newItems.append(ClientItem(name: item_name!, phone: item_phone!, isFavorite: false, owner: department_name))
+                            if let items = department["unit_list"] as? [AnyObject] {
+                                for item in items {
+                                    if let item_name = item["item_name"] as? String,
+                                        let item_phone = item["item_phone"] as? String {
+                                        newItems.append(ClientItem(name: item_name, phone: item_phone, isFavorite: false, owner: department_name))
+                                    }
+                                }
                             }
                         }
-                    } else {
                     }
                 }
                 PhoneBook.shared.items = newItems

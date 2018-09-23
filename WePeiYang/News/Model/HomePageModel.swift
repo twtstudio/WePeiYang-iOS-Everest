@@ -24,7 +24,7 @@ struct HomePageTopModel: Codable {
 struct HomePageData: Codable {
     let carousel: [Carousel]
     let news: News
-    let service: Service
+    let service: [Service]
 }
 
 struct Carousel: Codable {

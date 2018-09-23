@@ -376,7 +376,15 @@ extension NewsViewController: UITableViewDataSource {
 
             if let cell = cell as? NewsTableViewCell {
                 cell.titleLabel.text = news.subject
-                cell.detailLabel.text = news.summary.replacingOccurrences(of: "&nbsp;", with: "")
+                
+                let HTMLString: String = news.summary
+                if let attributedString = try? NSAttributedString(data: HTMLString.data(using: .unicode)!, options: [NSAttributedString.DocumentReadingOptionKey.documentType : NSAttributedString.DocumentType.html], documentAttributes: nil) {
+                    cell.detailLabel.attributedText = attributedString
+                } else {
+                    cell.detailLabel.text = news.summary.replacingOccurrences(of: "&nbsp;", with: "")
+                }
+                
+//                cell.detailLabel.text = news.summary
                 cell.descLabel.text = "阅读: \(news.visitcount) 评论: \(news.comments)"
                 cell.imgView.sd_setImage(with: URL(string: news.pic), completed: nil)
                 cell.imgView.sd_setIndicatorStyle(.gray)
@@ -405,7 +413,8 @@ extension NewsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 100
+//        return 100
+        return 75
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -15,8 +15,7 @@ struct HomePageHelper {
                 let homepage = try? HomePageTopModel(data: data) {
                 success(homepage)
             } else {
-                failure(WPYCustomError("解析失败"))
-                //TODO: Error code
+                failure(WPYCustomError("Banner 数据解析错误"))
             }
         }, failure: { error in
             failure(error)
@@ -29,8 +28,7 @@ struct HomePageHelper {
                 let news = NewsTopModel(data: data) {
                 success(news)
             } else {
-                failure(WPYCustomError("解析失败"))
-                //TODO: Error code
+                failure(WPYCustomError("新闻数据解析错误"))
             }
         }, failure: { error in
             failure(error)
@@ -46,7 +44,7 @@ struct HomePageHelper {
                 }
             } else {
                 DispatchQueue.main.async {
-                    failure(WPYCustomError("请求出错"))
+                    failure(WPYCustomError("图集请求出错"))
                 }
             }
         }

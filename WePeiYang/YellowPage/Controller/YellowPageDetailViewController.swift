@@ -35,6 +35,10 @@ class YellowPageDetailViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
+        tableView.separatorColor = seperateColor
+        tableView.showsVerticalScrollIndicator = false
+        
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         
@@ -86,7 +90,7 @@ extension YellowPageDetailViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.5
+        return 0.01
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

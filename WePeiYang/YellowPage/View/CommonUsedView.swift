@@ -24,7 +24,7 @@ class CommonUsedView: UIView {
         
         let headerLabel = UILabel(frame: CGRect(x: 15, y: 20, width: 0, height: 0))
         headerLabel.text = "常用部门"
-        headerLabel.font = UIFont.systemFont(ofSize: 15)
+        headerLabel.font = UIFont.flexibleSystemFont(ofSize: 15, weight: .bold)
         headerLabel.sizeToFit()
         
         collectionView = UICollectionView(frame: CGRect(x: 0, y: headerLabel.frame.size.height+30, width: width, height: 150), collectionViewLayout: layout)

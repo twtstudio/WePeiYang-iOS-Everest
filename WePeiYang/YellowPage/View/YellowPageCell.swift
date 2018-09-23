@@ -48,7 +48,7 @@ class YellowPageCell: UITableViewCell {
         switch style {
         case .header:
             commonView = CommonUsedView(with: [])
-//            commonView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+            //            commonView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
             self.contentView.addSubview(commonView)
             commonView.snp.makeConstraints { make in
                 make.width.equalTo(UIScreen.main.bounds.size.width)
@@ -76,7 +76,7 @@ class YellowPageCell: UITableViewCell {
             label.text = name
             //label.font = UIFont.flexibleFont(with: 15)
             label.font = UIFont.systemFont(ofSize: 15)
-
+            
             label.sizeToFit()
             label.snp.makeConstraints { make in
                 make.top.equalTo(contentView).offset(15)
@@ -96,22 +96,22 @@ class YellowPageCell: UITableViewCell {
             
         case .item:
             self.textLabel?.text = name
-//            textLabel?.font = UIFont.flexibleFont(with: 14)
+            //            textLabel?.font = UIFont.flexibleFont(with: 14)
             textLabel?.font = UIFont.systemFont(ofSize: 14)
-
+            
             textLabel?.sizeToFit()
-//            textLabel?.snp.makeConstraints { make in
-//                make.top.equalTo(contentView).offset(11)
-//                make.centerY.equalTo(contentView)
-//                make.left.equalTo(contentView).offset(15)
-//                make.bottom.equalTo(contentView).offset(-11)
-//            }
+            //            textLabel?.snp.makeConstraints { make in
+            //                make.top.equalTo(contentView).offset(11)
+            //                make.centerY.equalTo(contentView)
+            //                make.left.equalTo(contentView).offset(15)
+            //                make.bottom.equalTo(contentView).offset(-11)
+        //            }
         case .detailed:
             fatalError("这个方法请调用func init(with style: YellowPageCellStyle, model: ClientItem)")
         }
         
     }
-
+    
     var nameLabel: UILabel!
     convenience init(with style: YellowPageCellStyle, model: ClientItem) {
         self.init(style: .default, reuseIdentifier: style.rawValue)
@@ -121,10 +121,10 @@ class YellowPageCell: UITableViewCell {
         self.detailedModel = model
         nameLabel = UILabel()
         nameLabel.text = model.name
-//        nameLabel.font = UIFont.flexibleFont(with: 14)
+        //        nameLabel.font = UIFont.flexibleFont(with: 14)
         // TODO: flexibleFont
-        nameLabel.font = UIFont.systemFont(ofSize: 14)
-
+        nameLabel.font = UIFont.systemFont(ofSize: 15)
+        
         nameLabel.sizeToFit()
         
         // paste
@@ -135,25 +135,28 @@ class YellowPageCell: UITableViewCell {
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(10)
             make.left.equalTo(contentView).offset(15)
+            make.right.equalTo(contentView).offset(15)
             //make.bottom.equalTo(nameLabel).offset(-12)
         }
         
         
         phoneLabel = UILabel()
-        let attributedString = NSAttributedString(string: model.phone, attributes: [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue, NSAttributedStringKey.foregroundColor: UIColor.blue])
+        let attributedString = NSAttributedString(string: model.phone, attributes: [NSAttributedStringKey.foregroundColor: mainColor])
+        //        let attributedString = NSAttributedString(string: model.phone, attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
         
         likeView = ExtendedButton()
         likeView.setImage(UIImage(named: model.isFavorite ? "like" : "dislike"), for: .normal)
-
+        
         self.contentView.addSubview(likeView)
         likeView.snp.makeConstraints { make in
+            make.centerY.equalTo(contentView).offset(5)
             make.width.equalTo(20)
             make.height.equalTo(20)
             make.right.equalTo(contentView).offset(-14)
-            make.top.equalTo(nameLabel.snp.bottom).offset(13)
+            //            make.top.equalTo(nameLabel.snp.bottom).offset(13)
         }
         likeView.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
-
+        
         let phoneView = ExtendedButton()
         phoneView.setImage(UIImage(named: "phone"), for: .normal)
         phoneView.addTarget(self, action: #selector(phoneTapped(button:)), for: .touchUpInside)
@@ -164,7 +167,7 @@ class YellowPageCell: UITableViewCell {
             make.right.equalTo(likeView.snp.left).offset(-24)
             make.centerY.equalTo(likeView)
         }
-
+        
         phoneLabel.attributedText = attributedString
         phoneLabel.font = UIFont.systemFont(ofSize: 14)
         phoneLabel.sizeToFit()
@@ -172,13 +175,14 @@ class YellowPageCell: UITableViewCell {
         phoneLabel.snp.makeConstraints { make in
             make.left.equalTo(contentView).offset(15)
             make.bottom.equalTo(contentView).offset(-10)
-            make.centerY.equalTo(likeView.snp.centerY)
+            //            make.centerY.equalTo(likeView.snp.centerY)
             make.right.lessThanOrEqualTo(phoneView.snp.left).offset(-10)
+            make.top.equalTo(nameLabel).offset(30)
         }
         phoneLabel.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
         phoneLabel.addGestureRecognizer(gesture)
-
+        
     }
     
     @objc func likeTapped() {
@@ -190,7 +194,7 @@ class YellowPageCell: UITableViewCell {
             // TODO: animation
         } else {
             PhoneBook.shared.addFavorite(with: self.detailedModel) {
-                self.likeView.setImage(UIImage(named: "like"), for: .normal)
+                self.likeView.setImage(UIImage(named: "like1"), for: .normal)
             }
             detailedModel.isFavorite = true
             // TODO: animation

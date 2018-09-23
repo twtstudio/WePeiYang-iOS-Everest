@@ -76,7 +76,11 @@ class LibraryCard: CardView {
         CacheManager.retreive("lib/info.json", from: .group, as: LibraryResponse.self, success: { response in
             LibraryDataContainer.shared.response = response
             self.tableView.reloadData()
-            self.setState(.data)
+            if response.data.books.count == 0 {
+                self.setState(.empty("没有借阅书籍", .gray))
+            } else {
+                self.setState(.data)
+            }
         }, failure: {
             self.refreshBooks(sender: self.refreshButton)
 //            refresh()
