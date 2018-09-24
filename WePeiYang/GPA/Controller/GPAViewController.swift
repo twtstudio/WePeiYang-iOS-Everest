@@ -573,7 +573,7 @@ extension GPAViewController: UIScrollViewDelegate {
             self.title = currentTerm?.name
             if offset > 520 {
                 self.navigationController?.navigationBar.alpha = 1
-                segmentContentView.alpha = self.navigationController?.navigationBar.alpha ?? 1
+                segmentContentView.alpha = self.navigationController!.navigationBar.alpha
 //                self.navigationController?.navigationBar.isTranslucent = false
 //                self.navigationController?.navigationBar.isOpaque = true
                 return
