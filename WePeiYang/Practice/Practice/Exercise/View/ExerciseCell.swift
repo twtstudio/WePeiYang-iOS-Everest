@@ -12,7 +12,7 @@ import UIKit
 class ExerciseCell: UICollectionViewCell {
     let questionViewParameters = QuestionViewParameters()
 
-    var questionView = QuestionTableView(frame: .zero, style: .grouped)
+    var questionView = ExerciseQuesView(frame: .zero, style: .plain)
 //    var answerView = AnswerScrollView(frame: .zero)
     let label: UILabel = {
         let label = UILabel()
@@ -23,18 +23,13 @@ class ExerciseCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
         //题目
         self.addSubview(questionView)
-//        let gesture = UITapGestureRecognizer(target: self, action: #selector(removeList))
-//        questionView.addGestureRecognizer(gesture)
         //答案
 //        self.addSubview(answerView)
     }
-    
-    @objc func removeList() {
-        print("TAPPED")
-    }
-    
+
     func initExerciseCell() {
         let offsety = 0.15 * deviceHeight
         questionView.snp.makeConstraints { (make) in
@@ -45,13 +40,13 @@ class ExerciseCell: UICollectionViewCell {
         }
     }
     
-    func loadQues(ques: String, options: [String], selected: Bool, rightAns: String) {
-        questionView.loadQues(question: ques, option: options, isSelected: selected, rightAnswer: rightAns)
+    func loadQues(answer: String, ques: String, options: [String], selected: Bool, rightAns: String, qType: Int) {
+        questionView.loadQues(usrAns: answer, question: ques, option: options, isSelected: selected, rightAnswer: rightAns, questionType: qType)
     }
     
     func addAnswerView(result: String?, rightAnswer: String?) {
 //        answerView.creatAnswerView(result: result)
-//
+
 //        self.addSubview(answerView)
 //        answerView.snp.makeConstraints { (make) in
 //            make.width.equalTo(questionViewParameters.questionViewW)
@@ -71,7 +66,7 @@ class ExerciseCell: UICollectionViewCell {
         }
         self.addSubview(label)
         label.snp.makeConstraints { (make) in
-            make.width.equalTo(100)
+            make.width.equalTo(300)
             make.height.equalTo(AnswerViewParameters.resultLabelH)
             make.left.equalTo(questionView)
             make.bottom.equalTo(self).offset(-AnswerViewParameters.answerTextViewH)

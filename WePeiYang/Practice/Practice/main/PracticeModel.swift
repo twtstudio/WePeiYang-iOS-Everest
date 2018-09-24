@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum PracticeMode {
+    case exercise
+    case quiz
+}
+
 struct QuestionDetails {
     var id: Int?
     var classId: Int?
@@ -60,5 +65,18 @@ struct PracticeModel {
                                            "D": 3,
                                            "E": 4,
                                            "F": 5]
+    
+    /// 将答案String转化为[Bool]
+    ///
+    /// - Parameter ans: 答案String
+    /// - Returns: 按选项顺序排列的[Bool], 选择了为true, 未选择为false
+    func ansToArray(ans: String) -> [Bool] {
+        var array: [Bool] = []
+        let startingValue = Int(("A" as UnicodeScalar).value) // 65
+        for i in 0 ..< 6 {
+            array.append(ans.contains(Character(UnicodeScalar(i + startingValue)!)))
+        }
+        return array
+    }
 }
 

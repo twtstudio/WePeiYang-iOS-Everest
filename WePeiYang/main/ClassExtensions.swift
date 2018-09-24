@@ -12,6 +12,21 @@
 
 import UIKit
 
+extension String {
+    
+    /// calculate the height of the text with constrainted width
+    ///
+    /// - Parameters:
+    ///   - width: Label constrained width
+    ///   - font: font of Label text
+    /// - Returns: height of the text
+    func calculateHeightWithConstrained(width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedStringKey.font: font], context: nil)
+        return boundingBox.height
+    }
+}
+
 extension UILabel {
     convenience init(text: String, color: UIColor) {
         self.init()

@@ -15,21 +15,20 @@ class QuesCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, 
     var pageNum: Int = 0
     var isCorrected: [isCorrect] = []
     var curPage: Int = 1
-    let cellW: CGFloat = 25
+    let cellW: CGFloat = 40
 
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
-        
+
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = 1
-        layout.minimumLineSpacing = 2
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10
         layout.itemSize = CGSize(width: cellW, height: cellW)
-        
+
         self.contentSize = CGSize(width: frame.width - 10, height: frame.height)
         self.backgroundColor = .white
-        self.layer.borderColor = UIColor.practiceBlue.cgColor
-        self.layer.borderWidth = 1
+        self.contentInset = UIEdgeInsetsMake(20, 20, 20, 20)
         self.layer.cornerRadius = 5
         self.collectionViewLayout = layout
         self.isPagingEnabled = false
@@ -40,9 +39,9 @@ class QuesCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, 
 
         self.delegate = self
         self.dataSource = self
-        
-    }
 
+    }
+    
     func initCollectionView(currentPage: Int, pagesNum: Int, isCorrect: [isCorrect]) {
         isCorrected = isCorrect
         pageNum = pagesNum
@@ -68,7 +67,7 @@ class QuesCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, 
             cell.layer.borderColor = UIColor.lightGray.cgColor
             cell.label.textColor = UIColor.lightGray
         case .right:
-            cell.backgroundColor = UIColor.green
+            cell.backgroundColor = UIColor.practiceBlue
             cell.label.textColor = .white
         case .wrong:
             cell.layer.borderColor = UIColor.clear.cgColor
@@ -85,6 +84,7 @@ class QuesCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         QuesCollectionView.chosenPage = indexPath.item + 1
+        SolaSessionManager.cancelAllTask()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "changeQues"), object: nil)
     }
 
@@ -101,7 +101,7 @@ class QuesCollectionCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.backgroundColor = .clear
-        label.font = UIFont.systemFont(ofSize: 11)
+        label.font = UIFont.systemFont(ofSize: 13)
         return label
     }()
     

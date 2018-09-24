@@ -34,7 +34,7 @@ class PracticeHomeViewController: UIViewController {
     let homeTableView = UITableView(frame: CGRect(), style: .grouped)
     let HomeHeaderTitles = ["党课", "形政", "网课", "其他"]
     let HomeHeaderIcons = [#imageLiteral(resourceName: "practicePartyCourse"), #imageLiteral(resourceName: "practiceSituationAndPolicy"), #imageLiteral(resourceName: "practiceOnlineCourse"), #imageLiteral(resourceName: "practiceOther")]
-    // "我的" 顶部课程信息 //
+    // "我的" 顶部课程信息 //`
     let homeCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: deviceWidth, height: 150), collectionViewLayout: UICollectionViewFlowLayout())
     let HomeViewCellStyles: [HomeViewCellStyle] = [.quickSelect, .latestInformation, .currentPractice]
     

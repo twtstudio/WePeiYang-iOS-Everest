@@ -8,10 +8,11 @@
 
 import UIKit
 
-class QuizCell: UICollectionViewCell {
 
-    var label: UILabel = {
-
+class QuizCollectionCell: UICollectionViewCell {
+    
+    var label:UILabel = {
+        
         let label = UILabel()
         label.text = ""
         label.textAlignment = .center
