@@ -20,12 +20,35 @@ struct PracticeAPI { // 参考 Bike 模块, 考虑单独抽出为一个文件
     
 }
 
+struct PracticeDictionary {
+    
+    static let practiceType = ["0":"顺序练习", "1":"模拟考试"]
+    
+    static let questionType = ["0":"单选", "1":"多选", "2":"判断"]
+    
+    static let classType = ["1":"形势与政策", "2":"党课", "3":"网课"]
+    
+}
+
+struct PracticeFigure {
+    
+    static var isAtRight = true
+    
+    static var practiceType = ""
+    
+    static var classID = ""
+    
+    static var courseID = ""
+    
+}
+
+// MARK: - Network
 struct PracticeStudentHelper {
     static func getStudent(success: @escaping (PracticeStudentModel)->(), failure: @escaping (Error)->()) {
         SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.student, success: { dic in
             if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let practiceStudent = try? PracticeStudentModel(data: data) {
                 success(practiceStudent)
-            }
+            } else { print("WARNING -- PracticeStudentHelper.getStudent") }
         }) { error in
             failure(error)
             print("ERROR -- PracticeStudentHelper.getStudent")
@@ -33,68 +56,55 @@ struct PracticeStudentHelper {
     }
 }
 
+// MARK: - Model
 struct PracticeStudentModel: Codable {
-    let status: Int
+    let errorCode: Int
     let message: String
     let data: PracticeStudentData
-    let qSelect: [QuickSelect]
+    
+    enum CodingKeys: String, CodingKey {
+        case errorCode = "error_code"
+        case message, data
+    }
 }
 
 struct PracticeStudentData: Codable {
     let id: Int
-    let twtName, userNumber, type, avatarURL: String
-    let title: Title
-    let quesMessage: QuesMessage
-    let history: HistoryTopModel
+    let twtName, userNumber: String
+    let avatarURL: String
+    let titleName, doneCount, errorCount: String
+    let courseCount: Int
+    let collectCount: String
+    let currentCourseID, currentCourseName: String?
+    let currentCourseDoneCount: Int?
+    let currentQuesType, currentCourseQuesCount: String?
+    let currentCourseIndex: Int?
+    let currentCourseWriteString, currentCourseErrorOption: String?
+    let latestCourseName: String
+    let latestCourseTimestamp: Int
+    let qSelect: [QuickSelect]
     
     enum CodingKeys: String, CodingKey {
         case id
         case twtName = "twt_name"
         case userNumber = "user_number"
-        case type
         case avatarURL = "avatar_url"
-        case title
-        case quesMessage = "ques_message"
-        case history
-    }
-}
-
-struct HistoryTopModel: Codable {
-    let status: Int
-    let history: [HistoryModel]
-}
-
-struct HistoryModel: Codable {
-    let type: Int
-    let date, courseID, quesType, courseName: String
-    
-    enum CodingKeys: String, CodingKey {
-        case type, date
-        case courseID = "course_id"
-        case quesType = "ques_type"
-        case courseName = "course_name"
-    }
-}
-
-struct QuesMessage: Codable {
-    let doneNumber, errorNumber: String
-    let rememberCourseNumber: Int
-    let rememberNumber, collectNumber: String
-    
-    enum CodingKeys: String, CodingKey {
-        case doneNumber = "done_number"
-        case errorNumber = "error_number"
-        case rememberCourseNumber = "remember_course_number"
-        case rememberNumber = "remember_number"
-        case collectNumber = "collect_number"
-    }
-}
-
-struct Title: Codable {
-    let titleName: String
-    
-    enum CodingKeys: String, CodingKey {
         case titleName = "title_name"
+        case doneCount = "done_count"
+        case errorCount = "error_count"
+        case courseCount = "course_count"
+        case collectCount = "collect_count"
+        case currentCourseID = "current_course_id"
+        case currentCourseName = "current_course_name"
+        case currentCourseDoneCount = "current_course_done_count"
+        case currentQuesType = "current_ques_type"
+        case currentCourseQuesCount = "current_course_ques_count"
+        case currentCourseIndex = "current_course_index"
+        case currentCourseWriteString = "current_course_write_string"
+        case currentCourseErrorOption = "current_course_error_option"
+        case latestCourseName = "latest_course_name"
+        case latestCourseTimestamp = "latest_course_timestamp"
+        case qSelect
     }
 }
 
@@ -108,8 +118,7 @@ struct QuickSelect: Codable {
     }
 }
 
-// MARK: Convenience initializers and mutators
-
+// MARK: - Initialization
 extension PracticeStudentModel {
     init(data: Data) throws {
         self = try newJSONDecoder().decode(PracticeStudentModel.self, from: data)
@@ -127,16 +136,14 @@ extension PracticeStudentModel {
     }
     
     func with(
-        status: Int? = nil,
+        errorCode: Int? = nil,
         message: String? = nil,
-        data: PracticeStudentData? = nil,
-        qSelect: [QuickSelect]? = nil
+        data: PracticeStudentData? = nil
         ) -> PracticeStudentModel {
         return PracticeStudentModel(
-            status: status ?? self.status,
+            errorCode: errorCode ?? self.errorCode,
             message: message ?? self.message,
-            data: data ?? self.data,
-            qSelect: qSelect ?? self.qSelect
+            data: data ?? self.data
         )
     }
     
@@ -169,171 +176,45 @@ extension PracticeStudentData {
         id: Int? = nil,
         twtName: String? = nil,
         userNumber: String? = nil,
-        type: String? = nil,
         avatarURL: String? = nil,
-        title: Title? = nil,
-        quesMessage: QuesMessage? = nil,
-        history: HistoryTopModel? = nil
+        titleName: String? = nil,
+        doneCount: String? = nil,
+        errorCount: String? = nil,
+        courseCount: Int? = nil,
+        collectCount: String? = nil,
+        currentCourseID: String?? = nil,
+        currentCourseName: String?? = nil,
+        currentCourseDoneCount: Int?? = nil,
+        currentQuesType: String?? = nil,
+        currentCourseQuesCount: String?? = nil,
+        currentCourseIndex: Int?? = nil,
+        currentCourseWriteString: String?? = nil,
+        currentCourseErrorOption: String?? = nil,
+        latestCourseName: String? = nil,
+        latestCourseTimestamp: Int? = nil,
+        qSelect: [QuickSelect]? = nil
         ) -> PracticeStudentData {
         return PracticeStudentData(
             id: id ?? self.id,
             twtName: twtName ?? self.twtName,
             userNumber: userNumber ?? self.userNumber,
-            type: type ?? self.type,
             avatarURL: avatarURL ?? self.avatarURL,
-            title: title ?? self.title,
-            quesMessage: quesMessage ?? self.quesMessage,
-            history: history ?? self.history
-        )
-    }
-    
-    func jsonData() throws -> Data {
-        return try newJSONEncoder().encode(self)
-    }
-    
-    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
-        return String(data: try self.jsonData(), encoding: encoding)
-    }
-}
-
-extension HistoryTopModel {
-    init(data: Data) throws {
-        self = try newJSONDecoder().decode(HistoryTopModel.self, from: data)
-    }
-    
-    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
-        guard let data = json.data(using: encoding) else {
-            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
-        }
-        try self.init(data: data)
-    }
-    
-    init(fromURL url: URL) throws {
-        try self.init(data: try Data(contentsOf: url))
-    }
-    
-    func with(
-        status: Int? = nil,
-        history: [HistoryModel]? = nil
-        ) -> HistoryTopModel {
-        return HistoryTopModel(
-            status: status ?? self.status,
-            history: history ?? self.history
-        )
-    }
-    
-    func jsonData() throws -> Data {
-        return try newJSONEncoder().encode(self)
-    }
-    
-    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
-        return String(data: try self.jsonData(), encoding: encoding)
-    }
-}
-
-extension HistoryModel {
-    init(data: Data) throws {
-        self = try newJSONDecoder().decode(HistoryModel.self, from: data)
-    }
-    
-    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
-        guard let data = json.data(using: encoding) else {
-            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
-        }
-        try self.init(data: data)
-    }
-    
-    init(fromURL url: URL) throws {
-        try self.init(data: try Data(contentsOf: url))
-    }
-    
-    func with(
-        type: Int? = nil,
-        date: String? = nil,
-        courseID: String? = nil,
-        quesType: String? = nil,
-        courseName: String? = nil
-        ) -> HistoryModel {
-        return HistoryModel(
-            type: type ?? self.type,
-            date: date ?? self.date,
-            courseID: courseID ?? self.courseID,
-            quesType: quesType ?? self.quesType,
-            courseName: courseName ?? self.courseName
-        )
-    }
-    
-    func jsonData() throws -> Data {
-        return try newJSONEncoder().encode(self)
-    }
-    
-    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
-        return String(data: try self.jsonData(), encoding: encoding)
-    }
-}
-
-extension QuesMessage {
-    init(data: Data) throws {
-        self = try newJSONDecoder().decode(QuesMessage.self, from: data)
-    }
-    
-    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
-        guard let data = json.data(using: encoding) else {
-            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
-        }
-        try self.init(data: data)
-    }
-    
-    init(fromURL url: URL) throws {
-        try self.init(data: try Data(contentsOf: url))
-    }
-    
-    func with(
-        doneNumber: String? = nil,
-        errorNumber: String? = nil,
-        rememberCourseNumber: Int? = nil,
-        rememberNumber: String? = nil,
-        collectNumber: String? = nil
-        ) -> QuesMessage {
-        return QuesMessage(
-            doneNumber: doneNumber ?? self.doneNumber,
-            errorNumber: errorNumber ?? self.errorNumber,
-            rememberCourseNumber: rememberCourseNumber ?? self.rememberCourseNumber,
-            rememberNumber: rememberNumber ?? self.rememberNumber,
-            collectNumber: collectNumber ?? self.collectNumber
-        )
-    }
-    
-    func jsonData() throws -> Data {
-        return try newJSONEncoder().encode(self)
-    }
-    
-    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
-        return String(data: try self.jsonData(), encoding: encoding)
-    }
-}
-
-extension Title {
-    init(data: Data) throws {
-        self = try newJSONDecoder().decode(Title.self, from: data)
-    }
-    
-    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
-        guard let data = json.data(using: encoding) else {
-            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
-        }
-        try self.init(data: data)
-    }
-    
-    init(fromURL url: URL) throws {
-        try self.init(data: try Data(contentsOf: url))
-    }
-    
-    func with(
-        titleName: String? = nil
-        ) -> Title {
-        return Title(
-            titleName: titleName ?? self.titleName
+            titleName: titleName ?? self.titleName,
+            doneCount: doneCount ?? self.doneCount,
+            errorCount: errorCount ?? self.errorCount,
+            courseCount: courseCount ?? self.courseCount,
+            collectCount: collectCount ?? self.collectCount,
+            currentCourseID: currentCourseID ?? self.currentCourseID,
+            currentCourseName: currentCourseName ?? self.currentCourseName,
+            currentCourseDoneCount: currentCourseDoneCount ?? self.currentCourseDoneCount,
+            currentQuesType: currentQuesType ?? self.currentQuesType,
+            currentCourseQuesCount: currentCourseQuesCount ?? self.currentCourseQuesCount,
+            currentCourseIndex: currentCourseIndex ?? self.currentCourseIndex,
+            currentCourseWriteString: currentCourseWriteString ?? self.currentCourseWriteString,
+            currentCourseErrorOption: currentCourseErrorOption ?? self.currentCourseErrorOption,
+            latestCourseName: latestCourseName ?? self.latestCourseName,
+            latestCourseTimestamp: latestCourseTimestamp ?? self.latestCourseTimestamp,
+            qSelect: qSelect ?? self.qSelect
         )
     }
     

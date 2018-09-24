@@ -7,21 +7,27 @@
 //
 
 import UIKit
+import MJRefresh
 import PopupDialog
 
+// MARK: UIViewController
 class PracticeCollectionViewController: UIViewController {
     
-    /* 错题模型 */
+    /* 收藏模型 */
     var practiceCollection: PracticeCollectionModel!
     
-    /* 错题列表视图 */
+    /* 收藏列表视图 */
     let practiceCollectionTableView = UITableView(frame: CGRect(), style: .grouped)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        practiceCollectionTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+            self.reloadDataAndView()
+            self.practiceCollectionTableView.mj_header.endRefreshing()
+        })
         
-        // 刷新所有 //
+        // 加载数据与视图 //
         self.reloadDataAndView()
     }
     
@@ -37,14 +43,11 @@ class PracticeCollectionViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.tintColor = .white
         
-        /* 标题 */
-        let titleLabel = UILabel(text: "我的收藏")
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 21)
-        titleLabel.textColor = .white
-        titleLabel.sizeToFit()
-        navigationItem.titleView = titleLabel
+        /* 刷新 */
+        let practiceRefresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshDataAndView))
+        navigationItem.rightBarButtonItem = practiceRefresh
         
-        /* 错题列表视图 */
+        /* 收藏列表视图 */
         practiceCollectionTableView.frame = self.view.bounds
         practiceCollectionTableView.backgroundColor = .clear
         practiceCollectionTableView.delegate = self
@@ -52,35 +55,45 @@ class PracticeCollectionViewController: UIViewController {
         self.view.addSubview(practiceCollectionTableView)
     }
     
-    // 刷新所有 //
-    func reloadDataAndView() {
-        PracticeCollectionHelper.getCollection(success: { practiceCollection in
-            self.practiceCollection = practiceCollection
-            self.practiceCollectionTableView.reloadData()
-            self.reloadTitleView()
-        }) { error in }
-    }
-    
-    // 刷新标题 //
+    // 加载标题 //
     func reloadTitleView() {
         let titleLabel = UILabel(text: "我的收藏", color: .white)
         titleLabel.font = UIFont.boldSystemFont(ofSize: 21)
         
-        // 错题不为零时显示错题数
-        if practiceCollection.ques.count != 0 { titleLabel.text = "我的收藏 (\(practiceCollection.ques.count))" }
+        // 收藏不为零时显示错题数
+        if practiceCollection.data.ques.count != 0 { titleLabel.text = "我的收藏 (\(practiceCollection.data.ques.count))" }
         
         titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
     }
     
+    // 加载数据与视图 //
+    func reloadDataAndView() {
+        PracticeCollectionHelper.getCollection(success: { practiceCollection in
+            self.practiceCollection = practiceCollection
+            self.reloadTitleView()
+            self.practiceCollectionTableView.reloadData()
+        }) { error in }
+    }
+    
+    // 刷新数据与视图 //
+    @objc func refreshDataAndView() {
+        practiceCollectionTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+            self.reloadDataAndView()
+            self.practiceCollectionTableView.mj_header.endRefreshing()
+        })
+        practiceCollectionTableView.mj_header.beginRefreshing()
+    }
+    
 }
 
+// MARK: - UITableView
 /* 表单视图数据 */
 extension PracticeCollectionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if practiceCollection == nil { return 0 }
-        return practiceCollection.ques.count
+        return practiceCollection.data.ques.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -103,9 +116,9 @@ extension PracticeCollectionViewController: UITableViewDataSource {
         let cancelButton = CancelButton(title: "再留一段时间", action: nil)
         let removeButton = DestructiveButton(title: "我会了, 移走吧", dismissOnTap: true) {
             button.switchIconAnimation()
-            PracticeCollectionHelper.deleteCollection(quesType: (self.practiceCollection?.ques[(indexPath?.row)!].type)!, quesID: String((self.practiceCollection?.ques[(indexPath?.row)!].id)!)) // 删除云端数据
-            self.practiceCollection.ques.remove(at: (indexPath?.row)!) // 删除本地数据
-            self.practiceCollectionTableView.deleteRows(at: [indexPath!], with: .right) // 删除界面
+            PracticeCollectionHelper.deleteCollection(quesType: (self.practiceCollection?.data.ques[(indexPath?.row)!].quesType)!, quesID: String((self.practiceCollection?.data.ques[(indexPath?.row)!].quesID)!)) // 删除云端数据
+            self.practiceCollection.data.ques.remove(at: (indexPath?.row)!) // 删除本地数据
+            self.practiceCollectionTableView.deleteRows(at: [indexPath!], with: .right) // 删除界面单元
             self.reloadTitleView() // 刷新标题
             SwiftMessages.showSuccessMessage(body: "移除成功") // 提示成功
         }

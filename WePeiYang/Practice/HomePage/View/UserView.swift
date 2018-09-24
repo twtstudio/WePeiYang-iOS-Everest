@@ -45,7 +45,7 @@ class UserView: UIView {
     let userTitleLabel = UILabel(text: "", color: .practiceRed)
     
     /* 顶部蓝线 */
-    let topHorizontalLine = UIView(color: .practiceBlue)
+    private let topHorizontalLine = UIView(color: .practiceBlue)
     
     /* 已练习题目数 */
     let practicedQuestionNumber: UILabel = {
@@ -58,7 +58,7 @@ class UserView: UIView {
     }()
     
     /* 已练习题目标签 */
-    let practicedQuestionLabel: UILabel = {
+    private let practicedQuestionLabel: UILabel = {
         let practicedQuestionLabel = UILabel()
         
         practicedQuestionLabel.text = "已练习题目数"
@@ -88,7 +88,7 @@ class UserView: UIView {
     }()
     
     /* 已练习科目标签 */
-    let practicedCourseLabel: UILabel = {
+    private let practicedCourseLabel: UILabel = {
         let practicedCourseLabel = UILabel()
         
         practicedCourseLabel.text = "已练习科目数"
@@ -98,10 +98,10 @@ class UserView: UIView {
     }()
     
     /* 底部蓝线 */
-    let bottomHorizontalLine = UIView(color: .practiceBlue)
+    private let bottomHorizontalLine = UIView(color: .practiceBlue)
     
     /* 中部蓝线 */
-    let verticalLine = UIView(color: .practiceBlue)
+    private let verticalLine = UIView(color: .practiceBlue)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

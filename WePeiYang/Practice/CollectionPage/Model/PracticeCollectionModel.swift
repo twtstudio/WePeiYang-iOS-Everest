@@ -8,25 +8,13 @@
 
 import Foundation
 
+// MARK: Network
 struct PracticeCollectionHelper {
     static func getCollection(success: @escaping (PracticeCollectionModel)->(), failure: @escaping (Error)->()) {
         SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.special + "/getQues/0", success: { dic in
-            // 删除 id 为 null 的题目 (好了后台又改回来了)
-            var newDic = dic
-            var ques = dic["ques"] as! [[String:Any]]
-            var i = 0
-            for que in ques {
-                if que["id"] is NSNull {
-                    ques.remove(at: i)
-                } else { i += 1 }
-            }
-            let lessNumber = (newDic["ques"] as! [[String:Any]]).count - ques.count
-            if lessNumber != 0 { SwiftMessages.showInfoMessage(body: "您收藏中的 \(lessNumber) 道题已从题库中移除") }
-            newDic["ques"] = ques
-            
-            if let data = try? JSONSerialization.data(withJSONObject: newDic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let practiceCollection = try? PracticeCollectionModel(data: data) {
+            if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let practiceCollection = try? PracticeCollectionModel(data: data) {
                 success(practiceCollection)
-            }
+            } else { print("WARNING -- PracticeCollectionHelper.getCollection") }
         }) { error in
             failure(error)
             print("ERROR -- PracticeCollectionHelper.getCollection")
@@ -48,12 +36,43 @@ struct PracticeCollectionHelper {
     }
 }
 
+// MARK: - Model
 struct PracticeCollectionModel: Codable {
-    let status: Int
-    let tid: String
-    var ques: [Que] // 基于数据和页面改为变量
+    let errorCode: Int
+    let message: String
+    var data: PracticeCollectionData // 基于数据和页面改为变量
+    
+    enum CodingKeys: String, CodingKey {
+        case errorCode = "error_code"
+        case message, data
+    }
 }
 
+struct PracticeCollectionData: Codable {
+    let tid: String
+    var ques: [PracticeCollectionQuestion] // 基于数据和页面改为变量
+}
+
+struct PracticeCollectionQuestion: Codable {
+    let quesID: Int
+    let courseID, quesType, content: String
+    let option: [String]
+    let answer: String
+    let isCollected, isMistake: Int
+    let errorOption: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case quesID = "ques_id"
+        case courseID = "course_id"
+        case quesType = "ques_type"
+        case content, option, answer
+        case isCollected = "is_collected"
+        case isMistake = "is_mistake"
+        case errorOption = "error_option"
+    }
+}
+
+// MARK: - Initialization
 extension PracticeCollectionModel {
     init(data: Data) throws {
         self = try newJSONDecoder().decode(PracticeCollectionModel.self, from: data)
@@ -71,14 +90,98 @@ extension PracticeCollectionModel {
     }
     
     func with(
-        status: Int? = nil,
-        tid: String? = nil,
-        ques: [Que]? = nil
+        errorCode: Int? = nil,
+        message: String? = nil,
+        data: PracticeCollectionData? = nil
         ) -> PracticeCollectionModel {
         return PracticeCollectionModel(
-            status: status ?? self.status,
+            errorCode: errorCode ?? self.errorCode,
+            message: message ?? self.message,
+            data: data ?? self.data
+        )
+    }
+    
+    func jsonData() throws -> Data {
+        return try newJSONEncoder().encode(self)
+    }
+    
+    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
+        return String(data: try self.jsonData(), encoding: encoding)
+    }
+}
+
+extension PracticeCollectionData {
+    init(data: Data) throws {
+        self = try newJSONDecoder().decode(PracticeCollectionData.self, from: data)
+    }
+    
+    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
+        guard let data = json.data(using: encoding) else {
+            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
+        }
+        try self.init(data: data)
+    }
+    
+    init(fromURL url: URL) throws {
+        try self.init(data: try Data(contentsOf: url))
+    }
+    
+    func with(
+        tid: String? = nil,
+        ques: [PracticeCollectionQuestion]? = nil
+        ) -> PracticeCollectionData {
+        return PracticeCollectionData(
             tid: tid ?? self.tid,
             ques: ques ?? self.ques
+        )
+    }
+    
+    func jsonData() throws -> Data {
+        return try newJSONEncoder().encode(self)
+    }
+    
+    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
+        return String(data: try self.jsonData(), encoding: encoding)
+    }
+}
+
+extension PracticeCollectionQuestion {
+    init(data: Data) throws {
+        self = try newJSONDecoder().decode(PracticeCollectionQuestion.self, from: data)
+    }
+    
+    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
+        guard let data = json.data(using: encoding) else {
+            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
+        }
+        try self.init(data: data)
+    }
+    
+    init(fromURL url: URL) throws {
+        try self.init(data: try Data(contentsOf: url))
+    }
+    
+    func with(
+        quesID: Int? = nil,
+        courseID: String? = nil,
+        quesType: String? = nil,
+        content: String? = nil,
+        option: [String]? = nil,
+        answer: String? = nil,
+        isCollected: Int? = nil,
+        isMistake: Int? = nil,
+        errorOption: String?? = nil
+        ) -> PracticeCollectionQuestion {
+        return PracticeCollectionQuestion(
+            quesID: quesID ?? self.quesID,
+            courseID: courseID ?? self.courseID,
+            quesType: quesType ?? self.quesType,
+            content: content ?? self.content,
+            option: option ?? self.option,
+            answer: answer ?? self.answer,
+            isCollected: isCollected ?? self.isCollected,
+            isMistake: isMistake ?? self.isMistake,
+            errorOption: errorOption ?? self.errorOption
         )
     }
     

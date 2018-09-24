@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import MJRefresh
 import PopupDialog
 
+// MARK: UIViewController
 class PracticeWrongViewController: UIViewController {
     
     /* 错题模型 */
@@ -20,8 +22,12 @@ class PracticeWrongViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        practiceWrongTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+            self.reloadDataAndView()
+            self.practiceWrongTableView.mj_header.endRefreshing()
+        })
 
-        // 刷新所有 //
+        // 加载数据与视图 //
         self.reloadDataAndView()
     }
     
@@ -37,12 +43,9 @@ class PracticeWrongViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.tintColor = .white
         
-        /* 标题 */
-        let titleLabel = UILabel(text: "我的错题")
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 21)
-        titleLabel.textColor = .white
-        titleLabel.sizeToFit()
-        navigationItem.titleView = titleLabel
+        /* 刷新 */
+        let practiceRefresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshDataAndView))
+        navigationItem.rightBarButtonItem = practiceRefresh
         
         /* 错题列表视图 */
         practiceWrongTableView.frame = self.view.bounds
@@ -52,35 +55,45 @@ class PracticeWrongViewController: UIViewController {
         self.view.addSubview(practiceWrongTableView)
     }
     
-    // 刷新所有 //
-    func reloadDataAndView() {
-        PracticeWrongHelper.getWrong(success: { practiceWrong in
-            self.practiceWrong = practiceWrong
-            self.practiceWrongTableView.reloadData()
-            self.reloadTitleView()
-        }) { error in }
-    }
-    
-    // 刷新标题 //
+    // 加载标题 //
     func reloadTitleView() {
         let titleLabel = UILabel(text: "我的错题", color: .white)
         titleLabel.font = UIFont.boldSystemFont(ofSize: 21)
         
         // 错题不为零时显示错题数
-        if practiceWrong.ques.count != 0 { titleLabel.text = "我的错题 (\(practiceWrong.ques.count))" }
+        if practiceWrong.data.ques.count != 0 { titleLabel.text = "我的错题 (\(practiceWrong.data.ques.count))" }
         
         titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
     }
     
+    // 加载数据与视图 //
+    func reloadDataAndView() {
+        PracticeWrongHelper.getWrong(success: { practiceWrong in
+            self.practiceWrong = practiceWrong
+            self.reloadTitleView()
+            self.practiceWrongTableView.reloadData()
+        }) { error in }
+    }
+    
+    // 刷新数据与视图 //
+    @objc func refreshDataAndView() {
+        practiceWrongTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
+            self.reloadDataAndView()
+            self.practiceWrongTableView.mj_header.endRefreshing()
+        })
+        practiceWrongTableView.mj_header.beginRefreshing()
+    }
+    
 }
 
+// MARK: - UITableView
 /* 表单视图数据 */
 extension PracticeWrongViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if practiceWrong == nil { return 0 }
-        return practiceWrong.ques.count
+        return practiceWrong.data.ques.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -99,10 +112,10 @@ extension PracticeWrongViewController: UITableViewDataSource {
         let indexPath = self.practiceWrongTableView.indexPath(for: button.superview?.superview as! WrongViewCell)
         
         if button.image(for: .normal) == #imageLiteral(resourceName: "practiceIsCollected") {
-            PracticeCollectionHelper.deleteCollection(quesType: (self.practiceWrong?.ques[(indexPath?.row)!].type)!, quesID: String((self.practiceWrong?.ques[(indexPath?.row)!].id)!)) // 删除云端数据
+            PracticeCollectionHelper.deleteCollection(quesType: (self.practiceWrong?.data.ques[(indexPath?.row)!].quesType)!, quesID: String((self.practiceWrong?.data.ques[(indexPath?.row)!].quesID)!)) // 删除云端数据
             SwiftMessages.showSuccessMessage(body: "移除成功")
         } else {
-            PracticeCollectionHelper.addCollection(quesType: (self.practiceWrong?.ques[(indexPath?.row)!].type)!, quesID: String((self.practiceWrong?.ques[(indexPath?.row)!].id)!)) // 增加云端数据
+            PracticeCollectionHelper.addCollection(quesType: (self.practiceWrong?.data.ques[(indexPath?.row)!].quesType)!, quesID: String((self.practiceWrong?.data.ques[(indexPath?.row)!].quesID)!)) // 增加云端数据
             SwiftMessages.showSuccessMessage(body: "收藏成功")
         }
         
@@ -118,9 +131,9 @@ extension PracticeWrongViewController: UITableViewDataSource {
         let cancelButton = CancelButton(title: "再留一段时间", action: nil)
         let removeButton = DestructiveButton(title: "我会了, 移走吧", dismissOnTap: true) {
             button.switchIconAnimation()
-            PracticeWrongHelper.deleteWrong(quesType: (self.practiceWrong?.ques[(indexPath?.row)!].type)!, quesID: String((self.practiceWrong?.ques[(indexPath?.row)!].id)!)) // 删除云端数据
-            self.practiceWrong.ques.remove(at: (indexPath?.row)!) // 删除本地数据
-            self.practiceWrongTableView.deleteRows(at: [indexPath!], with: .right) // 删除界面
+            PracticeWrongHelper.deleteWrong(quesType: (self.practiceWrong?.data.ques[(indexPath?.row)!].quesType)!, quesID: String((self.practiceWrong?.data.ques[(indexPath?.row)!].quesID)!)) // 删除云端数据
+            self.practiceWrong.data.ques.remove(at: (indexPath?.row)!) // 删除本地数据
+            self.practiceWrongTableView.deleteRows(at: [indexPath!], with: .right) // 删除界面单元
             self.reloadTitleView() // 刷新标题
             SwiftMessages.showSuccessMessage(body: "成功移除") // 提示成功
         }
@@ -179,7 +192,6 @@ extension UIButton {
     }
     
     // 引入一个 IndexPath 类型属性, 用于记录 UIButton 所在 UITableViewCell 的 indexPath
-    // 已经利用 .superView.superView 获取到了 UITableViewCell, 此方法暂时废弃
     var indexPath: IndexPath? {
         get { return objc_getAssociatedObject(self, &AssociatedKeys.indexPath) as? IndexPath }
         set { if let newValue = newValue { objc_setAssociatedObject(self, &AssociatedKeys.indexPath, newValue as IndexPath?, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC) } }

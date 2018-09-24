@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import SDWebImage
 import PopupDialog
 import SwiftMessages
 
+// MARK: UIViewController
 class PracticeHomeViewController: UIViewController {
     
     /* 用户模型 */
@@ -20,8 +22,6 @@ class PracticeHomeViewController: UIViewController {
     
     /* 底层滑动视图 */
     let contentScrollView = UIScrollView()
-    // 滑动视图内容状态 //
-    var isAtRight = true // 滑动视图默认在右, 即显示 "我的" 视图
     
     /* "我的" 视图 */
     let userTableView = UITableView(frame: CGRect(), style: .grouped)
@@ -46,6 +46,7 @@ class PracticeHomeViewController: UIViewController {
         PracticeStudentHelper.getStudent(success: { practiceStudent in
             self.practiceStudent = practiceStudent
             self.userTableView.reloadData()
+            self.homeTableView.reloadData()
         }) { error in }
     }
     
@@ -78,20 +79,24 @@ class PracticeHomeViewController: UIViewController {
         navigationItem.rightBarButtonItem = practiceSearch
         
         /* 顶部视图 */
-        headView.frame = CGRect(x: 0, y: -1/3, width: deviceWidth, height: 64)
+        headView.frame = CGRect(x: 0, y: 0, width: deviceWidth, height: 64)
         headView.userOptionButton.addTarget(self, action: #selector(optionButtonClick), for: .touchUpInside)
         headView.homeOptionButton.addTarget(self, action: #selector(optionButtonClick), for: .touchUpInside)
-        headView.userOptionButton.isEnabled = !isAtRight // 滑动视图在左 -> "我的" 不可用
-        headView.homeOptionButton.isEnabled = isAtRight // 滑动视图在右 -> "题库" 可用
-        if !isAtRight { headView.underLine.frame.origin.x = deviceWidth / 6 } // 白色指示条默认在右, 非默认则调整位置
+        headView.userOptionButton.isEnabled = !PracticeFigure.isAtRight // 滑动视图在左 -> "我的" 不可用
+        headView.homeOptionButton.isEnabled = PracticeFigure.isAtRight // 滑动视图在右 -> "题库" 可用
+        if !PracticeFigure.isAtRight { headView.underLine.frame.origin.x = deviceWidth / 6 } // 白色指示条默认在右, 非默认则调整位置
         self.view.addSubview(headView)
+        // 额外视图 //
+        let additionalView = UIView(frame: CGRect(x: 0, y: -barHeight, width: deviceWidth, height: barHeight))
+        additionalView.backgroundColor = .practiceBlue
+        headView.addSubview(additionalView)
 
         /* 滑动视图 */
         contentScrollView.frame = CGRect(x: 0, y: headView.frame.size.height, width: deviceWidth, height: deviceHeight - barHeight - headView.frame.height)
         contentScrollView.delegate = self
         
         contentScrollView.contentSize = CGSize(width: 2 * deviceWidth, height: contentScrollView.frame.height)
-        if isAtRight { contentScrollView.contentOffset = CGPoint(x: deviceWidth, y: 0) } // 滑动视图默认在右, 非默认则为系统初试位置
+        if PracticeFigure.isAtRight { contentScrollView.contentOffset = CGPoint(x: deviceWidth, y: 0) } // 滑动视图默认在右, 非默认则为系统初试位置
         
         contentScrollView.showsHorizontalScrollIndicator = false
         contentScrollView.showsVerticalScrollIndicator = false
@@ -102,6 +107,7 @@ class PracticeHomeViewController: UIViewController {
         /* "我的" 视图 */
         userTableView.frame = CGRect(x: deviceWidth, y: 0, width: deviceWidth, height: contentScrollView.frame.height)
         userTableView.backgroundColor = .clear
+        userTableView.showsVerticalScrollIndicator = false
         userTableView.delegate = self
         userTableView.dataSource = self
         contentScrollView.addSubview(userTableView)
@@ -109,6 +115,7 @@ class PracticeHomeViewController: UIViewController {
         /* "题库" 视图 */
         homeTableView.frame = CGRect(x: 0, y: 0, width: deviceWidth, height: contentScrollView.frame.height)
         homeTableView.backgroundColor = .clear
+        homeTableView.showsVerticalScrollIndicator = false
         homeTableView.separatorColor = .clear
         homeTableView.delegate = self
         homeTableView.dataSource = self
@@ -117,17 +124,18 @@ class PracticeHomeViewController: UIViewController {
     
     // 点击按钮切换, 改变白色指示条位置与按钮可用状态 //
     @objc func optionButtonClick(button: UIButton) {
+        button.setBounceAnimation()
         UIView.animate(withDuration: 0.25) {
             var tempX = self.headView.underLine.frame.origin.x
             switch button {
             case self.headView.userOptionButton:
                 tempX += deviceWidth / 2
                 self.contentScrollView.contentOffset = CGPoint(x: deviceWidth, y: 0)
-                self.isAtRight = true
+                PracticeFigure.isAtRight = true
             case self.headView.homeOptionButton:
                 tempX -= deviceWidth / 2
                 self.contentScrollView.contentOffset = CGPoint(x: 0, y: 0)
-                self.isAtRight = false
+                PracticeFigure.isAtRight = false
             default:
                 break
             }
@@ -138,11 +146,13 @@ class PracticeHomeViewController: UIViewController {
     
     // 进入搜索界面 //
     @objc func practiceSearch() {
+        // TODO: 进入搜索界面
         // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
     }
     
 }
 
+// MARK: - UIScrollView
 /* 滑动视图代理 */
 extension PracticeHomeViewController: UIScrollViewDelegate {
     
@@ -155,15 +165,16 @@ extension PracticeHomeViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if headView.underLine.center.x < deviceWidth / 2 {
             (self.headView.userOptionButton.isEnabled, self.headView.homeOptionButton.isEnabled) = (true, false)
-            isAtRight = false
+            PracticeFigure.isAtRight = false
         } else {
             (self.headView.userOptionButton.isEnabled, self.headView.homeOptionButton.isEnabled) = (false, true)
-            isAtRight = true
+            PracticeFigure.isAtRight = true
         }
     }
     
 }
 
+// MARK: - UITableView
 /* 表单视图数据 */
 extension PracticeHomeViewController: UITableViewDataSource {
     
@@ -175,7 +186,7 @@ extension PracticeHomeViewController: UITableViewDataSource {
             return UserViewCellTitles.count
             
         // "题库" 视图 - 单元个数 //
-        case homeTableView: // (BUG EXIST)
+        case homeTableView:
             return HomeViewCellStyles.count
             
         default:
@@ -205,19 +216,56 @@ extension PracticeHomeViewController: UITableViewDataSource {
             return userViewCell
             
         // "题库" 视图 - 单元 //
-        case homeTableView: // (BUG EXIST)
-            // if practiceStudent == nil { return UITableViewCell() }
+        case homeTableView:
+            if practiceStudent == nil { return UITableViewCell() }
             
-            // let homeViewCell = HomeViewCell(byModel: practiceStudent, withStyle: HomeViewCellStyles[row])
-            let homeViewCell = HomeViewCell(withStyle: HomeViewCellStyles[row])
+            let homeViewCell = HomeViewCell(byModel: practiceStudent, withStyle: HomeViewCellStyles[row])
             
             homeViewCell.selectionStyle = .none
+            
+            switch row {
+            case 0:
+                for bubbleButton in homeViewCell.bubbleButtonArray {
+                    bubbleButton.addTarget(self, action: #selector(clickQuickSelect), for: .touchUpInside)
+                }
+            case 2:
+                homeViewCell.continueBubbleButton.addTarget(self, action: #selector(clickContinueCurrent), for: .touchUpInside)
+            default:
+                break
+            }
             
             return homeViewCell
         
         default:
             return UITableViewCell()
         }
+    }
+    
+    @objc func clickQuickSelect(button: UIButton) {
+        let course = practiceStudent.data.qSelect[button.tag]
+        PracticeFigure.courseID = String(course.id)
+        
+        let warningCard = PopupDialog(title: course.courseName, message: "请选择练习模式", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+        let leftButton = PracticePopupDialogButton(title: "顺序练习", dismissOnTap: true) {
+            PracticeFigure.practiceType = "0"
+            // TODO: 进入顺序练习
+            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+        }
+        let rightButton = PracticePopupDialogButton(title: "模拟考试", dismissOnTap: true) {
+            PracticeFigure.practiceType = "1"
+            // TODO: 进入模拟考试
+            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+        }
+        warningCard.addButtons([leftButton, rightButton])
+        self.present(warningCard, animated: true, completion: nil)
+    }
+    
+    @objc func clickContinueCurrent(button: UIButton) {
+        let studentData = practiceStudent.data
+        PracticeFigure.practiceType = "0"
+        if let currentCourseID = studentData.currentCourseID { PracticeFigure.courseID = currentCourseID }
+        // TODO: 进入当前练习
+        // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
     }
     
 }
@@ -233,11 +281,10 @@ extension PracticeHomeViewController: UITableViewDelegate {
             return 44
             
         // "题库" 视图 - 单元高度 //
-        case homeTableView: // (BUG EXIST)
-            // return 300
-            // return HomeViewCell(byModel: practiceStudent, withStyle: HomeViewCellStyles[indexPath.row]).cellHeight
-            return HomeViewCell(withStyle: HomeViewCellStyles[indexPath.row]).cellHeight
-        
+        case homeTableView:
+            if practiceStudent == nil { return 0 }
+            return HomeViewCell(byModel: practiceStudent, withStyle: HomeViewCellStyles[indexPath.row]).cellHeight
+            
         default:
             return 0
         }
@@ -269,15 +316,16 @@ extension PracticeHomeViewController: UITableViewDelegate {
             if let practiceStudent = practiceStudent {
                 userView.userHeadView.sd_setImage(with: URL(string: practiceStudent.data.avatarURL), placeholderImage: UIImage(named: "account_circle")!.with(color: .gray)) // 头像
                 userView.userNameLabel.text = practiceStudent.data.twtName // 昵称
-                userView.userTitleLabel.text = practiceStudent.data.title.titleName // 称号
-                userView.practicedQuestionNumber.text = practiceStudent.data.quesMessage.doneNumber // 已练习题目数
-                userView.practicedCourseNumber.text = "\(practiceStudent.data.quesMessage.rememberCourseNumber)" // 已练习科目数
+                userView.userTitleLabel.text = practiceStudent.data.titleName // 称号
+                userView.practicedQuestionNumber.text = practiceStudent.data.doneCount // 已练习题目数
+                userView.practicedCourseNumber.text = "\(practiceStudent.data.courseCount)" // 已练习科目数
                 
-                let correctRateString = String(Int(100 - Double(practiceStudent.data.quesMessage.errorNumber)! / Double(practiceStudent.data.quesMessage.doneNumber)! * 100))
+                let correctRateString = String(Int(100 - Double(practiceStudent.data.errorCount)! / Double(practiceStudent.data.doneCount)! * 100))
                 let correctRateText = NSMutableAttributedString(string: "正确率 \(correctRateString)%") // 使用富文本改变字体
                 correctRateText.addAttribute(.foregroundColor, value: UIColor.darkGray, range: NSMakeRange(0, 4))
                 userView.correctRate.attributedText = correctRateText // 正确率
             } else {
+                userView.userHeadView.image = #imageLiteral(resourceName: "ic_account_circle")
                 userView.userNameLabel.text = "我的昵称"
                 userView.userTitleLabel.text = "我的称号"
                 userView.practicedQuestionNumber.text = "0"
@@ -336,8 +384,7 @@ extension PracticeHomeViewController: UITableViewDelegate {
         switch row {
         case 0:
             // 练习历史 //
-            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
-            tableView.deselectRow(at: indexPath, animated: true)
+            self.navigationController?.pushViewController(PracticeHistoryViewController(), animated: true)
         case 1:
             // 我的错题 //
             self.navigationController?.pushViewController(PracticeWrongViewController(), animated: true)
@@ -348,7 +395,7 @@ extension PracticeHomeViewController: UITableViewDelegate {
             // 我的上传 //
             self.navigationController?.pushViewController(PracticeUploadViewController(), animated: true)
         default:
-            tableView.deselectRow(at: indexPath, animated: true)
+            return
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -356,6 +403,7 @@ extension PracticeHomeViewController: UITableViewDelegate {
     
 }
 
+// MARK: - UICollectionView
 /* 集合视图数据 */
 extension PracticeHomeViewController: UICollectionViewDataSource {
     
@@ -397,17 +445,26 @@ extension PracticeHomeViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.cellForItem(at: indexPath)?.setBounceAnimation()
-        
         let row = indexPath.row
         
         switch row {
+        // case 0, 2:
+            // TODO: 进入党课 / 网课课程列表
+            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
         case 1:
+            PracticeFigure.courseID = "1"
             let warningCard = PopupDialog(title: "形式与政策", message: "请选择练习模式", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
-            let cancelButton = PracticePopupDialogButton(title: "顺序练习", action: nil)
-            let removeButton = PracticePopupDialogButton(title: "模拟考试", dismissOnTap: true) {
-                
+            let leftButton = PracticePopupDialogButton(title: "顺序练习", dismissOnTap: true) {
+                PracticeFigure.practiceType = "0"
+                // TODO: 进入顺序练习
+                // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
             }
-            warningCard.addButtons([cancelButton, removeButton])
+            let rightButton = PracticePopupDialogButton(title: "模拟考试", dismissOnTap: true) {
+                PracticeFigure.practiceType = "1"
+                // TODO: 进入模拟考试
+                // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+            }
+            warningCard.addButtons([leftButton, rightButton])
             self.present(warningCard, animated: true, completion: nil)
         case 3:
             SwiftMessages.showWarningMessage(body: "功能完善中\n敬请期待嘤")
@@ -431,11 +488,11 @@ extension UIColor {
 
 extension UIView {
     // 弹簧动画 //
-    func setBounceAnimation(_ animations: @escaping (Bool) -> Void = {_ in }) {
-        UIView.animate(withDuration: 0.1, delay: 0, options: [.allowUserInteraction, .curveEaseIn],
-                       animations: { self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8) },
+    func setBounceAnimation(withDuration duration: TimeInterval = 0.1, scale: CGFloat = 0.8, _ animations: @escaping (Bool) -> Void = {_ in }) {
+        UIView.animate(withDuration: duration, delay: 0, options: [.allowUserInteraction, .curveEaseIn],
+                       animations: { self.transform = CGAffineTransform(scaleX: scale, y: scale) },
                        completion: { isFinished in })
-        UIView.animate(withDuration: 0.1, delay: 0.1, options: [.allowUserInteraction, .curveEaseIn],
+        UIView.animate(withDuration: duration, delay: duration, options: [.allowUserInteraction, .curveEaseIn],
                        animations: { self.transform = CGAffineTransform.identity },
                        completion: { animations }())
     }

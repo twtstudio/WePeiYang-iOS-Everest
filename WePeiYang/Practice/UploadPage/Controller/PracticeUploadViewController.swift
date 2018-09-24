@@ -8,6 +8,7 @@
 
 import UIKit
 
+// MARK: UIViewController
 class PracticeUploadViewController: UIViewController {
     
     override func viewDidLoad() {
@@ -48,8 +49,7 @@ class PracticeUploadViewController: UIViewController {
         
         /* 点击加群 */
         let joinGroupButton = UIButton(frame: CGRect(x: (deviceWidth - 104) / 2, y: uploadMessageLabel.frame.maxY + 20, width: 104, height: 33))
-        joinGroupButton.setTitle("点击加群", for: .normal)
-        joinGroupButton.setPracticeBubbleButton()
+        joinGroupButton.setPracticeBubbleButton(withTitle: "点击加群")
         joinGroupButton.addTarget(self, action: #selector(joinGroup), for: .touchUpInside)
         self.view.addSubview(joinGroupButton)
         
@@ -67,6 +67,7 @@ class PracticeUploadViewController: UIViewController {
     
 }
 
+// MARK: - UILabel
 /* 支持复制功能的 UILabel */
 class UICopyLabel: UILabel {
     
