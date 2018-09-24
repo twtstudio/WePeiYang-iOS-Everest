@@ -263,7 +263,7 @@ extension PracticeHomeViewController: UITableViewDataSource {
     @objc func clickContinueCurrent(button: UIButton) {
         let studentData = practiceStudent.data
         PracticeFigure.practiceType = "0"
-        PracticeFigure.courseID = studentData.currentCourseID
+        if let currentCourseID = studentData.currentCourseID { PracticeFigure.courseID = currentCourseID }
         // TODO: 进入当前练习
         // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
     }
