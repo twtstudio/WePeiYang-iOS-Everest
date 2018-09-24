@@ -8,35 +8,7 @@
 
 import Foundation
 
-enum isCorrect {
-    case right
-    case wrong
-    case unknown
-}
-enum Direction {
-    case left
-    case right
-    case none
-}
-
-enum PracticeMode {
-    case memorize
-    case exercise
-}
-
-struct Guard {
-    //哨兵
-    var iscollected: Bool = false
-    var ischecked: Bool = false
-    var isMistake: Bool = false
-    var iscorrect: isCorrect = .unknown
-    var answer: String?
-    var selected: Bool = false
-}
-
-
-
-class ExerciseCollectionViewController: UIViewController {
+class ExerciseCollectionViewController: UIViewController {    
     let questionViewParameters = QuestionViewParameters()
 
     var isExercising: Bool = true
@@ -50,23 +22,31 @@ class ExerciseCollectionViewController: UIViewController {
     var count = 0
     var isinited = 0
     
-    var scrollDirect: Direction = .none
-    var mode: PracticeMode = .exercise
+    var scrollDirection: Direction = .none
+    var mode: ExerciseMode = .exercise
     
     var classId = 2
     var courseId = 2
     var quesType = 0
 
     var currentPage = 1
+    var currentIndex = 0
     var lastoffset: CGFloat = deviceWidth
     var currentoffset: CGFloat = 0
     var indexArray: [Int] = []
+    var usrMultipleAnser: [String] = []
 
-    let orderLabel = UILabel()
+    let orderLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textAlignment = .left
+        return label
+    }()
     
     let result: String? = "正确"
     let rightAnswer: String? = "A"
-
+    
+    let quesListBkgView = UIView()
     let collectBtn: UIButton = {
         let btn = UIButton()
         btn.setImage(#imageLiteral(resourceName: "collect"), for: .normal)
@@ -75,52 +55,75 @@ class ExerciseCollectionViewController: UIViewController {
     
     let checkBtn: UIButton = {
         let btn = UIButton()
-        btn.backgroundColor = .white
-        btn.setTitle("查看答案", for: .normal)
+        btn.backgroundColor = UIColor.practiceBlue
+        btn.setTitle("确认答案", for: .normal)
         return btn
     }()
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let quesListCollectionView = QuesCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-
+    
+    let buttonsView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //制作一个假的数据
-//        for _ in 0..<58 {
-//            id.append(888)
-//        }
-//        indexArray = [id.count, 1, 2]
-//
-//        for i in 0..<id.count {
-//            let questionDetail = QuestionDetails(id: id[i], classId: classId, courseId: courseId, type: quesType, content: "以下不属于共同的论证评价标准的是()。以下不属于共同的论证评价标准的是()。", option: ["逻辑标准", "修辞标准", "论辩标准", "分析标准"], correctAnswer: "A", isCollected: 0, isMistake: 0)
-////            let questionDetail = QuestionDetails(id: id[i], courseId: courseId, type: quesType, content: "以下不属于共同的论证评价标准的是()。以下不属于共同的论证评价标准的是()。", option: ["逻辑标准", "修辞标准", "论辩标准", "分析标准"])
-//            let question = Question(status: 0, quesDetail: questionDetail)
-//            questions.append(question)
-////请求部分
-////            let answer = Answer(ques_id: questions[i].ques?.id, answer: nil ,type: questions[i].ques?.type)
-////            answers.append(answer)
-//
-//            let guarding = Guard()
-//            guards.append(guarding)
-//        }
-       
         initcollectionView()
         setupSaperator()
         getIdList(courseId: courseId, quesType: quesType)
-                
+
         NotificationCenter.default.addObserver(self, selector: #selector(updateAnswer), name: NSNotification.Name(rawValue: "optionSelected"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(changeQues), name: NSNotification.Name(rawValue: "changeQues"), object: nil)
     }
 
-
+    override func viewWillAppear(_ animated: Bool) {
+        //答题、背题切换
+        let items = ["背题", "答题"]
+        let segmentedControl = UISegmentedControl(items: items)
+        segmentedControl.tintColor = UIColor.white
+        segmentedControl.backgroundColor = .clear
+        segmentedControl.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.white], for: .normal)
+        segmentedControl.selectedSegmentIndex = 1
+        segmentedControl.addTarget(self, action: #selector(changeMode(_:)   ), for: .valueChanged)
+        segmentedControl.layer.borderWidth = 1
+        segmentedControl.layer.borderColor = UIColor.white.cgColor
+        segmentedControl.layer.cornerRadius = 12
+        segmentedControl.clipsToBounds = true
+        
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.navigationBar.barTintColor = UIColor.practiceBlue
+        navigationController?.navigationBar.tintColor = .white
+        navigationItem.titleView = UIView(frame: CGRect(x: 0, y: 0, width: 150, height: 24))
+        navigationItem.titleView?.backgroundColor = .clear
+        navigationItem.titleView?.addSubview(segmentedControl)
+        segmentedControl.snp.makeConstraints { (make) in
+            make.center.equalTo(navigationItem.titleView!)
+            make.width.equalTo(navigationItem.titleView!)
+            make.height.equalTo(navigationItem.titleView!)
+        }
+    }
+    
+    @objc func changeMode(_ segmented: UISegmentedControl) {
+        switch segmented.selectedSegmentIndex {
+        case 0:
+            mode = .memorize
+            collectionView.reloadData()
+        case 1:
+            mode = .exercise
+            collectionView.reloadData()
+        default:
+            break
+        }
+    }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "optionSelected"), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "changeQues"), object: nil)
     }
-    
-    
 }
 
 extension ExerciseCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -137,11 +140,11 @@ extension ExerciseCollectionViewController: UICollectionViewDataSource, UICollec
         let ques = questionArray[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! ExerciseCell
 
-        if let content = ques.quesDetail?.content, let optionArray = ques.quesDetail?.option, let correctAns = ques.quesDetail?.correctAnswer {
-            cell.loadQues(ques: content, options: optionArray, selected: guards[currentPage - 1].selected, rightAns: correctAns)
+        if let content = ques.quesDetail?.content, let optionArray = ques.quesDetail?.option, let correctAns = ques.quesDetail?.correctAnswer, let quesType = ques.quesDetail?.type {
+            cell.loadQues(answer: usrMultipleAnser[indexArray[indexPath.item]], ques: content, options: optionArray, selected: guards[currentIndex].selected, rightAns: correctAns, qType: quesType)
             cell.questionView.reloadData()
         }else {
-            cell.loadQues(ques: "oops, no data", options: ["oops, no data", "oops, no data", "oops, no data", "oops, no data"], selected: guards[currentPage - 1].selected, rightAns: "no data")
+            cell.loadQues(answer: "none", ques: "oops, no data", options: ["oops, no data", "oops, no data", "oops, no data", "oops, no data"], selected: guards[currentPage - 1].selected, rightAns: "no data", qType: 0)
         }
         cell.initExerciseCell()
 
@@ -162,26 +165,22 @@ extension ExerciseCollectionViewController: UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: deviceWidth, height: deviceHeight)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        quesListCollectionView.removeFromSuperview()
-    }
 }
 
 //网络请求
 extension ExerciseCollectionViewController {
     
-    func getIdList(courseId: Int, quesType: Int) {
+    private func getIdList(courseId: Int, quesType: Int) {
         //这里会先运行 PracticeNetwork.getIdList
         var idList: [Int?] = []
-        PracticeNetwork.getIdList(courseId: courseId, quesType: quesType, success: { (idArray) in
+        ExerciseNetwork.getIdList(courseId: courseId, quesType: quesType, success: { (idArray) in
             idList = idArray
             self.indexArray = [idList.count - 1, 0, 1]
             for _ in 0..<idList.count {
                 let guarding = Guard()
                 self.guards.append(guarding)
+                self.usrMultipleAnser.append("")
             }
-            
             self.idList = idList
             self.loadData()
         }) { (err) in
@@ -189,12 +188,12 @@ extension ExerciseCollectionViewController {
         }
     }
     
-    func getQues(id: Int) {
+    private func getQues(id: Int) {
 //        print("正在获取\(id)")
-        PracticeNetwork.getQues(courseId: courseId, quesType: quesType, id: id, success: { (ques) in
+        ExerciseNetwork.getQues(courseId: courseId, quesType: quesType, id: id, success: { (ques) in
             self.count = self.count + 1
             
-            if self.count == 3 {
+            if self.count == 3 && ExerciseCollectionViewController.questions.count == 3{
                 self.count = 0
                 var qs: [Question] = []
                 
@@ -208,21 +207,20 @@ extension ExerciseCollectionViewController {
                     }
                 }
                 //
-                
                 for i in 0..<3 {
                     switch qs[i].quesDetail?.isCollected {
-                    case 0:
+                    case 0?:
                         self.guards[self.indexArray[i]].iscollected = false
-                    case 1:
+                    case 1?:
                         self.guards[self.indexArray[i]].iscollected = true
                     default:
                         break
                     }
                     
                     switch qs[i].quesDetail?.isMistake {
-                    case 0:
+                    case 0?:
                         self.guards[self.indexArray[i]].isMistake = false
-                    case 1:
+                    case 1?:
                         self.guards[self.indexArray[i]].isMistake = true
                     default:
                         break
@@ -235,8 +233,12 @@ extension ExerciseCollectionViewController {
                     self.collectionView.dataSource = self
                     self.isinited = 1
                 } else {
-                    self.collectionView.reloadData()
+//                    self.collectionView.reloadData()
+                    self.reloadQuesCollectionView(scrollDirection: self.scrollDirection)
                 }
+            }else if self.count == 3 {
+                self.count = 0
+                self.updateData()
             }
             
         }) { (err) in
@@ -244,11 +246,27 @@ extension ExerciseCollectionViewController {
         }
     }
     
-    func getQuesArray() {
+    private func reloadQuesCollectionView(scrollDirection: Direction) {
+        var array: [IndexPath] = []
+        if scrollDirection == .left {
+            for i in 0..<2 {
+                let indexPath = IndexPath(item: i, section: 0)
+                array.append(indexPath)
+            }
+        } else if scrollDirection == .right {
+            for i in 1...2 {
+                let indexPath = IndexPath(item: i, section: 0)
+                array.append(indexPath)
+            }
+        } else {
+            self.collectionView.reloadData()
+        }
+        self.collectionView.reloadItems(at: array)
+    }
+    
+    private func getQuesArray() {
         ExerciseCollectionViewController.questions = []
         for index in indexArray {
-            print(index)
-            print(currentPage)
             if let id = idList[index] {
                 getQues(id: id)
             }else {
@@ -264,60 +282,71 @@ extension ExerciseCollectionViewController {
 //页面切换
 extension ExerciseCollectionViewController {
     
-    func updateData() {
+    private func updateData() {
         //页面记录更新
-        let currentIndex = currentPage - 1
+//        currentIndex = currentPage - 1
         let lastIndex = (currentIndex - 1) == -1 ? idList.count - 1 : (currentIndex - 1)
         let nextIndex = (currentIndex + 1) == idList.count ? 0 : (currentIndex + 1)
         indexArray = [lastIndex, currentIndex, nextIndex]
-
+        
+        SolaSessionManager.cancelAllTask()
         getQuesArray()
-        orderLabel.textAlignment = .center
         orderLabel.text = "\(currentPage)/\(idList.count)"
         
         //判断是否收藏
-        if guards[currentPage - 1].iscollected {
+        if guards[currentIndex].iscollected {
             collectBtn.setImage(#imageLiteral(resourceName: "collected"), for: .normal)
         }else {
             collectBtn.setImage(#imageLiteral(resourceName: "collect"), for: .normal)
         }
-        
-        //判断是否查看答案
-        if guards[currentPage - 1].ischecked {
-            checkBtn.setTitle("隐藏答案", for: .normal)
-        }else {
-            checkBtn.setTitle("查看答案", for: .normal)
+
+        if quesType == 1 {
+            if guards[currentIndex].ischecked {
+                checkBtn.removeFromSuperview()
+            } else {
+                setCheckBtn()
+            }
         }
         
         quesListCollectionView.initCollectionView(currentPage: currentPage, pagesNum: idList.count, isCorrect: isCorrected)
         quesListCollectionView.reloadData()
     }
-    
-    //判断滑动方向
+
+    /// 判断滑动方向
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
-//        questions = []
         currentoffset = scrollView.contentOffset.x
         let offset = lastoffset - currentoffset
         if offset >= deviceWidth {
-            scrollDirect = .right
+            scrollDirection = .right
         } else if offset <= -deviceWidth {
-            scrollDirect = .left
+            scrollDirection = .left
         }
         
-        switch scrollDirect {
+        var reloadItem: Int = 0
+        switch scrollDirection {
+        //滑向下一题
         case .left:
             currentPage = (currentPage + 1) == idList.count + 1 ? 1 : (currentPage + 1)
+            currentIndex = currentPage - 1
             updateData()
-            scrollView.contentOffset.x = deviceWidth
+            reloadItem = 2
+            
+        //滑向上一题
         case .right:
             currentPage = (currentPage - 1) == 0 ? idList.count : (currentPage - 1)
+            currentIndex = currentPage - 1
             updateData()
-            scrollView.contentOffset.x = deviceWidth
+            reloadItem = 0
         default:
             break
         }
-        scrollDirect = .none
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            scrollView.contentOffset.x = deviceWidth
+        }
+        let indexPath = IndexPath(item: reloadItem, section: 0)
+        let array = [indexPath]
+        self.collectionView.reloadItems(at: array)
+        scrollDirection = .none
     }
     
 }
@@ -325,18 +354,13 @@ extension ExerciseCollectionViewController {
 //界面初始化、基本控件加载、点击事件
 extension ExerciseCollectionViewController {
     
-    func loadData() {
+    private func loadData() {
         getQuesArray()
-//        print(questions)
         setupButtons()
     }
     
-    @objc func removeQuesCollectionView() {
-        quesListCollectionView.removeFromSuperview()
-    }
-    
-    func initcollectionView() {
-
+    /// 底部CollectionView基本属性设置
+    private func initcollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 0
@@ -347,7 +371,7 @@ extension ExerciseCollectionViewController {
         collectionView.contentSize = CGSize(width: deviceWidth * 3, height: deviceHeight)
         collectionView.isPagingEnabled = true
         collectionView.register(ExerciseCell.self, forCellWithReuseIdentifier: "collectionCell")
-        collectionView.showsHorizontalScrollIndicator = true
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         
         collectionView.contentOffset.x = deviceWidth
@@ -360,14 +384,11 @@ extension ExerciseCollectionViewController {
             make.center.equalTo(view)
         }
     }
-    
-    func setupButtons() {
+
+    private func setupButtons() {
         let offset = 0.05 * deviceWidth
         let buttonsViewW = questionViewParameters.questionViewW
         let buttonsViewH = 0.05 * deviceHeight
-        
-        let buttonsView = UIView()
-        buttonsView.backgroundColor = .clear
         
         let showBtn: UIButton = {
             let btn = UIButton()
@@ -375,18 +396,17 @@ extension ExerciseCollectionViewController {
             return btn
         }()
         
-        checkBtn.setTitleColor(UIColor.practiceBlue, for: .normal)
-        checkBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        checkBtn.layer.cornerRadius = 0.4 * buttonsViewH
+        checkBtn.setTitleColor(.white, for: .normal)
+        checkBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        checkBtn.layer.cornerRadius = 0.1 * buttonsViewH
         checkBtn.layer.borderWidth = 1
         checkBtn.layer.borderColor = UIColor.practiceBlue.cgColor
         
         collectBtn.addTarget(self, action: #selector(collect(_:)), for: .touchUpInside)
-        checkBtn.addTarget(self, action: #selector(check(_:)), for: .touchUpInside)
+        checkBtn.addTarget(self, action: #selector(checkBtnTapped(_:)), for: .touchUpInside)
         showBtn.addTarget(self, action: #selector(showQuesCollectionView(_:)), for: .touchUpInside)
         
         let offsetY = 0.2 * deviceHeight
-        //        let offsetX = 0.18 * deviceWidth
         let offsetm = 0.004 * deviceHeight
         
         view.addSubview(buttonsView)
@@ -397,29 +417,16 @@ extension ExerciseCollectionViewController {
             make.centerX.equalTo(view)
         }
         
-        buttonsView.addSubview(checkBtn)
-        checkBtn.snp.makeConstraints { (make) in
-            make.width.equalTo(80)
-            make.height.equalTo(0.8 * buttonsViewH)
-            make.left.equalTo(buttonsView)
-            make.centerY.equalTo(buttonsView).offset(offsetm)
-        }
-        
-        orderLabel.textAlignment = .center
-        orderLabel.text = "\(currentPage)/\(idList.count)"
-        buttonsView.addSubview(orderLabel)
-        orderLabel.snp.makeConstraints { (make) in
-            make.width.equalTo(2.2 * buttonsViewH)
-            make.height.equalTo(buttonsViewH)
-            make.right.top.equalTo(buttonsView)
+        if quesType == 1 {
+            setCheckBtn()
         }
         
         // showBtn和collectBtn 的 make.right.equalTo()无效。很迷。
         buttonsView.addSubview(showBtn)
         showBtn.snp.makeConstraints { (make) in
             make.width.height.equalTo(buttonsViewH)
-            make.top.equalTo(buttonsView)
-            make.left.equalTo(orderLabel).offset(-(offset + buttonsViewH))
+            make.top.equalTo(buttonsView).offset(offsetm)
+            make.right.top.equalTo(buttonsView)
         }
         
         buttonsView.addSubview(collectBtn)
@@ -429,9 +436,32 @@ extension ExerciseCollectionViewController {
             make.left.equalTo(showBtn).offset(-(offset + buttonsViewH))
         }
         
+        orderLabel.textAlignment = .center
+        orderLabel.text = "\(currentPage) / \(idList.count)"
+        buttonsView.addSubview(orderLabel)
+        orderLabel.snp.makeConstraints { (make) in
+            make.width.equalTo(2.2 * buttonsViewH)
+            make.height.equalTo(buttonsViewH)
+            make.right.equalTo(collectBtn).offset(-(offsetm + buttonsViewH))
+            make.centerY.equalTo(buttonsView).offset(offsetm)
+        }
+        
+        
     }
-    
-    func setupSaperator() {
+
+    private func setCheckBtn() {
+        let buttonsViewH = 0.05 * deviceHeight
+        let offsetm = 0.004 * deviceHeight
+        buttonsView.addSubview(checkBtn)
+        checkBtn.snp.makeConstraints { (make) in
+            make.width.equalTo(80)
+            make.height.equalTo(0.8 * buttonsViewH)
+            make.left.equalTo(buttonsView)
+            make.centerY.equalTo(buttonsView).offset(offsetm)
+        }
+    }
+
+    private func setupSaperator() {
         let saperatorW = 0.9 * deviceWidth
         let saperatorView = UIView()
         saperatorView.backgroundColor = UIColor(red: 177/255, green: 196/255, blue: 222/255, alpha: 1)
@@ -443,21 +473,40 @@ extension ExerciseCollectionViewController {
             make.centerY.equalTo(view).offset(0.24 * deviceHeight)
         }
     }
+    
+    func answerupdate(selectedAns: String) {
+        for _ in 0..<30 {
+            let guarding = Guard()
+            self.guards.append(guarding)
+        }
+        print(guards.count)
+    }
 
-    @objc func updateAnswer() {
-        guards[currentPage - 1].selected = true
-        guards[currentPage - 1].answer = QuestionTableView.selectedAnswer
-        if let answer = guards[currentPage - 1].answer {
+    private func check() {
+        guards[currentIndex].ischecked = true
+        
+        if guards[currentIndex].selected {
+            let indexPath = IndexPath(item: 1, section: 0)
+            self.collectionView.reloadItems(at: [indexPath])
+//            QuestionTableView.selectedAnswer = nil
+            return
+        }
+    }
+    
+    @objc private func updateAnswer() {
+        guards[currentIndex].selected = true
+        guards[currentIndex].answer = QuestionTableView.selectedAnswer
+        if let answer = guards[currentIndex].answer {
             if answer == questionArray[1].quesDetail!.correctAnswer {
-                guards[currentPage - 1].iscorrect = .right
-            }else {
-                guards[currentPage - 1].iscorrect = .wrong
+                guards[currentIndex].iscorrect = .right
+            } else {
+                guards[currentIndex].iscorrect = .wrong
                 
                 let mistakeQuesData: Dictionary<String, Any> = ["tid": 1,
                                                                 "ques_id": questionArray[1].quesDetail?.id ?? 0,
                                                                 "ques_type": questionArray[1].quesDetail?.type ?? 3,
                                                                 "error_option": answer]
-                PracticeNetwork.postMistakeQues(courseId: courseId, data: mistakeQuesData, failure: { (err) in
+                ExerciseNetwork.postMistakeQues(courseId: courseId, data: mistakeQuesData, failure: { (err) in
                     print(err)
                 }) { (dic) in
 //                    print(dic)
@@ -466,38 +515,40 @@ extension ExerciseCollectionViewController {
         } else {
             return
         }
-        check(checkBtn)
+        check()
+        QuestionTableView.selectedAnswer = nil
     }
     
-    @objc func changeQues() {
+    @objc private func changeQues() {
         currentPage = QuesCollectionView.chosenPage
+        currentIndex = currentPage - 1
         updateData()
     }
     
     //收藏
-    @objc func collect(_ button: UIButton) {
-        if guards[currentPage - 1].iscollected {
-            guards[currentPage - 1].iscollected = false
+    @objc private func collect(_ button: UIButton) {
+        if guards[currentIndex].iscollected {
+            guards[currentIndex].iscollected = false
             button.setImage(#imageLiteral(resourceName: "collect"), for: .normal)
             
             let ques = questionArray[1].quesDetail!
             let data: Dictionary<String, Any> = ["tid": 0,
                                                  "ques_type": ques.type!,
                                                  "ques_id": ques.id!]
-            PracticeNetwork.addCollection(data: data, failure: { (err) in
+            ExerciseNetwork.addCollection(data: data, failure: { (err) in
                 print(err)
             }) { (dic) in
                 //收藏后动作
                 print("收藏成功")
             }
-        }else {
-            guards[currentPage - 1].iscollected = true
+        } else {
+            guards[currentIndex].iscollected = true
             button.setImage(#imageLiteral(resourceName: "collected"), for: .normal)
             let ques = questionArray[1].quesDetail!
             let data: Dictionary<String, Any> = ["tid": 0,
                                                  "ques_type": ques.type!,
                                                  "ques_id": ques.id!]
-            PracticeNetwork.deleteCollection(data: data, failure: { (err) in
+            ExerciseNetwork.deleteCollection(data: data, failure: { (err) in
                 print(err)
             }) { (dic) in
                 //取消收藏后动作
@@ -506,65 +557,68 @@ extension ExerciseCollectionViewController {
         }
     }
     
-    //查看答案、隐藏答案
-    @objc func check(_ button: UIButton) {
-        if guards[currentPage - 1].selected == true {
-            button.setTitle("隐藏答案", for: .normal)
-            guards[currentPage - 1].ischecked = true
-            
-            let indexPath = IndexPath(item: 1, section: 0)
-            self.collectionView.reloadItems(at: [indexPath])
-            QuestionTableView.selectedAnswer = nil
-            return
+    //确认答案
+    @objc private func checkBtnTapped(_ button: UIButton) {
+        guards[currentIndex].selected = true
+        guards[currentIndex].ischecked = true
+        button.removeFromSuperview()
+
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Check Multiple Choice Answer"), object: nil)
+        //储存答案String
+        let startValue = Int(("A" as UnicodeScalar).value)
+        var answerString = ""
+        for i in 0..<QuestionTableView.selectedAnswerArray.count {
+            if QuestionTableView.selectedAnswerArray[i] {
+                let string = String(UnicodeScalar(i + startValue)!)
+                answerString = answerString + string
+            }
         }
-        
-        if guards[currentPage - 1].ischecked {
-            button.setTitle("查看答案", for: .normal)
-            guards[currentPage - 1].ischecked = false
-            
-            let indexPath = IndexPath(item: 1, section: 0)
-            self.collectionView.reloadItems(at: [indexPath])
-        }else {
-            button.setTitle("隐藏答案", for: .normal)
-            guards[currentPage - 1].ischecked = true
-            
-            let indexPath = IndexPath(item: 1, section: 0)
-            self.collectionView.reloadItems(at: [indexPath])
+        if answerString == questionArray[1].quesDetail?.correctAnswer {
+            guards[currentIndex].iscorrect = .right
+        } else {
+            guards[currentIndex].iscorrect = .wrong
         }
+        usrMultipleAnser[currentIndex] = answerString
+        let indexPath = IndexPath(item: 1, section: 0)
+        self.collectionView.reloadItems(at: [indexPath])       
     }
     
     //显示题号列表
-    @objc func showQuesCollectionView(_ button: UIButton) {
+    @objc private func showQuesCollectionView(_ button: UIButton) {
+        guard let window = UIApplication.shared.keyWindow else { return }
+        quesListBkgView.frame = window.bounds
+        quesListBkgView.backgroundColor = UIColor(white: 0.1, alpha: 0.6)
+        window.addSubview(quesListBkgView)
         let pageNum = idList.count
         isCorrected = []
         for i in 0..<pageNum {
             isCorrected.append(guards[i].iscorrect)
         }
+        quesListCollectionView.contentSize = CGSize(width: deviceWidth - 20, height: 0.45 * deviceHeight)
         quesListCollectionView.initCollectionView(currentPage: currentPage, pagesNum: pageNum, isCorrect: isCorrected)
         quesListCollectionView.reloadData()
-        view.addSubview(quesListCollectionView)
-        quesListCollectionView.snp.makeConstraints { (make) in
-            make.width.equalTo(0.45 * deviceWidth)
-            make.height.equalTo(0.3 * deviceHeight)
-            make.centerX.equalTo(view).offset(0.05 * deviceWidth)
-            make.centerY.equalTo(view)
+        
+        //题号列表弹出动画
+        window.addSubview(quesListCollectionView)
+        quesListCollectionView.frame = CGRect(x: 0, y: deviceHeight + 30, width: deviceWidth, height: 0.45 * deviceHeight)
+        UIView.animate(withDuration: 0.3) {
+            self.quesListCollectionView.frame = CGRect(x: 0, y: 0.55 * deviceHeight, width: deviceWidth, height: 0.45 * deviceHeight)
+        }
+        //添加手势判断
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(hindQuesList))
+        quesListBkgView.addGestureRecognizer(gesture)
+    }
+    
+    @objc private func hindQuesList() {
+        UIView.animate(withDuration: 0.3) {
+            //尾随闭包播放弹出动画
+            self.quesListCollectionView.frame = CGRect(x: 0, y: deviceHeight + 30, width: deviceWidth, height: 0.45 * deviceHeight)
+            
+            //提交一个延时任务线程
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.quesListCollectionView.removeFromSuperview()
+                self.quesListBkgView.removeFromSuperview()
+            }
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -9,7 +9,7 @@
 import UIKit
 
 
-class QuizCell: UICollectionViewCell {
+class QuizCollectionCell: UICollectionViewCell {
     
     var label:UILabel = {
         

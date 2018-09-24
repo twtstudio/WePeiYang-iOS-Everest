@@ -9,13 +9,6 @@
 import Foundation
 import UIKit
 
-struct AnswerViewParameters {
-    static let aFont = UIFont.systemFont(ofSize: 16)
-    static let resultLabelH = 0.05 * deviceHeight
-    static var answerTextViewH = 0.2 * deviceHeight
-    static let answerViewH = 0.25 * deviceHeight
-}
-
 class AnswerScrollView: UIScrollView {
     let questionViewParameters = QuestionViewParameters()
 

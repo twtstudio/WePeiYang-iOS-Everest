@@ -22,32 +22,57 @@ class QuestionCell: UITableViewCell {
         return label
     }()
     
+    let quesLabelH = 15
+    let quesTypeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.practiceBlue
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 10)
+        label.layer.borderWidth = 1
+        label.layer.borderColor = UIColor.practiceBlue.cgColor
+        return label
+    }()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.backgroundColor = .white
+        self.backgroundColor = .clear
         self.selectedBackgroundView = UIView()
         self.selectedBackgroundView?.backgroundColor = .clear
         
         contentView.addSubview(qLabel)
+        contentView.addSubview(quesTypeLabel)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func initQCell(question: String?) {
+    func initQCell(question: String?, questionType: Int?) {
         if let text = question {
             qLabel.font = questionViewParameters.qFont
-            qLabel.text = question
-//            qLabel.frame = CGRect(x: 0, y: 0, width: cellWidth, height: text.calculateHeightWithConstrained(width: 80, font: qFont))
+            qLabel.text = "            " + text
             height = text.calculateHeightWithConstrained(width: CGFloat(questionViewParameters.questionViewW), font: questionViewParameters.qFont)
             qLabel.snp.makeConstraints { (make) in
                 make.width.equalTo(questionViewParameters.questionViewW)
                 make.height.equalTo(height)
                 make.left.top.equalTo(self)
             }
-
+            
+            if questionType == 0 {
+                quesTypeLabel.text = "单选"
+            }else if questionType == 1 {
+                quesTypeLabel.text = "多选"
+            }else {
+                quesTypeLabel.text = "判断"
+            }
+            quesTypeLabel.layer.cornerRadius = CGFloat(quesLabelH / 2)
+            quesTypeLabel.snp.makeConstraints { (make) in
+                make.width.equalTo(35)
+                make.height.equalTo(quesLabelH)
+                make.top.equalTo(qLabel).offset(1)
+                make.left.equalTo(qLabel).offset(5)
+            }
         } else {
             //数据为空时怎么办（待填坑）
             

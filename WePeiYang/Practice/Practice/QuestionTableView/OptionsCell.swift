@@ -9,14 +9,11 @@
 import Foundation
 import UIKit
 
-
-
 class OptionsCell: UITableViewCell {
     let questionViewParameters = QuestionViewParameters()
     
     let btnImages: [UIImage] = [#imageLiteral(resourceName: "A"), #imageLiteral(resourceName: "B"), #imageLiteral(resourceName: "C"), #imageLiteral(resourceName: "D"), #imageLiteral(resourceName: "E")]
-    let selectedbtnImgs: [UIImage] = [#imageLiteral(resourceName: "selectedA"), #imageLiteral(resourceName: "selectedB"), #imageLiteral(resourceName: "selectedC"), #imageLiteral(resourceName: "selectedD"), #imageLiteral(resourceName: "selectedE")]
-    let errorImg: UIImage = #imageLiteral(resourceName: "errorIcon.png")
+    let selectedbtnImgs: [UIImage] = [#imageLiteral(resourceName: "selectedA"), #imageLiteral(resourceName: "selectedB"), #imageLiteral(resourceName: "selectedC"), #imageLiteral(resourceName: "selectedD"), #imageLiteral(resourceName: "selectedE")]    
     
     let optionIcon: UIImageView = {
         let btn = UIImageView(frame: .zero)
@@ -31,50 +28,39 @@ class OptionsCell: UITableViewCell {
         return label
     }()
     
+    var optionContent: String?
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = .white
+        
+        self.backgroundColor = .clear
         self.selectedBackgroundView = UIView()
         self.selectedBackgroundView?.backgroundColor = .clear
-        
         self.addSubview(optionIcon)
         self.addSubview(optionLabel)
-
     }
     
-    func initUI(order: Int, optionsContent: String?, isSelected: Bool, rightAns: String) {
+    func setupUI() {
         let btnWidth = questionViewParameters.cellH
         let offset = 0.01 * deviceWidth
-        let practiceModel = PracticeModel()
 
-        if isSelected == false {
-            optionIcon.image = btnImages[order]
-        }else {
-            if practiceModel.optionDics[order + 2] == rightAns {
-                optionIcon.image = errorImg
-            }else {
-                optionIcon.image = selectedbtnImgs[order]
-                
-            }
-        }
-        
         optionIcon.snp.makeConstraints { (make) in
             make.width.height.equalTo(btnWidth)
-            make.left.top.equalTo(self)
+            make.top.equalTo(self)
+            make.left.equalTo(self).offset(5)
         }
         
-        if let content = optionsContent {
+        if let content = optionContent {
             optionLabel.text = content
             optionLabel.font = questionViewParameters.aFont
             optionLabel.snp.makeConstraints { (make) in
                 make.width.equalTo(questionViewParameters.optionLabelW)
-                make.height.equalTo(content.calculateHeightWithConstrained(width: CGFloat(questionViewParameters.optionLabelW), font: questionViewParameters.aFont))
+                make.height.equalTo(content.calculateHeightWithConstrained(width: CGFloat(questionViewParameters.optionLabelW + 3), font: questionViewParameters.aFont))
                 make.left.equalTo(optionIcon).offset(btnWidth + offset)
                 make.top.equalTo(self).offset(questionViewParameters.optionsOffsetY)
             }
         } else {
             // 数据为空时怎么办（待填坑）
-            
             
         }
     }

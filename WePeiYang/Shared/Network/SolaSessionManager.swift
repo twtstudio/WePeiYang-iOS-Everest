@@ -38,6 +38,30 @@ struct SolaSessionManager {
     ///   - parameters: http parameters
     ///   - success: callback if request succeeds
     ///   - failure: callback if request fails
+    
+    static func cancelAllTask() {
+        let sessionManager: Alamofire.SessionManager! = Alamofire.SessionManager.default
+        sessionManager.session.getAllTasks { (tasks) in
+            tasks.forEach({ (task) in
+                task.cancel()
+            })
+        }
+        print("CANCEL ALL TASKS")
+    }
+    
+    static func cancelTask(withUrl urlstring: String) {
+        let sessionManager: Alamofire.SessionManager! = Alamofire.SessionManager.default
+        sessionManager.session.getAllTasks { (tasks) in
+            tasks.forEach({ (task) in
+                task.cancel()
+                if task.currentRequest?.url?.lastPathComponent == urlstring
+                {
+                    task.cancel()
+                }
+            })
+        }
+    }
+    
     static func solaSession(type: SessionType = .get, baseURL: String = TWT_ROOT_URL, url: String, token: String? = nil, parameters: [String: String]? = nil, success: (([String: Any])->())? = nil, failure: ((Error)->())? = nil) {
         let fullurl = baseURL + url
         let timeStamp = String(Int64(Date().timeIntervalSince1970))

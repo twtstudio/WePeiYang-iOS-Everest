@@ -48,7 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // 让他重新登录
         })
 
-
         mainTabVC = WPYTabBarController()
         
         let favoriteVC = FavViewController()

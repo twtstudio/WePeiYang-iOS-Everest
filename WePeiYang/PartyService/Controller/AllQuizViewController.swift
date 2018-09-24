@@ -84,7 +84,7 @@ class AllQuizViewController: UIViewController,UICollectionViewDelegate,UICollect
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.white
-        collectionView.register(QuizCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.register(QuizCollectionCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         self.view .addSubview(collectionView)
         
@@ -102,7 +102,7 @@ class AllQuizViewController: UIViewController,UICollectionViewDelegate,UICollect
     
     func  collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! QuizCell
+        let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! QuizCollectionCell
         
         cell.label.text = "\(indexPath.row+1)"
         
