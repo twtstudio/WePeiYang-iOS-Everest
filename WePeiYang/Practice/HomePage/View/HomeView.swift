@@ -104,12 +104,18 @@ class HomeViewCell: UITableViewCell {
             
         // 当前练习 //
         case .currentPractice:
-            let currentPracticeCourse = UILabel(text: studentData.currentCourseName + PracticeDictionary.questionType[studentData.currentQuesType]!, color: .darkGray)
+            guard let currentCourseName = studentData.currentCourseName,
+                let currentQuesType = studentData.currentQuesType,
+                let currentCourseDoneCount = studentData.currentCourseDoneCount,
+                let currentCourseQuesCount = studentData.currentCourseQuesCount,
+                let currentCourseIndex = studentData.currentCourseIndex else { return }
+            
+            let currentPracticeCourse = UILabel(text: currentCourseName + PracticeDictionary.questionType[currentQuesType]!, color: .darkGray)
             currentPracticeCourse.sizeToFit()
             currentPracticeCourse.frame.origin = CGPoint(x: cellTitleLabel.frame.minX, y: cellTitleLabel.frame.maxY + 10)
             contentView.addSubview(currentPracticeCourse)
             
-            let currentPracticeMessage = UILabel(text: "\(studentData.currentCourseDoneCount) / \(studentData.currentCourseQuesCount) - 第 \(studentData.currentCourseIndex) 题", color: .darkGray)
+            let currentPracticeMessage = UILabel(text: "\(currentCourseDoneCount) / \(currentCourseQuesCount) - 第 \(currentCourseIndex) 题", color: .darkGray)
             currentPracticeMessage.sizeToFit()
             currentPracticeMessage.frame.origin = CGPoint(x: currentPracticeCourse.frame.minX, y: currentPracticeCourse.frame.maxY + 16)
             contentView.addSubview(currentPracticeMessage)
