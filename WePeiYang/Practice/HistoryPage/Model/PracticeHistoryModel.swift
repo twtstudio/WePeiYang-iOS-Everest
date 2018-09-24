@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: Network
 struct PracticeHistoryHelper {
     static func getHistory(success: @escaping (PracticeHistoryModel)->(), failure: @escaping (Error)->()) {
         SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.student + "/history", success: { dic in
@@ -21,6 +22,7 @@ struct PracticeHistoryHelper {
     }
 }
 
+// MARK: - Model
 struct PracticeHistoryModel: Codable {
     let errorCode: Int
     let message: String
@@ -51,6 +53,7 @@ struct PracticeHistoryData: Codable {
     }
 }
 
+// MARK: - Initialization
 extension PracticeHistoryModel {
     init(data: Data) throws {
         self = try newJSONDecoder().decode(PracticeHistoryModel.self, from: data)

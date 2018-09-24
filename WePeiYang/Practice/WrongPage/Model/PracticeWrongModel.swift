@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: Network
 struct PracticeWrongHelper {
     static func getWrong(success: @escaping (PracticeWrongModel)->(), failure: @escaping (Error)->()) {
         SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.special + "/getQues/1", success: { dic in
@@ -28,6 +29,7 @@ struct PracticeWrongHelper {
     }
 }
 
+// MARK: - Model
 struct PracticeWrongModel: Codable {
     let errorCode: Int
     let message: String
@@ -63,8 +65,7 @@ struct PracticeWrongQuestion: Codable {
     }
 }
 
-// MARK: Convenience initializers and mutators
-
+// MARK: - Initialization
 extension PracticeWrongModel {
     init(data: Data) throws {
         self = try newJSONDecoder().decode(PracticeWrongModel.self, from: data)

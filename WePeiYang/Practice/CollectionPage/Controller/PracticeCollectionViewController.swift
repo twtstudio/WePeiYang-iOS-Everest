@@ -10,6 +10,7 @@ import UIKit
 import MJRefresh
 import PopupDialog
 
+// MARK: UIViewController
 class PracticeCollectionViewController: UIViewController {
     
     /* 收藏模型 */
@@ -86,6 +87,7 @@ class PracticeCollectionViewController: UIViewController {
     
 }
 
+// MARK: - UITableView
 /* 表单视图数据 */
 extension PracticeCollectionViewController: UITableViewDataSource {
     

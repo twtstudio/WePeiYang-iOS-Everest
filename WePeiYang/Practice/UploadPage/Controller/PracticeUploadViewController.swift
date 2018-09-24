@@ -8,6 +8,7 @@
 
 import UIKit
 
+// MARK: UIViewController
 class PracticeUploadViewController: UIViewController {
     
     override func viewDidLoad() {
@@ -66,6 +67,7 @@ class PracticeUploadViewController: UIViewController {
     
 }
 
+// MARK: - UILabel
 /* 支持复制功能的 UILabel */
 class UICopyLabel: UILabel {
     

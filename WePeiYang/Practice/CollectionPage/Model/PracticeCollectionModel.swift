@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: Network
 struct PracticeCollectionHelper {
     static func getCollection(success: @escaping (PracticeCollectionModel)->(), failure: @escaping (Error)->()) {
         SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.special + "/getQues/0", success: { dic in
@@ -35,6 +36,7 @@ struct PracticeCollectionHelper {
     }
 }
 
+// MARK: - Model
 struct PracticeCollectionModel: Codable {
     let errorCode: Int
     let message: String
@@ -70,6 +72,7 @@ struct PracticeCollectionQuestion: Codable {
     }
 }
 
+// MARK: - Initialization
 extension PracticeCollectionModel {
     init(data: Data) throws {
         self = try newJSONDecoder().decode(PracticeCollectionModel.self, from: data)

@@ -9,6 +9,7 @@
 import UIKit
 import MJRefresh
 
+// MARK: UIViewController
 class PracticeHistoryViewController: UIViewController {
     
     /* 历史模型 */
@@ -85,7 +86,7 @@ class PracticeHistoryViewController: UIViewController {
     
 }
 
-// MARK: -
+// MARK: - UITableView
 /* 表单视图数据 */
 extension PracticeHistoryViewController: UITableViewDataSource {
     
@@ -130,11 +131,16 @@ extension PracticeHistoryViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: select action
+        // TODO: 进入练习历史
         let historyData = practiceHistory.data[indexPath.row]
         PracticeFigure.practiceType = historyData.type
         PracticeFigure.classID = historyData.classID
         PracticeFigure.courseID = historyData.courseID
+        // 就很辣的动画
+        // tableView.cellForRow(at: indexPath)?.contentView.setBounceAnimation()
+        // for view in (tableView.cellForRow(at: indexPath)?.contentView.subviews)! {
+        //     view.setBounceAnimation()
+        // }
     }
     
 }

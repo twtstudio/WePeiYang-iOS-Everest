@@ -14,6 +14,7 @@ enum HomeViewCellStyle: String {
     case currentPractice = "当前练习"
 }
 
+// MARK: - UITableViewCell
 class HomeViewCell: UITableViewCell {
     
     /* 顶部蓝线 */
@@ -61,12 +62,12 @@ class HomeViewCell: UITableViewCell {
             let titleArray = studentData.qSelect
             
             for index in 0..<titleArray.count {
-                var courseName = titleArray[index].courseName
-                if courseName.hasPrefix("第") { courseName.removeFirst(4) }
+                // var courseName = titleArray[index].courseName
+                // if courseName.hasPrefix("第") { courseName.removeFirst(4) }
                 
                 let bubbleButton = UIButton()
                 
-                bubbleButton.setPracticeBubbleButton(withTitle: courseName)
+                bubbleButton.setPracticeBubbleButton(withTitle: titleArray[index].courseName)
                 if edgeWidth + bubbleButton.frame.size.width > deviceWidth - 20 { // 塞不下就换行
                     edgeWidth = 0
                     edgeHeight += bubbleButton.frame.size.height + 16
@@ -94,6 +95,10 @@ class HomeViewCell: UITableViewCell {
             latestInformationTime.sizeToFit()
             latestInformationTime.frame.origin = CGPoint(x: deviceWidth - latestInformationTime.frame.size.width - 20, y: latestInformationMessage.frame.maxY + 16)
             contentView.addSubview(latestInformationTime)
+            
+            if latestInformationMessage.frame.size.width + latestInformationTime.frame.size.width > deviceWidth - 55 { // 塞不下就换行
+                latestInformationTime.frame.origin.y += latestInformationTime.frame.size.height + 16
+            }
             
             cellHeight = latestInformationTime.frame.maxY + 20
             
@@ -126,7 +131,7 @@ class HomeViewCell: UITableViewCell {
     
 }
 
-// MARK: -
+// MARK: - UICollectionViewCell
 class HomeHeaderCell: UICollectionViewCell {
     
     /* 课程图片 */

@@ -42,6 +42,7 @@ struct PracticeFigure {
     
 }
 
+// MARK: - Network
 struct PracticeStudentHelper {
     static func getStudent(success: @escaping (PracticeStudentModel)->(), failure: @escaping (Error)->()) {
         SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.student, success: { dic in
@@ -55,7 +56,7 @@ struct PracticeStudentHelper {
     }
 }
 
-// MARK: -
+// MARK: - Model
 struct PracticeStudentModel: Codable {
     let errorCode: Int
     let message: String
@@ -114,7 +115,7 @@ struct QuickSelect: Codable {
     }
 }
 
-// MARK: -
+// MARK: - Initialization
 extension PracticeStudentModel {
     init(data: Data) throws {
         self = try newJSONDecoder().decode(PracticeStudentModel.self, from: data)
