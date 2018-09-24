@@ -10,6 +10,7 @@ import UIKit
 import MJRefresh
 import PopupDialog
 
+// MARK: UIViewController
 class PracticeWrongViewController: UIViewController {
     
     /* 错题模型 */
@@ -86,6 +87,7 @@ class PracticeWrongViewController: UIViewController {
     
 }
 
+// MARK: - UITableView
 /* 表单视图数据 */
 extension PracticeWrongViewController: UITableViewDataSource {
     

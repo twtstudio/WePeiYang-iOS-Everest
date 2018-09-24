@@ -11,6 +11,7 @@ import SDWebImage
 import PopupDialog
 import SwiftMessages
 
+// MARK: UIViewController
 class PracticeHomeViewController: UIViewController {
     
     /* 用户模型 */
@@ -123,6 +124,7 @@ class PracticeHomeViewController: UIViewController {
     
     // 点击按钮切换, 改变白色指示条位置与按钮可用状态 //
     @objc func optionButtonClick(button: UIButton) {
+        button.setBounceAnimation()
         UIView.animate(withDuration: 0.25) {
             var tempX = self.headView.underLine.frame.origin.x
             switch button {
@@ -144,13 +146,13 @@ class PracticeHomeViewController: UIViewController {
     
     // 进入搜索界面 //
     @objc func practiceSearch() {
-        // TODO: 等待合并
+        // TODO: 进入搜索界面
         // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
     }
     
 }
 
-// MARK: -
+// MARK: - UIScrollView
 /* 滑动视图代理 */
 extension PracticeHomeViewController: UIScrollViewDelegate {
     
@@ -172,7 +174,7 @@ extension PracticeHomeViewController: UIScrollViewDelegate {
     
 }
 
-// MARK: -
+// MARK: - UITableView
 /* 表单视图数据 */
 extension PracticeHomeViewController: UITableViewDataSource {
     
@@ -240,17 +242,18 @@ extension PracticeHomeViewController: UITableViewDataSource {
     }
     
     @objc func clickQuickSelect(button: UIButton) {
-        // TODO: 等待合并 (以及需要重命名按钮)
         let course = practiceStudent.data.qSelect[button.tag]
         PracticeFigure.courseID = String(course.id)
         
         let warningCard = PopupDialog(title: course.courseName, message: "请选择练习模式", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
         let leftButton = PracticePopupDialogButton(title: "顺序练习", dismissOnTap: true) {
             PracticeFigure.practiceType = "0"
+            // TODO: 进入顺序练习
             // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
         }
         let rightButton = PracticePopupDialogButton(title: "模拟考试", dismissOnTap: true) {
             PracticeFigure.practiceType = "1"
+            // TODO: 进入模拟考试
             // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
         }
         warningCard.addButtons([leftButton, rightButton])
@@ -261,6 +264,7 @@ extension PracticeHomeViewController: UITableViewDataSource {
         let studentData = practiceStudent.data
         PracticeFigure.practiceType = "0"
         PracticeFigure.courseID = studentData.currentCourseID
+        // TODO: 进入当前练习
         // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
     }
     
@@ -399,7 +403,7 @@ extension PracticeHomeViewController: UITableViewDelegate {
     
 }
 
-// MARK: -
+// MARK: - UICollectionView
 /* 集合视图数据 */
 extension PracticeHomeViewController: UICollectionViewDataSource {
     
@@ -444,18 +448,20 @@ extension PracticeHomeViewController: UICollectionViewDelegate, UICollectionView
         let row = indexPath.row
         
         switch row {
-        // case 0:
-            // TODO: 暂时测试使用
-            // self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
+        // case 0, 2:
+            // TODO: 进入党课 / 网课课程列表
+            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
         case 1:
             PracticeFigure.courseID = "1"
             let warningCard = PopupDialog(title: "形式与政策", message: "请选择练习模式", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
             let leftButton = PracticePopupDialogButton(title: "顺序练习", dismissOnTap: true) {
                 PracticeFigure.practiceType = "0"
+                // TODO: 进入顺序练习
                 // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
             }
             let rightButton = PracticePopupDialogButton(title: "模拟考试", dismissOnTap: true) {
                 PracticeFigure.practiceType = "1"
+                // TODO: 进入模拟考试
                 // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
             }
             warningCard.addButtons([leftButton, rightButton])
@@ -482,11 +488,11 @@ extension UIColor {
 
 extension UIView {
     // 弹簧动画 //
-    func setBounceAnimation(_ animations: @escaping (Bool) -> Void = {_ in }) {
-        UIView.animate(withDuration: 0.1, delay: 0, options: [.allowUserInteraction, .curveEaseIn],
-                       animations: { self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8) },
+    func setBounceAnimation(withDuration duration: TimeInterval = 0.1, scale: CGFloat = 0.8, _ animations: @escaping (Bool) -> Void = {_ in }) {
+        UIView.animate(withDuration: duration, delay: 0, options: [.allowUserInteraction, .curveEaseIn],
+                       animations: { self.transform = CGAffineTransform(scaleX: scale, y: scale) },
                        completion: { isFinished in })
-        UIView.animate(withDuration: 0.1, delay: 0.1, options: [.allowUserInteraction, .curveEaseIn],
+        UIView.animate(withDuration: duration, delay: duration, options: [.allowUserInteraction, .curveEaseIn],
                        animations: { self.transform = CGAffineTransform.identity },
                        completion: { animations }())
     }

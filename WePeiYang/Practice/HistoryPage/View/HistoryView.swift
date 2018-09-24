@@ -58,9 +58,9 @@ class HistoryViewCell: UITableViewCell {
         
         // 课程名称 //
         if historyData.classID != "1" { // 形势与政策不需要显示
-            var courseName = historyData.courseName
-            if courseName.hasPrefix("第") { courseName.removeFirst(4) }
-            courseNameLabel.text = courseName
+            // var courseName = historyData.courseName
+            // if courseName.hasPrefix("第") { courseName.removeFirst(4) }
+            courseNameLabel.text = historyData.courseName
             courseNameLabel.frame.origin = CGPoint(x: classTypeLabel.frame.maxX + 4, y: classTypeLabel.frame.origin.y)
             courseNameLabel.sizeToFit()
             contentView.addSubview(courseNameLabel)
@@ -97,6 +97,11 @@ class HistoryViewCell: UITableViewCell {
         practiceTimeLabel.textColor = .gray
         practiceTimeLabel.sizeToFit()
         practiceTimeLabel.frame.origin = CGPoint(x: deviceWidth - practiceTimeLabel.frame.size.width - 20, y: classTypeLabel.frame.maxY + 20)
+        
+        if practiceProgressLabel.frame.size.width + practiceTimeLabel.frame.size.width > deviceWidth - 40 || correctRateLabel.frame.size.width + practiceTimeLabel.frame.size.width > deviceWidth - 40 { // 塞不下就换行
+            practiceTimeLabel.frame.origin.y += practiceTimeLabel.frame.size.height + 16
+        }
+        
         contentView.addSubview(practiceTimeLabel)
         
         cellHeight = practiceTimeLabel.frame.maxY + 20
