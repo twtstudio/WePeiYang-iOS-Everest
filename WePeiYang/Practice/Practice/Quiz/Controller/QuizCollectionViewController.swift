@@ -20,7 +20,7 @@ class QuizCollectionViewController: UIViewController {
     var count = 0
     var isinited = 0
     
-    var courseId = 0
+    var courseId = Int(PracticeFigure.courseID)!
     
     var currentPage = 1
     var lastoffset: CGFloat = deviceWidth

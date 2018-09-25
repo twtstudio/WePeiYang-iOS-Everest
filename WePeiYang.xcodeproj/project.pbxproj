@@ -1140,7 +1140,6 @@
 			children = (
 				B10253E01EC84ED90064373A /* AccountManager.swift */,
 				B10253E11EC84ED90064373A /* CacheManager.swift */,
-				B510D8A6213CBD9600BBC1D3 /* TwTKeychain.swift */,
 				B10253E21EC84ED90064373A /* SolaSessionManager.swift */,
 				B10253E31EC84ED90064373A /* TwTKeychain.swift */,
 				3631D5091F1903D70078816D /* TwTUser.swift */,
@@ -2074,7 +2073,6 @@
 				B5EA4BEB211C262A00C6498D /* ExerciseModel.swift in Sources */,
 				369140AF2020CBA30022BA3F /* NotificationName.swift in Sources */,
 				36D526E52041C4150074EB2B /* DebugLog.swift in Sources */,
-				B510D8A7213CBD9600BBC1D3 /* TwTKeychain.swift in Sources */,
 				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
 				36073D091F223FC1001317A7 /* RateView.swift in Sources */,
 				783588FC2147DCE00026167C /* PracticeHistoryViewController.swift in Sources */,
