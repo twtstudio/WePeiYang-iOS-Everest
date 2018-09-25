@@ -21,7 +21,7 @@ class AllModulesViewController: UIViewController {
         (title: "黄页", image: UIImage(named: "yellowPageBtn")!, class: YellowPageMainViewController.self, needLogin: false),
         (title: "上网", image: UIImage(named: "networkBtn")!, class: WLANLoginViewController.self, needLogin: true),
 
-        (title: "刷题", image: UIImage(named: "studysearchBtn")!, class: QuizCollectionViewController.self, needLogin: false)]
+        (title: "刷题", image: UIImage(named: "studysearchBtn")!, class: PracticeHomeViewController.self, needLogin: false)]
     
     var collectionView: UICollectionView!
     // The below override will not be called if current viewcontroller is controlled by a UINavigationController

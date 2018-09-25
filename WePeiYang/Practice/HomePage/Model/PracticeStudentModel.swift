@@ -40,6 +40,10 @@ struct PracticeFigure {
     
     static var courseID = ""
     
+    static var questionType = ""
+    
+    static var currentCourseIndex = 0
+    
 }
 
 // MARK: - Network

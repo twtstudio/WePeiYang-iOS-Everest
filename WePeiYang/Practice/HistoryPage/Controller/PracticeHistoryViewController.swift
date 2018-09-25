@@ -133,9 +133,19 @@ extension PracticeHistoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // TODO: 进入练习历史
         let historyData = practiceHistory.data[indexPath.row]
-        PracticeFigure.practiceType = historyData.type
+        // PracticeFigure.practiceType = historyData.type
         PracticeFigure.classID = historyData.classID
         PracticeFigure.courseID = historyData.courseID
+        switch historyData.type {
+        case "0":
+            PracticeFigure.questionType = historyData.quesType!
+            PracticeFigure.currentCourseIndex = Int(historyData.doneIndex)!
+            self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
+        case "1":
+            self.navigationController?.pushViewController(QuizCollectionViewController(), animated: true)
+        default:
+            return
+        }
         // 就很辣的动画
         // tableView.cellForRow(at: indexPath)?.contentView.setBounceAnimation()
         // for view in (tableView.cellForRow(at: indexPath)?.contentView.subviews)! {
