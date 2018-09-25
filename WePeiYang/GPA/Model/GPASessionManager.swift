@@ -12,9 +12,9 @@ struct GPASessionManager {
     static func getGPA(success: @escaping (GPAModel)->(), failure: @escaping (Error)->()) {
         SolaSessionManager.solaSession(url: "/gpa", success: { dic in
             guard let errorCode = dic["error_code"] as? Int, errorCode == -1 else {
-                // FIXME: log error
-                print(dic["message"] ?? "")
-                // DO SOMETHING!
+                if let message = dic["message"] as? String {
+                    failure(WPYCustomError.custom(message))
+                }
                 return
             }
             

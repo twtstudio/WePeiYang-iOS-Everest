@@ -80,6 +80,7 @@
 		36366B311FAB8A84001F72A0 /* BicycleServiceNotificationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D695321F8A21AD00022B9A /* BicycleServiceNotificationController.xib */; };
 		36366B321FAB8A84001F72A0 /* BicycleRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D695331F8A21AD00022B9A /* BicycleRecordViewController.xib */; };
 		36366B331FAB8A84001F72A0 /* BicycleUserBindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D695341F8A21AD00022B9A /* BicycleUserBindViewController.xib */; };
+		363C754D215A724000D3E2B1 /* WPYCustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C3C89204DAB4F00C1E6B6 /* WPYCustomError.swift */; };
 		363D0A701FE006990095DA57 /* LibraryCardDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363D0A6F1FE006990095DA57 /* LibraryCardDataProvider.swift */; };
 		36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E3E1FA4BA9B0036766B /* TwentyCourseQuiz.swift */; };
 		36449E451FA4BA9B0036766B /* PartyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E3F1FA4BA9B0036766B /* PartyAPI.swift */; };
@@ -129,26 +130,6 @@
 		365261561FB9F83400025B8A /* ClassTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365261551FB9F83400025B8A /* ClassTableModel.swift */; };
 		3653DD911FBAD0B600501C3B /* ClassTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3653DD901FBAD0B600501C3B /* ClassTableViewController.swift */; };
 		36575FBF2051C78B00A1A558 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36575FBE2051C78B00A1A558 /* LaunchScreen.storyboard */; };
-		3658AB2D21593255002D5625 /* GPAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB2021593255002D5625 /* GPAViewController.swift */; };
-		3658AB2E21593255002D5625 /* CourseAppraiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB2121593255002D5625 /* CourseAppraiseViewController.swift */; };
-		3658AB2F21593255002D5625 /* GPATermModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB2321593255002D5625 /* GPATermModel.swift */; };
-		3658AB3021593255002D5625 /* GPAModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB2421593255002D5625 /* GPAModel.swift */; };
-		3658AB3121593255002D5625 /* CourseAppraiseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB2521593255002D5625 /* CourseAppraiseManager.swift */; };
-		3658AB3221593255002D5625 /* GPASessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB2621593255002D5625 /* GPASessionManager.swift */; };
-		3658AB3321593255002D5625 /* GPAClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB2721593255002D5625 /* GPAClassModel.swift */; };
-		3658AB3421593255002D5625 /* GPAStatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB2821593255002D5625 /* GPAStatModel.swift */; };
-		3658AB3521593255002D5625 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB2A21593255002D5625 /* StarView.swift */; };
-		3658AB3621593255002D5625 /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB2B21593255002D5625 /* ScoreHeaderView.swift */; };
-		3658AB3721593255002D5625 /* CourseAppraiseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB2C21593255002D5625 /* CourseAppraiseCell.swift */; };
-		3658AB4521593986002D5625 /* YellowPageSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB3A21593986002D5625 /* YellowPageSearchViewController.swift */; };
-		3658AB4621593986002D5625 /* YellowPageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB3B21593986002D5625 /* YellowPageDetailViewController.swift */; };
-		3658AB4721593986002D5625 /* YellowPageMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB3C21593986002D5625 /* YellowPageMainViewController.swift */; };
-		3658AB4821593986002D5625 /* ClientItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB3E21593986002D5625 /* ClientItem.swift */; };
-		3658AB4921593986002D5625 /* PhoneBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB3F21593986002D5625 /* PhoneBook.swift */; };
-		3658AB4A21593986002D5625 /* YellowPageSearchHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB4121593986002D5625 /* YellowPageSearchHistoryCell.swift */; };
-		3658AB4B21593986002D5625 /* CommonUsedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB4221593986002D5625 /* CommonUsedView.swift */; };
-		3658AB4C21593986002D5625 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB4321593986002D5625 /* SearchView.swift */; };
-		3658AB4D21593986002D5625 /* YellowPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3658AB4421593986002D5625 /* YellowPageCell.swift */; };
 		3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */; };
 		365A46462035E35500738963 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A46452035E35500738963 /* Storage.swift */; };
 		365A46482036956700738963 /* CacheFilenameKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A46472036956700738963 /* CacheFilenameKey.swift */; };
@@ -159,6 +140,7 @@
 		365A8A251FB9BA8500B15443 /* ClasstableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A1C1FB9BA8500B15443 /* ClasstableDataManager.swift */; };
 		365A8A281FB9CA1700B15443 /* ClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A271FB9CA1700B15443 /* ClassModel.swift */; };
 		3667E1D0201CB98800E82241 /* DetailSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667E1CF201CB98800E82241 /* DetailSettingViewController.swift */; };
+		3668CE552159E121002673BE /* WPYTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3668CE542159E121002673BE /* WPYTextField.swift */; };
 		36758FDD1FDA851C0023A99C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36758FDC1FDA851C0023A99C /* CardView.swift */; };
 		3681C0A8205B027A005DF5AF /* AlertChildPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3681C0A3205B027A005DF5AF /* AlertChildPageViewController.xib */; };
 		3685D9EF204D255700BA6C3D /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3685D9EE204D255700BA6C3D /* NewsDetailViewController.swift */; };
@@ -194,7 +176,6 @@
 		36D526E52041C4150074EB2B /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D526E42041C4150074EB2B /* DebugLog.swift */; };
 		36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13F3AE71F0CEE5C00F820A5 /* FAB.swift */; };
 		36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E11EC84ED90064373A /* CacheManager.swift */; };
-		36DA7A5E1FA8A35C000DAF2B /* WPYBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254161EC8547E0064373A /* WPYBaseViewController.swift */; };
 		36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EE1EC84ED90064373A /* DeviceStatus.swift */; };
 		36E56BC61FC512230009BD6F /* CourseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E56BC51FC512230009BD6F /* CourseListView.swift */; };
 		36F285092049B7D50095A3D4 /* ModulesSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F285082049B7D50095A3D4 /* ModulesSettingsViewController.swift */; };
@@ -202,7 +183,6 @@
 		36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F631ED1FAB31C500E3261F /* BicycleServiceMapController.swift */; };
 		36FCC2D520544E35003379AE /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36FCC2D420544E35003379AE /* LoadingView.xib */; };
 		36FCC2D920545967003379AE /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FCC2D820545967003379AE /* LoginView.swift */; };
-		36FCC2DD20555F8F003379AE /* AnimateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FCC2DC20555F8F003379AE /* AnimateButton.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
 		A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51C456B1FD122F700652435 /* Assets.xcassets */; };
 		A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
@@ -247,14 +227,9 @@
 		B10253FD1EC84ED90064373A /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EF1EC84ED90064373A /* log.swift */; };
 		B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102540A1EC8520A0064373A /* AppDelegate.swift */; };
 		B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102540B1EC8520A0064373A /* ClassExtensions.swift */; };
-		B102541B1EC8547E0064373A /* CardViewAndDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254111EC8547E0064373A /* CardViewAndDelegate.swift */; };
 		B102541C1EC8547E0064373A /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254121EC8547E0064373A /* Metadata.swift */; };
-		B102541D1EC8547E0064373A /* SpringButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254131EC8547E0064373A /* SpringButton.swift */; };
 		B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254141EC8547E0064373A /* TabVCTransitioningAnimator.swift */; };
-		B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254151EC8547E0064373A /* ThemeChanging.swift */; };
-		B10254211EC8547E0064373A /* WPYLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254171EC8547E0064373A /* WPYLabel.swift */; };
 		B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254181EC8547E0064373A /* WPYTabBarController.swift */; };
-		B10254231EC8547E0064373A /* WPYTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254191EC8547E0064373A /* WPYTextField.swift */; };
 		B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B9571EC5C21700B8198E /* FavViewController.swift */; };
 		B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */; };
 		B19DABAA1E6EF5C2004A50B5 /* WePeiYangUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */; };
@@ -444,10 +419,7 @@
 		3653DD901FBAD0B600501C3B /* ClassTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewController.swift; sourceTree = "<group>"; };
 		36575FBE2051C78B00A1A558 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3658AB2021593255002D5625 /* GPAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAViewController.swift; sourceTree = "<group>"; };
-		3658AB2121593255002D5625 /* CourseAppraiseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseViewController.swift; sourceTree = "<group>"; };
-		3658AB2321593255002D5625 /* GPATermModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPATermModel.swift; sourceTree = "<group>"; };
 		3658AB2421593255002D5625 /* GPAModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAModel.swift; sourceTree = "<group>"; };
-		3658AB2521593255002D5625 /* CourseAppraiseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseManager.swift; sourceTree = "<group>"; };
 		3658AB2621593255002D5625 /* GPASessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPASessionManager.swift; sourceTree = "<group>"; };
 		3658AB2721593255002D5625 /* GPAClassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAClassModel.swift; sourceTree = "<group>"; };
 		3658AB2821593255002D5625 /* GPAStatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAStatModel.swift; sourceTree = "<group>"; };
@@ -458,7 +430,6 @@
 		3658AB3B21593986002D5625 /* YellowPageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageDetailViewController.swift; sourceTree = "<group>"; };
 		3658AB3C21593986002D5625 /* YellowPageMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageMainViewController.swift; sourceTree = "<group>"; };
 		3658AB3E21593986002D5625 /* ClientItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientItem.swift; sourceTree = "<group>"; };
-		3658AB3F21593986002D5625 /* PhoneBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneBook.swift; sourceTree = "<group>"; };
 		3658AB4121593986002D5625 /* YellowPageSearchHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageSearchHistoryCell.swift; sourceTree = "<group>"; };
 		3658AB4221593986002D5625 /* CommonUsedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUsedView.swift; sourceTree = "<group>"; };
 		3658AB4321593986002D5625 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -476,6 +447,7 @@
 		365A8A1C1FB9BA8500B15443 /* ClasstableDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClasstableDataManager.swift; sourceTree = "<group>"; };
 		365A8A271FB9CA1700B15443 /* ClassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassModel.swift; sourceTree = "<group>"; };
 		3667E1CF201CB98800E82241 /* DetailSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingViewController.swift; sourceTree = "<group>"; };
+		3668CE542159E121002673BE /* WPYTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYTextField.swift; sourceTree = "<group>"; };
 		36758FDC1FDA851C0023A99C /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		3681C0A3205B027A005DF5AF /* AlertChildPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertChildPageViewController.xib; sourceTree = "<group>"; };
 		3685D9EE204D255700BA6C3D /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
@@ -505,7 +477,6 @@
 		36F631ED1FAB31C500E3261F /* BicycleServiceMapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleServiceMapController.swift; sourceTree = "<group>"; };
 		36FCC2D420544E35003379AE /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		36FCC2D820545967003379AE /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		36FCC2DC20555F8F003379AE /* AnimateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateButton.swift; sourceTree = "<group>"; };
 		3E2AFF1235C9C87488CB407A /* Pods-WePeiYangWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.release.xcconfig"; sourceTree = "<group>"; };
 		6E48DF45006ADE8419C6CF0C /* Pods_WePeiYangWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F6749BFC82CF9191336C6C5 /* Pods_WePeiYangTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -568,16 +539,9 @@
 		B102540A1EC8520A0064373A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B102540B1EC8520A0064373A /* ClassExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassExtensions.swift; sourceTree = "<group>"; };
 		B102540C1EC8520A0064373A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B10254111EC8547E0064373A /* CardViewAndDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewAndDelegate.swift; sourceTree = "<group>"; };
 		B10254121EC8547E0064373A /* Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
-		B10254131EC8547E0064373A /* SpringButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringButton.swift; sourceTree = "<group>"; };
 		B10254141EC8547E0064373A /* TabVCTransitioningAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabVCTransitioningAnimator.swift; sourceTree = "<group>"; };
-		B10254151EC8547E0064373A /* ThemeChanging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeChanging.swift; sourceTree = "<group>"; };
-		B10254161EC8547E0064373A /* WPYBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYBaseViewController.swift; sourceTree = "<group>"; };
-		B10254171EC8547E0064373A /* WPYLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYLabel.swift; sourceTree = "<group>"; };
 		B10254181EC8547E0064373A /* WPYTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYTabBarController.swift; sourceTree = "<group>"; };
-		B10254191EC8547E0064373A /* WPYTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYTextField.swift; sourceTree = "<group>"; };
-		B102541A1EC8547E0064373A /* WPYTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYTextView.swift; sourceTree = "<group>"; };
 		B13F3AE71F0CEE5C00F820A5 /* FAB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAB.swift; sourceTree = "<group>"; };
 		B181B9571EC5C21700B8198E /* FavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavViewController.swift; sourceTree = "<group>"; };
 		B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllModulesViewController.swift; sourceTree = "<group>"; };
@@ -746,6 +710,22 @@
 				362FF79C2157A27000E7E3EE /* GPATermModel.swift */,
 				362FF7A42157A27000E7E3EE /* ScoreHeaderView.swift */,
 				362FF79D2157A27000E7E3EE /* GPAModel.swift */,
+				3658AB2021593255002D5625 /* GPAViewController.swift */,
+				3658AB4321593986002D5625 /* SearchView.swift */,
+				3658AB2821593255002D5625 /* GPAStatModel.swift */,
+				3658AB3A21593986002D5625 /* YellowPageSearchViewController.swift */,
+				3658AB2B21593255002D5625 /* ScoreHeaderView.swift */,
+				3658AB4121593986002D5625 /* YellowPageSearchHistoryCell.swift */,
+				3658AB3E21593986002D5625 /* ClientItem.swift */,
+				3658AB3C21593986002D5625 /* YellowPageMainViewController.swift */,
+				3658AB4221593986002D5625 /* CommonUsedView.swift */,
+				3658AB3B21593986002D5625 /* YellowPageDetailViewController.swift */,
+				3658AB2C21593255002D5625 /* CourseAppraiseCell.swift */,
+				3658AB2A21593255002D5625 /* StarView.swift */,
+				3658AB4421593986002D5625 /* YellowPageCell.swift */,
+				3658AB2721593255002D5625 /* GPAClassModel.swift */,
+				3658AB2621593255002D5625 /* GPASessionManager.swift */,
+				3658AB2421593255002D5625 /* GPAModel.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1249,22 +1229,15 @@
 		B10254101EC8547E0064373A /* UI_Fundamentals */ = {
 			isa = PBXGroup;
 			children = (
-				B10254111EC8547E0064373A /* CardViewAndDelegate.swift */,
 				B10254121EC8547E0064373A /* Metadata.swift */,
 				364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */,
 				B13F3AE71F0CEE5C00F820A5 /* FAB.swift */,
-				36FCC2DC20555F8F003379AE /* AnimateButton.swift */,
-				B10254131EC8547E0064373A /* SpringButton.swift */,
 				364922A2202620CC00DFDC35 /* CardButton.swift */,
 				B10254141EC8547E0064373A /* TabVCTransitioningAnimator.swift */,
-				B10254151EC8547E0064373A /* ThemeChanging.swift */,
-				B10254161EC8547E0064373A /* WPYBaseViewController.swift */,
-				B10254171EC8547E0064373A /* WPYLabel.swift */,
 				B10254181EC8547E0064373A /* WPYTabBarController.swift */,
-				B10254191EC8547E0064373A /* WPYTextField.swift */,
 				36FCC2D420544E35003379AE /* LoadingView.xib */,
+				3668CE542159E121002673BE /* WPYTextField.swift */,
 				36FCC2D820545967003379AE /* LoginView.swift */,
-				B102541A1EC8547E0064373A /* WPYTextView.swift */,
 				3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */,
 				36758FDC1FDA851C0023A99C /* CardView.swift */,
 				36A9C31F204C56CD0018B6B3 /* ProgressWebViewController.swift */,
@@ -1814,6 +1787,7 @@
 				36B2C895203A80D600AD2E3F /* ArrangeModel.swift in Sources */,
 				3613DA1A2056F65C000867AE /* TwTKeychain.swift in Sources */,
 				3685D9F2204D97A200BA6C3D /* DateTool.swift in Sources */,
+				363C754D215A724000D3E2B1 /* WPYCustomError.swift in Sources */,
 				3613DA192056F571000867AE /* SolaSessionManager.swift in Sources */,
 				3613DA232056F745000867AE /* UniversalExtension.swift in Sources */,
 				36B2C897203A82B000AD2E3F /* ClassTableHelper.swift in Sources */,
@@ -1857,9 +1831,7 @@
 				368C3C8A204DAB4F00C1E6B6 /* WPYCustomError.swift in Sources */,
 				A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */,
 				36073D1A1F225D2A001317A7 /* BookDetailViewController.swift in Sources */,
-				B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */,
 				36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */,
-				B102541B1EC8547E0064373A /* CardViewAndDelegate.swift in Sources */,
 				36449E641FA4BABA0036766B /* QuizView.swift in Sources */,
 				36073D1B1F225D2A001317A7 /* BookShelfViewController.swift in Sources */,
 				DD0B75F72158C6ED009A392C /* PhoneBook.swift in Sources */,
@@ -1869,7 +1841,6 @@
 				DD0B762C2158CBA6009A392C /* ScoreHeaderView.swift in Sources */,
 				36449E491FA4BA9B0036766B /* Applicant.swift in Sources */,
 				36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */,
-				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
 				A5E117B91F99DCAE00C86CA2 /* Card.swift in Sources */,
 				DD0B75F92158C6ED009A392C /* CommonUsedView.swift in Sources */,
 				DD0B75F62158C6ED009A392C /* ClientItem.swift in Sources */,
@@ -1877,7 +1848,6 @@
 				A586543720514E860069CF53 /* WLANHelper.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
 				36A74EB2205BAD0300DD1EC3 /* AlertOnboarding.swift in Sources */,
-				3658AB2D21593255002D5625 /* GPAViewController.swift in Sources */,
 				36449E6C1FA4BABA0036766B /* FunctionListTableViewCell.swift in Sources */,
 				36449E701FA4BABA0036766B /* CourseDetailReadingView.swift in Sources */,
 				36A9C320204C56CD0018B6B3 /* ProgressWebViewController.swift in Sources */,
@@ -1899,7 +1869,6 @@
 				365A46482036956700738963 /* CacheFilenameKey.swift in Sources */,
 				361F885C204AF92D00BCFA19 /* BannerPageControl.swift in Sources */,
 				36073D0B1F223FC1001317A7 /* RecommendCell.swift in Sources */,
-				3658AB4C21593986002D5625 /* SearchView.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
 				0C3ADF3B1F697EE100388C19 /* MyFoundViewController.swift in Sources */,
 				A51C456A1FD0477700652435 /* BicycleBindingViewController.swift in Sources */,
@@ -1912,7 +1881,6 @@
 				DD0B76252158CBA6009A392C /* GPATermModel.swift in Sources */,
 				DD0B75FB2158C6ED009A392C /* YellowPageCell.swift in Sources */,
 				361F885E204AF92D00BCFA19 /* BannerCell.swift in Sources */,
-				36DA7A5E1FA8A35C000DAF2B /* WPYBaseViewController.swift in Sources */,
 				0C3ADF4A1F697EE100388C19 /* SectionCell.swift in Sources */,
 				0C3ADF3E1F697EE100388C19 /* PublishSuccessViewController.swift in Sources */,
 				0C3ADF401F697EE100388C19 /* LostFoundSearchViewController.swift in Sources */,
@@ -1929,7 +1897,6 @@
 				0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */,
 				36A74EB1205BAD0300DD1EC3 /* AlertPageViewController.swift in Sources */,
 				361F885D204AF92D00BCFA19 /* BannerScrollView.swift in Sources */,
-				36FCC2DD20555F8F003379AE /* AnimateButton.swift in Sources */,
 				DD0B76282158CBA6009A392C /* GPASessionManager.swift in Sources */,
 				3685D9F1204D276100BA6C3D /* NewsDetailModel.swift in Sources */,
 				0C3ADF421F697EE100388C19 /* LostFoundAPI.swift in Sources */,
@@ -1941,8 +1908,6 @@
 				DD0B75FA2158C6ED009A392C /* SearchView.swift in Sources */,
 				36449E621FA4BABA0036766B /* SignUpTableViewCell.swift in Sources */,
 				369D92092015D97A004BA1D0 /* WeekItemCell.swift in Sources */,
-				3658AB3421593255002D5625 /* GPAStatModel.swift in Sources */,
-				3658AB4521593986002D5625 /* YellowPageSearchViewController.swift in Sources */,
 				36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */,
 				DD0B762A2158CBA6009A392C /* GPAStatModel.swift in Sources */,
 				36449E841FA4BAD10036766B /* TwentyCourseScoreViewController.swift in Sources */,
@@ -1950,9 +1915,7 @@
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
 				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
 				3667E1D0201CB98800E82241 /* DetailSettingViewController.swift in Sources */,
-				3658AB3621593255002D5625 /* ScoreHeaderView.swift in Sources */,
 				0C3ADF3D1F697EE100388C19 /* MyLostViewController.swift in Sources */,
-				3658AB4A21593986002D5625 /* YellowPageSearchHistoryCell.swift in Sources */,
 				B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */,
 				361F8855204AF92100BCFA19 /* GalleryModel.swift in Sources */,
 				36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */,
@@ -1978,19 +1941,14 @@
 				361F8867204AF9AA00BCFA19 /* NewsViewController.swift in Sources */,
 				36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */,
 				3653DD911FBAD0B600501C3B /* ClassTableViewController.swift in Sources */,
-				3658AB4821593986002D5625 /* ClientItem.swift in Sources */,
 				36F285092049B7D50095A3D4 /* ModulesSettingsViewController.swift in Sources */,
 				A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */,
 				A51C45681FD0227800652435 /* WLANBindingViewController.swift in Sources */,
 				36B8F2EA205110A60080083C /* NotificationSettingViewController.swift in Sources */,
-				B102541D1EC8547E0064373A /* SpringButton.swift in Sources */,
-				3658AB4721593986002D5625 /* YellowPageMainViewController.swift in Sources */,
 				36449E861FA4BAD10036766B /* TheoryClassicsTableViewController.swift in Sources */,
 				36449E451FA4BA9B0036766B /* PartyAPI.swift in Sources */,
-				3658AB4B21593986002D5625 /* CommonUsedView.swift in Sources */,
 				0C3ADF4B1F697EE100388C19 /* UpLoadingPicCell.swift in Sources */,
 				36A74EB3205BAD0300DD1EC3 /* AlertChildPageViewController.swift in Sources */,
-				3658AB4621593986002D5625 /* YellowPageDetailViewController.swift in Sources */,
 				A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */,
 				361F8856204AF92100BCFA19 /* HomePageModel.swift in Sources */,
 				36449E881FA4BAD10036766B /* PartySignUpViewController.swift in Sources */,
@@ -1999,11 +1957,8 @@
 				369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */,
 				A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */,
 				A5E117AF1F99DB8E00C86CA2 /* BicycleUser.swift in Sources */,
-				3658AB3721593255002D5625 /* CourseAppraiseCell.swift in Sources */,
-				3658AB3521593255002D5625 /* StarView.swift in Sources */,
 				369140AF2020CBA30022BA3F /* NotificationName.swift in Sources */,
 				36D526E52041C4150074EB2B /* DebugLog.swift in Sources */,
-				3658AB4D21593986002D5625 /* YellowPageCell.swift in Sources */,
 				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
 				36073D091F223FC1001317A7 /* RateView.swift in Sources */,
 				B10253D61EC84ED20064373A /* Book.swift in Sources */,
@@ -2023,6 +1978,7 @@
 				B10253DB1EC84ED20064373A /* Recommender.swift in Sources */,
 				36073D071F223FC1001317A7 /* BookDetailViewControllerTempView.swift in Sources */,
 				36449E8F1FA4BAD10036766B /* HandInDetailViewController.swift in Sources */,
+				3668CE552159E121002673BE /* WPYTextField.swift in Sources */,
 				A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */,
 				DD0B76272158CBA6009A392C /* CourseAppraiseManager.swift in Sources */,
 				361F8862204AF94200BCFA19 /* NewsHeaderView.swift in Sources */,
@@ -2031,19 +1987,15 @@
 				369B2D4A20151542009352A8 /* DateTool.swift in Sources */,
 				B10253D71EC84ED20064373A /* Librarian.swift in Sources */,
 				0C2C8D921F7BC48400D3A5E2 /* LFPickerCell.swift in Sources */,
-				B10254211EC8547E0064373A /* WPYLabel.swift in Sources */,
 				A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */,
 				DD0B75F82158C6ED009A392C /* YellowPageSearchHistoryCell.swift in Sources */,
 				B10253FD1EC84ED90064373A /* log.swift in Sources */,
 				361F8853204AF92100BCFA19 /* HomePageHelper.swift in Sources */,
-				3658AB3321593255002D5625 /* GPAClassModel.swift in Sources */,
 				0C3ADF481F697EE100388C19 /* MyLostFoundTableViewCell.swift in Sources */,
 				365A8A251FB9BA8500B15443 /* ClasstableDataManager.swift in Sources */,
 				B10253DA1EC84ED20064373A /* ReadBeacon.swift in Sources */,
 				3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */,
 				B10253DD1EC84ED20064373A /* User.swift in Sources */,
-				3658AB3221593255002D5625 /* GPASessionManager.swift in Sources */,
-				3658AB3021593255002D5625 /* GPAModel.swift in Sources */,
 				36CAD44C201B9194006F85E3 /* ClassTableCard.swift in Sources */,
 				B10253F01EC84ED90064373A /* AccountManager.swift in Sources */,
 				0C3ADF441F697EE100388C19 /* MyLostFoundModel.swift in Sources */,

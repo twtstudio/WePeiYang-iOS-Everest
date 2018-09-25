@@ -27,25 +27,7 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
             setupPageControl()
         }
     }
-    
-    // Data
-    var imgsType: ImgType = .SERVER
-    var localImgArray: [String]? {
-        didSet {
-            if let local = localImgArray {
-                proxy = Proxy(type: .LOCAL, array: local)
-                reloadData()
-            }
-        }
-    }
-    var serverImgArray: [String]? {
-        didSet {
-            if let server = serverImgArray {
-                proxy = Proxy(type: .SERVER, array: server)
-                reloadData()
-            }
-        }
-    }
+
     var descTextArray: [String]?
     var placeholderImage: UIImage?
     
@@ -202,40 +184,28 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
     }
     
     // MARK: initialize
-    init(frame: CGRect, type: ImgType = .SERVER, imgs: [String]? = nil, descs: [String]? = nil, defaultDotImage: UIImage? = nil, currentDotImage: UIImage? = nil, placeholderImage: UIImage? = nil) {
+    init(frame: CGRect, type: ImgType, imgs: [String] = [], descs: [String] = [], defaultDotImage: UIImage? = nil, currentDotImage: UIImage? = nil, placeholderImage: UIImage? = nil) {
         
         super.init(frame: frame)
         setupCollectionView()
         defaultPageDotImage = defaultDotImage
         currentPageDotImage = currentDotImage
         self.placeholderImage = placeholderImage
-        imgsType = type
-        if imgsType == .SERVER {
-            if let server = imgs {
-                proxy = Proxy(type: .SERVER, array: server)
-            }
-        }
-        else {
-            if let local = imgs {
-                proxy = Proxy(type: .LOCAL, array: local)
-            }
-        }
-        
-        if let descTexts = descs {
-            descTextArray = descTexts
-        }
-        reloadData()
+
+        load(type: type, imgs: imgs, descs: descs)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.setupCollectionView()
     }
-    
-    deinit {
-        collectionView?.delegate = nil
+
+    func load(type: ImgType, imgs: [String], descs: [String]) {
+        proxy = Proxy(type: type, array: imgs)
+        descTextArray = descs
+        reloadData()
     }
-    
+
     // MARK: layoutSubviews、willMove
     override func layoutSubviews() {
         super.layoutSubviews()

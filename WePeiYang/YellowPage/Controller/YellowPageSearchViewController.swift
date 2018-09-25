@@ -21,15 +21,6 @@ class YellowPageSearchViewController: UIViewController {
         super.viewWillAppear(animated)
         history = (UserDefaults.standard.object(forKey: "YellowPageHistory") as? [String]) ?? []
         self.navigationController?.navigationBar.barStyle = .black
-    
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-//        let y = searchView.frame.size.height + searchView.y
-//        let width = UIScreen.main.bounds.size.width
-//        let height = view.frame.size.height - y
-//        tableView.frame = CGRect(x: 0, y: y, width: width, height: height)
-//        setStatusBarColor(color: searchView.backgroundColor)
-//        self.setNeedsStatusBarAppearanceUpdate()
     }
 
 
@@ -72,7 +63,7 @@ class YellowPageSearchViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
 
 //        view.backgroundColor = UIColor(red:0.16, green:0.64, blue:0.89, alpha:1.00)
-        view.backgroundColor = mainColor
+        view.backgroundColor = YellowPageMainViewController.mainColor
 
         searchView.snp.makeConstraints { make in
             make.top.equalTo(UIApplication.shared.statusBarFrame.size.height)
@@ -147,9 +138,16 @@ class YellowPageSearchViewController: UIViewController {
         UserDefaults.standard.set(self.history, forKey: "YellowPageHistory")
         searchView.textField.resignFirstResponder()
 //        setStatusBarColor(color: .clear)
-
     }
-    
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .slide
+    }
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -237,7 +235,7 @@ extension YellowPageSearchViewController: UITableViewDelegate {
             // FIXME: replace hint
             label.text = "找不到呢😐"
             label.font = UIFont.boldSystemFont(ofSize: 16)
-            label.textColor = mainColor
+            label.textColor = YellowPageMainViewController.mainColor
             label.sizeToFit()
             footerView.addSubview(label)
             label.snp.makeConstraints { make in
@@ -253,7 +251,7 @@ extension YellowPageSearchViewController: UITableViewDelegate {
         let label = UILabel()
         label.text = "清除搜索记录"
         label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.textColor = mainColor
+        label.textColor = YellowPageMainViewController.mainColor
         label.sizeToFit()
         footerView.addSubview(label)
         label.snp.makeConstraints { make in

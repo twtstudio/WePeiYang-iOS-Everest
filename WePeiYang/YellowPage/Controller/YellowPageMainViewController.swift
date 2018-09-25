@@ -8,11 +8,11 @@
 //
 
 import UIKit
-let mainColor = UIColor(red: 4/255, green: 76/255, blue: 134/255, alpha: 1)
-let lightGray = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
-let seperateColor = UIColor(red: 235/255.0, green: 237/255.0, blue: 244/255.0, alpha: 1)
 class YellowPageMainViewController: UIViewController {
-    
+    static let mainColor = UIColor(red: 4/255, green: 76/255, blue: 134/255, alpha: 1)
+    static let lightGray = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
+    static let seperateColor = UIColor(red: 235/255.0, green: 237/255.0, blue: 244/255.0, alpha: 1)
+
     let titles = ["1895综合服务大厅", "图书馆", "维修服务中心", "校园自行车", "学生宿舍管理中心", "北洋医院"]
     let icons = ["icon-18951", "icon-library1", "icon-repair1", "icon-bike1", "icon-building1", "icon-hospital1"]
     
@@ -46,9 +46,9 @@ class YellowPageMainViewController: UIViewController {
         tableView.estimatedRowHeight = 200.5
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        tableView.backgroundColor = lightGray
+        tableView.backgroundColor = YellowPageMainViewController.lightGray
         tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
-        tableView.separatorColor = lightGray
+        tableView.separatorColor = YellowPageMainViewController.lightGray
         tableView.showsVerticalScrollIndicator = false
         
         self.view.addSubview(tableView)
@@ -93,11 +93,11 @@ class YellowPageMainViewController: UIViewController {
         self.navigationItem.titleView = titleLabel
         
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: mainColor), for: .default)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: YellowPageMainViewController.mainColor), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.barStyle = .black
-        UIApplication.shared.statusBarStyle = .lightContent
+
         self.navigationController!.navigationBar.tintColor = .white
     }
     

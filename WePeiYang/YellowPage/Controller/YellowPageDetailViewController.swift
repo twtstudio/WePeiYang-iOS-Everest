@@ -36,7 +36,7 @@ class YellowPageDetailViewController: UIViewController {
         tableView.dataSource = self
         
         tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
-        tableView.separatorColor = seperateColor
+        tableView.separatorColor = YellowPageMainViewController.seperateColor
         tableView.showsVerticalScrollIndicator = false
         
         tableView.estimatedRowHeight = 100

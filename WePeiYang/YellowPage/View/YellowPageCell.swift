@@ -141,7 +141,7 @@ class YellowPageCell: UITableViewCell {
         
         
         phoneLabel = UILabel()
-        let attributedString = NSAttributedString(string: model.phone, attributes: [NSAttributedStringKey.foregroundColor: mainColor])
+        let attributedString = NSAttributedString(string: model.phone, attributes: [NSAttributedStringKey.foregroundColor: YellowPageMainViewController.mainColor])
         //        let attributedString = NSAttributedString(string: model.phone, attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
         
         likeView = ExtendedButton()

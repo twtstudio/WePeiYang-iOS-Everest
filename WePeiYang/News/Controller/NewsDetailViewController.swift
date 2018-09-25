@@ -61,7 +61,7 @@ class NewsDetailViewController: ProgressWebViewController {
             if let topModel = try? NewsDetailTopModel(data: dict.jsonData()) {
                 self.news = topModel.data
                 let html = self.FEProcessor(model: topModel.data, content: topModel.data.content)
-                self.webView.loadHTMLString(html, baseURL: nil)
+                self.webView.loadHTMLString(html, baseURL: URL(string: "https://news.twt.edu.cn/"))
             }
         }, failure: { error in
             SwiftMessages.hideLoading()

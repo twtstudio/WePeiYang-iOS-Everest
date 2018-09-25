@@ -62,9 +62,6 @@ struct SolaSessionManager {
             log.errorMessage("can't load twtToken")/
         }
         
-//        if type == .duo && token != nil{
-//            headers["Authorization"] = "Bearer {\(token)}"
-//        }
         var method: HTTPMethod!
         switch type {
         case .get:
@@ -81,120 +78,24 @@ struct SolaSessionManager {
                 if let data = response.result.value  {
                     if let dict = data as? [String: Any] {
                         success?(dict)
+                        return
                     }
                 }
-            case .failure(let error):
+                let error = response.error ?? WPYCustomError.errorCode(-2, "数据解析错误")
                 failure?(error)
+            case .failure(let error):
                 if let data = response.result.value  {
                     if let dict = data as? [String: Any],
                     let errmsg = dict["message"] as? String {
-                        print(errmsg)
+                        failure?(WPYCustomError.custom(errmsg))
+                        return
                     }
-                } else {
-                    print(error)
                 }
+                failure?(error)
             }
         }
     }
-    
-    static func upload1(dictionay: [String : Any], url: String, method: HTTPMethod = .put, progressBlock: ((Progress)->())? = nil, failure: ((Error)->())? = nil, success: (([String : Any])->())?) {
-    
-        var dataDict = [String: Data]()
-        var paraDict = [String: String]()
-        for item in dictionay {
-            if let value = item.value as? UIImage {
-                let data = UIImageJPEGRepresentation(value, 1.0)!
-                dataDict[item.key] = data
-            } else if let value = item.value as? String {
-                paraDict[item.key] = value
-            }
-        }
-        
-        let timeStamp = String(Int64(Date().timeIntervalSince1970))
-        paraDict["t"] = timeStamp
-        var fooPara = paraDict
-        
-        let keys = fooPara.keys.sorted()
-        // encrypt with sha1
-        var tmpSign = ""
-        for key in keys {
-            tmpSign += (key + fooPara[key]!)
-        }
-        
-        let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1.uppercased()
-        paraDict["sign"] = sign
-        paraDict["app_key"] = TwTKeychain.shared.appKey
-        
-        var headers = HTTPHeaders()
-        headers["User-Agent"] = DeviceStatus.userAgent
-        
-        if let twtToken = TwTUser.shared.token {
-            headers["Authorization"] = "Bearer \(twtToken)"
-        } else {
-            log.errorMessage("can't load twtToken")/
-        }
-        let fullURL = TWT_ROOT_URL + url
-        if method == .post {
-            Alamofire.upload(multipartFormData: { formdata in
-                for item in dataDict {
-                    formdata.append(item.value, withName: item.key, fileName: "avatar.jpg", mimeType: "image/jpeg")
-//                    formdata.append(item.value, withName: item.key, mimeType: "image/jpg")
-                }
-                for item in paraDict {
-                    formdata.append(item.value.data(using: .utf8)!, withName: item.key)
-                }
-            }, to: fullURL, method: .post, headers: headers, encodingCompletion: { response in
-                switch response {
-                case .success(let upload, _, _):
-                    upload.responseJSON { response in
-                        if let data = response.result.value  {
-                            if let dict = data as? Dictionary<String, Any>, dict["error_code"] as? Int == 0 {
-                                success?(dict)
-                            } else {
-//                                HUD.hide()
-//                                HUD.flash(.label((data as? [String: Any])?["data"] as? String), delay: 1.0)
-                            }
-                        }
-                    }
-                    upload.uploadProgress { progress in
-                        progressBlock?(progress)
-                    }
-//                    upload.response(completionHandler: { response in
-//                        print(response)
-//                        
-//                    })
-                    upload.responseString(completionHandler: { string in
-                        guard let data = string.data else {
-                            //                            HUD.flash(.labeledError(title: errMsg, subtitle: nil), delay: 1.2)
-                            //                                failure?(Err)
-                            // FIXME: show call failure
-                            return
-                        }
-                        do {
-                            let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                            if let dict = json as? Dictionary<String, Any> {
-                                if let err = dict["err"] as? Int, err == 0 {
-                                    success?(dict)
-                                } else {
-//                                    HUD.flash(.label(dict["data"] as? String), delay: 1.0)
-//                                    failure?(BBSError.custom)
-                                }
-                            }
-                        } catch let error {
-                            let errMsg = String(data: data, encoding: .utf8)
-//                            HUD.flash(.labeledError(title: errMsg, subtitle: nil), delay: 1.2)
-                            failure?(error)
-//                            print(errMsg)
-                        }
-                    })
-                case .failure(let error):
-                    failure?(error)
-                    print(error)
-                }
-            })
-        }
-    }
-    
+
     static func upload(dictionay: [String : Any], url: String, method: HTTPMethod = .post, progressBlock: ((Progress)->())? = nil, failure: ((Error)->())? = nil, success: (([String : Any])->())?) {
         
         var dataDict = [String: Data]()
@@ -235,8 +136,8 @@ struct SolaSessionManager {
         if method == .post {
             Alamofire.upload(multipartFormData: { formdata in
                 for item in dataDict {
+                    // TODO: file name
                     formdata.append(item.value, withName: item.key, fileName: "avatar.jpg", mimeType: "image/jpeg")
-                    //                    formdata.append(item.value, withName: item.key, mimeType: "image/jpg")
                 }
                 for item in paraDict {
                     formdata.append(item.value.data(using: .utf8)!, withName: item.key)
@@ -246,44 +147,15 @@ struct SolaSessionManager {
                 case .success(let upload, _, _):
                     upload.responseJSON { response in
                         if let data = response.result.value  {
-                            if let dict = data as? Dictionary<String, Any>, dict["error_code"] as? Int == 0 {
+                            if let dict = data as? [String : Any], dict["error_code"] as? Int == 0 {
                                 success?(dict)
                             } else {
-                                //                                HUD.hide()
-                                //                                HUD.flash(.label((data as? [String: Any])?["data"] as? String), delay: 1.0)
                             }
                         }
                     }
                     upload.uploadProgress { progress in
                         progressBlock?(progress)
                     }
-//                    upload.response(completionHandler: { response in
-//                        //                        print(response)
-//                    })
-                    //                    upload.responseString(completionHandler: { string in
-                    //                        guard let data = string.data else {
-                    //                            //                            HUD.flash(.labeledError(title: errMsg, subtitle: nil), delay: 1.2)
-                    //                            //                                failure?(Err)
-                    //                            // FIXME: show call failure
-                    //                            return
-                    //                        }
-                    //                        do {
-                    //                            let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                    //                            if let dict = json as? Dictionary<String, Any> {
-                    //                                if let err = dict["err"] as? Int, err == 0 {
-                    //                                    success?(dict)
-                    //                                } else {
-                    ////                                    HUD.flash(.label(dict["data"] as? String), delay: 1.0)
-                    ////                                    failure?(BBSError.custom)
-                    //                                }
-                    //                            }
-                    //                        } catch let error {
-                    //                            let errMsg = String(data: data, encoding: .utf8)
-                    ////                            HUD.flash(.labeledError(title: errMsg, subtitle: nil), delay: 1.2)
-                    //                            failure?(error)
-                    //                            // log.error(error)/
-                    //                        }
-                //                    })
                 case .failure(let error):
                     failure?(error)
                     debugLog(error)

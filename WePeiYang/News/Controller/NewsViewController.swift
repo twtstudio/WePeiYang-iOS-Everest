@@ -11,7 +11,13 @@ import MJRefresh
 import SafariServices
 
 class NewsViewController: UIViewController {
-    var homepage: HomePageTopModel?
+    var homepage: HomePageTopModel? {
+        didSet {
+            if let homepage = homepage {
+                bannerView.load(type: .server, imgs: homepage.data.carousel.map({ $0.pic }), descs: homepage.data.carousel.map({ $0.subject }))
+            }
+        }
+    }
     var galleryList: [GalleryModel] = []
     var newsList: [NewsModel] = []
     var category = 1
@@ -19,33 +25,145 @@ class NewsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
-//    fileprivate var backgroundScrollView: UIScrollView!
-    fileprivate var newsHeaderView: NewsHeaderView!
-    fileprivate var tableView: UITableView!
-    fileprivate var bannerFooView: UIView!
-//    var refreshHeader: MJRefreshHeader!
-//    var refreshFooter: MJRefreshFooter!
-    // iPhone X statusBarHeight
+    private var newsHeaderView: NewsHeaderView!
+    private var tableView: UITableView!
+    private var bannerFooView: UIView!
 
+    private lazy var bannerView: BannerScrollView = {
+        let bannerWidth: CGFloat = deviceWidth - 40
+        let bannerHeight: CGFloat = 400
+        let bannerView = BannerScrollView(frame: CGRect(x: 0, y: 0, width: bannerWidth, height: bannerHeight), type: .server, imgs: [], descs: [], defaultDotImage: UIImage(named: "defaultDot"), currentDotImage: UIImage(named: "currentDot"))
+        return bannerView
+    }()
+
+    private lazy var galleryView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 130, height: 200)
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 20
+        return UICollectionView(frame: CGRect(x: 0, y: 55, width: view.width, height: 200), collectionViewLayout: layout)
+    }()
+
+
+    private lazy var infoCell: UITableViewCell = {
+        let cell = UITableViewCell()
+        // 在bannerBackView上添加一个“咨询”label 和轮播图
+        let bannerBackView = UIView(frame: CGRect(x: 0, y: 0, width: deviceWidth, height: 450))
+        if isiPad {
+            bannerBackView.width = deviceWidth*4/5
+        }
+        cell.contentView.addSubview(bannerBackView)
+        bannerBackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        let informationLabel = UILabel(text: "资讯", color: .black)
+        informationLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.heavy)
+        informationLabel.textAlignment = .left
+        bannerBackView.addSubview(informationLabel)
+        informationLabel.snp.makeConstraints({ (make) in
+            make.top.equalToSuperview().offset(10)
+            make.left.equalToSuperview().offset(25)
+            make.width.equalTo(100)
+            make.height.equalTo(40)
+        })
+        let bannerWidth: CGFloat = deviceWidth - 40
+        let bannerHeight: CGFloat = 400
+        bannerFooView = UIView(color: .white)
+        bannerBackView.addSubview(bannerFooView)
+        //            cell.contentView.addSubview(bannerFooView)
+
+        bannerFooView.snp.makeConstraints({ (make) in
+            //                make.top.equalToSuperview().offset(60)
+            make.top.equalTo(informationLabel.snp.bottom).offset(20)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(-10)
+            make.height.equalTo(bannerHeight)
+            make.width.equalTo(bannerWidth)
+        })
+        bannerFooView.layer.cornerRadius = 15
+        bannerFooView.layer.shadowRadius = 4
+        bannerFooView.layer.shadowOffset = CGSize(width: 0, height: 2)
+
+        bannerFooView.layer.shadowOpacity = 0.5
+
+        if isiPad {
+            bannerView.width = bannerWidth*4/5
+        }
+        bannerView.layer.cornerRadius = 15
+        bannerView.layer.masksToBounds = true
+        bannerView.delegate = self
+        bannerView.descLabelHeight = 150
+        bannerView.descLabelFont = UIFont.boldSystemFont(ofSize: 25)
+        bannerView.descLabelTextAlignment = .left
+        bannerFooView.addSubview(bannerView)
+
+        cell.selectionStyle = .none
+        return cell
+    }()
+
+    private lazy var galleryCell: UITableViewCell = {
+        let cell = UITableViewCell()
+        let titleLabel = UILabel(text: "图集", color: .black)
+        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.heavy)
+        titleLabel.sizeToFit()
+        titleLabel.textAlignment = .left
+        cell.contentView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.left.equalToSuperview().offset(25)
+            make.width.equalTo(100)
+            make.height.equalTo(40)
+        }
+
+        galleryView.contentInset.left = 20
+        galleryView.contentInset.right = 20
+        galleryView.backgroundColor = .white
+        galleryView.delegate = self
+        galleryView.dataSource = self
+        galleryView.showsVerticalScrollIndicator = false
+        galleryView.showsHorizontalScrollIndicator = false
+        galleryView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "galleryView")
+        cell.contentView.addSubview(galleryView)
+        galleryView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.left.right.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-10)
+            make.width.equalToSuperview()
+            make.height.equalTo(200)
+        }
+        galleryView.layer.masksToBounds = false
+        cell.selectionStyle = .none
+        return cell
+    }()
+
+    private lazy var newsTitleCell: UITableViewCell = {
+        let cell = UITableViewCell()
+        let titleLabel = UILabel(text: "新闻", color: .black)
+        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.heavy)
+        titleLabel.sizeToFit()
+        titleLabel.textAlignment = .left
+        cell.contentView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.left.equalToSuperview().offset(25)
+            make.width.equalTo(100)
+            make.height.equalTo(40)
+            make.bottom.equalToSuperview()
+        }
+        cell.selectionStyle = .none
+        return cell
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        navigationController?.navigationBar.barStyle = .black
-//        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
-        //Changing NavigationBar Title color
-//        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Metadata.Color.naviTextColor]
-        // This is for removing the dark shadows when transitioning
-//        navigationController?.isNavigationBarHidden = true
         navigationItem.title = "资讯"
         view.backgroundColor = .white
         setupUI()
@@ -56,49 +174,26 @@ class NewsViewController: UIViewController {
         CacheManager.retreive("news/homepage.json", from: .caches, as: HomePageTopModel.self, success: { homepage in
             self.homepage = homepage
             self.tableView.reloadData()
-        }, failure: {
-            HomePageHelper.getHomepage(success: { homepage in
-                self.homepage = homepage
-                self.tableView.reloadData()
-            }, failure: { error in
-
-            })
         })
 
         CacheManager.retreive("news/galleries.json", from: .caches, as: [GalleryModel].self, success: {  galleries in
             self.galleryList = galleries
             self.tableView.reloadData()
-        }, failure: {
-            HomePageHelper.getGallery(success: { galleries in
-                self.galleryList = galleries
-                self.tableView.reloadData()
-
-            }, failure: { error in
-
-            })
         })
 
         CacheManager.retreive("news/news.json", from: .caches, as: NewsTopModel.self, success: {  newsList in
             self.newsList = newsList.data
             self.tableView.reloadData()
-        }, failure: {
-            HomePageHelper.getNews(page: self.page, category: self.category, success: { newsList in
-                self.newsList = newsList.data
-                self.tableView.reloadData()
-            }, failure: { error in
-
-            })
         })
     }
     
     func setupUI() {
-        
         self.automaticallyAdjustsScrollViewInsets = false
-
         newsHeaderView = NewsHeaderView(withTitle: "News")
 
         let statusBarHeight: CGFloat = UIScreen.main.bounds.height == 812 ? 44 : 20
         let tabBarHeight = self.tabBarController?.tabBar.height ?? 0
+        
         // MARK: - init TableView
         if isiPad {
             tableView = UITableView(frame: CGRect(x: deviceWidth/10, y: statusBarHeight, width: deviceWidth*4/5, height: deviceHeight-statusBarHeight-tabBarHeight), style: .grouped)
@@ -124,6 +219,7 @@ class NewsViewController: UIViewController {
         
         tableView.mj_header = header
         tableView.mj_footer = footer
+        tableView.reloadData()
 
         header?.beginRefreshing()
         loadCache()
@@ -132,19 +228,18 @@ class NewsViewController: UIViewController {
     func loadCache() {
         CacheManager.retreive("news/homepage.json", from: .caches, as: HomePageTopModel.self, success: { homepage in
             self.homepage = homepage
-            self.tableView.reloadData()
         })
 
-        CacheManager.retreive("news/galleries.json", from: .caches, as: [GalleryModel].self, success: { galleries in
+        CacheManager.retreive("news/galleries.json", from: .caches, as: [GalleryModel].self, success: {  galleries in
             self.galleryList = galleries
-            self.tableView.reloadData()
+            self.galleryView.reloadData()
         })
 
-        CacheManager.retreive("news/newsList.json", from: .caches, as: [NewsModel].self, success: { newsList in
-            self.newsList = newsList
+        CacheManager.retreive("news/news.json", from: .caches, as: NewsTopModel.self, success: {  newsList in
+            self.newsList = newsList.data
             self.tableView.reloadData()
         })
-}
+    }
 
     @objc func headerRefresh() {
         let group = DispatchGroup()
@@ -153,7 +248,6 @@ class NewsViewController: UIViewController {
         HomePageHelper.getHomepage(success: { homepage in
             CacheManager.store(object: homepage, in: .caches, as: "news/homepage.json")
             self.homepage = homepage
-            self.tableView.reloadData()
             group.leave()
         }, failure: { error in
             group.leave()
@@ -164,7 +258,7 @@ class NewsViewController: UIViewController {
         HomePageHelper.getGallery(success: { galleries in
             CacheManager.store(object: galleries, in: .caches, as: "news/galleries.json")
             self.galleryList = galleries
-            self.tableView.reloadData()
+            self.galleryView.reloadData()
             group.leave()
         }, failure: { error in
             group.leave()
@@ -223,12 +317,11 @@ class NewsViewController: UIViewController {
 // MARK: - 使用contentoffset使label文字大小变化
 extension NewsViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print("scroll: \(scrollView.contentOffset.y)")
-        let ScrollViewY = scrollView.contentOffset.y
-        if ScrollViewY < 0 {
-            self.newsHeaderView.navigationBarHiddenScrollByY(ScrollViewY - 130)
+        let scrollViewY = scrollView.contentOffset.y
+        if scrollViewY < 0 {
+            self.newsHeaderView.navigationBarHiddenScrollByY(scrollViewY - 130)
         } else {
-            self.newsHeaderView.viewScrolledByY(ScrollViewY - 130)
+            self.newsHeaderView.viewScrolledByY(scrollViewY - 130)
         }
     }
 }
@@ -243,128 +336,16 @@ extension NewsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = UITableViewCell()
+        var cell: UITableViewCell
         switch indexPath.row {
         case 0:
-            // 在bannerBackView上添加一个“咨询”label 和轮播图
-            let bannerBackView = UIView(frame: CGRect(x: 0, y: 0, width: deviceWidth, height: 450))
-            if isiPad {
-                bannerBackView.width = deviceWidth*4/5
-            }
-            cell.contentView.addSubview(bannerBackView)
-            bannerBackView.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
-            }
-            let informationLabel = UILabel(text: "资讯", color: .black)
-            informationLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.heavy)
-            informationLabel.textAlignment = .left
-            bannerBackView.addSubview(informationLabel)
-            informationLabel.snp.makeConstraints({ (make) in
-                make.top.equalToSuperview().offset(10)
-                make.left.equalToSuperview().offset(25)
-                make.width.equalTo(100)
-                make.height.equalTo(40)
-            })
-            let bannerWidth: CGFloat = deviceWidth - 40
-            let bannerHeight: CGFloat = 400
-            bannerFooView = UIView(color: .white)
-            bannerBackView.addSubview(bannerFooView)
-//            cell.contentView.addSubview(bannerFooView)
-
-            bannerFooView.snp.makeConstraints({ (make) in
-//                make.top.equalToSuperview().offset(60)
-                make.top.equalTo(informationLabel.snp.bottom).offset(20)
-                make.left.equalToSuperview().offset(20)
-                make.right.equalToSuperview().offset(-20)
-                make.bottom.equalToSuperview().offset(-10)
-                make.height.equalTo(bannerHeight)
-                make.width.equalTo(bannerWidth)
-            })
-            bannerFooView.layer.cornerRadius = 15
-            bannerFooView.layer.shadowRadius = 4
-            bannerFooView.layer.shadowOffset = CGSize(width: 0, height: 2)
-
-            bannerFooView.layer.shadowOpacity = 0.5
-            if let homepage = self.homepage {
-                let imgs = homepage.data.carousel.map { carousel in
-                    return carousel.pic
-                }
-
-                let desc = homepage.data.carousel.map { carousel in
-                    return carousel.subject
-                }
-                let bannerView = BannerScrollView(frame: CGRect(x: 0, y: 0, width: bannerWidth, height: bannerHeight), type: .SERVER, imgs: imgs, descs: desc, defaultDotImage: UIImage(named: "defaultDot"), currentDotImage: UIImage(named: "currentDot"))
-                if isiPad {
-                    bannerView.width = bannerWidth*4/5
-                }
-                bannerView.layer.cornerRadius = 15
-                bannerView.layer.masksToBounds = true
-                bannerView.delegate = self
-                bannerView.descLabelHeight = 150
-                bannerView.descLabelFont = UIFont.boldSystemFont(ofSize: 25)
-                bannerView.descLabelTextAlignment = .left
-                bannerFooView.addSubview(bannerView)
-//                bannerView.snp.makeConstraints { make in
-//                    ma
-//                }
-            }
-            cell.selectionStyle = .none
-
-            // init 轮播图BannerView
+            cell = infoCell
         case 1:
-            let titleLabel = UILabel(text: "图集", color: .black)
-            titleLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.heavy)
-            titleLabel.sizeToFit()
-            titleLabel.textAlignment = .left
-            cell.contentView.addSubview(titleLabel)
-            titleLabel.snp.makeConstraints { make in
-                make.top.equalToSuperview().offset(10)
-                make.left.equalToSuperview().offset(25)
-                make.width.equalTo(100)
-                make.height.equalTo(40)
-            }
-
-            let layout = UICollectionViewFlowLayout()
-            layout.itemSize = CGSize(width: 130, height: 200)
-            layout.scrollDirection = .horizontal
-            layout.minimumLineSpacing = 20
-
-            let galleryView = UICollectionView(frame: CGRect(x: 0, y: 55, width: view.width, height: 200), collectionViewLayout: layout)
-
-            galleryView.contentInset.left = 20
-            galleryView.contentInset.right = 20
-            galleryView.backgroundColor = .white
-            galleryView.delegate = self
-            galleryView.dataSource = self
-            galleryView.showsVerticalScrollIndicator = false
-            galleryView.showsHorizontalScrollIndicator = false
-            galleryView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "galleryView")
-            cell.contentView.addSubview(galleryView)
-            galleryView.snp.makeConstraints { make in
-                make.top.equalTo(titleLabel.snp.bottom).offset(20)
-                make.left.right.equalToSuperview()
-                make.bottom.equalToSuperview().offset(-10)
-                make.width.equalToSuperview()
-                make.height.equalTo(200)
-            }
-            galleryView.layer.masksToBounds = false
-            cell.selectionStyle = .none
+            cell = galleryCell
         case 2:
-            let titleLabel = UILabel(text: "新闻", color: .black)
-            titleLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.heavy)
-            titleLabel.sizeToFit()
-            titleLabel.textAlignment = .left
-            cell.contentView.addSubview(titleLabel)
-            titleLabel.snp.makeConstraints { make in
-                make.top.equalToSuperview().offset(10)
-                make.left.equalToSuperview().offset(25)
-                make.width.equalTo(100)
-                make.height.equalTo(40)
-                make.bottom.equalToSuperview()
-            }
-            cell.selectionStyle = .none
-        case var row where row > 2 && row - 2 < newsList.count:
-            row = row - 2
+            cell = newsTitleCell
+        case var row where row > 2 && row - 3 < newsList.count:
+            row = row - 3
             let news = newsList[row]
             if URL(string: news.pic) != nil {
                 cell = tableView.dequeueReusableCell(withIdentifier: "news-right") ??
@@ -383,16 +364,14 @@ extension NewsViewController: UITableViewDataSource {
                 } else {
                     cell.detailLabel.text = news.summary.replacingOccurrences(of: "&nbsp;", with: "")
                 }
-                
-//                cell.detailLabel.text = news.summary
+
                 cell.descLabel.text = "阅读: \(news.visitcount) 评论: \(news.comments)"
-                cell.imgView.sd_setImage(with: URL(string: news.pic), completed: nil)
+                cell.imgView.sd_setImage(with: URL(string: news.pic), placeholderImage: #imageLiteral(resourceName: "logo_old"), options: [], completed: nil)
                 cell.imgView.sd_setIndicatorStyle(.gray)
                 cell.imgView.sd_setShowActivityIndicatorView(true)
             }
         default:
-            
-            break
+            fatalError()
         }
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
@@ -401,10 +380,6 @@ extension NewsViewController: UITableViewDataSource {
 }
 
 extension NewsViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 300
-//    }
-
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             return newsHeaderView
@@ -413,7 +388,6 @@ extension NewsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 100
         return 75
     }
 

@@ -61,6 +61,7 @@ class NewsTableViewCell: UITableViewCell {
                 make.width.equalTo(imageWidth)
                 make.height.equalTo(imageHeight)
             }
+            imgView.isHidden = false
 
             contentView.addSubview(detailLabel)
             detailLabel.numberOfLines = 0
@@ -107,6 +108,7 @@ class NewsTableViewCell: UITableViewCell {
                 make.width.equalTo(1)
                 make.height.equalTo(imageHeight)
             }
+            imgView.isHidden = true
 
             contentView.addSubview(detailLabel)
             detailLabel.numberOfLines = 0

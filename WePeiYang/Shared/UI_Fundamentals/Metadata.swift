@@ -149,16 +149,6 @@ struct Metadata {
     }
     
     struct Size {
-        
-//        struct Screen {
-//            
-//            static let width = UIScreen.main.bounds.width
-//            static let height = UIScreen.main.bounds.height
-//        }
-//        
-//        struct Button {
-//            static let
-//        }
         static let bigPhonePortraitWidth: CGFloat = 414
         static let smallPhonePortraitWidth: CGFloat = 375
     }

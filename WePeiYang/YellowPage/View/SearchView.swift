@@ -20,8 +20,8 @@ class SearchView: UIView {
         self.addSubview(backgroundView)
         backButton.setImage(UIImage(named: "ypback1"), for: .normal)
 //        self.backgroundColor = UIColor(red: 0.1059, green: 0.6352, blue: 0.9019, alpha: 0.5)
-        self.backgroundColor = mainColor
-        backgroundView.backgroundColor = mainColor
+        self.backgroundColor = YellowPageMainViewController.mainColor
+        backgroundView.backgroundColor = YellowPageMainViewController.mainColor
 //        backgroundView.backgroundColor = UIColor(red: 0.1059, green: 0.6352, blue: 0.9019, alpha: 1)
         backButton.adjustsImageWhenHighlighted = false
         backgroundView.addSubview(backButton)

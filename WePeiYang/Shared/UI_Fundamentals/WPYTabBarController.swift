@@ -149,18 +149,8 @@ class WPYTabBarController: UITabBarController {
         //TODO: View Controller Transitioning Animation
         
         //print("fuck")
-        
-    }
-
-}
-
-
-extension WPYTabBarController: ThemeChanging {
-    func changeInto(theme: WPYTheme) {
-        
     }
 }
-
 
 class WPYTabBarControllerDelegate: NSObject, UITabBarControllerDelegate {
     

@@ -12,18 +12,18 @@ import UIKit
 
 // 图片资源
 enum ImgSource {
-    case SERVER(url: URL)
-    case LOCAL(name: String)
+    case server(url: URL)
+    case local(name: String)
 }
 
 // 图片类型
 enum ImgType: Int {
-    case SERVER = 0     // default
-    case LOCAL = 1
+    case server = 0     // default
+    case local = 1
 }
 
 struct Proxy {
-    var imgType:ImgType = .SERVER
+    var imgType:ImgType = .server
     var imgArray:[ImgSource] = [ImgSource]()
     
     subscript (index:Int) -> ImgSource {
@@ -35,20 +35,17 @@ struct Proxy {
     // 构造方法
     init(type:ImgType, array:[String]) {
         imgType = type
-        if imgType == .SERVER {
-            imgArray = array.map({ (urlStr) -> ImgSource in
-                
+        if imgType == .server {
+            imgArray = array.map { urlStr in
                 if let url = URL(string: urlStr) {
-                    return ImgSource.SERVER(url: url)
+                    return ImgSource.server(url: url)
                 }
-                print(1)
-                return ImgSource.LOCAL(name: "placeholder")
-                //                return ImgSource.SERVER(url: URL(string: urlStr)?)
-            })
+                return ImgSource.local(name: "placeholder")
+            }
         } else {
-            imgArray = array.map({ (name) -> ImgSource in
-                return ImgSource.LOCAL(name: name)
-            })
+            imgArray = array.map { name in
+                return ImgSource.local(name: name)
+            }
         }
     }
 }

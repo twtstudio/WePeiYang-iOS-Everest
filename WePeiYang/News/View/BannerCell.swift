@@ -19,12 +19,12 @@ class BannerCell: UICollectionViewCell {
     fileprivate var twtLabel: UILabel!
     
     // MARK: - 对外方法
-    var imgSource: ImgSource = ImgSource.LOCAL(name: "placeholder")  {
+    var imgSource: ImgSource = ImgSource.local(name: "placeholder")  {
         didSet {
             switch imgSource {
-            case let .SERVER(url):
+            case let .server(url):
                 imgView.sd_setImage(with: url)
-            case let .LOCAL(name):
+            case let .local(name):
                 imgView.image = UIImage(named: name)
             }
         }

@@ -76,10 +76,7 @@ class PhoneBook {
 
     static func checkVersion(success: @escaping ()->(), failure: @escaping ()->()) {
         SolaSessionManager.solaSession(url: PhoneBook.url, success: { dict in
-<<<<<<< HEAD
             // FIXME: should be optimized
-=======
->>>>>>> fix news and yello page
             if let categories = dict["category_list"] as? [[String: Any]] {
                 var newItems = [ClientItem]()
                 for category in categories {
