@@ -201,7 +201,7 @@ class SettingsViewController: UIViewController {
     }
     
     @objc func bindingStatusDidChange(notification: Notification) {
-            tableView.reloadData()
+        tableView.reloadData()
     }
 
     deinit {
@@ -303,8 +303,6 @@ extension SettingsViewController: UITableViewDelegate {
             }
             TwTUser.shared.delete()
             tableView.reloadData()
-            print("log out")
-
         case (1, 0):
             let detailVC = DetailSettingViewController()
             detailVC.hidesBottomBarWhenPushed = true

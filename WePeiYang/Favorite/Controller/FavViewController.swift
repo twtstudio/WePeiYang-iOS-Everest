@@ -10,6 +10,7 @@ import UIKit
 import ObjectMapper
 import SnapKit
 
+let MessageKey = "MessageKey"
 class FavViewController: UIViewController {
 
     // The below override will not be called if current viewcontroller is controlled by a UINavigationController
@@ -143,12 +144,26 @@ class FavViewController: UIViewController {
         })
 
         reloadOrder()
-        // init Cards
-//        initCards()
 
         NotificationCenter.default.addObserver(self, selector: #selector(refreshCards), name: NotificationName.NotificationUserDidLogout.name, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshCards), name: NotificationName.NotificationUserDidLogin.name, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadOrder), name: NotificationName.NotificationCardOrderChanged.name, object: nil)
+
+        SolaSessionManager.solaSession(type: .get, url: "/app/message", token: nil, parameters: nil, success: { dict in
+            if let data = dict["data"] as? [String : Any],
+                let version = data["version"] as? Int,
+                let title = data["title"] as? String,
+                let message = data["message"] as? String {
+                let prev = UserDefaults.standard.integer(forKey: MessageKey)
+                if version > prev {
+                    // new message
+                    SwiftMessages.showNotification(title: title, message: message, handler: { button in
+                        UserDefaults.standard.set(version, forKey: MessageKey)
+                        SwiftMessages.hideAll()
+                    })
+                }
+            }
+        })
     }
 
     // 重新加载顺序
@@ -183,15 +198,6 @@ class FavViewController: UIViewController {
                 cardDict[item.0]?.refresh()
             }
         }
-
-//        for key in Array(cardDict.keys) {
-//////            if key != .library {
-////            if modules.first(where: { (module, show) -> Bool in
-////                return module == key
-////            })
-//                cardDict[key]!.refresh()
-//////            }
-//        }
 
         switch info.name {
         case NotificationName.NotificationUserDidLogin.name:

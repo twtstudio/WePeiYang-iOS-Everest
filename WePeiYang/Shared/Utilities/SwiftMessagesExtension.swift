@@ -50,6 +50,18 @@ extension SwiftMessages {
         SwiftMessages.show(config: config, view: view)
     }
 
+    static func showNotification(title: String, message: String, handler: ((UIButton)->())? = nil) {
+        let view = MessageView.viewFromNib(layout: .cardView)
+        view.configureContent(title: title, body: message, iconImage: nil, iconText: nil, buttonImage: nil, buttonTitle: "我造了", buttonTapHandler: handler)
+//        view.configureTheme(.warning)
+        view.configureTheme(backgroundColor: UIColor(red:0.90, green:0.30, blue:0.26, alpha:1.00), foregroundColor: .white)
+        var config = SwiftMessages.Config()
+        config.duration = .forever
+        config.presentationContext = .window(windowLevel: UIWindowLevelStatusBar)
+        config.dimMode = .gray(interactive: true)
+        SwiftMessages.show(config: config, view: view)
+    }
+
     static var otherMessages = SwiftMessages()
 
     static func showLoading() {

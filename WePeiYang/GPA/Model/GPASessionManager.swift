@@ -11,18 +11,20 @@ import ObjectMapper
 struct GPASessionManager {
     static func getGPA(success: @escaping (GPAModel)->(), failure: @escaping (Error)->()) {
         SolaSessionManager.solaSession(url: "/gpa", success: { dic in
-            guard let errorCode = dic["error_code"] as? Int, errorCode == -1 else {
-                if let message = dic["message"] as? String {
-                    failure(WPYCustomError.custom(message))
-                }
+            guard let errorCode = dic["error_code"] as? Int,
+            let message = dic["message"] as? String else {
+                failure(WPYCustomError.custom("GPA 响应解析错误"))
+                return
+            }
+            guard errorCode == -1 else {
+                failure(WPYCustomError.errorCode(errorCode, message))
                 return
             }
             
             if let data = dic["data"] as? [String : Any], let model = Mapper<GPAModel>().map(JSON: data) {
                 success(model)
             } else {
-                // FIXME: log error
-                // 数据解析失败
+                failure(WPYCustomError.custom("GPA 数据解析错误"))
             }
         }, failure: { err in
             failure(err)

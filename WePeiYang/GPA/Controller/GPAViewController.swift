@@ -10,6 +10,7 @@
 import UIKit
 import Charts
 import ObjectMapper
+import PopupDialog
 
 fileprivate enum GPASortMethod {
     case scoreFirst
@@ -19,20 +20,13 @@ fileprivate enum GPASortMethod {
 let GPAKey = "GPAKey"
 
 class GPAViewController: UIViewController {
-    var tableView: UITableView!
-    
-    var terms: [GPATermModel] = []
-    
-    var currentTerm: GPATermModel?
-    
-    var stat: GPAStatModel?
-    
-    var session: String!
-    
-    var lastSelect: Int = 0
-//    fileprivate var lastScrollOffset = CGPoint.zero
-    
-    fileprivate var sortMethod: GPASortMethod = .scoreFirst {
+    private var tableView: UITableView!
+    private var terms: [GPATermModel] = []
+    private var currentTerm: GPATermModel?
+    private var stat: GPAStatModel?
+    private var session: String!
+    private var lastSelect: Int = 0
+    private var sortMethod: GPASortMethod = .scoreFirst {
         didSet {
             if sortMethod == .scoreFirst {
                 currentTerm?.classes.sort(by: { (a, b) -> Bool in
@@ -45,28 +39,25 @@ class GPAViewController: UIViewController {
             }
         }
     }
-    
-    let summaryView = ScoreHeaderView()
-    
-    let termLabel: UILabel = {
+    private let summaryView = ScoreHeaderView()
+    private let termLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red:0.22, green:0.22, blue:0.22, alpha:1.00)
         label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
         label.textAlignment = .center
         label.width = 100
         label.height = 20
-//        label.sizeToFit()
         return label
     }()
-    let leftButton = UIButton()
-    let rightButton = UIButton()
-    let termSwitchView: UIView = {
+    private let leftButton = UIButton()
+    private let rightButton = UIButton()
+    private let termSwitchView: UIView = {
         let contentView = UIView()
         contentView.backgroundColor = .white
         return contentView
     }()
     
-    let lineChartView: LineChartView = {
+    private let lineChartView: LineChartView = {
         let lineChartView = LineChartView()
         lineChartView.dragEnabled = false
         for gesture in lineChartView.gestureRecognizers ?? [] {
@@ -97,9 +88,9 @@ class GPAViewController: UIViewController {
         return lineChartView
     }()
     
-    let paddingView = UIView()
+    private let paddingView = UIView()
     
-    let radarChartView: RadarChartView = {
+    private let radarChartView: RadarChartView = {
         let radarChartView = RadarChartView()
         radarChartView.yAxis.drawLabelsEnabled = false
         radarChartView.yAxis.axisMinimum = 0
@@ -123,7 +114,7 @@ class GPAViewController: UIViewController {
         return radarChartView
     }()
     
-    let segmentView: UISegmentedControl = {
+    private let segmentView: UISegmentedControl = {
         let segmentView = UISegmentedControl(items: ["成绩降序", "学分降序"])
         segmentView.tintColor = .white
         segmentView.layer.borderWidth = 2
@@ -134,7 +125,7 @@ class GPAViewController: UIViewController {
         return segmentView
     }()
     
-    let segmentContentView: UIView = {
+    private let segmentContentView: UIView = {
         let contentView = UIView()
         contentView.backgroundColor = UIColor.gpaPink
         return contentView
@@ -153,6 +144,8 @@ class GPAViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.shadowImage = UIImage()
         scrollViewDidScroll(tableView)
+
+        checkBindingState()
     }
     
     override func viewDidLoad() {
@@ -243,21 +236,46 @@ class GPAViewController: UIViewController {
             let image = UIImage(named: "ic_back")!
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
         }
+
         loadCache()
-        refresh()
+        if TwTUser.shared.tjuBindingState {
+            refresh()
+        }
     }
 
-    @objc func close() {
+    @objc private func close() {
         self.dismiss(animated: true, completion: nil)
     }
 
     // TODO: update the only evaluated item
-    func evaluateDone() {
+    private func evaluateDone() {
         
     }
-    
+
+    private func checkBindingState() {
+        // not bind
+        if !TwTUser.shared.tjuBindingState {
+            let popup = PopupDialog(title: "未绑定办公网", message: "微北洋的服务依赖于办公网，若要使用GPA 查询功能，请先绑定办公网。", buttonAlignment: .horizontal)
+            let cancelButton = CancelButton(title: "取消", action: {
+                SwiftMessages.showWarningMessage(body: "未绑定办公网，已加载缓存")
+            })
+            let bindButton = DefaultButton(title: "绑定", action: {
+                let vc = TJUBindingViewController()
+                vc.hidesBottomBarWhenPushed = true
+                vc.completion = { success in
+                    if success {
+                        self.refresh()
+                    }
+                }
+                self.present(vc, animated: true)
+            })
+            popup.addButtons([cancelButton, bindButton])
+            self.present(popup, animated: true, completion: nil)
+        }
+    }
+
     // 加载缓存
-    func loadCache() {
+    private func loadCache() {
         CacheManager.retreive("gpa/gpa.json", from: .group, as: String.self, success: { string in
             if let model = Mapper<GPAModel>().map(JSONString: string) {
                 self.loadModel(model: model)
@@ -265,15 +283,10 @@ class GPAViewController: UIViewController {
         }, failure: {
             SwiftMessages.showLoading()
         })
-
-//        if let dic = CacheManager.loadGroupCache(withKey: GPAKey) as? [String: Any],
-//            let model = Mapper<GPAModel>().map(JSON: dic) {
-//            self.loadModel(model: model)
-//        }
     }
     
     // 刷新数据
-    @objc func refresh() {
+    @objc private func refresh() {
         GPASessionManager.getGPA(success: { model in
             SwiftMessages.hideLoading()
             self.loadModel(model: model)
@@ -293,7 +306,7 @@ class GPAViewController: UIViewController {
     }
     
     // 根据 GPAModel 显示数据
-    func loadModel(model: GPAModel) {
+    private func loadModel(model: GPAModel) {
         // TODO: 数据过滤
 //        if self.stat?.credit == model.stat.credit {
 //            return
@@ -315,7 +328,7 @@ class GPAViewController: UIViewController {
         }
     }
     
-    func load() {
+    private func load() {
         termLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
         UIView.animate(withDuration: 0.2, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
             self.termLabel.text = self.currentTerm?.name ?? ""
@@ -351,7 +364,7 @@ class GPAViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
 
-    @objc func segmentValueChanged(sender: UISegmentedControl) {
+    @objc private func segmentValueChanged(sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             sortMethod = .scoreFirst
         } else if sender.selectedSegmentIndex == 1 {
@@ -359,7 +372,7 @@ class GPAViewController: UIViewController {
         }
     }
 
-    func setupLineChartView() {
+    private func setupLineChartView() {
         // 这里为了曲线上点不出现在屏幕边缘做了一些处理
         // 向最前和最后插入一个元素
         // 即第一个和最后一个变成了第二个和倒数第二个
@@ -396,7 +409,7 @@ class GPAViewController: UIViewController {
         lineChartView.zoomToCenter(scaleX: 1.2, scaleY: 1)
     }
     
-    func setupRadarChartView() {
+    private func setupRadarChartView() {
         var entrys = [RadarChartDataEntry]()
         var labels = [String]()
         let classes = currentTerm?.classes ?? []

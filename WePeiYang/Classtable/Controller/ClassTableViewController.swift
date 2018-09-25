@@ -8,6 +8,7 @@
 
 import UIKit
 import ObjectMapper
+import PopupDialog
 
 class ClassTableViewController: UIViewController {
     
@@ -112,7 +113,36 @@ class ClassTableViewController: UIViewController {
         }
 
         loadCache()
-        load()
+        if TwTUser.shared.tjuBindingState {
+            load()
+        }
+    }
+
+    private func checkBindingState() {
+        // not bind
+        if !TwTUser.shared.tjuBindingState {
+            let popup = PopupDialog(title: "未绑定办公网", message: "微北洋的服务依赖于选课网，若要使用课程表查询功能，请先绑定办公网。", buttonAlignment: .horizontal)
+            let cancelButton = CancelButton(title: "取消", action: {
+                if let table = self.table {
+                    let message = "未绑定办公网，已加载缓存\n缓存时间: " + table.updatedAt
+                    SwiftMessages.showWarningMessage(body: message)
+                } else {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            })
+            let bindButton = DefaultButton(title: "绑定", action: {
+                let vc = TJUBindingViewController()
+                vc.hidesBottomBarWhenPushed = true
+                vc.completion = { success in
+                    if success {
+                        self.load()
+                    }
+                }
+                self.present(vc, animated: true)
+            })
+            popup.addButtons([cancelButton, bindButton])
+            self.present(popup, animated: true, completion: nil)
+        }
     }
 
     @objc func close() {
@@ -274,6 +304,8 @@ class ClassTableViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
         self.navigationController?.navigationBar.barStyle = .default
         self.navigationController?.navigationBar.isTranslucent = false
+
+        checkBindingState()
     }
 
     override func viewWillDisappear(_ animated: Bool) {

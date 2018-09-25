@@ -19,7 +19,8 @@ class TJUBindingViewController: UIViewController {
     var logoImage: UIImage!
     var logoImageView: UIImageView!
     var warningText: UITextView!
-    
+    var completion: ((Bool)->())?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -109,11 +110,9 @@ class TJUBindingViewController: UIViewController {
             loginInfo["tjupasswd"] = passwordTextField.text
             
             SolaSessionManager.solaSession(type: .get, url: "/auth/bind/tju",  parameters: loginInfo, success: { dictionary in
-                
-                print(dictionary)
-                print("Succeeded")
                 guard let errorCode: Int = dictionary["error_code"] as? Int,
                     let errMsg = dictionary["message"] as? String else {
+                        SwiftMessages.showErrorMessage(body: "绑定错误")
                         return
                 }
 
@@ -123,16 +122,22 @@ class TJUBindingViewController: UIViewController {
                     TwTUser.shared.save()
                     NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("tju", true))
                     SwiftMessages.showSuccessMessage(body: "绑定成功！")
-                    self.dismiss(animated: true, completion: nil)
+                    self.dismiss(animated: true, completion: {
+                        self.completion?(true)
+                    })
                 } else {
                     SwiftMessages.showErrorMessage(body: errMsg)
                 }
             }, failure: { error in
-                
-                debugLog(error)
-                print("Failed")
+                if error.localizedDescription == "您已绑定" {
+                    TwTUser.shared.tjuBindingState = true
+                    TwTUser.shared.tjuPassword = self.passwordTextField.text!
+                    TwTUser.shared.save()
+                    self.dismiss(animated: true, completion: {
+                        self.completion?(true)
+                    })
+                }
                 SwiftMessages.showErrorMessage(body: error.localizedDescription)
-
             })
         } else {
             SwiftMessages.showWarningMessage(body: "请填写账号和密码")
@@ -150,26 +155,33 @@ class TJUBindingViewController: UIViewController {
         SolaSessionManager.solaSession(type: .get, url: "/auth/unbind/tju", token: TwTUser.shared.token, parameters: loginInfo, success: { dictionary in
             
             guard let errorCode: Int = dictionary["error_code"] as? Int else {
+                SwiftMessages.showErrorMessage(body: "解绑错误")
                 return
             }
             
             if errorCode == -1 {
                 TwTUser.shared.tjuBindingState = false
                 TwTUser.shared.save()
-                self.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, completion: {
+                    self.completion?(true)
+                })
             } else {
                 let message = dictionary["message"] as? String
                 SwiftMessages.showErrorMessage(body: message ?? "解析错误")
             }
         }, failure: { error in
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: {
+                self.completion?(false)
+            })
             
         })
     }
     
     @objc func dismissBinding() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: {
+            self.completion?(false)
+        })
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
