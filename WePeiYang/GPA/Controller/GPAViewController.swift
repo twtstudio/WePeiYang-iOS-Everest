@@ -130,14 +130,28 @@ class GPAViewController: UIViewController {
         contentView.backgroundColor = UIColor.gpaPink
         return contentView
     }()
-    
-    // This property actually won't do anything if the controller is in UINavigationController.
-    // If you want to change color of status bar,
-    // just set self.navigationController.navigationBar.barStyle
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//            return .lightContent
-//    }
-    
+
+    private var refreshButton: UIView? {
+        let button = navigationItem.rightBarButtonItem?.value(forKey: "view") as? UIView
+        button?.layer.anchorPoint = CGPoint(x: 0.54, y: 0.54)
+        return button
+    }
+
+    private var isRefreshing: Bool = false
+
+    private func startRotating() {
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.toValue = CGFloat.pi
+        rotationAnimation.duration = 0.5
+        rotationAnimation.isCumulative = true
+        rotationAnimation.repeatCount = 1000
+        refreshButton?.layer.add(rotationAnimation, forKey: "rotationAnimation")
+    }
+
+    private func stopRotating() {
+        refreshButton?.layer.removeAllAnimations()
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -212,10 +226,7 @@ class GPAViewController: UIViewController {
         // set paddingView 
         paddingView.backgroundColor = UIColor.gpaPink
 
-        // CGRect(x: 0, y: -44, width: self.view.width, height: UIScreen.main.bounds.height)
         tableView = UITableView(frame: self.view.bounds, style: .plain)
-//        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 44, 0);
-//        self.automaticallyAdjustsScrollViewInsets = false
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
 
         tableView.delegate = self
@@ -224,10 +235,11 @@ class GPAViewController: UIViewController {
         tableView.backgroundColor = .white
         tableView.rowHeight = 100
         self.view.addSubview(tableView)
-        let refreshItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(self.refresh))
+
+         let refreshItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(self.refresh))
         refreshItem.tintColor = .white
         self.navigationItem.rightBarButtonItem = refreshItem
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: NotificationName.NotificationAppraiseDidSucceed.name, object: nil)
 
         hidesBottomBarWhenPushed = true
@@ -287,7 +299,15 @@ class GPAViewController: UIViewController {
     
     // 刷新数据
     @objc private func refresh() {
+        guard isRefreshing == false else {
+            return
+        }
+
+        isRefreshing = true
+        startRotating()
         GPASessionManager.getGPA(success: { model in
+            self.isRefreshing = false
+            self.stopRotating()
             SwiftMessages.hideLoading()
             self.loadModel(model: model)
             // 数据有效 存起来
@@ -295,10 +315,13 @@ class GPAViewController: UIViewController {
                 if let string = model.toJSONString() {
                     CacheManager.store(object: string, in: .group, as: "gpa/gpa.json")
                 }
-//                CacheManager.saveGroupCache(with: model.toJSON(), key: GPAKey)
+                SwiftMessages.showSuccessMessage(body: "刷新成功")
+            } else {
+                SwiftMessages.showSuccessMessage(body: "别着急，会有成绩的~")
             }
-            SwiftMessages.showSuccessMessage(body: "刷新成功")
         }, failure: { error in
+            self.isRefreshing = false
+            self.stopRotating()
             SwiftMessages.hideLoading()
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
             debugLog(error)

@@ -63,18 +63,37 @@ class ClassTableViewController: UIViewController {
     }
     var isSelecting = false {
         didSet {
-            self.navigationItem.titleView?.subviews.forEach { v in
-                if v.tag == 2 {
-                    if isSelecting {
-                        // 旋转 pi
-                        v.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
-                    } else {
-                        // 复位
-                        v.transform = CGAffineTransform.identity
-                    }
+            for v in self.navigationItem.titleView?.subviews ?? [] where v.tag == 2 {
+                if isSelecting {
+                    // 旋转 pi
+                    v.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+                } else {
+                    // 复位
+                    v.transform = CGAffineTransform.identity
                 }
             }
         }
+    }
+
+    private var refreshButton: UIView? {
+        let button = navigationItem.rightBarButtonItem?.value(forKey: "view") as? UIView
+        button?.layer.anchorPoint = CGPoint(x: 0.54, y: 0.54)
+        return button
+    }
+
+    private var isRefreshing: Bool = false
+
+    private func startRotating() {
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.toValue = CGFloat.pi
+        rotationAnimation.duration = 0.5
+        rotationAnimation.isCumulative = true
+        rotationAnimation.repeatCount = 1000
+        refreshButton?.layer.add(rotationAnimation, forKey: "rotationAnimation")
+    }
+
+    private func stopRotating() {
+        refreshButton?.layer.removeAllAnimations()
     }
     
     override func viewDidLoad() {
@@ -261,7 +280,14 @@ class ClassTableViewController: UIViewController {
     }
     
     @objc func load() {
+        guard isRefreshing == false else {
+            return
+        }
+        isRefreshing = true
+        startRotating()
         ClasstableDataManager.getClassTable(success: { table in
+            self.isRefreshing = false
+            self.stopRotating()
             SwiftMessages.hideLoading()
             if let oldTable = self.table,
                 oldTable.updatedAt > table.updatedAt,
@@ -291,6 +317,8 @@ class ClassTableViewController: UIViewController {
 
             self.listView.load(courses: courses, weeks: 0)
         }, failure: { errorMessage in
+            self.isRefreshing = false
+            self.stopRotating()
             SwiftMessages.hideLoading()
             SwiftMessages.showErrorMessage(body: errorMessage)
         })
