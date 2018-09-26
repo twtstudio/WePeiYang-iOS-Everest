@@ -38,6 +38,15 @@ struct PracticeFigure {
     
     static var classID = ""
     
+    // 基于部分 API 未提供 classID 而提供手动算法
+    static func getClassID(byCourseID courseID: Int) -> String {
+        var classID = "2"
+        if courseID == 1 {
+            classID = "1"
+        } else if courseID > 21 { classID = "3" }
+        return classID
+    }
+    
     static var courseID = ""
     
     static var questionType = ""

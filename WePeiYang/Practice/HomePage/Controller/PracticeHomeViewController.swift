@@ -244,12 +244,7 @@ extension PracticeHomeViewController: UITableViewDataSource {
     @objc func clickQuickSelect(button: UIButton) {
         let course = practiceStudent.data.qSelect[button.tag]
         PracticeFigure.courseID = String(course.id)
-        var classID = "2"
-        let courseID = course.id
-        if courseID == 1 {
-            classID = "1"
-        } else if courseID > 21 { classID = "3" }
-        PracticeFigure.classID = classID
+        PracticeFigure.classID = PracticeFigure.getClassID(byCourseID: course.id)
         
         let warningCard = PopupDialog(title: course.courseName, message: "请选择练习模式", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
         let leftButton = PracticePopupDialogButton(title: "顺序练习", dismissOnTap: true) {
