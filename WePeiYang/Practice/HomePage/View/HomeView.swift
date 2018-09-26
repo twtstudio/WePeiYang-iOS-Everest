@@ -62,9 +62,6 @@ class HomeViewCell: UITableViewCell {
             let titleArray = studentData.qSelect
             
             for index in 0..<titleArray.count {
-                // var courseName = titleArray[index].courseName
-                // if courseName.hasPrefix("第") { courseName.removeFirst(4) }
-                
                 let bubbleButton = UIButton()
                 
                 bubbleButton.setPracticeBubbleButton(withTitle: titleArray[index].courseName)

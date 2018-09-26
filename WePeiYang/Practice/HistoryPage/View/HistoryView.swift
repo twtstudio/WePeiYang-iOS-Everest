@@ -58,8 +58,6 @@ class HistoryViewCell: UITableViewCell {
         
         // 课程名称 //
         if historyData.classID != "1" { // 形势与政策不需要显示
-            // var courseName = historyData.courseName
-            // if courseName.hasPrefix("第") { courseName.removeFirst(4) }
             courseNameLabel.text = historyData.courseName
             courseNameLabel.frame.origin = CGPoint(x: classTypeLabel.frame.maxX + 4, y: classTypeLabel.frame.origin.y)
             courseNameLabel.sizeToFit()
