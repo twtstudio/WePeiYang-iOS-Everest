@@ -71,19 +71,31 @@ class PracticeUploadViewController: UIViewController {
 /* 支持复制功能的 UILabel */
 class UICopyLabel: UILabel {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        sharedInit()
+    override var canBecomeFirstResponder: Bool {
+        return true
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         sharedInit()
     }
     
     func sharedInit() {
         isUserInteractionEnabled = true
         addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(showMenu)))
+    }
+    
+    // 支持复制 //
+    override func copy(_ sender: Any?) {
+        let board = UIPasteboard.general
+        board.string = text
+        let menu = UIMenuController.shared
+        menu.setMenuVisible(false, animated: true)
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(UIResponderStandardEditActions.copy(_:)) { return true }
+        return false
     }
     
     @objc func showMenu(_ sender: UILongPressGestureRecognizer) {
@@ -95,21 +107,9 @@ class UICopyLabel: UILabel {
         }
     }
     
-    // 支持复制 //
-    override func copy(_ sender: Any?) {
-        let board = UIPasteboard.general
-        board.string = text
-        let menu = UIMenuController.shared
-        menu.setMenuVisible(false, animated: true)
-    }
-    
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-    
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        if action == #selector(UIResponderStandardEditActions.copy(_:)) { return true }
-        return false
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        sharedInit()
     }
     
 }

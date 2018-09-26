@@ -248,29 +248,25 @@ extension PracticeHomeViewController: UITableViewDataSource {
         
         let warningCard = PopupDialog(title: course.courseName, message: "请选择练习模式", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
         let leftButton = PracticePopupDialogButton(title: "顺序练习", dismissOnTap: true) {
-            // PracticeFigure.practiceType = "0"
+            PracticeFigure.currentCourseIndex = 0
             // TODO: 进入顺序练习
             let warningCard = PopupDialog(title: course.courseName, message: "请选择题目类型", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
             let leftButton = PracticePopupDialogButton(title: "单选", dismissOnTap: true) {
                 PracticeFigure.questionType = "0"
-                PracticeFigure.currentCourseIndex = 0
                 self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
             }
             let centerButton = PracticePopupDialogButton(title: "多选", dismissOnTap: true) {
                 PracticeFigure.questionType = "1"
-                PracticeFigure.currentCourseIndex = 0
                 self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
             }
             let rightButton = PracticePopupDialogButton(title: "判断", dismissOnTap: true) {
                 PracticeFigure.questionType = "2"
-                PracticeFigure.currentCourseIndex = 0
                 self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
             }
             warningCard.addButtons([leftButton, centerButton, rightButton])
             self.present(warningCard, animated: true, completion: nil)
         }
         let rightButton = PracticePopupDialogButton(title: "模拟考试", dismissOnTap: true) {
-            // PracticeFigure.practiceType = "1"
             // TODO: 进入模拟考试
             self.navigationController?.pushViewController(QuizCollectionViewController(), animated: true)
         }
@@ -280,15 +276,10 @@ extension PracticeHomeViewController: UITableViewDataSource {
     
     @objc func clickContinueCurrent(button: UIButton) {
         let studentData = practiceStudent.data
-        // PracticeFigure.practiceType = "0"
         guard let courseID = Int(studentData.currentCourseID!),
             let currentCourseIndex = studentData.currentCourseIndex else { return }
         PracticeFigure.courseID = String(courseID)
-        var classID = "2"
-        if courseID == 1 {
-            classID = "1"
-        } else if courseID > 21 { classID = "3" }
-        PracticeFigure.classID = classID
+        PracticeFigure.classID = PracticeFigure.getClassID(byCourseID: courseID)
         PracticeFigure.questionType = studentData.currentQuesType!
         PracticeFigure.currentCourseIndex = currentCourseIndex
         // TODO: 进入当前练习

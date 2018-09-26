@@ -92,7 +92,8 @@ struct PracticeStudentData: Codable {
     let currentCourseDoneCount: Int?
     let currentQuesType, currentCourseQuesCount: String?
     let currentCourseIndex: Int?
-    let currentCourseWriteString, currentCourseErrorOption: String?
+    let currentCourseWriteString: String?
+    let currentCourseErrorOption: [[String]]?
     let latestCourseName: String
     let latestCourseTimestamp: Int
     let qSelect: [QuickSelect]
@@ -202,7 +203,7 @@ extension PracticeStudentData {
         currentCourseQuesCount: String?? = nil,
         currentCourseIndex: Int?? = nil,
         currentCourseWriteString: String?? = nil,
-        currentCourseErrorOption: String?? = nil,
+        currentCourseErrorOption: [[String]]?? = nil,
         latestCourseName: String? = nil,
         latestCourseTimestamp: Int? = nil,
         qSelect: [QuickSelect]? = nil
