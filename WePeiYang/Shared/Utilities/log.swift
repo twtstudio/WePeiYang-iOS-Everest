@@ -6,7 +6,6 @@
 //  Copyright © 2016 Qin Yubo. All rights reserved.
 //
 
-//TODO: Make this only availible in Debug Mode because printing actually stalls the app
 import Foundation
 
 enum log {
@@ -26,8 +25,19 @@ postfix func /(toBeLogged: log?) {
         return
     }
     
-    func log<T>(_ emoji: String, _ object: T) {
-        print(emoji + " " + String(describing: object))
+    func log<T>(_ emoji: String, _ object: T, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
+        debugLog(emoji + " " + String(describing: object), functionName: functionName, fileName: fileName, lineNumber: lineNumber)
+    }
+
+    /// Logs the message to the console with extra information, e.g. file name, method name and line number
+    ///
+    /// To make it work you must set the "DEBUG" symbol, set it in the "Swift Compiler - Custom Flags" section, "Other Swift Flags" line.
+    /// You add the DEBUG symbol with the -D DEBUG entry.
+    func debugLog(_ object: Any, functionName: String, fileName: String, lineNumber: Int) {
+        #if DEBUG
+            let className = (fileName as NSString).lastPathComponent
+            print("<\(className)> \(functionName) [#\(lineNumber)]| \(object)\n")
+        #endif
     }
     
     switch foo {

@@ -18,7 +18,8 @@ struct WLANHelper {
                 return
         }
 
-        let loginInfo = ["username": account, "password": password]
+        let campus = UserDefaults.standard.bool(forKey: "newCampus") ? "0" : "1"
+        let loginInfo = ["username": account, "password": password, "campus": campus]
 
         SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL, parameters: loginInfo, success: { dict in
             guard let errorCode = dict["error_code"] as? Int,
@@ -46,7 +47,8 @@ struct WLANHelper {
                 return
         }
 
-        let loginInfo = ["username": account, "password": password]
+        let campus = UserDefaults.standard.bool(forKey: "newCampus") ? "0" : "1"
+        let loginInfo = ["username": account, "password": password, "campus": campus]
 
         SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.logoutURL, parameters: loginInfo, success: { dict in
             guard let errorCode = dict["error_code"] as? Int,

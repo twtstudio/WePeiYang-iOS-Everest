@@ -175,7 +175,6 @@ struct AccountManager {
             }
         }, failure: { error in
             // FIXME: 错误
-            debugLog(error)
             failure?()
         })
     }

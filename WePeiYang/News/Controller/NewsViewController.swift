@@ -109,41 +109,6 @@ class NewsViewController: UIViewController {
         return cell
     }()
 
-    private lazy var galleryCell: UITableViewCell = {
-        let cell = UITableViewCell()
-        let titleLabel = UILabel(text: "图集", color: .black)
-        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.heavy)
-        titleLabel.sizeToFit()
-        titleLabel.textAlignment = .left
-        cell.contentView.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.left.equalToSuperview().offset(25)
-            make.width.equalTo(100)
-            make.height.equalTo(40)
-        }
-
-        galleryView.contentInset.left = 20
-        galleryView.contentInset.right = 20
-        galleryView.backgroundColor = .white
-        galleryView.delegate = self
-        galleryView.dataSource = self
-        galleryView.showsVerticalScrollIndicator = false
-        galleryView.showsHorizontalScrollIndicator = false
-        galleryView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "galleryView")
-        cell.contentView.addSubview(galleryView)
-        galleryView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
-            make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-10)
-            make.width.equalToSuperview()
-            make.height.equalTo(200)
-        }
-        galleryView.layer.masksToBounds = false
-        cell.selectionStyle = .none
-        return cell
-    }()
-
     private lazy var newsTitleCell: UITableViewCell = {
         let cell = UITableViewCell()
         let titleLabel = UILabel(text: "新闻", color: .black)
@@ -341,7 +306,8 @@ extension NewsViewController: UITableViewDataSource {
         case 0:
             cell = infoCell
         case 1:
-            cell = galleryCell
+            cell = UITableViewCell()
+//            cell = galleryCell
         case 2:
             cell = newsTitleCell
         case var row where row > 2 && row - 3 < newsList.count:
@@ -416,61 +382,3 @@ extension NewsViewController: BannerScrollViewDelegate {
         }
     }
 }
-
-extension NewsViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return galleryList.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "galleryView", for: indexPath)
-
-        let gallery = galleryList[indexPath.row]
-        let imgView = UIImageView(frame: cell.bounds)
-        imgView.contentMode = .scaleAspectFill
-        imgView.layer.cornerRadius = 5
-        imgView.clipsToBounds = true
-        imgView.sd_setImage(with: URL(string: gallery.coverURL), completed: nil)
-        let label = UILabel()
-        label.text = gallery.title
-        label.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
-        label.textColor = .white
-        label.sizeToFit()
-        label.textAlignment = .center
-        label.x = imgView.x
-        label.height = label.height + 10
-        label.y = imgView.y + imgView.height - label.height
-        label.width = imgView.width
-        label.adjustsFontSizeToFitWidth = true
-
-        label.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
-        imgView.addSubview(label)
-        cell.contentView.addSubview(imgView)
-
-//        // TODO: 阴影
-//        cell.layer.shadowRadius = 3.0
-//        cell.layer.shadowColor = UIColor.black.cgColor
-//        cell.layer.shadowOffset = CGSize(width: 0, height: 3)
-//        cell.layer.masksToBounds = false
-
-        cell.layer.cornerRadius = 15
-        cell.layer.shadowRadius = 4
-        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
-
-        cell.layer.shadowOpacity = 0.5
-        cell.layer.masksToBounds = false
-
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let model = galleryList[indexPath.row]
-//        let safariVC = SFSafariViewController(url: URL(string: "https://www.twt.edu.cn/galleries/\(model.id)")!)
-//        safariVC.modalPresentationStyle = .overFullScreen
-//        self.navigationController?.pushViewController(safariVC, animated: true)
-    }
-}
-
-extension NewsViewController: UICollectionViewDelegate {
-}
-

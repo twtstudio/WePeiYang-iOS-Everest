@@ -7,30 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C2C8D921F7BC48400D3A5E2 /* LFPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2C8D911F7BC48400D3A5E2 /* LFPickerCell.swift */; };
-		0C3ADF351F697EE100388C19 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1C1F697EE100388C19 /* DetailViewController.swift */; };
-		0C3ADF361F697EE100388C19 /* FoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1D1F697EE100388C19 /* FoundViewController.swift */; };
-		0C3ADF371F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1E1F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift */; };
-		0C3ADF381F697EE100388C19 /* LostFoundDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF1F1F697EE100388C19 /* LostFoundDetailModel.swift */; };
-		0C3ADF391F697EE100388C19 /* LostFoundPageControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF201F697EE100388C19 /* LostFoundPageControllerViewController.swift */; };
-		0C3ADF3A1F697EE100388C19 /* LostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF211F697EE100388C19 /* LostViewController.swift */; };
-		0C3ADF3B1F697EE100388C19 /* MyFoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF221F697EE100388C19 /* MyFoundViewController.swift */; };
-		0C3ADF3C1F697EE100388C19 /* MyLostFoundPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF231F697EE100388C19 /* MyLostFoundPageViewController.swift */; };
-		0C3ADF3D1F697EE100388C19 /* MyLostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF241F697EE100388C19 /* MyLostViewController.swift */; };
-		0C3ADF3E1F697EE100388C19 /* PublishSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF251F697EE100388C19 /* PublishSuccessViewController.swift */; };
-		0C3ADF3F1F697EE100388C19 /* SearchedResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF261F697EE100388C19 /* SearchedResultViewController.swift */; };
-		0C3ADF401F697EE100388C19 /* LostFoundSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF271F697EE100388C19 /* LostFoundSearchViewController.swift */; };
-		0C3ADF421F697EE100388C19 /* LostFoundAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF2A1F697EE100388C19 /* LostFoundAPI.swift */; };
-		0C3ADF431F697EE100388C19 /* LostFoundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF2B1F697EE100388C19 /* LostFoundModel.swift */; };
-		0C3ADF441F697EE100388C19 /* MyLostFoundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF2C1F697EE100388C19 /* MyLostFoundModel.swift */; };
-		0C3ADF451F697EE100388C19 /* PublishLostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF2D1F697EE100388C19 /* PublishLostViewController.swift */; };
-		0C3ADF461F697EE100388C19 /* LostFoundCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF2F1F697EE100388C19 /* LostFoundCollectionViewCell.swift */; };
-		0C3ADF471F697EE100388C19 /* MarkCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF301F697EE100388C19 /* MarkCustomCell.swift */; };
-		0C3ADF481F697EE100388C19 /* MyLostFoundTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF311F697EE100388C19 /* MyLostFoundTableViewCell.swift */; };
-		0C3ADF491F697EE100388C19 /* PublishCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF321F697EE100388C19 /* PublishCustomCell.swift */; };
-		0C3ADF4A1F697EE100388C19 /* SectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF331F697EE100388C19 /* SectionCell.swift */; };
-		0C3ADF4B1F697EE100388C19 /* UpLoadingPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ADF341F697EE100388C19 /* UpLoadingPicCell.swift */; };
-		0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3B3EB51F777D7C00081A0D /* LFImagePreviewViewController.swift */; };
 		0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */; };
 		1B20B1FF52E995B4AC3D3EDE /* Pods_WePeiYangWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E48DF45006ADE8419C6CF0C /* Pods_WePeiYangWidget.framework */; };
 		360339E920247B9D0006A083 /* LibraryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360339E820247B9C0006A083 /* LibraryCard.swift */; };
@@ -57,7 +33,6 @@
 		3613DA1A2056F65C000867AE /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TwTKeychain.swift */; };
 		3613DA1B2056F664000867AE /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EE1EC84ED90064373A /* DeviceStatus.swift */; };
 		3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */; };
-		3613DA1F2056F6D4000867AE /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D526E42041C4150074EB2B /* DebugLog.swift */; };
 		3613DA222056F740000867AE /* UniversalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA212056F740000867AE /* UniversalExtension.swift */; };
 		3613DA232056F745000867AE /* UniversalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA212056F740000867AE /* UniversalExtension.swift */; };
 		3613DA25205702E0000867AE /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364F1FB8837D00413CF2 /* KeyChain.swift */; };
@@ -173,7 +148,6 @@
 		36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0FE73201861BD0014E667 /* ClassDetailViewController.swift */; };
 		36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0FE75201867CF0014E667 /* ArrangeCell.swift */; };
 		36D526E220415A3C0074EB2B /* MallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D526E120415A3C0074EB2B /* MallViewController.swift */; };
-		36D526E52041C4150074EB2B /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D526E42041C4150074EB2B /* DebugLog.swift */; };
 		36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13F3AE71F0CEE5C00F820A5 /* FAB.swift */; };
 		36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E11EC84ED90064373A /* CacheManager.swift */; };
 		36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EE1EC84ED90064373A /* DeviceStatus.swift */; };
@@ -294,30 +268,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0C2C8D911F7BC48400D3A5E2 /* LFPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFPickerCell.swift; sourceTree = "<group>"; };
-		0C3ADF1C1F697EE100388C19 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		0C3ADF1D1F697EE100388C19 /* FoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundViewController.swift; sourceTree = "<group>"; };
-		0C3ADF1E1F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LostFoundCollectionViewCellDemo.swift; path = ../Controller/LostFoundCollectionViewCellDemo.swift; sourceTree = "<group>"; };
-		0C3ADF1F1F697EE100388C19 /* LostFoundDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LostFoundDetailModel.swift; path = ../Controller/LostFoundDetailModel.swift; sourceTree = "<group>"; };
-		0C3ADF201F697EE100388C19 /* LostFoundPageControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundPageControllerViewController.swift; sourceTree = "<group>"; };
-		0C3ADF211F697EE100388C19 /* LostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostViewController.swift; sourceTree = "<group>"; };
-		0C3ADF221F697EE100388C19 /* MyFoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFoundViewController.swift; sourceTree = "<group>"; };
-		0C3ADF231F697EE100388C19 /* MyLostFoundPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostFoundPageViewController.swift; sourceTree = "<group>"; };
-		0C3ADF241F697EE100388C19 /* MyLostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostViewController.swift; sourceTree = "<group>"; };
-		0C3ADF251F697EE100388C19 /* PublishSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishSuccessViewController.swift; sourceTree = "<group>"; };
-		0C3ADF261F697EE100388C19 /* SearchedResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedResultViewController.swift; sourceTree = "<group>"; };
-		0C3ADF271F697EE100388C19 /* LostFoundSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundSearchViewController.swift; sourceTree = "<group>"; };
-		0C3ADF2A1F697EE100388C19 /* LostFoundAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundAPI.swift; sourceTree = "<group>"; };
-		0C3ADF2B1F697EE100388C19 /* LostFoundModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundModel.swift; sourceTree = "<group>"; };
-		0C3ADF2C1F697EE100388C19 /* MyLostFoundModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostFoundModel.swift; sourceTree = "<group>"; };
-		0C3ADF2D1F697EE100388C19 /* PublishLostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublishLostViewController.swift; path = ../Model/PublishLostViewController.swift; sourceTree = "<group>"; };
-		0C3ADF2F1F697EE100388C19 /* LostFoundCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LostFoundCollectionViewCell.swift; sourceTree = "<group>"; };
-		0C3ADF301F697EE100388C19 /* MarkCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkCustomCell.swift; sourceTree = "<group>"; };
-		0C3ADF311F697EE100388C19 /* MyLostFoundTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLostFoundTableViewCell.swift; sourceTree = "<group>"; };
-		0C3ADF321F697EE100388C19 /* PublishCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishCustomCell.swift; sourceTree = "<group>"; };
-		0C3ADF331F697EE100388C19 /* SectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionCell.swift; sourceTree = "<group>"; };
-		0C3ADF341F697EE100388C19 /* UpLoadingPicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpLoadingPicCell.swift; sourceTree = "<group>"; };
-		0C3B3EB51F777D7C00081A0D /* LFImagePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFImagePreviewViewController.swift; sourceTree = "<group>"; };
 		0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		360339E820247B9C0006A083 /* LibraryCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCard.swift; sourceTree = "<group>"; };
@@ -469,7 +419,6 @@
 		36D0FE73201861BD0014E667 /* ClassDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailViewController.swift; sourceTree = "<group>"; };
 		36D0FE75201867CF0014E667 /* ArrangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrangeCell.swift; sourceTree = "<group>"; };
 		36D526E120415A3C0074EB2B /* MallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallViewController.swift; sourceTree = "<group>"; };
-		36D526E42041C4150074EB2B /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
 		36E3C2D61E753FAD0060B8A5 /* WePeiYang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WePeiYang-Bridging-Header.h"; sourceTree = "<group>"; };
 		36E56BC51FC512230009BD6F /* CourseListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseListView.swift; sourceTree = "<group>"; };
 		36F285082049B7D50095A3D4 /* ModulesSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesSettingsViewController.swift; sourceTree = "<group>"; };
@@ -610,61 +559,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0C3ADF1A1F697EE100388C19 /* LostFound */ = {
-			isa = PBXGroup;
-			children = (
-				0C3ADF291F697EE100388C19 /* Model */,
-				0C3ADF2E1F697EE100388C19 /* View */,
-				0C3ADF1B1F697EE100388C19 /* Controller */,
-			);
-			path = LostFound;
-			sourceTree = "<group>";
-		};
-		0C3ADF1B1F697EE100388C19 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				0C3ADF201F697EE100388C19 /* LostFoundPageControllerViewController.swift */,
-				0C3ADF211F697EE100388C19 /* LostViewController.swift */,
-				0C3ADF1D1F697EE100388C19 /* FoundViewController.swift */,
-				0C3ADF261F697EE100388C19 /* SearchedResultViewController.swift */,
-				0C3ADF271F697EE100388C19 /* LostFoundSearchViewController.swift */,
-				0C3ADF231F697EE100388C19 /* MyLostFoundPageViewController.swift */,
-				0C3ADF241F697EE100388C19 /* MyLostViewController.swift */,
-				0C3ADF221F697EE100388C19 /* MyFoundViewController.swift */,
-				0C3ADF2D1F697EE100388C19 /* PublishLostViewController.swift */,
-				0C3ADF1C1F697EE100388C19 /* DetailViewController.swift */,
-				0C3B3EB51F777D7C00081A0D /* LFImagePreviewViewController.swift */,
-				0C3ADF251F697EE100388C19 /* PublishSuccessViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		0C3ADF291F697EE100388C19 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				0C3ADF2A1F697EE100388C19 /* LostFoundAPI.swift */,
-				0C3ADF1F1F697EE100388C19 /* LostFoundDetailModel.swift */,
-				0C3ADF2B1F697EE100388C19 /* LostFoundModel.swift */,
-				0C3ADF2C1F697EE100388C19 /* MyLostFoundModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		0C3ADF2E1F697EE100388C19 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				0C3ADF1E1F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift */,
-				0C3ADF2F1F697EE100388C19 /* LostFoundCollectionViewCell.swift */,
-				0C3ADF301F697EE100388C19 /* MarkCustomCell.swift */,
-				0C3ADF311F697EE100388C19 /* MyLostFoundTableViewCell.swift */,
-				0C3ADF321F697EE100388C19 /* PublishCustomCell.swift */,
-				0C3ADF331F697EE100388C19 /* SectionCell.swift */,
-				0C3ADF341F697EE100388C19 /* UpLoadingPicCell.swift */,
-				0C2C8D911F7BC48400D3A5E2 /* LFPickerCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		36073CFC1F223FC1001317A7 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1208,7 +1102,6 @@
 				365A46472036956700738963 /* CacheFilenameKey.swift */,
 				369140AE2020CBA30022BA3F /* NotificationName.swift */,
 				365A46452035E35500738963 /* Storage.swift */,
-				36D526E42041C4150074EB2B /* DebugLog.swift */,
 				368C3C89204DAB4F00C1E6B6 /* WPYCustomError.swift */,
 				3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */,
 			);
@@ -1334,7 +1227,6 @@
 				3681C0A2205B0217005DF5AF /* OnBoard */,
 				B181B9551EC5C21700B8198E /* Favorite */,
 				A5159FDB1FB0731B00B466F2 /* WLANLogin */,
-				0C3ADF1A1F697EE100388C19 /* LostFound */,
 				365A8A131FB9BA8500B15443 /* ClassTable */,
 				B10253CA1EC84ED20064373A /* Read */,
 				A5D695141F8A21AD00022B9A /* Bicycle */,
@@ -1776,7 +1668,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3613DA1F2056F6D4000867AE /* DebugLog.swift in Sources */,
 				36B2C899203DB8DB00AD2E3F /* ClassWidgetCell.swift in Sources */,
 				36B2C89B203DE86700AD2E3F /* TwTUser.swift in Sources */,
 				3613DA182056F56A000867AE /* WLANLoginAPIs.swift in Sources */,
@@ -1814,7 +1705,6 @@
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
 				36042DB81FC7BB270016E859 /* CourseCell.swift in Sources */,
 				3685D9EF204D255700BA6C3D /* NewsDetailViewController.swift in Sources */,
-				0C3ADF371F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift in Sources */,
 				36073D081F223FC1001317A7 /* CoverView.swift in Sources */,
 				36073D0C1F223FC1001317A7 /* ReviewCell.swift in Sources */,
 				36073D1E1F225D2A001317A7 /* RecommendedViewController.swift in Sources */,
@@ -1858,7 +1748,6 @@
 				DD0B762D2158CBA6009A392C /* CourseAppraiseCell.swift in Sources */,
 				DD0B76242158CBA6009A392C /* CourseAppraiseViewController.swift in Sources */,
 				A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */,
-				0C3ADF3A1F697EE100388C19 /* LostViewController.swift in Sources */,
 				A5A531EB208F4E4C0073DE38 /* CourseListModel.swift in Sources */,
 				A5FE5665208F624A00B94F0D /* PopularClassModel.swift in Sources */,
 				36073D0A1F223FC1001317A7 /* ReadStarCell.swift in Sources */,
@@ -1870,39 +1759,27 @@
 				361F885C204AF92D00BCFA19 /* BannerPageControl.swift in Sources */,
 				36073D0B1F223FC1001317A7 /* RecommendCell.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
-				0C3ADF3B1F697EE100388C19 /* MyFoundViewController.swift in Sources */,
 				A51C456A1FD0477700652435 /* BicycleBindingViewController.swift in Sources */,
 				36758FDD1FDA851C0023A99C /* CardView.swift in Sources */,
 				A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */,
 				A5E117C11F99E01A00C86CA2 /* BicycleCardListViewController.swift in Sources */,
 				361F8857204AF92100BCFA19 /* NewsReporter.swift in Sources */,
 				36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */,
-				0C3ADF361F697EE100388C19 /* FoundViewController.swift in Sources */,
 				DD0B76252158CBA6009A392C /* GPATermModel.swift in Sources */,
 				DD0B75FB2158C6ED009A392C /* YellowPageCell.swift in Sources */,
 				361F885E204AF92D00BCFA19 /* BannerCell.swift in Sources */,
-				0C3ADF4A1F697EE100388C19 /* SectionCell.swift in Sources */,
-				0C3ADF3E1F697EE100388C19 /* PublishSuccessViewController.swift in Sources */,
-				0C3ADF401F697EE100388C19 /* LostFoundSearchViewController.swift in Sources */,
 				36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */,
 				36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */,
 				36E56BC61FC512230009BD6F /* CourseListView.swift in Sources */,
-				0C3ADF491F697EE100388C19 /* PublishCustomCell.swift in Sources */,
 				3613DA222056F740000867AE /* UniversalExtension.swift in Sources */,
 				364BDF721FDAE1EF00E61B65 /* GPACard.swift in Sources */,
-				0C3ADF431F697EE100388C19 /* LostFoundModel.swift in Sources */,
-				0C3ADF351F697EE100388C19 /* DetailViewController.swift in Sources */,
 				36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */,
-				0C3ADF471F697EE100388C19 /* MarkCustomCell.swift in Sources */,
-				0C3B3EB61F777D7C00081A0D /* LFImagePreviewViewController.swift in Sources */,
 				36A74EB1205BAD0300DD1EC3 /* AlertPageViewController.swift in Sources */,
 				361F885D204AF92D00BCFA19 /* BannerScrollView.swift in Sources */,
 				DD0B76282158CBA6009A392C /* GPASessionManager.swift in Sources */,
 				3685D9F1204D276100BA6C3D /* NewsDetailModel.swift in Sources */,
-				0C3ADF421F697EE100388C19 /* LostFoundAPI.swift in Sources */,
 				A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */,
 				A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */,
-				0C3ADF3F1F697EE100388C19 /* SearchedResultViewController.swift in Sources */,
 				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
 				36449E8A1FA4BAD10036766B /* PartyPersonalStatusViewController.swift in Sources */,
 				DD0B75FA2158C6ED009A392C /* SearchView.swift in Sources */,
@@ -1915,7 +1792,6 @@
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
 				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
 				3667E1D0201CB98800E82241 /* DetailSettingViewController.swift in Sources */,
-				0C3ADF3D1F697EE100388C19 /* MyLostViewController.swift in Sources */,
 				B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */,
 				361F8855204AF92100BCFA19 /* GalleryModel.swift in Sources */,
 				36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */,
@@ -1926,7 +1802,6 @@
 				36449E461FA4BA9B0036766B /* Courses.swift in Sources */,
 				36366B2E1FAB86B0001F72A0 /* BicycleServiceViewController.swift in Sources */,
 				36449E611FA4BABA0036766B /* TextTableViewCell.swift in Sources */,
-				0C3ADF381F697EE100388C19 /* LostFoundDetailModel.swift in Sources */,
 				3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */,
 				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
 				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
@@ -1935,8 +1810,6 @@
 				DD0B76232158CBA6009A392C /* GPAViewController.swift in Sources */,
 				36449E631FA4BABA0036766B /* ScoreTableViewCell.swift in Sources */,
 				36073D0E1F223FC1001317A7 /* SearchResultCell.swift in Sources */,
-				0C3ADF391F697EE100388C19 /* LostFoundPageControllerViewController.swift in Sources */,
-				0C3ADF451F697EE100388C19 /* PublishLostViewController.swift in Sources */,
 				36449E8E1FA4BAD10036766B /* PartyComplainViewController.swift in Sources */,
 				361F8867204AF9AA00BCFA19 /* NewsViewController.swift in Sources */,
 				36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */,
@@ -1947,7 +1820,6 @@
 				36B8F2EA205110A60080083C /* NotificationSettingViewController.swift in Sources */,
 				36449E861FA4BAD10036766B /* TheoryClassicsTableViewController.swift in Sources */,
 				36449E451FA4BA9B0036766B /* PartyAPI.swift in Sources */,
-				0C3ADF4B1F697EE100388C19 /* UpLoadingPicCell.swift in Sources */,
 				36A74EB3205BAD0300DD1EC3 /* AlertChildPageViewController.swift in Sources */,
 				A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */,
 				361F8856204AF92100BCFA19 /* HomePageModel.swift in Sources */,
@@ -1958,7 +1830,6 @@
 				A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */,
 				A5E117AF1F99DB8E00C86CA2 /* BicycleUser.swift in Sources */,
 				369140AF2020CBA30022BA3F /* NotificationName.swift in Sources */,
-				36D526E52041C4150074EB2B /* DebugLog.swift in Sources */,
 				B10253D81EC84ED20064373A /* MyBook.swift in Sources */,
 				36073D091F223FC1001317A7 /* RateView.swift in Sources */,
 				B10253D61EC84ED20064373A /* Book.swift in Sources */,
@@ -1986,24 +1857,19 @@
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
 				369B2D4A20151542009352A8 /* DateTool.swift in Sources */,
 				B10253D71EC84ED20064373A /* Librarian.swift in Sources */,
-				0C2C8D921F7BC48400D3A5E2 /* LFPickerCell.swift in Sources */,
 				A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */,
 				DD0B75F82158C6ED009A392C /* YellowPageSearchHistoryCell.swift in Sources */,
 				B10253FD1EC84ED90064373A /* log.swift in Sources */,
 				361F8853204AF92100BCFA19 /* HomePageHelper.swift in Sources */,
-				0C3ADF481F697EE100388C19 /* MyLostFoundTableViewCell.swift in Sources */,
 				365A8A251FB9BA8500B15443 /* ClasstableDataManager.swift in Sources */,
 				B10253DA1EC84ED20064373A /* ReadBeacon.swift in Sources */,
 				3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */,
 				B10253DD1EC84ED20064373A /* User.swift in Sources */,
 				36CAD44C201B9194006F85E3 /* ClassTableCard.swift in Sources */,
 				B10253F01EC84ED90064373A /* AccountManager.swift in Sources */,
-				0C3ADF441F697EE100388C19 /* MyLostFoundModel.swift in Sources */,
 				36073D1C1F225D2A001317A7 /* InfoViewController.swift in Sources */,
 				DD0B75F32158C6ED009A392C /* YellowPageSearchViewController.swift in Sources */,
 				A53602691FC6EC0500E3D1AF /* TJUBindingViewController.swift in Sources */,
-				0C3ADF3C1F697EE100388C19 /* MyLostFoundPageViewController.swift in Sources */,
-				0C3ADF461F697EE100388C19 /* LostFoundCollectionViewCell.swift in Sources */,
 				A50F36501FB8837D00413CF2 /* KeyChain.swift in Sources */,
 				DD0B762B2158CBA6009A392C /* StarView.swift in Sources */,
 				361F885F204AF92D00BCFA19 /* BannerProxy.swift in Sources */,

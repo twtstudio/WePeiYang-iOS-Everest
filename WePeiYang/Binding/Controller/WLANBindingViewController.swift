@@ -20,10 +20,11 @@ class WLANBindingViewController: UIViewController {
     var bindButton: UIButton!
     var logoutButton: UIButton!
     var dismissButton: UIButton!
-//    var serviceButton: UIButton!
+    //    var serviceButton: UIButton!
     var logoImage: UIImage!
     var logoImageView: UIImageView!
     var warningText: UITextView!
+    var campusSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,13 +59,23 @@ class WLANBindingViewController: UIViewController {
         passwordTextField.clearButtonMode = .always
         self.view.addSubview(usernameTextField)
         self.view.addSubview(passwordTextField)
+        let label = UILabel()
+        label.frame = CGRect(x: passwordTextField.x, y: passwordTextField.y + passwordTextField.height + 30, width: 100, height: 30)
+        label.text = "新校区: "
+        label.textColor = .darkGray
+        campusSwitch = UISwitch()
+        campusSwitch.center = CGPoint(x: label.x + label.width + 20, y: passwordTextField.frame.origin.y + passwordTextField.frame.size.height + 30)
+        label.y = campusSwitch.y
+        self.view.addSubview(label)
+        self.view.addSubview(campusSwitch)
 
         // Auto fill
         usernameTextField.text = TwTUser.shared.WLANAccount
         passwordTextField.text = TwTUser.shared.WLANPassword
+        campusSwitch.isOn = UserDefaults.standard.bool(forKey: "newCampus")
 
         bindButton = UIButton()
-        bindButton.frame = CGRect(x: (self.view.frame.size.width-textFieldWidth)/2, y: passwordTextField.frame.origin.y + passwordTextField.frame.size.height + 20, width: textFieldWidth, height: 38)
+        bindButton.frame = CGRect(x: (self.view.frame.size.width-textFieldWidth)/2, y: campusSwitch.frame.origin.y + campusSwitch.frame.size.height + 20, width: textFieldWidth, height: 38)
         bindButton.setTitle("绑 定", for: .normal)
         bindButton.setTitleColor(.white, for: .normal)
         bindButton.isUserInteractionEnabled = true
@@ -95,79 +106,53 @@ class WLANBindingViewController: UIViewController {
     }
 
     @objc func bind() {
-        
         guard usernameTextField.hasText && passwordTextField.hasText else {
             SwiftMessages.showWarningMessage(body: "请填写账号或密码")
             return
         }
-            var loginInfo: [String: String] = [String: String]()
-            loginInfo["username"] = usernameTextField.text!
-            loginInfo["password"] = passwordTextField.text!
+        var loginInfo: [String: String] = [String: String]()
+        loginInfo["username"] = usernameTextField.text!
+        loginInfo["password"] = passwordTextField.text!
+        loginInfo["campus"] = campusSwitch.isOn == true ? "1" : "0"
 
-            SwiftMessages.showLoading()
-            SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL,  parameters: loginInfo, success: { dictionary in
-                SwiftMessages.hideLoading()
-                guard let errorCode: Int = dictionary["error_code"] as? Int,
-                    let errMsg = dictionary["message"] as? String else {
-                        SwiftMessages.showErrorMessage(body: "数据解析失败")
-                        return
-                }
+        SwiftMessages.showLoading()
+        SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL,  parameters: loginInfo, success: { dictionary in
+            SwiftMessages.hideLoading()
+            guard let errorCode: Int = dictionary["error_code"] as? Int,
+                let errMsg = dictionary["message"] as? String else {
+                    SwiftMessages.showErrorMessage(body: "数据解析失败")
+                    return
+            }
 
-                if errorCode == -1 {
-                    TwTUser.shared.WLANBindingState = true
-                    TwTUser.shared.WLANAccount = loginInfo["username"]
-                    TwTUser.shared.WLANPassword = loginInfo["password"]
-                    TwTUser.shared.save()
-                    KeychainService.saveWLAN(account: loginInfo["username"]!, password: loginInfo["password"]!)
-                    SwiftMessages.showSuccessMessage(body: "绑定成功！")
-                    NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
-                    self.dismiss(animated: true, completion: nil)
-                } else if errorCode == 50002 {
-                    SwiftMessages.showErrorMessage(body: "密码错误")
-                } else {
-                    TwTUser.shared.WLANAccount = loginInfo["username"]
-                    TwTUser.shared.WLANPassword = loginInfo["password"]
-                    TwTUser.shared.save()
-                    SwiftMessages.hideLoading()
-                    SwiftMessages.showErrorMessage(body: errMsg + "\n" + "已为你保存账号密码")
-                }
-            }, failure: { error in
+            if errorCode == -1 {
+                TwTUser.shared.WLANBindingState = true
+                TwTUser.shared.WLANAccount = loginInfo["username"]
+                TwTUser.shared.WLANPassword = loginInfo["password"]
+                UserDefaults.standard.set(self.campusSwitch.isOn, forKey: "newCampus")
+                TwTUser.shared.save()
+                KeychainService.saveWLAN(account: loginInfo["username"]!, password: loginInfo["password"]!)
+                SwiftMessages.showSuccessMessage(body: "绑定成功！")
+                NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
+                self.dismiss(animated: true, completion: nil)
+            } else if errorCode == 50002 {
+                SwiftMessages.showErrorMessage(body: "密码错误")
+            } else {
+                TwTUser.shared.WLANAccount = loginInfo["username"]
+                TwTUser.shared.WLANPassword = loginInfo["password"]
+                UserDefaults.standard.set(self.campusSwitch.isOn, forKey: "newCampus")
+                TwTUser.shared.save()
                 SwiftMessages.hideLoading()
-                TwTUser.shared.WLANAccount = self.usernameTextField.text!
-                TwTUser.shared.WLANPassword = self.passwordTextField.text!
-                SwiftMessages.showErrorMessage(body: error.localizedDescription + "\n" + "已为你保存账号密码")
-            })
+                SwiftMessages.showErrorMessage(body: errMsg + "\n" + "已为你保存账号密码")
+            }
+        }, failure: { error in
+            SwiftMessages.hideLoading()
+            TwTUser.shared.WLANAccount = self.usernameTextField.text!
+            TwTUser.shared.WLANPassword = self.passwordTextField.text!
+            UserDefaults.standard.set(self.campusSwitch.isOn, forKey: "newCampus")
+            SwiftMessages.showErrorMessage(body: error.localizedDescription + "\n" + "已为你保存账号密码")
+        })
     }
-    
-//    func cancelLogin() {
-//        var loginInfo: [String: String] = [String: String]()
-//        loginInfo["tjuuname"] = usernameTextField.text
-//        loginInfo["tjupasswd"] = passwordTextField.text
-//
-//        SwiftMessages.showLoading()
-//        SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL, parameters: loginInfo, success: { dictionary in
-//            SwiftMessages.hideLoading()
-//            guard let errorCode: Int = dictionary["error_code"] as? Int,
-//                let errMsg = dictionary["message"] as? String else {
-//                    return
-//            }
-//
-//            if errorCode == -1 {
-//                TwTUser.shared.tjuBindingState = false
-//                TwTUser.shared.save()
-//                SwiftMessages.hide()
-//                SwiftMessages.showSuccessMessage(body: "解绑成功！")
-//                self.dismiss(animated: true, completion: nil)
-//            } else {
-//                SwiftMessages.hide()
-//                SwiftMessages.showErrorMessage(body: errMsg)
-//            }
-//        }, failure: { error in
-//            SwiftMessages.hideLoading()
-//            SwiftMessages.showErrorMessage(body: error.localizedDescription)
-//        })
-//    }
-    
+
     @objc func dismissBinding() {
         self.dismiss(animated: true, completion: nil)
     }

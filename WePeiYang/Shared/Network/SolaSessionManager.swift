@@ -158,7 +158,6 @@ struct SolaSessionManager {
                     }
                 case .failure(let error):
                     failure?(error)
-                    debugLog(error)
                 }
             })
         }

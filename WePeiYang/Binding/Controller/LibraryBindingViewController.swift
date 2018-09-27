@@ -166,17 +166,11 @@ class LibraryBindingViewController: UIViewController {
                 TwTUser.shared.save()
                 SwiftMessages.showSuccessMessage(body: "解绑成功！")
                 self.dismiss(animated: true, completion: nil)
-                print("TJUBindingState:")
-                print(TwTUser.shared.libBindingState)
             } else {
                 SwiftMessages.showErrorMessage(body: errMsg)
             }
         }, failure: { error in
-            
-            debugLog(error)
-            print("Failed")
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
-
         })
     }
     

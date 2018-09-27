@@ -8,7 +8,6 @@
 
 import UIKit
 
-// TODO: Codable
 class TwTUser: Codable {
     static var shared = TwTUser()
     private init() {}
@@ -19,7 +18,6 @@ class TwTUser: Codable {
     var schoolID: String = ""
     var tjuBindingState: Bool = false
     var tjuPassword: String = ""
-
     var libBindingState: Bool = false
     var libPassword: String = ""
     var bicycleBindingState: Bool = false

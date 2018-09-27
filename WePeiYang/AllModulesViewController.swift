@@ -10,7 +10,7 @@ import UIKit
 
 class AllModulesViewController: UIViewController {
     typealias ModuleData = (title: String, image: UIImage, class: AnyClass, needLogin: Bool)
-    fileprivate let modules: [ModuleData] = [
+    private let modules: [ModuleData] = [
         (title: "GPA", image: UIImage(named: "gpaBtn")!, class: GPAViewController.self, needLogin: true),
         (title: "课程表", image: UIImage(named: "classtableBtn")!, class: ClassTableViewController.self, needLogin: true),
 //        (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self, needLogin: false),
@@ -22,11 +22,6 @@ class AllModulesViewController: UIViewController {
         (title: "上网", image: UIImage(named: "networkBtn")!, class: WLANLoginViewController.self, needLogin: true)]
     
     var collectionView: UICollectionView!
-    // The below override will not be called if current viewcontroller is controlled by a UINavigationController
-    // We should do self.navigationController.navigationBar.barStyle = UIBarStyleBlack
-    //    override var preferredStatusBarStyle: UIStatusBarStyle {
-    //        return .lightContent
-    //    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,10 +113,10 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if modules[indexPath.row].needLogin && TwTUser.shared.token == nil {
             showLoginView(success: {
-                if let vc = (self.modules[indexPath.row].class as? UIViewController.Type)?.init() {
-                    vc.hidesBottomBarWhenPushed = true
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
+//                if let vc = (self.modules[indexPath.row].class as? UIViewController.Type)?.init() {
+//                    vc.hidesBottomBarWhenPushed = true
+//                    self.navigationController?.pushViewController(vc, animated: true)
+//                }
             })
             return
         }

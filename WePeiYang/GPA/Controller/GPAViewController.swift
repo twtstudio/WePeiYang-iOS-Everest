@@ -324,7 +324,6 @@ class GPAViewController: UIViewController {
             self.stopRotating()
             SwiftMessages.hideLoading()
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
-            debugLog(error)
         })
     }
     
