@@ -37,7 +37,6 @@ class PracticeCollectionViewController: UIViewController {
         /* 导航栏 */
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.barStyle = .black
-        
         navigationController?.navigationBar.setBackgroundImage(UIImage(color: .practiceBlue), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false

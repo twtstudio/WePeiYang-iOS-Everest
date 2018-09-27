@@ -35,7 +35,7 @@ class PracticeHomeViewController: UIViewController {
     let HomeHeaderTitles = ["党课", "形政", "网课", "其他"]
     let HomeHeaderIcons = [#imageLiteral(resourceName: "practicePartyCourse"), #imageLiteral(resourceName: "practiceSituationAndPolicy"), #imageLiteral(resourceName: "practiceOnlineCourse"), #imageLiteral(resourceName: "practiceOther")]
     // "我的" 顶部课程信息 //`
-    let homeCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: deviceWidth, height: 150), collectionViewLayout: UICollectionViewFlowLayout())
+    let homeCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: deviceWidth, height: 128), collectionViewLayout: UICollectionViewFlowLayout())
     let HomeViewCellStyles: [HomeViewCellStyle] = [.quickSelect, .latestInformation, .currentPractice]
     
     override func viewDidLoad() {
@@ -56,7 +56,6 @@ class PracticeHomeViewController: UIViewController {
         /* 导航栏 */
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.barStyle = .black
-        
         navigationController?.navigationBar.setBackgroundImage(UIImage(color: .practiceBlue), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
@@ -122,6 +121,12 @@ class PracticeHomeViewController: UIViewController {
         contentScrollView.addSubview(homeTableView)
     }
     
+    // 进入搜索界面 //
+    @objc func practiceSearch() {
+        // TODO: 进入搜索界面
+        // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+    }
+    
     // 点击按钮切换, 改变白色指示条位置与按钮可用状态 //
     @objc func optionButtonClick(button: UIButton) {
         button.setBounceAnimation()
@@ -142,12 +147,6 @@ class PracticeHomeViewController: UIViewController {
             (self.headView.userOptionButton.isEnabled, self.headView.homeOptionButton.isEnabled) = (self.headView.homeOptionButton.isEnabled, self.headView.userOptionButton.isEnabled)
             self.headView.underLine.frame.origin.x = tempX
         }
-    }
-    
-    // 进入搜索界面 //
-    @objc func practiceSearch() {
-        // TODO: 进入搜索界面
-        // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
     }
     
 }
@@ -224,11 +223,11 @@ extension PracticeHomeViewController: UITableViewDataSource {
             homeViewCell.selectionStyle = .none
             
             switch row {
-            case 0:
+            case 0: // 快速选择气泡按钮点击事件
                 for bubbleButton in homeViewCell.bubbleButtonArray {
                     bubbleButton.addTarget(self, action: #selector(clickQuickSelect), for: .touchUpInside)
                 }
-            case 2:
+            case 2: // 当前练习继续按钮点击事件
                 homeViewCell.continueBubbleButton.addTarget(self, action: #selector(clickContinueCurrent), for: .touchUpInside)
             default:
                 break
@@ -241,8 +240,10 @@ extension PracticeHomeViewController: UITableViewDataSource {
         }
     }
     
+    // 快速选择气泡按钮点击事件 //
     @objc func clickQuickSelect(button: UIButton) {
         let course = practiceStudent.data.qSelect[button.tag]
+        
         PracticeFigure.courseID = String(course.id)
         PracticeFigure.classID = PracticeFigure.getClassID(byCourseID: course.id)
         
@@ -274,10 +275,13 @@ extension PracticeHomeViewController: UITableViewDataSource {
         self.present(warningCard, animated: true, completion: nil)
     }
     
+    // 当前练习继续按钮点击事件 //
     @objc func clickContinueCurrent(button: UIButton) {
         let studentData = practiceStudent.data
+        
         guard let courseID = Int(studentData.currentCourseID!),
             let currentCourseIndex = studentData.currentCourseIndex else { return }
+        
         PracticeFigure.courseID = String(courseID)
         PracticeFigure.classID = PracticeFigure.getClassID(byCourseID: courseID)
         PracticeFigure.questionType = studentData.currentQuesType!
@@ -325,12 +329,12 @@ extension PracticeHomeViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section != 0 { return nil }
+        
         switch tableView {
             
         // "我的" 视图 - 头视图 //
         case userTableView:
-            if section != 0 { return nil }
-            
             if let practiceStudent = practiceStudent {
                 userView.userHeadView.sd_setImage(with: URL(string: practiceStudent.data.avatarURL), placeholderImage: UIImage(named: "account_circle")!.with(color: .gray)) // 头像
                 userView.userNameLabel.text = practiceStudent.data.twtName // 昵称
@@ -358,8 +362,6 @@ extension PracticeHomeViewController: UITableViewDelegate {
         
         // "题库" 视图 - 头视图 //
         case homeTableView:
-            if section != 0 { return nil }
-            
             homeCollectionView.delegate = self
             homeCollectionView.dataSource = self
             
@@ -395,11 +397,9 @@ extension PracticeHomeViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let row = indexPath.row
+        if tableView != userTableView { return }
         
-        if tableView == homeTableView { return }
-        
-        switch row {
+        switch indexPath.row {
         case 0:
             // 练习历史 //
             self.navigationController?.pushViewController(PracticeHistoryViewController(), animated: true)
@@ -458,7 +458,7 @@ extension PracticeHomeViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 27, left: 20, bottom: 20, right: 20)
+        return UIEdgeInsets(top: 30, left: 20, bottom: 20, right: 20)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -503,7 +503,7 @@ extension PracticeHomeViewController: UICollectionViewDelegate, UICollectionView
             warningCard.addButtons([leftButton, rightButton])
             self.present(warningCard, animated: true, completion: nil)
         case 3:
-            SwiftMessages.showWarningMessage(body: "功能完善中\n敬请期待嘤")
+            SwiftMessages.showWarningMessage(body: "功能完善中\n敬请期待嘤 🌝")
         default:
             return
         }

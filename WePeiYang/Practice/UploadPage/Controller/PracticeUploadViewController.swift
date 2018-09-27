@@ -22,7 +22,6 @@ class PracticeUploadViewController: UIViewController {
         /* 导航栏 */
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.barStyle = .black
-        
         navigationController?.navigationBar.setBackgroundImage(UIImage(color: .practiceBlue), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
@@ -39,7 +38,7 @@ class PracticeUploadViewController: UIViewController {
         let uploadMessageLabel = UICopyLabel()
         uploadMessageLabel.textColor = .darkGray
         
-        let uploadMessage = NSMutableAttributedString(string: "上传功能暂未开放, 如有批量题目需上传分享, 请加入 QQ 群 738068756 与管理员进行联系~")
+        let uploadMessage = NSMutableAttributedString(string: "上传功能暂未开放, 如有批量题目需上传分享, 请加入 QQ 群 738068756 与管理员进行联系 🌝")
         uploadMessage.addAttribute(.foregroundColor, value: UIColor.practiceBlue, range: NSMakeRange(32, 9))
         uploadMessageLabel.attributedText = uploadMessage
         uploadMessageLabel.setFlexibleHeight(andFixedWidth: deviceWidth - 40)
@@ -48,8 +47,10 @@ class PracticeUploadViewController: UIViewController {
         self.view.addSubview(uploadMessageLabel)
         
         /* 点击加群 */
-        let joinGroupButton = UIButton(frame: CGRect(x: (deviceWidth - 104) / 2, y: uploadMessageLabel.frame.maxY + 20, width: 104, height: 33))
+        let joinGroupButton = UIButton()
         joinGroupButton.setPracticeBubbleButton(withTitle: "点击加群")
+        joinGroupButton.center.x = deviceWidth / 2
+        joinGroupButton.frame.origin.y = uploadMessageLabel.frame.maxY + 20
         joinGroupButton.addTarget(self, action: #selector(joinGroup), for: .touchUpInside)
         self.view.addSubview(joinGroupButton)
         
@@ -58,11 +59,7 @@ class PracticeUploadViewController: UIViewController {
     @objc func joinGroup(button: UIButton) {
         button.setBounceAnimation()
         let url = URL(string: "http://qm.qq.com/cgi-bin/qm/qr?k=4V7__yuYwYBFwh-rTvF7tQQvVhQGMoTv")
-        if UIApplication.shared.canOpenURL(url!) {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url!)
-            }
-        }
+        if #available(iOS 10.0, *), UIApplication.shared.canOpenURL(url!) { UIApplication.shared.open(url!) }
     }
     
 }
