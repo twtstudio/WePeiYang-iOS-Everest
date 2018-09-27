@@ -81,7 +81,7 @@ class HomeViewCell: UITableViewCell {
                 bubbleButtonArray.append(bubbleButton)
             }
             
-            cellHeight = (bubbleButtonArray.last?.frame.maxY)!
+            cellHeight = (bubbleButtonArray.last?.frame.maxY)! + 20
         
         // 最新消息 //
         case .latestInformation:
@@ -107,7 +107,15 @@ class HomeViewCell: UITableViewCell {
                 let currentQuesType = studentData.currentQuesType,
                 let currentCourseDoneCount = studentData.currentCourseDoneCount,
                 let currentCourseQuesCount = studentData.currentCourseQuesCount,
-                let currentCourseIndex = studentData.currentCourseIndex else { return }
+                let currentCourseIndex = studentData.currentCourseIndex else {
+                    let currentPracticeMessage = UILabel(text: "暂无练习, 快去练习吧 🌝", color: .darkGray)
+                    currentPracticeMessage.sizeToFit()
+                    currentPracticeMessage.center.x = deviceWidth / 2
+                    currentPracticeMessage.frame.origin.y = cellTitleLabel.frame.maxY + 16
+                    contentView.addSubview(currentPracticeMessage)
+                    cellHeight = currentPracticeMessage.frame.maxY + 20
+                    return
+            }
             
             let currentPracticeCourse = UILabel(text: currentCourseName, color: .darkGray)
             currentPracticeCourse.frame.origin = CGPoint(x: cellTitleLabel.frame.minX, y: cellTitleLabel.frame.maxY + 10)
@@ -126,8 +134,6 @@ class HomeViewCell: UITableViewCell {
             
             cellHeight = continueBubbleButton.frame.maxY + 20
         }
-        
-        cellHeight = (contentView.subviews.last?.frame.maxY)! + 20
     }
     
     @objc func clickBubbleButton(view: UIView) {
