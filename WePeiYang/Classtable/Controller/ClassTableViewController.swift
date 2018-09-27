@@ -133,7 +133,7 @@ class ClassTableViewController: UIViewController {
 
         loadCache()
         if TwTUser.shared.tjuBindingState {
-            load()
+            perform(#selector(load), with: nil, afterDelay: 1)
         }
     }
 

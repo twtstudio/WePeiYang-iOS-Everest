@@ -251,7 +251,7 @@ class GPAViewController: UIViewController {
 
         loadCache()
         if TwTUser.shared.tjuBindingState {
-            refresh()
+            perform(#selector(refresh), with: nil, afterDelay: 1)
         }
     }
 
