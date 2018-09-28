@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: API
 struct PracticeAPI { // 参考 Bike 模块, 考虑单独抽出为一个文件
     
     static let root = "https://exam.twtstudio.com/api"
@@ -20,6 +21,7 @@ struct PracticeAPI { // 参考 Bike 模块, 考虑单独抽出为一个文件
     
 }
 
+// MARK: - Dictionary
 struct PracticeDictionary {
     
     static let practiceType = ["0":"顺序练习", "1":"模拟考试"]
@@ -30,6 +32,7 @@ struct PracticeDictionary {
     
 }
 
+// MARK: - Figure
 struct PracticeFigure {
     
     static var isAtRight = true
