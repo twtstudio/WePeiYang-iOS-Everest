@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftMessages
 
 // MARK: UIViewController
 class PracticeUploadViewController: UIViewController {
@@ -88,6 +89,7 @@ class UICopyLabel: UILabel {
         board.string = text
         let menu = UIMenuController.shared
         menu.setMenuVisible(false, animated: true)
+        SwiftMessages.showSuccessMessage(body: "复制成功啦 🌝")
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
