@@ -17,7 +17,7 @@ class CollectionViewCell: UITableViewCell {
     let questionTypeBubbleLabel = UILabel()
     
     /* 题目内容 */
-    let questionContentLabel = UILabel()
+    let questionContentLabel = UICopyLabel()
     
     /* 题目选项 */
     var lastDynamicLabel = UILabel() // 用于计算动态高度
