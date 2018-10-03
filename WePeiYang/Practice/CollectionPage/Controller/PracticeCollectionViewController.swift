@@ -77,9 +77,11 @@ class PracticeCollectionViewController: UIViewController {
     
     // 刷新数据与视图 //
     @objc func refreshDataAndView() {
+        navigationItem.rightBarButtonItem?.isEnabled = false
         practiceCollectionTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
             self.reloadDataAndView()
             self.practiceCollectionTableView.mj_header.endRefreshing()
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
         })
         practiceCollectionTableView.mj_header.beginRefreshing()
     }
