@@ -76,9 +76,11 @@ class PracticeHistoryViewController: UIViewController {
     
     // 刷新数据与视图 //
     @objc func refreshDataAndView() {
+        navigationItem.rightBarButtonItem?.isEnabled = false
         practiceHistoryTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
             self.reloadDataAndView()
             self.practiceHistoryTableView.mj_header.endRefreshing()
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
         })
         practiceHistoryTableView.mj_header.beginRefreshing()
     }
