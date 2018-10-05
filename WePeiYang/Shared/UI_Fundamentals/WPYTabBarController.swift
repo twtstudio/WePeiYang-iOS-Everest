@@ -62,30 +62,18 @@ class WPYTabBarController: UITabBarController {
             if let status = reachability?.status {
                 switch status {
                 case .unreachable:
-                    let popup = PopupDialog(title: "摇一摇上网", message: "未检测到网络连接，是否打开 Wi-Fi 设置？", buttonAlignment: .horizontal)
-                    let cancelButton = CancelButton(title: "不了", action: nil)
-                    let openButton = DestructiveButton(title: "打开", action: {
-                        // no internet
-                        if !UIApplication.shared.openURL(URL(string: "prefs:root=WIFI")!) {
-                            UIApplication.shared.openURL(URL(string: "App-Prefs:root=WIFI")!)
-                        }
-                    })
-                    popup.addButtons([cancelButton, openButton])
+                    let popup = PopupDialog(title: "摇一摇上网", message: "未检测到网络连接，请打开 Wi-Fi 后重试", buttonAlignment: .horizontal)
+                    let cancelButton = CancelButton(title: "好的", action: nil)
+                    popup.addButton(cancelButton)
                     self.present(popup, animated: true, completion: nil)
 
                     return
                 case .wifi:
                     return
                 case .wwan:
-                    let popup = PopupDialog(title: "摇一摇上网", message: "检测到正在使用移动网络，是否打开 Wi-Fi 设置？", buttonAlignment: .horizontal)
+                    let popup = PopupDialog(title: "摇一摇上网", message: "检测到正在使用移动网络，请打开 Wi-Fi 后重试", buttonAlignment: .horizontal)
                     let cancelButton = CancelButton(title: "不了", action: nil)
-                    let openButton = DestructiveButton(title: "打开", action: {
-                        // no internet
-                        if !UIApplication.shared.openURL(URL(string: "prefs:root=WIFI")!) {
-                            UIApplication.shared.openURL(URL(string: "App-Prefs:root=WIFI")!)
-                        }
-                    })
-                    popup.addButtons([cancelButton, openButton])
+                    popup.addButton(cancelButton)
                     self.present(popup, animated: true, completion: nil)
                     return
                 }

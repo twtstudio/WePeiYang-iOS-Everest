@@ -17,15 +17,15 @@
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0.1</string>
+	<string>3.0.3</string>
 	<key>CFBundleVersion</key>
-	<string>20180331</string>
+	<string>20180930</string>
 	<key>NSExtension</key>
 	<dict>
-		<key>NSExtensionPrincipalClass</key>
-		<string>WePeiYangWidget.TodayViewController</string>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.widget-extension</string>
+		<key>NSExtensionPrincipalClass</key>
+		<string>WePeiYangWidget.TodayViewController</string>
 	</dict>
 </dict>
 </plist>
