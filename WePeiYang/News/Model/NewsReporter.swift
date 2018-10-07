@@ -13,4 +13,3 @@ struct NewsReporter {
 //        SolaSessionManager.solaSession(type: .get, baseURL: <#T##String#>, url: <#T##String#>, token: nil, parameters: nil, success: success, failure: failure)
 //    }
 }
-

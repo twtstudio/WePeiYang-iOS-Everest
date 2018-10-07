@@ -1,4 +1,3 @@
-
 //
 //  CardView.swift
 //  WePeiYang
@@ -15,7 +14,7 @@ import UIKit
 
 class CardView: UIView {
     weak var delegate: CardViewDelegate?
-    
+
     /**
      Should card present detail view controller when tapped.
      */
@@ -25,7 +24,7 @@ class CardView: UIView {
      Amount of blur for the card's shadow.
      */
     var shadowBlur: CGFloat = 8 { // 14
-        didSet{
+        didSet {
             self.layer.shadowRadius = shadowBlur
         }
     }
@@ -33,7 +32,7 @@ class CardView: UIView {
      Alpha of the card's shadow.
      */
     var shadowOpacity: Float = 0.3 { // 0.6
-        didSet{
+        didSet {
             self.layer.shadowOpacity = shadowOpacity
         }
     }
@@ -41,7 +40,7 @@ class CardView: UIView {
      Color of the card's shadow.
      */
     var shadowColor: UIColor = UIColor.gray {
-        didSet{
+        didSet {
             self.layer.shadowColor = shadowColor.cgColor
         }
     }
@@ -53,17 +52,16 @@ class CardView: UIView {
             self.layer.cornerRadius = cardRadius
         }
     }
-    
+
     /**
      If the card should display parallax effect.
      */
     public var hasParallax: Bool = true {
         didSet {
-            if self.motionEffects.isEmpty && hasParallax { goParallax() }
-            else if !hasParallax && !motionEffects.isEmpty { motionEffects.removeAll() }
+            if self.motionEffects.isEmpty && hasParallax { goParallax() } else if !hasParallax && !motionEffects.isEmpty { motionEffects.removeAll() }
         }
     }
-    
+
     /**
      Color of the card's background.
      */
@@ -77,7 +75,6 @@ class CardView: UIView {
         }
     }
 
-    
     // Private properties
 //    fileprivate var tap = UITapGestureRecognizer()
     weak var superVC: UIViewController?
@@ -92,12 +89,12 @@ class CardView: UIView {
         super.init(frame: frame)
         initialize()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initialize()
     }
-    
+
     func initialize() {
         self.addSubview(contentView)
         self.isUserInteractionEnabled = true
@@ -116,11 +113,11 @@ class CardView: UIView {
         self.addSubview(blankView)
         blankView.isHidden = true
     }
-    
+
     func layout(rect: CGRect) {
         msgLabel.center = blankView.center
     }
-    
+
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         contentView.frame.origin = CGPoint.zero
@@ -131,13 +128,13 @@ class CardView: UIView {
 //        msgLabel.center = contentView.center
 //        msgLabel.y -= cardRadius*2
 //        originalFrame = rect
-        
+
         self.layer.shadowOpacity = shadowOpacity
         self.layer.shadowColor = shadowColor.cgColor
         self.layer.shadowOffset = CGSize.zero
         self.layer.shadowRadius = shadowBlur
         self.layer.cornerRadius = cardRadius
-        
+
         contentView.layer.cornerRadius = self.layer.cornerRadius
         contentView.clipsToBounds = true
 
@@ -154,7 +151,7 @@ class CardView: UIView {
         self.superVC = superVC
         self.detailVC = viewController
     }
-    
+
     func shouldPush(_ viewController: UIViewController.Type, from superVC: UIViewController) {
         shouldPresentDetail = false
         shouldPushDetail = true
@@ -166,15 +163,15 @@ class CardView: UIView {
      */
     private func goParallax() {
         let amount = 20
-        
+
         let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
         horizontal.minimumRelativeValue = -amount
         horizontal.maximumRelativeValue = amount
-        
+
         let vertical = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
         vertical.minimumRelativeValue = -amount
         vertical.maximumRelativeValue = amount
-        
+
         let group = UIMotionEffectGroup()
         group.motionEffects = [horizontal, vertical]
         self.addMotionEffect(group)
@@ -184,7 +181,6 @@ class CardView: UIView {
 extension CardView {
     func cellTapped() {
         self.delegate?.cardIsTapped(card: self)
-
 
         if let superVC = superVC,
             let detailVC = detailVC {
@@ -204,17 +200,17 @@ extension CardView {
             // resetAnimated()
         }
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let superview = self.superview {
             originalFrame = superview.convert(self.frame, to: nil)
         }
         // TODO: tap animation
     }
-    
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         cellTapped()
-        
+
     }
 }
 
@@ -223,7 +219,7 @@ extension CardView: UIViewControllerTransitioningDelegate {
         let animator = CardViewTransitionAnimator(isPresenting: true, originalFrame: originalFrame, card: self)
         return animator
     }
-    
+
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let animator = CardViewTransitionAnimator(isPresenting: false, originalFrame: originalFrame, card: self)
         return animator
@@ -231,8 +227,7 @@ extension CardView: UIViewControllerTransitioningDelegate {
 }
 
 extension CardView: UINavigationControllerDelegate {
-    
-    
+
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let isPresenting = operation == .push ? true : false
 //        fromVC.tabBarController?.tabBar.isHidden = true

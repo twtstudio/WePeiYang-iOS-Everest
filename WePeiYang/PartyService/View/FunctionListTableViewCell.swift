@@ -21,7 +21,7 @@ class FunctionListTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
     convenience init(iconName: String, desc: String) {
         self.init()
 

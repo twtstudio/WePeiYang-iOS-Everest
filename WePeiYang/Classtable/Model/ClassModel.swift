@@ -25,7 +25,7 @@ struct ClassModel: Mappable {
     var colorIndex = 0
 
     init?(map: Map) {}
-    
+
     mutating func mapping(map: Map) {
         classID <- map["classid"]
         courseID <- map["courseid"]
@@ -48,4 +48,3 @@ struct ClassModel: Mappable {
         colorIndex = index
     }
 }
-

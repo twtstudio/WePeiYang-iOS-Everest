@@ -47,7 +47,7 @@ struct Storage {
     ///   - object: the encodable object to store
     ///   - directory: where to store
     ///   - filename: the name of file
-    static func store<T: Encodable>(_ object: T, in directory: Directory, as filename: String, success: (()->())? = nil, failure: (()->())? = nil) {
+    static func store<T: Encodable>(_ object: T, in directory: Directory, as filename: String, success: (() -> Void)? = nil, failure: (() -> Void)? = nil) {
         var url = getURL(for: directory)
         var dirs = filename.split(separator: "/")
 

@@ -19,7 +19,6 @@
 
 @implementation PartyScoreViewController
 
-
 - (instancetype)init {
     
     self = [super init];

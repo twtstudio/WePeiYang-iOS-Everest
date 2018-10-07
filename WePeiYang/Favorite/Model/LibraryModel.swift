@@ -64,14 +64,14 @@ struct LibraryBook: Codable {
     let returnTime: String
 
     enum CodingKeys: String, CodingKey {
-        case author = "author"
-        case callno = "callno"
-        case barcode = "barcode"
-        case title = "title"
-        case local = "local"
-        case loanTime = "loanTime"
-        case type = "type"
-        case returnTime = "returnTime"
+        case author
+        case callno
+        case barcode
+        case title
+        case local
+        case loanTime
+        case type
+        case returnTime
     }
 }
 

@@ -11,7 +11,7 @@ import Foundation
 import Alamofire
 
 class BicycleUser {
-    
+
     //auth
     var uid: String?
     var status: Int?
@@ -19,22 +19,22 @@ class BicycleUser {
     var bikeToken: String?
     var cardList = [Card]()
     var expire: Int?
-    
+
     //info
     var name: String?
     var balance: String?
     var duration: String?
     var recent: [[Any]] = []
     var record: [String: Any]?
-    
+
     //取消绑定时不重复要求绑定
     var bindCancel = false
-    
+
     static let sharedInstance = BicycleUser()
     private init() {}
-    
-    func auth(success: @escaping () -> (), failure: ((String)->())? = nil) {
-        
+
+    func auth(success: @escaping () -> Void, failure: ((String) -> Void)? = nil) {
+
         // let parameters = ["wpy_tk": "\(TwTUser.shared.token!)"]
         // Modified by JasonEWNL
         var parameters: [String: String]
@@ -67,9 +67,9 @@ class BicycleUser {
             failure?(error.localizedDescription)
         })
     }
-    
-    func getCardlist(idnum: String, doSomething: @escaping () -> (), failure: ((String)->())? = nil) {
-        
+
+    func getCardlist(idnum: String, doSomething: @escaping () -> Void, failure: ((String) -> Void)? = nil) {
+
         let parameters = ["auth_token": bikeToken!, "idnum": idnum]
 
         SolaSessionManager.solaSession(type: .post, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.cardURL, parameters: parameters, success: { dict in
@@ -78,7 +78,7 @@ class BicycleUser {
                 return
             }
 
-            if let data = dict["data"] as? [[String:Any]] {
+            if let data = dict["data"] as? [[String: Any]] {
                 self.cardList.removeAll()
                 for dic in data {
                     let cardInfo = dic as Dictionary
@@ -90,9 +90,9 @@ class BicycleUser {
             failure?(error.localizedDescription)
         })
     }
-    
-    func bindCard(id: String, sign: String, doSomething: @escaping () -> (), failure: ((String)->())? = nil) {
-        
+
+    func bindCard(id: String, sign: String, doSomething: @escaping () -> Void, failure: ((String) -> Void)? = nil) {
+
         let parameters = ["auth_token": bikeToken!, "id": id, "sign": sign]
 
         Alamofire.request(BicycleAPIs.rootURL+BicycleAPIs.bindURL, method: .post, parameters: parameters, headers: nil).responseJSON { response in
@@ -122,19 +122,19 @@ class BicycleUser {
 //            failure?(error.localizedDescription)
 //        })
     }
-    
-    func getUserInfo(doSomething: @escaping () -> ()) {
-        
+
+    func getUserInfo(doSomething: @escaping () -> Void) {
+
         let parameters = ["auth_token": bikeToken!]
-        
+
         SolaSessionManager.solaSession(type: .post, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.infoURL, parameters: parameters, success: { dict in
-            
+
             guard dict["errno"] as? Int == 0 else {
                 print(dict["errmsg"]!)
                 return
             }
             let dic = dict["data"] as! NSDictionary
-            
+
             guard let fooName = dic["name"] as? String,
                 let fooBalance = dic["balance"] as? String,
                 let fooDuration = dic["duration"] as? String,
@@ -144,21 +144,21 @@ class BicycleUser {
                     print("error.")
                     return
             }
-            
+
             self.name = fooName
             self.balance = fooBalance
             self.duration = fooDuration
             self.recent = fooRecent
             self.record = fooRecord
-            
+
             doSomething()
-            
+
         }, failure: { error in
             print("error: \(error)")
         })
     }
 
-    func unbind(success: @escaping () -> (), failure: ((String)->())? = nil) {
+    func unbind(success: @escaping () -> Void, failure: ((String) -> Void)? = nil) {
 
         auth(success: {
             let parameters = ["auth_token": self.bikeToken!]
@@ -179,4 +179,3 @@ class BicycleUser {
         })
     }
 }
-

@@ -9,9 +9,9 @@
 import UIKit
 
 class Checkbox: UIButton {
-    
+
     let partyGray = UIColor(red: 149.0/255.0, green: 149.0/255.0, blue: 149.0/255.0, alpha: 1)
-    
+
     typealias Quiz = Courses.Study20.Quiz
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -20,29 +20,29 @@ class Checkbox: UIButton {
         // Drawing code
     }
     */
-    
+
     var nameLabel = UILabel()
     var wasChosen = false
     var belongsToMany = false
-    
+
     override func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControlEvents) {
         super.addTarget(target, action: action, for: controlEvents)
         let tapOnLabel = UITapGestureRecognizer(target: target, action: action)
         self.nameLabel.addGestureRecognizer(tapOnLabel)
     }
-    
+
     static func initOnlyChoiceBtns(with quizOptions: [Quiz.Option]) -> [Checkbox] {
             return quizOptions.flatMap({ (option: Quiz.Option) -> Checkbox? in
                 return Checkbox(withSingleChoiceBtn: option)
             })
     }
-    
+
     static func initMultiChoicesBtns(with quizOptions: [Quiz.Option]) -> [Checkbox] {
         return quizOptions.flatMap({ (option: Quiz.Option) -> Checkbox? in
             return Checkbox(withMultiChoicesBtn: option)
         })
     }
-    
+
     convenience init(withSingleChoiceBtn quizOptionSingleChoice: Quiz.Option) {
         self.init()
         self.nameLabel = {
@@ -71,7 +71,7 @@ class Checkbox: UIButton {
         }*/
         self.addTarget(self, action: #selector(Checkbox.beTapped), for: .touchUpInside)
     }
-    
+
     convenience init(withMultiChoicesBtn quizOptionMultiChoices: Quiz.Option) {
         self.init()
         self.nameLabel = {
@@ -80,7 +80,7 @@ class Checkbox: UIButton {
             foo.textColor = .black
             return foo
         }()
-        
+
         //self.layer.cornerRadius = self.frame.width/2
         self.layer.borderWidth = 2
         self.layer.borderColor = UIColor.black.cgColor
@@ -91,7 +91,7 @@ class Checkbox: UIButton {
         } else {
             self.backgroundColor = partyGray
         }
-        
+
         /*
         self.addSubview(self.nameLabel)
         self.nameLabel.snp.makeConstraints {
@@ -102,9 +102,9 @@ class Checkbox: UIButton {
         self.belongsToMany = true
         self.addTarget(self, action: #selector(Checkbox.beTapped), for: .touchUpInside)
     }
-    
+
     @objc func beTapped() {
-        
+
         if self.belongsToMany {
             self.wasChosen = !self.wasChosen
         } else {
@@ -114,7 +114,7 @@ class Checkbox: UIButton {
         }
         self.refreshStatus()
     }
-    
+
     func refreshStatus() {
         if self.wasChosen {
             self.backgroundColor = .green

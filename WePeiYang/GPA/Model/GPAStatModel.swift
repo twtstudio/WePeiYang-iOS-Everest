@@ -1,4 +1,3 @@
-
 //
 //  GPAStatModel.swift
 //  WePeiYang
@@ -14,9 +13,9 @@ struct GPAStatModel: Mappable {
     var score: Double = 0
     var gpa: Double = 0
     var credit: Double = 0
-    
+
     init?(map: Map) {}
-    
+
     mutating func mapping(map: Map) {
         let transform = TransformOf<Double, String>(fromJSON: { value in
             if let value = value, let num = Double(value) {
@@ -36,13 +35,13 @@ struct GPAStatModel: Mappable {
         } else {
             score <- map["score"]
         }
-        
+
         if map["credit"].currentValue is String {
             credit <- (map["credit"], transform)
         } else {
             credit <- map["credit"]
         }
-        
+
         if map["gpa"].currentValue is String {
             gpa <- (map["gpa"], transform)
         } else {

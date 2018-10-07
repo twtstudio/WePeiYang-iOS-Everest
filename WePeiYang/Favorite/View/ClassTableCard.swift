@@ -18,14 +18,14 @@ class ClassTableCard: CardView {
             self.subtitleLabel.text = self.day + "的课程"
         }
     }
-    
+
     override func initialize() {
         super.initialize()
         let padding: CGFloat = 20
-        
+
         titleLabel.frame = CGRect(x: padding, y: padding-5, width: 200, height: 20)
         titleLabel.font = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.semibold)
-        titleLabel.textColor = UIColor(red:0.41, green:0.41, blue:0.41, alpha:1.00)
+        titleLabel.textColor = UIColor(red: 0.41, green: 0.41, blue: 0.41, alpha: 1.00)
         titleLabel.sizeToFit()
         self.addSubview(titleLabel)
 
@@ -35,12 +35,12 @@ class ClassTableCard: CardView {
         subtitleLabel.textColor = .black
         subtitleLabel.sizeToFit()
         self.addSubview(subtitleLabel)
-        
+
         self.backgroundColor = .white
-        
+
         layout(rect: self.frame)
     }
-    
+
     override func layout(rect: CGRect) {
         let padding: CGFloat = 20
         let offset: CGFloat = 2
@@ -48,7 +48,7 @@ class ClassTableCard: CardView {
         let cellHeight = 110 as CGFloat
 
         blankView.frame = CGRect(x: padding, y: 95, width: (cellWidth+offset)*5, height: cellHeight)
-        if cells.count == 0 {
+        if cells.isEmpty {
             // 初始化
             for i in 0..<5 {
                 let cell = CourseCell(style: .default, reuseIdentifier: "CourseCell\(i.description)")
@@ -101,7 +101,7 @@ class ClassTableCard: CardView {
                 return course.courseName != ""
             }
 
-            if courses.count == 0 {
+            if courses.isEmpty {
                 self.setState(.empty(self.day + "没有课，做点有趣的事情吧！", .darkGray))
             } else {
                 self.setState(.data)
@@ -132,4 +132,3 @@ class ClassTableCard: CardView {
         })
     }
 }
-

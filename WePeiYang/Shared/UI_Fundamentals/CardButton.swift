@@ -9,7 +9,7 @@
 import UIKit
 
 class CardButton: UIButton {
-    var tapAction: ((CardButton) -> ())?
+    var tapAction: ((CardButton) -> Void)?
 
     init() {
         super.init(frame: .zero)
@@ -18,7 +18,7 @@ class CardButton: UIButton {
     }
 
     func setTitle(_ title: String) {
-        self.backgroundColor = UIColor(red:0.99, green:0.19, blue:0.35, alpha:1.00)
+        self.backgroundColor = UIColor(red: 0.99, green: 0.19, blue: 0.35, alpha: 1.00)
         let attrString = NSAttributedString(string: title, attributes: [NSAttributedStringKey.font: UIFont.flexibleSystemFont(ofSize: 16, weight: UIFont.Weight.black), NSAttributedStringKey.foregroundColor: UIColor.white])
 
         setAttributedTitle(attrString, for: .normal)
@@ -60,14 +60,13 @@ class CardButton: UIButton {
 
         UIView.animate(withDuration: 0.1, delay: 0, options: [.allowUserInteraction, .curveEaseIn], animations: {
             self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        }, completion: { isFinished in
+        }, completion: { _ in
         })
 
         UIView.animate(withDuration: 0.1, delay: 0.1, options: [.allowUserInteraction, .curveEaseOut], animations: {
             self.transform = CGAffineTransform.identity
-        }, completion: { isFinished in
+        }, completion: { _ in
             self.tapAction?(sender)
         })
     }
 }
-

@@ -1,4 +1,3 @@
-
 // Generated with quicktype
 // For more options, try https://app.quicktype.io
 
@@ -77,4 +76,3 @@ extension NewsModel {
         return String(data: data, encoding: .utf8)
     }
 }
-

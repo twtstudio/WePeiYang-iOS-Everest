@@ -10,8 +10,6 @@
  This file wraps all universal extensions of class for convenience
  */
 
-
-
 import UIKit
 
 extension UILabel {
@@ -21,7 +19,7 @@ extension UILabel {
         textColor = color
         self.sizeToFit()
     }
-    
+
     /// A convenience initializer of UILabel
     ///
     /// - Parameters:
@@ -35,13 +33,13 @@ extension UILabel {
         self.font = UIFont.systemFont(ofSize: fontSize)
         self.sizeToFit()
     }
-    
+
     convenience init(text: String?) {
         self.init()
         self.text = text
         self.sizeToFit()
     }
-    
+
     convenience init(text: String, fontSize: CGFloat) {
         self.init()
         self.text = text
@@ -50,14 +48,12 @@ extension UILabel {
     }
 }
 
-
-
 extension UIView {
     convenience init(color: UIColor) {
         self.init()
         backgroundColor = color
     }
-    
+
     func snapshot() -> UIImage? {
         UIGraphicsBeginImageContext(self.bounds.size)
         self.layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -65,7 +61,7 @@ extension UIView {
         UIGraphicsEndImageContext()
         return image
     }
-    
+
     var x: CGFloat {
         set(newValue) {
             frame.origin.x = newValue
@@ -74,7 +70,7 @@ extension UIView {
             return frame.origin.x
         }
     }
-    
+
     var y: CGFloat {
         set(newValue) {
             frame.origin.y = newValue
@@ -83,7 +79,7 @@ extension UIView {
             return frame.origin.y
         }
     }
-    
+
     var height: CGFloat {
         set(newValue) {
             frame.size.height = newValue
@@ -92,7 +88,7 @@ extension UIView {
             return frame.size.height
         }
     }
-    
+
     var width: CGFloat {
         set(newValue) {
             frame.size.width = newValue
@@ -115,49 +111,47 @@ extension CALayer {
 }
 
 extension UIImage {
-    
-    static func resizedImage(image: UIImage, scaledToSize newSize: CGSize) -> UIImage{
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
+
+    static func resizedImage(image: UIImage, scaledToSize newSize: CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
         image.draw(in: CGRect(x: 0.0, y: 0, width: newSize.width, height: newSize.height))
-        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return newImage
     }
-    
-    
+
     static func resizedImageKeepingRatio(image: UIImage, scaledToWidth newWidth: CGFloat) -> UIImage {
         let scaleRatio = newWidth / image.size.width
         let newHeight = image.size.height * scaleRatio
         let foo = UIImage.resizedImage(image: image, scaledToSize: CGSize(width: newWidth, height: newHeight))
         return foo
     }
-    
+
     static func resizedImageKeepingRatio(image: UIImage, scaledToHeight newHeight: CGFloat) -> UIImage {
         let scaleRatio = newHeight / image.size.height
         let newWidth = image.size.width * scaleRatio
         let foo = UIImage.resizedImage(image: image, scaledToSize: CGSize(width: newWidth, height: newHeight))
         return foo
     }
-    
+
     func rgb(atPos pos: CGPoint) -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
-        
+
         let pixelData = self.cgImage!.dataProvider!.data
         let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
-        
+
         let pixelInfo: Int = ((Int(self.size.width) * Int(pos.y)) + Int(pos.x)) * 4
-        
+
         let r = CGFloat(data[pixelInfo]) / CGFloat(255.0)
         let g = CGFloat(data[pixelInfo+1]) / CGFloat(255.0)
         let b = CGFloat(data[pixelInfo+2]) / CGFloat(255.0)
         let a = CGFloat(data[pixelInfo+3]) / CGFloat(255.0)
-        
+
         return (r, g, b, a)
     }
-    
-    
+
     func smartAvgRGB() -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         //[TODO]: Add smart rgb Filter
-        
+
         //Naïve Algorithm. Squareroot: Weight for a specific RGB value is value^(-1/3)
         let thumbnail = UIImage.resizedImage(image: self, scaledToSize: CGSize(width: 100, height: 100))
         var r: CGFloat = 0.0
@@ -168,40 +162,38 @@ extension UIImage {
             for j in 0..<100 {
                 let point = CGPoint(x: i, y: j)
                 let rgbOfThisPoint = thumbnail.rgb(atPos: point)
-                
+
                 r += (pow(rgbOfThisPoint.red, 1/3))/10000
                 g += (pow(rgbOfThisPoint.green, 1/3))/10000
                 b += (pow(rgbOfThisPoint.blue, 1/3))/10000
                 a += rgbOfThisPoint.alpha/10000
             }
         }
-        
+
         //print(r*255, g*255, b*255, a)
         return (r, g, b, a)
     }
-    
-    
+
     func with(color: UIColor) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
         color.setFill()
-        
+
         let context = UIGraphicsGetCurrentContext()
         context!.translateBy(x: 0, y: self.size.height)
-        context!.scaleBy(x: 1.0, y: -1.0);
+        context!.scaleBy(x: 1.0, y: -1.0)
         context!.setBlendMode(.normal)
-        
+
         let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
-        
+
         context!.clip(to: rect, mask: self.cgImage!)
         context!.fill(rect)
-        
+
         let newImage = UIGraphicsGetImageFromCurrentImageContext()! as UIImage
         UIGraphicsEndImageContext()
-        
+
         return newImage
     }
-    
-    
+
     //pure color image
     convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
         let rect = CGRect(origin: .zero, size: size)
@@ -210,14 +202,11 @@ extension UIImage {
         UIRectFill(rect)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
+
         guard let cgImage = image?.cgImage else { return nil }
         self.init(cgImage: cgImage)
     }
 }
-
-
-
 
 extension UIImageView {
     convenience init?(imageName: String, desiredSize: CGSize) {
@@ -228,12 +217,8 @@ extension UIImageView {
         self.init()
         image = foo
     }
-    
-    
+
 }
-
-
-
 
 extension UIButton {
     convenience init(title: String) {
@@ -241,8 +226,7 @@ extension UIButton {
         setTitle(title, for: .normal)
         titleLabel?.sizeToFit()
     }
-    
-    
+
     convenience init?(backgroundImageName: String, desiredSize: CGSize) {
         guard var foo = UIImage(named: backgroundImageName) else {
             return nil
@@ -256,10 +240,10 @@ extension UIButton {
 // Directly add a closure to UIButton instead of addTarget
 // Bad Implement
 //extension UIButton {
-//    
+//
 //    typealias Function = () -> ()
 //    typealias Action = (name: String, function: Function)
-//    
+//
 //    private func actionHandleBlock(function: Function? = nil) {
 //        struct __ {
 //            static var function: Function?
@@ -270,11 +254,11 @@ extension UIButton {
 //            __.function?()
 //        }
 //    }
-//    
+//
 //    @objc private func triggerActioinHandleBlock() {
 //        self.actionHandleBlock()
 //    }
-//    
+//
 //    func addFunction(_ function: @escaping Function, for controlEvents: UIControlEvents) {
 //        self.actionHandleBlock(function: function)
 //        self.addTarget(self, action: #selector(triggerActioinHandleBlock), for: controlEvents)
@@ -282,22 +266,22 @@ extension UIButton {
 //}
 
 class ClosureDoer {
-    let closure: ()->()
-    
-    init (_ closure: @escaping ()->()) {
+    let closure: () -> Void
+
+    init (_ closure: @escaping () -> Void) {
         self.closure = closure
     }
-    
+
     @objc func invoke () {
         closure()
     }
 }
 
 extension UIControl {
-    
-    typealias Function = () -> ()
+
+    typealias Function = () -> Void
     typealias Action = (name: String, function: Function)
-    
+
     func add (for controlEvents: UIControlEvents, _ closure: @escaping Function) {
         let doer = ClosureDoer(closure)
         addTarget(doer, action: #selector(ClosureDoer.invoke), for: controlEvents)
@@ -319,7 +303,6 @@ extension UIViewController {
             return vc
         }
     }
-    
 
     static var current: UIViewController? {
         if let vc = UIApplication.shared.keyWindow?.rootViewController {
@@ -328,23 +311,23 @@ extension UIViewController {
             return nil
         }
     }
-    
+
     static var top: UIViewController? {
 
         if let appRootVC = UIApplication.shared.keyWindow?.rootViewController {
             var topVC: UIViewController? = appRootVC
-            while (topVC?.presentedViewController != nil) {
+            while topVC?.presentedViewController != nil {
                 topVC = topVC?.presentedViewController
             }
             return topVC
         }
         return nil
     }
-    
+
     var isModal: Bool {
         if self.presentingViewController != nil {
             return true
-        } else if self.navigationController?.presentingViewController?.presentedViewController == self.navigationController  {
+        } else if self.navigationController?.presentingViewController?.presentedViewController == self.navigationController {
             return true
         } else if self.tabBarController?.presentingViewController is UITabBarController {
             return true
@@ -354,18 +337,7 @@ extension UIViewController {
     }
 }
 
-
-// TODO: from hex to displayP3 and hsb
 extension UIColor {
-    
-//    convenience init?(Hex6: String) {
-//        
-//        guard Hex.characters.count == 6 else {
-//            print("Hex value for a color needs to be a 6-character String. nil Color initialized")
-//            return nil
-//        }
-//    }
-    
     /**
      The six-digit hexadecimal representation of color of the form #RRGGBB.
      
@@ -381,12 +353,11 @@ extension UIColor {
         let b = CGFloat( hex6 & 0x0000FF       ) / divisor
         self.init(red: r, green: g, blue: b, alpha: alpha)
     }
-    
+
     static var readRed: UIColor {
         return UIColor(red: 237.0/255.0, green: 84.0/255.0, blue: 80.0/255.0, alpha: 1.0)
     }
 }
-
 
 //extension of UIViewController to add a property
 extension UIViewController {
@@ -394,7 +365,7 @@ extension UIViewController {
         static var desiredStatusBarStyle: UIStatusBarStyle = .lightContent
         static var desiredNavigationBarTitleColor: UIColor = Metadata.Color.naviTextColor
     }
-    
+
     var desiredStatusBarStyle: UIStatusBarStyle {
         get {
             return fooPropertyStruct.desiredStatusBarStyle
@@ -403,7 +374,7 @@ extension UIViewController {
             fooPropertyStruct.desiredStatusBarStyle = newValue
         }
     }
-    
+
     var desiredNavigationBarTitleColor: UIColor {
         get {
             return fooPropertyStruct.desiredNavigationBarTitleColor
@@ -412,10 +383,7 @@ extension UIViewController {
             fooPropertyStruct.desiredNavigationBarTitleColor = newValue
         }
     }
-    
 
-    
-    
 }
 
 extension CGRect {
@@ -431,11 +399,11 @@ extension Data {
         return withUnsafeBytes {(bytes: UnsafePointer<UInt8>) -> String in
             let buffer = UnsafeBufferPointer(start: bytes, count: count)
             return buffer.map {
-                String(format: "%02hhx", $0)}.reduce("", { $0 + $1 })
+                String(format: "%02hhx", $0)
+            }.reduce("", { $0 + $1 })
         }
     }
 }
-
 
 // Encodable
 extension Encodable {

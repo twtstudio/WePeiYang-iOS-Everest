@@ -19,7 +19,6 @@
 
 @implementation PartyCoursesViewController
 
-
 - (instancetype)init {
     
     self = [super init];

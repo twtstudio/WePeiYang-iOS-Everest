@@ -1,4 +1,3 @@
-
 //
 //  ClassTableModel.swift
 //  WePeiYang
@@ -15,9 +14,9 @@ struct ClassTableModel: Mappable {
     var termStart = 0
     var term = ""
     var classes: [ClassModel] = []
-    
+
     init?(map: Map) {}
-    
+
     mutating func mapping(map: Map) {
         term <- map["term"]
         week <- map["week"]

@@ -9,7 +9,7 @@
 import ObjectMapper
 
 struct GPASessionManager {
-    static func getGPA(success: @escaping (GPAModel)->(), failure: @escaping (Error)->()) {
+    static func getGPA(success: @escaping (GPAModel) -> Void, failure: @escaping (Error) -> Void) {
         SolaSessionManager.solaSession(url: "/gpa", success: { dic in
             guard let errorCode = dic["error_code"] as? Int,
             let message = dic["message"] as? String else {
@@ -20,8 +20,8 @@ struct GPASessionManager {
                 failure(WPYCustomError.errorCode(errorCode, message))
                 return
             }
-            
-            if let data = dic["data"] as? [String : Any], let model = Mapper<GPAModel>().map(JSON: data) {
+
+            if let data = dic["data"] as? [String: Any], let model = Mapper<GPAModel>().map(JSON: data) {
                 success(model)
             } else {
                 failure(WPYCustomError.custom("GPA 数据解析错误"))

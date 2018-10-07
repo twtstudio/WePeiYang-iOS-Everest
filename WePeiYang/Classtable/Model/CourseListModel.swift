@@ -12,7 +12,7 @@ struct AuditCourseInfo: Codable {
     let errorCode: Int
     let message: String
     let data: [Datum]
-    
+
     enum CodingKeys: String, CodingKey {
         case errorCode = "error_code"
         case message, data
@@ -24,7 +24,7 @@ struct Datum: Codable {
     let collegeID, name, year, semester: String
     let college: College
     let info: [Info]
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case collegeID = "college_id"
@@ -43,7 +43,7 @@ struct Info: Codable {
     let endWeek, startTime, courseLength, weekDay: String
     let weekType, building, room, teacherType: String
     let teacher: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case courseID = "course_id"

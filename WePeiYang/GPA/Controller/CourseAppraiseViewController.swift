@@ -1,6 +1,3 @@
-
-
-
 //
 //  CourseAppraiseViewController.swift
 //  WePeiYang
@@ -13,7 +10,7 @@ import UIKit
 import SnapKit
 
 class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CourseAppraiseCellDelegate {
-    
+
     let tableView = UITableView(frame: CGRect.zero, style: .grouped)
     let identifier = "appraise"
     let questionArray = ["总体评价——综合考虑您认为该老师的教学如何？",
@@ -22,7 +19,7 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
                          "教学方法与手段——采用启发式、互动式教学，教材选用得当，多媒体或板书运用合理，作业批改与答疑认真等。",
                          "教学效果——通过教学，学生对课堂知识的掌握情况",
                          "意见或建议——为了进一步提高教师的授课效果，您认为教师需要改进的地方是：(限50字)"]
-    
+
     var note = ""
     var shouldLoadDetail = false
     var data: GPAClassModel!
@@ -38,7 +35,6 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
         self.navigationController?.navigationBar.isTranslucent = true
     }
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         guard data != nil else {
@@ -47,12 +43,12 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
 //        print(data?.evaluate)
         //初始化课程数据
         CourseAppraiseManager.shared.setInfo(lesson_id: data.lessonID, union_id: data.unionID, course_id: data.courseID, term: data.term, GPASession: GPASession!)
-        
+
         //View
-        self.navigationItem.title = "评价";
+        self.navigationItem.title = "评价"
         let rightButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(finishEvaluate))
         self.navigationItem.rightBarButtonItem = rightButton
-        
+
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(view)
@@ -63,24 +59,24 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelection = false
-        
+
         tableView.estimatedRowHeight = 180
         tableView.rowHeight = UITableViewAutomaticDimension
-        
+
         registerForKeyboardNotifications()
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
-        
+
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    //MARK: tableViewDataSource
+
+    // MARK: tableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -94,7 +90,7 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
             return 0
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = CourseAppraiseCell(title: questionArray[0], style: .main, id: 4)
@@ -123,31 +119,13 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
             }
         }
     }
-    
-    /*
-     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-     if indexPath.section == 0 {
-     return 150
-     } else {
-     switch indexPath.row {
-     case 2:
-     return 128
-     case 4:
-     return 216
-     default:
-     return 100
-     }
-     }
-     }
-     */
-    
-    //MARK: tableViewDelegate
+
+    // MARK: tableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    
-    //MARK: CourseAppraiseCellDelegate
+
+    // MARK: CourseAppraiseCellDelegate
     func loadDetail() {
         if shouldLoadDetail == false {
             shouldLoadDetail = true
@@ -160,38 +138,37 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
             tableView.reloadSections(IndexSet(integer: 1), with: .middle)
         }
     }
-    
-    
+
     func registerForKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
     }
-    
+
     @objc func finishEvaluate() {
         CourseAppraiseManager.shared.submit {
             NotificationCenter.default.post(name: NotificationName.NotificationAppraiseDidSucceed.name, object: nil)
-            let _ = self.navigationController?.popViewController(animated: true)
+            _ = self.navigationController?.popViewController(animated: true)
         }
     }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        let userInfo:NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+
+    @objc func keyboardWillShow(notification: Notification) {
+        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardFrame: NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
         let keyboardHeight = keyboardRectangle.height
         print(keyboardHeight)
-        
+
         UIView.animate(withDuration: 0.5, animations: {
             self.view.frame.origin.y = -keyboardHeight
         })
     }
-    
-    @objc func keyboardWillHide(notification:NSNotification) {
+
+    @objc func keyboardWillHide(notification: Notification) {
         UIView.animate(withDuration: 0.5, animations: {
             self.view.frame.origin.y = 0
         })
     }
-    
+
     @objc func handleTap(sender: UITapGestureRecognizer) {
         tableView.endEditing(true)
     }

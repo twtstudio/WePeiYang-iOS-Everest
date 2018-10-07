@@ -9,7 +9,7 @@
 import UIKit
 
 class SignUpTableViewCell: UITableViewCell {
-    
+
     var signUpBtn: UIButton!
     var msgLabel: UILabel!
 
@@ -23,11 +23,11 @@ class SignUpTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
     @objc func signUp(_ sender: UIButton!) {
-        
+
         switch sender.tag {
-            
+
         case 0:
             ApplicantTest.ApplicantEntry.signUp(forID: (ApplicantTest.ApplicantEntry.testInfo?.id)!) {
                 self.refreshUI()
@@ -45,23 +45,21 @@ class SignUpTableViewCell: UITableViewCell {
         }
        // log.word("entered func")/
     }
-    
 
 }
-
 
 extension SignUpTableViewCell {
     convenience init(status: Int?, message: String?, hasEntry: Int?, testIdentifier: Int) {
         self.init()
         signUpBtn = UIButton(status: status, hasEntry: hasEntry, identifier: testIdentifier)
         //signUpBtn.bindToFunc()
-        
+
         if status == 1 {
             signUpBtn.addTarget(self, action: #selector(SignUpTableViewCell.signUp(_:)), for: .touchUpInside)
         }
         msgLabel = UILabel(text: message)
         msgLabel.numberOfLines = 0
-        
+
         contentView.addSubview(signUpBtn)
         signUpBtn.snp.makeConstraints {
             make in
@@ -70,17 +68,17 @@ extension SignUpTableViewCell {
             make.width.equalTo(80)
             make.height.equalTo(40)
         }
-        
+
         contentView.addSubview(msgLabel)
         msgLabel.snp.makeConstraints {
             make in
             make.centerY.equalTo(signUpBtn)
             make.right.equalTo(contentView).offset(-16)
             make.left.equalTo(signUpBtn.snp.right).offset(50)
-            
+
         }
     }
-    
+
     func refreshUI() {
         self.signUpBtn.refreshViewForState()
         switch signUpBtn.tag {
@@ -91,46 +89,45 @@ extension SignUpTableViewCell {
         case 2:
             msgLabel.text = ApplicantTest.ProbationaryEntry.message
         default: break
-            
+
         }
     }
 }
 
-
 private extension UIButton {
-    
+
     convenience init(status: Int?, hasEntry: Int?, identifier: Int) {
         self.init()
-        
+
         if status != nil && status != 0 {
-            if let _ = hasEntry {
+            if let hasEntry = hasEntry {
                 if hasEntry == 0 {
                     backgroundColor = .green
-                    setTitle("报名", for: UIControlState())
+                    setTitle("报名", for: .normal)
                 } else {
                     backgroundColor = .lightGray
-                    setTitle("已报名", for: UIControlState())
+                    setTitle("已报名", for: .normal)
                     isEnabled = false
                 }
             }
         } else {
             backgroundColor = .lightGray
-            setTitle("报名", for: UIControlState())
+            setTitle("报名", for: .normal)
             isEnabled = false
         }
-        
+
         layer.cornerRadius = 8
         titleLabel?.textColor = .white
         tag = identifier
         //titleLabel?.sizeToFit()
-    
+
     }
-    
+
     func refreshViewForState() {
-        
+
         var status: Int? = nil
         var hasEntry: Int? = nil
-        
+
         switch self.tag {
         case 0:
             status = ApplicantTest.ApplicantEntry.status!
@@ -141,19 +138,19 @@ private extension UIButton {
         case 2:
             status = ApplicantTest.ProbationaryEntry.status!
             hasEntry = ApplicantTest.ProbationaryEntry.testInfo?.hasEntry
-            
+
         default:
             status = 0
-            
+
         }
-        
+
         if status != nil && status != 0 {
-            if let _ = hasEntry {
+            if let hasEntry = hasEntry {
                 if hasEntry == 0 {
                     backgroundColor = .green
                 } else {
                     backgroundColor = .lightGray
-                    setTitle("已报名", for: UIControlState())
+                    setTitle("已报名", for: .normal)
                     isEnabled = false
                 }
             }
@@ -162,5 +159,5 @@ private extension UIButton {
             isEnabled = false
         }
     }
-    
+
 }

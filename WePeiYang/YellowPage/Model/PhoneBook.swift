@@ -1,4 +1,3 @@
-
 //
 //  PhoneBook.swift
 //  WePeiYang
@@ -12,14 +11,14 @@ import UIKit
 class PhoneBook {
     static let shared = PhoneBook()
     private init() {}
-    
+
     static let url = "/yellowpage/data3"
     var favorite: [ClientItem] = []
     //var phonebook: [String: [String: [ClientItem]]] = [:]
     var sections: [String] = []
     var members: [String: [String]] = [:]
     var items: [ClientItem] = []
-    
+
     // given a name, return its phone number
     func getPhoneNumber(with string: String) -> String? {
         for item in items {
@@ -29,17 +28,17 @@ class PhoneBook {
         }
         return nil
     }
-    
+
     // get members with section
     func getMembers(with section: String) -> [String] {
         guard let array = members[section] else {
             return []
         }
         return array
-        
+
     }
-    
-    func addFavorite(with model: ClientItem, success: ()->()) {
+
+    func addFavorite(with model: ClientItem, success: () -> Void) {
         for m in favorite {
             if m.phone == model.phone && m.name == model.name {
                 return
@@ -50,8 +49,8 @@ class PhoneBook {
         favorite.append(m)
         success()
     }
-    
-    func removeFavorite(with model: ClientItem, success: ()->()) {
+
+    func removeFavorite(with model: ClientItem, success: () -> Void) {
         for (index, m) in favorite.enumerated() {
             if m.phone == model.phone && m.name == model.name {
                 favorite.remove(at: index)
@@ -59,14 +58,14 @@ class PhoneBook {
         }
         success()
     }
-    
+
     // get models with member name
     func getModels(with member: String) -> [ClientItem] {
         return items.filter { item in
             return item.owner == member
         }
     }
-    
+
     // seach result
     func getResult(with string: String) -> [ClientItem] {
         return items.filter { item in
@@ -74,7 +73,7 @@ class PhoneBook {
         }
     }
 
-    static func checkVersion(success: @escaping ()->(), failure: @escaping ()->()) {
+    static func checkVersion(success: @escaping () -> Void, failure: @escaping () -> Void) {
         SolaSessionManager.solaSession(url: PhoneBook.url, success: { dict in
             // FIXME: should be optimized
             if let categories = dict["category_list"] as? [[String: Any]] {
@@ -121,12 +120,12 @@ extension PhoneBook {
             Storage.store(PhoneBook.shared.favorite, in: .documents, as: "yellowpage/favorite.json")
         }
     }
-    
+
     //读取数据
-    func load(success: @escaping ()->(), failure: @escaping ()->()) {
+    func load(success: @escaping () -> Void, failure: @escaping () -> Void) {
         DispatchQueue.global().sync {
             if let items = Storage.retreive("yellowpage/items.json", from: .documents, as: [ClientItem].self),
-                let members = Storage.retreive("yellowpage/members.json", from: .documents, as: [String : [String]].self),
+                let members = Storage.retreive("yellowpage/members.json", from: .documents, as: [String: [String]].self),
                 let sections = Storage.retreive("yellowpage/sections.json", from: .documents, as: [String].self),
                 let favorite = Storage.retreive("yellowpage/favorite.json", from: .documents, as: [ClientItem].self) {
                 PhoneBook.shared.items = items

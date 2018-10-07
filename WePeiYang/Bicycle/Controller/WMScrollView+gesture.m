@@ -10,7 +10,6 @@
 @import JBChartView;
 @implementation WMScrollView (gesture)
 
-
 // FIXME: 使在chartView上不响应手势
 //修改了源码,使在chartView上不响应手势
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {

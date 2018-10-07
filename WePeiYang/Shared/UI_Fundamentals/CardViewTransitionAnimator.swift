@@ -13,7 +13,7 @@ class CardViewTransitionAnimator: NSObject, UIViewControllerAnimatedTransitionin
     fileprivate var velocity = 0.85
     var originalFrame: CGRect
     var cardImage: UIImage?
-    
+
     init(isPresenting: Bool, originalFrame: CGRect, card: CardView? = nil) {
         self.isPresenting = isPresenting
         self.originalFrame = originalFrame
@@ -21,7 +21,7 @@ class CardViewTransitionAnimator: NSObject, UIViewControllerAnimatedTransitionin
         self.cardImage = card?.snapshot()
         super.init()
     }
-    
+
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         if isPresenting {
             return velocity
@@ -29,7 +29,7 @@ class CardViewTransitionAnimator: NSObject, UIViewControllerAnimatedTransitionin
             return velocity/2
         }
     }
-    
+
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let fromVC = transitionContext.viewController(forKey: .from),
             let toVC = transitionContext.viewController(forKey: .to) else {
@@ -69,11 +69,9 @@ class CardViewTransitionAnimator: NSObject, UIViewControllerAnimatedTransitionin
             push(from: fromVC, to: toVC, using: transitionContext)
         } else {
 
-
             pop(from: fromVC, to: toVC, using: transitionContext)
         }
     }
-
 
     func push1(from fromVC: UIViewController, to toVC: UIViewController, using transitionContext: UIViewControllerContextTransitioning) {
         guard let toView = transitionContext.view(forKey: .to) else {
@@ -85,24 +83,16 @@ class CardViewTransitionAnimator: NSObject, UIViewControllerAnimatedTransitionin
 
         let imgView = UIImageView(frame: originalFrame)
         imgView.image = cardImage
-//        imgView.alpha = 1
-//        toView.addSubview(imgView)
-//        toView.alpha = 0
-//        transitionContext.containerView.addSubview(toView)
+
         transitionContext.containerView.addSubview(blankView)
         transitionContext.containerView.addSubview(imgView)
 
         UIView.animate(withDuration: velocity/2, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
-//            imgView.alpha = 1.0
             imgView.center = toView.center
-//            toView.alpha = 1.0
-        }, completion: { isFinished in
-//            blankView.removeFromSuperview()
-//            imgView.removeFromSuperview()
-
+        }, completion: { _ in
             UIView.animate(withDuration: self.velocity/2, delay: self.velocity/2, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
                 imgView.frame = toView.frame
-            }, completion: { isFinished in
+            }, completion: { _ in
                 imgView.removeFromSuperview()
                 blankView.removeFromSuperview()
                 //            toVC.navigationController?.isNavigationBarHidden = false
@@ -133,14 +123,14 @@ class CardViewTransitionAnimator: NSObject, UIViewControllerAnimatedTransitionin
             imgView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             imgView.alpha = 0.8
             //            toView.alpha = 1.0
-        }, completion: { isFinished in
+        }, completion: { _ in
             //            blankView.removeFromSuperview()
             //            imgView.removeFromSuperview()
         })
 
         UIView.animate(withDuration: self.velocity/2, delay: self.velocity/2, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
             frontView.frame = toView.frame
-        }, completion: { isFinished in
+        }, completion: { _ in
             frontView.removeFromSuperview()
             imgView.removeFromSuperview()
             blankView.removeFromSuperview()
@@ -170,25 +160,22 @@ class CardViewTransitionAnimator: NSObject, UIViewControllerAnimatedTransitionin
 
         UIView.animate(withDuration: velocity/6, delay: 0, options: .curveEaseOut, animations: {
             frontView.y += frontView.height
-        }, completion: { isFinished in
+        }, completion: { _ in
             UIView.animate(withDuration: self.velocity*1/3, delay: self.velocity/6, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
                 imgView.center = toView.center
                 imgView.transform = CGAffineTransform.identity
                 imgView.alpha = 1
                 //            frontView.frame = toView.frame
-            }, completion: { isFinished in
+            }, completion: { _ in
                 //            frontView.removeFromSuperview()
                 imgView.removeFromSuperview()
                 blankView.removeFromSuperview()
-                //            toVC.navigationController?.isNavigationBarHidden = false
                 transitionContext.containerView.addSubview(toView)
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             })
         })
 
-
     }
-
 
     func pop1(from fromVC: UIViewController, to toVC: UIViewController, using transitionContext: UIViewControllerContextTransitioning) {
         guard let toView = transitionContext.view(forKey: .to) else {
@@ -205,26 +192,25 @@ class CardViewTransitionAnimator: NSObject, UIViewControllerAnimatedTransitionin
         //        toView.alpha = 0
         transitionContext.containerView.addSubview(blankView)
         transitionContext.containerView.addSubview(imgView)
-        
+
         UIView.animate(withDuration: velocity/2, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
 //            imgView.alpha = 1.0
             imgView.frame = self.originalFrame
             imgView.center = toView.center
             //            toView.alpha = 1.0
-        }, completion: { isFinished in
+        }, completion: { _ in
             //            imgView.removeFromSuperview()
         })
-        
+
         UIView.animate(withDuration: velocity/2, delay: velocity/2, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
             imgView.frame = self.originalFrame
-        }, completion: { isFinished in
+        }, completion: { _ in
             blankView.removeFromSuperview()
             imgView.removeFromSuperview()
 //            toVC.navigationController?.isNavigationBarHidden = true
             transitionContext.containerView.addSubview(toView)
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         })
-        
+
     }
 }
-

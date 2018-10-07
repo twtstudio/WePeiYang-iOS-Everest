@@ -9,51 +9,50 @@
 import UIKit
 
 class AuditClassViewController: UIViewController {
-    
+
     var auditClassList = [PopularClassModel]()
     var myClassList = [PopularClassModel]()
-    
+
     let tableView = UITableView(frame: CGRect.zero, style: .grouped)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.backgroundColor = .white
-        
+
         self.navigationItem.title = "添加课程"
-        
-        let titleTextAttribute = [NSAttributedStringKey.foregroundColor : UIColor(red:0.14, green:0.69, blue:0.93, alpha:1.00)]
+
+        let titleTextAttribute = [NSAttributedStringKey.foregroundColor: UIColor(red: 0.14, green: 0.69, blue: 0.93, alpha: 1.00)]
         self.navigationController?.navigationBar.titleTextAttributes = titleTextAttribute
         let rightButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchToggle))
         self.navigationItem.rightBarButtonItem = rightButton
-        
+
         tableView.delegate = self
         tableView.dataSource = self
-        
+
         tableView.frame = view.bounds
         load()
-        
+
         self.view.addSubview(tableView)
     }
-    
-    
+
     @objc func searchToggle() {
         let collegeSphereVC = CollegeSphereViewController()
         self.navigationController?.pushViewController(collegeSphereVC, animated: true)
     }
-    
+
     func load() {
         ClasstableDataManager.getPopularClass(success: { list in
             self.auditClassList = list
-            
+
             self.tableView.reloadData()
         }, failure: { errMsg in
             SwiftMessages.showErrorMessage(body: errMsg)
         })
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
+
     }
 }
 
@@ -61,7 +60,7 @@ extension AuditClassViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -74,7 +73,7 @@ extension AuditClassViewController: UITableViewDataSource {
             return 0
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }

@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 // MARK: - 滑动点击代理
 @objc protocol BannerScrollViewDelegate {
     // 点击图片回调
@@ -18,10 +17,10 @@ import UIKit
 }
 
 class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtocol {
-    
+
     // MARK: 属性
     weak var delegate: BannerScrollViewDelegate!
-    
+
     var outerPageControlFrame: CGRect? {
         didSet {
             setupPageControl()
@@ -30,8 +29,7 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
 
     var descTextArray: [String]?
     var placeholderImage: UIImage?
-    
-    
+
     // BannerCell
     var descLabelFont: UIFont?
     var descLabelHeight: CGFloat?
@@ -39,7 +37,7 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
     var bottomViewBackgroundColor: UIColor?
     var imageContentModel: UIViewContentMode?
     var descLabelTextAlignment: NSTextAlignment?
-    
+
     // Main Function
     override var frame: CGRect {
         didSet {
@@ -47,7 +45,7 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
             collectionView?.frame = bounds
         }
     }
-    
+
     var isAutoScroll: Bool = true {
         didSet {
             timer?.invalidate()
@@ -57,15 +55,13 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
             }
         }
     }
-    
+
     var isEndlessScroll: Bool = true {
         didSet {
             reloadData()
         }
     }
-    
-    
-    
+
     var autoScrollInterval: Double = 5
 //    {
 //        willSet {
@@ -75,7 +71,7 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
 ////            autoScrollInterval =
 ////        }
 //    }
-    
+
     // pageControl
     var pageControlAliment: PageControlAliment = .CenterBottom
     var defaultPageDotImage: UIImage? {
@@ -83,45 +79,45 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
             setupPageControl()
         }
     }
-    
+
     var currentPageDotImage: UIImage? {
         didSet {
             setupPageControl()
         }
     }
-    
+
     var pageControlPointSpace: CGFloat = 15 {
         didSet {
             setupPageControl()
         }
     }
-    
+
     var showPageControl: Bool = true {
         didSet {
             setupPageControl()
         }
     }
-    
+
     var currentDotColor: UIColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1) {
         didSet {
             self.pageControl?.currentPageIndicatorTintColor = currentDotColor
         }
     }
-    
+
     var otherDotColor: UIColor = UIColor.gray {
         didSet {
             self.pageControl?.pageIndicatorTintColor = otherDotColor
         }
     }
-    
+
     // MARK: 外部方法
     func reloadData() {
-        
+
         timer?.invalidate()
         timer = nil
         collectionView?.reloadData()
         setupPageControl()
-        
+
         if canChangeBannerCell {
             changeToFirstBannerCell(animated: false, collectionView: collectionView!)
         }
@@ -131,7 +127,7 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
         guard let pageControl = self.pageControl else {
             return
         }
-        
+
         if showPageControl {
             if let outFrame = outerPageControlFrame {
                 self.relayoutPageControl(pageControl: pageControl, outerFrame: outFrame)
@@ -140,8 +136,7 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
             }
         }
     }
-    
-    
+
     // MARK: 内部属性
     fileprivate var proxy: Proxy!
     fileprivate var flowLayout: UICollectionViewFlowLayout?
@@ -149,43 +144,43 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
     fileprivate let CellID = "BannerCell"
     fileprivate var pageControl: PageControl?
     fileprivate var isLoadOver = false
-    
+
     var timer: Timer?
     let endlessScrollTimes: Int = 128
-    
+
     fileprivate var imgsCount: Int {
         return isEndlessScroll ? (itemsInSection / endlessScrollTimes) : itemsInSection
     }
-    
+
     var itemsInSection: Int {
         guard let imgs = proxy?.imgArray else {
             return 0
         }
         return isEndlessScroll ? (imgs.count * endlessScrollTimes) : imgs.count
     }
-    
+
     fileprivate var firstItem: Int {
         return isEndlessScroll ? (itemsInSection / 2) : 0
     }
-    
+
     fileprivate var canChangeBannerCell: Bool {
         guard itemsInSection != 0,
-            let _ = collectionView,
-            let _ = flowLayout else {
+            collectionView != nil,
+            flowLayout != nil else {
                 return false
         }
         return true
     }
-    
+
     fileprivate var indexOnPageControl: Int {
         var curIndex = Int((collectionView!.contentOffset.x + flowLayout!.itemSize.width * 0.5) / flowLayout!.itemSize.width)
         curIndex = max(0, curIndex)
         return curIndex % imgsCount
     }
-    
+
     // MARK: initialize
     init(frame: CGRect, type: ImgType, imgs: [String] = [], descs: [String] = [], defaultDotImage: UIImage? = nil, currentDotImage: UIImage? = nil, placeholderImage: UIImage? = nil) {
-        
+
         super.init(frame: frame)
         setupCollectionView()
         defaultPageDotImage = defaultDotImage
@@ -194,7 +189,7 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
 
         load(type: type, imgs: imgs, descs: descs)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.setupCollectionView()
@@ -209,16 +204,16 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
     // MARK: layoutSubviews、willMove
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         collectionView?.contentInset = .zero
         if !isLoadOver && canChangeBannerCell {
             changeToFirstBannerCell(animated: false, collectionView: collectionView!)
         }
-        
+
         guard let pageControl = self.pageControl else {
             return
         }
-        
+
         if showPageControl {
             if let outFrame = outerPageControlFrame {
                 self.relayoutPageControl(pageControl: pageControl, outerFrame: outFrame)
@@ -227,10 +222,10 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
             }
         }
     }
-    
+
     override func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
-        guard let _ = newSuperview else {
+        guard newSuperview != nil else {
             timer?.invalidate()
             timer = nil
             return
@@ -238,45 +233,44 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
     }
 }
 
-
 // MARK: - 代理&方法
 extension BannerScrollView {
     func setupTimer() {
         timer = Timer(timeInterval: autoScrollInterval, target: self, selector: #selector(autoChangeBannerCell), userInfo: nil, repeats: true)
         RunLoop.main.add(timer!, forMode: .commonModes)
     }
-    
+
     @objc func autoChangeBannerCell() {
         if canChangeBannerCell {
             changeBannerCell(collectionView: collectionView!)
         }
     }
-    
+
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         timer?.invalidate()
     }
-    
+
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if isAutoScroll {
             setupTimer()
         }
     }
-    
+
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         scrollViewDidEndScrollingAnimation(scrollView)
     }
-    
+
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         guard canChangeBannerCell else {
             return
         }
         delegate?.bannerScrollViewDidScroll?(to: indexOnPageControl, bannerScrollView: self)
-        
+
         if indexOnPageControl >= firstItem {
             isLoadOver = true
         }
     }
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard canChangeBannerCell else {
             return
@@ -297,8 +291,8 @@ extension BannerScrollView {
             pageControl?.pageIndicatorTintColor = self.otherDotColor
             pageControl?.isUserInteractionEnabled = false
             pageControl?.pointSpace = pageControlPointSpace
-            
-            if let _ = outerPageControlFrame {
+
+            if outerPageControlFrame != nil {
                 superview?.addSubview(pageControl!)
             } else {
                 addSubview(pageControl!)
@@ -307,7 +301,6 @@ extension BannerScrollView {
     }
 }
 
-
 // MARK: - BannerCell
 extension BannerScrollView: UICollectionViewDelegate, UICollectionViewDataSource {
     fileprivate func setupCollectionView() {
@@ -315,7 +308,7 @@ extension BannerScrollView: UICollectionViewDelegate, UICollectionViewDataSource
         flowLayout?.itemSize = frame.size
         flowLayout?.minimumLineSpacing = 0
         flowLayout?.scrollDirection = .horizontal
-        
+
         collectionView = UICollectionView(frame: bounds, collectionViewLayout: flowLayout!)
         collectionView?.register(BannerCell.self, forCellWithReuseIdentifier: CellID)
         collectionView?.isPagingEnabled = true
@@ -326,11 +319,11 @@ extension BannerScrollView: UICollectionViewDelegate, UICollectionViewDataSource
         collectionView?.dataSource = self
         addSubview(collectionView!)
     }
-    
+
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return itemsInSection
     }
-    
+
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let curIndex = indexPath.item % imgsCount
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellID, for: indexPath) as! BannerCell
@@ -341,8 +334,8 @@ extension BannerScrollView: UICollectionViewDelegate, UICollectionViewDataSource
         } else {
             cell.descText = ""
         }
-        
-        if let _ = descTextArray {
+
+        if descTextArray != nil {
             cell.imageContentModel = (imageContentModel == nil) ? cell.imageContentModel : imageContentModel!
             cell.descLabelFont = (descLabelFont == nil) ? cell.descLabelFont : descLabelFont!
             cell.descLabelTextColor = (descLabelTextColor == nil) ? cell.descLabelTextColor : descLabelTextColor!
@@ -352,12 +345,8 @@ extension BannerScrollView: UICollectionViewDelegate, UICollectionViewDataSource
         }
         return cell
     }
-    
+
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.bannerScrollViewDidSelect?(at: indexOnPageControl, bannerScrollView: self)
     }
 }
-
-
-
-

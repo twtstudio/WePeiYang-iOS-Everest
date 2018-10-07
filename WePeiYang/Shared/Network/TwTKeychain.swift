@@ -1,5 +1,3 @@
-
-
 //
 //  TwTKeychain.swift
 //  WePeiYang
@@ -13,7 +11,7 @@ import UIKit
 struct TwTKeychain {
     static let shared = TwTKeychain()
     init () {}
-    
+
     let appKey = "YPUzdhNPOa8TeozPw0wb"
     let appSecret = "TyxNrASaYhSjb7XqGDmSAsQBFi3p4L"
 }

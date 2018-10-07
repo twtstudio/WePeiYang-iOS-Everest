@@ -13,7 +13,7 @@ class CollegeSphereViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.view.backgroundColor = .white
         sphereView.frame = self.view.bounds
         sphereView.y = self.view.height * 0.15
@@ -21,11 +21,11 @@ class CollegeSphereViewController: UIViewController {
         loadCache()
         load()
     }
-    
+
     func loadCache() {
-        
+
     }
-    
+
     func load() {
         ClasstableDataManager.getCollegeList(success: { list in
             let count = list.count
@@ -53,7 +53,7 @@ class CollegeSphereViewController: UIViewController {
             SwiftMessages.showErrorMessage(body: errMsg)
         })
     }
-    
+
     @objc func buttonPressed() {
         let sphereVC = CourseListViewController()
         self.navigationController?.pushViewController(sphereVC, animated: true)

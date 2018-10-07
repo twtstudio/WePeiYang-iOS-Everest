@@ -23,17 +23,17 @@ enum ImgType: Int {
 }
 
 struct Proxy {
-    var imgType:ImgType = .server
-    var imgArray:[ImgSource] = [ImgSource]()
-    
-    subscript (index:Int) -> ImgSource {
+    var imgType: ImgType = .server
+    var imgArray: [ImgSource] = [ImgSource]()
+
+    subscript (index: Int) -> ImgSource {
         get {
             return imgArray[index]
         }
     }
-    
+
     // 构造方法
-    init(type:ImgType, array:[String]) {
+    init(type: ImgType, array: [String]) {
         imgType = type
         if imgType == .server {
             imgArray = array.map { urlStr in
@@ -49,7 +49,6 @@ struct Proxy {
         }
     }
 }
-
 
 // MARK: pageControl
 private let PageControlMargin: CGFloat = 15
@@ -76,7 +75,7 @@ extension PageControlAlimentProtocol where Self : UIView {
             let pageY = bounds.height - pageH
             let pageW = pageControl.pageSize.width
             var pageX: CGFloat = 0
-            
+
             switch self.pageControlAliment {
             case .CenterBottom:
                 pageX = CGFloat(self.bounds.width / 2) - pageW * 0.5
@@ -85,22 +84,20 @@ extension PageControlAlimentProtocol where Self : UIView {
             case .LeftBottom:
                 pageX = bounds.origin.x + PageControlMargin
             }
-            pageControl.frame = CGRect(x:pageX, y:pageY, width:pageW, height:pageH)
+            pageControl.frame = CGRect(x: pageX, y: pageY, width: pageW, height: pageH)
         }
     }
-    
-    func relayoutPageControl(pageControl: PageControl, outerFrame:CGRect)
-    {
+
+    func relayoutPageControl(pageControl: PageControl, outerFrame: CGRect) {
         if pageControl.isHidden == false {
-            pageControl.frame = CGRect(x:outerFrame.origin.x, y:outerFrame.origin.y, width:pageControl.pageSize.width, height:pageControl.pageSize.height)
+            pageControl.frame = CGRect(x: outerFrame.origin.x, y: outerFrame.origin.y, width: pageControl.pageSize.width, height: pageControl.pageSize.height)
         }
     }
 }
 
-
 // MARK: 无限轮播
 protocol EndlessScrollProtocol {
-    
+
     var isAutoScroll: Bool { get set }
     var autoScrollInterval: Double { get set }
     var timer: Timer? { get set }
@@ -116,7 +113,7 @@ extension EndlessScrollProtocol where Self : UIView {
         guard itemsInSection != 0 else {
             return
         }
-        
+
         let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         let curItem = Int(collectionView.contentOffset.x / flowLayout.itemSize.width)
         if curItem == itemsInSection - 1 {
@@ -127,16 +124,14 @@ extension EndlessScrollProtocol where Self : UIView {
             collectionView.scrollToItem(at: indexPath, at: .init(rawValue: 0), animated: true)
         }
     }
-    
+
     func changeToFirstBannerCell(animated: Bool, collectionView: UICollectionView) {
         guard itemsInSection != 0 else {
             return
         }
-        
+
         let firstItem = isEndlessScroll ? (itemsInSection / 2) : 0
         let indexPath = IndexPath(item: firstItem, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .init(rawValue: 0), animated: animated)
     }
 }
-
-

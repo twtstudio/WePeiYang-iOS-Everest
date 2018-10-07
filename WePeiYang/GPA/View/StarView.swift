@@ -9,16 +9,15 @@
 import UIKit
 
 class StarView: UIView {
-    
-    
+
     let star_grey = "star_grey"
     let star_red = "star_red"
     let star_half = "star_half"
     var starSize: CGFloat = 0
-    
+
     @objc dynamic var rating: Double = 0
     var stars: [UIButton] = []
-    
+
     func loadStars() {
         self.addSubview(stars[0])
         stars[0].snp.makeConstraints {
@@ -43,26 +42,24 @@ class StarView: UIView {
             make.right.equalTo(self).offset(-2)
         }
     }
-    
-    
+
     convenience init(rating: Double, height: CGFloat, tappable: Bool) {
         self.init()
         self.rating = rating
         self.starSize = height
         //TODO: Add guard?
-        
+
         //OH MY GOODNESS THIS IS A GIANT BUG OR SOMETHING? LIKE 5 POINTERS POINTED TO THE SAME OBJECT
         //stars = [UIImageView](count: 5, repeatedValue: UIImageView(imageName: star_grey, desiredSize: CGSize(width: height, height: height))!)
-        
+
         for _ in 0..<5 {
             stars.append(UIButton(backgroundImageName: star_grey, desiredSize: CGSize(width: height, height: height))!)
         }
-        
-        
+
         for index in 0..<5 {
             stars[index].tag = index
         }
-        
+
         if Int(rating) > 0 {
             for i in 0..<Int(rating) {
                 var foo = UIImage(named: star_red)
@@ -79,7 +76,7 @@ class StarView: UIView {
             foo = UIImage.resizedImage(image: foo!, scaledToSize: CGSize(width: height, height: height))
             stars[0].setBackgroundImage(foo, for: .normal)
         }
-        
+
         loadStars()
         if tappable {
             assignGestures()
@@ -87,25 +84,16 @@ class StarView: UIView {
             stars[Int(rating)-1].sendActions(for: .touchUpInside)
         }
     }
-    
+
 }
 
-
 extension StarView {
-    
+
     @objc func starGetsTapped(sender: UIButton) {
         //log.word("hello")/
         self.rating = Double(sender.tag) + 1
-        
+
         //TODO: Chained Animation of the stars
-        //        let foo = self.stars[sender.tag].frame
-        //        UIView.animateWithDuration(0.7, animations: {
-        //            self.stars[sender.tag].frame = CGRect(x: foo.origin.x - 10, y: foo.origin.y - 10, width: foo.size.width * 2, height: foo.size.height * 2)
-        //            }) { (_) in
-        //                self.stars[sender.tag].frame = foo
-        //                self.stars[sender.tag-1].frame = CGRect(x: foo.origin.x - 10, y: foo.origin.y - 10, width: foo.size.width * 2, height: foo.size.height * 2)
-        //        }
-        
         for i in 0...sender.tag {
             //stars[i] = UIButton(backgroundImageName: star_red, desiredSize: CGSize(width: tappedStar.bounds.width, height: tappedStar.bounds.height))!
             //log.any(stars[i].frame)/
@@ -117,9 +105,9 @@ extension StarView {
                 stars[i].setBackgroundImage(UIImage(named: star_grey), for: .normal)
             }
         }
-        
+
     }
-    
+
     func assignGestures() {
         //let tap = UITapGestureRecognizer(target: self, action: #selector(self.starGetsTapped))
         for star in stars {
@@ -127,7 +115,7 @@ extension StarView {
             //            log.word("gestures assigned")/
         }
     }
-    
+
     func animated() {
         UIView.animate(withDuration: 0.7, animations: {
             self.frame = CGRect(x: 0, y: self.frame.height, width: self.frame.width, height: self.frame.height)
@@ -136,7 +124,6 @@ extension StarView {
         })
     }
 }
-
 
 private extension Double {
     func rounded() -> Double {

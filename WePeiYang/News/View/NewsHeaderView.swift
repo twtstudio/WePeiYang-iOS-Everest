@@ -31,10 +31,10 @@ class NewsHeaderView: UIView {
         let now = Date()
         let formatter = DateFormatter(withFormat: "E MMMM d", locale: "en_US")
 //        let formatter = DateFormatter(withFormat: "EEEE  M 月 d", locale: "zh-CN")
-        
+
         dateLabel = UILabel(text: formatter.string(from: now), color: .black)
-        dateLabel.textColor = UIColor(red:0.36, green:0.36, blue:0.36, alpha:1.00)
-        
+        dateLabel.textColor = UIColor(red: 0.36, green: 0.36, blue: 0.36, alpha: 1.00)
+
         dateLabel.font = UIFont.systemFont(ofSize: 15)
         self.addSubview(dateLabel)
         dateLabel.snp.makeConstraints { (make) in
@@ -54,18 +54,18 @@ class NewsHeaderView: UIView {
             let fontSize: CGFloat =  -((16.0*Y) / 33.0) - 892.0/33.0
             self.titleLabel.font = UIFont.init(name: "HelveticaNeue-Bold", size: fontSize)
         }
-        
+
         if Y <= -130 {
             self.titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 36.0)
         }
-        
+
         if Y >= -97 {
             self.titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20.0)
         }
     }
-    
+
     func navigationBarHiddenScrollByY(_ Y: CGFloat) {
         self.titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 36)
-        
+
     }
 }

@@ -24,7 +24,7 @@ class CourseDetailReadingView: UIView, UIWebViewDelegate {
         }, completion: { (_: Bool) in
 
                 self.removeFromSuperview()
-        }) 
+        })
 
     }
 
@@ -32,31 +32,31 @@ class CourseDetailReadingView: UIView, UIWebViewDelegate {
 
 extension CourseDetailReadingView {
     convenience init(detail: Courses.Study20.Detail) {
-        
+
         let blurEffect = UIBlurEffect(style: .light)
         let frostView = UIVisualEffectView(effect: blurEffect)
         let downArrow = UIButton(backgroundImageName: "ic_arrow_down", desiredSize: CGSize(width: 88, height: 24))
         downArrow?.alpha = 0.25
-        
+
         self.init()
         //self.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        
+
         assignGestureRecognizerToView()
         downArrow?.addTarget(self, action: #selector(self.dismissAnimated), for: .touchUpInside)
-        
+
         self.addSubview(frostView)
         frostView.snp.makeConstraints {
             make in
             make.top.left.bottom.right.equalTo(self)
         }
-        
+
         self.addSubview(downArrow!)
         downArrow!.snp.makeConstraints {
             make in
             make.top.equalTo(frostView).offset(28)
             make.centerX.equalTo(frostView)
         }
-        
+
         if detail.articleIsHidden == "1" {
             let bannedLabel = UILabel(text: "你暂时没有权限阅读这篇文章", fontSize: 24)
             frostView.addSubview(bannedLabel)
@@ -76,14 +76,14 @@ extension CourseDetailReadingView {
         } else {
             let nameLabel = UILabel(text: detail.articleName!, fontSize: 30)
             nameLabel.numberOfLines = 0
-            
+
             //let contentView = UIWebView(htmlString: "<p><object classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0\" height=\"600\" width=\"800\"><param name=\"quality\" value=\"high\" /><param name=\"movie\" value=\"http://www.tudou.com/a/Rcd1Bo1-qqw/&iid=132528954&rpid=849459437&resourceId=849459437_04_0_99/v.swf\" /><embed height=\"600\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" quality=\"high\" src=\"http://www.tudou.com/a/Rcd1Bo1-qqw/&iid=132528954&rpid=849459437&resourceId=849459437_04_0_99/v.swf\" type=\"application/x-shockwave-flash\" width=\"800\"></embed></object></p>")
             let contentView = UIWebView(htmlString: detail.articleContent!)
             contentView.delegate = self
-            
-            let timeLabel = UILabel(text: detail.courseInsertTime!, fontSize:13)
+
+            let timeLabel = UILabel(text: detail.courseInsertTime!, fontSize: 13)
             timeLabel.textColor = .gray
-            
+
             self.addSubview(nameLabel)
             nameLabel.snp.makeConstraints {
                 make in
@@ -91,14 +91,14 @@ extension CourseDetailReadingView {
                 make.top.equalTo(downArrow!).offset(26)
                 make.right.equalTo(frostView).offset(-28)
             }
-            
+
             self.addSubview(timeLabel)
             timeLabel.snp.makeConstraints {
                 make in
                 make.left.equalTo(nameLabel)
                 make.top.equalTo(nameLabel.snp.bottom).offset(14)
             }
-            
+
             self.addSubview(contentView)
             contentView.snp.makeConstraints {
                 make in
@@ -106,7 +106,7 @@ extension CourseDetailReadingView {
                 make.top.equalTo(timeLabel.snp.bottom).offset(8)
                 make.right.equalTo(frostView).offset(-20)
                 make.bottom.equalTo(frostView)
-                
+
             }
         }
     }
@@ -122,7 +122,6 @@ private extension CourseDetailReadingView {
     }
 
 }
-
 
 private extension UIWebView {
     convenience init(htmlString: String) {

@@ -12,8 +12,8 @@ class LoginView: MessageView {
     fileprivate var usernameField = WPYTextField()
     fileprivate var passwordField = WPYTextField()
     fileprivate var loginButton = CardButton()
-    var successHandler: (()->())?
-    var failureHandler: (()->())?
+    var successHandler: (() -> Void)?
+    var failureHandler: (() -> Void)?
 
     init() {
         super.init(frame: CGRect(x: 30, y: UIScreen.main.bounds.height*0.2, width: UIScreen.main.bounds.width-60, height: 300))
@@ -38,7 +38,7 @@ class LoginView: MessageView {
 //        configureBackgroundView(width: 250)
 
         let contentView = UIView()
-        contentView.backgroundColor = UIColor(red:0.95, green:0.96, blue:0.97, alpha:1.00)
+        contentView.backgroundColor = UIColor(red: 0.95, green: 0.96, blue: 0.97, alpha: 1.00)
 
         self.backgroundColor = .clear
         installBackgroundView(contentView)
@@ -80,7 +80,6 @@ class LoginView: MessageView {
         usernameIconView.contentMode = .scaleAspectFit
         usernameField.leftView = usernameIconView
         usernameField.leftViewMode = .always
-
 
         contentView.addSubview(usernameField)
         usernameField.snp.makeConstraints { make in
@@ -201,7 +200,7 @@ extension LoginView {
             if let string = model.toJSONString() {
                 CacheManager.store(object: string, in: .group, as: "gpa/gpa.json")
             }
-        }, failure: { err in
+        }, failure: { _ in
 
         })
 
@@ -213,7 +212,7 @@ extension LoginView {
             if let string = model.toJSONString() {
                 CacheManager.store(object: string, in: .group, as: "classtable/classtable.json")
             }
-        }, failure: { str in
+        }, failure: { _ in
 
         })
     }
@@ -238,15 +237,14 @@ extension LoginView {
 }
 
 extension LoginView {
-    @objc func keyboardWillShow(notification: NSNotification) {
+    @objc func keyboardWillShow(notification: Notification) {
         if isiPad {
             return
         }
         self.frame.origin.y = 20
     }
 
-    @objc func keyboardWillHide(notification: NSNotification) {
+    @objc func keyboardWillHide(notification: Notification) {
         self.frame.origin.y = (UIScreen.main.bounds.height - self.frame.height)/2
     }
 }
-

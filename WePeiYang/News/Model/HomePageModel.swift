@@ -44,7 +44,7 @@ struct Annoucement: Codable {
 
 struct Campus: Codable {
     let index, subject, pic, addat: String
-    let visitcount: String
+//    let visitcount: String
 }
 
 struct Service: Codable {

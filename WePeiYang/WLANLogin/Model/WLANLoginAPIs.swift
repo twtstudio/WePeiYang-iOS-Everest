@@ -14,6 +14,6 @@ struct WLANLoginAPIs {
     static let logoutURL = "/network/logout"
 
     static let getIPURL = "/network/ip"
-    
+
     static let getStatus = "/network/status"
 }

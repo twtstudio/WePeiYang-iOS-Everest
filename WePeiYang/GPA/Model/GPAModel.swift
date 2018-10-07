@@ -14,7 +14,7 @@ struct GPAModel: Mappable {
     var stat: GPAStatModel!
     var session: String = ""
     init?(map: Map) {}
-    
+
     mutating func mapping(map: Map) {
         terms <- map["data"]
         stat <- map["stat.total"]

@@ -10,7 +10,7 @@ import ObjectMapper
 
 struct ClasstableDataManager {
 
-    static func getClassTable(success: @escaping (ClassTableModel)->(), failure: @escaping (String)->()) {
+    static func getClassTable(success: @escaping (ClassTableModel) -> Void, failure: @escaping (String) -> Void) {
         SolaSessionManager.solaSession(type: .get, url: "/classtable", parameters: nil, success: { dic in
             if let error_code = dic["error_code"] as? Int,
                 error_code != -1,
@@ -40,7 +40,7 @@ struct ClasstableDataManager {
             } else {
                 failure("解析失败")
             }
-            
+
         }, failure: { error in
             failure(error.localizedDescription)
         })

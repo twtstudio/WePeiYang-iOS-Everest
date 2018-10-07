@@ -10,35 +10,35 @@ import UIKit
 
 class TwentyCourseViewController: UIViewController {
 
-    var cellTapped:Bool = false
-    var currentRow = 0;
-    
+    var cellTapped: Bool = false
+    var currentRow = 0
+
     var courseList: [Courses.Study20?] = []
     let tableView = UITableView()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.navigationController?.navigationBar.barStyle = .default
-        
+
         self.view.addSubview(self.tableView)
         self.tableView.snp.makeConstraints {
             make in
             make.left.bottom.right.equalTo(self.view)
             make.left.top.equalTo(self.view).offset(92)
         }
-        
+
         tableView.delegate = self
         tableView.dataSource = self
-        
+
         //Eliminate the empty cells
         tableView.tableFooterView = UIView()
-        
+
         Courses.getCourseList {
             self.courseList = Courses.courses
-            
+
             self.tableView.reloadData()
-            
+
         }
 
         // Do any additional setup after loading the view.
@@ -48,7 +48,6 @@ class TwentyCourseViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation
@@ -62,87 +61,47 @@ class TwentyCourseViewController: UIViewController {
 
 }
 
-
 //TableView Delegate
 extension TwentyCourseViewController: UITableViewDelegate, UITableViewDataSource {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return courseList.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = CourseTableViewCell(course: courseList[indexPath.row]!)
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        
+
         Courses.Study20.getCourseDetail(of: (courseList[indexPath.row]?.courseID)!) {
-            
+
             let details = Courses.Study20.courseDetails
-            
-            guard details.count != 0 else {
+
+            guard !details.isEmpty else {
 //                MsgDisplay.showErrorMsg("这门课暂时没有详情噢！")
                 return
             }
-            
-            let detailVC = TwentyCourseDetailViewController(details: details)
-            
-            self.navigationController?.show(detailVC, sender: nil)
-            
-            tableView.deselectRow(at: indexPath, animated: true)
-            
-        }
-        
-        //For expanding the cell and show details
-        /*
-        var selectedRowIndex = indexPath
-        currentRow = selectedRowIndex.row
-        
-        Courses.Study20.getCourseDetail(of: (courseList[indexPath.row]?.courseID)!) {
-            
-            let details = Courses.Study20.courseDetails
-            
-            guard details.count != 0 else {
-                MsgDisplay.showErrorMsg("这门课暂时没有详情噢！")
-                return
-            }
-            
-            
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }*/
 
-    }
-    
-    /*
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == currentRow {
-            if cellTapped == false {
-                cellTapped = true
-                return 141
-            } else {
-                cellTapped = false
-                return 44
-            }
+            let detailVC = TwentyCourseDetailViewController(details: details)
+            self.navigationController?.show(detailVC, sender: nil)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
-        return 44
-    }*/
+    }
 }
 
-
 extension TwentyCourseViewController {
-    
+
     func expandCellToShowDetail() {
-        
+
     }
-    
+
     func collapseCellToHideDetail() {
-        
+
     }
 }

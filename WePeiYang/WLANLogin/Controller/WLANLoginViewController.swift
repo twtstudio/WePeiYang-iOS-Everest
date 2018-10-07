@@ -11,7 +11,7 @@ import Alamofire
 import SafariServices
 
 class WLANLoginViewController: UIViewController {
-    
+
     var accountTextField: UITextField!
     var passwordTextField: UITextField!
     var loginButton: UIButton!
@@ -20,7 +20,7 @@ class WLANLoginViewController: UIViewController {
     var WiFiImage: UIImage!
     var WiFiImageView: UIImageView!
     var warningText: UILabel!
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isTranslucent = false
@@ -48,9 +48,9 @@ class WLANLoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Do any additional setup after loading the view.
-        
+
         // Set the type of status bar according to the comments written by Allen, .blackTranslucent is deprecated.
         self.navigationController?.navigationBar.barStyle = .black
 
@@ -92,7 +92,6 @@ class WLANLoginViewController: UIViewController {
         accountTextField.keyboardType = .numberPad
         accountTextField.borderStyle = .roundedRect
 
-
         passwordTextField = UITextField()
         self.view.addSubview(passwordTextField)
         passwordTextField.snp.makeConstraints { make in
@@ -131,7 +130,6 @@ class WLANLoginViewController: UIViewController {
         loginButton.layer.cornerRadius = 5
         loginButton.addTarget(self, action: #selector(login(button:)), for: .touchUpInside)
 
-
         logoutButton = UIButton()
         self.view.addSubview(logoutButton)
 
@@ -169,13 +167,12 @@ class WLANLoginViewController: UIViewController {
         serviceButton.layer.cornerRadius = 5
         serviceButton.addTarget(self, action: #selector(showService), for: .touchUpInside)
     }
-    
 
     @objc func login(button: UIButton) {
 
         if accountTextField.hasText && passwordTextField.hasText {
 
-            WLANHelper.login(username: accountTextField.text, password: passwordTextField.text ,success: {
+            WLANHelper.login(username: accountTextField.text, password: passwordTextField.text, success: {
                 TwTUser.shared.WLANAccount = self.accountTextField.text
                 TwTUser.shared.WLANPassword = self.passwordTextField.text
                 TwTUser.shared.save()
@@ -204,7 +201,7 @@ class WLANLoginViewController: UIViewController {
     }
 
     func heightForView(text: String, fontsize: UIFont, width: CGFloat, xpos: CGFloat) -> CGFloat {
-        let label:UILabel = UILabel(frame: CGRect(x: xpos, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+        let label: UILabel = UILabel(frame: CGRect(x: xpos, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = fontsize

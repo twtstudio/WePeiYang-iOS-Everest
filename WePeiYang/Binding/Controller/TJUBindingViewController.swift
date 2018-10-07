@@ -10,7 +10,7 @@ import UIKit
 import SwiftMessages
 
 class TJUBindingViewController: UIViewController {
-    
+
     var usernameTextField: UITextField!
     var passwordTextField: UITextField!
     var bindButton: UIButton!
@@ -19,24 +19,24 @@ class TJUBindingViewController: UIViewController {
     var logoImage: UIImage!
     var logoImageView: UIImageView!
     var warningText: UITextView!
-    var completion: ((Bool)->())?
+    var completion: ((Bool) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         // Do any additional setup after loading the view.
-        
+
         self.navigationController?.navigationBar.barStyle = .black
-        
+
         self.title = "办公网绑定"
-        
+
         logoImage = UIImage(named: "TJUAccoundBinding")
         let imageRatio: CGFloat = logoImage.size.width / logoImage.size.height
         let imageViewWidth: CGFloat = UIScreen.main.bounds.width * 0.5
         logoImageView = UIImageView.init(image: logoImage)
         logoImageView.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*1.0/5.0), size: CGSize(width: imageViewWidth, height: imageViewWidth / imageRatio))
         self.view.addSubview(logoImageView)
-        
+
         let textFieldWidth: CGFloat = 250
         usernameTextField = UITextField()
         usernameTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*2.0/5.0), size: CGSize(width: textFieldWidth, height: 40))
@@ -54,7 +54,7 @@ class TJUBindingViewController: UIViewController {
         passwordTextField.clearButtonMode = .always
         self.view.addSubview(usernameTextField)
         self.view.addSubview(passwordTextField)
-        
+
         bindButton = UIButton()
         bindButton.frame = CGRect(x: (self.view.frame.size.width-textFieldWidth)/2, y: passwordTextField.frame.origin.y + passwordTextField.frame.size.height + 20, width: textFieldWidth, height: 38)
         bindButton.setTitle("绑 定", for: .normal)
@@ -67,7 +67,7 @@ class TJUBindingViewController: UIViewController {
         bindButton.layer.cornerRadius = 5
         bindButton.addTarget(self, action: #selector(bind), for: .touchUpInside)
         self.view.addSubview(bindButton)
-        
+
         /*
         dismissButton = UIButton()
         dismissButton.setTitle("暂不绑定", for: .normal)
@@ -84,7 +84,7 @@ class TJUBindingViewController: UIViewController {
             make.top.equalTo(bindButton.snp.bottom).offset(10)
         }
          */
- 
+
         dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: bindButton.y + bindButton.height + 20, width: 30, height: 20))
         dismissButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         dismissButton.setTitleColor(UIColor.gray, for: .normal)
@@ -93,7 +93,7 @@ class TJUBindingViewController: UIViewController {
         dismissButton.center = CGPoint(x: self.view.center.x, y: bindButton.y + bindButton.height + 20)
         dismissButton.addTarget(self, action: #selector(dismissBinding), for: .touchUpInside)
         self.view.addSubview(dismissButton)
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
     }
@@ -103,13 +103,13 @@ class TJUBindingViewController: UIViewController {
     }
 
     @objc func bind() {
-        
+
         if usernameTextField.hasText && passwordTextField.hasText {
             var loginInfo: [String: String] = [String: String]()
             loginInfo["tjuuname"] = usernameTextField.text
             loginInfo["tjupasswd"] = passwordTextField.text
-            
-            SolaSessionManager.solaSession(type: .get, url: "/auth/bind/tju",  parameters: loginInfo, success: { dictionary in
+
+            SolaSessionManager.solaSession(type: .get, url: "/auth/bind/tju", parameters: loginInfo, success: { dictionary in
                 guard let errorCode: Int = dictionary["error_code"] as? Int,
                     let errMsg = dictionary["message"] as? String else {
                         SwiftMessages.showErrorMessage(body: "绑定错误")
@@ -143,22 +143,21 @@ class TJUBindingViewController: UIViewController {
             SwiftMessages.showWarningMessage(body: "请填写账号和密码")
         }
     }
-    
-    
+
     func cancelLogin() {
-        
+
         // unbind tju account
         var loginInfo: [String: String] = [String: String]()
         loginInfo["tjuuname"] = usernameTextField.text
         loginInfo["tjupasswd"] = passwordTextField.text
-        
+
         SolaSessionManager.solaSession(type: .get, url: "/auth/unbind/tju", token: TwTUser.shared.token, parameters: loginInfo, success: { dictionary in
-            
+
             guard let errorCode: Int = dictionary["error_code"] as? Int else {
                 SwiftMessages.showErrorMessage(body: "解绑错误")
                 return
             }
-            
+
             if errorCode == -1 {
                 TwTUser.shared.tjuBindingState = false
                 TwTUser.shared.save()
@@ -174,21 +173,21 @@ class TJUBindingViewController: UIViewController {
             self.dismiss(animated: true, completion: {
                 self.completion?(false)
             })
-            
+
         })
     }
-    
+
     @objc func dismissBinding() {
         self.dismiss(animated: true, completion: {
             self.completion?(false)
         })
     }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
+
+    @objc func keyboardWillShow(notification: Notification) {
         self.view.frame.origin.y = -40
     }
 
-    @objc func keyboardWillHide(notification: NSNotification) {
+    @objc func keyboardWillHide(notification: Notification) {
         self.view.frame.origin.y = 0
     }
 }

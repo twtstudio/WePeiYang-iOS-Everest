@@ -10,11 +10,11 @@ import UIKit
 import PopupDialog
 
 class WPYTabBarController: UITabBarController {
-    private let tabBarVCDelegate = WPYTabBarControllerDelegate()
+    private weak var tabBarVCDelegate = WPYTabBarControllerDelegate()
     // FIXME: should be private
     convenience init(viewControllers: [UIViewController]?) {
         self.init()
-        
+
         guard viewControllers != nil else {
             //TODO: log
             //log.error
@@ -25,7 +25,7 @@ class WPYTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tabBar.isTranslucent = false
 
         delegate = tabBarVCDelegate
@@ -38,9 +38,9 @@ class WPYTabBarController: UITabBarController {
         } else {
             // Fallback on earlier versions
             // Repaint the tabBar item icon image's color and use original color instead of the tintColor
-            
+
         }
-        
+
         UIApplication.shared.applicationSupportsShakeToEdit = true
         self.becomeFirstResponder()
     }
@@ -135,20 +135,20 @@ class WPYTabBarController: UITabBarController {
 
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         //TODO: View Controller Transitioning Animation
-        
+
         //print("fuck")
     }
 }
 
 class WPYTabBarControllerDelegate: NSObject, UITabBarControllerDelegate {
-    
+
     func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
+
         let fromIndex = tabBarController.viewControllers!.index(of: fromVC)!
         let toIndex = tabBarController.viewControllers!.index(of: toVC)!
-        
+
         let tabChangeDirection: TransitionDirection = toIndex < fromIndex ? .left : .right
-    
+
         let animator = TabVCTransitioningAnimator(direction: tabChangeDirection)
         return animator
     }

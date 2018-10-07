@@ -10,7 +10,7 @@ import UIKit
 import SwiftMessages
 
 class LibraryBindingViewController: UIViewController {
-    
+
     var usernameTextField: UITextField!
     var passwordTextField: UITextField!
     var captionLabel: UILabel!
@@ -25,11 +25,11 @@ class LibraryBindingViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         // Do any additional setup after loading the view.
-        
+
         self.navigationController?.navigationBar.barStyle = .black
-        
+
         self.title = "图书馆绑定"
-        
+
         logoImage = UIImage(named: "libBinding")
         let imageRatio: CGFloat = logoImage.size.width / logoImage.size.height
         let imageViewWidth: CGFloat = UIScreen.main.bounds.width * 0.5
@@ -58,7 +58,6 @@ class LibraryBindingViewController: UIViewController {
             make.bottom.equalTo(passwordTextField.snp.top).offset(-10)
         }
 
-
         bindButton = UIButton()
         bindButton.frame = CGRect(x: (self.view.frame.size.width-textFieldWidth)/2, y: passwordTextField.frame.origin.y + passwordTextField.frame.size.height + 20, width: textFieldWidth, height: 38)
         bindButton.setTitle("绑 定", for: .normal)
@@ -71,7 +70,7 @@ class LibraryBindingViewController: UIViewController {
         bindButton.layer.cornerRadius = 5
         bindButton.addTarget(self, action: #selector(bind), for: .touchUpInside)
         self.view.addSubview(bindButton)
-        
+
         /*
         cancelButton = UIButton()
         cancelButton.setTitle("暂不绑定", for: .normal)
@@ -88,7 +87,7 @@ class LibraryBindingViewController: UIViewController {
             make.top.equalTo(bindButton.snp.bottom).offset(10)
         }
          */
-        
+
         dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: bindButton.y + bindButton.height + 20, width: 30, height: 20))
         dismissButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         dismissButton.setTitleColor(UIColor.gray, for: .normal)
@@ -97,7 +96,7 @@ class LibraryBindingViewController: UIViewController {
         dismissButton.center = CGPoint(x: self.view.center.x, y: bindButton.y + bindButton.height + 20)
         dismissButton.addTarget(self, action: #selector(dismissBinding), for: .touchUpInside)
         self.view.addSubview(dismissButton)
- 
+
         self.view.backgroundColor = .white
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
@@ -107,27 +106,27 @@ class LibraryBindingViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
 
-    @objc func keyboardWillShow(notification: NSNotification) {
+    @objc func keyboardWillShow(notification: Notification) {
         self.view.frame.origin.y = -40
     }
 
-    @objc func keyboardWillHide(notification: NSNotification) {
+    @objc func keyboardWillHide(notification: Notification) {
         self.view.frame.origin.y = 0
     }
 
-
     @objc func bind() {
-        
+
         if passwordTextField.hasText {
             var loginInfo: [String: String] = [String: String]()
             loginInfo["libpasswd"] = passwordTextField.text
-            
+
             SolaSessionManager.solaSession(type: .get, url: "/auth/bind/lib", token: TwTUser.shared.token, parameters: loginInfo, success: { dictionary in
                 guard let errorCode: Int = dictionary["error_code"] as? Int,
                 let errMsg = dictionary["message"] as? String else {
+                    SwiftMessages.showErrorMessage(body: "解析错误")
                     return
                 }
-                
+
                 if errorCode == -1 {
                     TwTUser.shared.libBindingState = true
                     TwTUser.shared.libPassword = self.passwordTextField.text!
@@ -136,7 +135,7 @@ class LibraryBindingViewController: UIViewController {
                     SwiftMessages.showSuccessMessage(body: "绑定成功！")
                     self.dismiss(animated: true, completion: nil)
                 } else {
-                    SwiftMessages.showErrorMessage(body: "密码错误！")
+                    SwiftMessages.showErrorMessage(body: errMsg)
                 }
             }, failure: { error in
                 SwiftMessages.showErrorMessage(body: error.localizedDescription)
@@ -145,14 +144,13 @@ class LibraryBindingViewController: UIViewController {
             SwiftMessages.showWarningMessage(body: "请填写密码")
         }
     }
-    
-    
+
     func cancelLogin() {
-        
+
         // unbind tju account
-        
+
         SolaSessionManager.solaSession(type: .get, url: "/auth/unbind/lib", token: TwTUser.shared.token, parameters: nil, success: { dictionary in
-            
+
             print(dictionary)
             print("Succeeded")
             guard let errorCode: Int = dictionary["error_code"] as? Int,
@@ -160,7 +158,6 @@ class LibraryBindingViewController: UIViewController {
                     return
             }
 
-            
             if errorCode == -1 {
                 TwTUser.shared.libBindingState = false
                 TwTUser.shared.save()
@@ -173,7 +170,7 @@ class LibraryBindingViewController: UIViewController {
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
     }
-    
+
     @objc func dismissBinding() {
         self.dismiss(animated: true, completion: nil)
     }

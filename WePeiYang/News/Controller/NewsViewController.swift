@@ -51,7 +51,6 @@ class NewsViewController: UIViewController {
         return UICollectionView(frame: CGRect(x: 0, y: 55, width: view.width, height: 200), collectionViewLayout: layout)
     }()
 
-
     private lazy var infoCell: UITableViewCell = {
         let cell = UITableViewCell()
         // 在bannerBackView上添加一个“咨询”label 和轮播图
@@ -126,7 +125,7 @@ class NewsViewController: UIViewController {
         cell.selectionStyle = .none
         return cell
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "资讯"
@@ -134,7 +133,7 @@ class NewsViewController: UIViewController {
         setupUI()
         setupData()
     }
-    
+
     func setupData() {
         CacheManager.retreive("news/homepage.json", from: .caches, as: HomePageTopModel.self, success: { homepage in
             self.homepage = homepage
@@ -151,21 +150,21 @@ class NewsViewController: UIViewController {
             self.tableView.reloadData()
         })
     }
-    
+
     func setupUI() {
         self.automaticallyAdjustsScrollViewInsets = false
         newsHeaderView = NewsHeaderView(withTitle: "News")
 
         let statusBarHeight: CGFloat = UIScreen.main.bounds.height == 812 ? 44 : 20
         let tabBarHeight = self.tabBarController?.tabBar.height ?? 0
-        
+
         // MARK: - init TableView
         if isiPad {
             tableView = UITableView(frame: CGRect(x: deviceWidth/10, y: statusBarHeight, width: deviceWidth*4/5, height: deviceHeight-statusBarHeight-tabBarHeight), style: .grouped)
         } else {
             tableView = UITableView(frame: CGRect(x: 0, y: statusBarHeight, width: deviceWidth, height: deviceHeight-statusBarHeight-tabBarHeight), style: .grouped)
         }
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -181,7 +180,7 @@ class NewsViewController: UIViewController {
 
         let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(headerRefresh))
         let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(footerLoadMore))
-        
+
         tableView.mj_header = header
         tableView.mj_footer = footer
         tableView.reloadData()
@@ -264,7 +263,7 @@ class NewsViewController: UIViewController {
             if self.tableView.mj_footer.isRefreshing {
                 self.tableView.mj_footer.endRefreshing()
             }
-        }, failure: { error in
+        }, failure: { _ in
             if self.tableView.mj_footer.isRefreshing {
                 self.tableView.mj_footer.endRefreshing()
                 if newCategory == 6 {
@@ -277,7 +276,6 @@ class NewsViewController: UIViewController {
         })
     }
 }
-
 
 // MARK: - 使用contentoffset使label文字大小变化
 extension NewsViewController: UIScrollViewDelegate {
@@ -299,7 +297,7 @@ extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3 + newsList.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell
         switch indexPath.row {
@@ -323,9 +321,9 @@ extension NewsViewController: UITableViewDataSource {
 
             if let cell = cell as? NewsTableViewCell {
                 cell.titleLabel.text = news.subject
-                
+
                 let HTMLString: String = news.summary
-                if let attributedString = try? NSAttributedString(data: HTMLString.data(using: .unicode)!, options: [NSAttributedString.DocumentReadingOptionKey.documentType : NSAttributedString.DocumentType.html], documentAttributes: nil) {
+                if let attributedString = try? NSAttributedString(data: HTMLString.data(using: .unicode)!, options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
                     cell.detailLabel.attributedText = attributedString
                 } else {
                     cell.detailLabel.text = news.summary.replacingOccurrences(of: "&nbsp;", with: "")
@@ -352,7 +350,7 @@ extension NewsViewController: UITableViewDelegate {
         }
         return nil
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 75
     }
@@ -369,7 +367,6 @@ extension NewsViewController: UITableViewDelegate {
         self.navigationController?.pushViewController(newsVC, animated: true)
     }
 }
-
 
 extension NewsViewController: BannerScrollViewDelegate {
     func bannerScrollViewDidSelect(at index: Int, bannerScrollView: BannerScrollView) {

@@ -20,11 +20,11 @@ enum log {
 
 postfix operator /
 
-postfix func /(toBeLogged: log?) {
+postfix func / (toBeLogged: log?) {
     guard let foo = toBeLogged else {
         return
     }
-    
+
     func log<T>(_ emoji: String, _ object: T, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
         debugLog(emoji + " " + String(describing: object), functionName: functionName, fileName: fileName, lineNumber: lineNumber)
     }
@@ -39,7 +39,7 @@ postfix func /(toBeLogged: log?) {
             print("<\(className)> \(functionName) [#\(lineNumber)]| \(object)\n")
         #endif
     }
-    
+
     switch foo {
     case .error(let error):
         log("❗️", error)

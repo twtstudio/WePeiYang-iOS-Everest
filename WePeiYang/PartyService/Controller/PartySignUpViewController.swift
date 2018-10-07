@@ -9,7 +9,7 @@
 import UIKit
 
 class PartySignUpViewController: UIViewController {
-    
+
     var tableView: UITableView!
     let bgView = UIView(color: .partyRed)
 
@@ -21,12 +21,12 @@ class PartySignUpViewController: UIViewController {
         super.viewDidLoad()
 
 //        self.navigationController!.jz_navigationBarBackgroundAlpha = 0;
-        
+
         self.view.frame.size.width = (UIApplication.shared.keyWindow?.frame.size.width)!
-        
+
         //NavigationBar 的文字
         self.navigationController!.navigationBar.tintColor = UIColor.white
-        
+
         //NavigationBar 的背景，使用了View
 //        self.navigationController!.jz_navigationBarBackgroundAlpha = 0;
 
@@ -35,19 +35,19 @@ class PartySignUpViewController: UIViewController {
 //        navigationController?.navigationBar.barStyle = .black
         //改变背景颜色
         view.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
-        
+
         tableView = UITableView()
-        
+
         //Eliminate the empty cells
         tableView.tableFooterView = UIView()
-        
+
         tableView.delegate = self
         tableView.dataSource = self
-        
+
         self.fetchData()
-        
+
         computeLayout()
-        
+
         // Do any additional setup after loading the view.
     }
 
@@ -55,7 +55,6 @@ class PartySignUpViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation
@@ -70,17 +69,17 @@ class PartySignUpViewController: UIViewController {
 }
 
 extension PartySignUpViewController: UITableViewDelegate, UITableViewDataSource {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         switch indexPath.section {
         case 0:
             let cell = SignUpTableViewCell(status: ApplicantTest.ApplicantEntry.status, message: ApplicantTest.ApplicantEntry.message, hasEntry: ApplicantTest.ApplicantEntry.testInfo?.hasEntry, testIdentifier: 0)
@@ -96,17 +95,16 @@ extension PartySignUpViewController: UITableViewDelegate, UITableViewDataSource 
             cell.selectionStyle = .none
             //log.word((ApplicantTest.ProbationaryEntry.message)!)/
             return cell
-            
+
         default:
             let cell = UITableViewCell()
             cell.selectionStyle = .none
             return cell
-            
+
         }
-        
 
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
@@ -119,7 +117,7 @@ extension PartySignUpViewController: UITableViewDelegate, UITableViewDataSource 
             return nil
         }
     }
-    
+
     /*
     func tableView_ tableView: UITableView, heightForFooterInSection section: Int -> CGFloat {
         return 5
@@ -131,23 +129,22 @@ extension PartySignUpViewController: UITableViewDelegate, UITableViewDataSource 
         return footerView
         
     }*/
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
 
 }
 
-
-//MARK: SnapKit layout computation
+// MARK: SnapKit layout computation
 extension PartySignUpViewController {
-    
+
     func computeLayout() {
-        
+
         self.view.addSubview(bgView)
         bgView.snp.makeConstraints {
             make in
@@ -156,7 +153,7 @@ extension PartySignUpViewController {
             make.right.equalTo(self.view)
             make.bottom.equalTo(self.view.snp.top).offset((self.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height))
         }
-        
+
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints {
             make in
@@ -167,7 +164,6 @@ extension PartySignUpViewController {
         }
     }
 }
-
 
 extension PartySignUpViewController {
     func fetchData() {

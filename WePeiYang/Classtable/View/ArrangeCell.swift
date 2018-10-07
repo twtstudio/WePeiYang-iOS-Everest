@@ -13,18 +13,18 @@ class ArrangeCell: UITableViewCell {
     let titleLabel = UILabel()
     let dateLabel = UILabel()
     let locationLabel = UILabel()
-    
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         initialize()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func initialize() {
-        contentView.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.98, alpha:1.00)
+        contentView.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.98, alpha: 1.00)
         contentView.layer.cornerRadius = 4
         contentView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(15)
@@ -32,18 +32,18 @@ class ArrangeCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-14)
             make.right.equalToSuperview().offset(-15)
         }
-        
+
         contentView.addSubview(titleLabel)
-        titleLabel.textColor = UIColor(red:0.57, green:0.57, blue:0.57, alpha:1.00)
+        titleLabel.textColor = UIColor(red: 0.57, green: 0.57, blue: 0.57, alpha: 1.00)
         titleLabel.font = UIFont.systemFont(ofSize: 15)
         titleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(15)
             make.top.equalToSuperview().offset(15)
             make.height.equalTo(19.5)
         }
-        
+
         contentView.addSubview(dateLabel)
-        dateLabel.textColor = UIColor(red:0.37, green:0.37, blue:0.37, alpha:1.00)
+        dateLabel.textColor = UIColor(red: 0.37, green: 0.37, blue: 0.37, alpha: 1.00)
         dateLabel.font = UIFont.systemFont(ofSize: 15)
         dateLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(15)
@@ -52,7 +52,7 @@ class ArrangeCell: UITableViewCell {
         }
 
         contentView.addSubview(locationLabel)
-        locationLabel.textColor = UIColor(red:0.37, green:0.37, blue:0.37, alpha:1.00)
+        locationLabel.textColor = UIColor(red: 0.37, green: 0.37, blue: 0.37, alpha: 1.00)
         locationLabel.font = UIFont.systemFont(ofSize: 15)
         locationLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(15)
@@ -61,7 +61,7 @@ class ArrangeCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-15)
         }
     }
-    
+
     func load(model: ClassModel, no: Int) {
         titleLabel.text = "上课时间 " + no.description
         let weekRange = model.weekStart + "-" + model.weekEnd + "周"
@@ -79,14 +79,14 @@ class ArrangeCell: UITableViewCell {
             locationLabel.text = arrange.room
         }
         dateLabel.text =  weekRange + "，" + time
-        
+
         titleLabel.sizeToFit()
         dateLabel.sizeToFit()
         locationLabel.sizeToFit()
         setNeedsLayout()
         layoutIfNeeded()
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         initialize()

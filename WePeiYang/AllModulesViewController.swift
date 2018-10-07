@@ -20,7 +20,7 @@ class AllModulesViewController: UIViewController {
 //        (title: "阅读", image: UIImage(named: "readBtn")!, class: ReadViewController.self, needLogin: true),
         (title: "黄页", image: UIImage(named: "yellowPageBtn")!, class: YellowPageMainViewController.self, needLogin: false),
         (title: "上网", image: UIImage(named: "networkBtn")!, class: WLANLoginViewController.self, needLogin: true)]
-    
+
     var collectionView: UICollectionView!
 
     override func viewDidLoad() {
@@ -41,20 +41,20 @@ class AllModulesViewController: UIViewController {
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         layout.headerReferenceSize = CGSize(width: self.view.width, height: 100)
-        
+
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView.alwaysBounceVertical = true
         collectionView.backgroundColor = .white
-        
+
         // register collection cell
         collectionView.register(ModuleCollectionViewCell.self, forCellWithReuseIdentifier: "ModuleCollectionViewCell")
-        
+
         // register header view
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UICollectionElementKindSectionHeader")
         collectionView.delegate = self
         collectionView.dataSource = self
         self.view.addSubview(collectionView)
-        
+
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     }
 
@@ -76,16 +76,16 @@ class AllModulesViewController: UIViewController {
     }
 }
 
-// Mark: UICollectionViewDataSource
+// MARK: UICollectionViewDataSource
 extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return modules.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ModuleCollectionViewCell", for: indexPath) as? ModuleCollectionViewCell {
             let data = modules[indexPath.row]
@@ -95,7 +95,7 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
         }
         return UICollectionViewCell()
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if indexPath.section == 0 {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UICollectionElementKindSectionHeader", for: indexPath)
@@ -109,7 +109,7 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
         }
         return UICollectionReusableView()
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if modules[indexPath.row].needLogin && TwTUser.shared.token == nil {
             showLoginView(success: {
@@ -127,4 +127,3 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
         }
     }
 }
-

@@ -17,17 +17,15 @@ let deviceWidth = UIScreen.main.bounds.size.width
 let deviceHeight = UIScreen.main.bounds.size.height
 
 class SpotDetailsView: UIView {
-    
-    init(positionsAvailable: String, spotName:String, distanceFromUser: CLLocationDistance?, status: ParkingSpot.Status?) {
-        
+
+    init(positionsAvailable: String, spotName: String, distanceFromUser: CLLocationDistance?, status: ParkingSpot.Status?) {
+
         let positionsAvailableLabel = UILabel(text: positionsAvailable)
         let spotNameLabel = UILabel(text: spotName)
         let distanceFromUserLabel: UILabel
         let bicycleIconView = UIImageView(imageName: "ic_bike", desiredSize: CGSize(width: 20, height: 20))
         let roundedStatusView = UIView()
-        
-        
-        
+
         if let foo = distanceFromUser {
             let distanceWithoutFloatingPoint: Double = Double(Int(foo))
             if distanceWithoutFloatingPoint >= 1000 {
@@ -38,7 +36,7 @@ class SpotDetailsView: UIView {
         } else {
             distanceFromUserLabel = UILabel(text: "无法定位计算距离", color: .gray)
         }
-        
+
         if status != nil {
             switch status! {
             case .online:
@@ -49,14 +47,14 @@ class SpotDetailsView: UIView {
                 roundedStatusView.backgroundColor = .yellow
             }
         }
-        
+
         if deviceWidth < bigiPhoneWidth {
-            
-            super.init(frame:CGRect(x: 10 , y: deviceHeight - 83, width: deviceWidth - 20, height: 88))
-            
+
+            super.init(frame: CGRect(x: 10, y: deviceHeight - 83, width: deviceWidth - 20, height: 88))
+
             self.layer.cornerRadius = 8
             self.layer.masksToBounds = false
-            
+
             /*
              let shadowPath = UIBezierPath(rect: bounds)
              self.layer.shadowColor = UIColor(red: 236.0/255.0, green: 236.0/255.0, blue: 236.0/255.0, alpha: 1.0).CGColor
@@ -66,7 +64,7 @@ class SpotDetailsView: UIView {
              self.layer.shadowPath = shadowPath.CGPath
              self.layer.shadowRadius = 4
              */
-            
+
             self.backgroundColor = UIColor.clear
             let blurEffect = UIBlurEffect(style: .light)
             let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -77,9 +75,7 @@ class SpotDetailsView: UIView {
             for view in blurEffectView.subviews {
                 view.layer.cornerRadius = 8
             }
-            
-            
-            
+
             //self.backgroundColor = UIColor.clearColor()
             blurEffectView.contentView.addSubview(bicycleIconView!)
             blurEffectView.contentView.addSubview(positionsAvailableLabel)
@@ -88,8 +84,7 @@ class SpotDetailsView: UIView {
             blurEffectView.contentView.addSubview(distanceFromUserLabel)
             self.addSubview(blurEffectView)
             self.clipsToBounds = true
-            
-            
+
             //set constraint
             bicycleIconView!.snp.makeConstraints {
                 make in
@@ -97,24 +92,23 @@ class SpotDetailsView: UIView {
                 make.top.equalTo(self).offset(10)
                 make.left.equalTo(self).offset(10)
             }
-            
+
             positionsAvailableLabel.snp.makeConstraints {
                 make in
 //                make.top.equalTo(self).offset(20)
                 make.top.equalTo(self).offset(10)
                 make.left.equalTo(bicycleIconView!.snp.right).offset(10)
-                
+
             }
-            
-            
+
             spotNameLabel.snp.makeConstraints {
                 make in
 //                make.top.equalTo(self).offset(20)
                 make.top.equalTo(self).offset(10)
                 make.left.equalTo(positionsAvailableLabel.snp.right).offset(15)
-                
+
             }
-            
+
             roundedStatusView.snp.makeConstraints {
                 make in
                 make.left.equalTo(spotNameLabel.snp.right).offset(8)
@@ -122,22 +116,22 @@ class SpotDetailsView: UIView {
                 make.width.height.equalTo(14)
             }
             roundedStatusView.layer.cornerRadius = 7
-            
+
             distanceFromUserLabel.snp.makeConstraints {
                 make in
                 make.centerY.equalTo(spotNameLabel).offset(25)
 //                make.top.equalTo(positionsAvailableLabel.snp.bottom).offset(10)
                 make.left.equalTo(self).offset(10)
-                
+
             }
-            
+
         } else {
-            
-            super.init(frame:CGRect(x: 10 , y: deviceHeight - 73, width: deviceWidth - 20, height: 88))
-            
+
+            super.init(frame: CGRect(x: 10, y: deviceHeight - 73, width: deviceWidth - 20, height: 88))
+
             self.layer.cornerRadius = 8
             self.layer.masksToBounds = false
-            
+
             /*
              let shadowPath = UIBezierPath(rect: bounds)
              self.layer.shadowColor = UIColor.blackColor().CGColor
@@ -145,8 +139,7 @@ class SpotDetailsView: UIView {
              self.layer.shadowOpacity = 0.8
              self.layer.shadowPath = shadowPath.CGPath
              self.layer.shadowRadius = 4*/
-            
-            
+
             self.backgroundColor = UIColor.clear
             let blurEffect = UIBlurEffect(style: .light)
             let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -157,8 +150,7 @@ class SpotDetailsView: UIView {
             for view in blurEffectView.subviews {
                 view.layer.cornerRadius = 8
             }
-            
-            
+
             //self.backgroundColor = UIColor.clearColor()
             blurEffectView.contentView.addSubview(bicycleIconView!)
             blurEffectView.contentView.addSubview(positionsAvailableLabel)
@@ -167,12 +159,11 @@ class SpotDetailsView: UIView {
             blurEffectView.contentView.addSubview(distanceFromUserLabel)
             self.addSubview(blurEffectView)
             self.clipsToBounds = true
-            
-            
+
             positionsAvailableLabel.font = positionsAvailableLabel.font.withSize(16)
             spotNameLabel.font = spotNameLabel.font.withSize(16)
             distanceFromUserLabel.font = distanceFromUserLabel.font.withSize(16)
-            
+
             //set constraint
             bicycleIconView!.snp.makeConstraints {
                 make in
@@ -180,23 +171,23 @@ class SpotDetailsView: UIView {
                 make.top.equalTo(self).offset(14)
                 make.left.equalTo(self).offset(10)
             }
-            
+
             positionsAvailableLabel.snp.makeConstraints {
                 make in
 //                make.top.equalTo(self).offset(28)
                 make.top.equalTo(self).offset(14)
                 make.left.equalTo(bicycleIconView!.snp.right).offset(10)
-                
+
             }
-            
+
             spotNameLabel.snp.makeConstraints {
                 make in
 //                make.top.equalTo(self).offset(28)
                 make.top.equalTo(self).offset(14)
                 make.left.equalTo(positionsAvailableLabel.snp.right).offset(10)
-                
+
             }
-            
+
             roundedStatusView.snp.makeConstraints {
                 make in
                 make.centerY.equalTo(spotNameLabel).offset(22)
@@ -205,7 +196,7 @@ class SpotDetailsView: UIView {
                 make.width.height.equalTo(14)
             }
             roundedStatusView.layer.cornerRadius = 7
-            
+
             distanceFromUserLabel.snp.makeConstraints {
                 make in
 //                make.top.equalTo(self).offset(28)
@@ -213,17 +204,13 @@ class SpotDetailsView: UIView {
                 make.left.equalTo(roundedStatusView.snp.right).offset(3)
 //                make.right.equalTo(self).offset(-10)
             }
-            
+
         }
-        
+
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
 }
-
-
-
-

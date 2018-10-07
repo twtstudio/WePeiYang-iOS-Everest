@@ -76,7 +76,6 @@ import Foundation
 //    }
 //}
 
-
 typealias Galleries = [GalleryModel]
 
 struct GalleryModel: Codable {
@@ -144,4 +143,3 @@ extension Array where Element == Galleries.Element {
         return String(data: try self.jsonData(), encoding: encoding)
     }
 }
-

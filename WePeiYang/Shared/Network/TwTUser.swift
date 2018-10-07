@@ -28,7 +28,7 @@ class TwTUser: Codable {
     var avatarURL: String?
     var twtid: String?
     var realname: String?
-    
+
     func save() {
         let queue = DispatchQueue(label: "com.wpy.cache")
         queue.async {
@@ -36,7 +36,7 @@ class TwTUser: Codable {
         }
     }
 
-    func load(success: (()->())?, failure: (()->())?) {
+    func load(success: (() -> Void)?, failure: (() -> Void)?) {
         guard Storage.fileExists("user.json", in: .group) else {
             failure?()
             return
@@ -61,4 +61,3 @@ class TwTUser: Codable {
         TwTUser.shared = TwTUser()
     }
 }
-

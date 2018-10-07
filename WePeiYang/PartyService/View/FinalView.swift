@@ -19,15 +19,14 @@ class FinalView: UIView {
         // Drawing code
     }
     */
-    
-}
 
+}
 
 extension FinalView {
     convenience init(status: Int, msg: String) {
-        
+
         self.init()
-        
+
         if status == 1 || status == 0 {
             frownOrSmile = UIImageView(imageName: "frown", desiredSize: CGSize(width: 150, height: 150))
         } else if status == 2 {
@@ -35,14 +34,14 @@ extension FinalView {
         }
         finalMsgLabel = UILabel(text: msg, color: UIColor(red: 149.0/255.0, green: 149.0/255.0, blue: 149.0/255.0, alpha: 1))
         finalMsgLabel.numberOfLines = 0
-        
+
         self.addSubview(frownOrSmile)
         frownOrSmile.snp.makeConstraints {
             make in
             make.centerX.equalTo(self)
             make.centerY.equalTo(self).offset(-20)
         }
-        
+
         self.addSubview(finalMsgLabel)
         finalMsgLabel.snp.makeConstraints {
             make in

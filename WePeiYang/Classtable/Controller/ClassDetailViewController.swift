@@ -14,16 +14,16 @@ class ClassDetailViewController: UIViewController {
     var headerView: UIView!
     // TODO: 删除
 //    var footerView: UIView!
-    
+
     convenience init(courses: [ClassModel]) {
         self.init()
         self.courses = courses
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "课程详情"
-        self.navigationController?.navigationBar.tintColor = UIColor(red:0.19, green:0.69, blue:0.92, alpha:1.00)
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 0.19, green: 0.69, blue: 0.92, alpha: 1.00)
         tableView = UITableView(frame: self.view.bounds, style: .grouped)
         tableView.separatorStyle = .none
         tableView.delegate = self
@@ -37,7 +37,7 @@ class ClassDetailViewController: UIViewController {
         self.view.addSubview(tableView)
         initAccessoryView()
     }
-    
+
     func initAccessoryView() {
         headerView = UIView()
         headerView.backgroundColor = .white
@@ -59,10 +59,10 @@ class ClassDetailViewController: UIViewController {
             make.left.equalToSuperview().offset(15)
             make.right.equalToSuperview().offset(-15)
         }
-        
+
         let detailLabel = UILabel()
         detailLabel.numberOfLines = 0
-        
+
         let teachers = Set<String>(courses.map { $0.teacher })
         var teacherString = ""
         for (idx, teacher) in teachers.enumerated() {
@@ -72,7 +72,7 @@ class ClassDetailViewController: UIViewController {
                 teacherString += "，" + teacher
             }
         }
-        
+
         var detailString = "逻辑班号: " + course.classID
         detailString += "\n课程编号: " + course.courseID
         detailString += "\n课程类型: " + course.courseType
@@ -84,12 +84,12 @@ class ClassDetailViewController: UIViewController {
         if course.ext != "" {
             detailString += "\n备注: " + course.ext
         }
-        
+
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 10
         let attributedString = NSAttributedString(string: detailString, attributes: [NSAttributedStringKey.paragraphStyle: paragraphStyle])
-        
-        detailLabel.textColor = UIColor(red:0.75, green:0.75, blue:0.75, alpha:1.00)
+
+        detailLabel.textColor = UIColor(red: 0.75, green: 0.75, blue: 0.75, alpha: 1.00)
         detailLabel.font = UIFont.systemFont(ofSize: 15)
 //        detailLabel.text = detailString
         detailLabel.attributedText = attributedString
@@ -100,7 +100,7 @@ class ClassDetailViewController: UIViewController {
             make.left.equalToSuperview().offset(15)
             make.bottom.equalToSuperview().offset(-20)
         }
-        
+
 //        footerView.snp.makeConstraints { make in
 //
 //        }
@@ -116,11 +116,11 @@ extension ClassDetailViewController: UITableViewDelegate {
         }
         return UITableViewCell()
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return headerView
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 //        headerView.setNeedsLayout()
 //        headerView.layoutIfNeeded()

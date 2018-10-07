@@ -15,7 +15,7 @@ class ProgressWebViewController: UIViewController {
     var backBarButtonItem: UIBarButtonItem!
     var closeBarButtonItem: UIBarButtonItem!
     var canDownRefresh: Bool = true
-    var popGestureRecognizerDelegate: UIGestureRecognizerDelegate?
+    weak var popGestureRecognizerDelegate: UIGestureRecognizerDelegate?
     let refreshControl = UIRefreshControl()
     var reloadButton: UIButton!
 
@@ -124,7 +124,7 @@ extension ProgressWebViewController {
     }
 
     // 进度条
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "estimatedProgress",
             let object = object as? WKWebView,
             object == webView {
@@ -134,7 +134,7 @@ extension ProgressWebViewController {
             if webView.estimatedProgress >= 1.0 {
                 UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
                     self.progressView.alpha = 0
-                }, completion: { finished in
+                }, completion: { _ in
 //                    self.showLeftBarButtonItem()
                     self.progressView.setProgress(0, animated: false)
                 })
@@ -223,7 +223,6 @@ extension ProgressWebViewController: WKUIDelegate {
 }
 
 extension ProgressWebViewController: UIGestureRecognizerDelegate {
-    
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return (self.navigationController?.viewControllers.count ?? 0) > 1

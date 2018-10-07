@@ -12,7 +12,7 @@ struct PopularClassTopModel: Codable {
     let errorCode: Int
     let message: String
     let data: [PopularClassModel]
-    
+
     enum CodingKeys: String, CodingKey {
         case errorCode = "error_code"
         case message, data
@@ -23,7 +23,7 @@ struct PopularClassModel: Codable {
     let rank: Int
     let courseID, count, updatedAt: String
     let course: CustomCourseModel
-    
+
     enum CodingKeys: String, CodingKey {
         case rank
         case courseID = "course_id"
@@ -36,11 +36,10 @@ struct PopularClassModel: Codable {
 struct CustomCourseModel: Codable {
     let id: Int
     let collegeID, name, year, semester: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case collegeID = "college_id"
         case name, year, semester
     }
 }
-
