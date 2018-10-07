@@ -155,7 +155,7 @@ extension QuizTakingViewController {
 
         let userAnswer = Courses.Study20.courseQuizes.flatMap { (quiz: Quiz?) -> Int? in
             guard let foo = quiz?.userAnswer else {
-//                MsgDisplay.showErrorMsg("你还没有完成答题，不能交卷")
+                SwiftMessages.showErrorMessage(body: "你还没有完成答题，不能交卷")
                 return nil
             }
             return foo
@@ -163,14 +163,11 @@ extension QuizTakingViewController {
 
         let originalAnswer = Courses.Study20.courseQuizes.flatMap { (quiz: Quiz?) -> Int? in
             guard let foo = Int((quiz?.answer)!) else {
-//                MsgDisplay.showErrorMsg("OOPS")
+                SwiftMessages.showErrorMessage(body: "Oops!")
                 return nil
             }
             return foo
         }
-        //log.any(originalAnswer)/
-
-        //log.any(userAnswer)/
 
         guard originalAnswer.count == userAnswer.count else {
             return
@@ -200,17 +197,15 @@ extension QuizTakingViewController {
     @objc func swipeToNextQuiz() {
         self.currentQuizIndex += 1
         guard currentQuizIndex != Courses.Study20.courseQuizes.count else {
-//            MsgDisplay.showErrorMsg("你已经在最后一道题啦")
+            SwiftMessages.showErrorMessage(body: "你已经在最后一道题啦")
             self.currentQuizIndex -= 1
             return
         }
 
-        for fooView in self.view.subviews {
-            if fooView.isKind(of: QuizView.self) {
-                Courses.Study20.courseQuizes[fooView.tag]?.userAnswer = (fooView as! QuizView).calculateUserAnswerWeight()
-                (fooView as! QuizView).saveChoiceStatus()
-                fooView.removeFromSuperview()
-            }
+        for fooView in self.view.subviews where fooView is QuizView {
+            Courses.Study20.courseQuizes[fooView.tag]?.userAnswer = (fooView as! QuizView).calculateUserAnswerWeight()
+            (fooView as? QuizView)?.saveChoiceStatus()
+            fooView.removeFromSuperview()
         }
 
         quizView = QuizView(quiz: Courses.Study20.courseQuizes[currentQuizIndex]!, at: currentQuizIndex)
@@ -228,7 +223,7 @@ extension QuizTakingViewController {
     @objc func swipeToLastQuiz() {
         self.currentQuizIndex -= 1
         guard currentQuizIndex >= 0 else {
-//            MsgDisplay.showErrorMsg("你已经在第一题啦")
+            SwiftMessages.showErrorMessage(body: "你已经在第一题啦")
             self.currentQuizIndex += 1
             return
         }

@@ -79,8 +79,8 @@ struct ApplicantTest {
                 }
 
                 completion()
-            }, failure: { _ in
-                //                    MsgDisplay.showErrorMsg("出错啦！")
+            }, failure: { error in
+                SwiftMessages.showErrorMessage(body: error.localizedDescription)
             })
         }
 
@@ -272,8 +272,8 @@ struct ApplicantTest {
                 }
 
                 completion()
-            }, failure: { _ in
-//                MsgDisplay.showErrorMsg("出错啦！")
+            }, failure: { error in
+                SwiftMessages.showErrorMessage(body: error.localizedDescription)
             })
         }
 

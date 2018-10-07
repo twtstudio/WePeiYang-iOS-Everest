@@ -28,10 +28,7 @@ class Applicant: NSObject {
     func getStudentNumber(_ success: @escaping () -> Void) {
         //TODO:这样做还不够优雅，应该在登录完成之后自动重新加载
         guard let token = TwTUser.shared.token else {
-            // FIXME: log something and login
-//            MsgDisplay.showErrorMsg("你需要登录才能访问党建功能")
-//            let loginVC = LoginViewController()
-//            UIViewController.current?.present(loginVC, animated: true, completion: nil)
+            SwiftMessages.showErrorMessage(body: "需要登录才能使用党建功能")
             return
         }
 
@@ -41,7 +38,7 @@ class Applicant: NSObject {
         SolaSessionManager.solaSession(type: .get, baseURL: "https://open.twtstudio.com/api/v2/auth/self", url: "", token: nil, parameters: parameters, success: { dict in
             guard let fooRealName = dict["realname"] as? String,
                 let fooStudentNumber = dict["studentid"] as? String else {
-//                    MsgDisplay.showErrorMsg("获取学号失败，请稍候再试")
+                    SwiftMessages.showErrorMessage(body: "获取学号失败，请稍候再试")
                     return
             }
 
@@ -51,32 +48,29 @@ class Applicant: NSObject {
             UserDefaults.standard.set(self.studentNumber, forKey: "studentID")
             UserDefaults.standard.set(self.realName, forKey: "studentName")
             success()
-        }, failure: { _ in
-//            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
+        }, failure: { error in
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
     }
 
     func getPersonalStatus(_ doSomething: @escaping () -> Void) {
 
-        //AFNetWorking/Alamofire Works
-
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: nil, parameters: PartyAPI.personalStatusParams, success: { dict in
 
             guard dict["status"] as? NSNumber == 1 else {
-//                MsgDisplay.showErrorMsg(dict["msg") as? String]
+                SwiftMessages.showErrorMessage(body: (dict["msg"] as? String) ?? "解析错误")
                 return
             }
 
             guard let fooPersonalStatus = dict["status_id"] as? [[String: Any]] else {
-//                MsgDisplay.showErrorMsg("获取个人状态失败，请稍后再试")
+                SwiftMessages.showErrorMessage(body: "获取个人状态失败，请稍后再试")
                 return
             }
 
             self.personalStatus = fooPersonalStatus
-//            MsgDisplay.dismiss()
             doSomething()
-        }, failure: { _ in
-//            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
+        }, failure: { error in
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
     }
 
@@ -88,12 +82,12 @@ class Applicant: NSObject {
             if dict["status"] as? NSNumber == 1 {
                 self.scoreOf20Course = dict["score_info"] as! [[String: Any]]
             } else {
-//                MsgDisplay.showErrorMsg(dict["msg"] as? String)
+                SwiftMessages.showErrorMessage(body: (dict["msg"] as? String) ?? "解析错误")
                 return
             }
             doSomething()
-        }, failure: { _ in
-//            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
+        }, failure: { error in
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
     }
 
@@ -103,14 +97,14 @@ class Applicant: NSObject {
 
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: nil, parameters: parameters, success: { dic in
             guard dic["status"] as? NSNumber == 1 else {
-//                MsgDisplay.showErrorMsg(dict["message"] as? String)
+                SwiftMessages.showErrorMessage(body: (dic["message"] as? String) ?? "解析错误")
                 return
             }
 
             let dict = dic["data"]
 
             guard let fooGrade = dict as? [[String: Any]] else {
-//                MsgDisplay.showErrorMsg("获取成绩失败，请稍后再试")
+                SwiftMessages.showErrorMessage(body: "获取成绩失败，请稍后再试")
                 return
             }
 
@@ -122,11 +116,9 @@ class Applicant: NSObject {
                 self.probationaryGrade = fooGrade
             }
 
-//            MsgDisplay.dismiss()
-
             doSomething()
-        }, failure: { _ in
-//            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
+        }, failure: { error in
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
     }
 
@@ -137,14 +129,13 @@ class Applicant: NSObject {
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: nil, parameters: parameters, success: { dict in
 
             guard dict["status"] as? NSNumber == 1 else {
-                //                MsgDisplay.showErrorMsg(dict["message"] as! String)
+                SwiftMessages.showErrorMessage(body: (dict["message"] as? String) ?? "解析错误")
                 return
             }
 
-            //            MsgDisplay.showSuccessMsg(dict["msg"] as! String)
             doSomething()
-        }, failure: { _ in
-            //            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
+        }, failure: { error in
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
     }
 

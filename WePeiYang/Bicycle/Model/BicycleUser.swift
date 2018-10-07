@@ -130,7 +130,7 @@ class BicycleUser {
         SolaSessionManager.solaSession(type: .post, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.infoURL, parameters: parameters, success: { dict in
 
             guard dict["errno"] as? Int == 0 else {
-                // TODO: MsgDisplay
+                SwiftMessages.showErrorMessage(body: "网络错误")
                 return
             }
             let dic = dict["data"] as! NSDictionary
@@ -140,7 +140,8 @@ class BicycleUser {
                 let fooDuration = dic["duration"] as? String,
                 let fooRecent = dic["recent"] as? [[Any]],
             let fooRecord = dic["record"] as? [String: Any] else {
-                    return
+                SwiftMessages.showErrorMessage(body: "数据解析错误")
+                return
             }
 
             self.name = fooName
@@ -151,8 +152,8 @@ class BicycleUser {
 
             doSomething()
 
-        }, failure: { _ in
-            // MsgDisplay
+        }, failure: { error in
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
     }
 

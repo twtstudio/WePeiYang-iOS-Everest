@@ -91,7 +91,6 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
             })
         } else {
             SwiftMessages.showWarningMessage(title: "出错啦", body: "未绑定自行车卡信息")
-            //MsgDisplay.showErrorMsg("未绑定自行车卡信息")
             infoLabel.text = "未绑定自行车卡信息"
         }
     }
@@ -302,12 +301,6 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
 
     //delegate of tableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if indexPath.section == 3 {
-////            M
-////            MsgDisplay.showErrorMsg("暂时没有这个功能哦")
-//            //            MsgDisplay.showErrorMsg("暂时没有这个功能哦")
-//        }
-
         if indexPath.section == 3 {
             if #available(iOS 9.3, *) {
                 let fitnessVC = BicycleFitnessTrackerViewController()
@@ -318,8 +311,6 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
             }
 
         }
-
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
-
 }

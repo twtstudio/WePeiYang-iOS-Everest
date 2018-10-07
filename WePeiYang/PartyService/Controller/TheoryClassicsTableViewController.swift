@@ -96,7 +96,6 @@ extension TheoryClassicsTableViewController: UITableViewDelegate, UITableViewDat
                 make.right.equalTo(self.view)
             }
         }
-//        MsgDisplay.showErrorMsg("客户端暂时还不能查看「理论经典」文章详情哦！敬请期待！")
         SwiftMessages.showErrorMessage(body: "客户端暂时还不能查看「理论经典」文章详情哦！敬请期待！")
     }
 }

@@ -36,11 +36,10 @@ class CourseAppraiseManager {
 
         let url = "/gpa/evaluate?token=\(GPASession!)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         SolaSessionManager.solaSession(type: .duo, url: url!, token: GPASession!, parameters: parameters, success: { _ in
-            // MsgDisplay.showSuccessMsg("评论成功!")
+            SwiftMessages.showSuccessMessage(body: "评价成功!")
             successHandler()
-        }, failure: { _ in
-            // FIXME: display error
-//            MsgDisplay.showErrorMsg("评论失败")
+        }, failure: { error in
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
     }
 

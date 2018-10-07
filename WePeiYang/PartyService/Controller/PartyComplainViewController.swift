@@ -57,12 +57,12 @@ class PartyComplainViewController: UIViewController, UITextViewDelegate {
     @objc func complain() {
 
         guard !(titleField.text?.isEmpty)! else {
-//            MsgDisplay.showErrorMsg("标题不能为空")
+            SwiftMessages.showErrorMessage(body: "标题不能为空")
             return
         }
 
         guard !(contentField.text?.isEmpty)! else {
-//            MsgDisplay.showErrorMsg("内容不能为空")
+            SwiftMessages.showErrorMessage(body: "内容不能为空")
             return
         }
 

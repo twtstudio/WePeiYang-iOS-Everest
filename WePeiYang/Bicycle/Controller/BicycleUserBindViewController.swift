@@ -48,7 +48,7 @@ class BicycleUserBindViewController: UIViewController, UIAlertViewDelegate {
     @IBAction func confirmButton(sender: UIButton) {
 
         guard !(IDTextField.text?.isEmpty)! else {
-            //MsgDisplay.showErrorMsg("身份证号不能为空")
+            SwiftMessages.showErrorMessage(body: "身份证号不能为空")
             return
         }
 

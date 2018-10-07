@@ -84,7 +84,7 @@ extension TwentyCourseViewController: UITableViewDelegate, UITableViewDataSource
             let details = Courses.Study20.courseDetails
 
             guard !details.isEmpty else {
-//                MsgDisplay.showErrorMsg("这门课暂时没有详情噢！")
+                SwiftMessages.showErrorMessage(body: "这门课暂时没有详情噢！")
                 return
             }
 

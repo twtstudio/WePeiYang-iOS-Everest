@@ -58,7 +58,7 @@ class PartyHandInViewController: UIViewController, UITableViewDelegate, UITableV
                 self.contentList[3].available = 2
 
                 guard Applicant.sharedInstance.handInHandler != nil else {
-//                    MsgDisplay.showErrorMsg("您没有可以递交的文件")
+                    SwiftMessages.showErrorMessage(body: "没有可以递交的文件")
                     return
                 }
 
@@ -153,7 +153,7 @@ class PartyHandInViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.deselectRow(at: indexPath, animated: true)
 
         guard contentList[indexPath.section].available == 1 else {
-//            MsgDisplay.showErrorMsg("您暂时无法\(contentList[indexPath.section].title)")
+            SwiftMessages.showErrorMessage(body: "暂时无法\(contentList[indexPath.section].title)")
             return
         }
 

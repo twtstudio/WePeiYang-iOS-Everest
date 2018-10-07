@@ -25,12 +25,12 @@ class NotificationList: NSObject {
             //log.obj(dic!)/
 
             guard dic["errno"] as? NSNumber == 0 else {
-                //            MsgDisplay.showErrorMsg(dic?.objectForKey("errmsg") as? String)
+                SwiftMessages.showErrorMessage(body: (dic["errmsg"] as? String) ?? "解析错误")
                 return
             }
 
             guard let foo = dic["data"] as? [AnyObject] else {
-                //            MsgDisplay.showErrorMsg("获取信息失败")
+                SwiftMessages.showErrorMessage(body: "获取信息失败")
                 return
             }
 
@@ -49,8 +49,8 @@ class NotificationList: NSObject {
 
             doSomething()
 
-        }, failure: { _ in
-            //                MsgDisplay.showErrorMsg("网络错误，请稍后再试")
+        }, failure: { error in
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
     }
 

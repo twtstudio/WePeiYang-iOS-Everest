@@ -60,12 +60,12 @@ class HandInDetailViewController: UIViewController {
     @objc func submit() {
 
         guard !(titleTextField.text?.isEmpty)! else {
-//            MsgDisplay.showErrorMsg("标题不能为空")
+            SwiftMessages.showErrorMessage(body: "标题不能为空")
             return
         }
 
         guard !(contentTextView.text?.isEmpty)! else {
-//            MsgDisplay.showErrorMsg("内容不能为空")
+            SwiftMessages.showErrorMessage(body: "内容不能为空")
             return
         }
 

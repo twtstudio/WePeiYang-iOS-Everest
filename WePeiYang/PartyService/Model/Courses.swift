@@ -20,7 +20,7 @@ struct Courses {
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: nil, parameters: PartyAPI.courseStudyParams, success: { dict in
             //courselist 打错
             guard dict["status"] as? Int == 1, let fooCourses = dict["courselist"] as? [[String: Any]] else {
-//                MsgDisplay.showErrorMsg("服务器开小差啦！")
+                SwiftMessages.showErrorMessage(body: "服务器开小差啦！")
                 return
             }
 
@@ -69,7 +69,7 @@ struct Courses {
         static func getCourseDetail(of courseID: String, and completion: @escaping () -> Void) {
             SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: nil, parameters: PartyAPI.courseStudyDetailParams(of: courseID), success: { dict in
                 guard dict["status"] as? Int == 1, let fooDetails = dict["data"] as? [[String: Any]] else {
-//                    MsgDisplay.showErrorMsg("服务器开小差啦！")
+                    SwiftMessages.showErrorMessage(body: "服务器开小差啦！")
                     return
                 }
 
@@ -105,8 +105,8 @@ struct Courses {
 
                 //Usually the completion is for performing tasks right after the success closure so it won't have bugs with Asynchronous stuff
                 completion()
-            }, failure: { _ in
-//                MsgDisplay.showErrorMsg("出错啦！")
+            }, failure: { error in
+                SwiftMessages.showErrorMessage(body: error.localizedDescription)
             })
         }
     }
@@ -139,7 +139,7 @@ struct Courses {
             SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: nil, parameters: PartyAPI.studyTextDetailParams(of: fileID), success: { dict in
                 //TODO: 目前不知道 filecontent 就是 String 还是 Array<NSDictionary>
                 guard dict["status"] as? Int == 1, let fooArticle = dict["data"] as? [String: Any] else {
-//                    MsgDisplay.showErrorMsg("服务器开小差啦！")
+                    SwiftMessages.showErrorMessage(body: "服务器开小差啦！")
                     return
                 }
 
@@ -160,8 +160,8 @@ struct Courses {
                 //let fileIsDeleted = dict["file_isdeleted"] as? Bool
 
                 self.textArticle = Article(fileID: fileID, fileTitle: fileTitle, fileContent: fileContent, fileAddTime: fileAddTime, fileType: fileType, fileImgURL: fileImgURL, fileIsDeleted: fileIsDeleted)
-            }, failure: { _ in
-//                MsgDisplay.showErrorMsg("出错啦！")
+            }, failure: { error in
+                SwiftMessages.showErrorMessage(body: error.localizedDescription)
             })
         }
     }
@@ -170,7 +170,7 @@ struct Courses {
     static func getTextList(and completion: @escaping () -> Void) {
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: nil, parameters: PartyAPI.studyTextParams, success: { dict in
             guard dict["status"] as? Int == 1, let fooTexts = dict["textlist"] as? [[String: Any]] else {
-//                MsgDisplay.showErrorMsg("服务器开小差啦！")
+                SwiftMessages.showErrorMessage(body: "服务器开小差啦！")
                 return
             }
 

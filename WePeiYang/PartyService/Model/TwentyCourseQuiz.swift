@@ -111,7 +111,6 @@ extension Courses.Study20 {
             guard let msg = dict["msg"] as? String else {
                 SwiftMessages.showErrorMessage(body: "网络出问题啦，别担心，等网络好了，我们会再次帮你提交一遍")
                 Courses.Study20.finalMsgAfterSubmitting = "网络出问题啦，别担心，等网络好了，我们会再次帮你提交一遍"
-//                MsgDisplay.showErrorMsg("网络出问题啦😘")
                 Courses.Study20.finalMsgAfterSubmitting = "网络出问题啦😘"
                 Courses.Study20.finalStatusAfterSubmitting = status
                 completion()

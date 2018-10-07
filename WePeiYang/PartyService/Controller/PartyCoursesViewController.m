@@ -8,7 +8,6 @@
 
 #import "PartyCoursesViewController.h"
 #import "WePeiYang-Swift.h"
-//#import "MsgDisplay.h"
 
 #define partyRed [UIColor colorWithRed:240.0/255.0 green:22.0/255.0 blue:22.0/255.0 alpha:1]
 #define partyPink [UIColor colorWithRed:255.0/255.0 green:64.0/255.0 blue:168.0/255.0 alpha:1]

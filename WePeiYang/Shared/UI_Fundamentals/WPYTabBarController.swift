@@ -10,14 +10,10 @@ import UIKit
 import PopupDialog
 
 class WPYTabBarController: UITabBarController {
-    private weak var tabBarVCDelegate = WPYTabBarControllerDelegate()
-    // FIXME: should be private
     convenience init(viewControllers: [UIViewController]?) {
         self.init()
 
         guard viewControllers != nil else {
-            //TODO: log
-            //log.error
             return
         }
         setViewControllers(viewControllers, animated: true)
@@ -28,7 +24,7 @@ class WPYTabBarController: UITabBarController {
 
         tabBar.isTranslucent = false
 
-        delegate = tabBarVCDelegate
+        self.delegate = self
 
         selectedIndex = 0
         tabBar.backgroundColor = Metadata.Color.GlobalTabBarBackgroundColor
@@ -124,10 +120,8 @@ class WPYTabBarController: UITabBarController {
     }
 }
 
-class WPYTabBarControllerDelegate: NSObject, UITabBarControllerDelegate {
-
+extension WPYTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-
         let fromIndex = tabBarController.viewControllers!.index(of: fromVC)!
         let toIndex = tabBarController.viewControllers!.index(of: toVC)!
 
