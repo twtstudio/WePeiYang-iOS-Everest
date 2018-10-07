@@ -326,7 +326,7 @@ class Applicant: NSObject {
     func handIn(_ title: String, content: String, fileType: Int, doSomething: @escaping () -> ()) {
         let parameters = ["message_title": title, "message_content": content, "submit": "", "file_type": "\(fileType)"] as [String : String]
         
-        SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.handInURL, url: "", token: nil, parameters: parameters, success: { dict in
+        SolaSessionManager.solaSession(type: .post, baseURL: PartyAPI.handInURL, url: "", token: nil, parameters: parameters, success: { dict in
             guard dict["status"] as? Int == 1 else {
                 if let msg = dict["msg"] as? String {
                     SwiftMessages.showErrorMessage(body: msg)

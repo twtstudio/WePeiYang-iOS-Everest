@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import pop
 
 class TwentyCourseDetailViewController: UITableViewController {
 
@@ -181,18 +180,7 @@ extension TwentyCourseDetailViewController {
     }
 }
 
-extension TwentyCourseDetailViewController {
-    func animate(to Who: UIView) {
-        
-        let anim = POPSpringAnimation(propertyNamed: kPOPViewBounds)
-        anim?.fromValue = NSValue(cgRect: CGRect(x: self.view.frame.width/2, y: self.view.frame.height, width: 0, height: self.view.frame.height/4))
-        anim?.toValue = NSValue(cgRect: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-        
-        anim?.springBounciness = 20
-        anim?.delegate = self
-        Who.pop_add(anim, forKey: "readingViewPopup")
-    }
-    
+extension TwentyCourseDetailViewController {    
     
     @objc func startQuiz() {
         
