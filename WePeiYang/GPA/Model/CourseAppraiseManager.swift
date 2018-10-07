@@ -33,7 +33,6 @@ class CourseAppraiseManager {
             "q4": "\(scoreArray[3])",
             "q5": "\(scoreArray[4])",
             "note": note]
-        print(parameters)
 
         let url = "/gpa/evaluate?token=\(GPASession!)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         SolaSessionManager.solaSession(type: .duo, url: url!, token: GPASession!, parameters: parameters, success: { _ in

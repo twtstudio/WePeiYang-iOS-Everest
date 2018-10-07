@@ -22,7 +22,6 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
     //iOS 8 fucking bug
     init() {
         super.init(nibName: "BicycleServiceInfoController", bundle: nil)
-        print("haha")
     }
 
     required init?(coder aDecoder: NSCoder) {

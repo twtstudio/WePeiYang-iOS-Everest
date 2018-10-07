@@ -445,8 +445,6 @@ class PartyPersonalStatusViewController: UIViewController, UIScrollViewDelegate 
     }
 
     func updateUI() {
-        //print(Applicant.sharedInstance.personalStatus)
-
         var dict = Applicant.sharedInstance.personalStatus[0]
         label1.status = dict["status"] as? Int
         label1.showStatus()

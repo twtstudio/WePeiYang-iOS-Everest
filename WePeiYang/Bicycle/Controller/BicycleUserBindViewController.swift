@@ -14,18 +14,6 @@ class BicycleUserBindViewController: UIViewController, UIAlertViewDelegate {
     @IBOutlet var hintLabel: UILabel!
     @IBOutlet var IDTextField: UITextField!
 
-    //iOS 8 fucking bug
-    /*
-    init(){
-        super.init(nibName: "BicycleUserBindViewController", bundle: nil)
-        print("haha")
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
- */
-
     override func viewDidLoad() {
         self.navigationController?.navigationBar.tintColor = nil
         super.viewDidLoad()

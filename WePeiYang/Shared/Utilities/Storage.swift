@@ -123,7 +123,6 @@ struct Storage {
             }
         } catch {
             // FIXME: handle error
-            print(error.localizedDescription)
 //            fatalError("error decode data")
         }
     }

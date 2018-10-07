@@ -36,7 +36,6 @@ class TwentyCourseScoreViewController: UIViewController, UITableViewDelegate, UI
     //iOS 8 fucking bug
     init() {
         super.init(nibName: "TwentyCourseScoreViewController", bundle: nil)
-        //print("haha")
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -52,7 +51,6 @@ class TwentyCourseScoreViewController: UIViewController, UITableViewDelegate, UI
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //print(Applicant.sharedInstance.scoreOf20Course.count)
         return scoreList.count
     }
 

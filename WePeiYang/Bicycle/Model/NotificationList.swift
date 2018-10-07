@@ -49,9 +49,8 @@ class NotificationList: NSObject {
 
             doSomething()
 
-        }, failure: { error in
+        }, failure: { _ in
             //                MsgDisplay.showErrorMsg("网络错误，请稍后再试")
-            print("error: \(error)")
         })
     }
 

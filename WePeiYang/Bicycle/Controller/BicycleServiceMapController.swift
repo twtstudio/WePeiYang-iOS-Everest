@@ -33,7 +33,6 @@ class BicycleServiceMapController: UIViewController {
             centerMapOnLocation(location: cl)
         } else {
             checkLocationAuthorizationStatus()
-            print("FUCKYOU")
         }
     }
     var newMapView = MKMapView()

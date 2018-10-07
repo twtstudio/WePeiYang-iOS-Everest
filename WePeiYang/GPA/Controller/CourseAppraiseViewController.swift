@@ -40,7 +40,6 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
         guard data != nil else {
             fatalError("CourseAppraiseViewController.data 赋值啊大哥")
         }
-//        print(data?.evaluate)
         //初始化课程数据
         CourseAppraiseManager.shared.setInfo(lesson_id: data.lessonID, union_id: data.unionID, course_id: data.courseID, term: data.term, GPASession: GPASession!)
 
@@ -156,7 +155,6 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
         let keyboardFrame: NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
         let keyboardHeight = keyboardRectangle.height
-        print(keyboardHeight)
 
         UIView.animate(withDuration: 0.5, animations: {
             self.view.frame.origin.y = -keyboardHeight

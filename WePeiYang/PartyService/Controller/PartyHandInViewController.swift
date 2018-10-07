@@ -12,17 +12,6 @@ class PartyHandInViewController: UIViewController, UITableViewDelegate, UITableV
 
     @IBOutlet var tableView: UITableView!
 
-    /*
-    //Handle iOS 8 fucking bug
-    init(){
-        super.init(nibName: "PartyHandInViewController", bundle: nil)
-        //print("haha")
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
- */
     var contentList: [(title: String, available: Int)] = [("递交入党申请书", 0), ("递交思想汇报", 0), ("递交个人小结", 0), ("递交转正申请", 0)]
 
     override func viewWillAppear(_ animated: Bool) {
@@ -161,7 +150,6 @@ class PartyHandInViewController: UIViewController, UITableViewDelegate, UITableV
     //Table View Data Soucre
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-//        print(Applicant.sharedInstance.handInHandler)
         tableView.deselectRow(at: indexPath, animated: true)
 
         guard contentList[indexPath.section].available == 1 else {

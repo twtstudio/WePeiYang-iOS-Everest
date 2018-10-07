@@ -51,9 +51,8 @@ class Applicant: NSObject {
             UserDefaults.standard.set(self.studentNumber, forKey: "studentID")
             UserDefaults.standard.set(self.realName, forKey: "studentName")
             success()
-        }, failure: { error in
+        }, failure: { _ in
 //            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
-            print("error: \(error)")
         })
     }
 
@@ -76,9 +75,8 @@ class Applicant: NSObject {
             self.personalStatus = fooPersonalStatus
 //            MsgDisplay.dismiss()
             doSomething()
-        }, failure: { error in
+        }, failure: { _ in
 //            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
-            print("error: \(error)")
         })
     }
 
@@ -89,15 +87,13 @@ class Applicant: NSObject {
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: "", parameters: parameters, success: { dict in
             if dict["status"] as? NSNumber == 1 {
                 self.scoreOf20Course = dict["score_info"] as! [[String: Any]]
-                //print(self.scoreOf20Course)
             } else {
 //                MsgDisplay.showErrorMsg(dict["msg"] as? String)
                 return
             }
             doSomething()
-        }, failure: { error in
+        }, failure: { _ in
 //            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
-            print("error: \(error)")
         })
     }
 
@@ -129,9 +125,8 @@ class Applicant: NSObject {
 //            MsgDisplay.dismiss()
 
             doSomething()
-        }, failure: { error in
+        }, failure: { _ in
 //            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
-            print("error: \(error)")
         })
     }
 
@@ -148,9 +143,8 @@ class Applicant: NSObject {
 
             //            MsgDisplay.showSuccessMsg(dict["msg"] as! String)
             doSomething()
-        }, failure: { error in
+        }, failure: { _ in
             //            MsgDisplay.showErrorMsg("网络错误，请稍后再试")
-            print("error: \(error)")
         })
     }
 

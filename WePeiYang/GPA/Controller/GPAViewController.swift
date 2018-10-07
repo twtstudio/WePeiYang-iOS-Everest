@@ -337,7 +337,6 @@ class GPAViewController: UIViewController {
             self.currentTerm = self.terms[0]
         } else {
             // FIXME: 没有成绩的界面
-            print("没有成绩")
             return
         }
         DispatchQueue.main.async {

@@ -45,16 +45,6 @@ class WPYTabBarController: UITabBarController {
         self.becomeFirstResponder()
     }
 
-//    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
-//        super.motionBegan(motion, with: event)
-////        print("开始摇动")
-//    }
-//
-//    override func motionCancelled(_ motion: UIEventSubtype, with event: UIEvent?) {
-//        super.motionCancelled(motion, with: event)
-////        print("取消摇动")
-//    }
-
     func checkWiFiStatus() {
         do {
             let reachability = try Reachability()
@@ -131,12 +121,6 @@ class WPYTabBarController: UITabBarController {
                 })
             }
         }
-    }
-
-    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        //TODO: View Controller Transitioning Animation
-
-        //print("fuck")
     }
 }
 

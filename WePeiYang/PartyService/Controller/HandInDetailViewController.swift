@@ -70,7 +70,6 @@ class HandInDetailViewController: UIViewController {
         }
 
         Applicant.sharedInstance.handIn(titleTextField.text!, content: contentTextView.text!, fileType: type!, doSomething: {
-            //print("dooooo!")
             self.navigationController?.popViewController(animated: true)
         })
 

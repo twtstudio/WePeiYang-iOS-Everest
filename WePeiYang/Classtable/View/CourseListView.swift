@@ -243,7 +243,6 @@ class CourseListView: UIView {
 
     deinit {
         self.delegate = nil
-        print("courselistview deinit")
     }
 
 }

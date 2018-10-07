@@ -23,7 +23,6 @@ class GradeCheckViewController: UIViewController, UITableViewDelegate, UITableVi
     //iOS 8 fucking bug
     init() {
         super.init(nibName: "GradeCheckViewController", bundle: nil)
-        //print("haha")
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -32,7 +31,6 @@ class GradeCheckViewController: UIViewController, UITableViewDelegate, UITableVi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print("didload")
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -58,7 +56,6 @@ class GradeCheckViewController: UIViewController, UITableViewDelegate, UITableVi
         }
 
         let dict = gradeList[indexPath.row]
-        //print(dict)
 
         if testType == "probationary" {
             cell?.textLabel?.text = dict["train_name"] as? String
@@ -72,7 +69,6 @@ class GradeCheckViewController: UIViewController, UITableViewDelegate, UITableVi
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let date = dateFormatter.dateFromString(fooString as! String)
-            print(date)
             cell?.detailTextLabel?.text = dateFormatter.stringFromDate(date!)
         }*/
 

@@ -159,7 +159,6 @@ class CourseAppraiseCell: UITableViewCell, UITextViewDelegate {
 
     // MARK: KVO
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        //print("Changed to:\(change![NSKeyValueChangeNewKey]!)")
         if let score = change![NSKeyValueChangeKey.newKey] as? Int {
             if id == 4 && CourseAppraiseManager.shared.detailAppraiseEnabled == false { // 总体打分
                 for i in 0...4 {

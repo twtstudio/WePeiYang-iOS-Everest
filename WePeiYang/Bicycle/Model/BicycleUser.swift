@@ -130,7 +130,7 @@ class BicycleUser {
         SolaSessionManager.solaSession(type: .post, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.infoURL, parameters: parameters, success: { dict in
 
             guard dict["errno"] as? Int == 0 else {
-                print(dict["errmsg"]!)
+                // TODO: MsgDisplay
                 return
             }
             let dic = dict["data"] as! NSDictionary
@@ -139,9 +139,7 @@ class BicycleUser {
                 let fooBalance = dic["balance"] as? String,
                 let fooDuration = dic["duration"] as? String,
                 let fooRecent = dic["recent"] as? [[Any]],
-            let fooRecord = dic["record"] as? [String: Any]
-                else {
-                    print("error.")
+            let fooRecord = dic["record"] as? [String: Any] else {
                     return
             }
 
@@ -153,8 +151,8 @@ class BicycleUser {
 
             doSomething()
 
-        }, failure: { error in
-            print("error: \(error)")
+        }, failure: { _ in
+            // MsgDisplay
         })
     }
 

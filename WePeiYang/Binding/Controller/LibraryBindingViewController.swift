@@ -151,9 +151,7 @@ class LibraryBindingViewController: UIViewController {
 
         SolaSessionManager.solaSession(type: .get, url: "/auth/unbind/lib", token: TwTUser.shared.token, parameters: nil, success: { dictionary in
 
-            print(dictionary)
-            print("Succeeded")
-            guard let errorCode: Int = dictionary["error_code"] as? Int,
+            guard let errorCode = dictionary["error_code"] as? Int,
                 let errMsg = dictionary["message"] as? String else {
                     return
             }

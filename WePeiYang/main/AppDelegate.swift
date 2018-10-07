@@ -39,10 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let uid = TwTUser.shared.twtid,
                     let uuid = UIDevice.current.identifierForVendor?.uuidString {
                     let para = ["utoken": deviceToken, "uid": uid, "udid": uuid, "ua": DeviceStatus.userAgent]
-                    SolaSessionManager.solaSession(type: .post, url: "/push/token/ENcJ1ZYDBaCvC8aM76RnnrT25FPqQg", token: nil, parameters: para, success: { dict in
-                        print(dict)
-                    }, failure: { err in
-                        print(err)
+                    SolaSessionManager.solaSession(type: .post, url: "/push/token/ENcJ1ZYDBaCvC8aM76RnnrT25FPqQg", token: nil, parameters: para, success: { _ in
+                    }, failure: { _ in
                     })
                 }
             }, failure: {
@@ -209,7 +207,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
     // 收到推送token
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        print("------device token: \(deviceToken.hexString)")
+        log.word("------device token: \(deviceToken.hexString)")
         UserDefaults.standard.set(deviceToken.hexString, forKey: "deviceToken")
     }
 
@@ -217,8 +215,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let info = notification.request.content.userInfo
-        print("iOS 10 foreground userInfo: \(info)")
-
         if notification.request.trigger is UNPushNotificationTrigger {
             // 远程通知
         } else {
