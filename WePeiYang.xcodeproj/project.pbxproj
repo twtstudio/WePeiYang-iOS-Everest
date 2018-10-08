@@ -259,16 +259,6 @@
 		361F8860204AF94200BCFA19 /* NewsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsHeaderView.swift; sourceTree = "<group>"; };
 		361F8861204AF94200BCFA19 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		361F8866204AF9AA00BCFA19 /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
-		362FF7992157A27000E7E3EE /* GPAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAViewController.swift; sourceTree = "<group>"; };
-		362FF79C2157A27000E7E3EE /* GPATermModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPATermModel.swift; sourceTree = "<group>"; };
-		362FF79D2157A27000E7E3EE /* GPAModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAModel.swift; sourceTree = "<group>"; };
-		362FF79E2157A27000E7E3EE /* CourseAppraiseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseManager.swift; sourceTree = "<group>"; };
-		362FF79F2157A27000E7E3EE /* GPASessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPASessionManager.swift; sourceTree = "<group>"; };
-		362FF7A02157A27000E7E3EE /* GPAClassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAClassModel.swift; sourceTree = "<group>"; };
-		362FF7A12157A27000E7E3EE /* GPAStatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAStatModel.swift; sourceTree = "<group>"; };
-		362FF7A32157A27000E7E3EE /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
-		362FF7A42157A27000E7E3EE /* ScoreHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
-		362FF7A52157A27000E7E3EE /* CourseAppraiseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseCell.swift; sourceTree = "<group>"; };
 		3631D5091F1903D70078816D /* TwTUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTUser.swift; sourceTree = "<group>"; };
 		36366B2D1FAB86B0001F72A0 /* BicycleServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleServiceViewController.swift; sourceTree = "<group>"; };
 		36366B351FAC61B6001F72A0 /* WePeiYang.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WePeiYang.entitlements; sourceTree = "<group>"; };
@@ -324,22 +314,6 @@
 		365261551FB9F83400025B8A /* ClassTableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableModel.swift; sourceTree = "<group>"; };
 		3653DD901FBAD0B600501C3B /* ClassTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewController.swift; sourceTree = "<group>"; };
 		36575FBE2051C78B00A1A558 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		3658AB2021593255002D5625 /* GPAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAViewController.swift; sourceTree = "<group>"; };
-		3658AB2421593255002D5625 /* GPAModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAModel.swift; sourceTree = "<group>"; };
-		3658AB2621593255002D5625 /* GPASessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPASessionManager.swift; sourceTree = "<group>"; };
-		3658AB2721593255002D5625 /* GPAClassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAClassModel.swift; sourceTree = "<group>"; };
-		3658AB2821593255002D5625 /* GPAStatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAStatModel.swift; sourceTree = "<group>"; };
-		3658AB2A21593255002D5625 /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
-		3658AB2B21593255002D5625 /* ScoreHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
-		3658AB2C21593255002D5625 /* CourseAppraiseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseCell.swift; sourceTree = "<group>"; };
-		3658AB3A21593986002D5625 /* YellowPageSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageSearchViewController.swift; sourceTree = "<group>"; };
-		3658AB3B21593986002D5625 /* YellowPageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageDetailViewController.swift; sourceTree = "<group>"; };
-		3658AB3C21593986002D5625 /* YellowPageMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageMainViewController.swift; sourceTree = "<group>"; };
-		3658AB3E21593986002D5625 /* ClientItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientItem.swift; sourceTree = "<group>"; };
-		3658AB4121593986002D5625 /* YellowPageSearchHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageSearchHistoryCell.swift; sourceTree = "<group>"; };
-		3658AB4221593986002D5625 /* CommonUsedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUsedView.swift; sourceTree = "<group>"; };
-		3658AB4321593986002D5625 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
-		3658AB4421593986002D5625 /* YellowPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageCell.swift; sourceTree = "<group>"; };
 		3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedButton.swift; sourceTree = "<group>"; };
 		365A46452035E35500738963 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		365A46472036956700738963 /* CacheFilenameKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFilenameKey.swift; sourceTree = "<group>"; };
@@ -400,9 +374,7 @@
 		A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleFitnessTrackerViewCell.swift; sourceTree = "<group>"; };
 		A554C4BC1F99EFE300022A01 /* ParkingSpotsLocs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ParkingSpotsLocs.json; sourceTree = "<group>"; };
 		A586543620514E860069CF53 /* WLANHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANHelper.swift; sourceTree = "<group>"; };
-		A5A531E82088C0890073DE38 /* CourseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewController.swift; sourceTree = "<group>"; };
 		A5A531EA208F4E4C0073DE38 /* CourseListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListModel.swift; sourceTree = "<group>"; };
-		A5A531EC208F53AF0073DE38 /* AuditClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditClassViewController.swift; sourceTree = "<group>"; };
 		A5D695191F8A21AD00022B9A /* WMScrollView+gesture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMScrollView+gesture.m"; sourceTree = "<group>"; };
 		A5D695201F8A21AD00022B9A /* WMScrollView+gesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMScrollView+gesture.h"; sourceTree = "<group>"; };
 		A5D6952E1F8A21AD00022B9A /* BicycleServiceInfoController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BicycleServiceInfoController.xib; sourceTree = "<group>"; };
@@ -503,41 +475,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		362FF7962157A1DB00E7E3EE /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				A5A531E82088C0890073DE38 /* CourseListViewController.swift */,
-				A5A531EC208F53AF0073DE38 /* AuditClassViewController.swift */,
-				362FF7992157A27000E7E3EE /* GPAViewController.swift */,
-				362FF79F2157A27000E7E3EE /* GPASessionManager.swift */,
-				362FF7A12157A27000E7E3EE /* GPAStatModel.swift */,
-				362FF7A02157A27000E7E3EE /* GPAClassModel.swift */,
-				362FF79E2157A27000E7E3EE /* CourseAppraiseManager.swift */,
-				362FF7A52157A27000E7E3EE /* CourseAppraiseCell.swift */,
-				362FF7A32157A27000E7E3EE /* StarView.swift */,
-				362FF79C2157A27000E7E3EE /* GPATermModel.swift */,
-				362FF7A42157A27000E7E3EE /* ScoreHeaderView.swift */,
-				362FF79D2157A27000E7E3EE /* GPAModel.swift */,
-				3658AB2021593255002D5625 /* GPAViewController.swift */,
-				3658AB4321593986002D5625 /* SearchView.swift */,
-				3658AB2821593255002D5625 /* GPAStatModel.swift */,
-				3658AB3A21593986002D5625 /* YellowPageSearchViewController.swift */,
-				3658AB2B21593255002D5625 /* ScoreHeaderView.swift */,
-				3658AB4121593986002D5625 /* YellowPageSearchHistoryCell.swift */,
-				3658AB3E21593986002D5625 /* ClientItem.swift */,
-				3658AB3C21593986002D5625 /* YellowPageMainViewController.swift */,
-				3658AB4221593986002D5625 /* CommonUsedView.swift */,
-				3658AB3B21593986002D5625 /* YellowPageDetailViewController.swift */,
-				3658AB2C21593255002D5625 /* CourseAppraiseCell.swift */,
-				3658AB2A21593255002D5625 /* StarView.swift */,
-				3658AB4421593986002D5625 /* YellowPageCell.swift */,
-				3658AB2721593255002D5625 /* GPAClassModel.swift */,
-				3658AB2621593255002D5625 /* GPASessionManager.swift */,
-				3658AB2421593255002D5625 /* GPAModel.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		3641470820471CC500F6DFD5 /* News */ = {
 			isa = PBXGroup;
 			children = (
@@ -1073,7 +1010,6 @@
 				B19DAB871E6EF5C2004A50B5 /* Products */,
 				80B33C5178ED19C33022F16B /* Pods */,
 				D33D5F603943FDFD415D167A /* Frameworks */,
-				362FF7962157A1DB00E7E3EE /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1494,6 +1430,7 @@
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
+				"${BUILT_PRODUCTS_DIR}/TapticEngine/TapticEngine.framework",
 				"${BUILT_PRODUCTS_DIR}/WMPageController/WMPageController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1509,6 +1446,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TapticEngine.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WMPageController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

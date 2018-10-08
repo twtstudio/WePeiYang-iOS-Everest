@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftMessages
+import TapticEngine
 
 extension SwiftMessages {
     static func showInfoMessage(title: String = "", body: String, context: PresentationContext = .automatic, layout: MessageView.Layout = .cardView) {
@@ -15,14 +16,17 @@ extension SwiftMessages {
     }
 
     static func showSuccessMessage(title: String = "", body: String, context: PresentationContext = .automatic, layout: MessageView.Layout = .cardView) {
+        TapticEngine.notification.feedback(.success)
         message(title: title, body: body, theme: .success, context: context, layout: layout)
     }
 
     static func showWarningMessage(title: String = "", body: String, context: PresentationContext = .automatic, layout: MessageView.Layout = .cardView) {
+        TapticEngine.notification.feedback(.warning)
         message(title: title, body: body, theme: .warning, context: context, layout: layout)
     }
 
     static func showErrorMessage(title: String = "", body: String, context: PresentationContext = .automatic, layout: MessageView.Layout = .cardView) {
+        TapticEngine.notification.feedback(.error)
         message(title: title, body: body, theme: .error, context: context, layout: layout)
     }
 
