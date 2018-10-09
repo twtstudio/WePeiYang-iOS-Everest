@@ -90,15 +90,12 @@ class StarView: UIView {
 extension StarView {
 
     @objc func starGetsTapped(sender: UIButton) {
-        //log.word("hello")/
         self.rating = Double(sender.tag) + 1
 
         //TODO: Chained Animation of the stars
         for i in 0...sender.tag {
             //stars[i] = UIButton(backgroundImageName: star_red, desiredSize: CGSize(width: tappedStar.bounds.width, height: tappedStar.bounds.height))!
-            //log.any(stars[i].frame)/
             stars[i].setBackgroundImage(UIImage(named: star_red), for: .normal)
-            //log.any(stars[i].frame)/
         }
         if sender.tag < 4 {
             for i in (sender.tag+1)...4 {
@@ -112,7 +109,6 @@ extension StarView {
         //let tap = UITapGestureRecognizer(target: self, action: #selector(self.starGetsTapped))
         for star in stars {
             star.addTarget(self, action: #selector(self.starGetsTapped(sender:)), for: .touchUpInside)
-            //            log.word("gestures assigned")/
         }
     }
 

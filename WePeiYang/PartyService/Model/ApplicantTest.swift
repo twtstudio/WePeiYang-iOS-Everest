@@ -85,7 +85,6 @@ struct ApplicantTest {
         }
 
         static func signUp(forID testID: String, and completion: @escaping () -> Void) {
-            //log.word("entered signUp")/
             SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: nil, parameters: PartyAPI.applicantEntry2Params(of: testID), success: { dict in
 
                 guard dict["status"] as? Int == 1 else {

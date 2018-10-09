@@ -22,8 +22,6 @@ class NotificationList: NSObject {
 
         SolaSessionManager.solaSession(type: .get, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.notificationURL, parameters: nil, success: { dic in
 
-            //log.obj(dic!)/
-
             guard dic["errno"] as? NSNumber == 0 else {
                 SwiftMessages.showErrorMessage(body: (dic["errmsg"] as? String) ?? "解析错误")
                 return

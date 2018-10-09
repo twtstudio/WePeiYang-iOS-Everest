@@ -295,7 +295,7 @@ extension FAB {
     public func rectify() {
         let topVC = UIViewController.top
         if parentViewController != topVC {
-            log.errorMessage("You're not adding your fab into a topmost view, which might lead to a wrong position for the fab")/
+            log("You're not adding your fab into a topmost view, which might lead to a wrong position for the fab")
 
             if topVC is UITabBarController {
                 removeFromSuperview()
@@ -306,8 +306,8 @@ extension FAB {
                 }
                 dimView.removeFromSuperview()
                 topVC?.view.addSubview(dimView)
-                log.errorMessage("FAB has rectified itself. Now your fab's superview has changed into the \(String(describing: topVC!))")/
-                log.errorMessage("BTW, you should not add a FAB when there's a TabBar on the bottom of your screen")/
+                log("FAB has rectified itself. Now your fab's superview has changed into the \(String(describing: topVC!))")
+                log("BTW, you should not add a FAB when there's a TabBar on the bottom of your screen")
                 return
             }
 
@@ -322,7 +322,7 @@ extension FAB {
                     let height = subButton.bounds.size.height
                     subButton.frame = CGRect(x: screenWidth-width-30, y: bottomLineAt-CGFloat(index+1)*(20+height), width: width, height: height)
                 }
-                log.errorMessage("FAB has rectified itself, its position has been elevated by \(rectifyingHeight) in the yAxis")/
+                log("FAB has rectified itself, its position has been elevated by \(rectifyingHeight) in the yAxis")
 
                 return
             }

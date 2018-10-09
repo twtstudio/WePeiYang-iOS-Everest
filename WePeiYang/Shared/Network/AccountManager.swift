@@ -33,12 +33,14 @@ struct AccountManager {
                 //啥都不用做
                 success?()
                 return
-            }
+            } else
             if let msg = dict["message"] as? String {
-                log.word(msg)/
+                SwiftMessages.showErrorMessage(body: msg)
+            } else {
+                SwiftMessages.showErrorMessage(body: "登录状态异常，请尝试重新登录")
             }
         }, failure: { error in
-            log.error(error)/
+            log(error)
             failure?()
             TwTUser.shared.delete()
         }) // refresh finished
@@ -61,10 +63,10 @@ struct AccountManager {
                             return
                         }
                         if let msg = dict["message"] as? String {
-                            log.word(msg)/
+                            log(msg)
                         }
                     }, failure: { error in
-                        log.error(error)/
+                        log(error)
                         failure?()
                         // FIXME 获取失败我也不知道怎么做 难道要重新登录
                         TwTUser.shared.delete()
@@ -72,7 +74,7 @@ struct AccountManager {
 
                 } else if let msg = dict["message"] as? String { // check failed
                     failure?()
-                    log.errorMessage(msg)/
+                    log(msg)
 //                    self.removeToken()
                 } else {
                     failure?()
@@ -81,7 +83,7 @@ struct AccountManager {
             }
         }, failure: { error in // check request failed
             // FIXME: 10003 ???
-            log.error(error)/
+            log(error)
             failure?()
         })
     }
@@ -98,12 +100,12 @@ struct AccountManager {
                     success?()
                 } else {
                     if let msg = dict["message"] as? String {
-                        log.word(msg)/
+                        log(msg)
                     }
                 }
             }
         }, failure: { error in
-            log.error(error)/
+            log(error)
             failure?()
         })
     }
@@ -124,12 +126,12 @@ struct AccountManager {
                     success?()
                 } else {
                     if let msg = dict["message"] as? String {
-                        log.word(msg)/
+                        log(msg)
                     }
                 }
             }
         }, failure: { error in
-            log.error(error)/
+            log(error)
             failure?()
         })
     }

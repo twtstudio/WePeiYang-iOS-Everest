@@ -171,7 +171,7 @@ extension LibraryCard: UITableViewDataSource {
         let book = LibraryDataContainer.shared.books[indexPath.row]
 
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
 
         var image = #imageLiteral(resourceName: "感叹号")
         // 如果还没到还书时间

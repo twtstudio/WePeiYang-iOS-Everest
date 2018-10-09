@@ -233,7 +233,6 @@ extension QuizTakingViewController {
             if fooView.isKind(of: QuizView.self) {
                 Courses.Study20.courseQuizes[fooView.tag]?.userAnswer = (fooView as! QuizView).calculateUserAnswerWeight()
                 (fooView as! QuizView).saveChoiceStatus()
-                //log.any(Courses.Study20.courseQuizes[fooView.tag])/
                 fooView.removeFromSuperview()
             }
         }
@@ -255,7 +254,6 @@ extension QuizTakingViewController {
             if fooView.isKind(of: QuizView.self) {
                 Courses.Study20.courseQuizes[fooView.tag]?.userAnswer = (fooView as! QuizView).calculateUserAnswerWeight()
                 (fooView as! QuizView).saveChoiceStatus()
-                //log.any(Courses.Study20.courseQuizes[fooView.tag])/
             }
         }
 
@@ -266,13 +264,10 @@ extension QuizTakingViewController {
 
     func showQuiz(at index: Int) {
 
-        for fooView in self.view.subviews {
-            if fooView.isKind(of: QuizView.self) {
-                Courses.Study20.courseQuizes[fooView.tag]?.userAnswer = (fooView as! QuizView).calculateUserAnswerWeight()
-                (fooView as! QuizView).saveChoiceStatus()
-                //log.any(Courses.Study20.courseQuizes[fooView.tag])/
-                fooView.removeFromSuperview()
-            }
+        for fooView in self.view.subviews where fooView is QuizView {
+            Courses.Study20.courseQuizes[fooView.tag]?.userAnswer = (fooView as! QuizView).calculateUserAnswerWeight()
+            (fooView as! QuizView).saveChoiceStatus()
+            fooView.removeFromSuperview()
         }
 
         self.currentQuizIndex = index

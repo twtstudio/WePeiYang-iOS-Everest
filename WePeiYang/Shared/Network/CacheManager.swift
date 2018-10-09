@@ -16,7 +16,7 @@ struct CacheManager {
         let cachePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0].appending(keyStr)
         let fileManager = FileManager()
         if fileManager.fileExists(atPath: cachePath) {
-            log.word("Cache file: \(keyStr) exists and replaced.")/
+            log("Cache file: \(keyStr) exists and replaced.")
             try! fileManager.removeItem(atPath: cachePath)
         }
         fileManager.createFile(atPath: cachePath, contents: nil, attributes: nil)
@@ -34,7 +34,7 @@ struct CacheManager {
         let fileManager = FileManager()
         if !fileManager.fileExists(atPath: cachePath) {
             failure?()
-            log.errorMessage("Cache file \(keyStr) doesn't Exist!")/
+            log("Cache file \(keyStr) doesn't Exist!")
             return
         } else {
             let url = URL(fileURLWithPath: cachePath)
@@ -44,9 +44,9 @@ struct CacheManager {
             unarchiver.finishDecoding()
             if let cacheObject = cacheObject {
                 success?(cacheObject)
-                log.word("Cache data \(keyStr) loaded in block.")/
+                log("Cache data \(keyStr) loaded in block.")
             } else {
-                log.errorMessage( "Cache data \(keyStr) can't load in block.")/
+                log( "Cache data \(keyStr) can't load in block.")
             }
         }
     }
@@ -56,9 +56,9 @@ struct CacheManager {
         let fileManager = FileManager()
         if fileManager.fileExists(atPath: cachePath) {
             try! fileManager.removeItem(atPath: cachePath)
-            log.word("Cache data \(keyStr) removed in block.")/
+            log("Cache data \(keyStr) removed in block.")
         } else {
-            log.errorMessage("Cache file \(keyStr) doesn't Exist!")/
+            log("Cache file \(keyStr) doesn't Exist!")
         }
     }
 

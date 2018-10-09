@@ -55,11 +55,10 @@ extension Courses.Study20 {
                           let isDeleted = dict["exercise_isdeleted"] as? String,
                           let fooOptions = dict["choose"] as? [[String: Any]] else {
                         SwiftMessages.showErrorMessage(body: "未知错误2")
-                            //log.word("fuck4")/
                             return nil
                     }
 
-                    let options = fooOptions.flatMap({ dict -> Quiz.Option? in
+                    let options = fooOptions.compactMap({ dict -> Quiz.Option? in
                         guard let name = dict["name"] as? String,
                             let weight = dict["pos"] as? Int else {
                                 return nil
@@ -69,7 +68,6 @@ extension Courses.Study20 {
 
                     guard !options.isEmpty else {
                         SwiftMessages.showErrorMessage(body: "未知错误3")
-                        //log.word("fuck5")/
                         return nil
                     }
 
@@ -86,8 +84,6 @@ extension Courses.Study20 {
     static func submitAnswer(of courseID: String, originalAnswer: [Int], userAnswer: [Int], and completion: @escaping () -> Void) {
         SolaSessionManager.solaSession(type: .post, baseURL: PartyAPI.courseQuizSubmitURL, url: "", token: nil, parameters: PartyAPI.courseQuizSubmitParams(of: courseID, originalAnswer: originalAnswer, userAnswer: userAnswer), success: { dict in
 
-            log.any(PartyAPI.courseQuizSubmitParams(of: courseID, originalAnswer: originalAnswer, userAnswer: userAnswer))/
-
             guard let status = dict["status"] as? Int else {
                 guard let msg = dict["msg"] as? String else {
                     SwiftMessages.showErrorMessage(body: "提交答案失败，别担心，等网络好了，我们会再次帮你提交一遍")
@@ -96,14 +92,12 @@ extension Courses.Study20 {
                     Courses.Study20.finalMsgAfterSubmitting = "网络出问题啦😘"
                     Courses.Study20.finalStatusAfterSubmitting = 0
 
-                    //log.word("fuck2")/
                     completion()
                     return
                 }
                 SwiftMessages.showErrorMessage(body: msg)
                 Courses.Study20.finalMsgAfterSubmitting = msg
                 Courses.Study20.finalStatusAfterSubmitting = 0
-                log.word(msg)/
                 completion()
                 return
             }

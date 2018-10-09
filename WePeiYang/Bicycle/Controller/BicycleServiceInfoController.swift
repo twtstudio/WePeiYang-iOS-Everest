@@ -240,7 +240,6 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
             return headerView
         }
 
-        //log.word("drawing header view")
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.width, height: 250))
 
         //infoLabel

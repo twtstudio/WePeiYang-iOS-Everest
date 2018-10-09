@@ -49,7 +49,6 @@ struct PartyAPI {
             str2 += "\(answer), "
         }
         str2 = str2.removeCharsFromEnd(2)
-        log.word(courseQuizSubmitURL)/
         return ["submit": "fuck", "course_id": courseID, "answer": str1, "exercise_answer": str2]
     }
 

@@ -154,10 +154,10 @@ extension BicycleFitnessTrackerViewController: UITableViewDelegate, UITableViewD
 
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: (UIApplication.shared.keyWindow?.frame.size.width)!, height: (UIApplication.shared.keyWindow?.frame.size.width)!))
 
-        let currentDate = NSDate()
+        let currentDate = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM, dd, YYYY"
-        let dateString = dateFormatter.string(from: currentDate as Date)
+        dateFormatter.dateFormat = "MMM, dd, yyyy"
+        let dateString = dateFormatter.string(from: currentDate)
         let timeLabel = UILabel(text: dateString, color: .white)
 
         headerView.addSubview(timeLabel)

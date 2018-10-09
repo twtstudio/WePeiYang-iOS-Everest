@@ -129,7 +129,6 @@ class PartyMainViewController: UIViewController {
 //        UIApplication.shared.setStatusBarStyle(.default, animated: true)
         navigationController?.navigationBar.barStyle = .default
         guard Applicant.sharedInstance.realName != nil else {
-            //log.word("not found")/
             return
         }
     }
@@ -270,8 +269,6 @@ extension PartyMainViewController {
             make.top.equalTo(functionTableView.snp.top).offset(-10)
             make.height.equalTo(10)
         }
-        //log.any(CGRectGetHeight(functionTableView.frame))/
-
     }
 }
 

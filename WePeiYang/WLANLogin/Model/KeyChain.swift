@@ -89,7 +89,7 @@ struct KeychainService {
                 contentsOfKeychain = String(data: retrievedData as Data, encoding: .utf8)
             }
         } else {
-            log.errorMessage("Nothing was retrieved from the keychain. Status code \(status)")
+            log("Nothing was retrieved from the keychain. Status code \(status)")
         }
 
         return contentsOfKeychain

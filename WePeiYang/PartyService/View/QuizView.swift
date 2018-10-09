@@ -33,7 +33,6 @@ class QuizView: UIView {
 
     func saveChoiceStatus() {
         var fooArr: [Int] = []
-        log.word("fuckers")/
         for i in 0..<optionButtons.count where optionButtons[i].wasChosen {
             fooArr.append(i)
         }

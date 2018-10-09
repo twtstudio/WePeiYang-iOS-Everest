@@ -189,12 +189,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             center.delegate = self
             center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
                 if granted {
-                    log.word("Push notification request succeed")/
                     DispatchQueue.main.async {
                         UIApplication.shared.registerForRemoteNotifications()
                     }
                 } else {
-                    log.word("Push notification request failed...")/
+                    log("Push notification request failed...")
                 }
             }
         } else {
@@ -207,7 +206,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
     // 收到推送token
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        log.word("------device token: \(deviceToken.hexString)")/
+        log("------device token: \(deviceToken.hexString)")
         UserDefaults.standard.set(deviceToken.hexString, forKey: "deviceToken")
     }
 
@@ -220,7 +219,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         } else {
             // 本地通知
         }
-        completionHandler([.sound, .alert])
+        completionHandler([.sound, .alert, .badge])
     }
 
     // iOS 10: 处理后台点击通知的代理方法

@@ -93,7 +93,6 @@ extension PartySignUpViewController: UITableViewDelegate, UITableViewDataSource 
         case 2:
             let cell = SignUpTableViewCell(status: ApplicantTest.ProbationaryEntry.status, message: ApplicantTest.ProbationaryEntry.message, hasEntry: ApplicantTest.ProbationaryEntry.testInfo?.hasEntry, testIdentifier: 2)
             cell.selectionStyle = .none
-            //log.word((ApplicantTest.ProbationaryEntry.message)!)/
             return cell
 
         default:

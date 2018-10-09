@@ -128,7 +128,6 @@ extension BicycleServiceMapController: MKMapViewDelegate {
             let annotationIdentifier = "AnnotationIdentifier"
             if let dequeuedView = newMapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) {
 
-                //log.word("Reused AnnotationView!")/
                 return dequeuedView
             } else {
 
@@ -136,7 +135,6 @@ extension BicycleServiceMapController: MKMapViewDelegate {
                 //fooAnnotationView.image = UIImage.resizedImage(UIImage(named: "大点位")!, scaledToSize: CGSize(width: 25.0, height: 25.0))
                 let fooAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
                 fooAnnotationView.canShowCallout = false
-                //log.word("Created New AnnotationView")/
                 return fooAnnotationView
             }
         } else {
@@ -144,14 +142,12 @@ extension BicycleServiceMapController: MKMapViewDelegate {
             let userPinIdentifier = "UserPinIdentifier"
             if let dequeuedView = newMapView.dequeueReusableAnnotationView(withIdentifier: userPinIdentifier) {
 
-                //log.word("Reused UserPinView!")/
                 return dequeuedView
             } else {
 
                 let fooAnnotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: userPinIdentifier)
                 fooAnnotationView.image = UIImage.resizedImage(image: UIImage(named: "小箭头")!, scaledToSize: CGSize(width: 25.0, height: 25.0))
                 fooAnnotationView.canShowCallout = false
-                //log.word("Created New UserPinView!")/
                 return fooAnnotationView
             }
 
@@ -184,7 +180,6 @@ extension BicycleServiceMapController: MKMapViewDelegate {
         (view.annotation as! ParkingSpot).getCurrentStatus {
             let detailView = SpotDetailsView(positionsAvailable: "\((spot.currentNumberOfBikes)!)/\(spot.numberOfBikes)", spotName: spot.title!, distanceFromUser: spot.calculateDistance(userLocation: userLoc), status: spot.status)
 
-            //log.any(spot.coordinate)/
             DispatchQueue.main.async {
                 mapView.addSubview(detailView)
             }
