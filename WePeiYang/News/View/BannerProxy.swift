@@ -27,9 +27,7 @@ struct Proxy {
     var imgArray: [ImgSource] = [ImgSource]()
 
     subscript (index: Int) -> ImgSource {
-        get {
-            return imgArray[index]
-        }
+        return imgArray[index]
     }
 
     // 构造方法
@@ -67,7 +65,7 @@ protocol PageControlAlimentProtocol {
     func relayoutPageControl(pageControl: PageControl, outerFrame: CGRect)
 }
 
-extension PageControlAlimentProtocol where Self : UIView {
+extension PageControlAlimentProtocol where Self: UIView {
     func relayoutPageControl(pageControl: PageControl) {
         if pageControl.isHidden == false {
             // MARK: - pageControl的高度 在这里改
@@ -108,7 +106,7 @@ protocol EndlessScrollProtocol {
     func changeToFirstBannerCell(animated: Bool, collectionView: UICollectionView)
 }
 
-extension EndlessScrollProtocol where Self : UIView {
+extension EndlessScrollProtocol where Self: UIView {
     func changeBannerCell(collectionView: UICollectionView) {
         guard itemsInSection != 0 else {
             return

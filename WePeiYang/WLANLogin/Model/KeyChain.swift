@@ -82,7 +82,7 @@ struct KeychainService {
 
         // Search for the keychain items
         let status: OSStatus = SecItemCopyMatching(keychainQuery, &dataTypeRef)
-        var contentsOfKeychain: String? = nil
+        var contentsOfKeychain: String?
 
         if status == errSecSuccess {
             if let retrievedData = dataTypeRef as? NSData {

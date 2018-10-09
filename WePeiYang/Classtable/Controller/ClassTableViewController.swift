@@ -296,6 +296,8 @@ class ClassTableViewController: UIViewController {
                 SwiftMessages.showWarningMessage(body: "服务器故障\n缓存时间: \(oldTable.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
                 return
             }
+
+            ClassTableNotificationHelper.addNotification(table: table)
             let string = table.toJSONString() ?? ""
             CacheManager.store(object: string, in: .group, as: "classtable/classtable.json")
             self.table = table

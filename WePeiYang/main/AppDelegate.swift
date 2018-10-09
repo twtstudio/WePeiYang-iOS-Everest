@@ -207,7 +207,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
     // 收到推送token
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        log.word("------device token: \(deviceToken.hexString)")
+        log.word("------device token: \(deviceToken.hexString)")/
         UserDefaults.standard.set(deviceToken.hexString, forKey: "deviceToken")
     }
 

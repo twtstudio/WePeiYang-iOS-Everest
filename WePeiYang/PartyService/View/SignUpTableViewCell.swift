@@ -125,8 +125,8 @@ private extension UIButton {
 
     func refreshViewForState() {
 
-        var status: Int? = nil
-        var hasEntry: Int? = nil
+        var status: Int?
+        var hasEntry: Int?
 
         switch self.tag {
         case 0:
