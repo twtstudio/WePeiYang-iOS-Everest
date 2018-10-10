@@ -24,7 +24,7 @@ struct Courses {
                 return
             }
 
-            courses = fooCourses.flatMap({ dict -> Study20? in
+            courses = fooCourses.compactMap({ dict -> Study20? in
                 guard let courseID = dict["course_id"] as? String, let courseName = dict["course_name"] as? String else {
                     return nil
                 }

@@ -7,7 +7,7 @@
 //
 
 struct PartyAPI {
-    static let rootURL = "https://www.twt.edu.cn/party"
+    static let rootURL = "https://www.twt.edu.cn/party/"
 
     // Only for test
     // static let studentID: String? = "3014218099"

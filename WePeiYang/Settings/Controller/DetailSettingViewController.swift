@@ -218,6 +218,7 @@ extension DetailSettingViewController: UITableViewDelegate {
                 UserDefaults.standard.set(false, forKey: "isOnline")
                 TwTUser.shared.delete()
                 tableView.reloadData()
+                ClassTableNotificationHelper.removeNotification()
                 NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
                 self.navigationController?.popViewController(animated: true)
             }

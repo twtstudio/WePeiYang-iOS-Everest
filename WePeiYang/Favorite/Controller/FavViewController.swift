@@ -248,7 +248,6 @@ extension FavViewController {
 
     func initClassTableCard() {
         let card = ClassTableCard()
-        var table: ClassTableModel?
 
         card.delegate = self
 

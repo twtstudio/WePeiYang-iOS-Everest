@@ -9,6 +9,7 @@
 import UIKit
 import UserNotifications
 
+let ClasstableNotificationNeedsUpdateKey = "ClasstableNotificationNeedsUpdateKey"
 struct ClassTableNotificationHelper {
     private init() {}
 
@@ -17,53 +18,70 @@ struct ClassTableNotificationHelper {
             a.date < b.date
         }
 
-        if messages.count > 64 {
-            let lastDate = messages[64].date.description(with: Locale(identifier: "zh_cn"))
+        let overflow = messages.count > 64
+        UserDefaults.standard.set(overflow, forKey: ClasstableNotificationNeedsUpdateKey)
+
+        if overflow {
+            for index in 60..<messages.count {
+                messages[index].msg += "\n由于 iOS 系统限制，只允许添加 64 个提醒，请打开微北洋激活更多通知，以免错过课程"
+            }
             messages = Array(messages[0..<64])
-            failure?("由于 iOS 系统限制，只允许添加 64 个提醒，请于 \(lastDate) 之前打开微北洋，以免错过提醒")
         }
 
+        removeNotification()
         if #available(iOS 10.0, *) {
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            prepareForNotification(messages: messages, failure: failure)
         } else {
-            // TODO
-            // Fallback on earlier versions
+            prepareForNotificationOlderVersion(messages: messages, failure: failure)
         }
-        for (offset: i, element: (date: date, msg: body)) in messages.enumerated() {
-            if #available(iOS 10.0, *) {
-                let center = UNUserNotificationCenter.current()
-                let content = UNMutableNotificationContent()
-                content.title = "要上课啦"
-                content.body = body
-                content.sound = UNNotificationSound.default()
-                content.threadIdentifier = "classtable-notification"
-                // TODO: url scheme
-                // content.userInfo = ["url": ""]
-                let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-                let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-                let request = UNNotificationRequest(identifier: "classtable-notification-\(i)", content: content, trigger: trigger)
-                center.add(request, withCompletionHandler: { err in
-                    if let err = err {
-                        failure?(err.localizedDescription)
-                        log(err)
-                    }
-                })
-            } else {
-                // Fallback on earlier versions
-                // TODO: test on iOS 9
-                let notification = UILocalNotification()
-                notification.fireDate = date
-                notification.soundName = UILocalNotificationDefaultSoundName
-                notification.alertTitle = "要上课啦"
-                notification.alertBody = body
-                UIApplication.shared.scheduleLocalNotification(notification)
+    }
+
+    static func removeNotification() {
+        if #available(iOS 10.0, *) {
+            var identifiers = [String]()
+            for i in 0..<64 {
+                identifiers.append("classtable-notification-\(i)")
+            }
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+        } else {
+            for notification in UIApplication.shared.scheduledLocalNotifications ?? [] where notification.category == "classtable-notification" {
+                UIApplication.shared.cancelLocalNotification(notification)
             }
         }
-        if #available(iOS 10.0, *) {
+    }
+
+    @available(iOS 10.0, *)
+    static private func prepareForNotification(messages: [(date: Date, msg: String)], failure: ((String) -> Void)? = nil) {
+        for (offset: i, element: (date: date, msg: body)) in messages.enumerated() {
             let center = UNUserNotificationCenter.current()
-            center.getPendingNotificationRequests(completionHandler: { notifications in
-                log(notifications)
+            let content = UNMutableNotificationContent()
+            content.title = "要上课啦"
+            content.body = body
+            content.sound = UNNotificationSound.default()
+            content.threadIdentifier = "classtable-notification"
+            // TODO: url scheme
+            // content.userInfo = ["url": ""]
+            let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            let request = UNNotificationRequest(identifier: "classtable-notification-\(i)", content: content, trigger: trigger)
+            center.add(request, withCompletionHandler: { err in
+                if let err = err {
+                    failure?(err.localizedDescription)
+                    log(err)
+                }
             })
+        }
+    }
+
+    static private func prepareForNotificationOlderVersion(messages: [(date: Date, msg: String)], failure: ((String) -> Void)? = nil) {
+        for (date: date, msg: body) in messages {
+            let notification = UILocalNotification()
+            notification.fireDate = date
+            notification.soundName = UILocalNotificationDefaultSoundName
+            notification.alertTitle = "要上课啦"
+            notification.alertBody = body
+            notification.category = "classtable-notification"
+            UIApplication.shared.scheduleLocalNotification(notification)
         }
     }
 
@@ -88,19 +106,20 @@ struct ClassTableNotificationHelper {
                             continue
                     }
                     let components = arrange.startTime.split(separator: ":")
-                    if let hour = Int(components[0]),
-                        let min = Int(components[1]) {
-                        // TODO: offset
-                        let offsetMin = -15
-                        let sec = ((((week-1) * 7 + arrange.day-1) * 24 + hour) * 60 + min + offsetMin) * 60
-                        let date = termStart.addingTimeInterval(TimeInterval(sec))
-                        guard date > now else {
+                    guard let hour = Int(components[0]),
+                        let min = Int(components[1]) else {
                             continue
-                        }
-
-                        let body = "\(course.courseName) 将于 \(arrange.startTime) 在 \(arrange.room) 开始上课"
-                        result.append((date: date, msg: body))
                     }
+
+                    let offsetMin = -15
+                    let sec = ((((week-1) * 7 + arrange.day-1) * 24 + hour) * 60 + min + offsetMin) * 60
+                    let date = termStart.addingTimeInterval(TimeInterval(sec))
+                    guard date > now else {
+                        continue
+                    }
+
+                    let body = "\(course.courseName) 将于 \(arrange.startTime) 在 \(arrange.room) 开始上课"
+                    result.append((date: date, msg: body))
                 }
             }
         }
