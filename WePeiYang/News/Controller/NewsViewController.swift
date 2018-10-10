@@ -356,10 +356,10 @@ extension NewsViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row <= 2 {
+        guard indexPath.row > 2 else {
             return
         }
-        let row = indexPath.row - 2
+        let row = indexPath.row - 3
         tableView.deselectRow(at: indexPath, animated: true)
         let news = newsList[row]
         let newsVC = NewsDetailViewController(index: String(news.index))

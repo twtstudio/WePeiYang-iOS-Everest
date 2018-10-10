@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13770" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13770"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,19 +18,22 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guide_screen" translatesAutoresizingMaskIntoConstraints="NO" id="WFN-sS-zqv">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="331.66666666666669" y="0.0" width="232.66666666666669" height="414"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="WFN-sS-zqv" secondAttribute="height" multiplier="375:667" id="cWn-90-MHB"/>
+                                </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.13221696019172668" green="0.58809870481491089" blue="0.95350939035415649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="WFN-sS-zqv" secondAttribute="trailing" id="eyq-ca-NJm"/>
+                            <constraint firstItem="WFN-sS-zqv" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="NwX-tx-U8y"/>
                             <constraint firstAttribute="bottom" secondItem="WFN-sS-zqv" secondAttribute="bottom" id="hFY-Hd-6vi"/>
                             <constraint firstItem="WFN-sS-zqv" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="lSW-Jf-LTL"/>
-                            <constraint firstItem="WFN-sS-zqv" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="wfg-k2-K3v"/>
+                            <constraint firstItem="WFN-sS-zqv" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="tZL-g1-Ji6"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -40,6 +43,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="guide_screen" width="540" height="960"/>
+        <image name="guide_screen" width="259.20001220703125" height="460.79998779296875"/>
     </resources>
 </document>
