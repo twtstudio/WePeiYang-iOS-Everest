@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class QuesCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class QLCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     static var chosenPage: Int = 0
     
     var pageNum: Int = 0
@@ -57,33 +57,49 @@ class QuesCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, 
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let selectedBlue = UIColor(red: 228/255, green: 243/255, blue: 1, alpha: 1)
+        let selectedRed = UIColor(red: 1, green: 228/255, blue: 243/255, alpha: 1)
         let cell = self.dequeueReusableCell(withReuseIdentifier: "quesCollection cell", for: indexPath) as! QuesCollectionCell
-        
+//        var bgColor: UIColor = .clear
+//        var fontColor: UIColor = .clear
         cell.label.text = "\(indexPath.item + 1)"
         cell.layer.cornerRadius = cellW * 0.5
-        switch isCorrected[indexPath.item] {
-        case .unknown:
-            cell.backgroundColor = .white
-            cell.layer.borderColor = UIColor.lightGray.cgColor
-            cell.label.textColor = UIColor.lightGray
-        case .right:
-            cell.backgroundColor = UIColor.practiceBlue
-            cell.label.textColor = .white
-        case .wrong:
-            cell.layer.borderColor = UIColor.clear.cgColor
-            cell.backgroundColor = UIColor.readRed
-            cell.label.textColor = .white
-        }
-        
-        if indexPath.item == curPage - 1 {
-            cell.layer.borderColor = UIColor.practiceBlue.cgColor
-            cell.label.textColor = UIColor.practiceBlue
+        if curPage == indexPath.item + 1 {
+            switch isCorrected[indexPath.item] {
+            case .unknown:
+                cell.backgroundColor = .white
+                cell.layer.borderColor = UIColor.practiceBlue.cgColor
+                cell.label.textColor = UIColor.practiceBlue
+            case .right:
+                cell.backgroundColor = selectedBlue
+                cell.label.textColor = UIColor.practiceBlue
+                cell.layer.borderColor = UIColor.practiceBlue.cgColor
+            case .wrong:
+                cell.backgroundColor = selectedRed
+                cell.label.textColor = UIColor.readRed
+                cell.layer.borderColor = UIColor.readRed.cgColor
+            }
+        } else {
+            switch isCorrected[indexPath.item] {
+            case .unknown:
+                cell.backgroundColor = .white
+                cell.layer.borderColor = UIColor.lightGray.cgColor
+                cell.label.textColor = UIColor.lightGray
+            case .right:
+                cell.layer.borderColor = UIColor.clear.cgColor
+                cell.backgroundColor = UIColor.practiceBlue
+                cell.label.textColor = .white
+            case .wrong:
+                cell.layer.borderColor = UIColor.clear.cgColor
+                cell.backgroundColor = UIColor.readRed
+                cell.label.textColor = .white
+            }
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        QuesCollectionView.chosenPage = indexPath.item + 1
+        QLCollectionView.chosenPage = indexPath.item + 1
         SolaSessionManager.cancelAllTask()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "changeQues"), object: nil)
     }

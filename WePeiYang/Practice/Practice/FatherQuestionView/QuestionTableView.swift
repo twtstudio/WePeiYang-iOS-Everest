@@ -8,8 +8,8 @@
 
 import Foundation
 
-//这个数组的长度应该由选项个数决定
-//var optionsSelected = [false, false, false, false]
+
+/// 题目及选项TableView父类
 class QuestionTableView: UITableView {
     let practiceModel = PracticeModel()
     let exerciseModel = ExerciseModel()

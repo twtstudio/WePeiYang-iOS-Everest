@@ -23,8 +23,8 @@ class OptionsCell: UITableViewCell {
         return btn
     }()
     
-    let optionLabel: UILabel = {
-        let label = UILabel()
+    let optionLabel: UICopyLabel = {
+        let label = UICopyLabel()
         label.numberOfLines = 0
         label.textAlignment = .left
         label.adjustsFontSizeToFitWidth = true
