@@ -36,7 +36,6 @@ class PracticeHistoryViewController: UIViewController {
         /* 导航栏 */
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.barStyle = .black
-        
         navigationController?.navigationBar.setBackgroundImage(UIImage(color: .practiceBlue), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
@@ -77,9 +76,11 @@ class PracticeHistoryViewController: UIViewController {
     
     // 刷新数据与视图 //
     @objc func refreshDataAndView() {
+        navigationItem.rightBarButtonItem?.isEnabled = false
         practiceHistoryTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
             self.reloadDataAndView()
             self.practiceHistoryTableView.mj_header.endRefreshing()
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
         })
         practiceHistoryTableView.mj_header.beginRefreshing()
     }
@@ -133,9 +134,19 @@ extension PracticeHistoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // TODO: 进入练习历史
         let historyData = practiceHistory.data[indexPath.row]
-        PracticeFigure.practiceType = historyData.type
+        // PracticeFigure.practiceType = historyData.type
         PracticeFigure.classID = historyData.classID
         PracticeFigure.courseID = historyData.courseID
+        switch historyData.type {
+        case "0":
+            PracticeFigure.questionType = historyData.quesType!
+            PracticeFigure.currentCourseIndex = Int(historyData.doneIndex)!
+            self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
+        case "1":
+            self.navigationController?.pushViewController(QuizCollectionViewController(), animated: true)
+        default:
+            return
+        }
         // 就很辣的动画
         // tableView.cellForRow(at: indexPath)?.contentView.setBounceAnimation()
         // for view in (tableView.cellForRow(at: indexPath)?.contentView.subviews)! {

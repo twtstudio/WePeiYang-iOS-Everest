@@ -17,7 +17,7 @@ class WrongViewCell: UITableViewCell {
     let questionTypeBubbleLabel = UILabel()
     
     /* 题目内容 */
-    let questionContentLabel = UILabel()
+    let questionContentLabel = UICopyLabel()
     
     /* 题目选项 */
     var lastDynamicLabel = UILabel() // 用于计算动态高度
@@ -39,12 +39,7 @@ class WrongViewCell: UITableViewCell {
         let wrongData = practiceWrong.data.ques[index]
         
         // 课程类型 //
-        var classID = "2"
-        let courseID = Int(wrongData.courseID)!
-        if courseID == 1 {
-            classID = "1"
-        } else if courseID > 21 { classID = "3" }
-        
+        let classID = PracticeFigure.getClassID(byCourseID: Int(wrongData.courseID)!)
         classTypeBubbleLabel.frame.origin = CGPoint(x: 20, y: 16)
         classTypeBubbleLabel.setPracticeBubbleLabel(withText: PracticeDictionary.classType[classID]!)
         contentView.addSubview(classTypeBubbleLabel)

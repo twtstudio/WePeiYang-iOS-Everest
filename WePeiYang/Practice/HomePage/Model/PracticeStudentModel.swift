@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: API
 struct PracticeAPI { // 参考 Bike 模块, 考虑单独抽出为一个文件
     
     static let root = "https://exam.twtstudio.com/api"
@@ -20,6 +21,7 @@ struct PracticeAPI { // 参考 Bike 模块, 考虑单独抽出为一个文件
     
 }
 
+// MARK: - Dictionary
 struct PracticeDictionary {
     
     static let practiceType = ["0":"顺序练习", "1":"模拟考试"]
@@ -30,6 +32,7 @@ struct PracticeDictionary {
     
 }
 
+// MARK: - Figure
 struct PracticeFigure {
     
     static var isAtRight = true
@@ -38,7 +41,20 @@ struct PracticeFigure {
     
     static var classID = ""
     
+    // 基于部分 API 未提供 classID 而提供手动算法
+    static func getClassID(byCourseID courseID: Int) -> String {
+        var classID = "2"
+        if courseID == 1 {
+            classID = "1"
+        } else if courseID > 21 { classID = "3" }
+        return classID
+    }
+    
     static var courseID = ""
+    
+    static var questionType = ""
+    
+    static var currentCourseIndex = 0
     
 }
 
@@ -79,7 +95,8 @@ struct PracticeStudentData: Codable {
     let currentCourseDoneCount: Int?
     let currentQuesType, currentCourseQuesCount: String?
     let currentCourseIndex: Int?
-    let currentCourseWriteString, currentCourseErrorOption: String?
+    let currentCourseWriteString: String?
+    let currentCourseErrorOption: [[String]]?
     let latestCourseName: String
     let latestCourseTimestamp: Int
     let qSelect: [QuickSelect]
@@ -189,7 +206,7 @@ extension PracticeStudentData {
         currentCourseQuesCount: String?? = nil,
         currentCourseIndex: Int?? = nil,
         currentCourseWriteString: String?? = nil,
-        currentCourseErrorOption: String?? = nil,
+        currentCourseErrorOption: [[String]]?? = nil,
         latestCourseName: String? = nil,
         latestCourseTimestamp: Int? = nil,
         qSelect: [QuickSelect]? = nil

@@ -25,9 +25,9 @@ class ExerciseCollectionViewController: UIViewController {
     var scrollDirection: Direction = .none
     var mode: ExerciseMode = .exercise
     
-    var classId = 2
-    var courseId = 2
-    var quesType = 0
+    var classId = Int(PracticeFigure.classID)!
+    var courseId = Int(PracticeFigure.courseID)!
+    var quesType = Int(PracticeFigure.questionType)!
 
     var currentPage = 1
     var currentIndex = 0

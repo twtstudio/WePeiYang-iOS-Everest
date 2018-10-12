@@ -52,19 +52,17 @@ class HistoryViewCell: UITableViewCell {
         
         // 课程类型 //
         classTypeLabel.text = PracticeDictionary.classType[historyData.classID]
-        classTypeLabel.frame.origin = CGPoint(x: practiceTypeBubbleLabel.frame.origin.x, y: practiceTypeBubbleLabel.frame.maxY + 20)
+        classTypeLabel.frame.origin = CGPoint(x: practiceTypeBubbleLabel.frame.origin.x, y: practiceTypeBubbleLabel.frame.maxY + 16)
         classTypeLabel.sizeToFit()
         contentView.addSubview(classTypeLabel)
         
         // 课程名称 //
         if historyData.classID != "1" { // 形势与政策不需要显示
-            // var courseName = historyData.courseName
-            // if courseName.hasPrefix("第") { courseName.removeFirst(4) }
             courseNameLabel.text = historyData.courseName
             courseNameLabel.frame.origin = CGPoint(x: classTypeLabel.frame.maxX + 4, y: classTypeLabel.frame.origin.y)
-            courseNameLabel.sizeToFit()
+            courseNameLabel.setFlexibleHeight(andFixedWidth: deviceWidth - classTypeLabel.frame.maxX - 4)
             contentView.addSubview(courseNameLabel)
-        }
+        } else { courseNameLabel.frame = classTypeLabel.frame } // 用于之后计算
         
         switch historyData.type {
         case "0": // 顺序练习
@@ -74,7 +72,7 @@ class HistoryViewCell: UITableViewCell {
                 practiceProgressLabel.text = "进度: \(doneCount) / \(quesCount) - 第 \(historyData.doneIndex) 题"
                 practiceProgressLabel.textColor = .darkGray
                 practiceProgressLabel.sizeToFit()
-                practiceProgressLabel.frame.origin = CGPoint(x: classTypeLabel.frame.origin.x, y: classTypeLabel.frame.maxY + 20)
+                practiceProgressLabel.frame.origin = CGPoint(x: classTypeLabel.frame.origin.x, y: courseNameLabel.frame.maxY + 16)
                 contentView.addSubview(practiceProgressLabel)
             }
         case "1": // 模拟考试
@@ -84,7 +82,7 @@ class HistoryViewCell: UITableViewCell {
                 let correctRateText = NSMutableAttributedString(string: "正确率: \(correctRate)%") // 使用富文本改变字体
                 correctRateText.addAttribute(.foregroundColor, value: UIColor.darkGray, range: NSMakeRange(0, 5))
                 correctRateLabel.attributedText = correctRateText
-                correctRateLabel.frame.origin = CGPoint(x: classTypeLabel.frame.origin.x, y: classTypeLabel.frame.maxY + 20)
+                correctRateLabel.frame.origin = CGPoint(x: classTypeLabel.frame.origin.x, y: courseNameLabel.frame.maxY + 16)
                 correctRateLabel.sizeToFit()
                 contentView.addSubview(correctRateLabel)
             }
@@ -96,7 +94,7 @@ class HistoryViewCell: UITableViewCell {
         practiceTimeLabel.text = historyData.timestamp.date(withFormat: "yyyy-MM-dd hh:mm")
         practiceTimeLabel.textColor = .gray
         practiceTimeLabel.sizeToFit()
-        practiceTimeLabel.frame.origin = CGPoint(x: deviceWidth - practiceTimeLabel.frame.size.width - 20, y: classTypeLabel.frame.maxY + 20)
+        practiceTimeLabel.frame.origin = CGPoint(x: deviceWidth - practiceTimeLabel.frame.size.width - 20, y: courseNameLabel.frame.maxY + 16)
         
         if practiceProgressLabel.frame.size.width + practiceTimeLabel.frame.size.width > deviceWidth - 40 || correctRateLabel.frame.size.width + practiceTimeLabel.frame.size.width > deviceWidth - 40 { // 塞不下就换行
             practiceTimeLabel.frame.origin.y += practiceTimeLabel.frame.size.height + 16

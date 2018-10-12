@@ -44,12 +44,14 @@ class HomeViewCell: UITableViewCell {
         contentView.addSubview(topHorizontalLine)
         
         // 左侧蓝线 //
-        leftVerticalLine.frame = CGRect(x: 20, y: 16, width: 3, height: 22)
+        leftVerticalLine.frame = CGRect(x: 20, y: 16, width: 3, height: 24)
         contentView.addSubview(leftVerticalLine)
         
         // 单元标题 //
-        cellTitleLabel.frame = CGRect(x: leftVerticalLine.frame.maxX + 12, y: topHorizontalLine.frame.maxY + 10, width: deviceWidth / 2, height: 33)
         cellTitleLabel.text = style.rawValue
+        cellTitleLabel.sizeToFit()
+        cellTitleLabel.frame.origin.x = leftVerticalLine.frame.maxX + 12
+        cellTitleLabel.center.y = leftVerticalLine.center.y
         contentView.addSubview(cellTitleLabel)
         
         // 根据不同类型设置各自特有视图 //
@@ -62,9 +64,6 @@ class HomeViewCell: UITableViewCell {
             let titleArray = studentData.qSelect
             
             for index in 0..<titleArray.count {
-                // var courseName = titleArray[index].courseName
-                // if courseName.hasPrefix("第") { courseName.removeFirst(4) }
-                
                 let bubbleButton = UIButton()
                 
                 bubbleButton.setPracticeBubbleButton(withTitle: titleArray[index].courseName)
@@ -82,7 +81,7 @@ class HomeViewCell: UITableViewCell {
                 bubbleButtonArray.append(bubbleButton)
             }
             
-            cellHeight = (bubbleButtonArray.last?.frame.maxY)!
+            cellHeight = (bubbleButtonArray.last?.frame.maxY)! + 20
         
         // 最新消息 //
         case .latestInformation:
@@ -93,7 +92,7 @@ class HomeViewCell: UITableViewCell {
             
             let latestInformationTime = UILabel(text: String(studentData.latestCourseTimestamp).date(withFormat: "yyyy-MM-dd hh:mm"), color: .gray)
             latestInformationTime.sizeToFit()
-            latestInformationTime.frame.origin = CGPoint(x: deviceWidth - latestInformationTime.frame.size.width - 20, y: latestInformationMessage.frame.maxY + 16)
+            latestInformationTime.frame.origin = CGPoint(x: deviceWidth - latestInformationTime.frame.size.width - 20, y: latestInformationMessage.frame.origin.y)
             contentView.addSubview(latestInformationTime)
             
             if latestInformationMessage.frame.size.width + latestInformationTime.frame.size.width > deviceWidth - 55 { // 塞不下就换行
@@ -108,14 +107,22 @@ class HomeViewCell: UITableViewCell {
                 let currentQuesType = studentData.currentQuesType,
                 let currentCourseDoneCount = studentData.currentCourseDoneCount,
                 let currentCourseQuesCount = studentData.currentCourseQuesCount,
-                let currentCourseIndex = studentData.currentCourseIndex else { return }
+                let currentCourseIndex = studentData.currentCourseIndex else {
+                    let currentPracticeMessage = UILabel(text: "暂无练习, 快去练习吧 🌝", color: .darkGray)
+                    currentPracticeMessage.sizeToFit()
+                    currentPracticeMessage.center.x = deviceWidth / 2
+                    currentPracticeMessage.frame.origin.y = cellTitleLabel.frame.maxY + 16
+                    contentView.addSubview(currentPracticeMessage)
+                    cellHeight = currentPracticeMessage.frame.maxY + 20
+                    return
+            }
             
-            let currentPracticeCourse = UILabel(text: currentCourseName + PracticeDictionary.questionType[currentQuesType]!, color: .darkGray)
-            currentPracticeCourse.sizeToFit()
+            let currentPracticeCourse = UILabel(text: currentCourseName, color: .darkGray)
             currentPracticeCourse.frame.origin = CGPoint(x: cellTitleLabel.frame.minX, y: cellTitleLabel.frame.maxY + 10)
+            currentPracticeCourse.setFlexibleHeight(andFixedWidth: deviceWidth - currentPracticeCourse.frame.origin.x - 20)
             contentView.addSubview(currentPracticeCourse)
             
-            let currentPracticeMessage = UILabel(text: "\(currentCourseDoneCount) / \(currentCourseQuesCount) - 第 \(currentCourseIndex) 题", color: .darkGray)
+            let currentPracticeMessage = UILabel(text: "\(PracticeDictionary.questionType[currentQuesType]!): \(currentCourseDoneCount) / \(currentCourseQuesCount) - 第 \(currentCourseIndex) 题", color: .darkGray)
             currentPracticeMessage.sizeToFit()
             currentPracticeMessage.frame.origin = CGPoint(x: currentPracticeCourse.frame.minX, y: currentPracticeCourse.frame.maxY + 16)
             contentView.addSubview(currentPracticeMessage)
@@ -127,8 +134,6 @@ class HomeViewCell: UITableViewCell {
             
             cellHeight = continueBubbleButton.frame.maxY + 20
         }
-        
-        cellHeight = (contentView.subviews.last?.frame.maxY)! + 20
     }
     
     @objc func clickBubbleButton(view: UIView) {

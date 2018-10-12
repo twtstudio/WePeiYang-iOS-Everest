@@ -37,7 +37,6 @@ class PracticeWrongViewController: UIViewController {
         /* 导航栏 */
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.barStyle = .black
-        
         navigationController?.navigationBar.setBackgroundImage(UIImage(color: .practiceBlue), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
@@ -78,9 +77,11 @@ class PracticeWrongViewController: UIViewController {
     
     // 刷新数据与视图 //
     @objc func refreshDataAndView() {
+        navigationItem.rightBarButtonItem?.isEnabled = false
         practiceWrongTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
             self.reloadDataAndView()
             self.practiceWrongTableView.mj_header.endRefreshing()
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
         })
         practiceWrongTableView.mj_header.beginRefreshing()
     }
