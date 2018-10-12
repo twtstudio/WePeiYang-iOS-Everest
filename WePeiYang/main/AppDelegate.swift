@@ -213,7 +213,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     // iOS 10: 处理前台收到通知的代理方法
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        let info = notification.request.content.userInfo
+        _ = notification.request.content.userInfo
         if notification.request.trigger is UNPushNotificationTrigger {
             // 远程通知
         } else {

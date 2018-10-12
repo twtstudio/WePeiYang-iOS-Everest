@@ -111,7 +111,8 @@ struct ClassTableNotificationHelper {
                             continue
                     }
 
-                    let offsetMin = -15
+                    let offset = UserDefaults.standard.integer(forKey: ClassTableNotificationOffsetKey)
+                    let offsetMin = -offset
                     let sec = ((((week-1) * 7 + arrange.day-1) * 24 + hour) * 60 + min + offsetMin) * 60
                     let date = termStart.addingTimeInterval(TimeInterval(sec))
                     guard date > now else {

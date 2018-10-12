@@ -149,30 +149,6 @@ extension UIImage {
         return (r, g, b, a)
     }
 
-    func smartAvgRGB() -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
-        //[TODO]: Add smart rgb Filter
-
-        //Naïve Algorithm. Squareroot: Weight for a specific RGB value is value^(-1/3)
-        let thumbnail = UIImage.resizedImage(image: self, scaledToSize: CGSize(width: 100, height: 100))
-        var r: CGFloat = 0.0
-        var g: CGFloat = 0.0
-        var b: CGFloat = 0.0
-        var a: CGFloat = 0.0
-        for i in 0..<100 {
-            for j in 0..<100 {
-                let point = CGPoint(x: i, y: j)
-                let rgbOfThisPoint = thumbnail.rgb(atPos: point)
-
-                r += (pow(rgbOfThisPoint.red, 1/3))/10000
-                g += (pow(rgbOfThisPoint.green, 1/3))/10000
-                b += (pow(rgbOfThisPoint.blue, 1/3))/10000
-                a += rgbOfThisPoint.alpha/10000
-            }
-        }
-
-        return (r, g, b, a)
-    }
-
     func with(color: UIColor) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
         color.setFill()

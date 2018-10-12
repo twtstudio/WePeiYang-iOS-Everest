@@ -78,10 +78,10 @@ class ClassTableCard: CardView {
             guard let table = Mapper<ClassTableModel>().map(JSONString: string) else {
                 return
             }
-            if UserDefaults.standard.bool(forKey: ClasstableNotificationNeedsUpdateKey) {
+            if UserDefaults.standard.bool(forKey: ClassTableNotificationEnabled) && UserDefaults.standard.bool(forKey: ClasstableNotificationNeedsUpdateKey) {
                 ClassTableNotificationHelper.addNotification(table: table)
             }
-            
+
             let termStart = Date(timeIntervalSince1970: Double(table.termStart))
             let week = Int(Date().timeIntervalSince(termStart)/(7.0*24*60*60) + 1)
             let weekday = DateTool.getChineseWeekDay()

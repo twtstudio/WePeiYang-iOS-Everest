@@ -297,7 +297,9 @@ class ClassTableViewController: UIViewController {
                 return
             }
 
-            ClassTableNotificationHelper.addNotification(table: table)
+            if UserDefaults.standard.bool(forKey: ClassTableNotificationEnabled) {
+                ClassTableNotificationHelper.addNotification(table: table)
+            }
             let string = table.toJSONString() ?? ""
             CacheManager.store(object: string, in: .group, as: "classtable/classtable.json")
             self.table = table

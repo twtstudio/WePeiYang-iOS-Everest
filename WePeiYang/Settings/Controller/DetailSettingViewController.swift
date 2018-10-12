@@ -15,7 +15,7 @@ import PopupDialog
 
 class DetailSettingViewController: UIViewController {
     enum SettingTitle: String {
-        case notification = "推送设置"
+        case classtable = "课表提醒设置"
         case modules = "模块设置"
         case accounts = "关联账号设置"
         case shakeWiFi = "摇一摇登录校园网"
@@ -33,7 +33,7 @@ class DetailSettingViewController: UIViewController {
     var tableView: UITableView!
     var titles: [(String, [SettingTitle])] = [
         //        ("设置", [.notification, .modules, .accounts]),
-        ("设置", [.shakeWiFi, .modules]),
+        ("设置", [.classtable, .shakeWiFi, .modules]),
         ("关于", [.join, .EULA, .feedback, .qqGroup]),
         ("其他", [.share, .rate, .quit])]
 
@@ -134,8 +134,8 @@ extension DetailSettingViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let title = titles[indexPath.section].1[indexPath.row]
         switch (indexPath.section, title) {
-        case (0, .notification):
-            let notificationVC = NotificationSettingViewController()
+        case (0, .classtable):
+            let notificationVC = ClassTableSettingViewController()
             self.navigationController?.pushViewController(notificationVC, animated: true)
             return
         case (0, .shakeWiFi):
