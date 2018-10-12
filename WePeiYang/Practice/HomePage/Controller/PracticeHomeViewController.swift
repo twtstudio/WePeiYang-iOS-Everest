@@ -364,6 +364,7 @@ extension PracticeHomeViewController: UITableViewDelegate {
         case homeTableView:
             homeCollectionView.delegate = self
             homeCollectionView.dataSource = self
+            homeCollectionView.isScrollEnabled = false
             
             return homeCollectionView
             
