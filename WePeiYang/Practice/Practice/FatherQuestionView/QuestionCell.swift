@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 import SnapKit
 
-
+/// 题目（不含选项）Cell的父类
 class QuestionCell: UITableViewCell {
     let questionViewParameters = QuestionViewParameters()
 
-    let qLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    let qLabel: UICopyLabel = {
+        let label = UICopyLabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         label.numberOfLines = 0
         label.textAlignment = .left
         label.adjustsFontSizeToFitWidth = true
