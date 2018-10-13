@@ -45,7 +45,7 @@ class QuizCollectionViewController: UIViewController {
     }()
 
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-    let quesListCollectionView = QuesCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let quesListCollectionView = QLCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     let buttonsView: UIView = {
         let view = UIView()
@@ -241,7 +241,7 @@ extension QuizCollectionViewController {
     }
     
     @objc func changeQues() {
-        currentPage = QuesCollectionView.chosenPage
+        currentPage = QLCollectionView.chosenPage
 //        updateData()
     }
     

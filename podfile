@@ -3,8 +3,8 @@ platform :ios, '9.0'
 use_frameworks!
 
 def shared_pods
-  pod 'ObjectMapper', '~> 3.1'
-  pod 'Alamofire'
+  pod 'ObjectMapper', '3.3.0'
+  pod 'Alamofire', '4.7.3'
 end
 
 #'3.2.0'
@@ -13,21 +13,22 @@ target 'WePeiYang' do
   # Pods for WePeiYang
   shared_pods
   
-  pod 'JBChartView'
-  pod 'SnapKit', '~> 4.0.0'
-  pod 'SDWebImage'
-  pod 'Charts', '3.0.5'
-  pod 'MJRefresh', '~> 3.1.12'
-  pod 'JBChartView'
+  #  pod 'DynamicBlurView', '2.0.2'
+  pod 'SnapKit', '4.0.1'
+  pod 'SDWebImage', '4.4.2'
+  pod 'Charts', '3.0.2'
+  pod 'MJRefresh', '3.1.15.7'
+  pod 'JBChartView', '3.0.13'
   pod 'WMPageController', '2.3.0'
-  pod 'pop'
-  pod 'IGIdenticon'
-  pod 'SwiftMessages'
- pod 'PopupDialog', '~> 0.7'
+
+  pod 'pop', '1.0.10'
+  pod 'IGIdenticon', '0.5.0'
+  pod 'SwiftMessages', '4.1.0'
+  pod 'PopupDialog', '0.7.1'
+  
 end
 
   
 target 'WePeiYangWidget' do
   shared_pods
 end
-

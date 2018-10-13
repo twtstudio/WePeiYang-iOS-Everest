@@ -61,7 +61,7 @@ class ExerciseCollectionViewController: UIViewController {
     }()
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-    let quesListCollectionView = QuesCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let quesListCollectionView = QLCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     let buttonsView: UIView = {
         let view = UIView()
@@ -520,7 +520,7 @@ extension ExerciseCollectionViewController {
     }
     
     @objc private func changeQues() {
-        currentPage = QuesCollectionView.chosenPage
+        currentPage = QLCollectionView.chosenPage
         currentIndex = currentPage - 1
         updateData()
     }
