@@ -140,7 +140,7 @@ extension PracticeHistoryViewController: UITableViewDelegate {
         switch historyData.type {
         case "0":
             PracticeFigure.questionType = historyData.quesType!
-            PracticeFigure.currentCourseIndex = Int(historyData.doneIndex)!
+            PracticeFigure.currentCourseIndex = historyData.doneIndex
             self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
         case "1":
             self.navigationController?.pushViewController(QuizCollectionViewController(), animated: true)
