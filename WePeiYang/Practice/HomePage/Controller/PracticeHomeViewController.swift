@@ -249,7 +249,7 @@ extension PracticeHomeViewController: UITableViewDataSource {
         
         let warningCard = PopupDialog(title: course.courseName, message: "请选择练习模式", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
         let leftButton = PracticePopupDialogButton(title: "顺序练习", dismissOnTap: true) {
-            PracticeFigure.currentCourseIndex = 0
+            PracticeFigure.currentCourseIndex = "0"
             // TODO: 进入顺序练习
             let warningCard = PopupDialog(title: course.courseName, message: "请选择题目类型", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
             let leftButton = PracticePopupDialogButton(title: "单选", dismissOnTap: true) {
@@ -480,17 +480,17 @@ extension PracticeHomeViewController: UICollectionViewDelegate, UICollectionView
                 let warningCard = PopupDialog(title: "形式与政策", message: "请选择题目类型", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
                 let leftButton = PracticePopupDialogButton(title: "单选", dismissOnTap: true) {
                     PracticeFigure.questionType = "0"
-                    PracticeFigure.currentCourseIndex = 0
+                    PracticeFigure.currentCourseIndex = "0"
                     self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
                 }
                 let centerButton = PracticePopupDialogButton(title: "多选", dismissOnTap: true) {
                     PracticeFigure.questionType = "1"
-                    PracticeFigure.currentCourseIndex = 0
+                    PracticeFigure.currentCourseIndex = "0"
                     self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
                 }
                 let rightButton = PracticePopupDialogButton(title: "判断", dismissOnTap: true) {
                     PracticeFigure.questionType = "2"
-                    PracticeFigure.currentCourseIndex = 0
+                    PracticeFigure.currentCourseIndex = "0"
                     self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
                 }
                 warningCard.addButtons([leftButton, centerButton, rightButton])
