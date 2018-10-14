@@ -60,7 +60,7 @@ class PracticeCollectionViewController: UIViewController {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 21)
         
         // 收藏不为零时显示错题数
-        if practiceCollection.data.ques.count != 0 { titleLabel.text = "我的收藏 (\(practiceCollection.data.ques.count))" }
+        if practiceCollection.data.count != 0 { titleLabel.text = "我的收藏 (\(practiceCollection.data.count))" }
         
         titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
@@ -94,7 +94,7 @@ extension PracticeCollectionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if practiceCollection == nil { return 0 }
-        return practiceCollection.data.ques.count
+        return practiceCollection.data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -117,8 +117,8 @@ extension PracticeCollectionViewController: UITableViewDataSource {
         let cancelButton = CancelButton(title: "再留一段时间", action: nil)
         let removeButton = DestructiveButton(title: "我会了, 移走吧", dismissOnTap: true) {
             button.switchIconAnimation()
-            PracticeCollectionHelper.deleteCollection(quesType: (self.practiceCollection?.data.ques[(indexPath?.row)!].quesType)!, quesID: String((self.practiceCollection?.data.ques[(indexPath?.row)!].quesID)!)) // 删除云端数据
-            self.practiceCollection.data.ques.remove(at: (indexPath?.row)!) // 删除本地数据
+            PracticeCollectionHelper.deleteCollection(quesType: (self.practiceCollection?.data[(indexPath?.row)!].quesType)!, quesID: String((self.practiceCollection?.data[(indexPath?.row)!].quesID)!)) // 删除云端数据
+            self.practiceCollection.data.remove(at: (indexPath?.row)!) // 删除本地数据
             self.practiceCollectionTableView.deleteRows(at: [indexPath!], with: .right) // 删除界面单元
             self.reloadTitleView() // 刷新标题
             SwiftMessages.showSuccessMessage(body: "移除成功") // 提示成功
