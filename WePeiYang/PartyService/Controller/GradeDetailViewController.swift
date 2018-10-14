@@ -117,7 +117,7 @@ class GradeDetailViewController: UIViewController, UITableViewDataSource, UITabl
 
         let complainButton = UIButton(title: "申诉")
         complainButton.addTarget(self, action: #selector(GradeDetailViewController.complain), for: .touchUpInside)
-        complainButton.backgroundColor = .partyRed
+        complainButton.backgroundColor = UIColor.partyRed
         complainButton.layer.cornerRadius = 8.0
         complainButton.tintColor = .white
 

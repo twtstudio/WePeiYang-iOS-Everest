@@ -34,7 +34,7 @@ class QuizNetWork {
                     let question = QuizQuestion(id: id, courseId: courseId, quesType: type, content: content, options: option, isCollected: isCollceted)
                     questionArray.append(question)
                 }
-                
+//                success(questionArray)
             }
             success(questionArray, time)
         }) { (err) in

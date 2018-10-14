@@ -19,8 +19,8 @@ class AllQuizViewController: UIViewController, UICollectionViewDelegate, UIColle
 
         //NavigationBar 的背景，使用了View
         let bgView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 64 ))
-
-        bgView.backgroundColor = .partyRed
+        
+        bgView.backgroundColor = UIColor.partyRed
         self.view.addSubview(bgView)
 
         //改变 statusBar 颜色

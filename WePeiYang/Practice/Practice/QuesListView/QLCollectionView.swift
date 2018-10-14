@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+/// Question List UICollectionView
 class QLCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     static var chosenPage: Int = 0
     
@@ -35,7 +36,7 @@ class QLCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, UI
         self.showsVerticalScrollIndicator = true
         self.showsHorizontalScrollIndicator = false
         self.bounces = true
-        self.register(QuesCollectionCell.self, forCellWithReuseIdentifier: "quesCollection cell")
+        self.register(QLCollectionViewCell.self, forCellWithReuseIdentifier: "quesCollection cell")
 
         self.delegate = self
         self.dataSource = self
@@ -59,7 +60,7 @@ class QLCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let selectedBlue = UIColor(red: 228/255, green: 243/255, blue: 1, alpha: 1)
         let selectedRed = UIColor(red: 1, green: 228/255, blue: 243/255, alpha: 1)
-        let cell = self.dequeueReusableCell(withReuseIdentifier: "quesCollection cell", for: indexPath) as! QuesCollectionCell
+        let cell = self.dequeueReusableCell(withReuseIdentifier: "quesCollection cell", for: indexPath) as! QLCollectionViewCell
 //        var bgColor: UIColor = .clear
 //        var fontColor: UIColor = .clear
         cell.label.text = "\(indexPath.item + 1)"
@@ -109,30 +110,5 @@ class QLCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, UI
     }
     deinit {
         self.delegate = nil
-    }
-}
-
-class QuesCollectionCell: UICollectionViewCell {    
-    let label: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.backgroundColor = .clear
-        label.font = UIFont.systemFont(ofSize: 13)
-        return label
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.layer.borderWidth = 1
-        self.addSubview(label)
-        label.snp.makeConstraints { (make) in
-            make.width.equalTo(22)
-            make.height.equalTo(12)
-            make.center.equalTo(self)
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

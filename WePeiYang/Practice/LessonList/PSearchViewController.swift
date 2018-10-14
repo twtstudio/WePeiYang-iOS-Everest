@@ -15,7 +15,7 @@ struct QuesBasicInfo {
     var courseName: String
 }
 
-class LessonListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class PSearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     var tableView: UITableView!
     var searchBar: UISearchBar!
     
@@ -106,7 +106,7 @@ class LessonListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 }
 
-extension LessonListViewController {
+extension PSearchViewController {
     private func getResult(keyword: String) {
         getSearchResult(courseName: keyword, success: { (array) in
             self.resultArray = array

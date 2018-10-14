@@ -24,10 +24,12 @@ class ExerciseQuesView: QuestionTableView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "Check Multiple Choice Answer"), object: nil)
     }
-    /// 传入练习模式的数据
+    
+    /// 接口，从外部传入练习模式数据
     ///
     /// - Parameters:
     ///   - question: 题目字符串
@@ -48,7 +50,6 @@ class ExerciseQuesView: QuestionTableView {
 }
 
 extension ExerciseQuesView: UITableViewDataSource {
-
     func numberOfRowsInSectionrOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -79,7 +80,6 @@ extension ExerciseQuesView: UITableViewDataSource {
 extension ExerciseQuesView {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         optionIndex = indexPath.item - 2
-//        print(QuestionTableView.selectedAnswerArray.count)
         if selected == true { return }
 
         if quesType == 1 {
@@ -93,7 +93,6 @@ extension ExerciseQuesView {
         }
     }
     
-    
     /// 重新加载
     private func updateData() {
         var indexPathArray: [IndexPath] = []
@@ -102,7 +101,7 @@ extension ExerciseQuesView {
             indexPathArray.append(indexPath)
         }
         
-        //这种方式不可以传值(实例化原理)
+        //这种方式不可以传值 (实例化原理了解一下）
         //exerciseController.answerupdate(selectedAns: practiceModel.optionDics[indexPath.item]!)
         
         if quesType != 1 {
@@ -111,6 +110,9 @@ extension ExerciseQuesView {
         self.reloadRows(at: indexPathArray, with: .none)
     }
     
+    /// 确定单选题cell的UI显示
+    /// 题号icon一次性只能选择 一 个
+    /// - Returns: 单选cell
     private func singleTypeCell() -> ExOptionCell {
         let optionCell = ExOptionCell()
         let exerciseModel = ExerciseModel()
@@ -118,7 +120,7 @@ extension ExerciseQuesView {
         var cellIsselected: Bool = false
         answerResult = exerciseModel.ansResult(order:rightAns:)
         
-        if let answer = QuestionTableView.selectedAnswer {
+        if let answer = usrAnswer {
             if optionIndex == practiceModel.optionToIndexDic[answer] {
                 cellIsselected = true
             }
@@ -128,6 +130,9 @@ extension ExerciseQuesView {
         return optionCell
     }
     
+    /// 确定多选题cell的UI显示
+    /// 题号icon可以一次性显示选择多个
+    /// - Returns: 多选cell
     private func multipleTypeCell() -> ExOptionCell {
         let optionCell = ExOptionCell()
         var type: Int = 3
@@ -157,10 +162,11 @@ extension ExerciseQuesView {
         return optionCell
     }
     
-    @objc func checkMultipleAns() {
+    
+    /// 查看多选答案是否正确
+    @objc private func checkMultipleAns() {
         checked = true
         rightAnswers = practiceModel.ansToArray(ans: rightAns!)
-
         checked = false
     }
 }

@@ -12,13 +12,10 @@ class ExerciseNetwork {
     
     static func getQues(courseId: Int, quesType: Int, id: Int, success: @escaping(Question)->(), failure: (Error)->()) {
         SolaSessionManager.solaSession(baseURL: "https://exam.twtstudio.com", url: "/api/remember/getQuesById/\(courseId)/\(quesType)/\(id)", success: { (dic) in
-//            let status = dic["status"] as? Int ?? 3
             let ques = dic["data"] as? [String: Any]
             if let quesDetail = ques {
                 var question = Question()
-
                 let id = quesDetail["ques_id"] as? Int
-//                let class_id = Int((quesDetail["class_id"] as! NSString).floatValue)
                 let course_id = Int((quesDetail["course_id"] as! NSString).floatValue)
                 let type = Int((quesDetail["ques_type"] as! NSString).floatValue)
                 let content = quesDetail["content"] as? String ?? ""
@@ -28,7 +25,6 @@ class ExerciseNetwork {
                 let is_mistake = quesDetail["is_mistake"] as? Int
                 let questionDetail = QuestionDetails(id: id, classId: nil, courseId: course_id, type: type, content: content, option: option, correctAnswer: answer, isCollected: is_collected, isMistake: is_mistake)
                 question.quesDetail = questionDetail
-//                question.status = status
                 
                 ExerciseCollectionViewController.questions.append(question)
                 success(question)

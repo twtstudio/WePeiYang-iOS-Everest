@@ -8,7 +8,9 @@
 
 import Foundation
 
+/// QuestionView所用到的所有UI参数
 struct QuestionViewParameters {
+    //TableView
     let questionViewW = 0.9 * deviceWidth
     let questionViewH = 0.48 * deviceHeight
     let cellH = 0.04 * deviceHeight
