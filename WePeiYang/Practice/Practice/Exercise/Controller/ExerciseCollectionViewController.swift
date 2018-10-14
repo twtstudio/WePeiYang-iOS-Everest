@@ -141,7 +141,7 @@ extension ExerciseCollectionViewController: UICollectionViewDataSource, UICollec
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! ExerciseCell
 
         if let content = ques.quesDetail?.content, let optionArray = ques.quesDetail?.option, let correctAns = ques.quesDetail?.correctAnswer, let quesType = ques.quesDetail?.type {
-            cell.loadQues(answer: usrMultipleAnser[indexArray[indexPath.item]], ques: content, options: optionArray, selected: guards[currentIndex].selected, rightAns: correctAns, qType: quesType)
+            cell.loadQues(answer: usrMultipleAnser[indexArray[indexPath.item]], ques: content, options: optionArray, selected: guards[indexArray[indexPath.item]].selected, rightAns: correctAns, qType: quesType)
             cell.questionView.reloadData()
         }else {
             cell.loadQues(answer: "none", ques: "oops, no data", options: ["oops, no data", "oops, no data", "oops, no data", "oops, no data"], selected: guards[currentPage - 1].selected, rightAns: "no data", qType: 0)
@@ -248,18 +248,20 @@ extension ExerciseCollectionViewController {
     
     private func reloadQuesCollectionView(scrollDirection: Direction) {
         var array: [IndexPath] = []
-        if scrollDirection == .left {
-            for i in 0..<2 {
-                let indexPath = IndexPath(item: i, section: 0)
-                array.append(indexPath)
-            }
-        } else if scrollDirection == .right {
-            for i in 1...2 {
-                let indexPath = IndexPath(item: i, section: 0)
-                array.append(indexPath)
-            }
-        } else {
+        var range = 0...1
+        
+        switch scrollDirection {
+        case .left:
+            range = 0...1
+        case .right:
+            range = 1...2
+        default:
             self.collectionView.reloadData()
+            return
+        }
+        for i in range {
+            let indexPath = IndexPath(item: i, section: 0)
+            array.append(indexPath)
         }
         self.collectionView.reloadItems(at: array)
     }
@@ -338,7 +340,7 @@ extension ExerciseCollectionViewController {
             updateData()
             reloadItem = 0
         default:
-            break
+            return
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             scrollView.contentOffset.x = deviceWidth
@@ -479,7 +481,6 @@ extension ExerciseCollectionViewController {
             let guarding = Guard()
             self.guards.append(guarding)
         }
-        print(guards.count)
     }
 
     private func check() {
