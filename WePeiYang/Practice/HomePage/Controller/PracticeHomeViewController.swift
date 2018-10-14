@@ -519,7 +519,7 @@ extension UIColor {
     }
     // 刷题红色 //
     static var practiceRed: UIColor {
-        return UIColor(red: 252.0/255.0, green: 35.0/255.0, blue: 43.0/255.0, alpha: 1.0)
+        return UIColor(red: 248.0/255.0, green: 75.0/255.0, blue: 75.0/255.0, alpha: 1.0)
     }
 }
 
