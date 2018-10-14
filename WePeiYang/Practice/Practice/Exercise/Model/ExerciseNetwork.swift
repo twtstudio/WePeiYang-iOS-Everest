@@ -35,7 +35,7 @@ class ExerciseNetwork {
             }
 
         }) { (err) in
-            print(err)
+            debugLog(err)
         }
     }
     
@@ -47,7 +47,7 @@ class ExerciseNetwork {
             }
             success(idArray)
         }) { (err) in
-            print(err)
+            debugLog(err)
         }
     }
 

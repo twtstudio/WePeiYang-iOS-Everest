@@ -999,9 +999,9 @@
 		786E5BC42171935300B8F1A4 /* Exercise */ = {
 			isa = PBXGroup;
 			children = (
-				786E5BC52171935300B8F1A4 /* Controller */,
 				786E5BC72171935300B8F1A4 /* Model */,
 				786E5BCA2171935300B8F1A4 /* View */,
+				786E5BC52171935300B8F1A4 /* Controller */,
 			);
 			path = Exercise;
 			sourceTree = "<group>";

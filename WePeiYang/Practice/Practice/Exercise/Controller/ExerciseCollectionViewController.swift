@@ -25,9 +25,13 @@ class ExerciseCollectionViewController: UIViewController {
     var scrollDirection: Direction = .none
     var mode: ExerciseMode = .exercise
     
-    var classId = Int(PracticeFigure.classID)!
-    var courseId = Int(PracticeFigure.courseID)!
-    var quesType = Int(PracticeFigure.questionType)!
+//    var classId = Int(PracticeFigure.classID)!
+//    var courseId = Int(PracticeFigure.courseID)!
+//    var quesType = Int(PracticeFigure.questionType)!
+    var classId = 2
+    var courseId = 2
+    var quesType = 0
+
 
     var currentPage = 1
     var currentIndex = 0
@@ -283,7 +287,6 @@ extension ExerciseCollectionViewController {
 
 //页面切换
 extension ExerciseCollectionViewController {
-    
     private func updateData() {
         //页面记录更新
 //        currentIndex = currentPage - 1
@@ -342,7 +345,7 @@ extension ExerciseCollectionViewController {
         default:
             return
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             scrollView.contentOffset.x = deviceWidth
         }
         let indexPath = IndexPath(item: reloadItem, section: 0)
