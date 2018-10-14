@@ -38,7 +38,7 @@ class GradeDetailViewController: UIViewController, UITableViewDataSource, UITabl
 //        self.navigationController!.jz_navigationBarBackgroundAlpha = 0;
         let bgView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height))
         
-        bgView.backgroundColor = .partyRed
+        bgView.backgroundColor = UIColor.partyRed
         self.view.addSubview(bgView)
         
         //改变 statusBar 颜色
@@ -117,7 +117,7 @@ class GradeDetailViewController: UIViewController, UITableViewDataSource, UITabl
         
         let complainButton = UIButton(title: "申诉")
         complainButton.addTarget(self, action: #selector(GradeDetailViewController.complain), for: .touchUpInside)
-        complainButton.backgroundColor = .partyRed
+        complainButton.backgroundColor = UIColor.partyRed
         complainButton.layer.cornerRadius = 8.0
         complainButton.tintColor = .white
         

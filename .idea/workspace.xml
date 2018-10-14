@@ -23,43 +23,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab202230-4b38-4cf0-a933-5f65d1979adf" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/View/ExOptionCell.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/View/ExerciseQuesView.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/Controller/QuizCollectionViewController.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/Model/QuizModel.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/Model/QuizNetwork.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/View/QuizQuesCollectionCell.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/View/QuizQuesView.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/main/Parameters.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WePeiYang/Resources/Assets.xcassets/Practice/Practice/correct.imageset/Contents.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WePeiYang/Resources/Assets.xcassets/Practice/Practice/correct.imageset/D.的副本副本.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WePeiYang/Resources/Assets.xcassets/Practice/Practice/error.imageset/Contents.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WePeiYang/Resources/Assets.xcassets/Practice/Practice/error.imageset/QQ图片20180903095252.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WePeiYang.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/AllModulesViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/AllModulesViewController.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/LaunchScreen.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/LaunchScreen.storyboard" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/PartyService/Controller/AllQuizViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/PartyService/Controller/AllQuizViewController.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/PartyService/View/QuizCell.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/PartyService/View/QuizCollectionCell.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang.xcworkspace/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang.xcworkspace/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/HomePage/Controller/PracticeHomeViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/HomePage/Controller/PracticeHomeViewController.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/AnswerView/AnswerScrollView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/AnswerView/AnswerScrollView.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Controller/ExerciseCollectionViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Controller/ExerciseCollectionViewController.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Model/ExerciseMode.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Model/ExerciseModel.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Model/ExerciseModel.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Network.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/PracticeNetwork.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Model/ExerciseNetwork.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/View/ExerciseCell.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/View/ExerciseCell.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/View/QuesListCollectionView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Controller/QuesListCollectionView.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Memorize/Controller/MemorizeTableViewController.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Memorize/Model/Model.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Memorize/View/MemorizeView.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/QuestionTableView/OptionsCell.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/QuestionTableView/OptionsCell.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/QuestionTableView/QuestionCell.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/QuestionTableView/QuestionCell.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/QuestionTableView/QuestionTableView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/QuestionTableView/QuestionTableView.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/main/Extension.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/main/PracticeModel.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/main/PracticeModel.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/Shared/Network/SolaSessionManager.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Shared/Network/SolaSessionManager.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/main/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/main/AppDelegate.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WePeiYang/main/ClassExtensions.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/main/ClassExtensions.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Model/ExerciseNetwork.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Model/ExerciseNetwork.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/View/ExOptionCell.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/View/ExOptionCell.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/View/ExerciseQuesView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/View/ExerciseQuesView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/QuesListCollectionView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/QuesListView/QuesListCollectionView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/QuestionTableView/OptionsCell.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/FatherQuestionView/OptionsCell.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/QuestionTableView/QuestionCell.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/FatherQuestionView/QuestionCell.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/QuestionTableView/QuestionTableView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/FatherQuestionView/QuestionTableView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/Controller/QuizCollectionViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/Controller/QuizCollectionViewController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/Model/QuizNetwork.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/Model/QuizNetwork.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/View/QuizOptionCell.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/View/QuizOptionCell.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/View/QuizQuesCollectionCell.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/View/QuizQuesCollectionCell.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/View/QuizQuesView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/View/QuizQuesView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/Practice/main/Parameters.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/Practice/main/Parameters.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang/Practice/UploadPage/Controller/PracticeUploadViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/WePeiYang/Practice/UploadPage/Controller/PracticeUploadViewController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WePeiYang/Shared/TwTKeychain.swift" beforeDir="false" />
     </list>
     <ignored path="$USER_HOME$/Library/Developer/Xcode/DerivedData/WePeiYang-bgrfmwnelhlkshdoxxwioscdrvmb/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -69,14 +52,20 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="iphonesimulator_C1BAD816-AE83-4517-B6CB-6D4743F77C27" />
+  <component name="ErrorTreeViewConfiguration">
+    <option name="autoscrollToSource" value="true" />
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="true" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="WePeiYang" />
+  </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ExerciseCollectionViewController.swift" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Controller/ExerciseCollectionViewController.swift">
+      <file leaf-file-name="QuizCollectionViewController.swift" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/Controller/QuizCollectionViewController.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="539" column="57" selection-start-line="539" selection-start-column="57" selection-end-line="539" selection-end-column="57" />
+            <state relative-caret-position="1339">
+              <caret line="158" lean-forward="true" selection-start-line="158" selection-end-line="158" />
             </state>
           </provider>
         </entry>
@@ -90,6 +79,7 @@
       <find>currentPage</find>
       <find>buttonsView</find>
       <find>checkbtn.re</find>
+      <find>确认答案</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -100,6 +90,7 @@
       <list>
         <option value="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/View/ExerciseQuesView.swift" />
         <option value="$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Controller/ExerciseCollectionViewController.swift" />
+        <option value="$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/Controller/QuizCollectionViewController.swift" />
       </list>
     </option>
   </component>
@@ -113,16 +104,17 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="25" />
-    <option name="y" value="23" />
+    <option name="x" value="14" />
+    <option name="y" value="26" />
     <option name="width" value="1400" />
-    <option name="height" value="862" />
+    <option name="height" value="874" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Cidr.FilesView" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -190,20 +182,28 @@
               <item name="WePeiYang" type="fcab9f18:XcodeViewNode" />
               <item name="Practice" type="fcab9f18:XcodeViewNode" />
               <item name="Practice" type="fcab9f18:XcodeViewNode" />
-              <item name="QuestionTableView" type="fcab9f18:XcodeViewNode" />
+              <item name="Quiz" type="fcab9f18:XcodeViewNode" />
+            </path>
+            <path>
+              <item name="" type="efc3779f:XcodeRootNode" />
+              <item name="WePeiYang" type="1d218c8b:XcodeProjectNode" />
+              <item name="WePeiYang" type="fcab9f18:XcodeViewNode" />
+              <item name="Practice" type="fcab9f18:XcodeViewNode" />
+              <item name="Practice" type="fcab9f18:XcodeViewNode" />
+              <item name="Quiz" type="fcab9f18:XcodeViewNode" />
+              <item name="Controller" type="fcab9f18:XcodeViewNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Cidr.FilesView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -218,7 +218,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="WePeiYang" type="AppleRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="WePeiYang" TARGET_NAME="WePeiYang" CONFIG_NAME="Debug" SCHEME_NAME="WePeiYang" IS_LOCATION_SIMULATION_ALLOWED="true" RUN_TARGET_PROJECT_NAME="WePeiYang" RUN_TARGET_NAME="WePeiYang" MAKE_ACTIVE="TRUE">
+    <configuration name="WePeiYang" type="AppleRunConfiguration" factoryName="Application" WORKING_DIR="file://$PROJECT_DIR$" PASS_PARENT_ENVS_2="true" PROJECT_NAME="WePeiYang" TARGET_NAME="WePeiYang" CONFIG_NAME="Debug" SCHEME_NAME="WePeiYang" IS_LOCATION_SIMULATION_ALLOWED="true" LOCATION_SCENARIO_ID="com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier" LOCATION_SCENARIO_TYPE="1" RUN_TARGET_PROJECT_NAME="WePeiYang" RUN_TARGET_NAME="WePeiYang" MAKE_ACTIVE="TRUE">
       <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
         <REVEAL_SETTINGS autoInject="false" autoInstall="true" askToEnableAutoInstall="true" />
       </EXTENSION>
@@ -235,58 +235,70 @@
       <option name="presentableId" value="Default" />
       <updated>1537312158380</updated>
       <workItem from="1537312163042" duration="10584000" />
+      <workItem from="1538921838646" duration="555000" />
+      <workItem from="1538922492700" duration="994000" />
+      <workItem from="1538925971269" duration="116000" />
+      <workItem from="1538926111458" duration="3782000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10584000" />
+    <option name="totallyTimeSpent" value="16031000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="25" y="23" width="1400" height="862" extended-state="0" />
-    <editor active="true" />
+    <frame x="14" y="26" width="1400" height="874" extended-state="0" />
     <layout>
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" weight="0.3297619" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.005952381" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info id="Designer" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.25" />
-      <window_info anchor="right" id="LuaJ" />
-      <window_info anchor="bottom" id="TeamCity" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="TODO" order="6" visible="true" weight="0.5822168" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.005952381" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info id="Designer" order="2" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49695495" weight="0.25" />
+      <window_info anchor="right" id="LuaJ" order="3" />
+      <window_info anchor="bottom" id="TeamCity" order="7" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info id="Structure" order="1" sideWeight="0.5011905" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" sideWeight="0.5030451" side_tool="true" visible="true" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info active="true" anchor="bottom" id="Messages" order="7" visible="true" weight="0.3297619" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Run" order="6" />
-      <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.25" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="2" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="10" />
       <window_info id="Designer" order="0" />
       <window_info anchor="right" id="LuaJ" order="0" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
-      <window_info anchor="bottom" id="TeamCity" order="0" />
       <window_info anchor="right" id="Palette&#9;" order="1" />
-      <window_info anchor="bottom" id="Terminal" order="1" />
+      <window_info anchor="bottom" id="TeamCity" order="0" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info anchor="bottom" id="Find" order="5" />
+      <window_info anchor="bottom" id="Terminal" order="1" />
       <window_info id="Favorites" order="1" side_tool="true" />
     </layout-to-restore>
   </component>
@@ -301,24 +313,57 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Controller/ExerciseCollectionViewController.swift</url>
-          <line>592</line>
+          <line>624</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Controller/ExerciseCollectionViewController.swift</url>
-          <line>537</line>
-          <option name="timeStamp" value="18" />
+          <line>580</line>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Controller/ExerciseCollectionViewController.swift</url>
-          <line>546</line>
-          <option name="timeStamp" value="19" />
+          <line>579</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Controller/ExerciseCollectionViewController.swift</url>
+          <line>576</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="20" />
+      <option name="time" value="28" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Controller/ExerciseCollectionViewController.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9210">
+          <caret line="614" column="24" lean-forward="true" selection-start-line="614" selection-start-column="24" selection-end-line="614" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Controller/ExerciseCollectionViewController.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8985">
+          <caret line="599" column="7" lean-forward="true" selection-start-line="599" selection-start-column="7" selection-end-line="599" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Controller/ExerciseCollectionViewController.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8715">
+          <caret line="581" column="2" selection-start-line="581" selection-start-column="2" selection-end-line="581" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Controller/ExerciseCollectionViewController.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8085">
+          <caret line="539" column="57" selection-start-line="539" selection-start-column="57" selection-end-line="539" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/Resources/module_cache.zip!/ModuleCache/9E145/4.1/armv7/iphoneos11.3/UIKit.UIScrollView/UIKit.UIScrollView.swift">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="274">
@@ -337,9 +382,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
           <caret line="33" column="25" lean-forward="true" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
-          <folding>
-            <element signature="e#143#160#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -359,8 +401,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/WePeiYang/Practice/Practice/Exercise/Controller/ExerciseCollectionViewController.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="539" column="57" selection-start-line="539" selection-start-column="57" selection-end-line="539" selection-end-column="57" />
+        <state relative-caret-position="597">
+          <caret line="614" column="24" selection-start-line="614" selection-start-column="24" selection-end-line="614" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="appcode.project-settings://6f783b98">
+      <provider selected="true" editor-type-id="AppCode.ProjectSettings" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WePeiYang/Practice/Practice/Quiz/Controller/QuizCollectionViewController.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1339">
+          <caret line="158" lean-forward="true" selection-start-line="158" selection-end-line="158" />
         </state>
       </provider>
     </entry>

@@ -13,11 +13,9 @@ class OptionsCell: UITableViewCell {
     let questionViewParameters = QuestionViewParameters()
     
     let btnImages: [UIImage] = [#imageLiteral(resourceName: "A"), #imageLiteral(resourceName: "B"), #imageLiteral(resourceName: "C"), #imageLiteral(resourceName: "D"), #imageLiteral(resourceName: "E")]
-
     let selectedbtnImgs: [UIImage] = [#imageLiteral(resourceName: "selectedA"), #imageLiteral(resourceName: "selectedB"), #imageLiteral(resourceName: "selectedC"), #imageLiteral(resourceName: "selectedD"), #imageLiteral(resourceName: "selectedE")]
-    let errorImg: UIImage = UIImage()//#imageLiteral(resourceName: "errorIcon.png")
+    let errorImg: UIImage = UIImage() //#imageLiteral(resourceName: "errorIcon.png")
 
-    
     let optionIcon: UIImageView = {
         let btn = UIImageView(frame: .zero)
         return btn
@@ -35,7 +33,6 @@ class OptionsCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         self.backgroundColor = .clear
         self.selectedBackgroundView = UIView()
         self.selectedBackgroundView?.backgroundColor = .clear
@@ -43,6 +40,7 @@ class OptionsCell: UITableViewCell {
         self.addSubview(optionLabel)
     }
     
+    /// 建立选项cell的UI
     func setupUI() {
         let btnWidth = questionViewParameters.cellH
         let offset = 0.01 * deviceWidth

@@ -41,19 +41,11 @@ class ExerciseCell: UICollectionViewCell {
     }
     
     func loadQues(answer: String, ques: String, options: [String], selected: Bool, rightAns: String, qType: Int) {
+        print(answer)
         questionView.loadQues(usrAns: answer, question: ques, option: options, isSelected: selected, rightAnswer: rightAns, questionType: qType)
     }
     
     func addAnswerView(result: String?, rightAnswer: String?) {
-//        answerView.creatAnswerView(result: result)
-
-//        self.addSubview(answerView)
-//        answerView.snp.makeConstraints { (make) in
-//            make.width.equalTo(questionViewParameters.questionViewW)
-//            make.height.equalTo(AnswerViewParameters.answerViewH)
-//            make.centerX.equalTo(self)
-//            make.bottom.equalTo(self).offset(-15)
-//        }
         label.textColor = UIColor.practiceBlue
         if result != rightAnswer {
             label.textColor = UIColor.readRed
@@ -64,6 +56,7 @@ class ExerciseCell: UICollectionViewCell {
         } else {
             label.text = "额，答案飞走了"
         }
+        
         self.addSubview(label)
         label.snp.makeConstraints { (make) in
             make.width.equalTo(300)

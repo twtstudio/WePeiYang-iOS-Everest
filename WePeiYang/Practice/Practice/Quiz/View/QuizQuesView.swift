@@ -27,7 +27,8 @@ class QuizQuesView: QuestionTableView {
     }
 }
 
-extension QuizQuesView {
+
+extension QuizQuesView: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -58,9 +59,10 @@ extension QuizQuesView {
     }
 }
 
-extension QuizQuesView: UITableViewDataSource {
+
+extension QuizQuesView {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        if selected { return }
+//        if selected { return }
         if indexPath.item <= 1 { return }
         let index = indexPath.item - 2
         

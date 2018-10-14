@@ -10,7 +10,7 @@ import Foundation
 
 class QuizCollectionViewController: UIViewController {
     let questionViewParameters = QuestionViewParameters()
-    
+
     var timer: Timer!
     static var usrAnsArray: [String] = []
     var quizArray: [QuizQuestion] = []
@@ -25,7 +25,7 @@ class QuizCollectionViewController: UIViewController {
     var count: Int = {
         return 0
     }()
-    
+
     var isinited: Int = {
         return 0
     }()
@@ -59,14 +59,14 @@ class QuizCollectionViewController: UIViewController {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let quesListCollectionView = QLCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let quesListBkgView = UIView()
-    
+
     let orderLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .left
         return label
     }()
-    
+
     let collectBtn: UIButton = {
         let btn = UIButton()
         btn.setImage(#imageLiteral(resourceName: "collect"), for: .normal)
@@ -89,7 +89,7 @@ class QuizCollectionViewController: UIViewController {
         btn.height = 0.08 * deviceWidth
         return btn
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initcollectionView()
@@ -119,7 +119,6 @@ class QuizCollectionViewController: UIViewController {
         if sec < 10 {
             timeButton.setTitle("\(min):0\(sec)", for: .normal)
         }
-        //        timeButton.setTitle("\(min):\(sec)", for: .normal)
         timeButton.titleLabel?.text = "\(min):\(sec)"
     }
     
@@ -156,7 +155,7 @@ extension QuizCollectionViewController: UICollectionViewDataSource, UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let ques = quizArray[indexPath.item]
-        
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! QuizQuesCollectionCell
         
         if let content = ques.content, let optionArray = ques.options, let quesType = ques.quesType {
@@ -190,6 +189,12 @@ extension QuizCollectionViewController {
         QuizNetWork.getQuizQuesArray(courseId: courseId, success: { (data, tim) in
             self.time = tim
             self.quizArray = data
+            for _ in 0..<self.quizArray.count {
+                let g = Guard()
+                self.guards.append(g)
+                QuizCollectionViewController.usrAnsArray.append("")
+            }
+            self.setupButtons()
             if self.isinited == 0 {
                 self.collectionView.delegate = self
                 self.collectionView.dataSource = self
@@ -197,7 +202,6 @@ extension QuizCollectionViewController {
             } else {
                 self.collectionView.reloadData()
             }
-            debugLog(self.quizArray.count)
         }) { (err) in
             debugLog(err)
         }
@@ -328,7 +332,7 @@ extension QuizCollectionViewController {
             }
         }
         QuizCollectionViewController.usrAnsArray[currentPage - 1] = answerString
-        
+
         if answerString != "" {
             guards[currentPage - 1].iscorrect = .right
         }

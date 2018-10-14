@@ -106,14 +106,12 @@
 		36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E5C1FA4BABA0036766B /* CourseDetailTableViewCell.swift */; };
 		36449E701FA4BABA0036766B /* CourseDetailReadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E5D1FA4BABA0036766B /* CourseDetailReadingView.swift */; };
 		36449E831FA4BAD00036766B /* TwentyCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E711FA4BAD00036766B /* TwentyCourseViewController.swift */; };
-		36449E841FA4BAD10036766B /* TwentyCourseScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E721FA4BAD00036766B /* TwentyCourseScoreViewController.swift */; };
 		36449E851FA4BAD10036766B /* TwentyCourseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E731FA4BAD00036766B /* TwentyCourseDetailViewController.swift */; };
 		36449E861FA4BAD10036766B /* TheoryClassicsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E741FA4BAD00036766B /* TheoryClassicsTableViewController.swift */; };
 		36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E751FA4BAD00036766B /* QuizTakingViewController.swift */; };
 		36449E881FA4BAD10036766B /* PartySignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E761FA4BAD00036766B /* PartySignUpViewController.swift */; };
 		36449E891FA4BAD10036766B /* PartyScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36449E771FA4BAD00036766B /* PartyScoreViewController.m */; };
 		36449E8A1FA4BAD10036766B /* PartyPersonalStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E791FA4BAD00036766B /* PartyPersonalStatusViewController.swift */; };
-		36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E7A1FA4BAD00036766B /* PartyMainViewController.swift */; };
 		36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E7B1FA4BAD00036766B /* PartyHandInViewController.swift */; };
 		36449E8D1FA4BAD10036766B /* PartyCoursesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36449E7C1FA4BAD00036766B /* PartyCoursesViewController.m */; };
 		36449E8E1FA4BAD10036766B /* PartyComplainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E7E1FA4BAD00036766B /* PartyComplainViewController.swift */; };
@@ -166,7 +164,6 @@
 		369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369306941F2B976C008E90DC /* ModuleCollectionViewCell.swift */; };
 		369B2D4A20151542009352A8 /* DateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369B2D4920151542009352A8 /* DateTool.swift */; };
 		369D92072015D914004BA1D0 /* WeekSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D92062015D914004BA1D0 /* WeekSelectView.swift */; };
-		369D92092015D97A004BA1D0 /* WeekItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D92082015D97A004BA1D0 /* WeekItemCell.swift */; };
 		36A74EB1205BAD0300DD1EC3 /* AlertPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A74EAE205BAD0200DD1EC3 /* AlertPageViewController.swift */; };
 		36A74EB2205BAD0300DD1EC3 /* AlertOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A74EAF205BAD0200DD1EC3 /* AlertOnboarding.swift */; };
 		36A74EB3205BAD0300DD1EC3 /* AlertChildPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A74EB0205BAD0200DD1EC3 /* AlertChildPageViewController.swift */; };
@@ -213,28 +210,6 @@
 		785A0943213A73DB007A2E3C /* PracticeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785A0942213A73DB007A2E3C /* PracticeCollectionViewController.swift */; };
 		786A342A213150370078120A /* PracticeStudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786A3429213150370078120A /* PracticeStudentModel.swift */; };
 		786A342D213176050078120A /* PracticeWrongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786A342C213176050078120A /* PracticeWrongModel.swift */; };
-		786E5BD22171935300B8F1A4 /* AnswerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BB12171935300B8F1A4 /* AnswerScrollView.swift */; };
-		786E5BD32171935300B8F1A4 /* QLCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BB32171935300B8F1A4 /* QLCollectionView.swift */; };
-		786E5BD42171935300B8F1A4 /* QLCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BB42171935300B8F1A4 /* QLCollectionViewCell.swift */; };
-		786E5BD52171935300B8F1A4 /* QuizCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BB72171935300B8F1A4 /* QuizCollectionViewController.swift */; };
-		786E5BD62171935300B8F1A4 /* QuizModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BB92171935300B8F1A4 /* QuizModel.swift */; };
-		786E5BD72171935300B8F1A4 /* QuizNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BBA2171935300B8F1A4 /* QuizNetwork.swift */; };
-		786E5BD82171935300B8F1A4 /* QuizOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BBC2171935300B8F1A4 /* QuizOptionCell.swift */; };
-		786E5BD92171935300B8F1A4 /* QuizQuesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BBD2171935300B8F1A4 /* QuizQuesCollectionCell.swift */; };
-		786E5BDA2171935300B8F1A4 /* QuizQuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BBE2171935300B8F1A4 /* QuizQuesView.swift */; };
-		786E5BDB2171935300B8F1A4 /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BC02171935300B8F1A4 /* Parameters.swift */; };
-		786E5BDC2171935300B8F1A4 /* PracticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BC12171935300B8F1A4 /* PracticeModel.swift */; };
-		786E5BDD2171935300B8F1A4 /* QuestionsScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BC22171935300B8F1A4 /* QuestionsScrollView.swift */; };
-		786E5BDE2171935300B8F1A4 /* TestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BC32171935300B8F1A4 /* TestController.swift */; };
-		786E5BDF2171935300B8F1A4 /* ExerciseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BC62171935300B8F1A4 /* ExerciseCollectionViewController.swift */; };
-		786E5BE02171935300B8F1A4 /* ExerciseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BC82171935300B8F1A4 /* ExerciseModel.swift */; };
-		786E5BE12171935300B8F1A4 /* ExerciseNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BC92171935300B8F1A4 /* ExerciseNetwork.swift */; };
-		786E5BE22171935300B8F1A4 /* ExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BCB2171935300B8F1A4 /* ExerciseCell.swift */; };
-		786E5BE32171935300B8F1A4 /* ExerciseQuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BCC2171935300B8F1A4 /* ExerciseQuesView.swift */; };
-		786E5BE42171935300B8F1A4 /* ExOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BCD2171935300B8F1A4 /* ExOptionCell.swift */; };
-		786E5BE52171935300B8F1A4 /* OptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BCF2171935300B8F1A4 /* OptionsCell.swift */; };
-		786E5BE62171935300B8F1A4 /* QuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BD02171935300B8F1A4 /* QuestionCell.swift */; };
-		786E5BE72171935300B8F1A4 /* QuestionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786E5BD12171935300B8F1A4 /* QuestionTableView.swift */; };
 		78865AC42112F2A00055161F /* PracticeWrongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78865AC32112F2A00055161F /* PracticeWrongViewController.swift */; };
 		78C5801A21381398003F2C8E /* PracticeUploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5801921381398003F2C8E /* PracticeUploadViewController.swift */; };
 		A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
@@ -289,7 +264,36 @@
 		B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B9571EC5C21700B8198E /* FavViewController.swift */; };
 		B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */; };
 		B19DABAA1E6EF5C2004A50B5 /* WePeiYangUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */; };
-		B585F35C20FE36E400950C00 /* LessonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35620FE36E400950C00 /* LessonListViewController.swift */; };
+		B54676D121627F4C003F1F3C /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54676D021627F4C003F1F3C /* TwTKeychain.swift */; };
+		B585F35C20FE36E400950C00 /* PSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35620FE36E400950C00 /* PSearchViewController.swift */; };
+		B5B0899C2173AD410020A38D /* QuizModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52824B721429F4D009E9226 /* QuizModel.swift */; };
+		B5B0899D2173AD5B0020A38D /* QuizCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B560DACC213CC9B600A243F0 /* QuizCollectionViewController.swift */; };
+		B5B089A22173ADFC0020A38D /* QLCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B089A12173ADFC0020A38D /* QLCollectionView.swift */; };
+		B5B089A32173AE2B0020A38D /* AnswerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F37721074E2B00950C00 /* AnswerScrollView.swift */; };
+		B5B089A42173AE6E0020A38D /* OptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F36A2103586A00950C00 /* OptionsCell.swift */; };
+		B5B089A52173AE840020A38D /* QuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F3662102F40700950C00 /* QuestionCell.swift */; };
+		B5B089A62173AEAE0020A38D /* QuestionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35720FE36E400950C00 /* QuestionTableView.swift */; };
+		B5B089A72173AEBF0020A38D /* ExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F3722105B91A00950C00 /* ExerciseCell.swift */; };
+		B5B089A82173AED00020A38D /* PracticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F35420FE36E400950C00 /* PracticeModel.swift */; };
+		B5B089A92173AEEF0020A38D /* QuizNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52824B5214299D4009E9226 /* QuizNetwork.swift */; };
+		B5B089AA2173AF170020A38D /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6CF8E2148F6EB0085311A /* Parameters.swift */; };
+		B5B089AB2173AF170020A38D /* ExerciseNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55942A221281C4E00B0931C /* ExerciseNetwork.swift */; };
+		B5B089AC2173AF170020A38D /* ExerciseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585F36E2105A01800950C00 /* ExerciseCollectionViewController.swift */; };
+		B5B089AD2173AF170020A38D /* ExerciseQuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6CF90214FEBAC0085311A /* ExerciseQuesView.swift */; };
+		B5B089AE2173AF170020A38D /* ExOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6CF94214FF7EC0085311A /* ExOptionCell.swift */; };
+		B5B089AF2173AF170020A38D /* QuizQuesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52824BA21436519009E9226 /* QuizQuesCollectionCell.swift */; };
+		B5B089B02173AF170020A38D /* QuizOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58062A72159414D00443750 /* QuizOptionCell.swift */; };
+		B5B089B22173B0040020A38D /* ExerciseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B089B12173B0030020A38D /* ExerciseModel.swift */; };
+		B5B089B32173B14A0020A38D /* WPYTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102541A1EC8547E0064373A /* WPYTextView.swift */; };
+		B5B089B42173B14A0020A38D /* BicycleServiceNotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D695301F8A21AD00022B9A /* BicycleServiceNotificationCell.swift */; };
+		B5B089B52173B14A0020A38D /* TwentyCourseScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E721FA4BAD00036766B /* TwentyCourseScoreViewController.swift */; };
+		B5B089B62173B14A0020A38D /* PartyMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E7A1FA4BAD00036766B /* PartyMainViewController.swift */; };
+		B5B089B72173B14A0020A38D /* ClassWidgetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B2C898203DB8DB00AD2E3F /* ClassWidgetCell.swift */; };
+		B5B089B82173B1FE0020A38D /* WeekItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D92082015D97A004BA1D0 /* WeekItemCell.swift */; };
+		B5B089B92173B2070020A38D /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A46512036EFB800738963 /* TodayViewController.swift */; };
+		B5B089BD2173B7AA0020A38D /* PLessonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B089BC2173B7AA0020A38D /* PLessonListViewController.swift */; };
+		B5B6CF93214FF0D00085311A /* QuizQuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6CF92214FF0D00085311A /* QuizQuesView.swift */; };
+		B5BD886F2170956A009CE52D /* QLCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BD886E2170956A009CE52D /* QLCollectionViewCell.swift */; };
 		B5C8707021515E870020BB3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5C8706F21515E870020BB3B /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -622,7 +626,29 @@
 		B19DABA51E6EF5C2004A50B5 /* WePeiYangUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WePeiYangUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WePeiYangUITests.swift; sourceTree = "<group>"; };
 		B19DABAB1E6EF5C2004A50B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B585F35620FE36E400950C00 /* LessonListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonListViewController.swift; sourceTree = "<group>"; };
+		B52824B5214299D4009E9226 /* QuizNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizNetwork.swift; sourceTree = "<group>"; };
+		B52824B721429F4D009E9226 /* QuizModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizModel.swift; sourceTree = "<group>"; };
+		B52824BA21436519009E9226 /* QuizQuesCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuesCollectionCell.swift; sourceTree = "<group>"; };
+		B54676D021627F4C003F1F3C /* TwTKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTKeychain.swift; sourceTree = "<group>"; };
+		B55942A221281C4E00B0931C /* ExerciseNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseNetwork.swift; sourceTree = "<group>"; };
+		B560DACC213CC9B600A243F0 /* QuizCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizCollectionViewController.swift; sourceTree = "<group>"; };
+		B58062A72159414D00443750 /* QuizOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizOptionCell.swift; sourceTree = "<group>"; };
+		B585F35420FE36E400950C00 /* PracticeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeModel.swift; sourceTree = "<group>"; };
+		B585F35620FE36E400950C00 /* PSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PSearchViewController.swift; sourceTree = "<group>"; };
+		B585F35720FE36E400950C00 /* QuestionTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableView.swift; sourceTree = "<group>"; };
+		B585F3662102F40700950C00 /* QuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCell.swift; sourceTree = "<group>"; };
+		B585F36A2103586A00950C00 /* OptionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCell.swift; sourceTree = "<group>"; };
+		B585F36E2105A01800950C00 /* ExerciseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCollectionViewController.swift; sourceTree = "<group>"; };
+		B585F3722105B91A00950C00 /* ExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCell.swift; sourceTree = "<group>"; };
+		B585F37721074E2B00950C00 /* AnswerScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerScrollView.swift; sourceTree = "<group>"; };
+		B5B089A12173ADFC0020A38D /* QLCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QLCollectionView.swift; sourceTree = "<group>"; };
+		B5B089B12173B0030020A38D /* ExerciseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExerciseModel.swift; path = "../../../../../../../WePeiYang的副本/WePeiYang-iOS-Everest/WePeiYang/Practice/Practice/Exercise/Model/ExerciseModel.swift"; sourceTree = "<group>"; };
+		B5B089BC2173B7AA0020A38D /* PLessonListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLessonListViewController.swift; sourceTree = "<group>"; };
+		B5B6CF8E2148F6EB0085311A /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
+		B5B6CF90214FEBAC0085311A /* ExerciseQuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseQuesView.swift; sourceTree = "<group>"; };
+		B5B6CF92214FF0D00085311A /* QuizQuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuesView.swift; sourceTree = "<group>"; };
+		B5B6CF94214FF7EC0085311A /* ExOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExOptionCell.swift; sourceTree = "<group>"; };
+		B5BD886E2170956A009CE52D /* QLCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLCollectionViewCell.swift; sourceTree = "<group>"; };
 		B5C8706F21515E870020BB3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D77E7BD11F959EB50A5A0DED /* Pods-WePeiYangWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1161,118 +1187,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		786E5BB02171935300B8F1A4 /* AnswerView */ = {
-			isa = PBXGroup;
-			children = (
-				786E5BB12171935300B8F1A4 /* AnswerScrollView.swift */,
-			);
-			path = AnswerView;
-			sourceTree = "<group>";
-		};
-		786E5BB22171935300B8F1A4 /* QuesListView */ = {
-			isa = PBXGroup;
-			children = (
-				786E5BB32171935300B8F1A4 /* QLCollectionView.swift */,
-				786E5BB42171935300B8F1A4 /* QLCollectionViewCell.swift */,
-			);
-			path = QuesListView;
-			sourceTree = "<group>";
-		};
-		786E5BB52171935300B8F1A4 /* Quiz */ = {
-			isa = PBXGroup;
-			children = (
-				786E5BB62171935300B8F1A4 /* Controller */,
-				786E5BB82171935300B8F1A4 /* Model */,
-				786E5BBB2171935300B8F1A4 /* View */,
-			);
-			path = Quiz;
-			sourceTree = "<group>";
-		};
-		786E5BB62171935300B8F1A4 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				786E5BB72171935300B8F1A4 /* QuizCollectionViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		786E5BB82171935300B8F1A4 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				786E5BB92171935300B8F1A4 /* QuizModel.swift */,
-				786E5BBA2171935300B8F1A4 /* QuizNetwork.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		786E5BBB2171935300B8F1A4 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				786E5BBC2171935300B8F1A4 /* QuizOptionCell.swift */,
-				786E5BBD2171935300B8F1A4 /* QuizQuesCollectionCell.swift */,
-				786E5BBE2171935300B8F1A4 /* QuizQuesView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		786E5BBF2171935300B8F1A4 /* main */ = {
-			isa = PBXGroup;
-			children = (
-				786E5BC02171935300B8F1A4 /* Parameters.swift */,
-				786E5BC12171935300B8F1A4 /* PracticeModel.swift */,
-				786E5BC22171935300B8F1A4 /* QuestionsScrollView.swift */,
-				786E5BC32171935300B8F1A4 /* TestController.swift */,
-			);
-			path = main;
-			sourceTree = "<group>";
-		};
-		786E5BC42171935300B8F1A4 /* Exercise */ = {
-			isa = PBXGroup;
-			children = (
-				786E5BC72171935300B8F1A4 /* Model */,
-				786E5BCA2171935300B8F1A4 /* View */,
-				786E5BC52171935300B8F1A4 /* Controller */,
-			);
-			path = Exercise;
-			sourceTree = "<group>";
-		};
-		786E5BC52171935300B8F1A4 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				786E5BC62171935300B8F1A4 /* ExerciseCollectionViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		786E5BC72171935300B8F1A4 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				786E5BC82171935300B8F1A4 /* ExerciseModel.swift */,
-				786E5BC92171935300B8F1A4 /* ExerciseNetwork.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		786E5BCA2171935300B8F1A4 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				786E5BCB2171935300B8F1A4 /* ExerciseCell.swift */,
-				786E5BCC2171935300B8F1A4 /* ExerciseQuesView.swift */,
-				786E5BCD2171935300B8F1A4 /* ExOptionCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		786E5BCE2171935300B8F1A4 /* FatherQuestionView */ = {
-			isa = PBXGroup;
-			children = (
-				786E5BCF2171935300B8F1A4 /* OptionsCell.swift */,
-				786E5BD02171935300B8F1A4 /* QuestionCell.swift */,
-				786E5BD12171935300B8F1A4 /* QuestionTableView.swift */,
-			);
-			path = FatherQuestionView;
-			sourceTree = "<group>";
-		};
 		78865AC02112F0F00055161F /* WrongPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -1525,6 +1439,7 @@
 		B10253DF1EC84ED90064373A /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				B54676D021627F4C003F1F3C /* TwTKeychain.swift */,
 				B10253E01EC84ED90064373A /* AccountManager.swift */,
 				B10253E11EC84ED90064373A /* CacheManager.swift */,
 				B10253E21EC84ED90064373A /* SolaSessionManager.swift */,
@@ -1672,6 +1587,7 @@
 				B19DAB871E6EF5C2004A50B5 /* Products */,
 				80B33C5178ED19C33022F16B /* Pods */,
 				D33D5F603943FDFD415D167A /* Frameworks */,
+				B5B0899B2173AA610020A38D /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1732,6 +1648,61 @@
 			path = WePeiYangUITests;
 			sourceTree = "<group>";
 		};
+		B52824B32142993B009E9226 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B560DACC213CC9B600A243F0 /* QuizCollectionViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B52824B421429979009E9226 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B52824B5214299D4009E9226 /* QuizNetwork.swift */,
+				B52824B721429F4D009E9226 /* QuizModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B52824B9214364F7009E9226 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B52824BA21436519009E9226 /* QuizQuesCollectionCell.swift */,
+				B5B6CF92214FF0D00085311A /* QuizQuesView.swift */,
+				B58062A72159414D00443750 /* QuizOptionCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B5452CBC2109D9A400F77BD0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B5B089B12173B0030020A38D /* ExerciseModel.swift */,
+				B55942A221281C4E00B0931C /* ExerciseNetwork.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B560DACB213CC9A200A243F0 /* Quiz */ = {
+			isa = PBXGroup;
+			children = (
+				B52824B421429979009E9226 /* Model */,
+				B52824B32142993B009E9226 /* Controller */,
+				B52824B9214364F7009E9226 /* View */,
+			);
+			path = Quiz;
+			sourceTree = "<group>";
+		};
+		B58062A92159E18400443750 /* QuesListView */ = {
+			isa = PBXGroup;
+			children = (
+				B5B089A12173ADFC0020A38D /* QLCollectionView.swift */,
+				B5BD886E2170956A009CE52D /* QLCollectionViewCell.swift */,
+			);
+			path = QuesListView;
+			sourceTree = "<group>";
+		};
 		B585F34F20FE36E400950C00 /* Practice */ = {
 			isa = PBXGroup;
 			children = (
@@ -1749,22 +1720,107 @@
 		B585F35520FE36E400950C00 /* LessonList */ = {
 			isa = PBXGroup;
 			children = (
-				B585F35620FE36E400950C00 /* LessonListViewController.swift */,
+				B585F35620FE36E400950C00 /* PSearchViewController.swift */,
+				B5B089BC2173B7AA0020A38D /* PLessonListViewController.swift */,
 			);
 			path = LessonList;
+			sourceTree = "<group>";
+		};
+		B585F35F2100498400950C00 /* FatherQuestionView */ = {
+			isa = PBXGroup;
+			children = (
+				B585F35720FE36E400950C00 /* QuestionTableView.swift */,
+				B585F3662102F40700950C00 /* QuestionCell.swift */,
+				B585F36A2103586A00950C00 /* OptionsCell.swift */,
+			);
+			path = FatherQuestionView;
 			sourceTree = "<group>";
 		};
 		B585F3622100619000950C00 /* Practice */ = {
 			isa = PBXGroup;
 			children = (
-				786E5BB02171935300B8F1A4 /* AnswerView */,
-				786E5BC42171935300B8F1A4 /* Exercise */,
-				786E5BCE2171935300B8F1A4 /* FatherQuestionView */,
-				786E5BBF2171935300B8F1A4 /* main */,
-				786E5BB22171935300B8F1A4 /* QuesListView */,
-				786E5BB52171935300B8F1A4 /* Quiz */,
+				B585F3752105B95300950C00 /* main */,
+				B585F3702105B88800950C00 /* Exercise */,
+				B560DACB213CC9A200A243F0 /* Quiz */,
+				B585F35F2100498400950C00 /* FatherQuestionView */,
+				B58062A92159E18400443750 /* QuesListView */,
+				B585F37621074DFF00950C00 /* AnswerView */,
 			);
 			path = Practice;
+			sourceTree = "<group>";
+		};
+		B585F3702105B88800950C00 /* Exercise */ = {
+			isa = PBXGroup;
+			children = (
+				B5452CBC2109D9A400F77BD0 /* Model */,
+				B585F3742105B92200950C00 /* Controller */,
+				B585F3712105B8D300950C00 /* View */,
+			);
+			path = Exercise;
+			sourceTree = "<group>";
+		};
+		B585F3712105B8D300950C00 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B5B6CF90214FEBAC0085311A /* ExerciseQuesView.swift */,
+				B585F3722105B91A00950C00 /* ExerciseCell.swift */,
+				B5B6CF94214FF7EC0085311A /* ExOptionCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B585F3742105B92200950C00 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B585F36E2105A01800950C00 /* ExerciseCollectionViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B585F3752105B95300950C00 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				B585F35420FE36E400950C00 /* PracticeModel.swift */,
+				B5B6CF8E2148F6EB0085311A /* Parameters.swift */,
+			);
+			path = main;
+			sourceTree = "<group>";
+		};
+		B585F37621074DFF00950C00 /* AnswerView */ = {
+			isa = PBXGroup;
+			children = (
+				B585F37721074E2B00950C00 /* AnswerScrollView.swift */,
+			);
+			path = AnswerView;
+			sourceTree = "<group>";
+		};
+		B5B0899B2173AA610020A38D /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				786E5BB12171935300B8F1A4 /* AnswerScrollView.swift */,
+				786E5BC22171935300B8F1A4 /* QuestionsScrollView.swift */,
+				786E5BCC2171935300B8F1A4 /* ExerciseQuesView.swift */,
+				786E5BBD2171935300B8F1A4 /* QuizQuesCollectionCell.swift */,
+				786E5BC92171935300B8F1A4 /* ExerciseNetwork.swift */,
+				786E5BC12171935300B8F1A4 /* PracticeModel.swift */,
+				786E5BC02171935300B8F1A4 /* Parameters.swift */,
+				786E5BBA2171935300B8F1A4 /* QuizNetwork.swift */,
+				786E5BBE2171935300B8F1A4 /* QuizQuesView.swift */,
+				786E5BBC2171935300B8F1A4 /* QuizOptionCell.swift */,
+				786E5BCD2171935300B8F1A4 /* ExOptionCell.swift */,
+				786E5BC62171935300B8F1A4 /* ExerciseCollectionViewController.swift */,
+				786E5BC82171935300B8F1A4 /* ExerciseModel.swift */,
+				786E5BC32171935300B8F1A4 /* TestController.swift */,
+				786E5BD12171935300B8F1A4 /* QuestionTableView.swift */,
+				786E5BCB2171935300B8F1A4 /* ExerciseCell.swift */,
+				786E5BD02171935300B8F1A4 /* QuestionCell.swift */,
+				786E5BB32171935300B8F1A4 /* QLCollectionView.swift */,
+				786E5BCF2171935300B8F1A4 /* OptionsCell.swift */,
+				786E5BB42171935300B8F1A4 /* QLCollectionViewCell.swift */,
+				786E5BB72171935300B8F1A4 /* QuizCollectionViewController.swift */,
+				786E5BB92171935300B8F1A4 /* QuizModel.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		D33D5F603943FDFD415D167A /* Frameworks */ = {
@@ -2124,6 +2180,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5B089B92173B2070020A38D /* TodayViewController.swift in Sources */,
+				B5B089B82173B1FE0020A38D /* WeekItemCell.swift in Sources */,
+				B5B089B32173B14A0020A38D /* WPYTextView.swift in Sources */,
+				B5B089B42173B14A0020A38D /* BicycleServiceNotificationCell.swift in Sources */,
+				B5B089B52173B14A0020A38D /* TwentyCourseScoreViewController.swift in Sources */,
+				B5B089B62173B14A0020A38D /* PartyMainViewController.swift in Sources */,
+				B5B089B72173B14A0020A38D /* ClassWidgetCell.swift in Sources */,
+				B5B089AA2173AF170020A38D /* Parameters.swift in Sources */,
+				B5B089AB2173AF170020A38D /* ExerciseNetwork.swift in Sources */,
+				B5B089AC2173AF170020A38D /* ExerciseCollectionViewController.swift in Sources */,
+				B5B089AD2173AF170020A38D /* ExerciseQuesView.swift in Sources */,
+				B5B089AE2173AF170020A38D /* ExOptionCell.swift in Sources */,
+				B5B089AF2173AF170020A38D /* QuizQuesCollectionCell.swift in Sources */,
+				B5B089B02173AF170020A38D /* QuizOptionCell.swift in Sources */,
+				B5B089A92173AEEF0020A38D /* QuizNetwork.swift in Sources */,
+				B5B089A82173AED00020A38D /* PracticeModel.swift in Sources */,
+				B5B089A72173AEBF0020A38D /* ExerciseCell.swift in Sources */,
+				B5B089A62173AEAE0020A38D /* QuestionTableView.swift in Sources */,
+				B5B089A52173AE840020A38D /* QuestionCell.swift in Sources */,
+				B5B089A42173AE6E0020A38D /* OptionsCell.swift in Sources */,
+				B5B089A32173AE2B0020A38D /* AnswerScrollView.swift in Sources */,
+				B5B0899D2173AD5B0020A38D /* QuizCollectionViewController.swift in Sources */,
+				B5B0899C2173AD410020A38D /* QuizModel.swift in Sources */,
 				36449E891FA4BAD10036766B /* PartyScoreViewController.m in Sources */,
 				36FCC2D920545967003379AE /* LoginView.swift in Sources */,
 				36449E661FA4BABA0036766B /* PersonalStatusLabel.swift in Sources */,
@@ -2131,8 +2210,8 @@
 				360339E920247B9D0006A083 /* LibraryCard.swift in Sources */,
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
 				36042DB81FC7BB270016E859 /* CourseCell.swift in Sources */,
+				B5BD886F2170956A009CE52D /* QLCollectionViewCell.swift in Sources */,
 				365936901F1E60A9003CE578 /* GPAClassModel.swift in Sources */,
-				786E5BD22171935300B8F1A4 /* AnswerScrollView.swift in Sources */,
 				3685D9EF204D255700BA6C3D /* NewsDetailViewController.swift in Sources */,
 				0C3ADF371F697EE100388C19 /* LostFoundCollectionViewCellDemo.swift in Sources */,
 				36073D081F223FC1001317A7 /* CoverView.swift in Sources */,
@@ -2141,20 +2220,18 @@
 				365261561FB9F83400025B8A /* ClassTableModel.swift in Sources */,
 				36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */,
 				365936961F1E60A9003CE578 /* StarView.swift in Sources */,
-				786E5BDD2171935300B8F1A4 /* QuestionsScrollView.swift in Sources */,
 				A5197A3D1FDA8F99008C445A /* LibraryAPIs.swift in Sources */,
 				36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */,
 				36CAD44A201B8EAA006F85E3 /* ClassTableHelper.swift in Sources */,
 				36449E481FA4BA9B0036766B /* ApplicantTest.swift in Sources */,
 				361F8863204AF94200BCFA19 /* NewsTableViewCell.swift in Sources */,
 				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,
-				786E5BE32171935300B8F1A4 /* ExerciseQuesView.swift in Sources */,
 				361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */,
 				36073D0D1F223FC1001317A7 /* Search.swift in Sources */,
 				368C3C8A204DAB4F00C1E6B6 /* WPYCustomError.swift in Sources */,
 				A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */,
 				36073D1A1F225D2A001317A7 /* BookDetailViewController.swift in Sources */,
-				B585F35C20FE36E400950C00 /* LessonListViewController.swift in Sources */,
+				B585F35C20FE36E400950C00 /* PSearchViewController.swift in Sources */,
 				B102541F1EC8547E0064373A /* ThemeChanging.swift in Sources */,
 				36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */,
 				3659368D1F1E60A9003CE578 /* CourseAppraiseViewController.swift in Sources */,
@@ -2164,6 +2241,7 @@
 				365A8A281FB9CA1700B15443 /* ClassModel.swift in Sources */,
 				365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */,
 				364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */,
+				B5B089A22173ADFC0020A38D /* QLCollectionView.swift in Sources */,
 				36449E491FA4BA9B0036766B /* Applicant.swift in Sources */,
 				783588FF2147E30B0026167C /* HistoryView.swift in Sources */,
 				36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */,
@@ -2179,7 +2257,6 @@
 				36449E831FA4BAD00036766B /* TwentyCourseViewController.swift in Sources */,
 				36449E8D1FA4BAD10036766B /* PartyCoursesViewController.m in Sources */,
 				3631D50A1F1903D70078816D /* TwTUser.swift in Sources */,
-				786E5BD92171935300B8F1A4 /* QuizQuesCollectionCell.swift in Sources */,
 				A5E117C51F99E05200C86CA2 /* BicycleServiceInfoController.swift in Sources */,
 				A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */,
 				0C3ADF3A1F697EE100388C19 /* LostViewController.swift in Sources */,
@@ -2188,12 +2265,8 @@
 				365936941F1E60A9003CE578 /* CourseAppraiseCell.swift in Sources */,
 				A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */,
 				365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */,
-				786E5BE12171935300B8F1A4 /* ExerciseNetwork.swift in Sources */,
 				365A46482036956700738963 /* CacheFilenameKey.swift in Sources */,
-				786E5BDC2171935300B8F1A4 /* PracticeModel.swift in Sources */,
-				786E5BDB2171935300B8F1A4 /* Parameters.swift in Sources */,
 				361F885C204AF92D00BCFA19 /* BannerPageControl.swift in Sources */,
-				786E5BD72171935300B8F1A4 /* QuizNetwork.swift in Sources */,
 				36073D0B1F223FC1001317A7 /* RecommendCell.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
 				0C3ADF3B1F697EE100388C19 /* MyFoundViewController.swift in Sources */,
@@ -2211,17 +2284,16 @@
 				361F885E204AF92D00BCFA19 /* BannerCell.swift in Sources */,
 				36DA7A5E1FA8A35C000DAF2B /* WPYBaseViewController.swift in Sources */,
 				0C3ADF4A1F697EE100388C19 /* SectionCell.swift in Sources */,
+				B5B6CF93214FF0D00085311A /* QuizQuesView.swift in Sources */,
 				0C3ADF3E1F697EE100388C19 /* PublishSuccessViewController.swift in Sources */,
 				0C3ADF401F697EE100388C19 /* LostFoundSearchViewController.swift in Sources */,
 				786A342D213176050078120A /* PracticeWrongModel.swift in Sources */,
 				36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */,
 				36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */,
 				36E56BC61FC512230009BD6F /* CourseListView.swift in Sources */,
-				786E5BDA2171935300B8F1A4 /* QuizQuesView.swift in Sources */,
 				0C3ADF491F697EE100388C19 /* PublishCustomCell.swift in Sources */,
 				3613DA222056F740000867AE /* UniversalExtension.swift in Sources */,
 				364BDF721FDAE1EF00E61B65 /* GPACard.swift in Sources */,
-				786E5BD82171935300B8F1A4 /* QuizOptionCell.swift in Sources */,
 				0C3ADF431F697EE100388C19 /* LostFoundModel.swift in Sources */,
 				0C3ADF351F697EE100388C19 /* DetailViewController.swift in Sources */,
 				36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */,
@@ -2236,22 +2308,17 @@
 				A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */,
 				A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */,
 				0C3ADF3F1F697EE100388C19 /* SearchedResultViewController.swift in Sources */,
+				B5B089BD2173B7AA0020A38D /* PLessonListViewController.swift in Sources */,
 				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
 				36449E8A1FA4BAD10036766B /* PartyPersonalStatusViewController.swift in Sources */,
 				36449E621FA4BABA0036766B /* SignUpTableViewCell.swift in Sources */,
-				786E5BE42171935300B8F1A4 /* ExOptionCell.swift in Sources */,
-				369D92092015D97A004BA1D0 /* WeekItemCell.swift in Sources */,
-				36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */,
-				36449E841FA4BAD10036766B /* TwentyCourseScoreViewController.swift in Sources */,
 				36449E6D1FA4BABA0036766B /* FinalView.swift in Sources */,
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
 				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
-				786E5BDF2171935300B8F1A4 /* ExerciseCollectionViewController.swift in Sources */,
 				3667E1D0201CB98800E82241 /* DetailSettingViewController.swift in Sources */,
 				0C3ADF3D1F697EE100388C19 /* MyLostViewController.swift in Sources */,
 				B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */,
 				361F8855204AF92100BCFA19 /* GalleryModel.swift in Sources */,
-				786E5BE02171935300B8F1A4 /* ExerciseModel.swift in Sources */,
 				36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */,
 				B102541C1EC8547E0064373A /* Metadata.swift in Sources */,
 				B10253D91EC84ED20064373A /* ReadAPI.swift in Sources */,
@@ -2278,9 +2345,9 @@
 				36449E8E1FA4BAD10036766B /* PartyComplainViewController.swift in Sources */,
 				785A0941213A722E007A2E3C /* CollectionView.swift in Sources */,
 				361F8867204AF9AA00BCFA19 /* NewsViewController.swift in Sources */,
-				786E5BDE2171935300B8F1A4 /* TestController.swift in Sources */,
 				36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */,
 				3653DD911FBAD0B600501C3B /* ClassTableViewController.swift in Sources */,
+				B54676D121627F4C003F1F3C /* TwTKeychain.swift in Sources */,
 				36F285092049B7D50095A3D4 /* ModulesSettingsViewController.swift in Sources */,
 				3659366D1F1E3637003CE578 /* CommonUsedView.swift in Sources */,
 				A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */,
@@ -2296,8 +2363,6 @@
 				3659366F1F1E37B8003CE578 /* SearchView.swift in Sources */,
 				36A74EB3205BAD0300DD1EC3 /* AlertChildPageViewController.swift in Sources */,
 				A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */,
-				786E5BE72171935300B8F1A4 /* QuestionTableView.swift in Sources */,
-				786E5BE22171935300B8F1A4 /* ExerciseCell.swift in Sources */,
 				361F8856204AF92100BCFA19 /* HomePageModel.swift in Sources */,
 				36449E881FA4BAD10036766B /* PartySignUpViewController.swift in Sources */,
 				36073D241F22713B001317A7 /* ReadViewController.swift in Sources */,
@@ -2319,10 +2384,10 @@
 				364922A120260CDC00DFDC35 /* LibraryModel.swift in Sources */,
 				36073D101F223FC1001317A7 /* StatusInfoCell.swift in Sources */,
 				363D0A701FE006990095DA57 /* LibraryCardDataProvider.swift in Sources */,
-				786E5BE62171935300B8F1A4 /* QuestionCell.swift in Sources */,
 				3659367B1F1E5FAE003CE578 /* YellowPageDetailViewController.swift in Sources */,
 				A5E117B71F99DC9400C86CA2 /* NotificationList.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
+				B5B089B22173B0040020A38D /* ExerciseModel.swift in Sources */,
 				36073D1F1F225D2A001317A7 /* ReviewListViewController.swift in Sources */,
 				36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */,
 				36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */,
@@ -2334,7 +2399,6 @@
 				A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */,
 				780CCE1120FEE3B600FFBE7A /* HomeView.swift in Sources */,
 				361F8862204AF94200BCFA19 /* NewsHeaderView.swift in Sources */,
-				786E5BD32171935300B8F1A4 /* QLCollectionView.swift in Sources */,
 				369D92072015D914004BA1D0 /* WeekSelectView.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
 				3659367C1F1E5FAE003CE578 /* YellowPageMainViewController.swift in Sources */,
@@ -2343,13 +2407,10 @@
 				0C2C8D921F7BC48400D3A5E2 /* LFPickerCell.swift in Sources */,
 				B10254211EC8547E0064373A /* WPYLabel.swift in Sources */,
 				A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */,
-				786E5BE52171935300B8F1A4 /* OptionsCell.swift in Sources */,
 				B10253FD1EC84ED90064373A /* log.swift in Sources */,
 				361F8853204AF92100BCFA19 /* HomePageHelper.swift in Sources */,
-				786E5BD42171935300B8F1A4 /* QLCollectionViewCell.swift in Sources */,
 				78C5801A21381398003F2C8E /* PracticeUploadViewController.swift in Sources */,
 				0C3ADF481F697EE100388C19 /* MyLostFoundTableViewCell.swift in Sources */,
-				786E5BD52171935300B8F1A4 /* QuizCollectionViewController.swift in Sources */,
 				78865AC42112F2A00055161F /* PracticeWrongViewController.swift in Sources */,
 				783589022147E3AE0026167C /* PracticeHistoryModel.swift in Sources */,
 				365A8A251FB9BA8500B15443 /* ClasstableDataManager.swift in Sources */,
@@ -2362,7 +2423,6 @@
 				0C3ADF441F697EE100388C19 /* MyLostFoundModel.swift in Sources */,
 				36073D1C1F225D2A001317A7 /* InfoViewController.swift in Sources */,
 				A53602691FC6EC0500E3D1AF /* TJUBindingViewController.swift in Sources */,
-				786E5BD62171935300B8F1A4 /* QuizModel.swift in Sources */,
 				0C3ADF3C1F697EE100388C19 /* MyLostFoundPageViewController.swift in Sources */,
 				B10254041EC84EE00064373A /* ClientItem.swift in Sources */,
 				0C3ADF461F697EE100388C19 /* LostFoundCollectionViewCell.swift in Sources */,

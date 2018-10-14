@@ -165,6 +165,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
     }
 
+    @available(iOS 10.0, *)
     @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         switch activeDisplayMode {
@@ -190,7 +191,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
     func layout() {
         if #available(iOSApplicationExtension 10.0, *) {
-            extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+            if #available(iOS 10.0, *) {
+                extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+            } else {
+                // Fallback on earlier versions
+            }
         } else {
             tableView.frame.size.height = max(1, CGFloat(classes.count)) * tableView.rowHeight + 40
             self.preferredContentSize = CGSize(width: 0, height: tableView.frame.size.height + 20)
@@ -324,9 +329,8 @@ extension TodayViewController: UITableViewDataSource {
 }
 
 extension TodayViewController: UITableViewDelegate {
-
+    var isiPad: Bool {
+        return UIDevice.current.model == "iPad"
+    }
 }
 
-var isiPad: Bool {
-    return UIDevice.current.model == "iPad"
-}

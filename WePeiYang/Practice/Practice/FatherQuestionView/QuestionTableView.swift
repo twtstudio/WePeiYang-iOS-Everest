@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 /// 题目及选项TableView父类
 class QuestionTableView: UITableView {
     let practiceModel = PracticeModel()
@@ -16,21 +15,26 @@ class QuestionTableView: UITableView {
     let questionViewParameters = QuestionViewParameters()
     
     static var selectedAnswer: String?
-    var content: String?
-    var options: [String?] = []
-    var selected: Bool = false
-    var usrAnswer: String?
-    var rightAns: String?
-    var quesType: Int?
-    var practiceMode: PracticeMode?
+    var content: String?                   //题目字符串
+    var options: [String?] = []            //各选项字符串数组
+    var selected: Bool = false             //是否已做过
+    var usrAnswer: String?                 //单选用户答案
+    var rightAns: String?                  //单选正确答案
+    var quesType: Int?                     //题目类型（单选、多选、判断）
+    var practiceMode: PracticeMode?        //练习模式
     
+    //多选题用户答案
     static var selectedAnswerArray: [Bool] = {
         return []
     }()
+    //多选题正确答案
     var rightAnswers: [Bool] = {
         return []
     }()
+    
     var answerSelected: ((String, Int) -> ([Bool]))?
+    
+    /// 判断选择是否正确。Int为选项顺序，String为正确答案。
     var answerResult: ((Int, String) -> Bool)?
     
 //    let exerciseController = ExerciseCollectionViewController()
@@ -48,7 +52,6 @@ class QuestionTableView: UITableView {
         self.bounces = false
         self.delegate = self
         self.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
-//        answerUpdate()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -57,14 +60,15 @@ class QuestionTableView: UITableView {
 }
 
 extension QuestionTableView: UITableViewDelegate {
-    //cell高度自适应
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.item {
         case 0:
             if let question = content {
+                //cell自适应高度
                 let height = question.calculateHeightWithConstrained(width: frame.width, font: questionViewParameters.qFont) < questionViewParameters.minCellH ? questionViewParameters.minCellH : question.calculateHeightWithConstrained(width: frame.width, font: questionViewParameters.qFont)
                 return height
             } else {
+                //cell最小高度
                 return 44
             }
         case 1:
@@ -77,10 +81,13 @@ extension QuestionTableView: UITableViewDelegate {
             } else {
                 return questionViewParameters.cellH
             }
-            
         }
     }
 }
+
+
+//MARK: 以下是之前写的测验模块部分，后来测验和背题两个模式共性抽象出去一个父类，这些特性分出去成为单独一个子类
+//      以降低耦合性，代码也更清晰。
 
 //做题部分
 //extension QuestionTableView {

@@ -23,6 +23,10 @@ class WPYTextView: UITextView {
 
 
 extension WPYTextView: ThemeChanging {
+    func changeInto(theme: WPYTheme) {
+        // TODO: 
+    }
+    
     // TODO: Conforming to Protocol ThemeChanging
     func changeInto(theme: Theme) {
         

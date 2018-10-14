@@ -32,14 +32,17 @@ class ExerciseCollectionViewController: UIViewController {
     var courseId = 2
     var quesType = 0
 
-
     var currentPage = 1
     var currentIndex = 0
     var lastoffset: CGFloat = deviceWidth
     var currentoffset: CGFloat = 0
     var indexArray: [Int] = []
     var usrMultipleAnser: [String] = []
-
+    
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    let quesListCollectionView = QLCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let quesListBkgView = UIView()
+    
     let orderLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
@@ -50,7 +53,6 @@ class ExerciseCollectionViewController: UIViewController {
     let result: String? = "正确"
     let rightAnswer: String? = "A"
     
-    let quesListBkgView = UIView()
     let collectBtn: UIButton = {
         let btn = UIButton()
         btn.setImage(#imageLiteral(resourceName: "collect"), for: .normal)
@@ -63,9 +65,6 @@ class ExerciseCollectionViewController: UIViewController {
         btn.setTitle("确认答案", for: .normal)
         return btn
     }()
-    
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-    let quesListCollectionView = QLCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     let buttonsView: UIView = {
         let view = UIView()
@@ -101,7 +100,7 @@ class ExerciseCollectionViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.barTintColor = UIColor.practiceBlue
         navigationController?.navigationBar.tintColor = .white
-        navigationItem.titleView = UIView(frame: CGRect(x: 0, y: 0, width: 150, height: 24))
+        navigationItem.titleView = UIView(frame: CGRect(x: 0, y: 0, width: 0.3 * deviceWidth, height: 24))
         navigationItem.titleView?.backgroundColor = .clear
         navigationItem.titleView?.addSubview(segmentedControl)
         segmentedControl.snp.makeConstraints { (make) in
@@ -147,7 +146,7 @@ extension ExerciseCollectionViewController: UICollectionViewDataSource, UICollec
         if let content = ques.quesDetail?.content, let optionArray = ques.quesDetail?.option, let correctAns = ques.quesDetail?.correctAnswer, let quesType = ques.quesDetail?.type {
             cell.loadQues(answer: usrMultipleAnser[indexArray[indexPath.item]], ques: content, options: optionArray, selected: guards[indexArray[indexPath.item]].selected, rightAns: correctAns, qType: quesType)
             cell.questionView.reloadData()
-        }else {
+        } else {
             cell.loadQues(answer: "none", ques: "oops, no data", options: ["oops, no data", "oops, no data", "oops, no data", "oops, no data"], selected: guards[currentPage - 1].selected, rightAns: "no data", qType: 0)
         }
         cell.initExerciseCell()
@@ -162,7 +161,6 @@ extension ExerciseCollectionViewController: UICollectionViewDataSource, UICollec
                 cell.removeAnswerView()
             }
         }
-        
         return cell
     }
     
@@ -173,7 +171,6 @@ extension ExerciseCollectionViewController: UICollectionViewDataSource, UICollec
 
 //网络请求
 extension ExerciseCollectionViewController {
-    
     private func getIdList(courseId: Int, quesType: Int) {
         //这里会先运行 PracticeNetwork.getIdList
         var idList: [Int?] = []
@@ -193,7 +190,6 @@ extension ExerciseCollectionViewController {
     }
     
     private func getQues(id: Int) {
-//        print("正在获取\(id)")
         ExerciseNetwork.getQues(courseId: courseId, quesType: quesType, id: id, success: { (ques) in
             self.count = self.count + 1
             
@@ -201,7 +197,7 @@ extension ExerciseCollectionViewController {
                 self.count = 0
                 var qs: [Question] = []
                 
-                //调整题目顺序，因为返回题目的顺序和网速有关，不是先请求的题目就一定先返回。所以返回的数组大部分为乱序。
+                // 调整题目顺序，因为返回题目的顺序和网速有关，不是先请求的题目就一定先返回。所以返回的数组大部分为乱序。
                 for i in 0..<3 {
                     for j in 0..<3 {
                         let ques = ExerciseCollectionViewController.questions[j]
@@ -210,7 +206,7 @@ extension ExerciseCollectionViewController {
                         }
                     }
                 }
-                //
+                
                 for i in 0..<3 {
                     switch qs[i].quesDetail?.isCollected {
                     case 0?:
@@ -237,7 +233,6 @@ extension ExerciseCollectionViewController {
                     self.collectionView.dataSource = self
                     self.isinited = 1
                 } else {
-//                    self.collectionView.reloadData()
                     self.reloadQuesCollectionView(scrollDirection: self.scrollDirection)
                 }
             }else if self.count == 3 {
@@ -252,18 +247,19 @@ extension ExerciseCollectionViewController {
     
     private func reloadQuesCollectionView(scrollDirection: Direction) {
         var array: [IndexPath] = []
-        var range = 0...1
+        var reloadRange = 0...2
         
         switch scrollDirection {
         case .left:
-            range = 0...1
+            reloadRange = 0...1
         case .right:
-            range = 1...2
+            reloadRange = 1...2
         default:
             self.collectionView.reloadData()
             return
         }
-        for i in range {
+
+        for i in reloadRange {
             let indexPath = IndexPath(item: i, section: 0)
             array.append(indexPath)
         }
@@ -285,11 +281,10 @@ extension ExerciseCollectionViewController {
     }
 }
 
-//页面切换
+// MARK: 页面切换
 extension ExerciseCollectionViewController {
     private func updateData() {
-        //页面记录更新
-//        currentIndex = currentPage - 1
+        // 页面记录更新
         let lastIndex = (currentIndex - 1) == -1 ? idList.count - 1 : (currentIndex - 1)
         let nextIndex = (currentIndex + 1) == idList.count ? 0 : (currentIndex + 1)
         indexArray = [lastIndex, currentIndex, nextIndex]
@@ -298,7 +293,7 @@ extension ExerciseCollectionViewController {
         getQuesArray()
         orderLabel.text = "\(currentPage)/\(idList.count)"
         
-        //判断是否收藏
+        // 判断是否收藏
         if guards[currentIndex].iscollected {
             collectBtn.setImage(#imageLiteral(resourceName: "collected"), for: .normal)
         }else {
@@ -319,6 +314,7 @@ extension ExerciseCollectionViewController {
 
     /// 判断滑动方向
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        // 页面滑动距离大于等于 设备屏幕宽度 时确认为滑动
         currentoffset = scrollView.contentOffset.x
         let offset = lastoffset - currentoffset
         if offset >= deviceWidth {
@@ -329,14 +325,14 @@ extension ExerciseCollectionViewController {
         
         var reloadItem: Int = 0
         switch scrollDirection {
-        //滑向下一题
+        // 左滑，滑向下一题
         case .left:
             currentPage = (currentPage + 1) == idList.count + 1 ? 1 : (currentPage + 1)
             currentIndex = currentPage - 1
             updateData()
             reloadItem = 2
             
-        //滑向上一题
+        // 右滑，滑向上一题
         case .right:
             currentPage = (currentPage - 1) == 0 ? idList.count : (currentPage - 1)
             currentIndex = currentPage - 1
@@ -345,12 +341,16 @@ extension ExerciseCollectionViewController {
         default:
             return
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+
+        /// 因为是用3个cell循环实现的题目切换，因此网络请求时差和页面瞬间切换会导致画面闪动问题
+        /// 解决方法，滑动到新界面后，先刷新另外两个不显示的cell，再切换页面，最后刷新最后一个（此时也已经不显示了）cell
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             scrollView.contentOffset.x = deviceWidth
         }
         let indexPath = IndexPath(item: reloadItem, section: 0)
         let array = [indexPath]
         self.collectionView.reloadItems(at: array)
+        print("Last Cell RELOADED")
         scrollDirection = .none
     }
     
@@ -500,25 +500,26 @@ extension ExerciseCollectionViewController {
     @objc private func updateAnswer() {
         guards[currentIndex].selected = true
         guards[currentIndex].answer = QuestionTableView.selectedAnswer
-        if let answer = guards[currentIndex].answer {
-            if answer == questionArray[1].quesDetail!.correctAnswer {
-                guards[currentIndex].iscorrect = .right
-            } else {
-                guards[currentIndex].iscorrect = .wrong
-                
-                let mistakeQuesData: Dictionary<String, Any> = ["tid": 1,
-                                                                "ques_id": questionArray[1].quesDetail?.id ?? 0,
-                                                                "ques_type": questionArray[1].quesDetail?.type ?? 3,
-                                                                "error_option": answer]
-                ExerciseNetwork.postMistakeQues(courseId: courseId, data: mistakeQuesData, failure: { (err) in
-                    print(err)
-                }) { (dic) in
-//                    print(dic)
-                }
-            }
+        guard let usrAns = QuestionTableView.selectedAnswer else { return }
+        usrMultipleAnser[currentIndex] = usrAns
+        
+        guard let answer = guards[currentIndex].answer else { return }
+        if answer == questionArray[1].quesDetail!.correctAnswer {
+            guards[currentIndex].iscorrect = .right
         } else {
-            return
+            guards[currentIndex].iscorrect = .wrong
+            
+            let mistakeQuesData: Dictionary<String, Any> = ["tid": 1,
+                                                            "ques_id": questionArray[1].quesDetail?.id ?? 0,
+                                                            "ques_type": questionArray[1].quesDetail?.type ?? 3,
+                                                            "error_option": answer]
+            ExerciseNetwork.postMistakeQues(courseId: courseId, data: mistakeQuesData, failure: { (err) in
+                print(err)
+            }) { (dic) in
+                //                    print(dic)
+            }
         }
+        
         check()
         QuestionTableView.selectedAnswer = nil
     }
@@ -561,7 +562,7 @@ extension ExerciseCollectionViewController {
         }
     }
     
-    //确认答案
+    //
     @objc private func checkBtnTapped(_ button: UIButton) {
         guards[currentIndex].selected = true
         guards[currentIndex].ischecked = true
@@ -571,12 +572,11 @@ extension ExerciseCollectionViewController {
         //储存答案String
         let startValue = Int(("A" as UnicodeScalar).value)
         var answerString = ""
-        for i in 0..<QuestionTableView.selectedAnswerArray.count {
-            if QuestionTableView.selectedAnswerArray[i] {
-                let string = String(UnicodeScalar(i + startValue)!)
-                answerString = answerString + string
-            }
+        for i in 0..<QuestionTableView.selectedAnswerArray.count where QuestionTableView.selectedAnswerArray[i] {
+            let string = String(UnicodeScalar(i + startValue)!)
+            answerString = answerString + string
         }
+
         if answerString == questionArray[1].quesDetail?.correctAnswer {
             guards[currentIndex].iscorrect = .right
         } else {
