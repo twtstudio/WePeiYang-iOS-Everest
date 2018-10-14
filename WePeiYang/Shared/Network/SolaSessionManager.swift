@@ -46,7 +46,6 @@ struct SolaSessionManager {
                 task.cancel()
             })
         }
-        print("CANCEL ALL TASKS")
     }
     
     static func cancelTask(withUrl urlstring: String) {

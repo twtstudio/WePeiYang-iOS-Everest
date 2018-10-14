@@ -102,7 +102,7 @@ extension ExerciseQuesView {
             indexPathArray.append(indexPath)
         }
         
-        //这种方式不可以传值
+        //这种方式不可以传值(实例化原理)
         //exerciseController.answerupdate(selectedAns: practiceModel.optionDics[indexPath.item]!)
         
         if quesType != 1 {
@@ -160,7 +160,6 @@ extension ExerciseQuesView {
     @objc func checkMultipleAns() {
         checked = true
         rightAnswers = practiceModel.ansToArray(ans: rightAns!)
-        print(rightAnswers)
 
         checked = false
     }

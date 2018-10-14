@@ -33,7 +33,7 @@ class QuestionTableView: UITableView {
     var answerSelected: ((String, Int) -> ([Bool]))?
     var answerResult: ((Int, String) -> Bool)?
     
-    let exerciseController = ExerciseCollectionViewController()
+//    let exerciseController = ExerciseCollectionViewController()
   
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
@@ -54,12 +54,6 @@ class QuestionTableView: UITableView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    deinit {
-        self.delegate = nil
-        print("QuestionTableView deinit")
-    }
-
 }
 
 extension QuestionTableView: UITableViewDelegate {

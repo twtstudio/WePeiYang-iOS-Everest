@@ -11,21 +11,54 @@ import Foundation
 class QuizCollectionViewController: UIViewController {
     let questionViewParameters = QuestionViewParameters()
     
-    var isExercising: Bool = true
-    
-    static var questions: [Question] = []
+    var timer: Timer!
+    static var usrAnsArray: [String] = []
     var quizArray: [QuizQuestion] = []
     var guards: [Guard] = []
     var isSelected: [isCorrect] = []
-    var count = 0
-    var isinited = 0
+    var scrollDirection: Direction = .none
     
-    var courseId = Int(PracticeFigure.courseID)!
+    var time: Int = {
+        return 0
+    }()
     
-    var currentPage = 1
-    var lastoffset: CGFloat = deviceWidth
-    var currentoffset: CGFloat = 0
+    var count: Int = {
+        return 0
+    }()
+    
+    var isinited: Int = {
+        return 0
+    }()
+    
+    var courseId: Int = {
+        return 2
+    }()
+    
+    var currentPage : Int = {
+        return 1
+    }()
+    
+    var lastoffset: CGFloat = {
+        return deviceWidth
+    }()
+    
+    var currentoffset: CGFloat = {
+        return 0
+    }()
+    
     var indexArray: [Int] = []
+    
+    let totalTime: Int = {
+        return 25 * 60
+    }()
+    
+    var restTime: Int = {
+        return 25 * 60
+    }()
+    
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    let quesListCollectionView = QLCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let quesListBkgView = UIView()
     
     let orderLabel: UILabel = {
         let label = UILabel()
@@ -34,18 +67,11 @@ class QuizCollectionViewController: UIViewController {
         return label
     }()
     
-    let result: String? = "正确"
-    let rightAnswer: String? = "A"
-    
-    let quesListBkgView = UIView()
     let collectBtn: UIButton = {
         let btn = UIButton()
         btn.setImage(#imageLiteral(resourceName: "collect"), for: .normal)
         return btn
     }()
-
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-    let quesListCollectionView = QLCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     let buttonsView: UIView = {
         let view = UIView()
@@ -53,37 +79,73 @@ class QuizCollectionViewController: UIViewController {
         return view
     }()
     
+    let timeButton: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("25:00", for: .normal)
+        btn.setTitleColor(.white, for: .normal)
+        btn.titleLabel?.textAlignment = .center
+        btn.titleLabel?.adjustsFontSizeToFitWidth = true
+        btn.width =  0.2 * deviceWidth
+        btn.height = 0.08 * deviceWidth
+        return btn
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initcollectionView()
         setupSaperator()
+        initTimer()
         loadData()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateAnswer), name: NSNotification.Name(rawValue: "QuizOptionSelected"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(changeQues), name: NSNotification.Name(rawValue: "changeQues"), object: nil)
     }
     
+    func initTimer() {
+        timer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(tickDown), userInfo: nil, repeats: true)
+    }
+    
+    @objc func tickDown() {
+        if restTime == 0 {
+            //TODO: 检测模式做题时间到，弹出提示框
+            guard let tim = self.timer else { return }
+            tim.invalidate()
+            
+            return
+        }
+        restTime -= 1
+        let min: Int = restTime / 60
+        let sec: Int = restTime % 60
+        if sec < 10 {
+            timeButton.setTitle("\(min):0\(sec)", for: .normal)
+        }
+        //        timeButton.setTitle("\(min):\(sec)", for: .normal)
+        timeButton.titleLabel?.text = "\(min):\(sec)"
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: false)
-        
         navigationController?.navigationBar.barTintColor = UIColor.practiceBlue
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         navigationController?.navigationBar.isTranslucent = false
         navigationItem.title = "模拟考试"
         navigationController?.navigationBar.backgroundColor = .clear
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: timeButton)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        guard let tim = self.timer else { return }
+        tim.invalidate()
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "optionSelected"), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "changeQues"), object: nil)
     }
-    
-    
 }
 
 extension QuizCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -94,31 +156,40 @@ extension QuizCollectionViewController: UICollectionViewDataSource, UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let ques = quizArray[indexPath.item]
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! QuizQuesCollectionCell
         
         if let content = ques.content, let optionArray = ques.options, let quesType = ques.quesType {
-            cell.loadQues(ques: content, options: optionArray, selected: false, rightAns: "Z", qType: quesType)
+            cell.loadQues(ques: content, options: optionArray, qType: quesType, selectedAns: QuizCollectionViewController.usrAnsArray[indexPath.item])
             cell.questionView.reloadData()
         }else {
-            cell.loadQues(ques: "oops, no data", options: ["oops, no data", "oops, no data", "oops, no data", "oops, no data"], selected: guards[currentPage - 1].selected, rightAns: "no data", qType: 0)
+            cell.loadQues(ques: "oops, no data", options: ["oops, no data", "oops, no data", "oops, no data", "oops, no data"], qType: 0, selectedAns: "")
         }
         cell.initQuizCell()
-
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: deviceWidth, height: deviceHeight)
     }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        currentPage = Int(scrollView.contentOffset.x / deviceWidth) + 1
+        if currentPage < 1 {
+            currentPage = 1
+        }
+        scrollDirection = .none
+        setupButtons()
+    }
 }
 
 //网络请求
 extension QuizCollectionViewController {
     fileprivate func getQuesArray(courseId: Int) {
-        QuizNetWork.getQuizQuesArray(courseId: courseId, success: { (data) in
-            print(data)
+        QuizNetWork.getQuizQuesArray(courseId: courseId, success: { (data, tim) in
+            self.time = tim
             self.quizArray = data
-            print(self.quizArray.count)
             if self.isinited == 0 {
                 self.collectionView.delegate = self
                 self.collectionView.dataSource = self
@@ -126,24 +197,40 @@ extension QuizCollectionViewController {
             } else {
                 self.collectionView.reloadData()
             }
+            debugLog(self.quizArray.count)
         }) { (err) in
-            print(err)
+            debugLog(err)
         }
     }
     
+    @objc func postResult() {
+        var dicArray: [[String: Any]] = []
+        for i in 0..<quizArray.count {
+            var dic: [String: Any] = [:]
+            dic["id"] = quizArray[i].id
+            if let ans = guards[i].answer {
+                dic["answer"] = ans
+            } else {
+                dic["answer"] = ""
+            }
+            dic["type"] = quizArray[i].quesType
+            dicArray.append(dic)
+        }
+        let dic = ["data": dicArray]
+        QuizNetWork.postQuizResult(dics: dic, courseId: courseId, time: time) { (dic) in
+            // TODO: 提交答案之后应该跳转页面
+        }
+    }
 }
 
 
 //界面初始化、基本控件加载、点击事件
 extension QuizCollectionViewController {
-    
     func loadData() {
         getQuesArray(courseId: courseId)
-        setupButtons()
     }
     
     func initcollectionView() {
-        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 0
@@ -153,12 +240,10 @@ extension QuizCollectionViewController {
         collectionView.backgroundColor = .white
         collectionView.contentSize = CGSize(width: deviceWidth * 3, height: deviceHeight)
         collectionView.isPagingEnabled = true
-        collectionView.register(ExerciseCell.self, forCellWithReuseIdentifier: "collectionCell")
+        collectionView.register(QuizQuesCollectionCell.self, forCellWithReuseIdentifier: "collectionCell")
         collectionView.showsHorizontalScrollIndicator = true
         collectionView.showsVerticalScrollIndicator = false
-        
-        collectionView.contentOffset.x = deviceWidth
-        collectionView.showsHorizontalScrollIndicator = true
+        collectionView.showsHorizontalScrollIndicator = false
         
         self.view.addSubview(collectionView)
         collectionView.snp.makeConstraints { (make) in
@@ -192,7 +277,7 @@ extension QuizCollectionViewController {
             make.centerY.equalTo(view).offset(offsetY)
             make.centerX.equalTo(view)
         }
-
+        
         orderLabel.textAlignment = .center
         orderLabel.text = "\(currentPage)/\(quizArray.count)"
         buttonsView.addSubview(orderLabel)
@@ -217,7 +302,6 @@ extension QuizCollectionViewController {
             make.top.equalTo(buttonsView).offset(offsetm)
             make.left.equalTo(showBtn).offset(-(offset + buttonsViewH))
         }
-        
     }
     
     func setupSaperator() {
@@ -234,15 +318,30 @@ extension QuizCollectionViewController {
     }
     
     @objc func updateAnswer() {
-        guards[currentPage - 1].selected = true
-        guards[currentPage - 1].answer = QuestionTableView.selectedAnswer
-
-        QuestionTableView.selectedAnswer = nil
+        //储存答案String
+        let startValue = Int(("A" as UnicodeScalar).value)
+        var answerString = ""
+        for i in 0..<QuestionTableView.selectedAnswerArray.count {
+            if QuestionTableView.selectedAnswerArray[i] {
+                let string = String(UnicodeScalar(i + startValue)!)
+                answerString = answerString + string
+            }
+        }
+        QuizCollectionViewController.usrAnsArray[currentPage - 1] = answerString
+        
+        if answerString != "" {
+            guards[currentPage - 1].iscorrect = .right
+        }
     }
     
     @objc func changeQues() {
         currentPage = QLCollectionView.chosenPage
-//        updateData()
+        collectionView.contentOffset.x = CGFloat(currentPage - 1) * deviceWidth
+        for i in 0..<quizArray.count {
+            isSelected.append(guards[i].iscorrect)
+        }
+        quesListCollectionView.initCollectionView(currentPage: currentPage, pagesNum: quizArray.count, isCorrect: isSelected)
+        quesListCollectionView.reloadData()
     }
     
     //收藏
@@ -285,10 +384,12 @@ extension QuizCollectionViewController {
         quesListBkgView.backgroundColor = UIColor(white: 0.1, alpha: 0.6)
         window.addSubview(quesListBkgView)
         let pageNum = quizArray.count
-//        isCorrected = []
-//        for i in 0..<pageNum {
-//            isCorrected.append(guards[i].iscorrect)
-//        }
+        
+        isSelected = []
+        for i in 0..<pageNum {
+            isSelected.append(guards[i].iscorrect)
+        }
+        
         quesListCollectionView.contentSize = CGSize(width: deviceWidth - 20, height: 0.45 * deviceHeight)
         quesListCollectionView.initCollectionView(currentPage: currentPage, pagesNum: pageNum, isCorrect: isSelected)
         quesListCollectionView.reloadData()
@@ -297,7 +398,7 @@ extension QuizCollectionViewController {
         UIView.animate(withDuration: 0.3) {
             self.quesListCollectionView.frame = CGRect(x: 0, y: 0.55 * deviceHeight, width: deviceWidth, height: 0.45 * deviceHeight)
         }
-    
+        
         let gesture = UITapGestureRecognizer(target: self, action: #selector(hindQuesList))
         quesListBkgView.addGestureRecognizer(gesture)
     }
