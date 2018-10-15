@@ -33,7 +33,7 @@ class CollectionViewCell: UITableViewCell {
     
     convenience init(byModel practiceCollection: PracticeCollectionModel, withIndex index: Int) {
         self.init(style: .default, reuseIdentifier: "CollectionViewCell")
-        let collectionData = practiceCollection.data.ques[index]
+        let collectionData = practiceCollection.data[index]
         
         // 课程类型 //
         let classID = PracticeFigure.getClassID(byCourseID: Int(collectionData.courseID)!)

@@ -40,7 +40,7 @@ struct PracticeCollectionHelper {
 struct PracticeCollectionModel: Codable {
     let errorCode: Int
     let message: String
-    var data: PracticeCollectionData // 基于数据和页面改为变量
+    var data: [PracticeCollectionData] // 基于数据和页面改为变量
     
     enum CodingKeys: String, CodingKey {
         case errorCode = "error_code"
@@ -49,26 +49,20 @@ struct PracticeCollectionModel: Codable {
 }
 
 struct PracticeCollectionData: Codable {
-    let tid: String
-    var ques: [PracticeCollectionQuestion] // 基于数据和页面改为变量
-}
-
-struct PracticeCollectionQuestion: Codable {
     let quesID: Int
-    let courseID, quesType, content: String
+    let classID, courseID, quesType, content: String
     let option: [String]
     let answer: String
     let isCollected, isMistake: Int
-    let errorOption: String?
     
     enum CodingKeys: String, CodingKey {
         case quesID = "ques_id"
+        case classID = "class_id"
         case courseID = "course_id"
         case quesType = "ques_type"
         case content, option, answer
         case isCollected = "is_collected"
         case isMistake = "is_mistake"
-        case errorOption = "error_option"
     }
 }
 
@@ -92,7 +86,7 @@ extension PracticeCollectionModel {
     func with(
         errorCode: Int? = nil,
         message: String? = nil,
-        data: PracticeCollectionData? = nil
+        data: [PracticeCollectionData]? = nil
         ) -> PracticeCollectionModel {
         return PracticeCollectionModel(
             errorCode: errorCode ?? self.errorCode,
@@ -127,61 +121,26 @@ extension PracticeCollectionData {
     }
     
     func with(
-        tid: String? = nil,
-        ques: [PracticeCollectionQuestion]? = nil
-        ) -> PracticeCollectionData {
-        return PracticeCollectionData(
-            tid: tid ?? self.tid,
-            ques: ques ?? self.ques
-        )
-    }
-    
-    func jsonData() throws -> Data {
-        return try newJSONEncoder().encode(self)
-    }
-    
-    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
-        return String(data: try self.jsonData(), encoding: encoding)
-    }
-}
-
-extension PracticeCollectionQuestion {
-    init(data: Data) throws {
-        self = try newJSONDecoder().decode(PracticeCollectionQuestion.self, from: data)
-    }
-    
-    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
-        guard let data = json.data(using: encoding) else {
-            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
-        }
-        try self.init(data: data)
-    }
-    
-    init(fromURL url: URL) throws {
-        try self.init(data: try Data(contentsOf: url))
-    }
-    
-    func with(
         quesID: Int? = nil,
+        classID: String? = nil,
         courseID: String? = nil,
         quesType: String? = nil,
         content: String? = nil,
         option: [String]? = nil,
         answer: String? = nil,
         isCollected: Int? = nil,
-        isMistake: Int? = nil,
-        errorOption: String?? = nil
-        ) -> PracticeCollectionQuestion {
-        return PracticeCollectionQuestion(
+        isMistake: Int? = nil
+        ) -> PracticeCollectionData {
+        return PracticeCollectionData(
             quesID: quesID ?? self.quesID,
+            classID: classID ?? self.classID,
             courseID: courseID ?? self.courseID,
             quesType: quesType ?? self.quesType,
             content: content ?? self.content,
             option: option ?? self.option,
             answer: answer ?? self.answer,
             isCollected: isCollected ?? self.isCollected,
-            isMistake: isMistake ?? self.isMistake,
-            errorOption: errorOption ?? self.errorOption
+            isMistake: isMistake ?? self.isMistake
         )
     }
     
