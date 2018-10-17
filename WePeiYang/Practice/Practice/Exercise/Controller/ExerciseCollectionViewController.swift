@@ -514,8 +514,10 @@ extension ExerciseCollectionViewController {
                                                             "error_option": answer]
             ExerciseNetwork.postMistakeQues(courseId: courseId, data: mistakeQuesData, failure: { (err) in
                 debugLog(err)
-            }) { (dic) in
+            }) { (mess) in
                 //TODO: POST，提交错题后，返回数据
+                let message = mess
+                print(message)
             }
         }
         
@@ -541,9 +543,9 @@ extension ExerciseCollectionViewController {
                                                  "ques_id": ques.id!]
             ExerciseNetwork.deleteCollection(data: data, failure: { (err) in
                 debugLog(err)
-            }) { (dic) in
+            }) { (mess) in
                 //TODO: 取消收藏后动作
-                let message = dic["message"] as? String ?? ""
+                let message = mess
                 debugLog(message)
             }
         } else {
