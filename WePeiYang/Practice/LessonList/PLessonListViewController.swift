@@ -107,8 +107,13 @@ class PLessonListViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 弹出做题模式选择框
         let cell = self.tableView(self.tableView, cellForRowAt: indexPath)
-        guard let title = cell.textLabel?.text else{ return }
-        presentWarningCard(of: title)
+        if self.searchController.isActive {
+            PracticeFigure.courseID = String(searchArray[indexPath.item].id)
+        } else {
+            PracticeFigure.courseID = String(resultArray[indexPath.item].id)
+        }
+        guard let title = cell.textLabel?.text else { return }
+        presentWarningCard(with: title, of: PracticeFigure.classID)
     }
 
 }
@@ -164,7 +169,7 @@ extension PLessonListViewController: UISearchBarDelegate {
         self.view.addSubview(tableView)
     }
     
-    private func presentWarningCard(of title: String) {
+    private func presentWarningCard(with title: String, of classId: String) {
         let warningCard = PopupDialog(title: title, message: "请选择练习模式", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
         let leftButton = PracticePopupDialogButton(title: "顺序练习", dismissOnTap: true) {
             PracticeFigure.currentCourseIndex = "0"

@@ -9,11 +9,11 @@
 import Foundation
 
 class QuizNetWork {
-    static func postQuizResult(dics: [String: Any], courseId: Int, time: Int, success: @escaping (Dictionary<String, Any>)->()) {
+    static func postQuizResult(dics: [String: Any], courseId: String, time: Int, success: @escaping (Dictionary<String, Any>)->()) {
         SolaSessionManager.upload(dictionay: dics, url: "/api/exercise/getScore/\(courseId)/\(time)", success: success)
     }
     
-    static func getQuizQuesArray(courseId: Int, success: @escaping ([QuizQuestion], Int) -> (), failure: (Error) -> ()) {
+    static func getQuizQuesArray(courseId: String, success: @escaping ([QuizQuestion], Int) -> (), failure: (Error) -> ()) {
         SolaSessionManager.solaSession(type: .get, baseURL:  "https://exam.twtstudio.com", url: "/api/exercise/getQues/\(courseId)", success: { (data) in
             var questionArray: [QuizQuestion] = []
 //            let errorCode = data["error_code"] as? Int ?? 1

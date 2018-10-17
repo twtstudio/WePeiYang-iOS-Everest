@@ -31,8 +31,8 @@ class QuizCollectionViewController: UIViewController {
         return 0
     }()
     
-    var courseId: Int = {
-        return 2
+    var courseId: String = {
+        return PracticeFigure.courseID
     }()
     
     var currentPage : Int = {
@@ -209,7 +209,7 @@ extension QuizCollectionViewController: UINavigationBarDelegate {
 
 //网络请求
 extension QuizCollectionViewController {
-    fileprivate func getQuesArray(courseId: Int) {
+    fileprivate func getQuesArray(courseId: String) {
         QuizNetWork.getQuizQuesArray(courseId: courseId, success: { (data, tim) in
             self.time = tim
             self.quizArray = data
