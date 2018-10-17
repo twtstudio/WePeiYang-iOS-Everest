@@ -123,9 +123,9 @@ extension UILabel {
         self.sizeToFit()
         self.width += 14
         self.height += 8
-        self.layer.backgroundColor = UIColor.practiceBlue.cgColor
+        self.layer.backgroundColor = UIColor.practiceLightBlue.cgColor
         self.layer.cornerRadius = self.frame.height / 6
-        self.layer.borderColor = UIColor.practiceBlue.cgColor
+        self.layer.borderColor = UIColor.practiceLightBlue.cgColor
         self.layer.borderWidth = 1
     }
     

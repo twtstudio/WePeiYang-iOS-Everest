@@ -27,11 +27,11 @@ class PLessonListViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: 需要参数
     var courseName: String = {
-        return ""
+        return PracticeFigure.className
     }()
     
     var classId: Int = {
-        return 2
+        return Int(PracticeFigure.classID)!
     }()
     
     override func viewDidLoad() {
@@ -49,8 +49,31 @@ class PLessonListViewController: UIViewController, UITableViewDelegate, UITableV
         navigationItem.title = courseName
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
+    private func setupNavBar(){
+        self.navigationController?.navigationBar.backgroundColor = .blue
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 19)]
+        navigationItem.title = "课程列表"
+    }
+    
+    private func setupTableView() {
+        tableView = UITableView(frame: self.view.bounds, style: .grouped)
+        tableView.backgroundColor = .white
+        self.view.addSubview(tableView)
+    }
+    
+    private func setupSearchBar() {
+        searchBar = UISearchBar(frame:CGRect(x: 0, y: 120, width: 0.7 * view.bounds.width, height:50))
+        searchBar.placeholder = "搜索"
+        searchBar.backgroundColor = .white
+        searchBar.layer.borderWidth = 1
+        searchBar.layer.cornerRadius = searchBarH / 2
+        searchBar.layer.borderColor = UIColor.practiceBlue.cgColor
+        searchBar.layer.backgroundColor = UIColor.white.cgColor
+        searchBar.delegate = self
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
         self.tableView.reloadData()
     }
 
