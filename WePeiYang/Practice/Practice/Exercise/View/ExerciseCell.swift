@@ -41,7 +41,6 @@ class ExerciseCell: UICollectionViewCell {
     }
     
     func loadQues(answer: String, ques: String, options: [String], selected: Bool, rightAns: String, qType: Int) {
-        print(answer)
         questionView.loadQues(usrAns: answer, question: ques, option: options, isSelected: selected, rightAnswer: rightAns, questionType: qType)
     }
     

@@ -9,6 +9,13 @@
 import Foundation
 
 class ExerciseNetwork {
+    static func markHistory(dic: [String: Any], success: @escaping(String)->(), failure: (Error)->()) {
+        var message: String = ""
+        SolaSessionManager.upload(dictionay: dic, baseURL: "https://exam.twtstudio.com", url: "/api/remember/mark") { (dic) in
+            message = dic["message"] as? String ?? "添加失败"
+        }
+        success(message)
+    }
     
     static func getQues(courseId: Int, quesType: Int, id: Int, success: @escaping(Question)->(), failure: (Error)->()) {
         SolaSessionManager.solaSession(baseURL: "https://exam.twtstudio.com", url: "/api/remember/getQuesById/\(courseId)/\(quesType)/\(id)", success: { (dic) in
@@ -49,20 +56,25 @@ class ExerciseNetwork {
 
     
     static func postMistakeQues(courseId: Int, data: Dictionary<String, Any>, failure: @escaping (Error) ->(), success: @escaping (Dictionary<String, Any>) -> ()) {
-        SolaSessionManager.upload(dictionay: data, url: "/api/remember/addMistakeQues/\(1)", method: .post, progressBlock: nil, failure: { (err) in
-            print(err)
+        SolaSessionManager.upload(dictionay: data, baseURL: "https://exam.twtstudio.com", url: "/api/remember/addMistakeQues/\(1)", method: .post, progressBlock: nil, failure: { (err) in
+            debugLog(err)
         }, success: success)
     }
     
-    static func addCollection(data: Dictionary<String, Any>, failure: @escaping (Error) -> (), success: @escaping (Dictionary<String, Any>) -> ()) {
-        SolaSessionManager.upload(dictionay: data, url: "/api/special/addQues/\(0)", method: .post, progressBlock: nil, failure: { (err) in
-            print(err)
-        }, success: success)
+    static func addCollection(data: Dictionary<String, Any>, failure: @escaping (Error) -> (), success: @escaping (String) -> ()) {
+        var message: String = ""
+        SolaSessionManager.upload(dictionay: data, baseURL: "https://exam.twtstudio.com", url: "/api/special/addQues/\(0)", method: .post, progressBlock: nil, failure: { (err) in
+            debugLog(err)
+        }, success: { (dic) in
+            message = dic["message"] as? String ?? ""
+            debugLog(message)
+        })
+        success(message)
     }
     
     static func deleteCollection(data: Dictionary<String, Any>, failure: @escaping (Error) -> (), success: @escaping (Dictionary<String, Any>) -> ()) {
-        SolaSessionManager.upload(dictionay: data, url: "/api/collect/deleteCollection", method: .post, progressBlock: nil, failure: { (err) in
-            print(err)
+        SolaSessionManager.upload(dictionay: data, baseURL: "https://exam.twtstudio.com", url: "/api/collect/deleteCollection", method: .post, progressBlock: nil, failure: { (err) in
+            debugLog(err)
         }, success: success)
     }
 

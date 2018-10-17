@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PopupDialog
 
 class QuizCollectionViewController: UIViewController {
     let questionViewParameters = QuestionViewParameters()
@@ -62,7 +63,6 @@ class QuizCollectionViewController: UIViewController {
 
     let orderLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .left
         return label
     }()
@@ -89,6 +89,26 @@ class QuizCollectionViewController: UIViewController {
         btn.height = 0.08 * deviceWidth
         return btn
     }()
+    
+    let postButton: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("提交答案", for: .normal)
+        btn.setTitleColor(.white, for: .normal)
+        btn.backgroundColor = UIColor.practiceBlue
+        btn.titleLabel?.textAlignment = .center
+        btn.addTarget(self, action: #selector(postBtnTapped(_:)), for: .touchUpInside)
+        return btn
+    }()
+    
+    let listPostButton: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("提交答案", for: .normal)
+        btn.setTitleColor(.white, for: .normal)
+        btn.backgroundColor = UIColor.practiceBlue
+        btn.titleLabel?.textAlignment = .center
+        btn.addTarget(self, action: #selector(postBtnTapped(_:)), for: .touchUpInside)
+        return btn
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,23 +123,6 @@ class QuizCollectionViewController: UIViewController {
     
     func initTimer() {
         timer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(tickDown), userInfo: nil, repeats: true)
-    }
-    
-    @objc func tickDown() {
-        if restTime == 0 {
-            //TODO: 检测模式做题时间到，弹出提示框
-            guard let tim = self.timer else { return }
-            tim.invalidate()
-            
-            return
-        }
-        restTime -= 1
-        let min: Int = restTime / 60
-        let sec: Int = restTime % 60
-        if sec < 10 {
-            timeButton.setTitle("\(min):0\(sec)", for: .normal)
-        }
-        timeButton.titleLabel?.text = "\(min):\(sec)"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -161,11 +164,10 @@ extension QuizCollectionViewController: UICollectionViewDataSource, UICollection
         if let content = ques.content, let optionArray = ques.options, let quesType = ques.quesType {
             cell.loadQues(ques: content, options: optionArray, qType: quesType, selectedAns: QuizCollectionViewController.usrAnsArray[indexPath.item])
             cell.questionView.reloadData()
-        }else {
+        } else {
             cell.loadQues(ques: "oops, no data", options: ["oops, no data", "oops, no data", "oops, no data", "oops, no data"], qType: 0, selectedAns: "")
         }
         cell.initQuizCell()
-        
         return cell
     }
     
@@ -174,12 +176,34 @@ extension QuizCollectionViewController: UICollectionViewDataSource, UICollection
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        // 刷新页面计数
         currentPage = Int(scrollView.contentOffset.x / deviceWidth) + 1
         if currentPage < 1 {
             currentPage = 1
         }
         scrollDirection = .none
+
+        // 刷新button
         setupButtons()
+    }
+}
+
+extension QuizCollectionViewController: UINavigationBarDelegate {
+    func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
+        var shouldPop = true
+        let warningCard = PopupDialog(title: "确认退出？", message: "退出后此次检测将没有成绩", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+        let leftButton = PracticePopupDialogButton(title: "确认", dismissOnTap: true) {
+            // TODO: 继续退出
+            shouldPop = true
+        }
+        let rightButton = PracticePopupDialogButton(title: "取消", dismissOnTap: true) {
+            // TODO: 不退出
+            shouldPop = false
+        }
+        rightButton.titleColor = UIColor.practiceRed
+        warningCard.addButtons([leftButton, rightButton])
+        self.present(warningCard, animated: true, completion: nil)
+        return shouldPop
     }
 }
 
@@ -223,6 +247,7 @@ extension QuizCollectionViewController {
         let dic = ["data": dicArray]
         QuizNetWork.postQuizResult(dics: dic, courseId: courseId, time: time) { (dic) in
             // TODO: 提交答案之后应该跳转页面
+            
         }
     }
 }
@@ -254,6 +279,14 @@ extension QuizCollectionViewController {
             make.width.equalTo(deviceWidth)
             make.height.equalTo(deviceHeight)
             make.center.equalTo(view)
+        }
+    }
+    
+    func setPostBtn() {
+        self.view.addSubview(postButton)
+        postButton.snp.makeConstraints { (make) in
+            make.width.bottom.centerX.equalTo(self.view)
+            make.height.equalTo(0.07 * deviceHeight)
         }
     }
     
@@ -306,6 +339,13 @@ extension QuizCollectionViewController {
             make.top.equalTo(buttonsView).offset(offsetm)
             make.left.equalTo(showBtn).offset(-(offset + buttonsViewH))
         }
+        
+        // 如果在最后一页，就要加上提交到button。否则移去
+        if currentPage == quizArray.count {
+            setPostBtn()
+        } else {
+            postButton.removeFromSuperview()
+        }
     }
     
     func setupSaperator() {
@@ -319,6 +359,45 @@ extension QuizCollectionViewController {
             make.centerX.equalTo(view)
             make.centerY.equalTo(view).offset(0.24 * deviceHeight)
         }
+    }
+    
+    @objc func tickDown() {
+        if restTime == 0 {
+            //TODO: 检测模式做题时间到，跳转至下一页面
+            guard let tim = self.timer else { return }
+            tim.invalidate()
+            
+            // 规定时间到
+            let warningCard = PopupDialog(title: "时间到！", message: "检测时间到，必须交卷了哦", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+            let button = PracticePopupDialogButton(title: "确认", dismissOnTap: true) {
+                self.postResult()
+            }
+            button.titleColor = UIColor.practiceRed
+            warningCard.addButtons([button])
+            self.present(warningCard, animated: true, completion: nil)
+            return
+        }
+        restTime -= 1
+        let min: Int = restTime / 60
+        let sec: Int = restTime % 60
+        if sec < 10 {
+            timeButton.setTitle("\(min):0\(sec)", for: .normal)
+        }
+        timeButton.titleLabel?.text = "\(min):\(sec)"
+    }
+    
+    @objc func postBtnTapped(_ button: UIButton) {
+        let warningCard = PopupDialog(title: "确认提交？", message: "提交后答案将不可更改", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+        let leftButton = PracticePopupDialogButton(title: "信心满满，交卷了", dismissOnTap: true) {
+            self.postResult()
+        }
+        let rightButton = PracticePopupDialogButton(title: "再检查一下", dismissOnTap: true) {
+            // TODO: 进入模拟考试
+            warningCard.dismiss()
+        }
+        rightButton.titleColor = UIColor.practiceRed
+        warningCard.addButtons([leftButton, rightButton])
+        self.present(warningCard, animated: true, completion: nil)
     }
     
     @objc func updateAnswer() {
@@ -338,6 +417,7 @@ extension QuizCollectionViewController {
         }
     }
     
+    // 通过列表切换题目
     @objc func changeQues() {
         currentPage = QLCollectionView.chosenPage
         collectionView.contentOffset.x = CGFloat(currentPage - 1) * deviceWidth
@@ -346,6 +426,7 @@ extension QuizCollectionViewController {
         }
         quesListCollectionView.initCollectionView(currentPage: currentPage, pagesNum: quizArray.count, isCorrect: isSelected)
         quesListCollectionView.reloadData()
+        setupButtons()
     }
     
     //收藏
@@ -359,10 +440,9 @@ extension QuizCollectionViewController {
                                                  "ques_type": ques.quesType!,
                                                  "ques_id": ques.id!]
             ExerciseNetwork.addCollection(data: data, failure: { (err) in
-                print(err)
+                debugLog(err)
             }) { (dic) in
-                //收藏后动作
-                print("收藏成功")
+                //TODO: 收藏后动作
             }
         }else {
             guards[currentPage - 1].iscollected = true
@@ -372,16 +452,14 @@ extension QuizCollectionViewController {
                                                  "ques_type": ques.quesType!,
                                                  "ques_id": ques.id!]
             ExerciseNetwork.deleteCollection(data: data, failure: { (err) in
-                print(err)
+                debugLog(err)
             }) { (dic) in
-                //取消收藏后动作
-                print("已取消收藏")
+                //TODO: 取消收藏后动作
             }
         }
     }
     
     //显示题号列表
-    
     @objc func showQuesCollectionView(_ button: UIButton) {
         guard let window = UIApplication.shared.keyWindow else { return }
         quesListBkgView.frame = window.bounds
@@ -398,9 +476,13 @@ extension QuizCollectionViewController {
         quesListCollectionView.initCollectionView(currentPage: currentPage, pagesNum: pageNum, isCorrect: isSelected)
         quesListCollectionView.reloadData()
         window.addSubview(quesListCollectionView)
+        window.addSubview(listPostButton)
         quesListCollectionView.frame = CGRect(x: 0, y: deviceHeight + 30, width: deviceWidth, height: 0.45 * deviceHeight)
+        listPostButton.frame = CGRect(x: 0, y: 1.45 * deviceHeight + 30, width: deviceWidth, height: 0.08 * deviceHeight)
+
         UIView.animate(withDuration: 0.3) {
-            self.quesListCollectionView.frame = CGRect(x: 0, y: 0.55 * deviceHeight, width: deviceWidth, height: 0.45 * deviceHeight)
+            self.quesListCollectionView.frame = CGRect(x: 0, y: 0.48 * deviceHeight, width: deviceWidth, height: 0.45 * deviceHeight)
+            self.listPostButton.frame = CGRect(x: 0, y: 0.92 * deviceHeight, width: deviceWidth, height: 0.08 * deviceHeight)
         }
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(hindQuesList))
@@ -411,11 +493,12 @@ extension QuizCollectionViewController {
         UIView.animate(withDuration: 0.3) {
             // 尾随闭包播放弹出动画
             self.quesListCollectionView.frame = CGRect(x: 0, y: deviceHeight + 30, width: deviceWidth, height: 0.45 * deviceHeight)
-            
+            self.listPostButton.frame = CGRect(x: 0, y: 1.45 * deviceHeight + 30, width: deviceWidth, height: 0.08 * deviceHeight)
             // 提交一个延时任务线程
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.quesListCollectionView.removeFromSuperview()
                 self.quesListBkgView.removeFromSuperview()
+                self.listPostButton.removeFromSuperview()
             }
         }
     }

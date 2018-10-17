@@ -25,12 +25,12 @@ class ExerciseCollectionViewController: UIViewController {
     var scrollDirection: Direction = .none
     var mode: ExerciseMode = .exercise
     
-//    var classId = Int(PracticeFigure.classID)!
-//    var courseId = Int(PracticeFigure.courseID)!
-//    var quesType = Int(PracticeFigure.questionType)!
-    var classId = 2
-    var courseId = 2
-    var quesType = 0
+    var classId = Int(PracticeFigure.classID)!
+    var courseId = Int(PracticeFigure.courseID)!
+    var quesType = Int(PracticeFigure.questionType)!
+//    var classId = 2
+//    var courseId = 2
+//    var quesType = 0
 
     var currentPage = 1
     var currentIndex = 0
@@ -185,7 +185,7 @@ extension ExerciseCollectionViewController {
             self.idList = idList
             self.loadData()
         }) { (err) in
-            print(err)
+            debugLog(err)
         }
     }
     
@@ -241,7 +241,7 @@ extension ExerciseCollectionViewController {
             }
             
         }) { (err) in
-            print(err)
+            debugLog(err)
         }
     }
     
@@ -350,7 +350,6 @@ extension ExerciseCollectionViewController {
         let indexPath = IndexPath(item: reloadItem, section: 0)
         let array = [indexPath]
         self.collectionView.reloadItems(at: array)
-        print("Last Cell RELOADED")
         scrollDirection = .none
     }
     
@@ -514,9 +513,9 @@ extension ExerciseCollectionViewController {
                                                             "ques_type": questionArray[1].quesDetail?.type ?? 3,
                                                             "error_option": answer]
             ExerciseNetwork.postMistakeQues(courseId: courseId, data: mistakeQuesData, failure: { (err) in
-                print(err)
+                debugLog(err)
             }) { (dic) in
-                //                    print(dic)
+                //TODO: POST，提交错题后，返回数据
             }
         }
         
@@ -540,11 +539,12 @@ extension ExerciseCollectionViewController {
             let data: Dictionary<String, Any> = ["tid": 0,
                                                  "ques_type": ques.type!,
                                                  "ques_id": ques.id!]
-            ExerciseNetwork.addCollection(data: data, failure: { (err) in
-                print(err)
+            ExerciseNetwork.deleteCollection(data: data, failure: { (err) in
+                debugLog(err)
             }) { (dic) in
-                //收藏后动作
-                print("收藏成功")
+                //TODO: 取消收藏后动作
+                let message = dic["message"] as? String ?? ""
+                debugLog(message)
             }
         } else {
             guards[currentIndex].iscollected = true
@@ -553,11 +553,13 @@ extension ExerciseCollectionViewController {
             let data: Dictionary<String, Any> = ["tid": 0,
                                                  "ques_type": ques.type!,
                                                  "ques_id": ques.id!]
-            ExerciseNetwork.deleteCollection(data: data, failure: { (err) in
-                print(err)
+
+            ExerciseNetwork.addCollection(data: data, failure: { (err) in
+                debugLog(err)
             }) { (dic) in
-                //取消收藏后动作
-                print("已取消收藏")
+                //TODO: 收藏后动作
+                let message = dic
+                debugLog(message)
             }
         }
     }
