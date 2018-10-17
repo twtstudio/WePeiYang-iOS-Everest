@@ -115,15 +115,16 @@ class WrongViewCell: UITableViewCell {
 
 extension UILabel {
     // 刷题气泡标签 //
-    func setPracticeBubbleLabel(withText text: String, fontSize: CGFloat = 15) {
+    func setPracticeBubbleLabel(withText text: String, fontSize: CGFloat = 12) {
         self.text = text
-        self.textColor = .practiceBlue
+        self.textColor = .white
         self.textAlignment = .center
         self.font = UIFont.systemFont(ofSize: fontSize)
         self.sizeToFit()
-        self.width += 19
-        self.height += 12
-        self.layer.cornerRadius = self.frame.height / 2
+        self.width += 14
+        self.height += 8
+        self.layer.backgroundColor = UIColor.practiceBlue.cgColor
+        self.layer.cornerRadius = self.frame.height / 6
         self.layer.borderColor = UIColor.practiceBlue.cgColor
         self.layer.borderWidth = 1
     }
