@@ -36,7 +36,7 @@ class WrongViewCell: UITableViewCell {
     
     convenience init(byModel practiceWrong: PracticeWrongModel, withIndex index: Int) {
         self.init(style: .default, reuseIdentifier: "WrongViewCell")
-        let wrongData = practiceWrong.data.ques[index]
+        let wrongData = practiceWrong.data[index]
         
         // 课程类型 //
         let classID = PracticeFigure.getClassID(byCourseID: Int(wrongData.courseID)!)
