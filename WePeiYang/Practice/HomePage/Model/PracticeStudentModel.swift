@@ -50,6 +50,8 @@ struct PracticeFigure {
         return classID
     }
     
+    static var className = ""
+    
     static var courseID = ""
     
     static var questionType = ""

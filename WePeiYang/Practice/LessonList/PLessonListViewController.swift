@@ -17,11 +17,11 @@ class PLessonListViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: 需要参数
     var courseName: String = {
-        return ""
+        return PracticeFigure.className
     }()
     
     var classId: Int = {
-        return 2
+        return Int(PracticeFigure.classID)!
     }()
     
     override func viewDidLoad() {
@@ -44,7 +44,7 @@ class PLessonListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     private func setupTableView() {
-        tableView = UITableView(frame: CGRect(x: 0, y: 64, width: deviceWidth, height: deviceHeight - 64), style: .grouped)
+        tableView = UITableView(frame: self.view.bounds, style: .grouped)
         tableView.backgroundColor = .white
         self.view.addSubview(tableView)
     }
