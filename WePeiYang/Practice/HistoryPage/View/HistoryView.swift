@@ -41,6 +41,7 @@ class HistoryViewCell: UITableViewCell {
         // 练习类型 //
         practiceTypeBubbleLabel.frame.origin = CGPoint(x: 20, y: 16)
         practiceTypeBubbleLabel.setPracticeBubbleLabel(withText: PracticeDictionary.practiceType[historyData.type]!)
+        practiceTypeBubbleLabel.layer.cornerRadius = 3
         contentView.addSubview(practiceTypeBubbleLabel)
         
         // 题目类型 //

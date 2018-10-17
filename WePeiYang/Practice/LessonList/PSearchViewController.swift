@@ -63,7 +63,6 @@ class PSearchViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
         getResult(keyword: searchText)
         self.tableView.reloadData()
     }
@@ -111,7 +110,7 @@ extension PSearchViewController {
         getSearchResult(courseName: keyword, success: { (array) in
             self.resultArray = array
         }) { (err) in
-            print(err)
+            debugLog(err)
         }
     }
     

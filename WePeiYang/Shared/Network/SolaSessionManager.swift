@@ -225,7 +225,7 @@ struct SolaSessionManager {
         }
     }
     
-    static func upload(dictionay: [String : Any], url: String, method: HTTPMethod = .post, progressBlock: ((Progress)->())? = nil, failure: ((Error)->())? = nil, success: (([String : Any])->())?) {
+    static func upload(dictionay: [String : Any], baseURL: String = TWT_ROOT_URL, url: String, method: HTTPMethod = .post, progressBlock: ((Progress)->())? = nil, failure: ((Error)->())? = nil, success: (([String : Any])->())?) {
         
         var dataDict = [String: Data]()
         var paraDict = [String: String]()
@@ -261,7 +261,7 @@ struct SolaSessionManager {
         } else {
             log.errorMessage("can't load twtToken")/
         }
-        let fullURL = TWT_ROOT_URL + url
+        let fullURL = baseURL + url
         if method == .post {
             Alamofire.upload(multipartFormData: { formdata in
                 for item in dataDict {

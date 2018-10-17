@@ -7,13 +7,23 @@
 //
 
 import Foundation
+import PopupDialog
 
-class PLessonListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class PLessonListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var tableView: UITableView!
-    var searchBar: UISearchBar!
+    var searchController = UISearchController()
     
-    var resultArray: [QuesBasicInfo] = []
-    let searchBarH: CGFloat = 30
+    var searchArray:[QuesBasicInfo] = [QuesBasicInfo]() {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
+    
+    var resultArray: [QuesBasicInfo] = [QuesBasicInfo]() {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
     
     // MARK: 需要参数
     var courseName: String = {
@@ -27,14 +37,96 @@ class PLessonListViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        setupSearchController()
         getListWith(classId: classId)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.barTintColor = UIColor.practiceBlue
         navigationController?.navigationBar.tintColor = .white
         navigationItem.title = courseName
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        self.tableView.reloadData()
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.searchController.isActive {
+            return searchArray.count
+        } else {
+            return resultArray.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var text: String = ""
+        let cellId = "lessonCell"
+        let cell = UITableViewCell(style: .default, reuseIdentifier: cellId)
+        
+        cell.accessoryType = .disclosureIndicator
+        if self.searchController.isActive {
+            text = searchArray[indexPath.item].courseName
+        } else {
+            text = resultArray[indexPath.item].courseName
+        }
+        cell.textLabel?.text = text
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 弹出做题模式选择框
+        let cell = self.tableView(self.tableView, cellForRowAt: indexPath)
+        guard let title = cell.textLabel?.text else{ return }
+        presentWarningCard(of: title)
+    }
+
+}
+
+extension PLessonListViewController: UISearchResultsUpdating
+{
+    // 实时进行搜索
+    func updateSearchResults(for searchController: UISearchController) {
+        self.searchArray = self.resultArray.filter { (quesInfo) -> Bool in
+            return quesInfo.courseName.contains(searchController.searchBar.text!)
+        }
+    }
+}
+
+// 各个控件初始化设置部分
+extension PLessonListViewController: UISearchBarDelegate {
+    private func setupSearchController() {
+        self.searchController = ({
+//            let vc = PLessonListViewController()
+            let controller = UISearchController(searchResultsController: nil)
+            controller.searchResultsUpdater = self   //两个样例使用不同的代理
+            controller.hidesNavigationBarDuringPresentation = false
+            controller.dimsBackgroundDuringPresentation = false
+            controller.definesPresentationContext = false
+            controller.searchBar.searchBarStyle = .minimal
+            controller.searchBar.sizeToFit()
+            self.tableView.tableHeaderView = controller.searchBar
+            return controller
+        })()
+//
+        // 搜索框
+        let bar = searchController.searchBar
+        // 样式
+        bar.barStyle = .default
+        // 设置光标及取消按钮的颜色
+        bar.tintColor = UIColor.practiceBlue
+        // 设置代理
+        bar.delegate = self
+        // 提示
+        bar.placeholder = "课程躲起来了？"
+
     }
     
     private func setupNavBar(){
@@ -49,65 +141,38 @@ class PLessonListViewController: UIViewController, UITableViewDelegate, UITableV
         self.view.addSubview(tableView)
     }
     
-    private func setupSearchBar() {
-        searchBar = UISearchBar(frame:CGRect(x: 0, y: 120, width: 0.7 * view.bounds.width, height:50))
-        searchBar.placeholder = "搜索"
-        searchBar.backgroundColor = .white
-        searchBar.layer.borderWidth = 1
-        searchBar.layer.cornerRadius = searchBarH / 2
-        searchBar.layer.borderColor = UIColor.practiceBlue.cgColor
-        searchBar.layer.backgroundColor = UIColor.white.cgColor
-        searchBar.delegate = self
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
-        self.tableView.reloadData()
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return searchBarH * 2
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let searchView = UIView()
-        searchView.frame = CGRect(x: 0, y: 0, width: 0.9 * deviceWidth, height: searchBarH)
-        searchView.backgroundColor = .white
-        
-        setupSearchBar()
-        searchView.addSubview(searchBar)
-        searchBar.snp.makeConstraints { (make) in
-            make.center.equalTo(searchView)
-            make.height.equalTo(searchBarH)
-            make.width.equalTo(0.9 * deviceWidth)
+    private func presentWarningCard(of title: String) {
+        let warningCard = PopupDialog(title: title, message: "请选择练习模式", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+        let leftButton = PracticePopupDialogButton(title: "顺序练习", dismissOnTap: true) {
+            PracticeFigure.currentCourseIndex = "0"
+            // TODO: 点击卡片，进入练习
+            let warningCard = PopupDialog(title: title, message: "请选择题目类型", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+            let leftButton = PracticePopupDialogButton(title: "单选", dismissOnTap: true) {
+                PracticeFigure.questionType = "0"
+                self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
+            }
+            let centerButton = PracticePopupDialogButton(title: "多选", dismissOnTap: true) {
+                PracticeFigure.questionType = "1"
+                self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
+            }
+            let rightButton = PracticePopupDialogButton(title: "判断", dismissOnTap: true) {
+                PracticeFigure.questionType = "2"
+                self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
+            }
+            warningCard.addButtons([leftButton, centerButton, rightButton])
+            self.present(warningCard, animated: true, completion: nil)
         }
-        return searchView
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return resultArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellId = "lessonCell"
-        let cell = UITableViewCell(style: .default, reuseIdentifier: cellId)
-        
-        cell.accessoryType = .disclosureIndicator
-        cell.textLabel?.text = resultArray[indexPath.item].courseName
-        debugLog(resultArray[indexPath.item].courseName)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: 跳转到课程界面
+        let rightButton = PracticePopupDialogButton(title: "模拟考试", dismissOnTap: true) {
+            // TODO: 进入模拟考试
+            self.navigationController?.pushViewController(QuizCollectionViewController(), animated: true)
+        }
+        warningCard.addButtons([leftButton, rightButton])
+        self.present(warningCard, animated: true, completion: nil)
     }
 }
 
 extension PLessonListViewController {
+    // 获取课程列表数组
     private func getListWith(classId: Int) {
         getCourseList(classId: classId, success: { (courseArray) in
             self.resultArray = courseArray
