@@ -27,11 +27,11 @@ class PLessonListViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: 需要参数
     var courseName: String = {
-        return ""
+        return PracticeFigure.className
     }()
     
     var classId: Int = {
-        return 2
+        return Int(PracticeFigure.classID)!
     }()
     
     override func viewDidLoad() {

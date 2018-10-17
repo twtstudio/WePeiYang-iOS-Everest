@@ -124,7 +124,7 @@ class PracticeHomeViewController: UIViewController {
     // 进入搜索界面 //
     @objc func practiceSearch() {
         // TODO: 进入搜索界面
-        // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+        self.navigationController?.pushViewController(PSearchViewController(), animated: true)
     }
     
     // 点击按钮切换, 改变白色指示条位置与按钮可用状态 //
@@ -467,9 +467,11 @@ extension PracticeHomeViewController: UICollectionViewDelegate, UICollectionView
         let row = indexPath.row
         
         switch row {
-        // case 0, 2:
-            // TODO: 进入党课 / 网课课程列表
-            // self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+        case 0:
+            // TODO: 进入党课列表
+            PracticeFigure.className = "党课"
+            PracticeFigure.classID = "2"
+            self.navigationController?.pushViewController(PLessonListViewController(), animated: true)
         case 1:
             PracticeFigure.courseID = "1"
             PracticeFigure.classID = "1"
@@ -503,6 +505,11 @@ extension PracticeHomeViewController: UICollectionViewDelegate, UICollectionView
             }
             warningCard.addButtons([leftButton, rightButton])
             self.present(warningCard, animated: true, completion: nil)
+        case 2:
+            // TODO: 进入网课列表
+            PracticeFigure.className = "网课"
+            PracticeFigure.classID = "3"
+            self.navigationController?.pushViewController(PLessonListViewController(), animated: true)
         case 3:
             SwiftMessages.showWarningMessage(body: "功能完善中\n敬请期待嘤 🌝")
         default:
@@ -516,6 +523,10 @@ extension UIColor {
     // 刷题蓝色 //
     static var practiceBlue: UIColor {
         return UIColor(red: 67.0/255.0, green: 170.0/255.0, blue: 250.0/255.0, alpha: 1.0)
+    }
+    // 刷题浅蓝 //
+    static var practiceLightBlue: UIColor {
+        return UIColor(red: 96.0/255.0, green: 187.0/255.0, blue: 255.0/255.0, alpha: 1.0)
     }
     // 刷题红色 //
     static var practiceRed: UIColor {
