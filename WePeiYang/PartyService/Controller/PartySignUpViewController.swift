@@ -11,7 +11,7 @@ import UIKit
 class PartySignUpViewController: UIViewController {
     
     var tableView: UITableView!
-    let bgView = UIView(color: .partyRed)
+    let bgView = UIView(color: UIColor.partyRed)
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

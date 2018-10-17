@@ -78,6 +78,7 @@ class UICopyLabel: UILabel {
         sharedInit()
     }
     
+    // 添加长按识别 //
     func sharedInit() {
         isUserInteractionEnabled = true
         addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(showMenu)))
@@ -91,7 +92,7 @@ class UICopyLabel: UILabel {
         menu.setMenuVisible(false, animated: true)
         SwiftMessages.showSuccessMessage(body: "复制成功啦 🌝")
     }
-    
+   
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(UIResponderStandardEditActions.copy(_:)) { return true }
         return false

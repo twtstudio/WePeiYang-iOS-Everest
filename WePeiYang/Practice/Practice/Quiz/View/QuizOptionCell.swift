@@ -10,6 +10,7 @@ import Foundation
 
 class QuizOptionCell: OptionsCell {
     func initUI( optionsContent: String?, order: Int, isSelected: Bool, isFinished: Bool) {
+        print(isSelected, order)
         if isSelected {
             optionIcon.image = selectedbtnImgs[order]
         }else {
