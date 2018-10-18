@@ -130,7 +130,9 @@ class SettingsViewController: UIViewController {
         guard TwTUser.shared.token == nil else {
             return
         }
-        showLoginView()
+        showLoginView(success: {
+            self.tableView.reloadData()
+        })
 
 //        let loginVC = LoginViewController()
 //        self.present(loginVC, animated: true, completion: nil)

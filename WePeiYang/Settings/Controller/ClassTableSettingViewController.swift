@@ -29,7 +29,7 @@ class ClassTableSettingViewController: UIViewController {
         tableView = UITableView(frame: self.view.bounds, style: .grouped)
         self.view.addSubview(tableView)
         tableView.dataSource = self
-        log(tableView)
+
         let tap = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped(recognizer:)))
         tableView.addGestureRecognizer(tap)
 
@@ -43,8 +43,16 @@ class ClassTableSettingViewController: UIViewController {
         offsetMin = offset == 0 ? 15 : offset
         pickerView.selectRow(offsetMin - 5, inComponent: 0, animated: true)
 
+        if isModal {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
+        }
+
         tableView.reloadData()
         self.title = "课程提醒设置"
+    }
+
+    @objc func close() {
+        self.dismiss(animated: true, completion: nil)
     }
 
     override func viewDidDisappear(_ animated: Bool) {

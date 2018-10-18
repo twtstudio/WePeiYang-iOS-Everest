@@ -18,8 +18,16 @@ class NewsViewController: UIViewController {
             }
         }
     }
-    var galleryList: [GalleryModel] = []
-    var newsList: [NewsModel] = []
+    var galleryList: [GalleryModel] = [] {
+        didSet {
+            self.galleryView.reloadData()
+        }
+    }
+    var newsList: [NewsModel] = [] {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
     var category = 1
     var page = 1
 
@@ -34,12 +42,25 @@ class NewsViewController: UIViewController {
 
     private var newsHeaderView: NewsHeaderView!
     private var tableView: UITableView!
-    private var bannerFooView: UIView!
+    private var bannerFooView: UIView = {
+        let view = UIView(color: .white)
+        view.layer.cornerRadius = 15
+        view.layer.shadowRadius = 4
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+
+        view.layer.shadowOpacity = 0.5
+        return view
+    }()
 
     private lazy var bannerView: BannerScrollView = {
         let bannerWidth: CGFloat = deviceWidth - 40
         let bannerHeight: CGFloat = 400
         let bannerView = BannerScrollView(frame: CGRect(x: 0, y: 0, width: bannerWidth, height: bannerHeight), type: .server, imgs: [], descs: [], defaultDotImage: UIImage(named: "defaultDot"), currentDotImage: UIImage(named: "currentDot"))
+        bannerView.layer.cornerRadius = 15
+        bannerView.layer.masksToBounds = true
+        bannerView.descLabelHeight = 150
+        bannerView.descLabelFont = UIFont.boldSystemFont(ofSize: 25)
+        bannerView.descLabelTextAlignment = .left
         return bannerView
     }()
 
@@ -55,8 +76,13 @@ class NewsViewController: UIViewController {
         let cell = UITableViewCell()
         // 在bannerBackView上添加一个“咨询”label 和轮播图
         let bannerBackView = UIView(frame: CGRect(x: 0, y: 0, width: deviceWidth, height: 450))
+
+        let bannerWidth: CGFloat = deviceWidth - 40
+        let bannerHeight: CGFloat = 400
+
         if isiPad {
-            bannerBackView.width = deviceWidth*4/5
+            bannerBackView.width = deviceWidth * 4 / 5
+            bannerView.width = bannerWidth * 4 / 5
         }
         cell.contentView.addSubview(bannerBackView)
         bannerBackView.snp.makeConstraints { make in
@@ -72,14 +98,10 @@ class NewsViewController: UIViewController {
             make.width.equalTo(100)
             make.height.equalTo(40)
         })
-        let bannerWidth: CGFloat = deviceWidth - 40
-        let bannerHeight: CGFloat = 400
-        bannerFooView = UIView(color: .white)
+
         bannerBackView.addSubview(bannerFooView)
-        //            cell.contentView.addSubview(bannerFooView)
 
         bannerFooView.snp.makeConstraints({ (make) in
-            //                make.top.equalToSuperview().offset(60)
             make.top.equalTo(informationLabel.snp.bottom).offset(20)
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().offset(-20)
@@ -87,21 +109,8 @@ class NewsViewController: UIViewController {
             make.height.equalTo(bannerHeight)
             make.width.equalTo(bannerWidth)
         })
-        bannerFooView.layer.cornerRadius = 15
-        bannerFooView.layer.shadowRadius = 4
-        bannerFooView.layer.shadowOffset = CGSize(width: 0, height: 2)
 
-        bannerFooView.layer.shadowOpacity = 0.5
-
-        if isiPad {
-            bannerView.width = bannerWidth*4/5
-        }
-        bannerView.layer.cornerRadius = 15
-        bannerView.layer.masksToBounds = true
         bannerView.delegate = self
-        bannerView.descLabelHeight = 150
-        bannerView.descLabelFont = UIFont.boldSystemFont(ofSize: 25)
-        bannerView.descLabelTextAlignment = .left
         bannerFooView.addSubview(bannerView)
 
         cell.selectionStyle = .none
@@ -137,17 +146,14 @@ class NewsViewController: UIViewController {
     func setupData() {
         CacheManager.retreive("news/homepage.json", from: .caches, as: HomePageTopModel.self, success: { homepage in
             self.homepage = homepage
-            self.tableView.reloadData()
         })
 
         CacheManager.retreive("news/galleries.json", from: .caches, as: [GalleryModel].self, success: {  galleries in
             self.galleryList = galleries
-            self.tableView.reloadData()
         })
 
         CacheManager.retreive("news/news.json", from: .caches, as: NewsTopModel.self, success: {  newsList in
             self.newsList = newsList.data
-            self.tableView.reloadData()
         })
     }
 
@@ -196,12 +202,10 @@ class NewsViewController: UIViewController {
 
         CacheManager.retreive("news/galleries.json", from: .caches, as: [GalleryModel].self, success: {  galleries in
             self.galleryList = galleries
-            self.galleryView.reloadData()
         })
 
         CacheManager.retreive("news/news.json", from: .caches, as: NewsTopModel.self, success: {  newsList in
             self.newsList = newsList.data
-            self.tableView.reloadData()
         })
     }
 
@@ -222,7 +226,6 @@ class NewsViewController: UIViewController {
         HomePageHelper.getGallery(success: { galleries in
             CacheManager.store(object: galleries, in: .caches, as: "news/galleries.json")
             self.galleryList = galleries
-            self.galleryView.reloadData()
             group.leave()
         }, failure: { error in
             group.leave()
@@ -234,7 +237,6 @@ class NewsViewController: UIViewController {
             CacheManager.store(object: newsList.data, in: .caches, as: "news/newsList.json")
             self.newsList = newsList.data
             group.leave()
-            self.tableView.reloadData()
         }, failure: { error in
             group.leave()
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
@@ -372,7 +374,7 @@ extension NewsViewController: BannerScrollViewDelegate {
     func bannerScrollViewDidSelect(at index: Int, bannerScrollView: BannerScrollView) {
         if let homepage = self.homepage {
             let newsIndex = homepage.data.carousel[index].index
-            let newsVC = NewsDetailViewController(index: newsIndex)
+            let newsVC = NewsDetailViewController(index: String(newsIndex))
             newsVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(newsVC, animated: true)
             // self.navigationController?.pushViewController(detailVC, animated: true)

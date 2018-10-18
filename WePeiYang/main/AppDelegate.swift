@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import PopupDialog
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -91,8 +92,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         registerAppNotification(launchOptions: launchOptions)
         registerShortcutItems()
+        showNewFeature()
 
         return true
+    }
+
+    func showNewFeature() {
+        let NewFeatureVersionKey = "NewFeatureVersionKey"
+        // plus one next version
+        let currentVersion = 1
+        let version = UserDefaults.standard.integer(forKey: NewFeatureVersionKey)
+        if currentVersion > version {
+            let popup = PopupDialog(title: "新功能提醒", message: "微北洋支持课程提醒啦！快去看看吧~", buttonAlignment: .vertical)
+//            let cancelButton = CancelButton(title: "取消", action: nil)
+            let goButton = DefaultButton(title: "好哒！", action: {
+                UserDefaults.standard.set(currentVersion, forKey: NewFeatureVersionKey)
+                let alertVC = ClassTableSettingViewController()
+                self.window?.rootViewController?.present(UINavigationController(rootViewController: alertVC), animated: true, completion: nil)
+            })
+            popup.addButton(goButton)
+            window?.rootViewController?.present(popup, animated: true, completion: nil)
+        }
     }
 
     func registerShortcutItems() {

@@ -50,7 +50,8 @@ class NewsTableViewCell: UITableViewCell {
                 make.width.equalTo(titleWidth)
             }
 
-            let imageWidth = screenWidth*2.0/5 - 30
+            let ratio: CGFloat = isiPad ? 1.5 / 5 : 2.0 / 5
+            let imageWidth = screenWidth*ratio - 30
             let imageHeight = imageWidth * 3.0 / 4.0 + 5
 
             contentView.addSubview(imgView)

@@ -160,16 +160,14 @@ struct AccountManager {
                 let lib = accounts["lib"] as? Bool,
                 let avatar = dict["avatar"] as? String,
                 let realname = dict["realname"] as? String,
-                let twtid = dict["twtid"] as? String,
-                let studentid = dict["studentid"] as? String,
-                let dropout = dict["dropout"] as? String {
+                let twtid = dict["twtid"] as? Int,
+                let studentid = dict["studentid"] as? String {
                 TwTUser.shared.avatarURL = avatar
                 TwTUser.shared.tjuBindingState = tju
                 TwTUser.shared.libBindingState = lib
                 TwTUser.shared.realname = realname
-                TwTUser.shared.twtid = twtid
+                TwTUser.shared.twtid = twtid.description
                 TwTUser.shared.schoolID = studentid
-                TwTUser.shared.dropout = dropout
                 TwTUser.shared.save()
                 success?()
             }

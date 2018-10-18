@@ -34,11 +34,11 @@ class BicycleUser {
     private init() {}
 
     func auth(success: @escaping () -> Void, failure: ((String) -> Void)? = nil) {
-
-        // let parameters = ["wpy_tk": "\(TwTUser.shared.token!)"]
-        // Modified by JasonEWNL
         var parameters: [String: String]
-        if let token = TwTUser.shared.token { parameters = ["wpy_tk": "\(token)"] } else { return }
+        guard let token = TwTUser.shared.token else {
+            return
+        }
+        parameters = ["wpy_tk": "\(token)"]
 
         SolaSessionManager.solaSession(type: .post, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.authURL, parameters: parameters, success: { dict in
             if let errno = dict["errno"] as? Int,

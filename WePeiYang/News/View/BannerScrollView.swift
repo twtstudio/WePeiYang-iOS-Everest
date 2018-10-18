@@ -38,14 +38,6 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
     var imageContentModel: UIViewContentMode?
     var descLabelTextAlignment: NSTextAlignment?
 
-    // Main Function
-    override var frame: CGRect {
-        didSet {
-            flowLayout?.itemSize = frame.size
-            collectionView?.frame = bounds
-        }
-    }
-
     var isAutoScroll: Bool = true {
         didSet {
             timer?.invalidate()
@@ -63,14 +55,6 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
     }
 
     var autoScrollInterval: Double = 5
-//    {
-//        willSet {
-//            autoScrollInterval = newValue
-//        }
-////        didSet {
-////            autoScrollInterval =
-////        }
-//    }
 
     // pageControl
     var pageControlAliment: PageControlAliment = .CenterBottom
@@ -115,11 +99,11 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
 
         timer?.invalidate()
         timer = nil
-        collectionView?.reloadData()
+        collectionView.reloadData()
         setupPageControl()
 
         if canChangeBannerCell {
-            changeToFirstBannerCell(animated: false, collectionView: collectionView!)
+            changeToFirstBannerCell(animated: false, collectionView: collectionView)
         }
         if isAutoScroll {
             setupTimer()
@@ -139,8 +123,8 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
 
     // MARK: 内部属性
     fileprivate var proxy: Proxy!
-    fileprivate var flowLayout: UICollectionViewFlowLayout?
-    fileprivate var collectionView: UICollectionView?
+    fileprivate var flowLayout: UICollectionViewFlowLayout!
+    fileprivate var collectionView: UICollectionView!
     fileprivate let CellID = "BannerCell"
     fileprivate var pageControl: PageControl?
     fileprivate var isLoadOver = false
@@ -173,7 +157,7 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
     }
 
     fileprivate var indexOnPageControl: Int {
-        var curIndex = Int((collectionView!.contentOffset.x + flowLayout!.itemSize.width * 0.5) / flowLayout!.itemSize.width)
+        var curIndex = Int((collectionView.contentOffset.x + flowLayout.itemSize.width * 0.5) / flowLayout.itemSize.width)
         curIndex = max(0, curIndex)
         return curIndex % imgsCount
     }
@@ -183,6 +167,11 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
 
         super.init(frame: frame)
         setupCollectionView()
+
+        flowLayout.itemSize = frame.size
+        collectionView.frame = bounds
+        collectionView.backgroundColor = .white
+
         defaultPageDotImage = defaultDotImage
         currentPageDotImage = currentDotImage
         self.placeholderImage = placeholderImage
@@ -205,9 +194,9 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        collectionView?.contentInset = .zero
+        collectionView.contentInset = .zero
         if !isLoadOver && canChangeBannerCell {
-            changeToFirstBannerCell(animated: false, collectionView: collectionView!)
+            changeToFirstBannerCell(animated: false, collectionView: collectionView)
         }
 
         guard let pageControl = self.pageControl else {
@@ -242,7 +231,7 @@ extension BannerScrollView {
 
     @objc func autoChangeBannerCell() {
         if canChangeBannerCell {
-            changeBannerCell(collectionView: collectionView!)
+            changeBannerCell(collectionView: collectionView)
         }
     }
 
@@ -305,19 +294,19 @@ extension BannerScrollView {
 extension BannerScrollView: UICollectionViewDelegate, UICollectionViewDataSource {
     fileprivate func setupCollectionView() {
         flowLayout = UICollectionViewFlowLayout()
-        flowLayout?.itemSize = frame.size
-        flowLayout?.minimumLineSpacing = 0
-        flowLayout?.scrollDirection = .horizontal
+        flowLayout.itemSize = frame.size
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.scrollDirection = .horizontal
 
-        collectionView = UICollectionView(frame: bounds, collectionViewLayout: flowLayout!)
-        collectionView?.register(BannerCell.self, forCellWithReuseIdentifier: CellID)
-        collectionView?.isPagingEnabled = true
-        collectionView?.bounces = false
-        collectionView?.showsVerticalScrollIndicator = false
-        collectionView?.showsHorizontalScrollIndicator = false
-        collectionView?.delegate = self
-        collectionView?.dataSource = self
-        addSubview(collectionView!)
+        collectionView = UICollectionView(frame: bounds, collectionViewLayout: flowLayout)
+        collectionView.register(BannerCell.self, forCellWithReuseIdentifier: CellID)
+        collectionView.isPagingEnabled = true
+        collectionView.bounces = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        addSubview(collectionView)
     }
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -336,12 +325,12 @@ extension BannerScrollView: UICollectionViewDelegate, UICollectionViewDataSource
         }
 
         if descTextArray != nil {
-            cell.imageContentModel = (imageContentModel == nil) ? cell.imageContentModel : imageContentModel!
-            cell.descLabelFont = (descLabelFont == nil) ? cell.descLabelFont : descLabelFont!
-            cell.descLabelTextColor = (descLabelTextColor == nil) ? cell.descLabelTextColor : descLabelTextColor!
-            cell.bottomViewlHeight = (descLabelHeight == nil) ? cell.bottomViewlHeight : descLabelHeight!
-            cell.descLabelTextAlignment = (descLabelTextAlignment == nil) ? cell.descLabelTextAlignment : descLabelTextAlignment!
-            cell.bottomViewBackgroundColor = (bottomViewBackgroundColor == nil) ? cell.bottomViewBackgroundColor : bottomViewBackgroundColor!
+            cell.imageContentModel = imageContentModel ?? cell.imageContentModel
+            cell.descLabelFont = descLabelFont ?? cell.descLabelFont
+            cell.descLabelTextColor = descLabelTextColor ?? cell.descLabelTextColor
+            cell.bottomViewlHeight = descLabelHeight ?? cell.bottomViewlHeight
+            cell.descLabelTextAlignment = descLabelTextAlignment ?? cell.descLabelTextAlignment
+            cell.bottomViewBackgroundColor = bottomViewBackgroundColor ?? cell.bottomViewBackgroundColor
         }
         return cell
     }

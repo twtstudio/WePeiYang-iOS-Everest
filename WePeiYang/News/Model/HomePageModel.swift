@@ -28,7 +28,8 @@ struct HomePageData: Codable {
 }
 
 struct Carousel: Codable {
-    let index, pic, subject: String
+    let pic, subject: String
+    let index: Int
 }
 
 struct News: Codable {
@@ -38,12 +39,14 @@ struct News: Codable {
 }
 
 struct Annoucement: Codable {
-    let index, subject, addat, gonggao: String
+    let index: Int
+    let subject, addat, gonggao: String
     let brief: String
 }
 
 struct Campus: Codable {
-    let index, subject, pic, addat: String
+    let index: Int
+    let subject, pic, addat: String
 //    let visitcount: String
 }
 
