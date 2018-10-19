@@ -164,7 +164,7 @@ extension PLessonListViewController: UISearchBarDelegate {
     }
     
     private func setupTableView() {
-        tableView = UITableView(frame: CGRect(x: 0, y: 64, width: deviceWidth, height: deviceHeight - 64), style: .grouped)
+        tableView = UITableView(frame: self.view.bounds, style: .grouped)
         tableView.backgroundColor = .white
         self.view.addSubview(tableView)
     }
