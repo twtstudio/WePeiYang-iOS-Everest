@@ -78,7 +78,7 @@ class PracticeHomeViewController: UIViewController {
         navigationItem.rightBarButtonItem = practiceSearch
         
         /* 顶部视图 */
-        headView.frame = CGRect(x: 0, y: 0, width: deviceWidth, height: 64)
+        headView.frame = CGRect(x: 0, y: -1, width: deviceWidth, height: 64)
         headView.userOptionButton.addTarget(self, action: #selector(optionButtonClick), for: .touchUpInside)
         headView.homeOptionButton.addTarget(self, action: #selector(optionButtonClick), for: .touchUpInside)
         headView.userOptionButton.isEnabled = !PracticeFigure.isAtRight // 滑动视图在左 -> "我的" 不可用
