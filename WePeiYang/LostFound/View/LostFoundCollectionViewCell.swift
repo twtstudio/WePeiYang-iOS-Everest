@@ -129,7 +129,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func initUI(pic: String, title: String, mark: Int, time: String, place: String){
+    func initUI(pic: String, title: String, mark: Int, time: String, place: String) {
         if pic != "", let picURL = URL(string: TWT_URL + pic) {
             pictureImageView.sd_setImage(with: picURL)
         } else {
@@ -137,7 +137,6 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
             pictureImageView.image = UIImage(named: picURL)
         }
         pictureImageView.contentMode = .scaleAspectFill
-        
         
         titleLabel.text = title
         //        titleLabel.sizeToFit()

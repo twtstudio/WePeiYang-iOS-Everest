@@ -12,7 +12,7 @@ import SDWebImage
 
 class MyLostFoundTableViewCell: UITableViewCell {
     
-    let markArray = ["身份证","饭卡","手机","钥匙","书包","手表&饰品","U盘&硬盘","水杯","钱包","银行卡","书","伞","其他"]
+    let markArray = ["身份证", "饭卡", "手机", "钥匙", "书包", "手表&饰品", "U盘&硬盘", "水杯", "钱包", "银行卡", "书", "伞", "其他"]
     var pictureImageView = UIImageView()
     var titleLabel = UILabel()
     var isBackLabel = UILabel()
@@ -26,14 +26,14 @@ class MyLostFoundTableViewCell: UITableViewCell {
     var inverseButton = UIButton()
     var reversal = ""
     
-    override var frame: CGRect{
-        didSet{
-            var newFrame = frame;
-            newFrame.origin.x += 10;
-            newFrame.size.width -= 20;
-            newFrame.origin.y += 10;
-            newFrame.size.height -= 10;
-            super.frame = newFrame;
+    override var frame: CGRect {
+        didSet {
+            var newFrame = frame
+            newFrame.origin.x += 10
+            newFrame.size.width -= 20
+            newFrame.origin.y += 10
+            newFrame.size.height -= 10
+            super.frame = newFrame
         }
     }
     
@@ -89,7 +89,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
         
         titleLabel.text = title
         titleLabel.numberOfLines = 0
-        titleLabel.snp.makeConstraints  { make in
+        titleLabel.snp.makeConstraints { make in
             make.top.equalTo(isBackLabel.snp.bottom).offset(5)
             make.left.equalTo(pictureImageView.snp.right).offset(10)
         }
@@ -100,7 +100,6 @@ class MyLostFoundTableViewCell: UITableViewCell {
             make.left.equalTo(pictureImageView.snp.right).offset(10)
             make.width.height.equalTo(contentView.bounds.width*(100/2024))
         }
-        
         
         markLabel.text = markArray[mark]
         //        markLabel.text = mark
@@ -149,27 +148,25 @@ class MyLostFoundTableViewCell: UITableViewCell {
         //        editButton.setBackgroundImage(UIImage(named: "笔"), for: .normal)
         editButton.setImage(UIImage(named: "笔"), for: .normal)
         
-        editButton.snp.makeConstraints  { make in
+        editButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
             make.right.equalToSuperview().offset(-10)
             //            make.width.height.equalTo(contentView.bounds.width*(100/1560))
             make.width.equalTo(40)
             make.height.equalTo(40)
         }
-        editButton.imageView?.snp.makeConstraints  { make in
+        editButton.imageView?.snp.makeConstraints { make in
             make.width.equalTo(20)
             make.height.equalTo(20)
         }
         
-        
         if isBack == "0" {
             reversal = "灰勾"
-        }
-        else {
+        } else {
             reversal = "蓝勾"
         }
         inverseButton.setBackgroundImage(UIImage(named: reversal), for: .normal)
-        inverseButton.snp.makeConstraints  { make in
+        inverseButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
             make.left.equalTo(isBackLabel.snp.right).offset(10)
             make.bottom.equalTo(titleLabel.snp.top).offset(-5)

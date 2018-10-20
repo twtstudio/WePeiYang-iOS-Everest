@@ -11,9 +11,9 @@ import SnapKit
 
 class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
     
-    var delegate: PublishLostViewController?
+    weak var delegate: PublishLostViewController?
     
-    var cellkey:String?
+    var cellkey: String?
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         delegate?.means(input: textField.text!, key: cellkey!)
@@ -24,31 +24,29 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
         return true
     }
     
-    
     var textField = UITextField()
     
-    override var frame: CGRect{
+    override var frame: CGRect {
         
-        didSet{
+        didSet {
             
-            var newFrame = frame;
+            var newFrame = frame
             
-            newFrame.origin.x += 10;
-            newFrame.size.width -= 20;
-            newFrame.origin.y += 10;
-            //            newFrame.size.height -= 10;
-            super.frame = newFrame;
+            newFrame.origin.x += 10
+            newFrame.size.width -= 20
+            newFrame.origin.y += 10
+            //            newFrame.size.height -= 10
+            super.frame = newFrame
             
-            //            textField.placeholder = "请输入";
-            textField.adjustsFontSizeToFitWidth = true;
+            //            textField.placeholder = "请输入"
+            textField.adjustsFontSizeToFitWidth = true
             //当文字超出文本框宽度时，自动调整文字大小
-            textField.minimumFontSize = 14;
+            textField.minimumFontSize = 14
             
             textField.textAlignment = NSTextAlignment.right
             textField.clearButtonMode = UITextFieldViewMode.unlessEditing
             
-            self.addSubview(textField);
-            
+            self.addSubview(textField)
             
             textField.snp.makeConstraints { make in
                 make.top.equalToSuperview().offset(5)

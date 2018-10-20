@@ -37,7 +37,6 @@ class ButtonGroups: UIButton {
      self.view.addSubview(cvc!)
      */
     
-    
     //ex2:
     //利用button的数组进行回调：
     /*
@@ -61,7 +60,7 @@ class ButtonGroups: UIButton {
     fileprivate var currentX: CGFloat = 10 // 每个button的左上角x值
     fileprivate var currentY: CGFloat = 50 //                 y值
     fileprivate var buttonName = ""
-    fileprivate var buttonGroupsArr:[String] = []
+    fileprivate var buttonGroupsArr = [String]()
     fileprivate let limit: CGFloat = 40 // 边界限制，更美观
     fileprivate var btnColor: UIColor?
     fileprivate var textColor: UIColor?
@@ -69,31 +68,29 @@ class ButtonGroups: UIButton {
     //    fileprivate var varBtnColor: UIColor?
     //    fileprivate var varTextColor: UIColor?
     
-    
     lazy var button = UIButton()
-    lazy var buttonAllArray:[UIButton] = []
+    lazy var buttonAllArray = [UIButton]()
     var handler: Action!
     
-    
-    // MARK -- addButtonGroups
-    func addButtonGroupsToCell(buttonArr: Array<String>, leftLimit: CGFloat = 0, rightLimit: CGFloat = 320, mainAction: Action) -> UIView? {
+    // MARK: addButtonGroups
+    func addButtonGroupsToCell(buttonArr: [String], leftLimit: CGFloat = 0, rightLimit: CGFloat = 320, mainAction: Action) -> UIView? {
         
-        guard buttonArr.count >= 0 else { return nil} // 限制传入的button.cout不为负数
+        if buttonArr.isEmpty { return nil } // 限制传入的button.cout不为负数
         buttonGroupsArr = buttonArr
         viewHeight = getViewHeight(title: buttonArr, leftLimit: leftLimit, rightLimit: rightLimit)
-        let view = buildTextButton(title: buttonArr, leftLimit: leftLimit ,rightLimit: rightLimit, viewHeight: viewHeight, mainAction: mainAction)
+        let view = buildTextButton(title: buttonArr, leftLimit: leftLimit, rightLimit: rightLimit, viewHeight: viewHeight, mainAction: mainAction)
         return view
     }
     
-    // MARK -- Layout
-    fileprivate func buildTextButton(title: [String], leftLimit: CGFloat,rightLimit: CGFloat, viewHeight: CGFloat, mainAction: Action) -> UIView? {
+    // MARK: Layout
+    fileprivate func buildTextButton(title: [String], leftLimit: CGFloat, rightLimit: CGFloat, viewHeight: CGFloat, mainAction: Action) -> UIView? {
         
         let hadoView = UIView(frame: CGRect(x: 0, y: 0, width: rightLimit, height: viewHeight))
         hadoView.isUserInteractionEnabled = true
         //hadoView.isExclusiveTouch = true
         currentX = 10
         currentY = 50
-        for (index, name) in buttonGroupsArr.enumerated() {
+        for name in buttonGroupsArr {
             buttonName = name
             setButtonSize(startLimit: leftLimit)
             getButtonColor()
@@ -113,14 +110,14 @@ class ButtonGroups: UIButton {
                 button.add(for: .touchUpInside, (mainAction.function))
                 hadoView.addSubview(button)
                 buttonAllArray.append(button)
-                currentX = currentX + button.frame.size.width + 10;
+                currentX = currentX + button.frame.size.width + 10
             }
         }
         return hadoView
     }
     
-    func getViewHeight(title: [String], leftLimit: CGFloat,rightLimit: CGFloat) -> CGFloat {
-        for (index, name) in buttonGroupsArr.enumerated() {
+    func getViewHeight(title: [String], leftLimit: CGFloat, rightLimit: CGFloat) -> CGFloat {
+        for name in buttonGroupsArr {
             buttonName = name
             setButtonSize(startLimit: leftLimit)
             restrictButton(maxWidth: rightLimit)
@@ -134,7 +131,7 @@ class ButtonGroups: UIButton {
                 setButtonSize(startLimit: leftLimit)
                 restrictButton(maxWidth: rightLimit)
                 setButtonColor(_textColor: textColor!, _btnColor: btnColor!)
-                currentX = currentX + button.frame.size.width + 10;
+                currentX = currentX + button.frame.size.width + 10
             }
         }
         viewHeight = currentY + 50
@@ -152,9 +149,8 @@ class ButtonGroups: UIButton {
     //        handler = btn
     //    }
     
-    
     fileprivate func setButtonSize(startLimit: CGFloat) {
-        button = UIButton(frame: CGRect(x: currentX, y: currentY, width: startLimit + currentWidth, height: 30));
+        button = UIButton(frame: CGRect(x: currentX, y: currentY, width: startLimit + currentWidth, height: 30))
         button.layer.cornerRadius = 16
         button.frame.size.height = 30
         button.setTitle(buttonName, for: .normal)
@@ -176,7 +172,7 @@ class ButtonGroups: UIButton {
     //    }
     fileprivate func getButtonColor() {
         button.backgroundColor = btnColor
-        button.setTitleColor(textColor, for: .normal);
+        button.setTitleColor(textColor, for: .normal)
         //button.setTitleColor(UIColor(hex6: 0x00a1e9), for: .selected)
     }
     fileprivate func setChangeButtonColor(textColor: UIColor, btnColor: UIColor) {
@@ -184,7 +180,7 @@ class ButtonGroups: UIButton {
     }
     fileprivate func restrictButton(maxWidth: CGFloat) {
         if button.frame.size.width > maxWidth - limit {
-            button.frame.size.width = maxWidth - limit;
+            button.frame.size.width = maxWidth - limit
         }
         if button.frame.size.width < limit {
             button.frame.size.width = limit
@@ -194,16 +190,14 @@ class ButtonGroups: UIButton {
 extension UIView {
     //获取view所在的 视图控制器
     var viewController: UIViewController? {
-        get {
             var nextResponder = next
-            while  (nextResponder != nil){
+            while nextResponder != nil {
                 if nextResponder is UIViewController {
                     return nextResponder as! UIViewController?
                 }
                 nextResponder = nextResponder?.next
             }
             return nil
-        }
     }
 }
 
@@ -212,7 +206,7 @@ extension UIView {
     func firstController() -> UITableViewCell? {
         for view in sequence(first: self.superview, next: { $0?.superview }) {
             if let responder = view?.next {
-                if responder.isKind(of: UITableViewCell.self){
+                if responder.isKind(of: UITableViewCell.self) {
                     return responder as? UITableViewCell
                 }
                 

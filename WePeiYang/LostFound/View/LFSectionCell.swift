@@ -20,7 +20,7 @@ class SectionCell: UITableViewHeaderFooterView {
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = UIColor(hex6: 0x00a1e9)
         
-        label.frame = CGRect(x:10, y:5, width:100, height:20)
+        label.frame = CGRect(x: 10, y: 5, width: 100, height: 20)
     }
     
     required init?(coder aDecoder: NSCoder) {

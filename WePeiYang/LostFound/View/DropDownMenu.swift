@@ -43,7 +43,6 @@ import UIKit
  
  self.menu.didSelectIndex = { [unowned self] (index:Int) in
  
- print( "选中--  \(index) -行 -- \(String(describing: self.levelArr?[index]))")
  }
  }else{
  
@@ -56,7 +55,7 @@ class DropDownMenu: UIView, UITableViewDelegate, UITableViewDataSource {
     
     // 定义menu
     var menuTableView: UITableView?
-    var menuArr: Array<Any>?
+    var menuArr: [Any]?
     let cellIdentifier = "cellID"
     //menu选中时的方法
     var didSelectIndex:((_ index: Int) -> Void)?
@@ -65,14 +64,14 @@ class DropDownMenu: UIView, UITableViewDelegate, UITableViewDataSource {
     var menuSize: CGSize?
     
     class func initMenu(size: CGSize) -> DropDownMenu {
-        let frame = CGRect(x:0,y:0,width:size.width,height:size.height)
-        let me = DropDownMenu.init(frame:frame)
+        let frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        let me = DropDownMenu.init(frame: frame)
         me.menuSize = size
         return me
     }
     
     override init(frame: CGRect) {
-        let initialFrame = CGRect(x:frame.origin.x, y: frame.origin.y, width: frame.size.width, height: 0.0)
+        let initialFrame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: 0.0)
         super.init(frame: initialFrame)
         self.backgroundColor = .black
         menuTableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 0 ), style: .plain)
@@ -93,7 +92,7 @@ class DropDownMenu: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     // 弹出菜单
-    func popupMenu(originPonit: CGPoint, arr: Array<Any>) {
+    func popupMenu(originPonit: CGPoint, arr: [Any]) {
         if isShow == true {
             return
         }
@@ -113,7 +112,7 @@ class DropDownMenu: UIView, UITableViewDelegate, UITableViewDataSource {
             self.frame.size.height = (self.menuSize!.height)
             self.menuTableView?.frame.size.height = (self.menuSize!.height)
             
-        }) { (finish) in
+        }) { _ in
         }
     }
     
@@ -129,25 +128,20 @@ class DropDownMenu: UIView, UITableViewDelegate, UITableViewDataSource {
             self.menuTableView?.frame.size.height = 0.0
             self.frame.size.height = 0.0
             
-        }) { (finish) in
+        }) { _ in
             
             self.isHidden = true
             self.menuTableView?.isHidden = true
         }
     }
     
-    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if ((menuArr?.count) != nil) {
+        if (menuArr?.count) != nil {
             return (menuArr?.count)!
         }
         return 1
     }
-    
-    
-    
-    
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -162,17 +156,17 @@ class DropDownMenu: UIView, UITableViewDelegate, UITableViewDataSource {
         return cell!
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 20
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
         /**
          这里是把 选中的 indexPath 传值出去 ， 关闭menu列表
          */
-        if (self.didSelectIndex != nil) {
+        if self.didSelectIndex != nil {
             self.didSelectIndex!(indexPath.row)
         }
         self.packUpMenu()

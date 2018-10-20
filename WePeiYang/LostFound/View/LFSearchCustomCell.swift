@@ -11,8 +11,8 @@ import SnapKit
 
 class LFSearchCustomCell: UITableViewCell {
     
-    var buttonAllArray:[UIButton] = []
-    var delegate: LostFoundSearchViewController?
+    var buttonAllArray = [UIButton]()
+    weak var delegate: LostFoundSearchViewController?
     var currentHeight = 0
     // 我也很无奈啊，必须是CGFloat
     let currenWidth: CGFloat = 40
@@ -47,8 +47,7 @@ class LFSearchCustomCell: UITableViewCell {
     //        self.contentView.addSubview(hadoCell!)
     //        return 300
     //    }
-    func initMark(array: Array<String>, title: String) -> Int {
-        print(array)
+    func initMark(array: [String], title: String) -> Int {
         let btn = ButtonGroups()
         
         btn.setButtonColor(_textColor: .blue, _btnColor: .black)
@@ -57,9 +56,8 @@ class LFSearchCustomCell: UITableViewCell {
             //            btn.button.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
             for index in btn.buttonAllArray {
                 index.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
-                index.firstController()
+                // index.firstController()
             }
-            
             
         }))
         //
@@ -74,7 +72,7 @@ class LFSearchCustomCell: UITableViewCell {
             //            button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             buttonOfRestrict()
             currentLength = currentX + button.frame.size.width
-            if currentLength  < self.frame.size.width  {
+            if currentLength < self.frame.size.width {
                 
                 button.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
                 //                self.contentView.addSubview(button)
@@ -115,7 +113,6 @@ class LFSearchCustomCell: UITableViewCell {
             inputText = text
             self.delegate?.buttonTapped()
         }
-        print("ok")
     }
     // Mark -- ButtonOfSize --
     func buttonOfSize() {
@@ -143,7 +140,7 @@ class LFSearchCustomCell: UITableViewCell {
     func titleOfButtonBuild() {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 15)
         titleLabel.textColor = UIColor(hex6: 0x00a1e9)
-        titleLabel.frame = CGRect(x:10, y:5, width:100, height:20)
+        titleLabel.frame = CGRect(x: 10, y: 5, width: 100, height: 20)
         self.contentView.addSubview(titleLabel)
     }
     

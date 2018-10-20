@@ -13,19 +13,19 @@ class LFPickerCell: UITableViewCell {
     
     var pickerView: UIPickerView!
     var textField: UITextField!
-    var delegate: PublishLostViewController?
+    weak var delegate: PublishLostViewController?
     
-    let dateArr = ["请选择天数","7天","15天","30天"]
+    let dateArr = ["请选择天数", "7天", "15天", "30天"]
     //    let dateArr = ["7天","15天","30天"]
-    override var frame: CGRect{
+    override var frame: CGRect {
         
-        didSet{
-            var newFrame = frame;
-            newFrame.origin.x += 10;
-            newFrame.size.width -= 20;
-            newFrame.origin.y += 10;
+        didSet {
+            var newFrame = frame
+            newFrame.origin.x += 10
+            newFrame.size.width -= 20
+            newFrame.origin.y += 10
             //            newFrame.size.height -= 10;
-            super.frame = newFrame;
+            super.frame = newFrame
             
         }
     }
@@ -50,9 +50,7 @@ class LFPickerCell: UITableViewCell {
         
         textField.inputAccessoryView = toolBar
         
-        
     }
-    
     
     @objc func finishTapped(sender: UIButton) {
         
@@ -72,9 +70,6 @@ class LFPickerCell: UITableViewCell {
     }
     
     func setUpUI() {
-        
-        
-        
         pickerView = UIPickerView()
         textField = UITextField()
         textField.inputView = pickerView
@@ -83,7 +78,6 @@ class LFPickerCell: UITableViewCell {
         
         textField.textAlignment = .center
         self.addSubview(textField)
-        
         
         //                pickerView.selectRow(1, inComponent: 0, animated: true)
         //                self.addSubview(pickerView)
@@ -94,7 +88,7 @@ class LFPickerCell: UITableViewCell {
         textField.delegate = self
         
         //
-        textField.snp.makeConstraints{
+        textField.snp.makeConstraints {
             make in
             make.top.equalToSuperview().offset(5)
             make.right.equalToSuperview().offset(-5)
@@ -104,8 +98,7 @@ class LFPickerCell: UITableViewCell {
         }
         
     }
-    
-    
+
 }
 
 extension LFPickerCell: UIPickerViewDelegate {
@@ -124,22 +117,16 @@ extension LFPickerCell: UIPickerViewDelegate {
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        
         self.textField.text = dateArr[row]
         if row == 0 {
-            print("请选择天数")
             self.textField.textColor = UIColor(hex6: 0xc8ccd3)
         } else {
             let tag = row - 1
-            print(tag)
             self.textField.textColor = UIColor.black
-            
             delegate?.means(input: "\(tag)", key: "duration")
         }
         
     }
-    
-    
     
 }
 

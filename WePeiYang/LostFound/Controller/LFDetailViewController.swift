@@ -65,7 +65,7 @@ class LFDetailViewController: UIViewController {
     func refresh() {
         detailApi.getDetail(id: "\(id)", success: { (details) in
             self.detailArray = details
-            self.detailDisplayArray = [self.detailArray[0].time, self.detailArray[0].place, "\(self.detailArray[0].detail_type)", self.detailArray[0].name, self.detailArray[0].phone,  self.detailArray[0].item_description]
+            self.detailDisplayArray = [self.detailArray[0].time, self.detailArray[0].place, "\(self.detailArray[0].detail_type)", self.detailArray[0].name, self.detailArray[0].phone, self.detailArray[0].item_description]
             
             var lastLabel: UILabel!
             var labels: [UILabel] = []
