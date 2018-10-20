@@ -10,13 +10,13 @@ import UIKit
 
 var inputText = ""
 class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
-    lazy var searchBar:UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 200, height: 20))
+    lazy var searchBar: UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 200, height: 20))
     var tableView: UITableView!
     var searchController: UISearchController!
     var historyNSArray: NSArray = []
-    var historyArray: Array<String> = []
+    var historyArray = [String]()
     var High = 0
-    var buttonArray = ["身份证","饭卡","手机","钥匙","书包","手表&饰品","U盘&硬盘","水杯","钱包","银行卡","书","伞","其他"]
+    var buttonArray = ["身份证", "饭卡", "手机", "钥匙", "书包", "手表&饰品", "U盘&硬盘", "水杯", "钱包", "银行卡", "书", "伞", "其他"]
     var mainAry: [[String]] {
         return [historyArray, buttonArray]
     }
@@ -52,7 +52,6 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         //估算高度
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
-        
         self.searchController = UISearchController(searchResultsController: nil)
         self.searchController.searchBar.delegate = self
         self.searchController.hidesNavigationBarDuringPresentation = true
@@ -76,7 +75,7 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         High = cell.initMark(array: historyArray, title: "")
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchOfMessage == "noSearch" {
             return mainAry.count
         } else {
@@ -95,7 +94,6 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
                 _ = cell.initMark(array: mainAry[indexPath.row], title: titleArray[indexPath.row] )
                 cell.delegate = self
             } else {
-                // print(searchArray)
                 cell.textLabel?.text = self.searchArray[indexPath.row]
             }
             return cell
@@ -109,7 +107,6 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
                 _ = cell.initMark(array: mainAry[indexPath.row], title: titleArray[indexPath.row] )
                 cell.delegate = self
             } else {
-                print(searchArray)
                 cell.textLabel?.text = self.searchArray[indexPath.row]
             }
             return cell
@@ -123,8 +120,7 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
             } else {
                 return 200
             }
-        }
-        else {
+        } else {
             return 50
         }
     }
@@ -133,14 +129,12 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         
         if searchText == "" {
             self.searchArray = self.historyArray
-        }
-        else {
+        } else {
             // 这个是遍历历史记录，减少输入量, 不区分大小写
             self.searchArray = []
             for index in historyArray {
                 if index.lowercased().hasPrefix(searchText.lowercased()) {
                     self.searchArray.append(index)
-                    // print(searchArray)
                 }
             }
             searchOfMessage = "searched"
@@ -160,7 +154,7 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
     
     // 点击搜索，保存记录
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.searchArray = self.historyArray.filter{ (mark) -> Bool in
+        self.searchArray = self.historyArray.filter { (mark) -> Bool in
             return mark.contains(searchBar.text!)
         }
         inputText = self.searchController.searchBar.text!
@@ -175,7 +169,6 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         //        self.searchArray = self.historyArray
         
         if searchOfMessage == "searched" {
-            print(searchOfMessage)
             searchOfMessage = "noSearch"
             self.tableView.reloadData()
         }
@@ -199,7 +192,7 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
     }
     
     // 加载本地数据
-    func loadData(){
+    func loadData() {
         let path1 = NSHomeDirectory()
         let path = path1 + "/Documents/historySearchList.plist"
         /**NSFileManage文件管理*/
@@ -210,11 +203,8 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
             let array = [""] as NSArray
             
             array.write(toFile: path, atomically: true)
-        } else {
-            print("路径有文件")
         }
         historyNSArray = NSArray(contentsOfFile: path)!
-        print(historyNSArray)
         historyArray = historyNSArray as! [String]
         self.tableView?.reloadData()
     }
@@ -224,7 +214,7 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         let path1 = NSHomeDirectory()
         let path = path1 + "/Documents/historySearchList.plist"
         historyNSArray.write(toFile: path, atomically: true)
-        historyArray = historyNSArray as! Array<String>
+        historyArray = historyNSArray as! [String]
         self.tableView.reloadData()
     }
     
@@ -236,7 +226,4 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         self.tableView.reloadData()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
 }

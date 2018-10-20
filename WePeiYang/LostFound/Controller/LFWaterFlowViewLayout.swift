@@ -9,21 +9,20 @@
 import UIKit
 
 protocol LFWaterFlowViewLayoutDelegate: NSObjectProtocol {
-    func waterFlowViewLayout(waterFlowViewLayout:
-        LFWaterFlowViewLayout,heightForWidth:CGFloat,atIndextPath:NSIndexPath)->CGFloat
+    func waterFlowViewLayout(waterFlowViewLayout: LFWaterFlowViewLayout, heightForWidth: CGFloat, atIndextPath: IndexPath) -> CGFloat
 }
 
 class LFWaterFlowViewLayout: UICollectionViewLayout {
     
     weak var delegate: LFWaterFlowViewLayoutDelegate?
     
-    var setSize:()->(Array<UIImage>) = { return []}
+    var setSize: () -> ([UIImage]) = { return [] }
     
-    ///所有cell的布局属性,这是管理Collection布局
-    private var layoutAttributes: Array<UICollectionViewLayoutAttributes>!
+    // 所有cell的布局属性,这是管理Collection布局
+    private var layoutAttributes = [UICollectionViewLayoutAttributes]()
     // 用字典记录每列最大的y值
     var maxYDict = [Int: CGFloat]()
-    var hs: Array<CGFloat>!
+    var hs = [CGFloat]()
     
     //    static var Margin: CGFloat = 5;
     //    ///瀑布流四周的间距
@@ -32,9 +31,8 @@ class LFWaterFlowViewLayout: UICollectionViewLayout {
     //    var columnMargin:CGFloat = Margin
     //    //行间距
     //    var rowMargin:CGFloat = Margin
-    
-    
-    ///瀑布流列数
+
+    // 瀑布流列数
     var column = 2
     
     private var totalNum: Int!
@@ -46,7 +44,6 @@ class LFWaterFlowViewLayout: UICollectionViewLayout {
         //清空字典里面的值
         super.prepare()
         for _ in 0..<column {
-            
             hs.append(5)
         }
         //清空之前的布局
@@ -56,10 +53,9 @@ class LFWaterFlowViewLayout: UICollectionViewLayout {
         //计算每列的宽度，需要在布局之前算好
         //        columnWidth = (UIScreen.main.bounds.width - sectionInsert.left - sectionInsert.right - (CGFloat(column) - 1)*columnMargin)/CGFloat(column)
         totalNum = collectionView?.numberOfItems(inSection: 0) ?? 0
-        for i in 0..<totalNum
-        {
+        for i in 0..<totalNum {
             //布局每一个cell的frame
-            let layoutAttr = layoutAttributesForItem(at: NSIndexPath(item: i, section: 0) as IndexPath)!
+            let layoutAttr = layoutAttributesForItem(at: IndexPath(item: i, section: 0) as IndexPath)!
             layoutAttributes.append(layoutAttr)
         }
     }
@@ -70,15 +66,14 @@ class LFWaterFlowViewLayout: UICollectionViewLayout {
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         let sizes = setSize()
         attributes.size = CGSize(width: width, height: sizes[indexPath.row].size.height*width/sizes[indexPath.row].size.width)
-        var nub:CGFloat = 0
-        var h:CGFloat = 0
-        (nub,h) = minH(hhs: hs)
-        attributes.center = CGPoint(x:(nub+0.5)*(gap+width), y:h+(width/attributes.size.width*attributes.size.height+gap)/2)
+        var nub: CGFloat = 0
+        var h: CGFloat = 0
+        (nub, h) = minH(hhs: hs)
+        attributes.center = CGPoint(x: (nub+0.5)*(gap+width), y: h+(width/attributes.size.width*attributes.size.height+gap)/2)
         hs[Int(nub)] = h+width/attributes.size.width*attributes.size.height+gap
         return attributes
     }
-    
-    
+
     //    func calcMaxY() {
     //        //获取最大这一列的Y
     //        //默认第0列最长
@@ -93,23 +88,19 @@ class LFWaterFlowViewLayout: UICollectionViewLayout {
     //        maxY = maxYDict[maxYCoulumn]! + sectionInsert.bottom
     //    }
     
-    private func minH(hhs:Array<CGFloat>)->(CGFloat,CGFloat){
+    private func minH(hhs: [CGFloat]) -> (CGFloat, CGFloat) {
         var num = 0
         var min = hhs[0]
-        for i in 1..<hhs.count{
-            if min>hhs[i] {
-                min = hhs[i]
-                num = i
-            }
+        for i in 1..<hhs.count where min>hhs[i] {
+            min = hhs[i]
+            num = i
         }
-        return (CGFloat(num),min)
+        return (CGFloat(num), min)
     }
-    func maxH(hhs:Array<CGFloat>)->CGFloat{
+    func maxH(hhs: [CGFloat]) -> CGFloat {
         var max = hhs[0]
-        for i in 1..<hhs.count{
-            if max<hhs[i] {
-                max = hhs[i]
-            }
+        for i in 1..<hhs.count where max<hhs[i] {
+            max = hhs[i]
         }
         return max
     }
@@ -126,6 +117,5 @@ class LFWaterFlowViewLayout: UICollectionViewLayout {
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         return layoutAttributes
     }
-    
     
 }

@@ -12,17 +12,15 @@ import SDWebImage
 
 class LFDetailViewController: UIViewController {
     
-    //    var detailView : UIView!
     var detailImageView = UIImageView()
     var detailTitleLabel = UILabel()
     let detailApi = DetailAPI()
     var imageURL = ""
     
     var id = 0
-    //    var detailLabel = UILabel()
     var Y = 30
-    
-    let detailImageArray = ["详情 时间","详情 地点","详情 分类","详情 姓名","详情 联系方式","附言"]
+
+    let detailImageArray = ["详情 时间", "详情 地点", "详情 分类", "详情 姓名", "详情 联系方式", "附言"]
     var markArray = ["身份证", "饭卡", "手机", "钥匙", "书包", "手表&饰品", "U盘&硬盘", "水杯", "钱包", "银行卡", "书", "伞", "其他"]
     
     var detailArray: [LostFoundDetailModel] = []
@@ -44,13 +42,10 @@ class LFDetailViewController: UIViewController {
         let cvc = btn.addButtonGroupsToCell(buttonArr: markArray, mainAction: (name: "发布丢失信息", function: {
             let vc = MyLostFoundPageViewController()
             self.navigationController?.pushViewController(vc, animated: true)
-            //            for index in btn.buttonAllArray {
-            //                        let vc = MyLostFoundPageViewController()
-            //                        self.navigationController?.pushViewController(vc, animated: true)
-            //            }
         }))
         self.view.addSubview(cvc!)
     }
+    
     func initUI() {
         self.view.backgroundColor = .white
         
@@ -67,14 +62,10 @@ class LFDetailViewController: UIViewController {
         detailImageView.addGestureRecognizer(tapSingle)
     }
     
-    
-    
-    // Mark -- 更新UI
     func refresh() {
         detailApi.getDetail(id: "\(id)", success: { (details) in
             self.detailArray = details
-            self.detailDisplayArray = [self.detailArray[0].time,self.detailArray[0].place, "\(self.detailArray[0].detail_type)", self.detailArray[0].name, self.detailArray[0].phone, self.detailArray[0].item_description]
-            
+            self.detailDisplayArray = [self.detailArray[0].time, self.detailArray[0].place, "\(self.detailArray[0].detail_type)", self.detailArray[0].name, self.detailArray[0].phone,  self.detailArray[0].item_description]
             
             var lastLabel: UILabel!
             var labels: [UILabel] = []
@@ -91,7 +82,6 @@ class LFDetailViewController: UIViewController {
                 label.sizeToFit()
                 
                 if index == 0 {
-                    //                    frame: CGRect(x: 80, y: 440+CGFloat(index*self.Y), width: 250, height: 20)
                     label.snp.makeConstraints { make in
                         make.left.equalToSuperview().offset(80)
                         make.top.equalToSuperview().offset(400)
@@ -126,7 +116,6 @@ class LFDetailViewController: UIViewController {
             }
             
             if self.detailArray[0].picture == "" {
-                //                self.imageURL = "uploads/17-07-12/945139dcd91e9ed3d5967ef7f81e18f6.jpg" //暂无图片
                 self.detailImageView.image = UIImage(named: "暂无图片")
             } else {
                 self.imageURL = self.detailArray[0].picture
@@ -142,26 +131,19 @@ class LFDetailViewController: UIViewController {
             self.detailTitleLabel.snp.makeConstraints { make in
                 make.top.equalTo(self.detailImageView.snp.bottom).offset(10)
                 make.width.equalTo(250)
-                //                make.height.equalTo(40)
                 make.centerX.equalToSuperview()
             }
-        }, failure: { error in
-            print(error)
-        })
+        }) { _ in
+        }
     }
-    
-    
-    // Mark -— Share
     
     @objc func share() {
         let vc = UIActivityViewController(activityItems: [UIImage(named: "暂无图片")!, "[失物招领]\(self.detailArray[0].title)", URL(string: "http://open.twtstudio.com/lostfound/detail.html#\(id)")!], applicationActivities: [])
         present(vc, animated: true, completion: nil)
-        //        print("https://open.twtstudio.com/lostfound/detail.html#\(id)")
     }
     
     @objc func swipeClicked(recogizer: UITapGestureRecognizer) {
         let previewVC = LFImagePreviewViewController(image: image)
-        //        self.navigationController?.pushViewController(previewVC, animated: true)
         self.present(previewVC, animated: true, completion: nil)
     }
 }

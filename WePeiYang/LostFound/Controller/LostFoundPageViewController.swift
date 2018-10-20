@@ -14,16 +14,15 @@ class LostFoundPageViewController: WMPageController {
     var rootView: UIView!
     var fab: FAB!
     
-    lazy var levelArr: Array<Any>? = {
-        return ["全部","日期"]
+    lazy var levelArr: [Any]? = {
+        return ["全部", "日期"]
     }()
     
     lazy var menu: DropDownMenu = {
-        var me = DropDownMenu.initMenu(size: CGSize(width:UIScreen.main.bounds.size.width / 3,height:self.view.frame.size.height / 3))
+        var me = DropDownMenu.initMenu(size: CGSize(width: UIScreen.main.bounds.size.width / 3, height: self.view.frame.size.height / 3))
         self.view.addSubview(me)
         return me
     }()
-    
     
     /**
      菜单的弹出 和 收回
@@ -32,14 +31,10 @@ class LostFoundPageViewController: WMPageController {
         
         if self.menu.isShow! == false {
             
-            let point = CGPoint(x:100,y: 100)
-            self.menu.popupMenu(originPonit:point, arr: self.levelArr!)
+            let point = CGPoint(x: 100, y: 100)
+            self.menu.popupMenu(originPonit: point, arr: self.levelArr!)
             
-            self.menu.didSelectIndex = { [unowned self] (index:Int) in
-                
-                print( "选中--  \(index) -行 -- \(String(describing: self.levelArr?[index]))")
-            }
-        }else{
+        } else {
             
             self.menu.packUpMenu()
         }
@@ -108,7 +103,6 @@ class LostFoundPageViewController: WMPageController {
     func configUI() {
         self.title = "失物招领"
         
-        
         //        let leftBarBtn = UIBarButtonItem(title: "返回", style: .plain, target: #selector(backToPrevious(sender:)), action: nil)
         //        self.navigationItem.leftBarButtonItem = leftBarBtn
         
@@ -135,34 +129,24 @@ class LostFoundPageViewController: WMPageController {
         //        mineButton.addTarget(self, action: #selector(self.mineButton(item:)), for: .touchUpInside)
         let mineBarButton = UIBarButtonItem(image: UIImage.resizedImage(image: #imageLiteral(resourceName: "用户"), scaledToSize: CGSize(width: 20, height: 20)), style: .plain, target: self, action: #selector(mineButton(item:)))
         
-        
         let searchBarButton = UIBarButtonItem(image: UIImage.resizedImage(image: #imageLiteral(resourceName: "右上角搜索"), scaledToSize: CGSize(width: 20, height: 20)), style: .plain, target: self, action: #selector(searchButton(item:)))
         
         self.navigationItem.rightBarButtonItems = [mineBarButton, searchBarButton]
     }
     
-    
     func refresh() {
         GetFoundAPI.getFound(page: 1, success: { (founds) in
             foundList = founds
             //            self.foundView.reloadData()
-        }, failure: { error in
-            print(error)
-        })
+        }) { _ in
+        }
         
         GetLostAPI.getLost(page: 1, success: { (losts) in
             lostList = losts
             //            self.lostView.reloadData()
-        }, failure: { error in
-            print(error)
-        })
+        }) { _ in
+        }
     }
-    
-    
-    
-    
-    
-    
     
     func backToPrevious(sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -178,7 +162,6 @@ class LostFoundPageViewController: WMPageController {
         //
         //            self.menu.didSelectIndex = { [unowned self] (index:Int) in
         //
-        //                print( "选中--  \(index) -行 -- \(String(describing: self.levelArr?[index]))")
         //            }
         //        }else{
         //

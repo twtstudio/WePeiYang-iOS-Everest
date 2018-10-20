@@ -21,7 +21,7 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
     var timeImage = UIImageView()
     var placeImage = UIImageView()
     
-    override init(frame: CGRect){
+    override init(frame: CGRect) {
         
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
@@ -35,27 +35,23 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
         self.addSubview(timeImage)
         self.addSubview(placeImage)
         
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func initUI(pic: URL, title: String, mark: Int, time: String, place: String){
+    func initUI(pic: URL, title: String, mark: Int, time: String, place: String) {
         
-        
-        
-        //     pictureImage.sd_setImage(with: pic)
-        pictureImage.sd_setImage(with: pic) { (image, error, type, url) in
-            if let image = image{
+        pictureImage.sd_setImage(with: pic) { (image, _, _, _) in
+            if let image = image {
                 let imageHeight = image.size.height
                 let imageWidth = image.size.width
                 let width: CGFloat = UIScreen.main.bounds.size.width/2-10
                 let ratio = imageWidth/width
                 let height = imageHeight/ratio
                 self.pictureImage.contentMode = .scaleAspectFit
-                self.pictureImage.snp.makeConstraints{
+                self.pictureImage.snp.makeConstraints {
                     make in
                     make.top.equalToSuperview()
                     make.left.equalToSuperview()//.offset(10)
@@ -70,7 +66,7 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
                 self.titleLable.numberOfLines = 0
                 //        titleLable.preferredMaxLayoutWidth = contentView.bounds.width
                 //        titleLable.font = UIFont.italicSystemFont(ofSize: 10)
-                self.titleLable.snp.makeConstraints{
+                self.titleLable.snp.makeConstraints {
                     make in
                     make.top.equalToSuperview().offset(height+10)
                     make.left.equalToSuperview().offset(10)
@@ -80,7 +76,7 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
                 }
             }
         }
-        pictureImage.snp.makeConstraints{
+        pictureImage.snp.makeConstraints {
             make in
             make.top.equalToSuperview()
             make.left.equalToSuperview()//.offset(10)
