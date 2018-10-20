@@ -127,9 +127,9 @@ class LostFoundPageViewController: WMPageController {
         //        let mineButton = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         //        mineButton.setImage(mine, for: .normal)
         //        mineButton.addTarget(self, action: #selector(self.mineButton(item:)), for: .touchUpInside)
-        let mineBarButton = UIBarButtonItem(image: UIImage.resizedImage(image: #imageLiteral(resourceName: "用户"), scaledToSize: CGSize(width: 20, height: 20)), style: .plain, target: self, action: #selector(mineButton(item:)))
+        let mineBarButton = UIBarButtonItem(image: UIImage.resizedImage(image: #imageLiteral(resourceName: "LFUser"), scaledToSize: CGSize(width: 20, height: 20)), style: .plain, target: self, action: #selector(mineButton(item:)))
         
-        let searchBarButton = UIBarButtonItem(image: UIImage.resizedImage(image: #imageLiteral(resourceName: "右上角搜索"), scaledToSize: CGSize(width: 20, height: 20)), style: .plain, target: self, action: #selector(searchButton(item:)))
+        let searchBarButton = UIBarButtonItem(image: UIImage.resizedImage(image: #imageLiteral(resourceName: "LFSearch"), scaledToSize: CGSize(width: 20, height: 20)), style: .plain, target: self, action: #selector(searchButton(item:)))
         
         self.navigationItem.rightBarButtonItems = [mineBarButton, searchBarButton]
     }
