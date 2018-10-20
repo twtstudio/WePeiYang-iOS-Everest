@@ -9,6 +9,7 @@
 import Foundation
 
 class LostFoundDetailModel {
+    
     var id = 0
     var name = ""
     var title = ""
@@ -24,7 +25,6 @@ class LostFoundDetailModel {
     var publish_end = ""
     var other_tag = ""
     var type = 0
-    
     
     init(id: Int, name: String, title: String, place: String, phone: String, time: String, picture: String, item_description: String, card_name: String, card_number: Int, publish_start: String, publish_end: String, other_tag: String, type: Int, detail_type: Int) {
         self.id = id
@@ -42,4 +42,5 @@ class LostFoundDetailModel {
         self.other_tag = other_tag
         self.type = type
     }
+    
 }

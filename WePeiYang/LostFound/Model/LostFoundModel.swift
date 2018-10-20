@@ -21,7 +21,6 @@ class LostFoundModel {
     var name = ""
     
     init(id: Int, title: String, detail_type: String, time: String, picture: String, place: String, phone: String, isback: String, name: String) {
-        
         self.id = id
         self.title = title
         self.detail_type = detail_type
