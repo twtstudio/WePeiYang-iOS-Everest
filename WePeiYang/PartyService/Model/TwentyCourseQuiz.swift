@@ -45,7 +45,7 @@ extension Courses.Study20 {
                     return
                 }
 
-            Courses.Study20.courseQuizes = fooQuizes.compactMap({ dict -> Quiz? in
+            Courses.Study20.courseQuizes = fooQuizes.flatMap({ dict -> Quiz? in
                     guard let id = dict["exercise_id"] as? String,
                           let belongTo = dict["course_id"] as? String,
                           let type = dict["exercise_type"] as? String,
@@ -58,7 +58,7 @@ extension Courses.Study20 {
                             return nil
                     }
 
-                    let options = fooOptions.compactMap({ dict -> Quiz.Option? in
+                    let options = fooOptions.flatMap({ dict -> Quiz.Option? in
                         guard let name = dict["name"] as? String,
                             let weight = dict["pos"] as? Int else {
                                 return nil

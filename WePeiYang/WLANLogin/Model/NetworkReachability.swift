@@ -44,7 +44,7 @@ class Reachability {
             isRunningOnDevice     ? .wwan : .unreachable
     }
     var isRunningOnDevice: Bool = {
-        #if targetEnvironment(simulator)
+        #if TARGET_IPHONE_SIMULATOR
             return false
         #else
             return true
