@@ -20,11 +20,11 @@ class LFCollectionReusableHeaderView: UICollectionReusableView {
         
         image.frame = CGRect(x: 0, y: 100, width: 150, height: 150)
         image.center = CGPoint(x: self.frame.width / 2, y: 170)
-        image.image = UIImage(named: "飞")
+        image.image = #imageLiteral(resourceName: "LFFly")
         self.addSubview(image)
         
         titleLabel.frame = CGRect(x: 0, y: 100, width: 150, height: 50)
-        titleLabel.center = CGPoint(x: self.frame.width/2, y: 280)
+        titleLabel.center = CGPoint(x: self.frame.width / 2, y: 280)
         titleLabel.text = "暂时没有该类物品!"
         titleLabel.textAlignment = .center
         self.addSubview(titleLabel)
