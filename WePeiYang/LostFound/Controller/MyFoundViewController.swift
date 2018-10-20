@@ -44,19 +44,17 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         GetMyFoundAPI.getMyFound(page: curPage, success: { (myFounds) in
             self.myFound = myFounds
             self.tableView.reloadData()
-        }, failure: {error in
-            print(error)
+        }, failure: { _ in
         })
         
     }
     
     //底部上拉加载
     @objc func footerLoad() {
-        print("上拉加载")
         self.curPage += 1
         GetMyFoundAPI.getMyFound(page: curPage, success: { (myFounds) in
             self.myFound += myFounds
-            if myFounds.count == 0 {
+            if myFounds.isEmpty {
                 self.tableView.mj_footer.endRefreshingWithNoMoreData()
                 self.curPage -= 1
             } else {
@@ -64,27 +62,22 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             self.tableView.reloadData()
             
-        }, failure: { error in
-            print(error)
+        }, failure: { _ in
             self.curPage -= 1
         })
         self.tableView.reloadData()
     }
     
     //顶部下拉刷新
-    @objc func headerRefresh(){
-        print("下拉刷新.")
-        
+    @objc func headerRefresh() {
         GetMyFoundAPI.getMyFound(page: 1, success: { (myFounds) in
             self.myFound = myFounds
-            print(self.myFound)
             self.curPage = 1
             //结束刷新
             self.tableView.mj_header.endRefreshing()
             self.tableView.mj_footer.resetNoMoreData()
             self.tableView.reloadData()
-        }, failure: { error in
-            print(error)
+        }, failure: { _ in
         })
     }
     
@@ -107,12 +100,11 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         return view
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return myFound.count
     }
     
-    
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell {
             
@@ -147,17 +139,14 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         
     }
     
-    
     @objc func inverseButtonTapped(sender: UIButton) {
         let cell = sender.superView(of: UITableViewCell.self)!
         let indexPath = tableView.indexPath(for: cell)
         id = myFound[(indexPath?[1])!].id
-        GetInverseAPI.getInverse(id: "\(id)", success: { (code) in
+        GetInverseAPI.getInverse(id: "\(id)", success: { _ in
             self.refresh()
-        }, failure: { error in
-            print(error)
+        }, failure: { _ in
         })
-        
     }
     
 }

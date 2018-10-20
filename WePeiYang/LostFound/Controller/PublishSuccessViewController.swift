@@ -13,7 +13,6 @@ class PublishSuccessViewController: UIViewController {
     let titleLabel = UILabel()
     let titleImage = UIImageView()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "分享/发布"

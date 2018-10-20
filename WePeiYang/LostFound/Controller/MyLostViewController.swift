@@ -15,7 +15,7 @@ enum MyURLState: String {
 
 let TWT_URL = "http://open.twtstudio.com/"
 
-class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var id = 0
     var tableView: UITableView!
@@ -51,8 +51,7 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.myLost = myLosts
             self.tableView.reloadData()
             self.curPage = 1
-        }, failure: {error in
-            print(error)
+        }, failure: { _ in
         })
     }
     
@@ -61,21 +60,20 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.curPage += 1
         GetMyLostAPI.getMyLost(page: curPage, success: { (MyLosts) in
             self.myLost += MyLosts
-            if MyLosts.count == 0 {
+            if MyLosts.isEmpty {
                 self.tableView.mj_footer.endRefreshingWithNoMoreData()
                 self.curPage -= 1
             } else {
                 self.tableView.mj_footer.endRefreshing()
             }
             self.tableView.reloadData()
-        }, failure: { error in
-            print(error)
+        }, failure: { _ in
         })
         self.tableView.reloadData()
     }
     
     //顶部下拉刷新
-    @objc func headerRefresh(){
+    @objc func headerRefresh() {
         GetMyLostAPI.getMyLost(page: 1, success: { (MyLosts) in
             self.myLost = MyLosts
             self.curPage = 1
@@ -83,11 +81,9 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.tableView.mj_header.endRefreshing()
             self.tableView.mj_footer.resetNoMoreData()
             self.tableView.reloadData()
-        }, failure: { error in
-            print(error)
+        }, failure: { _ in
         })
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         id = myLost[indexPath.row].id
@@ -107,18 +103,16 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return view
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return myLost.count
     }
     
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell {
             
             cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
             cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
             let pic = myLost[indexPath.row].picture
-            print(pic)
             cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
             
             return cell
@@ -142,7 +136,6 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let indexPath = tableView.indexPath(for: cell)
         id = myLost[(indexPath?[1])!].id
         
-        print("indexPath：\(indexPath!)")
         let vc = PublishLostViewController()
         let index = 1
         vc.index = index
@@ -158,10 +151,9 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let indexPath = tableView.indexPath(for: cell)
         id = myLost[(indexPath?[1])!].id
         
-        GetInverseAPI.getInverse(id: "\(id)", success: { (code) in
+        GetInverseAPI.getInverse(id: "\(id)", success: { _ in
             self.refresh()
-        }, failure: { error in
-            print(error)
+        }, failure: { _ in
         })
         
     }
