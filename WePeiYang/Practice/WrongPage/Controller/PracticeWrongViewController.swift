@@ -72,7 +72,8 @@ class PracticeWrongViewController: UIViewController {
             self.practiceWrong = practiceWrong
             self.reloadTitleView()
             self.practiceWrongTableView.reloadData()
-        }) { error in }
+        }) { _ in
+        }
     }
     
     // 刷新数据与视图 //

@@ -14,10 +14,10 @@ struct PracticeHistoryHelper {
         SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.student + "/history", success: { dic in
             if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let practiceHistory = try? PracticeHistoryModel(data: data) {
                 success(practiceHistory)
-            } else { print("WARNING -- PracticeHistoryHelper.getHistory") }
+            } else { debugPrint("WARNING -- PracticeHistoryHelper.getHistory") }
         }) { error in
             failure(error)
-            print("ERROR -- PracticeHistoryHelper.getHistory")
+            debugPrint("ERROR -- PracticeHistoryHelper.getHistory")
         }
     }
 }
