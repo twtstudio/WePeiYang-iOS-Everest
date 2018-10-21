@@ -14,24 +14,24 @@ struct PracticeCollectionHelper {
         SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.special + "/getQues/0", success: { dic in
             if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let practiceCollection = try? PracticeCollectionModel(data: data) {
                 success(practiceCollection)
-            } else { print("WARNING -- PracticeCollectionHelper.getCollection") }
+            } else { debugPrint("WARNING -- PracticeCollectionHelper.getCollection") }
         }) { error in
             failure(error)
-            print("ERROR -- PracticeCollectionHelper.getCollection")
+            debugPrint("ERROR -- PracticeCollectionHelper.getCollection")
         }
     }
     
     static func addCollection(quesType: String, quesID: String) {
         SolaSessionManager.solaSession(type: .post, baseURL: PracticeAPI.root, url: PracticeAPI.special + "/addQues/0", parameters: ["ques_type": quesType, "ques_id": quesID], success: { dic in
         }) { _ in
-            print("ERROR -- PracticeCollectionHelper.addCollection")
+            debugPrint("ERROR -- PracticeCollectionHelper.addCollection")
         }
     }
     
     static func deleteCollection(quesType: String, quesID: String) {
         SolaSessionManager.solaSession(type: .post, baseURL: PracticeAPI.root, url: PracticeAPI.special + "/deleteQues/0", parameters: ["ques_type": quesType, "ques_id": quesID], success: { dic in
         }) { _ in
-            print("ERROR -- PracticeCollectionHelper.deleteCollection")
+            debugPrint("ERROR -- PracticeCollectionHelper.deleteCollection")
         }
     }
 }

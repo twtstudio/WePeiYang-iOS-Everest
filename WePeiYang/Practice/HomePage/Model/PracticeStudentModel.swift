@@ -66,10 +66,10 @@ struct PracticeStudentHelper {
         SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.student, success: { dic in
             if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let practiceStudent = try? PracticeStudentModel(data: data) {
                 success(practiceStudent)
-            } else { print("WARNING -- PracticeStudentHelper.getStudent") }
+            } else { debugPrint("WARNING -- PracticeStudentHelper.getStudent") }
         }) { error in
             failure(error)
-            print("ERROR -- PracticeStudentHelper.getStudent")
+            debugPrint("ERROR -- PracticeStudentHelper.getStudent")
         }
     }
 }

@@ -72,7 +72,8 @@ class PracticeCollectionViewController: UIViewController {
             self.practiceCollection = practiceCollection
             self.reloadTitleView()
             self.practiceCollectionTableView.reloadData()
-        }) { error in }
+        }) { _ in
+        }
     }
     
     // 刷新数据与视图 //

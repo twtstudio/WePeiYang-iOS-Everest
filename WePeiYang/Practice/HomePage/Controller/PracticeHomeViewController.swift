@@ -47,7 +47,8 @@ class PracticeHomeViewController: UIViewController {
             self.practiceStudent = practiceStudent
             self.userTableView.reloadData()
             self.homeTableView.reloadData()
-        }) { error in }
+        }) { _ in
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

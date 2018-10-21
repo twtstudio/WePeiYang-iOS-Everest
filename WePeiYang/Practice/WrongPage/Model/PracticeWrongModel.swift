@@ -14,17 +14,17 @@ struct PracticeWrongHelper {
         SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.special + "/getQues/1", success: { dic in
             if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let practiceWrong = try? PracticeWrongModel(data: data) {
                 success(practiceWrong)
-            } else { print("WARNING -- PracticeWrongHelper.getWrong") }
+            } else { debugPrint("WARNING -- PracticeWrongHelper.getWrong") }
         }) { error in
             failure(error)
-            print("ERROR -- PracticeWrongHelper.getWrong")
+            debugPrint("ERROR -- PracticeWrongHelper.getWrong")
         }
     }
     
     static func deleteWrong(quesType: String, quesID: String) {
         SolaSessionManager.solaSession(type: .post, baseURL: PracticeAPI.root, url: PracticeAPI.special + "/deleteQues/1", parameters: ["ques_type": quesType, "ques_id": quesID], success: { dic in
         }) { _ in
-            print("ERROR -- PracticeWrongHelper.deleteWrong")
+            debugPrint("ERROR -- PracticeWrongHelper.deleteWrong")
         }
     }
 }

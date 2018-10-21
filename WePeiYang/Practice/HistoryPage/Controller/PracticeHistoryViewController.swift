@@ -71,7 +71,8 @@ class PracticeHistoryViewController: UIViewController {
             self.practiceHistory = practiceHistory
             self.reloadTitleView()
             self.practiceHistoryTableView.reloadData()
-        }) { error in }
+        }) { _ in
+        }
     }
     
     // 刷新数据与视图 //
