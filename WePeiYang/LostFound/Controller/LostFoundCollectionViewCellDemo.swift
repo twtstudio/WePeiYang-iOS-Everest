@@ -22,7 +22,6 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
     var placeImage = UIImageView()
     
     override init(frame: CGRect) {
-        
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
         
@@ -34,7 +33,6 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
         self.addSubview(markImage)
         self.addSubview(timeImage)
         self.addSubview(placeImage)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,7 +40,6 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
     }
     
     func initUI(pic: URL, title: String, mark: Int, time: String, place: String) {
-        
         pictureImage.sd_setImage(with: pic) { (image, _, _, _) in
             if let image = image {
                 let imageHeight = image.size.height
@@ -54,8 +51,8 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
                 self.pictureImage.snp.makeConstraints {
                     make in
                     make.top.equalToSuperview()
-                    make.left.equalToSuperview()//.offset(10)
-                    make.right.equalToSuperview()//.offset(-5)
+                    make.left.equalToSuperview() // .offset(10)
+                    make.right.equalToSuperview() // .offset(-5)
                     make.height.equalTo(height)
                     //            make.wi
                     //            make.bottom.equalTo(titleLable.snp.top).offset(-50)
@@ -76,11 +73,12 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
                 }
             }
         }
+        
         pictureImage.snp.makeConstraints {
             make in
             make.top.equalToSuperview()
-            make.left.equalToSuperview()//.offset(10)
-            make.right.equalToSuperview()//.offset(-5)
+            make.left.equalToSuperview() // .offset(10)
+            make.right.equalToSuperview() // .offset(-5)
             make.height.equalTo(200)
         }
         
@@ -101,6 +99,7 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
             make.left.equalTo(markImage.snp.right).offset(10)
             make.bottom.equalTo(timeLabel.snp.top).offset(-5)
         }
+        
         markImage.image = #imageLiteral(resourceName: "物品")
         markImage.snp.makeConstraints { make in
             make.top.equalTo(titleLable.snp.bottom).offset(5)
@@ -124,7 +123,7 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
             make.left.equalTo(timeImage.snp.right).offset(10)
         }
         
-        placeImage.image = #imageLiteral(resourceName: "地点")
+        placeImage.image = #imageLiteral(resourceName: "LFLocation")
         placeImage.snp.makeConstraints { make in
             make.top.equalTo(timeImage.snp.bottom).offset(5)
             make.left.equalToSuperview().offset(10)
@@ -140,4 +139,5 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
             make.bottom.equalToSuperview().offset(-5)
         }
     }
+    
 }

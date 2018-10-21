@@ -56,6 +56,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func initMyUI(pic: String, title: String, isBack: String, mark: Int, time: String, place: String) {
         
         if pic != "", let picURL = URL(string: TWT_URL + pic) {
@@ -181,7 +182,6 @@ class MyLostFoundTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         // Configure the view for the selected state
     }
     

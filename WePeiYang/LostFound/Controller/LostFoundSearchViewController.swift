@@ -49,7 +49,7 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         self.tableView.backgroundColor = .white
         self.view.addSubview(self.tableView)
         self.tableView.estimatedRowHeight = 300
-        //估算高度
+        // 估算高度
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
         self.searchController = UISearchController(searchResultsController: nil)
@@ -195,7 +195,9 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
     func loadData() {
         let path1 = NSHomeDirectory()
         let path = path1 + "/Documents/historySearchList.plist"
-        /**NSFileManage文件管理*/
+        /**
+         NSFileManage文件管理
+         */
         let manage = FileManager.default
         //判断文件是否存在
         let isExist = manage.fileExists(atPath: path)

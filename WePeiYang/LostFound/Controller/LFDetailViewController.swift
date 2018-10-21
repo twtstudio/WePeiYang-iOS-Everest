@@ -56,7 +56,7 @@ class LFDetailViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
         self.view.addSubview(detailImageView)
         self.view.addSubview(detailTitleLabel)
-        let tapSingle = UITapGestureRecognizer(target: self, action: #selector(swipeClicked(recogizer:)))
+        let tapSingle = UITapGestureRecognizer(target: self, action: #selector(swipeClicked))
         tapSingle.numberOfTapsRequired = 1
         tapSingle.numberOfTouchesRequired = 1
         detailImageView.addGestureRecognizer(tapSingle)

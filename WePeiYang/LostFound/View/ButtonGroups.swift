@@ -161,6 +161,7 @@ class ButtonGroups: UIButton {
     //        textColor = _textColor
     //        btnColor = _btnColor
     //    }
+    
     func setButtonColor(_textColor: UIColor, _btnColor: UIColor) {
         textColor = _textColor
         btnColor = _btnColor
@@ -170,14 +171,17 @@ class ButtonGroups: UIButton {
     //        varTextColor = _textColor
     //        varBtnColor = _btnColor
     //    }
+    
     fileprivate func getButtonColor() {
         button.backgroundColor = btnColor
         button.setTitleColor(textColor, for: .normal)
         //button.setTitleColor(UIColor(hex6: 0x00a1e9), for: .selected)
     }
+    
     fileprivate func setChangeButtonColor(textColor: UIColor, btnColor: UIColor) {
         button.backgroundColor = btnColor
     }
+    
     fileprivate func restrictButton(maxWidth: CGFloat) {
         if button.frame.size.width > maxWidth - limit {
             button.frame.size.width = maxWidth - limit
@@ -186,9 +190,10 @@ class ButtonGroups: UIButton {
             button.frame.size.width = limit
         }
     }
+    
 }
 extension UIView {
-    //获取view所在的 视图控制器
+    // 获取view所在的 视图控制器
     var viewController: UIViewController? {
             var nextResponder = next
             while nextResponder != nil {
@@ -202,7 +207,6 @@ extension UIView {
 }
 
 extension UIView {
-    
     func firstController() -> UITableViewCell? {
         for view in sequence(first: self.superview, next: { $0?.superview }) {
             if let responder = view?.next {

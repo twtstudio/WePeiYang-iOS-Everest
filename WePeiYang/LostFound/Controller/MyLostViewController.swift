@@ -8,6 +8,7 @@
 
 import UIKit
 import MJRefresh
+
 enum MyURLState: String {
     case lostURL = "lost"
     case foundURL = "found"
@@ -15,7 +16,7 @@ enum MyURLState: String {
 
 let TWT_URL = "http://open.twtstudio.com/"
 
-class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MyLostViewController: UIViewController {
     
     var id = 0
     var tableView: UITableView!
@@ -85,50 +86,6 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         })
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        id = myLost[indexPath.row].id
-        tableView.deselectRow(at: indexPath, animated: true)
-        let detailView = LFDetailViewController()
-        detailView.id = id
-        self.navigationController?.pushViewController(detailView, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.01
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = UIColor(hex6: 0xeeeeee)
-        return view
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myLost.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell {
-            
-            cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
-            cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
-            let pic = myLost[indexPath.row].picture
-            cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
-            
-            return cell
-        } else {
-            let cell = MyLostFoundTableViewCell()
-            cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
-            cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
-            
-            let pic = TWT_URL + myLost[indexPath.row].picture
-            
-            cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
-            
-            return cell
-        }
-    }
-    
     // 修改按钮的回调
     @objc func editButtonTapped(editButton: UIButton) {
         
@@ -156,6 +113,58 @@ class MyLostViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }, failure: { _ in
         })
         
+    }
+    
+}
+
+extension MyLostViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return myLost.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell {
+            
+            cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
+            cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
+            let pic = myLost[indexPath.row].picture
+            cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
+            
+            return cell
+        } else {
+            let cell = MyLostFoundTableViewCell()
+            cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
+            cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
+            
+            let pic = TWT_URL + myLost[indexPath.row].picture
+            
+            cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
+            
+            return cell
+        }
+    }
+    
+}
+
+extension MyLostViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.01
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor(hex6: 0xeeeeee)
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        id = myLost[indexPath.row].id
+        tableView.deselectRow(at: indexPath, animated: true)
+        let detailView = LFDetailViewController()
+        detailView.id = id
+        self.navigationController?.pushViewController(detailView, animated: true)
     }
     
 }

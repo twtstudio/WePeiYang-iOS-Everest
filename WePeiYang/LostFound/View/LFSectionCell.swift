@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 
 class SectionCell: UITableViewHeaderFooterView {
+    
     let label = UILabel()
     
     override init(reuseIdentifier: String?) {
@@ -26,4 +27,5 @@ class SectionCell: UITableViewHeaderFooterView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
 }

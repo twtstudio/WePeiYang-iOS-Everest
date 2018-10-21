@@ -9,6 +9,7 @@
 import Foundation
 
 class LFSearchCellOfHeight {
+    
     var historyNSArray: NSArray = []
     var historyArray = [String]()
     var buttonArray = [" 身份证 ", " 饭卡 ", " 手机 ", " 钥匙 ", " 书包 ", " 手表&饰品 ", " U盘&硬盘 ", " 水杯 ", " 钱包 ", " 银行卡 ", " 书 ", " 伞 ", " 其他 "]
@@ -16,6 +17,7 @@ class LFSearchCellOfHeight {
     var mainAry: [[String]] {
         return [historyArray, buttonArray]
     }
+    
     func cellOfHeight() -> Int {
         let vc = LostFoundSearchViewController()
         vc.loadData()

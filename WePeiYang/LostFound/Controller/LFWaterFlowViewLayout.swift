@@ -41,17 +41,16 @@ class LFWaterFlowViewLayout: UICollectionViewLayout {
     var columnWidth: CGFloat = 0
     
     override func prepare() {
-        //清空字典里面的值
+        // 清空字典里面的值
         super.prepare()
         for _ in 0..<column {
             hs.append(5)
         }
-        //清空之前的布局
+        // 清空之前的布局
         layoutAttributes.removeAll()
-        //清空最大列Y
+        // 清空最大列Y
         maxY = 0
-        //计算每列的宽度，需要在布局之前算好
-        //        columnWidth = (UIScreen.main.bounds.width - sectionInsert.left - sectionInsert.right - (CGFloat(column) - 1)*columnMargin)/CGFloat(column)
+        // 计算每列的宽度，需要在布局之前算好
         totalNum = collectionView?.numberOfItems(inSection: 0) ?? 0
         for i in 0..<totalNum {
             //布局每一个cell的frame
@@ -59,8 +58,10 @@ class LFWaterFlowViewLayout: UICollectionViewLayout {
             layoutAttributes.append(layoutAttr)
         }
     }
-    private let gap: CGFloat = 5//间隔，缝隙大小
+    
+    private let gap: CGFloat = 5 // 间隔，缝隙大小
     private var width: CGFloat!
+    
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         width = (collectionView!.bounds.size.width-gap*(CGFloat(column)-1))/CGFloat(column)
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
@@ -97,6 +98,7 @@ class LFWaterFlowViewLayout: UICollectionViewLayout {
         }
         return (CGFloat(num), min)
     }
+    
     func maxH(hhs: [CGFloat]) -> CGFloat {
         var max = hhs[0]
         for i in 1..<hhs.count where max<hhs[i] {
@@ -114,6 +116,7 @@ class LFWaterFlowViewLayout: UICollectionViewLayout {
             self.collectionViewContentSize = newValue
         }
     }
+    
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         return layoutAttributes
     }

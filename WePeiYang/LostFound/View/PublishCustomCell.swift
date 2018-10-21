@@ -27,9 +27,7 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
     var textField = UITextField()
     
     override var frame: CGRect {
-        
         didSet {
-            
             var newFrame = frame
             
             newFrame.origin.x += 10
@@ -59,9 +57,9 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func addTargetMethod() {
-        
         self.textField.addTarget(self, action: #selector(self.textFieldTextChange(sender:)), for: .allEditingEvents)
     }
+    
     @objc func textFieldTextChange(sender: UITextField) {
         
         delegate?.means(input: textField.text!, key: cellkey!)
@@ -71,4 +69,5 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
         self.textField.resignFirstResponder()
         self.textField.layoutIfNeeded()
     }
+    
 }

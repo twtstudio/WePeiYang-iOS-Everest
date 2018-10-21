@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 
 class UpLoadingPicCell: UITableViewCell {
+    
     var addPictureImage = UIImageView()
     
     override var frame: CGRect {

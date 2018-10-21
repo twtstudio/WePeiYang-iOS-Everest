@@ -47,6 +47,7 @@ class LFSearchCustomCell: UITableViewCell {
     //        self.contentView.addSubview(hadoCell!)
     //        return 300
     //    }
+    
     func initMark(array: [String], title: String) -> Int {
         let btn = ButtonGroups()
         
@@ -106,14 +107,15 @@ class LFSearchCustomCell: UITableViewCell {
         
         return newHeight
     }
-    // 循环建立button的回调
     
+    // 循环建立button的回调
     @objc func buttonTapped(sender: UIButton) {
         if let text = sender.titleLabel?.text {
             inputText = text
             self.delegate?.buttonTapped()
         }
     }
+    
     // Mark -- ButtonOfSize --
     func buttonOfSize() {
         button = UIButton(frame: CGRect(x: currentX, y: currentY, width: currenWidth, height: 30))
@@ -127,6 +129,7 @@ class LFSearchCustomCell: UITableViewCell {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         
     }
+    
     // Mark -- ButtonOfRestrict --
     func buttonOfRestrict() {
         if button.frame.size.width > self.frame.size.width - 40 {
@@ -136,6 +139,7 @@ class LFSearchCustomCell: UITableViewCell {
             button.frame.size.width = 40
         }
     }
+    
     // Mark -- TitleOfButtonBuild --
     func titleOfButtonBuild() {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 15)

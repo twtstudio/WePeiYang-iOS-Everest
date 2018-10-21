@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 
 class GetLostAPI {
+    
     static func getLost(page: Int, success: @escaping ([LostFoundModel]) -> Void, failure: @escaping (Error) -> Void) {
         SolaSessionManager.solaSession(url: "/lostfound/lost?page=\(page)", success: {
             dic in
@@ -140,8 +141,10 @@ class GetMyFoundAPI {
 }
 
 class DetailAPI {
+    
     //    var id = 0
     var detailDisplay: [Any] = []
+    
     func getDetail(id: String, success: @escaping ([LostFoundDetailModel]) -> Void, failure: @escaping (Error) -> Void) {
         SolaSessionManager.solaSession(url: ("/lostfound/"+"\(id)"), success: { dic in
             if let detailData = dic["data"] as? [String: Any] {

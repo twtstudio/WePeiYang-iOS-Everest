@@ -9,7 +9,7 @@
 import UIKit
 import MJRefresh
 
-class MyFoundViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MyFoundViewController: UIViewController {
     
     var tableView: UITableView!
     var myFound: [MyLostFoundModel] = []
@@ -49,7 +49,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         
     }
     
-    //底部上拉加载
+    // 底部上拉加载
     @objc func footerLoad() {
         self.curPage += 1
         GetMyFoundAPI.getMyFound(page: curPage, success: { (myFounds) in
@@ -68,7 +68,7 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.reloadData()
     }
     
-    //顶部下拉刷新
+    // 顶部下拉刷新
     @objc func headerRefresh() {
         GetMyFoundAPI.getMyFound(page: 1, success: { (myFounds) in
             self.myFound = myFounds
@@ -81,50 +81,6 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
         })
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        id = myFound[indexPath.row].id
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-        let detailView = LFDetailViewController()
-        detailView.id = id
-        self.navigationController?.pushViewController(detailView, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.01
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = UIColor(hex6: 0xeeeeee)
-        return view
-    }
-    
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myFound.count
-    }
-    
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell {
-            
-            cell.editButton.addTarget(self, action: #selector(editButtonTapped(sender: )), for: .touchUpInside)
-            cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(sender: )), for: .touchUpInside)
-            
-            let pic = myFound[indexPath.row].picture
-            
-            cell.initMyUI(pic: pic, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
-            return cell
-        }
-        
-        let cell = MyLostFoundTableViewCell()
-        cell.editButton.addTarget(self, action: #selector(editButtonTapped(sender: )), for: .touchUpInside)
-        cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(sender: )), for: .touchUpInside)
-        let pic = myFound[indexPath.row].picture
-        cell.initMyUI(pic: pic, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
-        
-        return cell
-    }
     @objc func editButtonTapped(sender: UIButton) {
         
         let cell = sender.superView(of: UITableViewCell.self)!
@@ -147,6 +103,59 @@ class MyFoundViewController: UIViewController, UITableViewDataSource, UITableVie
             self.refresh()
         }, failure: { _ in
         })
+    }
+    
+}
+
+extension MyFoundViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return myFound.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? MyLostFoundTableViewCell {
+            
+            cell.editButton.addTarget(self, action: #selector(editButtonTapped(sender: )), for: .touchUpInside)
+            cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(sender: )), for: .touchUpInside)
+            
+            let pic = myFound[indexPath.row].picture
+            
+            cell.initMyUI(pic: pic, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
+            return cell
+        }
+        
+        let cell = MyLostFoundTableViewCell()
+        cell.editButton.addTarget(self, action: #selector(editButtonTapped(sender: )), for: .touchUpInside)
+        cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(sender: )), for: .touchUpInside)
+        let pic = myFound[indexPath.row].picture
+        cell.initMyUI(pic: pic, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detail_type, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
+        
+        return cell
+    }
+    
+}
+
+extension MyFoundViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.01
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor(hex6: 0xeeeeee)
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        id = myFound[indexPath.row].id
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        let detailView = LFDetailViewController()
+        detailView.id = id
+        self.navigationController?.pushViewController(detailView, animated: true)
     }
     
 }

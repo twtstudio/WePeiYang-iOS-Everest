@@ -150,4 +150,5 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
         placeLabel.text = place
         //        placeLabel.sizeToFit()
     }
+    
 }

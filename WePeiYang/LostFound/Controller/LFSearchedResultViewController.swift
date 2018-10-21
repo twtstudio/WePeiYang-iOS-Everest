@@ -9,7 +9,7 @@
 import UIKit
 import MJRefresh
 
-class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class LFSearchedResultViewController: UIViewController {
     
     var searchedView: UICollectionView!
     var promptView: UIScrollView!
@@ -117,17 +117,14 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
         }
     }
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+    @objc func backToMain() {
+        let mainVC = self.navigationController?.viewControllers[1]
+        self.navigationController?.popToViewController(mainVC!, animated: true)
     }
     
-    // 某个Cell被选择的事件处理
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let id = searchedList[indexPath.row].id
-        let detailVC = LFDetailViewController()
-        detailVC.id = id
-        self.navigationController?.pushViewController(detailVC, animated: true)
-    }
+}
+
+extension LFSearchedResultViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return searchedList.count
@@ -149,8 +146,15 @@ class LFSearchedResultViewController: UIViewController, UICollectionViewDelegate
         return cell
     }
     
-    @objc func backToMain() {
-        let mainVC = self.navigationController?.viewControllers[1]
-        self.navigationController?.popToViewController(mainVC!, animated: true)
+}
+
+extension LFSearchedResultViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let id = searchedList[indexPath.row].id
+        let detailVC = LFDetailViewController()
+        detailVC.id = id
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
+    
 }

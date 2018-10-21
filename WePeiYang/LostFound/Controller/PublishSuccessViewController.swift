@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 
 class PublishSuccessViewController: UIViewController {
+    
     let titleLabel = UILabel()
     let titleImage = UIImageView()
     
@@ -24,7 +25,7 @@ class PublishSuccessViewController: UIViewController {
         self.view.addSubview(titleImage)
         self.view.addSubview(titleLabel)
         
-        titleImage.image = #imageLiteral(resourceName: "对勾(1)")
+        titleImage.image = #imageLiteral(resourceName: "LFBlueRight")
         titleImage.snp.makeConstraints { make in
             make.top.equalTo(successView.snp.top).offset(25)
             make.left.equalTo(successView.snp.left).offset(successView.frame.width/2-45)

@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class PublishLostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class PublishLostViewController: UIViewController, UITextFieldDelegate {
     
     var tableView: UITableView!
     var markDict = [String: Any]()
@@ -94,110 +94,40 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.endEditing(true)
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    // 确定按钮的回调
+    @objc func tapped() {
         
-        let data = self.function[section]
-        return data.count
+        PostLostAPI.postLost(markDic: markDict, tag: pushTag, success: { _ in
+            let successVC = PublishSuccessViewController()
+            self.navigationController?.pushViewController(successVC, animated: true)
+        }, failure: { _ in
+        })
     }
+    
+    func comfirmButtonTapped() {
+        //        LostAPI.fabu(name: )
+    }
+    
+    func means(input: String, key: String) {
+        markDict[key] = input
+        markDict["other_tag"] = ""
+    }
+}
+
+extension PublishLostViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 7
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = SectionCell()
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        switch section {
-        case 0:
-            header.label.text = "发布图片"
-        case 1:
-            header.label.text = "详细信息"
-        case 2:
-            return mark
-        case 3:
-            header.label.text = "联系方式"
-        case 4:
-            header.label.text = "附加信息"
-        case 5:
-            header.label.text = "发布时长"
-        case 6:
-            if index == 1 {
-                header.label.text = "物品状态"
-            } else {
-                break
-            }
-        default:
-            break
-        }
-        return header
+        let data = self.function[section]
+        return data.count
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 2 {
-            return 180
-        } else {
-            return 30
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 6 {
-            return 180
-        } else if section == 0 {
-            return 50
-        } else {
-            return 30
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        switch indexPath.section {
-        // 选择照片or拍照
-        case 0:
-            self.modalPresentationStyle = .overCurrentContext
-            let alertVC = UIAlertController()
-            alertVC.view.tintColor = UIColor.black
-            let pictureAction = UIAlertAction(title: "从相册中选择图片", style: .default) { _ in
-                if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-                    
-                    let imagePicker = UIImagePickerController()
-                    imagePicker.delegate = self
-                    imagePicker.allowsEditing = true
-                    imagePicker.sourceType = .savedPhotosAlbum
-                    self.present(imagePicker, animated: true) {
-                        
-                    }
-                }
-            }
-            let photoAction = UIAlertAction(title: "拍照", style: .destructive) { _ in
-                if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                    
-                    let imagePicker = UIImagePickerController()
-                    imagePicker.delegate = self
-                    imagePicker.allowsEditing = true
-                    imagePicker.sourceType = .camera
-                    self.present(imagePicker, animated: true) {
-                        
-                    }
-                }
-            }
-            //            let detailAction = UIAlertAction(title: "查看大图", style: .default) { _ in
-            //
-            //            }
-            let cencelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-            alertVC.addAction(photoAction)
-            alertVC.addAction(pictureAction)
-            alertVC.addAction(cencelAction)
-            self.present(alertVC, animated: true)
-            
-        default:
-            break
-        }
-    }
-    
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         switch indexPath.section {
         case 0:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "UpLoadingCell" + "\(indexPath)") as? UpLoadingPicCell {
@@ -292,6 +222,56 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
+}
+
+extension PublishLostViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 2 {
+            return 180
+        } else {
+            return 30
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 6 {
+            return 180
+        } else if section == 0 {
+            return 50
+        } else {
+            return 30
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = SectionCell()
+        
+        switch section {
+        case 0:
+            header.label.text = "发布图片"
+        case 1:
+            header.label.text = "详细信息"
+        case 2:
+            return mark
+        case 3:
+            header.label.text = "联系方式"
+        case 4:
+            header.label.text = "附加信息"
+        case 5:
+            header.label.text = "发布时长"
+        case 6:
+            if index == 1 {
+                header.label.text = "物品状态"
+            } else {
+                break
+            }
+        default:
+            break
+        }
+        return header
+    }
+    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
         if section == 6 {
@@ -306,11 +286,13 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             trueButton.center = CGPoint(x: self.view.frame.width/2, y: 60)
             trueButton.backgroundColor = UIColor(hex6: 0x00a1e9)
             trueButton.setTitleColor(.white, for: .normal)
-            //为按钮添加圆角
+            
+            // 为按钮添加圆角
             trueButton.layer.borderColor = UIColor(hex6: 0x00a1e9).cgColor
             trueButton.layer.borderWidth = 2
             trueButton.layer.cornerRadius = 10
-            //为按钮添加阴影
+            
+            // 为按钮添加阴影
             trueButton.layer.shadowOpacity = 0.8
             trueButton.layer.shadowColor = UIColor.black.cgColor
             trueButton.layer.shadowOffset = CGSize(width: 1, height: 1)
@@ -323,24 +305,53 @@ class PublishLostViewController: UIViewController, UITableViewDelegate, UITableV
             return nil
         }
     }
-    // 确定按钮的回调
-    @objc func tapped() {
-        
-        PostLostAPI.postLost(markDic: markDict, tag: pushTag, success: { _ in
-            let successVC = PublishSuccessViewController()
-            self.navigationController?.pushViewController(successVC, animated: true)
-        }, failure: { _ in
-        })
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath.section {
+        // 选择照片or拍照
+        case 0:
+            self.modalPresentationStyle = .overCurrentContext
+            let alertVC = UIAlertController()
+            alertVC.view.tintColor = UIColor.black
+            let pictureAction = UIAlertAction(title: "从相册中选择图片", style: .default) { _ in
+                if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+                    
+                    let imagePicker = UIImagePickerController()
+                    imagePicker.delegate = self
+                    imagePicker.allowsEditing = true
+                    imagePicker.sourceType = .savedPhotosAlbum
+                    self.present(imagePicker, animated: true) {
+                        
+                    }
+                }
+            }
+            let photoAction = UIAlertAction(title: "拍照", style: .destructive) { _ in
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    
+                    let imagePicker = UIImagePickerController()
+                    imagePicker.delegate = self
+                    imagePicker.allowsEditing = true
+                    imagePicker.sourceType = .camera
+                    self.present(imagePicker, animated: true) {
+                        
+                    }
+                }
+            }
+            //            let detailAction = UIAlertAction(title: "查看大图", style: .default) { _ in
+            //
+            //            }
+            let cencelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+            alertVC.addAction(photoAction)
+            alertVC.addAction(pictureAction)
+            alertVC.addAction(cencelAction)
+            self.present(alertVC, animated: true)
+            
+        default:
+            break
+        }
     }
     
-    func comfirmButtonTapped() {
-        //        LostAPI.fabu(name: )
-    }
-    
-    func means(input: String, key: String) {
-        markDict[key] = input
-        markDict["other_tag"] = ""
-    }
 }
 
 // Mark -- ImagePickerControllerDelegate
@@ -361,6 +372,7 @@ extension PublishLostViewController: UIImagePickerControllerDelegate {
         picker.dismiss(animated: true, completion: nil)
     }
 }
+
 func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
     picker.dismiss(animated: true, completion: nil)
 }
@@ -368,6 +380,7 @@ func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
 extension PublishLostViewController: UINavigationControllerDelegate {
     
 }
+
 // 点击键盘外弹掉键盘，重写UIGestureRecognizerDelegate
 extension PublishLostViewController: UIGestureRecognizerDelegate {
     

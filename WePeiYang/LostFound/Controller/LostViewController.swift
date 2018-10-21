@@ -11,7 +11,7 @@ import SDWebImage
 import MJRefresh
 
 var lostList: [LostFoundModel] = []
-class LostViewController: UIViewController, UIPageViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class LostViewController: UIViewController {
     
     var lostView: UICollectionView!
     var promptView: UIScrollView!
@@ -117,13 +117,9 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         })
     }
     
-    //某个Cell被选择的事件处理
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let id = lostList[indexPath.row].id
-        let detailVC = LFDetailViewController()
-        detailVC.id = id
-        self.navigationController?.pushViewController(detailVC, animated: true)
-    }
+}
+
+extension LostViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return lostList.count
@@ -141,6 +137,17 @@ class LostViewController: UIViewController, UIPageViewControllerDelegate, UIColl
         let picURL = lostList[indexPath.row].picture
         cell.initUI(pic: picURL, title: lostList[indexPath.row].title, mark: Int(lostList[indexPath.row].detail_type)!, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
         return cell
+    }
+    
+}
+
+extension LostViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let id = lostList[indexPath.row].id
+        let detailVC = LFDetailViewController()
+        detailVC.id = id
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
 }

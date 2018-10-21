@@ -13,7 +13,6 @@ class MyLostFoundPageViewController: WMPageController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.title = "我的"
         navigationController?.navigationBar.barStyle = .black
 
@@ -27,6 +26,7 @@ class MyLostFoundPageViewController: WMPageController {
         menuItemWidth = self.view.frame.size.width/2
         menuBGColor = .white
         progressColor = UIColor(hex6: 0x00a1e9)
+        
         self.viewControllerClasses = [MyLostViewController.self, MyFoundViewController.self]
         self.titles = ["我丢失的", "我捡到的"]
     }

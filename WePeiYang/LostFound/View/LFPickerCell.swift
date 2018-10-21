@@ -18,7 +18,6 @@ class LFPickerCell: UITableViewCell {
     let dateArr = ["请选择天数", "7天", "15天", "30天"]
     //    let dateArr = ["7天","15天","30天"]
     override var frame: CGRect {
-        
         didSet {
             var newFrame = frame
             newFrame.origin.x += 10
@@ -59,6 +58,7 @@ class LFPickerCell: UITableViewCell {
         //        delegate?.means(input: dateArr[row], key: "duration")
         textField.resignFirstResponder()
     }
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -96,7 +96,6 @@ class LFPickerCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-5)
             make.height.equalTo(30)
         }
-        
     }
 
 }
@@ -112,9 +111,11 @@ extension LFPickerCell: UIPickerViewDelegate {
         
         return 200
     }
+    
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 50
     }
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         self.textField.text = dateArr[row]
@@ -139,6 +140,7 @@ extension LFPickerCell: UIPickerViewDataSource {
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return dateArr.count
     }
+    
 }
 
 extension LFPickerCell: UITextFieldDelegate {
@@ -148,4 +150,5 @@ extension LFPickerCell: UITextFieldDelegate {
         return true
         
     }
+    
 }

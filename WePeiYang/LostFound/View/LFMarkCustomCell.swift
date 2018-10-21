@@ -27,7 +27,6 @@ class LFMarkCustomCell: UITableViewCell {
     
     // 循环建立button
     func enumerated() {
-        
         for (index, name) in buttonArray.enumerated() {
             
             buttonOfSize()
@@ -64,6 +63,7 @@ class LFMarkCustomCell: UITableViewCell {
         //            contentView.backgroundColor = UIColor(hex6: 0xeeeeee)
         titleOfLabelBuild()
     }
+    
     // Mark -- ButtonOfSize --
     func buttonOfSize() {
         button = UIButton(frame: CGRect(x: currentX, y: currentY, width: currenWidth, height: 30))
@@ -74,6 +74,7 @@ class LFMarkCustomCell: UITableViewCell {
         button.layer.cornerRadius = 16
         button.frame.size.height = 30
     }
+    
     // Mark -- ButtonOfRestrict --
     func buttonOfRestrict() {
         if button.frame.size.width > self.frame.size.width - 40 {
@@ -83,6 +84,7 @@ class LFMarkCustomCell: UITableViewCell {
             button.frame.size.width = 40
         }
     }
+    
     // Mark -- TitleOfButtonBuild --
     func titleOfLabelBuild() {
         addSubview(label)
@@ -94,7 +96,6 @@ class LFMarkCustomCell: UITableViewCell {
     }
     
     // button的回调
-    
     @objc func buttonTapped(sender: UIButton) {
         
         if let title = sender.titleLabel?.text {
@@ -128,13 +129,11 @@ class LFMarkCustomCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         // Initialization code
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         // Configure the view for the selected state
     }
     
