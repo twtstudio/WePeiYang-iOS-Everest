@@ -12,6 +12,7 @@ import PopupDialog
 class PLessonListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var tableView: UITableView!
     var searchController = UISearchController()
+    var searchBar: UISearchBar!
     
     var searchArray:[QuesBasicInfo] = [QuesBasicInfo]() {
         didSet {
@@ -61,17 +62,19 @@ class PLessonListViewController: UIViewController, UITableViewDelegate, UITableV
         self.view.addSubview(tableView)
     }
     
-    private func setupSearchBar() {
-        searchBar = UISearchBar(frame:CGRect(x: 0, y: 120, width: 0.7 * view.bounds.width, height:50))
-        searchBar.placeholder = "搜索"
-        searchBar.backgroundColor = .white
-        searchBar.layer.borderWidth = 1
-        searchBar.layer.cornerRadius = searchBarH / 2
-        searchBar.layer.borderColor = UIColor.practiceBlue.cgColor
-        searchBar.layer.backgroundColor = UIColor.white.cgColor
-        searchBar.delegate = self
-    }
-    
+//    private func setupSearchBar() {
+//        var searchBar = UISearchBar(frame:CGRect(x: 0, y: 120, width: 0.7 * view.bounds.width, height:50))
+//        searchBar.placeholder = "搜索"
+//        searchBar.backgroundColor = .white
+//        searchBar.layer.borderWidth = 1
+//        searchBar.layer.cornerRadius = searchBarH / 2
+//        searchBar.layer.borderColor = UIColor.practiceBlue.cgColor
+//        searchBar.layer.backgroundColor = UIColor.white.cgColor
+//        searchBar.delegate = self
+//
+//        searchController.searchBar = searchBar
+//    }
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
         self.tableView.reloadData()
@@ -156,19 +159,7 @@ extension PLessonListViewController: UISearchBarDelegate {
         bar.placeholder = "课程躲起来了？"
 
     }
-    
-    private func setupNavBar(){
-        self.navigationController?.navigationBar.backgroundColor = .blue
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 19)]
-        navigationItem.title = "课程列表"
-    }
-    
-    private func setupTableView() {
-        tableView = UITableView(frame: self.view.bounds, style: .grouped)
-        tableView.backgroundColor = .white
-        self.view.addSubview(tableView)
-    }
-    
+
     private func presentWarningCard(with title: String, of classId: String) {
         let warningCard = PopupDialog(title: title, message: "请选择练习模式", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
         let leftButton = PracticePopupDialogButton(title: "顺序练习", dismissOnTap: true) {
