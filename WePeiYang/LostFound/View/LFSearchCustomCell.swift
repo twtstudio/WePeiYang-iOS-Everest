@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 
 class LFSearchCustomCell: UITableViewCell {
     
@@ -51,7 +50,7 @@ class LFSearchCustomCell: UITableViewCell {
     func initMark(array: [String], title: String) -> Int {
         let btn = ButtonGroups()
         
-        btn.setButtonColor(_textColor: .blue, _btnColor: .black)
+        btn.setButtonColor(_textColor: .white, _btnColor: .init(hex6: 0x1BA1E6))
         
         let cvc = btn.addButtonGroupsToCell(buttonArr: array, mainAction: (name: "发布丢失信息", function: {
             //            btn.button.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)

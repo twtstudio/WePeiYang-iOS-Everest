@@ -11,7 +11,7 @@ import Foundation
 class LostFoundModel {
     
     var id = 0
-    var detail_type = ""
+    var detailType = 0
     var time = ""
     var picture = ""
     var place = ""
@@ -20,10 +20,10 @@ class LostFoundModel {
     var isback = ""
     var name = ""
     
-    init(id: Int, title: String, detail_type: String, time: String, picture: String, place: String, phone: String, isback: String, name: String) {
+    init(id: Int, title: String, detailType: Int, time: String, picture: String, place: String, phone: String, isback: String, name: String) {
         self.id = id
         self.title = title
-        self.detail_type = detail_type
+        self.detailType = detailType
         self.time = time
         self.picture = picture
         self.place = place
@@ -31,5 +31,4 @@ class LostFoundModel {
         self.isback = isback
         self.name = name
     }
-    
 }

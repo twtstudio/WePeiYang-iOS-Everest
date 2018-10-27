@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "LFBlueCategory.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "LFBlueCategory.png",
       "scale" : "2x"
     },
     {

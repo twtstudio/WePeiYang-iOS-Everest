@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 import SDWebImage
 
 class LFDetailViewController: UIViewController {
@@ -38,7 +37,7 @@ class LFDetailViewController: UIViewController {
         refresh()
         
         let btn = ButtonGroups()
-        btn.setButtonColor(_textColor: .blue, _btnColor: .black)
+        btn.setButtonColor(_textColor: .white, _btnColor: .blue)
         let cvc = btn.addButtonGroupsToCell(buttonArr: markArray, mainAction: (name: "发布丢失信息", function: {
             let vc = MyLostFoundPageViewController()
             self.navigationController?.pushViewController(vc, animated: true)
@@ -63,9 +62,9 @@ class LFDetailViewController: UIViewController {
     }
     
     func refresh() {
-        detailApi.getDetail(id: "\(id)", success: { (details) in
+        detailApi.getDetail(id: "\(id)", success: { details in
             self.detailArray = details
-            self.detailDisplayArray = [self.detailArray[0].time, self.detailArray[0].place, "\(self.detailArray[0].detail_type)", self.detailArray[0].name, self.detailArray[0].phone, self.detailArray[0].item_description]
+            self.detailDisplayArray = [self.detailArray[0].time, self.detailArray[0].place, "\(self.detailArray[0].detailType)", self.detailArray[0].name, self.detailArray[0].phone, self.detailArray[0].item_description]
             
             var lastLabel: UILabel!
             var labels: [UILabel] = []

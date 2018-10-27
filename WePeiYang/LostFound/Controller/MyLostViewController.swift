@@ -48,7 +48,7 @@ class MyLostViewController: UIViewController {
     }
     
     func refresh() {
-        GetMyLostAPI.getMyLost(page: 1, success: { (myLosts) in
+        GetMyLostAPI.getMyLost(page: 1, success: { myLosts in
             self.myLost = myLosts
             self.tableView.reloadData()
             self.curPage = 1
@@ -59,7 +59,7 @@ class MyLostViewController: UIViewController {
     //底部上拉加载
     @objc func footerLoad() {
         self.curPage += 1
-        GetMyLostAPI.getMyLost(page: curPage, success: { (MyLosts) in
+        GetMyLostAPI.getMyLost(page: curPage, success: { MyLosts in
             self.myLost += MyLosts
             if MyLosts.isEmpty {
                 self.tableView.mj_footer.endRefreshingWithNoMoreData()
@@ -75,7 +75,7 @@ class MyLostViewController: UIViewController {
     
     //顶部下拉刷新
     @objc func headerRefresh() {
-        GetMyLostAPI.getMyLost(page: 1, success: { (MyLosts) in
+        GetMyLostAPI.getMyLost(page: 1, success: { MyLosts in
             self.myLost = MyLosts
             self.curPage = 1
             //结束刷新
@@ -129,7 +129,7 @@ extension MyLostViewController: UITableViewDataSource {
             cell.editButton.addTarget(self, action: #selector(editButtonTapped(editButton: )), for: .touchUpInside)
             cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(inverseButton: )), for: .touchUpInside)
             let pic = myLost[indexPath.row].picture
-            cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
+            cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detailType, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
             
             return cell
         } else {
@@ -139,7 +139,7 @@ extension MyLostViewController: UITableViewDataSource {
             
             let pic = TWT_URL + myLost[indexPath.row].picture
             
-            cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detail_type, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
+            cell.initMyUI(pic: pic, title: myLost[indexPath.row].title, isBack: myLost[indexPath.row].isBack, mark: myLost[indexPath.row].detailType, time: myLost[indexPath.row].time, place: myLost[indexPath.row].place)
             
             return cell
         }

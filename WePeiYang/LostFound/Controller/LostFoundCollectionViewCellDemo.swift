@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 import SDWebImage
 
 class LostFoundCollectionViewCellDemo: UICollectionViewCell {
@@ -40,7 +39,7 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
     }
     
     func initUI(pic: URL, title: String, mark: Int, time: String, place: String) {
-        pictureImage.sd_setImage(with: pic) { (image, _, _, _) in
+        pictureImage.sd_setImage(with: pic) { image, _, _, _ in
             if let image = image {
                 let imageHeight = image.size.height
                 let imageWidth = image.size.width
@@ -100,7 +99,7 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
             make.bottom.equalTo(timeLabel.snp.top).offset(-5)
         }
         
-        markImage.image = #imageLiteral(resourceName: "物品")
+        markImage.image = #imageLiteral(resourceName: "LFObject")
         markImage.snp.makeConstraints { make in
             make.top.equalTo(titleLable.snp.bottom).offset(5)
             make.left.equalToSuperview().offset(10)
@@ -108,7 +107,7 @@ class LostFoundCollectionViewCellDemo: UICollectionViewCell {
             make.width.height.equalTo(contentView.bounds.width*(1/8))
         }
         
-        timeImage.image = #imageLiteral(resourceName: "时间")
+        timeImage.image = #imageLiteral(resourceName: "LFTime")
         timeImage.snp.makeConstraints { make in
             make.top.equalTo(markImage.snp.bottom).offset(5)
             make.left.equalToSuperview().offset(10)

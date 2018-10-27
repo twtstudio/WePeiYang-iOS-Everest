@@ -18,8 +18,7 @@ class GetLostAPI {
             if let lostData = dic["data"] as? [[String: Any]] {
                 var losts = [LostFoundModel]()
                 for lost in lostData {
-                    
-                    let detail_type = lost["detail_type"] as? String ?? ""
+                    let detailType = lost["detail_type"] as? Int ?? 0
                     let time = lost["time"] as? String ?? ""
                     let title = lost["title"] as? String ?? ""
                     let picture = lost["picture"] as? String ?? ""
@@ -29,7 +28,7 @@ class GetLostAPI {
                     let name = lost["name"] as? String ?? ""
                     let phone = lost["phone"] as? String ?? ""
                     
-                    let lostModel = LostFoundModel(id: id, title: title, detail_type: detail_type, time: time, picture: picture, place: place, phone: phone, isback: isback, name: name)
+                    let lostModel = LostFoundModel(id: id, title: title, detailType: detailType, time: time, picture: picture, place: place, phone: phone, isback: isback, name: name)
                     losts.append(lostModel)
                     
                 }
@@ -51,7 +50,7 @@ class GetFoundAPI {
                 var founds = [LostFoundModel]()
                 for found in foundData {
                     
-                    let detail_type = found["detail_type"] as? String ?? ""
+                    let detailType = found["detail_type"] as? Int ?? 0
                     let time = found["time"] as? String ?? ""
                     let title = found["title"] as? String ?? ""
                     let picture = found["picture"] as? String ?? ""
@@ -61,7 +60,7 @@ class GetFoundAPI {
                     let name = found["name"] as? String ?? ""
                     let phone = found["phone"] as? String ?? ""
                     
-                    let foundModel = LostFoundModel(id: id, title: title, detail_type: detail_type, time: time, picture: picture, place: place, phone: phone, isback: isback, name: name)
+                    let foundModel = LostFoundModel(id: id, title: title, detailType: detailType, time: time, picture: picture, place: place, phone: phone, isback: isback, name: name)
                     founds.append(foundModel)
                     
                 }
@@ -85,7 +84,7 @@ class GetMyLostAPI {
                 var myLosts = [MyLostFoundModel]()
                 for lost in myLostData {
                     
-                    let detail_type = lost["detail_type"] as? Int ?? 0
+                    let detailType = lost["detail_type"] as? Int ?? 0
                     let time = lost["time"] as? String ?? ""
                     let title = lost["title"] as? String ?? ""
                     let picture = lost["picture"] as? String ?? ""
@@ -95,7 +94,7 @@ class GetMyLostAPI {
                     let name = lost["name"] as? String ?? ""
                     let phone = lost["phone"] as? String ?? ""
                     
-                    let myLostModel = MyLostFoundModel(isBack: isback, title: title, detail_type: detail_type, time: time, place: place, picture: picture, id: id, name: name, phone: phone)
+                    let myLostModel = MyLostFoundModel(isBack: isback, title: title, detailType: detailType, time: time, place: place, picture: picture, id: id, name: name, phone: phone)
                     myLosts.append(myLostModel)
                 }
                 success(myLosts)
@@ -117,7 +116,7 @@ class GetMyFoundAPI {
                 var myFounds = [MyLostFoundModel]()
                 for found in myFoundData {
                     
-                    let detail_type = found["detail_type"] as? Int ?? 0
+                    let detailType = found["detail_type"] as? Int ?? 0
                     let time = found["time"] as? String ?? ""
                     let title = found["title"] as? String ?? ""
                     let picture = found["picture"] as? String ?? ""
@@ -127,7 +126,7 @@ class GetMyFoundAPI {
                     let name = found["name"] as? String ?? ""
                     let phone = found["phone"] as? String ?? ""
                     
-                    let myFoundModel = MyLostFoundModel(isBack: isback, title: title, detail_type: detail_type, time: time, place: place, picture: picture, id: id, name: name, phone: phone)
+                    let myFoundModel = MyLostFoundModel(isBack: isback, title: title, detailType: detailType, time: time, place: place, picture: picture, id: id, name: name, phone: phone)
                     myFounds.append(myFoundModel)
                 }
                 success(myFounds)
@@ -152,7 +151,7 @@ class DetailAPI {
                 var details = [LostFoundDetailModel]()
                 //                for (key, value) in detailData {
                 
-                let detail_type = detailData["detail_type"] as? Int ?? 0
+                let detailType = detailData["detail_type"] as? Int ?? 0
                 let time = detailData["time"] as? String ?? ""
                 let title = detailData["title"] as? String ?? ""
                 let picture =  detailData["picture"] as? String ?? ""
@@ -168,8 +167,8 @@ class DetailAPI {
                 let other_tag = detailData["other_tag"] as? String ?? ""
                 let type = detailData["type"] as? Int ?? 0
                 
-                let lostFoundDetailModel = LostFoundDetailModel(id: id, name: name, title: title, place: place, phone: phone, time: time, picture: picture, item_description: item_description, card_name: card_name, card_number: card_number, publish_start: publish_start, publish_end: publish_end, other_tag: other_tag, type: type, detail_type: detail_type)
-                self.detailDisplay = [time, place, detail_type, name, phone, item_description ]
+                let lostFoundDetailModel = LostFoundDetailModel(id: id, name: name, title: title, place: place, phone: phone, time: time, picture: picture, item_description: item_description, card_name: card_name, card_number: card_number, publish_start: publish_start, publish_end: publish_end, other_tag: other_tag, type: type, detailType: detailType)
+                self.detailDisplay = [time, place, detailType, name, phone, item_description ]
                 details.append(lostFoundDetailModel)
                 //                }
                 success(details)
@@ -193,7 +192,7 @@ class GetSearchAPI {
                 var searchs = [LostFoundModel]()
                 for search in searchData {
                     
-                    let detail_type = search["detail_type"] as? String ?? ""
+                    let detailType = search["detail_type"] as? Int ?? 0
                     let time = search["time"] as? String ?? ""
                     let title = search["title"] as? String ?? ""
                     let picture = search["picture"] as? String ?? ""
@@ -203,7 +202,7 @@ class GetSearchAPI {
                     let name = search["name"] as? String ?? ""
                     let phone = search["phone"] as? String ?? ""
                     
-                    let searchModel = LostFoundModel(id: id, title: title, detail_type: detail_type, time: time, picture: picture, place: place, phone: phone, isback: isback, name: name)
+                    let searchModel = LostFoundModel(id: id, title: title, detailType: detailType, time: time, picture: picture, place: place, phone: phone, isback: isback, name: name)
                     searchs.append(searchModel)
                 }
                 success(searchs)

@@ -64,7 +64,7 @@ class LostViewController: UIViewController {
     }
     // 网络的异步请求
     func refresh() {
-        GetLostAPI.getLost(page: 1, success: { (losts) in
+        GetLostAPI.getLost(page: 1, success: { losts in
             lostList = losts
             self.selectView()
             self.lostView.backgroundColor = UIColor(hex6: 0xeeeeee)
@@ -87,7 +87,7 @@ class LostViewController: UIViewController {
     //底部上拉加载
     @objc func footerLoad() {
         self.curPage += 1
-        GetLostAPI.getLost(page: curPage, success: { (losts) in
+        GetLostAPI.getLost(page: curPage, success: { losts in
             lostList += losts
             if losts.isEmpty {
                 self.lostView.mj_footer.endRefreshingWithNoMoreData()
@@ -103,7 +103,7 @@ class LostViewController: UIViewController {
     
     //顶部下拉刷新
     @objc func headerRefresh() {
-        GetLostAPI.getLost(page: 1, success: { (losts) in
+        GetLostAPI.getLost(page: 1, success: { losts in
             lostList = losts
             
             self.selectView()
@@ -128,14 +128,14 @@ extension LostViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "lostCell", for: indexPath) as? LostFoundCollectionViewCell {
             let picURL = lostList[indexPath.row].picture
-            cell.initUI(pic: picURL, title: lostList[indexPath.row].title, mark: Int(lostList[indexPath.row].detail_type)!, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+            cell.initUI(pic: picURL, title: lostList[indexPath.row].title, mark: lostList[indexPath.row].detailType, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
             
             return cell
         }
         let cell = LostFoundCollectionViewCell(frame: .zero)
         
         let picURL = lostList[indexPath.row].picture
-        cell.initUI(pic: picURL, title: lostList[indexPath.row].title, mark: Int(lostList[indexPath.row].detail_type)!, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+        cell.initUI(pic: picURL, title: lostList[indexPath.row].title, mark: lostList[indexPath.row].detailType, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
         return cell
     }
     

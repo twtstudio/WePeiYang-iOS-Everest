@@ -18,7 +18,7 @@ class LostFoundDetailModel {
     var time = ""
     var picture = ""
     var item_description = "" //介绍
-    var detail_type = 0
+    var detailType = 0
     var card_name = ""
     var card_number = 0
     var publish_start = ""
@@ -26,7 +26,7 @@ class LostFoundDetailModel {
     var other_tag = ""
     var type = 0
     
-    init(id: Int, name: String, title: String, place: String, phone: String, time: String, picture: String, item_description: String, card_name: String, card_number: Int, publish_start: String, publish_end: String, other_tag: String, type: Int, detail_type: Int) {
+    init(id: Int, name: String, title: String, place: String, phone: String, time: String, picture: String, item_description: String, card_name: String, card_number: Int, publish_start: String, publish_end: String, other_tag: String, type: Int, detailType: Int) {
         self.id = id
         self.name = name
         self.title = title

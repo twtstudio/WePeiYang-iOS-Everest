@@ -56,13 +56,9 @@ class LFSearchedResultViewController: UIViewController {
         self.promptView.backgroundColor = UIColor(hex6: 0xeeeeee)
         let image = UIImageView(frame: CGRect(x: 0, y: 100, width: 150, height: 150))
         image.center = CGPoint(x: self.view.frame.width/2, y: 170)
-        image.image = UIImage(named: "飞")
+        image.image = UIImage(named: "LFFly")
         self.promptView.addSubview(image)
-        let titleLabel = UILabel(frame: CGRect(x: 0, y: 100, width: 240, height: 50))
-        titleLabel.center = CGPoint(x: self.view.frame.width/2, y: 280)
-        titleLabel.text = "暂时没有该类物品,去发布吧!"
-        titleLabel.textAlignment = .center
-        self.promptView.addSubview(titleLabel)
+
         self.promptView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
         
         self.view.addSubview(promptView)
@@ -71,7 +67,11 @@ class LFSearchedResultViewController: UIViewController {
     }
     
     func refresh() {
-        GetSearchAPI.getSearch(inputText: inputText, page: 1, success: { (searchs) in
+        GetSearchAPI.getSearch(inputText: inputText, page: 1, success: { searchs in
+            if searchs.isEmpty {
+                SwiftMessages.showWarningMessage(body: "暂时没有该类物品")
+                return
+            }
             self.searchedList = searchs
             self.selectView()
             self.searchedView.reloadData()
@@ -87,7 +87,7 @@ class LFSearchedResultViewController: UIViewController {
     // 底部上拉加载
     @objc func footerLoad() {
         self.curPage += 1
-        GetSearchAPI.getSearch(inputText: inputText, page: curPage, success: { (searchs) in
+        GetSearchAPI.getSearch(inputText: inputText, page: curPage, success: { searchs in
             self.searchedList += searchs
             if searchs.isEmpty {
                 self.searchedView.mj_footer.endRefreshingWithNoMoreData()
@@ -104,7 +104,7 @@ class LFSearchedResultViewController: UIViewController {
     
     // 顶部下拉刷新
     @objc func headerRefresh() {
-        GetSearchAPI.getSearch(inputText: inputText, page: 1, success: { (searchs) in
+        GetSearchAPI.getSearch(inputText: inputText, page: 1, success: { searchs in
             self.searchedList = searchs
             self.selectView()
             // 结束刷新
@@ -133,7 +133,7 @@ extension LFSearchedResultViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchedCell", for: indexPath) as? LostFoundCollectionViewCell {
             let picURL = searchedList[indexPath.row].picture
-            cell.initUI(pic: picURL, title: searchedList[indexPath.row].title, mark: Int(searchedList[indexPath.row].detail_type)!, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
+            cell.initUI(pic: picURL, title: searchedList[indexPath.row].title, mark: searchedList[indexPath.row].detailType, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
             return cell
             
         }
@@ -141,7 +141,7 @@ extension LFSearchedResultViewController: UICollectionViewDataSource {
         let cell = LostFoundCollectionViewCell()
         
         let picURL = searchedList[indexPath.row].picture
-        cell.initUI(pic: picURL, title: searchedList[indexPath.row].title, mark: Int(searchedList[indexPath.row].detail_type)!, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
+        cell.initUI(pic: picURL, title: searchedList[indexPath.row].title, mark: searchedList[indexPath.row].detailType, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
         
         return cell
     }

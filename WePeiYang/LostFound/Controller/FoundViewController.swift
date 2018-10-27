@@ -116,13 +116,13 @@ extension FoundViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "foundCell", for: indexPath) as? LostFoundCollectionViewCell {
             let picURL = foundList[indexPath.row].picture
-            cell.initUI(pic: picURL, title: foundList[indexPath.row].title, mark: Int(foundList[indexPath.row].detail_type)!, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
+            cell.initUI(pic: picURL, title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detailType, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
             return cell
             
         }
         let cell = LostFoundCollectionViewCell(frame: .zero)
         let picURL = foundList[indexPath.row].picture
-        cell.initUI(pic: picURL, title: foundList[indexPath.row].title, mark: Int(foundList[indexPath.row].detail_type)!, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
+        cell.initUI(pic: picURL, title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detailType, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
         return cell
     }
     

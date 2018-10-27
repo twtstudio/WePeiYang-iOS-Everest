@@ -45,8 +45,8 @@ class ParkingSpot: NSObject, MKAnnotation {
             return nil
         }
 
-//        // MARK: 此 flatMap 方法有问题
-//         return arr.flatMap({ (dict: NSDictionary) -> ParkingSpots? in
+//        // MARK: 此 compactMap 方法有问题
+//         return arr.compactMap({ (dict: NSDictionary) -> ParkingSpots? in
 //         //let id = dict["id"] as? String,
 //         guard let title = dict["name"] as? String
 //         let campus = dict["campus"] as? Int,

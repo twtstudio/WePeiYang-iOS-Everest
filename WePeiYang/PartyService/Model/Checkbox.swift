@@ -32,13 +32,13 @@ class Checkbox: UIButton {
     }
 
     static func initOnlyChoiceBtns(with quizOptions: [Quiz.Option]) -> [Checkbox] {
-            return quizOptions.flatMap({ (option: Quiz.Option) -> Checkbox? in
+            return quizOptions.compactMap({ (option: Quiz.Option) -> Checkbox? in
                 return Checkbox(withSingleChoiceBtn: option)
             })
     }
 
     static func initMultiChoicesBtns(with quizOptions: [Quiz.Option]) -> [Checkbox] {
-        return quizOptions.flatMap({ (option: Quiz.Option) -> Checkbox? in
+        return quizOptions.compactMap({ (option: Quiz.Option) -> Checkbox? in
             return Checkbox(withMultiChoicesBtn: option)
         })
     }

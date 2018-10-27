@@ -130,11 +130,11 @@ extension PublishLostViewController: UITableViewDataSource {
         
         switch indexPath.section {
         case 0:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "UpLoadingCell" + "\(indexPath)") as? UpLoadingPicCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "UpLoadingCell" + "\(indexPath)") as? UploadingPicCell {
                 cell.selectionStyle = UITableViewCellSelectionStyle.none
                 return cell
             } else {
-                let cell = UpLoadingPicCell(style: .default, reuseIdentifier: "UpLoadingCell" + "\(indexPath)")
+                let cell = UploadingPicCell(style: .default, reuseIdentifier: "UpLoadingCell" + "\(indexPath)")
                 
                 return cell
             }
@@ -361,7 +361,7 @@ extension PublishLostViewController: UIImagePickerControllerDelegate {
         
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             
-            if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? UpLoadingPicCell {
+            if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? UploadingPicCell {
                 markDict["pic[]"] = image
                 DispatchQueue.main.async {
                     cell.addPictureImage.image = image

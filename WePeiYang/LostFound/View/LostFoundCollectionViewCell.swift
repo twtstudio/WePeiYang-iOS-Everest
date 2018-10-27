@@ -65,7 +65,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
             //            make.bottom.equalTo(markImageView.snp.top).offset(-5)
         }
         
-        markImageView.image = #imageLiteral(resourceName: "物品")
+        markImageView.image = UIImage(named: "LFLocation")
         markImageView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(5)
             make.left.equalToSuperview().offset(15)
@@ -90,7 +90,9 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
             //            make.bottom.equalTo(placeImageView.snp.top).offset(-5)
             make.width.height.equalTo(contentView.bounds.width*(1/12))
         }
-        timeImageView.image = #imageLiteral(resourceName: "时间")
+
+        timeImageView.image = #imageLiteral(resourceName: "LFTime")
+        timeImageView.image = UIImage(named: "")
         timeLabel.font = UIFont.systemFont(ofSize: 13)
         timeLabel.textColor = UIColor(hex6: 0x999999)
         
@@ -102,7 +104,7 @@ class LostFoundCollectionViewCell: UICollectionViewCell {
             //            make.height.equalTo(20)
         }
         
-        placeImageView.image = #imageLiteral(resourceName: "地点")
+        placeImageView.image = #imageLiteral(resourceName: "LFLocation")
         placeImageView.snp.makeConstraints { make in
             make.top.equalTo(timeImageView.snp.bottom).offset(5)
             make.left.equalToSuperview().offset(15)

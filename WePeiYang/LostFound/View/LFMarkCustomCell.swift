@@ -69,7 +69,7 @@ class LFMarkCustomCell: UITableViewCell {
         button = UIButton(frame: CGRect(x: currentX, y: currentY, width: currenWidth, height: 30))
         //        button.backgroundColor = UIColor(hex6: 0xeeeeee)
         button.backgroundColor = UIColor(hex6: 0xd9d9d9)
-        button.setTitleColor(UIColor.black, for: .normal)
+//        button.setTitleColor(UIColor.black, for: .normal)
         button.setTitleColor(UIColor.init(hex6: 0x00a1e9), for: .selected)
         button.layer.cornerRadius = 16
         button.frame.size.height = 30

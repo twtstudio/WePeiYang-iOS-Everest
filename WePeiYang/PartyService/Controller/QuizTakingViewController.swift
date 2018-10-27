@@ -153,7 +153,7 @@ extension QuizTakingViewController {
             }
         }
 
-        let userAnswer = Courses.Study20.courseQuizes.flatMap { (quiz: Quiz?) -> Int? in
+        let userAnswer = Courses.Study20.courseQuizes.compactMap { (quiz: Quiz?) -> Int? in
             guard let foo = quiz?.userAnswer else {
                 SwiftMessages.showErrorMessage(body: "你还没有完成答题，不能交卷")
                 return nil
@@ -161,7 +161,7 @@ extension QuizTakingViewController {
             return foo
         }
 
-        let originalAnswer = Courses.Study20.courseQuizes.flatMap { (quiz: Quiz?) -> Int? in
+        let originalAnswer = Courses.Study20.courseQuizes.compactMap { (quiz: Quiz?) -> Int? in
             guard let foo = Int((quiz?.answer)!) else {
                 SwiftMessages.showErrorMessage(body: "Oops!")
                 return nil

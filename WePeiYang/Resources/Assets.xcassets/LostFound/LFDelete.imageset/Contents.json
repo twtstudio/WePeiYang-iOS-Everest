@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "LFDelete.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "LFDelete.png",
       "scale" : "2x"
     },
     {

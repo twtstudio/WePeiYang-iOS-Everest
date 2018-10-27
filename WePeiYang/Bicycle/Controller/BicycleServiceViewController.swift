@@ -51,7 +51,7 @@ class BicycleServiceViewController: WMPageController {
         titleLabel.sizeToFit()
 
         self.title = "自行车"
-        UIApplication.shared.statusBarStyle = .lightContent
+        self.navigationController?.navigationBar.barStyle = .default
 
         pageAnimatable = true
         titleSizeSelected = 18.0

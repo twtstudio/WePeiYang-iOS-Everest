@@ -32,6 +32,8 @@
 		361F8862204AF94200BCFA19 /* NewsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F8860204AF94200BCFA19 /* NewsHeaderView.swift */; };
 		361F8863204AF94200BCFA19 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F8861204AF94200BCFA19 /* NewsTableViewCell.swift */; };
 		361F8867204AF9AA00BCFA19 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F8866204AF9AA00BCFA19 /* NewsViewController.swift */; };
+		361FB178218430F800BD5A1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51C456B1FD122F700652435 /* Assets.xcassets */; };
+		361FB17A21843AFC00BD5A1E /* UploadingPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361FB17921843AFC00BD5A1E /* UploadingPicCell.swift */; };
 		3631D50A1F1903D70078816D /* TwTUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5091F1903D70078816D /* TwTUser.swift */; };
 		36366B2E1FAB86B0001F72A0 /* BicycleServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36366B2D1FAB86B0001F72A0 /* BicycleServiceViewController.swift */; };
 		36366B2F1FAB8A84001F72A0 /* BicycleServiceInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D6952E1F8A21AD00022B9A /* BicycleServiceInfoController.xib */; };
@@ -148,7 +150,6 @@
 		78FB9E6F217AEAE1001DE39A /* LostFoundCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E6E217AEAE1001DE39A /* LostFoundCollectionViewCell.swift */; };
 		78FB9E71217AEAFC001DE39A /* MyLostFoundTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E70217AEAFC001DE39A /* MyLostFoundTableViewCell.swift */; };
 		78FB9E73217AEB1B001DE39A /* PublishCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E72217AEB1B001DE39A /* PublishCustomCell.swift */; };
-		78FB9E75217AEB34001DE39A /* UpLoadingPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E74217AEB34001DE39A /* UpLoadingPicCell.swift */; };
 		78FB9E78217AEBE2001DE39A /* LFSearchCellOfHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E77217AEBE2001DE39A /* LFSearchCellOfHeight.swift */; };
 		78FB9E7A217AEC0B001DE39A /* LostFoundAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E79217AEC0B001DE39A /* LostFoundAPI.swift */; };
 		78FB9E7C217AEC36001DE39A /* LostFoundDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E7B217AEC36001DE39A /* LostFoundDetailModel.swift */; };
@@ -170,13 +171,11 @@
 		78FB9E9D217AEF54001DE39A /* PublishSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E9C217AEF54001DE39A /* PublishSuccessViewController.swift */; };
 		78FB9E9F217AEF79001DE39A /* ButtonGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E9E217AEF79001DE39A /* ButtonGroups.swift */; };
 		78FB9EA1217AEF9A001DE39A /* DropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9EA0217AEF9A001DE39A /* DropDownMenu.swift */; };
-		A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51C456B1FD122F700652435 /* Assets.xcassets */; };
 		A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */; };
 		A50F36501FB8837D00413CF2 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364F1FB8837D00413CF2 /* KeyChain.swift */; };
 		A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51497F91FC80D5E00622A7B /* BindingAPIs.swift */; };
 		A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */; };
-		A5197A3D1FDA8F99008C445A /* LibraryAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5197A3C1FDA8F99008C445A /* LibraryAPIs.swift */; };
 		A51C45681FD0227800652435 /* WLANBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51C45671FD0227800652435 /* WLANBindingViewController.swift */; };
 		A51C456A1FD0477700652435 /* BicycleBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51C45691FD0477700652435 /* BicycleBindingViewController.swift */; };
 		A53602671FC6E36100E3D1AF /* LibraryBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53602661FC6E36100E3D1AF /* LibraryBindingViewController.swift */; };
@@ -291,6 +290,7 @@
 		361F8860204AF94200BCFA19 /* NewsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsHeaderView.swift; sourceTree = "<group>"; };
 		361F8861204AF94200BCFA19 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		361F8866204AF9AA00BCFA19 /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		361FB17921843AFC00BD5A1E /* UploadingPicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadingPicCell.swift; sourceTree = "<group>"; };
 		3631D5091F1903D70078816D /* TwTUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTUser.swift; sourceTree = "<group>"; };
 		36366B2D1FAB86B0001F72A0 /* BicycleServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleServiceViewController.swift; sourceTree = "<group>"; };
 		36366B351FAC61B6001F72A0 /* WePeiYang.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WePeiYang.entitlements; sourceTree = "<group>"; };
@@ -397,7 +397,6 @@
 		78FB9E6E217AEAE1001DE39A /* LostFoundCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostFoundCollectionViewCell.swift; sourceTree = "<group>"; };
 		78FB9E70217AEAFC001DE39A /* MyLostFoundTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLostFoundTableViewCell.swift; sourceTree = "<group>"; };
 		78FB9E72217AEB1B001DE39A /* PublishCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishCustomCell.swift; sourceTree = "<group>"; };
-		78FB9E74217AEB34001DE39A /* UpLoadingPicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpLoadingPicCell.swift; sourceTree = "<group>"; };
 		78FB9E77217AEBE2001DE39A /* LFSearchCellOfHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSearchCellOfHeight.swift; sourceTree = "<group>"; };
 		78FB9E79217AEC0B001DE39A /* LostFoundAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostFoundAPI.swift; sourceTree = "<group>"; };
 		78FB9E7B217AEC36001DE39A /* LostFoundDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostFoundDetailModel.swift; sourceTree = "<group>"; };
@@ -427,7 +426,6 @@
 		A50F364F1FB8837D00413CF2 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		A51497F91FC80D5E00622A7B /* BindingAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingAPIs.swift; sourceTree = "<group>"; };
 		A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANLoginViewController.swift; sourceTree = "<group>"; };
-		A5197A3C1FDA8F99008C445A /* LibraryAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAPIs.swift; sourceTree = "<group>"; };
 		A51C45671FD0227800652435 /* WLANBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANBindingViewController.swift; sourceTree = "<group>"; };
 		A51C45691FD0477700652435 /* BicycleBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleBindingViewController.swift; sourceTree = "<group>"; };
 		A51C456B1FD122F700652435 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -802,7 +800,7 @@
 				78FB9E6E217AEAE1001DE39A /* LostFoundCollectionViewCell.swift */,
 				78FB9E70217AEAFC001DE39A /* MyLostFoundTableViewCell.swift */,
 				78FB9E72217AEB1B001DE39A /* PublishCustomCell.swift */,
-				78FB9E74217AEB34001DE39A /* UpLoadingPicCell.swift */,
+				361FB17921843AFC00BD5A1E /* UploadingPicCell.swift */,
 				78FB9E9E217AEF79001DE39A /* ButtonGroups.swift */,
 				78FB9EA0217AEF9A001DE39A /* DropDownMenu.swift */,
 			);
@@ -887,38 +885,6 @@
 				A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		A5197A381FDA850A008C445A /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				A5197A3B1FDA8F7F008C445A /* Model */,
-				A5197A3A1FDA8F7A008C445A /* View */,
-				A5197A391FDA8F73008C445A /* Controller */,
-			);
-			path = Library;
-			sourceTree = "<group>";
-		};
-		A5197A391FDA8F73008C445A /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		A5197A3A1FDA8F7A008C445A /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		A5197A3B1FDA8F7F008C445A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				A5197A3C1FDA8F99008C445A /* LibraryAPIs.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		A53602621FC6E23C00E3D1AF /* Binding */ = {
@@ -1165,7 +1131,6 @@
 				36575FBE2051C78B00A1A558 /* LaunchScreen.storyboard */,
 				3641470820471CC500F6DFD5 /* News */,
 				A53602621FC6E23C00E3D1AF /* Binding */,
-				A5197A381FDA850A008C445A /* Library */,
 				B181B9551EC5C21700B8198E /* Favorite */,
 				A5159FDB1FB0731B00B466F2 /* WLANLogin */,
 				365A8A131FB9BA8500B15443 /* ClassTable */,
@@ -1464,7 +1429,7 @@
 				36366B301FAB8A84001F72A0 /* BicycleNotificationDetailViewController.xib in Resources */,
 				36366B311FAB8A84001F72A0 /* BicycleServiceNotificationController.xib in Resources */,
 				36366B321FAB8A84001F72A0 /* BicycleRecordViewController.xib in Resources */,
-				A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */,
+				361FB178218430F800BD5A1E /* Assets.xcassets in Resources */,
 				36366B331FAB8A84001F72A0 /* BicycleUserBindViewController.xib in Resources */,
 				A554C4BE1F99F84900022A01 /* ParkingSpotsLocs.json in Resources */,
 				36449E671FA4BABA0036766B /* PartyHandInViewController.xib in Resources */,
@@ -1664,7 +1629,6 @@
 				3685D9EF204D255700BA6C3D /* NewsDetailViewController.swift in Sources */,
 				365261561FB9F83400025B8A /* ClassTableModel.swift in Sources */,
 				36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */,
-				A5197A3D1FDA8F99008C445A /* LibraryAPIs.swift in Sources */,
 				78FB9E7A217AEC0B001DE39A /* LostFoundAPI.swift in Sources */,
 				36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */,
 				36CAD44A201B8EAA006F85E3 /* ClassTableHelper.swift in Sources */,
@@ -1673,6 +1637,7 @@
 				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,
 				361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */,
 				368C3C8A204DAB4F00C1E6B6 /* WPYCustomError.swift in Sources */,
+				361FB17A21843AFC00BD5A1E /* UploadingPicCell.swift in Sources */,
 				A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */,
 				36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */,
 				36449E641FA4BABA0036766B /* QuizView.swift in Sources */,
@@ -1813,7 +1778,6 @@
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
 				369B2D4A20151542009352A8 /* DateTool.swift in Sources */,
 				A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */,
-				78FB9E75217AEB34001DE39A /* UpLoadingPicCell.swift in Sources */,
 				78FB9E87217AEE16001DE39A /* LFImagePreviewViewController.swift in Sources */,
 				DD0B75F82158C6ED009A392C /* YellowPageSearchHistoryCell.swift in Sources */,
 				B10253FD1EC84ED90064373A /* log.swift in Sources */,

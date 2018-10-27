@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 import SDWebImage
 
 class MyLostFoundTableViewCell: UITableViewCell {
@@ -95,7 +94,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
             make.left.equalTo(pictureImageView.snp.right).offset(10)
         }
         
-        markImageView.image = #imageLiteral(resourceName: "物品")
+        markImageView.image = #imageLiteral(resourceName: "LFObject")
         markImageView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(5)
             make.left.equalTo(pictureImageView.snp.right).offset(10)
@@ -112,7 +111,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
             make.left.equalTo(markImageView.snp.right).offset(3)
         }
         
-        timeImageView.image = #imageLiteral(resourceName: "时间")
+        timeImageView.image = #imageLiteral(resourceName: "LFTime")
         timeImageView.snp.makeConstraints { make in
             make.top.equalTo(markImageView.snp.bottom).offset(5)
             make.left.equalTo(pictureImageView.snp.right).offset(10)
@@ -128,7 +127,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
             make.left.equalTo(timeImageView.snp.right).offset(3)
         }
         
-        placeImageView.image = #imageLiteral(resourceName: "地点")
+        placeImageView.image = #imageLiteral(resourceName: "LFLocation")
         placeImageView.snp.makeConstraints { make in
             make.top.equalTo(timeImageView.snp.bottom).offset(5)
             make.left.equalTo(pictureImageView.snp.right).offset(10)

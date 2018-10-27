@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 
 class PublishSuccessViewController: UIViewController {
     
@@ -39,7 +38,6 @@ class PublishSuccessViewController: UIViewController {
             make.left.equalTo(titleImage.snp.left).offset(20)
             make.right.equalTo(successView.snp.right).offset(-30)
             make.bottom.equalTo(successView.snp.bottom).offset(-20)
-            
         }
     }
 }

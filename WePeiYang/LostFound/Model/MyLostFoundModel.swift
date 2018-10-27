@@ -18,13 +18,13 @@ class MyLostFoundModel {
     var id = 0
     var name = ""
     var phone = ""
-    var detail_type = 0
+    var detailType = 0
     
-    init(isBack: String, title: String, detail_type: Int, time: String, place: String, picture: String, id: Int, name: String, phone: String) {
+    init(isBack: String, title: String, detailType: Int, time: String, place: String, picture: String, id: Int, name: String, phone: String) {
         
         self.isBack = isBack
         self.title = title
-        self.detail_type = detail_type
+        self.detailType = detailType
         self.time = time
         self.place = place
         self.picture = picture
