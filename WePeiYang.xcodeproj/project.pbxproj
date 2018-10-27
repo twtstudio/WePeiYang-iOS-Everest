@@ -213,6 +213,8 @@
 		786A342D213176050078120A /* PracticeWrongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786A342C213176050078120A /* PracticeWrongModel.swift */; };
 		78865AC42112F2A00055161F /* PracticeWrongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78865AC32112F2A00055161F /* PracticeWrongViewController.swift */; };
 		78C5801A21381398003F2C8E /* PracticeUploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5801921381398003F2C8E /* PracticeUploadViewController.swift */; };
+		78FB93A2218437E000FC63D6 /* PracticeResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB93A1218437E000FC63D6 /* PracticeResultViewController.swift */; };
+		78FB93A42184380000FC63D6 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB93A32184380000FC63D6 /* ResultView.swift */; };
 		A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */; };
 		A50F36501FB8837D00413CF2 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364F1FB8837D00413CF2 /* KeyChain.swift */; };
@@ -551,6 +553,8 @@
 		786E5BD12171935300B8F1A4 /* QuestionTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableView.swift; sourceTree = "<group>"; };
 		78865AC32112F2A00055161F /* PracticeWrongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeWrongViewController.swift; sourceTree = "<group>"; };
 		78C5801921381398003F2C8E /* PracticeUploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeUploadViewController.swift; sourceTree = "<group>"; };
+		78FB93A1218437E000FC63D6 /* PracticeResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeResultViewController.swift; sourceTree = "<group>"; };
+		78FB93A32184380000FC63D6 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		8405C859FC95C5E72E0F9BD7 /* Pods-WePeiYang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.release.xcconfig"; sourceTree = "<group>"; };
 		9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1227,6 +1231,31 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		78FB939E2184377A00FC63D6 /* ResultPage */ = {
+			isa = PBXGroup;
+			children = (
+				78FB939F218437A800FC63D6 /* Controller */,
+				78FB93A0218437B000FC63D6 /* View */,
+			);
+			path = ResultPage;
+			sourceTree = "<group>";
+		};
+		78FB939F218437A800FC63D6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				78FB93A1218437E000FC63D6 /* PracticeResultViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		78FB93A0218437B000FC63D6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				78FB93A32184380000FC63D6 /* ResultView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		80B33C5178ED19C33022F16B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1708,6 +1737,7 @@
 				78865AC02112F0F00055161F /* WrongPage */,
 				785A093A213A702F007A2E3C /* CollectionPage */,
 				78C5801721381324003F2C8E /* UploadPage */,
+				78FB939E2184377A00FC63D6 /* ResultPage */,
 				B585F3622100619000950C00 /* Practice */,
 				B585F35520FE36E400950C00 /* LessonList */,
 			);
@@ -2327,6 +2357,7 @@
 				36366B2E1FAB86B0001F72A0 /* BicycleServiceViewController.swift in Sources */,
 				36449E611FA4BABA0036766B /* TextTableViewCell.swift in Sources */,
 				3659368E1F1E60A9003CE578 /* GPAViewController.swift in Sources */,
+				78FB93A2218437E000FC63D6 /* PracticeResultViewController.swift in Sources */,
 				0C3ADF381F697EE100388C19 /* LostFoundDetailModel.swift in Sources */,
 				365936911F1E60A9003CE578 /* GPASessionManager.swift in Sources */,
 				786A342A213150370078120A /* PracticeStudentModel.swift in Sources */,
@@ -2385,6 +2416,7 @@
 				A5E117B71F99DC9400C86CA2 /* NotificationList.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
 				36073D1F1F225D2A001317A7 /* ReviewListViewController.swift in Sources */,
+				78FB93A42184380000FC63D6 /* ResultView.swift in Sources */,
 				36073D201F225D2A001317A7 /* SearchViewController.swift in Sources */,
 				36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */,
 				A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */,
