@@ -129,7 +129,7 @@ struct SolaSessionManager {
         if let twtToken = TwTUser.shared.token {
             headers["Authorization"] = "Bearer \(twtToken)"
         } else {
-            log.errorMessage("can't load twtToken")/
+            log("can't load twtToken")
         }
         let fullURL = TWT_ROOT_URL + url
         if method == .post {

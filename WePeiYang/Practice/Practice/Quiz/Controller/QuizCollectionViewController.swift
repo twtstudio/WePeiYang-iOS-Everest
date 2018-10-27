@@ -227,7 +227,7 @@ extension QuizCollectionViewController {
                 self.collectionView.reloadData()
             }
         }) { (err) in
-            debugLog(err)
+            log(err)
         }
     }
     
@@ -440,7 +440,7 @@ extension QuizCollectionViewController {
                                                  "ques_type": ques.quesType!,
                                                  "ques_id": ques.id!]
             ExerciseNetwork.addCollection(data: data, failure: { (err) in
-                debugLog(err)
+                log(err)
             }) { (dic) in
                 //TODO: 收藏后动作
             }
@@ -452,7 +452,7 @@ extension QuizCollectionViewController {
                                                  "ques_type": ques.quesType!,
                                                  "ques_id": ques.id!]
             ExerciseNetwork.deleteCollection(data: data, failure: { (err) in
-                debugLog(err)
+                log(err)
             }) { (dic) in
                 //TODO: 取消收藏后动作
             }

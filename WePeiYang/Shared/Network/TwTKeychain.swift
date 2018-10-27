@@ -9,7 +9,7 @@
 import UIKit
 
 struct TwTKeychain {
-    static let shared = TwTKeyChain()
+    static let shared = TwTKeychain()
     init () {}
 
     let appKey = "YPUzdhNPOa8TeozPw0wb"

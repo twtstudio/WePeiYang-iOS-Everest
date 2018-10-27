@@ -198,7 +198,7 @@ extension PLessonListViewController {
             self.tableView.delegate = self
             self.tableView.dataSource = self
         }) { (err) in
-            debugLog(err)
+            log(err)
         }
     }
     
@@ -211,12 +211,12 @@ extension PLessonListViewController {
                     let courseName = data[i]["course_name"] as? String ?? ""
                     let quesInfo = QuesBasicInfo(id: id, courseName: courseName)
                     array.append(quesInfo)
-                    debugLog(quesInfo)
+                    log(quesInfo)
                 }
             }
             success(array)
         }) { (err) in
-            debugLog(err)
+            log(err)
         }
     }
 }

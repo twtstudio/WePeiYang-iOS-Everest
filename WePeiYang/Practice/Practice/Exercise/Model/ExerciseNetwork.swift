@@ -38,7 +38,7 @@ class ExerciseNetwork {
             }
 
         }) { (err) in
-            debugLog(err)
+            log(err)
         }
     }
     
@@ -50,7 +50,7 @@ class ExerciseNetwork {
             }
             success(idArray)
         }) { (err) in
-            debugLog(err)
+            log(err)
         }
     }
 
@@ -58,7 +58,7 @@ class ExerciseNetwork {
     static func postMistakeQues(courseId: Int, data: Dictionary<String, Any>, failure: @escaping (Error) ->(), success: @escaping (String) -> ()) {
         var message: String = ""
         SolaSessionManager.upload(dictionay: data, baseURL: "https://exam.twtstudio.com", url: "/api/remember/addMistakeQues/\(1)", method: .post, progressBlock: nil, failure: { (err) in
-            debugLog(err)
+            log(err)
         }, success: { (dic) in
             message = dic["message"] as? String ?? ""
             print(dic)
@@ -69,7 +69,7 @@ class ExerciseNetwork {
     static func addCollection(data: Dictionary<String, Any>, failure: @escaping (Error) -> (), success: @escaping (String) -> ()) {
         var message: String = ""
         SolaSessionManager.upload(dictionay: data, baseURL: "https://exam.twtstudio.com", url: "/api/special/addQues/\(0)", method: .post, progressBlock: nil, failure: { (err) in
-            debugLog(err)
+            log(err)
         }, success: { (dic) in
             message = dic["message"] as? String ?? ""
             print(dic)
@@ -80,7 +80,7 @@ class ExerciseNetwork {
     static func deleteCollection(data: Dictionary<String, Any>, failure: @escaping (Error) -> (), success: @escaping (String) -> ()) {
         var message = ""
         SolaSessionManager.upload(dictionay: data, baseURL: "https://exam.twtstudio.com", url: "/api/collect/deleteCollection", method: .post, progressBlock: nil, failure: { (err) in
-            debugLog(err)
+            log(err)
         }, success: { (dic) in
             message = dic["message"] as? String ?? ""
             print(message)

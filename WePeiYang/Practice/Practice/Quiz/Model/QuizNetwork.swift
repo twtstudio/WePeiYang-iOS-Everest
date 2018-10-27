@@ -38,7 +38,7 @@ class QuizNetWork {
             }
             success(questionArray, time)
         }) { (err) in
-            debugLog(err)
+            log(err)
         }
     }
 }

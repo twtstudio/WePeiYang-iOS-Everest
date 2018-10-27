@@ -110,7 +110,7 @@ extension PSearchViewController {
         getSearchResult(courseName: keyword, success: { (array) in
             self.resultArray = array
         }) { (err) in
-            debugLog(err)
+            log(err)
         }
     }
     
@@ -127,7 +127,7 @@ extension PSearchViewController {
             }
             success(array)
         }) { (err) in
-            debugLog(err)
+            log(err)
         }
     }
 }
