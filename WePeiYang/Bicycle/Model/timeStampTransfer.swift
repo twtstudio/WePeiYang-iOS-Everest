@@ -8,15 +8,15 @@
 
 import Foundation
 
-class timeStampTransfer: NSObject {
-
+class timeStampTransfer {
     static func stringFromTimeStampWithFormat(format: String, timeStampString: String) -> String {
-
-        let second = Int(timeStampString)
-        let timeStamp = NSDate(timeIntervalSince1970: Double(second!))
+        guard let second = Double(timeStampString) else {
+            return "未知时间"
+        }
+        let timeStamp = NSDate(timeIntervalSince1970: second)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
-        dateFormatter.timeZone = NSTimeZone(name: "UTC+8") as TimeZone!
+        dateFormatter.timeZone = (NSTimeZone(name: "UTC+8") as TimeZone?) ?? TimeZone(abbreviation: "UTC+8")
         return dateFormatter.string(from: timeStamp as Date)
     }
 }

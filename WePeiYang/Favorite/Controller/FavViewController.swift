@@ -168,7 +168,13 @@ class FavViewController: UIViewController {
         if let dict = UserDefaults.standard.dictionary(forKey: ModuleArrangementKey) as? [String: [String: String]] {
             var array: [(Module, Bool, Int)] = []
             for item in dict {
-                array.append((Module(rawValue: item.key)!, Bool(item.value["isOn"]!)!, Int(item.value["order"]!)!))
+                if let module = Module(rawValue: item.key),
+                    let isOnString = item.value["isOn"],
+                    let isOn = Bool(isOnString),
+                    let orderString = item.value["order"],
+                    let order = Int(orderString) {
+                    array.append((module, isOn, order))
+                }
             }
             modules = array.sorted(by: { $0.2 < $1.2 }).map({ ($0.0, $0.1) }).filter({ $0.1 })
         }
@@ -280,13 +286,16 @@ extension FavViewController: UITableViewDataSource {
         let module = modules[indexPath.row]
 
 //        let key = Array(cardDict.keys)[indexPath.row]
-        let card = cardDict[module.0]!
+        guard let card = cardDict[module.0] else {
+            return UITableViewCell()
+        }
+
         var cell = tableView.dequeueReusableCell(withIdentifier: "card\(module)")
 
         if cell == nil {
             // no cell in reuse pool
             cell = UITableViewCell(style: .default, reuseIdentifier: "card\(module)")
-            cell!.contentView.addSubview(card)
+            cell?.contentView.addSubview(card)
             card.sizeToFit()
             let cellHeight: CGFloat = 240
             card.snp.makeConstraints { make in
@@ -306,7 +315,7 @@ extension FavViewController: UITableViewDataSource {
             cell?.layoutIfNeeded()
         }
 
-        return cell!
+        return cell ?? UITableViewCell()
     }
 }
 

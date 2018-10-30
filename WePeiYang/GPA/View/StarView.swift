@@ -53,7 +53,9 @@ class StarView: UIView {
         //stars = [UIImageView](count: 5, repeatedValue: UIImageView(imageName: star_grey, desiredSize: CGSize(width: height, height: height))!)
 
         for _ in 0..<5 {
-            stars.append(UIButton(backgroundImageName: star_grey, desiredSize: CGSize(width: height, height: height))!)
+            if let button = UIButton(backgroundImageName: star_grey, desiredSize: CGSize(width: height, height: height)) {
+                stars.append(button)
+            }
         }
 
         for index in 0..<5 {
@@ -62,19 +64,21 @@ class StarView: UIView {
 
         if Int(rating) > 0 {
             for i in 0..<Int(rating) {
-                var foo = UIImage(named: star_red)
-                foo = UIImage.resizedImage(image: foo!, scaledToSize: CGSize(width: height, height: height))
-                stars[i].setBackgroundImage(foo, for: .normal)
+                if let img = UIImage(named: star_red) {
+                    let foo = UIImage.resizedImage(image: img, scaledToSize: CGSize(width: height, height: height))
+                    stars[i].setBackgroundImage(foo, for: .normal)
+                }
             }
-            if rating.rounded() - Double(Int(rating)) > 0 {
-                var foo = UIImage(named: star_half)
-                foo = UIImage.resizedImage(image: foo!, scaledToSize: CGSize(width: height, height: height))
+            if rating.rounded() - Double(Int(rating)) > 0,
+                let img = UIImage(named: star_half) {
+                let foo = UIImage.resizedImage(image: img, scaledToSize: CGSize(width: height, height: height))
                 stars[Int(rating)].setBackgroundImage(foo, for: .normal)
             }
         } else if rating.rounded() == 0.5 {
-            var foo = UIImage(named: star_half)
-            foo = UIImage.resizedImage(image: foo!, scaledToSize: CGSize(width: height, height: height))
-            stars[0].setBackgroundImage(foo, for: .normal)
+            if let img = UIImage(named: star_half) {
+                let foo = UIImage.resizedImage(image: img, scaledToSize: CGSize(width: height, height: height))
+                stars[0].setBackgroundImage(foo, for: .normal)
+            }
         }
 
         loadStars()

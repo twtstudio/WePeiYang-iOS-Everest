@@ -126,7 +126,7 @@ class ClassTableViewController: UIViewController {
         }
 
         if isModal {
-            let image = UIImage(named: "ic_back")!
+            let image = UIImage(named: "ic_back") ?? UIImage()
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
         }
 
@@ -169,7 +169,7 @@ class ClassTableViewController: UIViewController {
 
     func initNavBar() {
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 90, height: 30))
-        let downArrow = UIImageView(image: #imageLiteral(resourceName: "ic_arrow_down").with(color: UIColor(red: 0.14, green: 0.69, blue: 0.93, alpha: 1.00)))
+        let downArrow = UIImageView(image: (UIImage(named: "ic_arrow_down") ?? UIImage()).with(color: UIColor(red: 0.14, green: 0.69, blue: 0.93, alpha: 1.00)))
         downArrow.frame = CGRect(x: 70, y: 8, width: 15, height: 15)
         downArrow.tag = 2
 
@@ -362,7 +362,11 @@ extension ClassTableViewController {
         for course in table.classes {
             // 对 week 进行判定
             // 起止周
-            if week < Int(course.weekStart)! || week > Int(course.weekEnd)! {
+            guard let weekStart = Int(course.weekStart),
+                let weekEnd = Int(course.weekEnd) else {
+                    continue
+            }
+            if week < weekStart || week > weekEnd {
                 // TODO: turn gray
                 continue
             }
@@ -404,9 +408,10 @@ extension ClassTableViewController {
                     // 从上节课的结束到下节课的开始填满
                     for i in (lastEnd+1)...(course.arrange[0].start-1) {
                         // 构造一个假的 model
-                        let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}]}")!
+                        if let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}]}") {
+                            array.append(placeholder)
+                        }
                         // placeholders[i].append(placeholder)
-                        array.append(placeholder)
                     }
                     //                    for i in (lastEnd+1)..<(course.arrange[0].start-1) {
                     //                        // 构造一个假的 model
@@ -421,9 +426,10 @@ extension ClassTableViewController {
             if lastEnd < 12 {
                 for i in (lastEnd+1)...12 {
                     // 构造一个假的 model
-                    let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}]}")!
+                    if let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}]}") {
+                        array.append(placeholder)
+                    }
                     // placeholders[i].append(placeholder)
-                    array.append(placeholder)
                 }
             }
             // 按开始时间进行排序
@@ -458,10 +464,13 @@ extension ClassTableViewController {
             // day, index
             var coordinates: [(Int, Int, Bool)] = []
             for course in classes {
-                if course.arrange.first!.day > 5 || course.arrange.first!.day <= 0 {
+                guard let first = course.arrange.first else {
                     continue
                 }
-                for i in course.arrange.first!.start...course.arrange.first!.end {
+                if first.day > 5 || first.day <= 0 {
+                    continue
+                }
+                for i in first.start...first.end {
                     if i > 9 {
                         continue
                     }
@@ -469,9 +478,9 @@ extension ClassTableViewController {
                         continue
                     }
                     let isReal = course.courseName != "" ? true : false
-                    coordinates.append((course.arrange.first!.day-1, i, isReal))
-                    let orig = matrix[i/2][course.arrange.first!.day-1]
-                    matrix[i/2][course.arrange.first!.day-1] = isReal || orig
+                    coordinates.append((first.day-1, i, isReal))
+                    let orig = matrix[i/2][first.day-1]
+                    matrix[i/2][first.day-1] = isReal || orig
                 }
             }
 

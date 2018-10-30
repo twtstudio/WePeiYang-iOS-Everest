@@ -73,21 +73,26 @@ extension TwentyCourseViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = CourseTableViewCell(course: courseList[indexPath.row]!)
+        guard let course = courseList[indexPath.row] else {
+            return UITableViewCell()
+        }
+        let cell = CourseTableViewCell(course: course)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        Courses.Study20.getCourseDetail(of: (courseList[indexPath.row]?.courseID)!) {
+        guard let courseID = courseList[indexPath.row]?.courseID else {
+            return
+        }
 
+        Courses.Study20.getCourseDetail(of: courseID) {
             let details = Courses.Study20.courseDetails
 
             guard !details.isEmpty else {
                 SwiftMessages.showErrorMessage(body: "这门课暂时没有详情噢！")
                 return
             }
-
             let detailVC = TwentyCourseDetailViewController(details: details)
             self.navigationController?.show(detailVC, sender: nil)
             tableView.deselectRow(at: indexPath, animated: true)

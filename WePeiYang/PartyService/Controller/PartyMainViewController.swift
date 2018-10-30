@@ -199,7 +199,7 @@ extension PartyMainViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: (UIApplication.shared.keyWindow?.frame.size.width)!, height: 2))
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 2))
 
         return footerView
     }

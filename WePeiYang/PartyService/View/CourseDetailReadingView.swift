@@ -34,14 +34,14 @@ extension CourseDetailReadingView {
 
         let blurEffect = UIBlurEffect(style: .light)
         let frostView = UIVisualEffectView(effect: blurEffect)
-        let downArrow = UIButton(backgroundImageName: "ic_arrow_down", desiredSize: CGSize(width: 88, height: 24))
-        downArrow?.alpha = 0.25
+        let downArrow = UIButton(backgroundImageName: "ic_arrow_down", desiredSize: CGSize(width: 88, height: 24)) ?? UIButton()
+        downArrow.alpha = 0.25
 
         self.init()
         //self.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 
         assignGestureRecognizerToView()
-        downArrow?.addTarget(self, action: #selector(self.dismissAnimated), for: .touchUpInside)
+        downArrow.addTarget(self, action: #selector(self.dismissAnimated), for: .touchUpInside)
 
         self.addSubview(frostView)
         frostView.snp.makeConstraints {
@@ -49,8 +49,8 @@ extension CourseDetailReadingView {
             make.top.left.bottom.right.equalTo(self)
         }
 
-        self.addSubview(downArrow!)
-        downArrow!.snp.makeConstraints {
+        self.addSubview(downArrow)
+        downArrow.snp.makeConstraints {
             make in
             make.top.equalTo(frostView).offset(28)
             make.centerX.equalTo(frostView)
@@ -73,21 +73,21 @@ extension CourseDetailReadingView {
                 make.centerY.equalTo(frostView)
             }
         } else {
-            let nameLabel = UILabel(text: detail.articleName!, fontSize: 30)
+            let nameLabel = UILabel(text: detail.articleName ?? "", fontSize: 30)
             nameLabel.numberOfLines = 0
 
             //let contentView = UIWebView(htmlString: "<p><object classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0\" height=\"600\" width=\"800\"><param name=\"quality\" value=\"high\" /><param name=\"movie\" value=\"http://www.tudou.com/a/Rcd1Bo1-qqw/&iid=132528954&rpid=849459437&resourceId=849459437_04_0_99/v.swf\" /><embed height=\"600\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" quality=\"high\" src=\"http://www.tudou.com/a/Rcd1Bo1-qqw/&iid=132528954&rpid=849459437&resourceId=849459437_04_0_99/v.swf\" type=\"application/x-shockwave-flash\" width=\"800\"></embed></object></p>")
-            let contentView = UIWebView(htmlString: detail.articleContent!)
+            let contentView = UIWebView(htmlString: detail.articleContent ?? "")
             contentView.delegate = self
 
-            let timeLabel = UILabel(text: detail.courseInsertTime!, fontSize: 13)
+            let timeLabel = UILabel(text: detail.courseInsertTime ?? "", fontSize: 13)
             timeLabel.textColor = .gray
 
             self.addSubview(nameLabel)
             nameLabel.snp.makeConstraints {
                 make in
                 make.left.equalTo(frostView).offset(24)
-                make.top.equalTo(downArrow!).offset(26)
+                make.top.equalTo(downArrow).offset(26)
                 make.right.equalTo(frostView).offset(-28)
             }
 

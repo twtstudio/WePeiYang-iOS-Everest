@@ -14,7 +14,7 @@ class NotificationItem: NSObject {
     var title: String = ""
     var content: String = ""
     var timeStamp: NSDate = NSDate()
-    var second: Int = 0
+    var second: Double = 0
 
     init(dict: NSDictionary) {
 
@@ -22,9 +22,11 @@ class NotificationItem: NSObject {
         title = dict.object(forKey: "title") as! String
         content = dict.object(forKey: "content") as! String
 
-        let timeStampString = dict.object(forKey: "timestamp") as? String
-        second = Int(timeStampString!)!
-        timeStamp = NSDate(timeIntervalSince1970: Double(second))
+        if let timeStampString = dict.object(forKey: "timestamp") as? String,
+            let sec = Double(timeStampString) {
+            timeStamp = NSDate(timeIntervalSince1970: Double(second))
+            second = sec
+        }
     }
 
 }

@@ -47,12 +47,12 @@ class BicycleUserBindViewController: UIViewController, UIAlertViewDelegate {
 
     @IBAction func confirmButton(sender: UIButton) {
 
-        guard !(IDTextField.text?.isEmpty)! else {
+        guard let text = IDTextField.text, !text.isEmpty else {
             SwiftMessages.showErrorMessage(body: "身份证号不能为空")
             return
         }
 
-        BicycleUser.sharedInstance.getCardlist(idnum: IDTextField.text!, doSomething: {
+        BicycleUser.sharedInstance.getCardlist(idnum: text, doSomething: {
             let cardListVC = BicycleCardListViewController(style: .grouped)
             self.navigationController?.pushViewController(cardListVC, animated: true)
         })

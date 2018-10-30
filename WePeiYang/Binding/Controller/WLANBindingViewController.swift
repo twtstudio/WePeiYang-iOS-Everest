@@ -110,8 +110,8 @@ class WLANBindingViewController: UIViewController {
             return
         }
         var loginInfo: [String: String] = [String: String]()
-        loginInfo["username"] = usernameTextField.text!
-        loginInfo["password"] = passwordTextField.text!
+        loginInfo["username"] = usernameTextField.text
+        loginInfo["password"] = passwordTextField.text
         loginInfo["campus"] = campusSwitch.isOn == true ? "1" : "0"
 
         SwiftMessages.showLoading()
@@ -129,7 +129,7 @@ class WLANBindingViewController: UIViewController {
                 TwTUser.shared.WLANPassword = loginInfo["password"]
                 UserDefaults.standard.set(self.campusSwitch.isOn, forKey: "newCampus")
                 TwTUser.shared.save()
-                KeychainService.saveWLAN(account: loginInfo["username"]!, password: loginInfo["password"]!)
+                KeychainService.saveWLAN(account: loginInfo["username"] ?? "", password: loginInfo["password"] ?? "")
                 SwiftMessages.showSuccessMessage(body: "绑定成功！")
                 NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
                 self.dismiss(animated: true, completion: nil)
@@ -145,8 +145,8 @@ class WLANBindingViewController: UIViewController {
             }
         }, failure: { error in
             SwiftMessages.hideLoading()
-            TwTUser.shared.WLANAccount = self.usernameTextField.text!
-            TwTUser.shared.WLANPassword = self.passwordTextField.text!
+            TwTUser.shared.WLANAccount = self.usernameTextField.text ?? TwTUser.shared.WLANAccount
+            TwTUser.shared.WLANPassword = self.passwordTextField.text ?? TwTUser.shared.WLANPassword
             UserDefaults.standard.set(self.campusSwitch.isOn, forKey: "newCampus")
             SwiftMessages.showErrorMessage(body: error.localizedDescription + "\n" + "已为你保存账号密码")
         })

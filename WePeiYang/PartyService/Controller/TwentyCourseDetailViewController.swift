@@ -22,7 +22,8 @@ class TwentyCourseDetailViewController: UITableViewController {
 //        self.navigationController!.jz_navigationBarBackgroundAlpha = 0;
 
         //FIXME: Autolayout and Scrolling is bad.
-        let bgView = UIView(frame: CGRect(x: 0, y: -(self.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height), width: self.view.frame.size.width, height: self.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height))
+        let height = (self.navigationController?.navigationBar.frame.size.height ?? 0) + UIApplication.shared.statusBarFrame.size.height
+        let bgView = UIView(frame: CGRect(x: 0, y: -height, width: self.view.frame.size.width, height: height))
         //let bgView = UIView(color: partyRed)
         bgView.backgroundColor = .partyRed
 
@@ -32,13 +33,6 @@ class TwentyCourseDetailViewController: UITableViewController {
 
         //navigationItem.titleView?.addSubview(bgView)
         tableView.addSubview(bgView)
-        /*bgView.snp.makeConstraints {
-            make in
-            make.left.equalTo(0)
-            make.top.equalTo(-(self.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height))
-            make.right.equalTo((navigationController?.view)!.snp.right)
-            make.height.equalTo(self.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height)
-        }*/
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -54,7 +48,7 @@ class TwentyCourseDetailViewController: UITableViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        for foo in navigationController!.view.subviews {
+        for foo in navigationController?.view.subviews ?? [] {
             if foo.isKind(of: CourseDetailReadingView.self) {
                 foo.removeFromSuperview()
             }
@@ -74,14 +68,18 @@ class TwentyCourseDetailViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = CourseDetailTableViewCell(detail: detailList[indexPath.row]!)
-
-        return cell
+        if let detail = detailList[indexPath.row] {
+            let cell = CourseDetailTableViewCell(detail: detail)
+            return cell
+        }
+        return UITableViewCell()
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        let readingView = CourseDetailReadingView(detail: detailList[indexPath.row]!)
+        guard let detail = detailList[indexPath.row] else {
+            return
+        }
+        let readingView = CourseDetailReadingView(detail: detail)
 
         self.navigationController?.view.addSubview(readingView)
 
@@ -107,11 +105,11 @@ extension TwentyCourseDetailViewController {
 extension TwentyCourseDetailViewController {
 
     @objc func startQuiz() {
-
-        let courseID = (self.detailList[0]?.courseID)!
-        Courses.Study20.getQuiz(of: courseID) {
-            let quizTakingVC = QuizTakingViewController(courseID: courseID)
-            self.navigationController?.show(quizTakingVC, sender: nil)
+        if let courseID = self.detailList[0]?.courseID {
+            Courses.Study20.getQuiz(of: courseID) {
+                let quizTakingVC = QuizTakingViewController(courseID: courseID)
+                self.navigationController?.show(quizTakingVC, sender: nil)
+            }
         }
     }
 }

@@ -106,13 +106,13 @@ class YellowPageSearchViewController: UIViewController {
 
     @objc func textFieldTextChanged(sender: AnyObject) {
         // got what you want
-        guard searchView.textField.text! != "" else {
+        guard let text = searchView.textField.text, !text.isEmpty else {
             isSearching = false
             tableView.reloadData()
             return
         }
 
-        self.result = PhoneBook.shared.getResult(with: searchView.textField.text!)
+        self.result = PhoneBook.shared.getResult(with: text)
         DispatchQueue.main.async {
             self.isSearching = true
             self.tableView.reloadData() // 更新tableView
@@ -272,8 +272,11 @@ extension YellowPageSearchViewController: UITableViewDelegate {
 // MARK: UITextFieldDelegate
 extension YellowPageSearchViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if !history.contains(searchView.textField.text!) && searchView.textField.text! != ""{
-            self.history.append(searchView.textField.text!)
+        guard let text = searchView.textField.text else {
+            return
+        }
+        if !history.contains(text) && !text.isEmpty {
+            self.history.append(text)
         }
     }
 }

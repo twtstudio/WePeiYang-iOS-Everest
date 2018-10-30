@@ -30,7 +30,9 @@ class MallViewController: ProgressWebViewController {
         self.view.backgroundColor = .mallOrange
 //        progressView.y = -64
         webView.y = 1
-        webView.load(URLRequest(url: URL(string: "https://mall.twt.edu.cn/")!))
+        if let url = URL(string: "https://mall.twt.edu.cn/") {
+            webView.load(URLRequest(url: url))
+        }
         self.reloadButton.setTitleColor(UIColor(red: 0.75, green: 0.75, blue: 0.74, alpha: 1.00), for: .normal)
     }
 }

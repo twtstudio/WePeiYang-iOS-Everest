@@ -44,7 +44,7 @@ class BannerCell: UICollectionViewCell {
         }
     }
 
-    var descLabelFont: UIFont = UIFont(name: "Helvetica-Bold", size: 40)! {
+    var descLabelFont: UIFont = UIFont(name: "Helvetica-Bold", size: 40) ?? UIFont.systemFont(ofSize: 40, weight: UIFont.Weight.bold) {
         didSet {
             descLabel.font = descLabelFont
         }

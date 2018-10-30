@@ -20,16 +20,16 @@ class YellowPageDetailViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
 
-        let titleLabel = UILabel(text: self.navigationItem.title!)
-        titleLabel.backgroundColor = UIColor.clear
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
-        titleLabel.textColor = UIColor.white
-        titleLabel.sizeToFit()
-        self.navigationItem.titleView = titleLabel
+        if let title = self.navigationItem.title {
+            let titleLabel = UILabel(text: title)
+            titleLabel.backgroundColor = UIColor.clear
+            titleLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
+            titleLabel.textColor = UIColor.white
+            titleLabel.sizeToFit()
+            self.navigationItem.titleView = titleLabel
+        }
 
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        // FIXME: 改变 statusBar 颜色
-//        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
 
         tableView.delegate = self
         tableView.dataSource = self

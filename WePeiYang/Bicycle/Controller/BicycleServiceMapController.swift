@@ -22,15 +22,17 @@ class BicycleServiceMapController: UIViewController {
      checkLocationAuthorizationStatus()
      }
      }*/
-    var whereAmIButton = UIButton(backgroundImageName: "ic_location", desiredSize: CGSize(width: 32, height: 32))!
+    var whereAmIButton = UIButton(backgroundImageName: "ic_location", desiredSize: CGSize(width: 32, height: 32)) ?? UIButton()
 
     //var whereAmI = UIButton(frame: CGRect(x: 100, y: 100, width: 32, height: 32))
 
-    @objc func whereAmI(sender: UIButton!) {
+    @objc func whereAmI(sender: UIButton) {
         // 迷醉？
         if let userLoc: MKUserLocation? = newMapView.userLocation {
-            let cl = CLLocation(latitude: userLoc!.coordinate.latitude, longitude: userLoc!.coordinate.longitude)
-            centerMapOnLocation(location: cl)
+            if let userLoc = userLoc {
+                let cl = CLLocation(latitude: userLoc.coordinate.latitude, longitude: userLoc.coordinate.longitude)
+                centerMapOnLocation(location: cl)
+            }
         } else {
             checkLocationAuthorizationStatus()
         }
@@ -83,8 +85,9 @@ class BicycleServiceMapController: UIViewController {
         } else {
             // Fallback on earlier versions
         }
-
-        newMapView.addAnnotations(spots!)
+        if let spots = spots {
+            newMapView.addAnnotations(spots)
+        }
         //newMapView.addAnnotation(spot)
     }
 
@@ -146,7 +149,7 @@ extension BicycleServiceMapController: MKMapViewDelegate {
             } else {
 
                 let fooAnnotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: userPinIdentifier)
-                fooAnnotationView.image = UIImage.resizedImage(image: UIImage(named: "小箭头")!, scaledToSize: CGSize(width: 25.0, height: 25.0))
+                fooAnnotationView.image = UIImage.resizedImage(image: UIImage(named: "小箭头") ?? UIImage(), scaledToSize: CGSize(width: 25.0, height: 25.0))
                 fooAnnotationView.canShowCallout = false
                 return fooAnnotationView
             }
@@ -170,22 +173,27 @@ extension BicycleServiceMapController: MKMapViewDelegate {
             return
         }
         guard let userLoc = newMapView.userLocation as? MKUserLocation else {
-            (view.annotation as! ParkingSpot).getCurrentStatus {
-                let detailView = SpotDetailsView(positionsAvailable: "\((spot.currentNumberOfBikes)!)/\(spot.numberOfBikes)", spotName: spot.title!, distanceFromUser: nil, status: spot.status)
+            (view.annotation as? ParkingSpot)?.getCurrentStatus {
+                guard let current = spot.currentNumberOfBikes else {
+                        return
+                }
+                let detailView = SpotDetailsView(positionsAvailable: "\(current)/\(spot.numberOfBikes)", spotName: spot.title ?? "未知停车点", distanceFromUser: nil, status: spot.status)
                 mapView.addSubview(detailView)
                 self.checkLocationAuthorizationStatus()
             }
         }
 
         (view.annotation as! ParkingSpot).getCurrentStatus {
-            let detailView = SpotDetailsView(positionsAvailable: "\((spot.currentNumberOfBikes)!)/\(spot.numberOfBikes)", spotName: spot.title!, distanceFromUser: spot.calculateDistance(userLocation: userLoc), status: spot.status)
+            guard let current = spot.currentNumberOfBikes,
+            let title = spot.title else {
+                return
+            }
+            let detailView = SpotDetailsView(positionsAvailable: "\(current)/\(spot.numberOfBikes)", spotName: title, distanceFromUser: spot.calculateDistance(userLocation: userLoc), status: spot.status)
 
             DispatchQueue.main.async {
                 mapView.addSubview(detailView)
             }
-
         }
-
     }
 
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {

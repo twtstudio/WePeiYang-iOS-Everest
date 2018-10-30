@@ -38,7 +38,8 @@ struct HomePageHelper {
     static func getGallery(success: @escaping ([GalleryModel]) -> Void, failure: @escaping (Error) -> Void) {
         let queue = DispatchQueue(label: "\(Date().description)+gallery")
         queue.async {
-            if let galleries = try? Galleries(fromURL: URL(string: "https://www.twt.edu.cn/mapi/galleries/index")!) {
+            if let url = URL(string: "https://www.twt.edu.cn/mapi/galleries/index"),
+                let galleries = try? Galleries(fromURL: url) {
                 DispatchQueue.main.async {
                     success(galleries)
                 }

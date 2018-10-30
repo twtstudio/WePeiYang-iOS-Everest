@@ -69,8 +69,12 @@ class BicycleUser {
     }
 
     func getCardlist(idnum: String, doSomething: @escaping () -> Void, failure: ((String) -> Void)? = nil) {
+        guard let bikeToken = bikeToken else {
+            SwiftMessages.showErrorMessage(body: "请先绑定自行车")
+            return
+        }
 
-        let parameters = ["auth_token": bikeToken!, "idnum": idnum]
+        let parameters = ["auth_token": bikeToken, "idnum": idnum]
 
         SolaSessionManager.solaSession(type: .post, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.cardURL, parameters: parameters, success: { dict in
             guard dict["errno"] as? Int == 0 else {
@@ -92,8 +96,12 @@ class BicycleUser {
     }
 
     func bindCard(id: String, sign: String, doSomething: @escaping () -> Void, failure: ((String) -> Void)? = nil) {
+        guard let bikeToken = bikeToken else {
+            SwiftMessages.showErrorMessage(body: "请先绑定自行车")
+            return
+        }
 
-        let parameters = ["auth_token": bikeToken!, "id": id, "sign": sign]
+        let parameters = ["auth_token": bikeToken, "id": id, "sign": sign]
 
         Alamofire.request(BicycleAPIs.rootURL+BicycleAPIs.bindURL, method: .post, parameters: parameters, headers: nil).responseJSON { response in
             switch response.result {
@@ -124,8 +132,12 @@ class BicycleUser {
     }
 
     func getUserInfo(doSomething: @escaping () -> Void) {
+        guard let bikeToken = bikeToken else {
+            SwiftMessages.showErrorMessage(body: "请先绑定自行车")
+            return
+        }
 
-        let parameters = ["auth_token": bikeToken!]
+        let parameters = ["auth_token": bikeToken]
 
         SolaSessionManager.solaSession(type: .post, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.infoURL, parameters: parameters, success: { dict in
 
@@ -160,7 +172,11 @@ class BicycleUser {
     func unbind(success: @escaping () -> Void, failure: ((String) -> Void)? = nil) {
 
         auth(success: {
-            let parameters = ["auth_token": self.bikeToken!]
+            guard let bikeToken = self.bikeToken else {
+                SwiftMessages.showErrorMessage(body: "请先绑定自行车")
+                return
+            }
+            let parameters = ["auth_token": bikeToken]
 
             SolaSessionManager.solaSession(type: .post, baseURL: BicycleAPIs.rootURL, url: BicycleAPIs.unBindURL, parameters: parameters, success: { dict in
                 guard dict["errno"] as? Int == 0 else {

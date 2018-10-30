@@ -226,7 +226,9 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
 extension BannerScrollView {
     func setupTimer() {
         timer = Timer(timeInterval: autoScrollInterval, target: self, selector: #selector(autoChangeBannerCell), userInfo: nil, repeats: true)
-        RunLoop.main.add(timer!, forMode: .commonModes)
+        if let timer = timer {
+            RunLoop.main.add(timer, forMode: .commonModes)
+        }
     }
 
     @objc func autoChangeBannerCell() {
@@ -281,10 +283,12 @@ extension BannerScrollView {
             pageControl?.isUserInteractionEnabled = false
             pageControl?.pointSpace = pageControlPointSpace
 
-            if outerPageControlFrame != nil {
-                superview?.addSubview(pageControl!)
-            } else {
-                addSubview(pageControl!)
+            if let pageControl = pageControl {
+                if outerPageControlFrame != nil {
+                    superview?.addSubview(pageControl)
+                } else {
+                    addSubview(pageControl)
+                }
             }
         }
     }

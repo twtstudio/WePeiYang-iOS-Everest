@@ -123,7 +123,8 @@ class BicycleServiceViewController: WMPageController {
             self.navigationItem.rightBarButtonItem = refreshButton
 
             //BicycleUser.sharedInstance.status?.isEqual(0))! && (!BicycleUser.sharedInstance.bindCancel
-            if (BicycleUser.sharedInstance.status?.isEqual(0))! && (!BicycleUser.sharedInstance.bindCancel) {
+            if let status = BicycleUser.sharedInstance.status,
+            status == 0 && !BicycleUser.sharedInstance.bindCancel {
                 let bindVC: BicycleUserBindViewController = BicycleUserBindViewController.init(nibName: "BicycleUserBindViewController", bundle: nil)
                 self.navigationController?.pushViewController(bindVC, animated: true)
             }

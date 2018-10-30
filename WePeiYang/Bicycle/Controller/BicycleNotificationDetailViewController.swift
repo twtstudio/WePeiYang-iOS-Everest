@@ -27,16 +27,9 @@ class BicycleNotificationDetailViewController: UIViewController {
 //        self.view.frame.size.width = (UIApplication.shared.keyWindow?.frame.size.width)!
 
         //NavigationBar 的文字
-        self.navigationController!.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.tintColor = .white
 
         //NavigationBar 的背景，使用了View
-        //self.navigationController!.jz_navigationBarBackgroundAlpha = 0;
-//        let bgView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height))
-
-//        bgView.backgroundColor = UIColor(red: 0.0/255.0, green: 174.0/255.0, blue: 101.0/255.0, alpha: 1.0)
-//        self.view.addSubview(bgView)
-
-        //改变 statusBar 颜色
 
 //        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
         let titleLabel = UILabel.init(frame: CGRect.zero)
@@ -49,7 +42,12 @@ class BicycleNotificationDetailViewController: UIViewController {
         titleLabel.sizeToFit()
 
         //加载HTMLString
-        self.contentWebView.loadHTMLString(self.renderHTMLWithTitle(title: notificationTitle!, content: notificationContent!, time: time!), baseURL: URL(fileURLWithPath: Bundle.main.resourcePath!))
+        if let title = notificationTitle,
+            let content = notificationContent,
+            let time = time,
+            let path = Bundle.main.resourcePath {
+            self.contentWebView.loadHTMLString(self.renderHTMLWithTitle(title: title, content: content, time: time), baseURL: URL(fileURLWithPath: path))
+        }
     }
 
     func renderHTMLWithTitle(title: String, content: String, time: String) -> String {

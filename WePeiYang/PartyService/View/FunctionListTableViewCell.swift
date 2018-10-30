@@ -25,7 +25,7 @@ class FunctionListTableViewCell: UITableViewCell {
     convenience init(iconName: String, desc: String) {
         self.init()
 
-        var image = UIImage(named: iconName)!
+        var image = UIImage(named: iconName) ?? UIImage()
         let imageSize = CGSize(width: 30, height: 30)
         image = UIImage.resizedImage(image: image, scaledToSize: imageSize)
         UIGraphicsBeginImageContext(imageSize)

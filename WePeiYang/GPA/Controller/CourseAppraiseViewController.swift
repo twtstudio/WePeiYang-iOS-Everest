@@ -23,7 +23,7 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
     var note = ""
     var shouldLoadDetail = false
     var data: GPAClassModel!
-    var GPASession: String?
+    var GPASession: String!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -37,11 +37,11 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard data != nil else {
-            fatalError("CourseAppraiseViewController.data 赋值啊大哥")
+        guard data != nil, GPASession != nil else {
+            fatalError("CourseAppraiseViewController.data, GPASession 赋值啊大哥")
         }
         //初始化课程数据
-        CourseAppraiseManager.shared.setInfo(lesson_id: data.lessonID, union_id: data.unionID, course_id: data.courseID, term: data.term, GPASession: GPASession!)
+        CourseAppraiseManager.shared.setInfo(lesson_id: data.lessonID, union_id: data.unionID, course_id: data.courseID, term: data.term, GPASession: GPASession)
 
         //View
         self.navigationItem.title = "评价"
@@ -151,8 +151,10 @@ class CourseAppraiseViewController: UIViewController, UITableViewDataSource, UIT
     }
 
     @objc func keyboardWillShow(notification: Notification) {
-        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardFrame: NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let userInfo = notification.userInfo
+        guard let keyboardFrame: NSValue = userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
         let keyboardRectangle = keyboardFrame.cgRectValue
         let keyboardHeight = keyboardRectangle.height
 

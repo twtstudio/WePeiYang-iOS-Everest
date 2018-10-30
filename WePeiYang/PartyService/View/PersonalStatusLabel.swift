@@ -11,8 +11,8 @@ import UIKit
 class PersonalStatusLabel: UILabel {
 
     var status: Int? //0 for waiting, 1 for doing, 2 for done
-    var borderView: UIImageView?
-    var cornerView: UIImageView?
+    var borderView = UIImageView()
+    var cornerView = UIImageView()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,34 +49,34 @@ class PersonalStatusLabel: UILabel {
     func showStatus() {
 
         cornerView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        cornerView?.image = UIImage(named: "done")
-        cornerView?.alpha = 0
-        self.addSubview(cornerView!)
+        cornerView.image = UIImage(named: "done")
+        cornerView.alpha = 0
+        self.addSubview(cornerView)
 
         borderView = UIImageView(frame: self.bounds)
-        borderView?.alpha = 0
-        self.addSubview(borderView!)
+        borderView.alpha = 0
+        self.addSubview(borderView)
 
         if self.status == 0 {
-            borderView?.image = UIImage(named: "grayBorder")
+            borderView.image = UIImage(named: "grayBorder")
 
             UIView.animate(withDuration: 0.5, animations: {
-                self.borderView?.alpha = 1
+                self.borderView.alpha = 1
             })
 
         } else if self.status == 1 {
-            borderView?.image = UIImage(named: "redBorder")
+            borderView.image = UIImage(named: "redBorder")
 
             UIView.animate(withDuration: 0.5, animations: {
-                self.borderView?.alpha = 1
+                self.borderView.alpha = 1
                 self.textColor = UIColor.red
             })
         } else if self.status == 2 {
-            borderView?.image = UIImage(named: "greenBorder")
+            borderView.image = UIImage(named: "greenBorder")
 
             UIView.animate(withDuration: 0.5, animations: {
-                self.cornerView?.alpha = 1
-                self.borderView?.alpha = 1
+                self.cornerView.alpha = 1
+                self.borderView.alpha = 1
                 self.textColor = UIColor.green
             })
         }

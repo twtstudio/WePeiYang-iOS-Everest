@@ -77,11 +77,8 @@ class PartyPersonalStatusViewController: UIViewController, UIScrollViewDelegate 
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        self.view.frame.size.width = (UIApplication.shared.keyWindow?.frame.size.width)!
-
         //NavigationBar 的文字
-        self.navigationController!.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.tintColor = .white
 
         //titleLabel设置
         let titleLabel = UILabel(text: "个人状态", fontSize: 17)
@@ -92,7 +89,9 @@ class PartyPersonalStatusViewController: UIViewController, UIScrollViewDelegate 
 
         //NavigationBar 的背景，使用了View
 //        self.navigationController!.jz_navigationBarBackgroundAlpha = 0;
-        let bgView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height))
+        let height = (self.navigationController?.navigationBar.frame.size.height ?? 0) + UIApplication.shared.statusBarFrame.size.height
+
+        let bgView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: height))
 
         bgView.backgroundColor = .partyRed
         self.view.addSubview(bgView)
@@ -117,10 +116,10 @@ class PartyPersonalStatusViewController: UIViewController, UIScrollViewDelegate 
             make.top.equalTo(view)
         }
 
-        mainScrollView.contentSize = CGSize(width: (UIApplication.shared.keyWindow?.frame.size.width)!, height: 944)
+        mainScrollView.contentSize = CGSize(width: self.view.width, height: 944)
 
         // MARK: 这样做不太好，用了奇怪的数，其实也不是很奇怪啦
-        let strangeNumber = (932-(UIApplication.shared.keyWindow?.frame.size.width)!)/2.0
+        let strangeNumber = (932-self.view.width)/2.0
 
         scrollView1 = UIScrollView()
         scrollView1.contentSize = CGSize(width: 932, height: 164)
@@ -134,16 +133,16 @@ class PartyPersonalStatusViewController: UIViewController, UIScrollViewDelegate 
         scrollView2.delegate = self
         mainScrollView.addSubview(scrollView2)
 
-        leftArrowView1 = UIImageView(imageName: "ic_arrow_left", desiredSize: CGSize(width: 30, height: 30))!
+        leftArrowView1 = UIImageView(imageName: "ic_arrow_left", desiredSize: CGSize(width: 30, height: 30)) ?? UIImageView()
         leftArrowView1.alpha = 0.4
         mainScrollView.addSubview(leftArrowView1)
-        rightArrowView1 = UIImageView(imageName: "ic_arrow_right", desiredSize: CGSize(width: 30, height: 30))!
+        rightArrowView1 = UIImageView(imageName: "ic_arrow_right", desiredSize: CGSize(width: 30, height: 30)) ?? UIImageView()
         rightArrowView1.alpha = 0.4
         mainScrollView.addSubview(rightArrowView1)
-        leftArrowView2 = UIImageView(imageName: "ic_arrow_left", desiredSize: CGSize(width: 30, height: 30))!
+        leftArrowView2 = UIImageView(imageName: "ic_arrow_left", desiredSize: CGSize(width: 30, height: 30)) ?? UIImageView()
         leftArrowView2.alpha = 0.4
         mainScrollView.addSubview(leftArrowView2)
-        rightArrowView2 = UIImageView(imageName: "ic_arrow_right", desiredSize: CGSize(width: 30, height: 30))!
+        rightArrowView2 = UIImageView(imageName: "ic_arrow_right", desiredSize: CGSize(width: 30, height: 30)) ?? UIImageView()
         rightArrowView2.alpha = 0.4
         mainScrollView.addSubview(rightArrowView2)
 
@@ -252,7 +251,7 @@ class PartyPersonalStatusViewController: UIViewController, UIScrollViewDelegate 
     func initUINext() {
 
         // MARK: 这样做不太好，用了奇怪的数，其实也不是很奇怪啦
-        let strangeNumber = (932-(UIApplication.shared.keyWindow?.frame.size.width)!)/2.0
+        let strangeNumber = (932-self.view.width)/2.0
 
         label1.snp.makeConstraints { make in
             make.centerX.equalTo(mainScrollView)

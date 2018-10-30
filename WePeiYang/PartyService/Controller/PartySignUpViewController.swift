@@ -20,12 +20,8 @@ class PartySignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        self.navigationController!.jz_navigationBarBackgroundAlpha = 0;
-
-        self.view.frame.size.width = (UIApplication.shared.keyWindow?.frame.size.width)!
-
         //NavigationBar 的文字
-        self.navigationController!.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor.white
 
         //NavigationBar 的背景，使用了View
 //        self.navigationController!.jz_navigationBarBackgroundAlpha = 0;
@@ -143,6 +139,7 @@ extension PartySignUpViewController: UITableViewDelegate, UITableViewDataSource 
 extension PartySignUpViewController {
 
     func computeLayout() {
+        let height = (self.navigationController?.navigationBar.frame.size.height ?? 0) + UIApplication.shared.statusBarFrame.size.height
 
         self.view.addSubview(bgView)
         bgView.snp.makeConstraints {
@@ -150,7 +147,7 @@ extension PartySignUpViewController {
             make.top.equalTo(self.view)
             make.left.equalTo(self.view)
             make.right.equalTo(self.view)
-            make.bottom.equalTo(self.view.snp.top).offset((self.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height))
+            make.bottom.equalTo(self.view.snp.top).offset(height)
         }
 
         self.view.addSubview(tableView)

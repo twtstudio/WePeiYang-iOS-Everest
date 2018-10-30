@@ -53,10 +53,10 @@ extension TheoryCourseArticleReadingView {
                 make.centerY.equalTo(frostView)
             }
         } else {
-            let nameLabel = UILabel(text: article.fileTitle!, fontSize: 30)
+            let nameLabel = UILabel(text: article.fileTitle ?? "题目", fontSize: 30)
             nameLabel.numberOfLines = 0
 
-            let timeLabel = UILabel(text: article.fileAddTime!, fontSize: 13)
+            let timeLabel = UILabel(text: article.fileAddTime ?? "时间", fontSize: 13)
             timeLabel.textColor = .gray
 
             frostView.addSubview(nameLabel)

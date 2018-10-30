@@ -28,15 +28,14 @@ class GradeDetailViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        self.view.frame.size.width = (UIApplication.shared.keyWindow?.frame.size.width)!
-
         //NavigationBar 的文字
-        self.navigationController!.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.tintColor = .white
 
         //NavigationBar 的背景，使用了View
         // FIXME:
         //self.navigationController!.jz_navigationBarBackgroundAlpha = 0;
-        let bgView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height))
+        let height = (self.navigationController?.navigationBar.frame.size.height ?? 0) + UIApplication.shared.statusBarFrame.size.height
+        let bgView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: height))
 
         bgView.backgroundColor = .partyRed
         self.view.addSubview(bgView)
@@ -63,41 +62,59 @@ class GradeDetailViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "identifier")
-        if cell == nil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: "identifier")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "identifier") ?? UITableViewCell(style: .default, reuseIdentifier: "identifier")
+
+        cell.textLabel?.textColor = .lightGray
+        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 14.0)
+
+        guard let index = index else {
+            return cell
         }
-
-        cell?.textLabel?.textColor = .lightGray
-        cell?.textLabel?.font = UIFont.boldSystemFont(ofSize: 14.0)
-
-        let dict = Applicant.sharedInstance.applicantGrade[index!]
+        let dict = Applicant.sharedInstance.applicantGrade[index]
 
         if indexPath.row == 0 {
-            cell?.textLabel?.text = "姓名：\(Applicant.sharedInstance.realName!)"
+            if let value = Applicant.sharedInstance.realName {
+                cell.textLabel?.text = "姓名：\(value)"
+            }
         } else if indexPath.row == 1 {
-            cell?.textLabel?.text = "学号：\(dict["sno"] as! String)"
+            if let value = dict["sno"] as? String {
+                cell.textLabel?.text = "学号：\(value)"
+            }
         } else if indexPath.row == 2 {
-            cell?.textLabel?.text = "活动期数：\(dict["test_name"] as! String)"
+            if let value = dict["test_name"] as? String {
+                cell.textLabel?.text = "活动期数：\(value)"
+            }
         } else if indexPath.row == 3 {
-            cell?.textLabel?.text = "考试时间：\(dict["entry_time"] as! String)"
+            if let value = dict["entry_time"] as? String {
+                cell.textLabel?.text = "考试时间：\(value)"
+            }
         } else if indexPath.row == 4 {
-            cell?.textLabel?.text = "实践成绩：\(dict["entry_practicegrade"] as! String)"
+            if let value = dict["entry_practicegrade"] as? String {
+                cell.textLabel?.text = "实践成绩：\(value)"
+            }
         } else if indexPath.row == 5 {
-            cell?.textLabel?.text = "论文成绩：\(dict["entry_articlegrade"] as! String)"
+            if let value = dict["entry_articlegrade"] as? String {
+                cell.textLabel?.text = "论文成绩：\(value)"
+            }
         } else if indexPath.row == 6 {
-            cell?.textLabel?.text = "笔试成绩：暂无"
+            cell.textLabel?.text = "笔试成绩：暂无"
             if let foo = dict["entry_testgrade"] {
-                cell?.textLabel?.text = "笔试成绩：\(foo)"
+                cell.textLabel?.text = "笔试成绩：\(foo)"
             }
         } else if indexPath.row == 7 {
-            cell?.textLabel?.text = "成绩状态：\(entryStatus[Int(dict["entry_status"] as! String)!])"
+            if let status = dict["entry_status"] as? String,
+            let index = Int(status) {
+                cell.textLabel?.text = "成绩状态：\(entryStatus[index])"
+            }
         } else if indexPath.row == 8 {
-            cell?.textLabel?.text = "考试状态：\(passStatus[Int(dict["entry_ispassed"] as! String)!])"
+            if let passed = dict["entry_ispassed"] as? String,
+                let index = Int(passed) {
+                cell.textLabel?.text = "考试状态：\(passStatus[index])"
+            }
         }
 
-        cell?.selectionStyle = .none
-        return cell!
+        cell.selectionStyle = .none
+        return cell
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -113,7 +130,7 @@ class GradeDetailViewController: UIViewController, UITableViewDataSource, UITabl
             return nil
         }
 
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: (UIApplication.shared.keyWindow?.frame.size.width)!, height: 64))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 64))
 
         let complainButton = UIButton(title: "申诉")
         complainButton.addTarget(self, action: #selector(GradeDetailViewController.complain), for: .touchUpInside)
@@ -135,13 +152,20 @@ class GradeDetailViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
     @objc func complain() {
-        let dict = Applicant.sharedInstance.applicantGrade[index!]
+        guard let index = index, let testType = testType else {
+            return
+        }
+        let dict = Applicant.sharedInstance.applicantGrade[index]
         if testType == "probationary" {
-            let complainVC = PartyComplainViewController(ID: dict["train_id"] as! String, type: testType!)
-            self.navigationController?.pushViewController(complainVC, animated: true)
+            if let trainID = dict["train_id"] as? String {
+                let complainVC = PartyComplainViewController(ID: trainID, type: testType)
+                self.navigationController?.pushViewController(complainVC, animated: true)
+            }
         } else {
-            let complainVC = PartyComplainViewController(ID: dict["test_id"] as! String, type: testType!)
-            self.navigationController?.pushViewController(complainVC, animated: true)
+            if let testID = dict["test_id"] as? String {
+                let complainVC = PartyComplainViewController(ID: testID, type: testType)
+                self.navigationController?.pushViewController(complainVC, animated: true)
+            }
         }
 
     }

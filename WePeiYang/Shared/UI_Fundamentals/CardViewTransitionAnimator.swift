@@ -109,7 +109,9 @@ class CardViewTransitionAnimator: NSObject, UIViewControllerAnimatedTransitionin
 
         let blankView = UIView(frame: toView.frame)
         blankView.backgroundColor = .black
-        let imgView = fromVC.view.snapshotView(afterScreenUpdates: false)!
+        guard let imgView = fromVC.view.snapshotView(afterScreenUpdates: false) else {
+            return
+        }
         let frontView = UIView(frame: originalFrame)
         frontView.backgroundColor = .white
 
@@ -147,8 +149,10 @@ class CardViewTransitionAnimator: NSObject, UIViewControllerAnimatedTransitionin
 
         let blankView = UIView(frame: toView.frame)
         blankView.backgroundColor = .black
-        let imgView = toView.snapshotView(afterScreenUpdates: true)!
-        let frontView = fromVC.view.snapshotView(afterScreenUpdates: false)!
+        guard let imgView = toView.snapshotView(afterScreenUpdates: true),
+        let frontView = fromVC.view.snapshotView(afterScreenUpdates: false) else {
+            return
+        }
 
         transitionContext.containerView.addSubview(blankView)
         transitionContext.containerView.addSubview(imgView)

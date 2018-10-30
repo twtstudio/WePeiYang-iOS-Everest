@@ -129,7 +129,7 @@ class LibraryBindingViewController: UIViewController {
 
                 if errorCode == -1 {
                     TwTUser.shared.libBindingState = true
-                    TwTUser.shared.libPassword = self.passwordTextField.text!
+                    TwTUser.shared.libPassword = self.passwordTextField.text ?? TwTUser.shared.libPassword
                     TwTUser.shared.save()
                     NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("lib", true))
                     SwiftMessages.showSuccessMessage(body: "绑定成功！")

@@ -33,8 +33,9 @@ class NotificationList: NSObject {
             }
 
             if !foo.isEmpty {
-                let fooTimeStamp = Int((foo[0] as AnyObject)["timestamp"] as! String)!
-                if fooTimeStamp > self.newestTimeStamp {
+                if let fooTimeStampString = (foo[0] as AnyObject)["timestamp"] as? String,
+                    let fooTimeStamp = Int(fooTimeStampString),
+                    fooTimeStamp > self.newestTimeStamp {
                     self.didGetNewNotification = true
                     self.newestTimeStamp = fooTimeStamp
                 }

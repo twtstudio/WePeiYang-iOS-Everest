@@ -40,7 +40,9 @@ class DetailSettingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: .white)!, for: .default)
+        if let image = UIImage(color: .white) {
+            self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+        }
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
@@ -105,7 +107,7 @@ extension DetailSettingViewController: UITableViewDelegate {
         }
 
         let footer = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 100))
-        let imgView = UIImageView(image: #imageLiteral(resourceName: "logo"))
+        let imgView = UIImageView(image: UIImage(named: "logo") ?? UIImage())
         imgView.frame = CGRect(x: (self.view.width-40)/2, y: 20, width: 40, height: 20)
         footer.addSubview(imgView)
         let label = UILabel()
@@ -169,45 +171,42 @@ extension DetailSettingViewController: UITableViewDelegate {
             self.navigationController?.pushViewController(settingsVC, animated: true)
         case (0, .accounts):
             return
-
         case (1, .join):
-            let webVC = SupportWebViewController(url: URL(string: "https://coder.twtstudio.com/")!)
-            self.navigationController?.pushViewController(webVC, animated: true)
+            if let url = URL(string: "https://coder.twtstudio.com/") {
+                let webVC = SupportWebViewController(url: url)
+                self.navigationController?.pushViewController(webVC, animated: true)
+            }
         case (1, .EULA):
-            let webVC = SupportWebViewController(url: URL(string: "https://support.twtstudio.com/category/1/%E5%85%AC%E5%91%8A")!)
-            self.navigationController?.pushViewController(webVC, animated: true)
+            if let url = URL(string: "https://support.twtstudio.com/category/1/%E5%85%AC%E5%91%8A") {
+                let webVC = SupportWebViewController(url: url)
+                self.navigationController?.pushViewController(webVC, animated: true)
+            }
         case (1, .feedback):
-            let webVC = SupportWebViewController(url: URL(string: "https://support.twtstudio.com/category/6/%E7%A7%BB%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF")!)
-            self.navigationController?.pushViewController(webVC, animated: true)
+            if let url = URL(string: "https://support.twtstudio.com/category/6/%E7%A7%BB%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF") {
+                let webVC = SupportWebViewController(url: url)
+                self.navigationController?.pushViewController(webVC, animated: true)
+            }
         case (1, .qqGroup):
             let urlString = "mqqapi://card/show_pslcard?src_type=internal&version=1&uin=738068756&card_type=group&source=qrcode&jump_from=&auth="
-            if UIApplication.shared.openURL(URL(string: urlString)!) == false {
+            if let url = URL(string: urlString),
+                UIApplication.shared.openURL(url) == false {
                 SwiftMessages.showWarningMessage(body: "没有找到QQ")
             }
-            //break
+        //break
         case (2, .share):
-            let shareVC = UIActivityViewController(activityItems: [UIImage(named: "AppIcon40x40")!, "我发现「微北洋」超好用！一起来吧！", URL(string: "https://mobile.twt.edu.cn/wpy/index.html")!], applicationActivities: [])
-            // TODO: iPad
-//            if let popoverPresentationController = shareVC.popoverPresentationController {
-//                popoverPresentationController.barButtonItem
-//                popoverPresentationController.permittedArrowDirections = .up
-//            }
-            self.present(shareVC, animated: true, completion: nil)
+            if let img = UIImage(named: "AppIcon40x40"),
+                let url = URL(string: "https://mobile.twt.edu.cn/wpy/index.html") {
+                let shareVC = UIActivityViewController(activityItems: [img, "我发现「微北洋」超好用！一起来吧！", url], applicationActivities: [])
+                if !isiPad {
+                    self.present(shareVC, animated: true, completion: nil)
+                } else {
+                    // TODO: iPad
+                }
+            }
         case (2, .rate):
-            UIApplication.shared.openURL(URL(string: "itms-apps://itunes.apple.com/cn/app/%E5%BE%AE%E5%8C%97%E6%B4%8B/id785509141?mt=8")!)
-//            let appid = "785509141"
-//            let storeVC = SKStoreProductViewController()
-//            storeVC.delegate = self
-//            SwiftMessages.showLoading()
-//
-//            storeVC.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: appid], completionBlock: { (result, error) in
-//                if let error = error {
-//                    SwiftMessages.showErrorMessage(body: error.localizedDescription)
-//                } else {
-//                    SwiftMessages.hide()
-//                    self.present(storeVC, animated: true, completion: nil)
-//                }
-//            })
+            if let url = URL(string: "itms-apps://itunes.apple.com/cn/app/%E5%BE%AE%E5%8C%97%E6%B4%8B/id785509141?mt=8") {
+                UIApplication.shared.openURL(url)
+            }
         case (2, .quit):
             let popup = PopupDialog(title: "退出", message: "确定要退出吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
 

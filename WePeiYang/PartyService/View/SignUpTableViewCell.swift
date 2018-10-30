@@ -24,21 +24,25 @@ class SignUpTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    @objc func signUp(_ sender: UIButton!) {
-
+    @objc func signUp(_ sender: UIButton) {
         switch sender.tag {
-
         case 0:
-            ApplicantTest.ApplicantEntry.signUp(forID: (ApplicantTest.ApplicantEntry.testInfo?.id)!) {
-                self.refreshUI()
+            if let id = ApplicantTest.ApplicantEntry.testInfo?.id {
+                ApplicantTest.ApplicantEntry.signUp(forID: id) {
+                    self.refreshUI()
+                }
             }
         case 1:
-            ApplicantTest.AcademyEntry.signUp(forID: (ApplicantTest.AcademyEntry.testInfo?.id)!) {
-                self.refreshUI()
+            if let id = ApplicantTest.AcademyEntry.testInfo?.id {
+                ApplicantTest.AcademyEntry.signUp(forID: id) {
+                    self.refreshUI()
+                }
             }
         case 2:
-            ApplicantTest.ProbationaryEntry.singUp(forID: (ApplicantTest.ProbationaryEntry.testInfo?.id)!) {
-                self.refreshUI()
+            if let id = ApplicantTest.ProbationaryEntry.testInfo?.id {
+                ApplicantTest.ProbationaryEntry.singUp(forID: id) {
+                    self.refreshUI()
+                }
             }
         default:
             break
@@ -129,13 +133,13 @@ private extension UIButton {
 
         switch self.tag {
         case 0:
-            status = ApplicantTest.ApplicantEntry.status!
+            status = ApplicantTest.ApplicantEntry.status
             hasEntry = ApplicantTest.ApplicantEntry.testInfo?.hasEntry
         case 1:
-            status = ApplicantTest.AcademyEntry.status!
+            status = ApplicantTest.AcademyEntry.status
             hasEntry = ApplicantTest.AcademyEntry.testInfo?.hasEntry
         case 2:
-            status = ApplicantTest.ProbationaryEntry.status!
+            status = ApplicantTest.ProbationaryEntry.status
             hasEntry = ApplicantTest.ProbationaryEntry.testInfo?.hasEntry
 
         default:

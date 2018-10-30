@@ -73,7 +73,7 @@ struct ApplicantTest {
                 testInfo = TestInfo(id: id, name: name, beginTime: beginTime, attention: attention, fileName: fileName, filePath: filePath, status: status, isDeleted: isDeleted, hasEntry: hasEntry)
 
                 if testInfo?.hasEntry == 1 {
-                    ApplicantEntry.message = "考试时间: " + (testInfo?.beginTime)!
+                    ApplicantEntry.message = "考试时间: " + (testInfo?.beginTime ?? "未知")
                 } else {
                     ApplicantEntry.message = testInfo?.name
                 }
@@ -174,7 +174,7 @@ struct ApplicantTest {
                 AcademyEntry.status = 1
                 testInfo = TestInfo(id: id, name: name, beginTime: beginTime, attention: attention, fileName: fileName, filePath: filePath, status: status, isDeleted: isDeleted, hasEntry: hasEntry)
                 if testInfo?.hasEntry == 1 {
-                    AcademyEntry.message = "考试时间: " + (testInfo?.beginTime)!
+                    AcademyEntry.message = "考试时间: " + (testInfo?.beginTime ?? "未知")
                 } else {
                     AcademyEntry.message = testInfo?.name
                 }
@@ -265,7 +265,7 @@ struct ApplicantTest {
                 testInfo = TestInfo(id: id, name: name, beginTime: beginTime, hasEntry: hasEntry)
 
                 if testInfo?.hasEntry == 1 {
-                    ProbationaryEntry.message = "考试时间: " + (testInfo?.beginTime)!
+                    ProbationaryEntry.message = "考试时间: " + (testInfo?.beginTime ?? "未知")
                 } else {
                     ProbationaryEntry.message = testInfo?.name
                 }

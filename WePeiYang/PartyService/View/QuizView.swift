@@ -96,7 +96,7 @@ extension QuizView {
             return foo
         }()
 
-        self.originalAnswerWeight = Int(quiz.answer)!
+        self.originalAnswerWeight = Int(quiz.answer) ?? 0
 
         self.addSubview(quizDescLabel)
         quizDescLabel.snp.makeConstraints {

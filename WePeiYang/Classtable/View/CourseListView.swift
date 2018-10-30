@@ -176,7 +176,7 @@ class CourseListView: UIView {
             courseCountLabels.append(label)
         }
         // 最后一个
-        courseCountLabels.last!.snp.makeConstraints { make in
+        courseCountLabels.last?.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
         }
 

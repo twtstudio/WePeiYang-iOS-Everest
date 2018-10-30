@@ -67,7 +67,7 @@ class ArrangeCell: UITableViewCell {
         let weekRange = model.weekStart + "-" + model.weekEnd + "周"
         var time = ""
         if let arrange = model.arrange.first {
-            let week = arrange.week == "单双周" ? "每周" : model.arrange.first!.week
+            let week = arrange.week == "单双周" ? "每周" : model.arrange.first?.week ?? "未知"
             time = week
             var mandarinWeek = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
             if arrange.day >= 1 && arrange.day <= 7 {

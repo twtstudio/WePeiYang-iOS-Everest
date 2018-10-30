@@ -79,24 +79,32 @@ class PhoneBook {
             if let categories = dict["category_list"] as? [[String: Any]] {
                 var newItems = [ClientItem]()
                 for category in categories {
-                    let category_name = category["category_name"] as! String
+                    guard let category_name = category["category_name"] as? String else {
+                        continue
+                    }
                     PhoneBook.shared.sections.append(category_name)
-                    if let departments = category["department_list"] as? [[String: Any]] {
-                        for department in departments {
-                            let department_name = department["department_name"] as! String
-                            if PhoneBook.shared.members[category_name] != nil {
-                                PhoneBook.shared.members[category_name]!.append(department_name)
-                            } else {
-                                PhoneBook.shared.members[category_name] = [department_name]
+                    guard let departments = category["department_list"] as? [[String: Any]] else {
+                        continue
+                    }
+                    for department in departments {
+                        guard let department_name = department["department_name"] as? String else {
+                            continue
+                        }
+                        if PhoneBook.shared.members[category_name] != nil {
+                            PhoneBook.shared.members[category_name]?.append(department_name)
+                        } else {
+                            PhoneBook.shared.members[category_name] = [department_name]
+                        }
+                        guard let items = department["unit_list"] as? [AnyObject] else {
+                            continue
+                        }
+
+                        for item in items {
+                            guard let item_name = item["item_name"] as? String,
+                                let item_phone = item["item_phone"] as? String else {
+                                    continue
                             }
-                            if let items = department["unit_list"] as? [AnyObject] {
-                                for item in items {
-                                    if let item_name = item["item_name"] as? String,
-                                        let item_phone = item["item_phone"] as? String {
-                                        newItems.append(ClientItem(name: item_name, phone: item_phone, isFavorite: false, owner: department_name))
-                                    }
-                                }
-                            }
+                            newItems.append(ClientItem(name: item_name, phone: item_phone, isFavorite: false, owner: department_name))
                         }
                     }
                 }

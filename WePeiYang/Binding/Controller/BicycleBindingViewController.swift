@@ -81,8 +81,13 @@ class BicycleBindingViewController: UIViewController {
 
         BicycleUser.sharedInstance.auth(success: {
             BicycleUser.sharedInstance.getCardlist(idnum: IDCardNumber, doSomething: {
-                let card = BicycleUser.sharedInstance.cardList.first!
-                BicycleUser.sharedInstance.bindCard(id: card.id!, sign: card.sign!, doSomething: {
+                guard let card = BicycleUser.sharedInstance.cardList.first,
+                let id = card.id,
+                let sign = card.sign else {
+                    SwiftMessages.showWarningMessage(body: "没有找到自行车卡片")
+                    return
+                }
+                BicycleUser.sharedInstance.bindCard(id: id, sign: sign, doSomething: {
                     SwiftMessages.showSuccessMessage(body: "绑定成功👏🏻")
                     TwTUser.shared.bicycleBindingState = true
                     TwTUser.shared.save()

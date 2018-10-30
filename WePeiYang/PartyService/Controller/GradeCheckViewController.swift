@@ -50,19 +50,16 @@ class GradeCheckViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        var cell = tableView.dequeueReusableCell(withIdentifier: "GradeCheckCell")
-        if cell == nil {
-            cell = UITableViewCell(style: .value1, reuseIdentifier: "GradeCheckCell")
-        }
+        var cell = tableView.dequeueReusableCell(withIdentifier: "GradeCheckCell") ?? UITableViewCell(style: .value1, reuseIdentifier: "GradeCheckCell")
 
         let dict = gradeList[indexPath.row]
 
         if testType == "probationary" {
-            cell?.textLabel?.text = dict["train_name"] as? String
+            cell.textLabel?.text = dict["train_name"] as? String
         } else {
-            cell?.textLabel?.text = dict["test_name"] as? String
+            cell.textLabel?.text = dict["test_name"] as? String
         }
-        cell?.detailTextLabel?.text = "0000-00-00"
+        cell.detailTextLabel?.text = "0000-00-00"
 
         //不想直接做字符串操作
         /*if let fooString = dict["entry_time"] {
@@ -73,14 +70,14 @@ class GradeCheckViewController: UIViewController, UITableViewDelegate, UITableVi
         }*/
 
         if let foo = dict["entry_time"] as? String {
-            cell?.detailTextLabel?.text = (foo as NSString).substring(to: 10)
+            cell.detailTextLabel?.text = (foo as NSString).substring(to: 10)
         }
 
-        cell?.textLabel?.font = UIFont.boldSystemFont(ofSize: 13)
-        cell?.detailTextLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+        cell.detailTextLabel?.font = UIFont.boldSystemFont(ofSize: 13)
         //cell?.detailTextLabel?.textColor = .lightGray
 
-        return cell!
+        return cell
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -92,7 +89,7 @@ class GradeCheckViewController: UIViewController, UITableViewDelegate, UITableVi
             return nil
         }
 
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: (UIApplication.shared.keyWindow?.frame.size.width)!, height: 40))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 40))
 
         let titleLabel = UILabel(text: "考试名称")
         let timeLabel = UILabel(text: "完成时间")
@@ -149,8 +146,10 @@ class GradeCheckViewController: UIViewController, UITableViewDelegate, UITableVi
 
     //因为暂时无法使用 init
     @objc func fetchData() {
-        Applicant.sharedInstance.getGrade(testType!, doSomething: {
-            self.refreshUI()
-        })
+        if let type = testType {
+            Applicant.sharedInstance.getGrade(type, doSomething: {
+                self.refreshUI()
+            })
+        }
     }
 }

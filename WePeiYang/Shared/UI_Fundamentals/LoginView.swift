@@ -58,7 +58,7 @@ class LoginView: MessageView {
             make.height.equalTo(300)
         }
 
-        let iconView = UIImageView(image: #imageLiteral(resourceName: "logo"))
+        let iconView = UIImageView(image: UIImage(named: "logo") ?? UIImage())
         iconView.sizeToFit()
         contentView.addSubview(iconView)
         iconView.snp.makeConstraints { make in
@@ -74,7 +74,7 @@ class LoginView: MessageView {
         usernameField.keyboardType = .asciiCapable
         usernameField.returnKeyType = .next
         usernameField.placeholder = "天外天用户名"
-        let usernameIconView = UIImageView(image: UIImage(named: "ic_account_circle")!.withRenderingMode(.alwaysTemplate))
+        let usernameIconView = UIImageView(image: (UIImage(named: "ic_account_circle") ?? UIImage()).withRenderingMode(.alwaysTemplate))
         usernameIconView.frame = CGRect(x: 0, y: 0, width: 34, height: 22)
         usernameIconView.tintColor = Metadata.Color.WPYAccentColor
         usernameIconView.contentMode = .scaleAspectFit
@@ -98,7 +98,7 @@ class LoginView: MessageView {
         passwordField.placeholder = "密码"
         passwordField.layer.shadowColor = UIColor.darkGray.cgColor
 
-        let passwordIconView = UIImageView(image: UIImage(named: "ic_lock")!.with(color: .white).withRenderingMode(.alwaysTemplate))
+        let passwordIconView = UIImageView(image: (UIImage(named: "ic_lock") ?? UIImage()).with(color: .white).withRenderingMode(.alwaysTemplate))
         passwordIconView.frame = CGRect(x: 0, y: 0, width: 34, height: 22)
         passwordIconView.contentMode = .scaleAspectFit
         passwordIconView.tintColor = Metadata.Color.WPYAccentColor

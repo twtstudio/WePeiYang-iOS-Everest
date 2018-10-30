@@ -23,7 +23,7 @@ class SpotDetailsView: UIView {
         let positionsAvailableLabel = UILabel(text: positionsAvailable)
         let spotNameLabel = UILabel(text: spotName)
         let distanceFromUserLabel: UILabel
-        let bicycleIconView = UIImageView(imageName: "ic_bike", desiredSize: CGSize(width: 20, height: 20))
+        let bicycleIconView = UIImageView(imageName: "ic_bike", desiredSize: CGSize(width: 20, height: 20)) ?? UIImageView()
         let roundedStatusView = UIView()
 
         if let foo = distanceFromUser {
@@ -37,8 +37,8 @@ class SpotDetailsView: UIView {
             distanceFromUserLabel = UILabel(text: "无法定位计算距离", color: .gray)
         }
 
-        if status != nil {
-            switch status! {
+        if let status = status {
+            switch status {
             case .online:
                 roundedStatusView.backgroundColor = bicycleGreen
             case .offline:
@@ -77,7 +77,7 @@ class SpotDetailsView: UIView {
             }
 
             //self.backgroundColor = UIColor.clearColor()
-            blurEffectView.contentView.addSubview(bicycleIconView!)
+            blurEffectView.contentView.addSubview(bicycleIconView)
             blurEffectView.contentView.addSubview(positionsAvailableLabel)
             blurEffectView.contentView.addSubview(spotNameLabel)
             blurEffectView.contentView.addSubview(roundedStatusView)
@@ -86,47 +86,37 @@ class SpotDetailsView: UIView {
             self.clipsToBounds = true
 
             //set constraint
-            bicycleIconView!.snp.makeConstraints {
-                make in
+            bicycleIconView.snp.makeConstraints { make in
 //                make.top.equalTo(self).offset(20)
                 make.top.equalTo(self).offset(10)
                 make.left.equalTo(self).offset(10)
             }
 
-            positionsAvailableLabel.snp.makeConstraints {
-                make in
+            positionsAvailableLabel.snp.makeConstraints { make in
 //                make.top.equalTo(self).offset(20)
                 make.top.equalTo(self).offset(10)
-                make.left.equalTo(bicycleIconView!.snp.right).offset(10)
-
+                make.left.equalTo(bicycleIconView.snp.right).offset(10)
             }
 
-            spotNameLabel.snp.makeConstraints {
-                make in
+            spotNameLabel.snp.makeConstraints { make in
 //                make.top.equalTo(self).offset(20)
                 make.top.equalTo(self).offset(10)
                 make.left.equalTo(positionsAvailableLabel.snp.right).offset(15)
-
             }
 
-            roundedStatusView.snp.makeConstraints {
-                make in
+            roundedStatusView.snp.makeConstraints { make in
                 make.left.equalTo(spotNameLabel.snp.right).offset(8)
                 make.centerY.equalTo(spotNameLabel).offset(25)
                 make.width.height.equalTo(14)
             }
             roundedStatusView.layer.cornerRadius = 7
 
-            distanceFromUserLabel.snp.makeConstraints {
-                make in
+            distanceFromUserLabel.snp.makeConstraints { make in
                 make.centerY.equalTo(spotNameLabel).offset(25)
 //                make.top.equalTo(positionsAvailableLabel.snp.bottom).offset(10)
                 make.left.equalTo(self).offset(10)
-
             }
-
         } else {
-
             super.init(frame: CGRect(x: 10, y: deviceHeight - 73, width: deviceWidth - 20, height: 88))
 
             self.layer.cornerRadius = 8
@@ -152,7 +142,7 @@ class SpotDetailsView: UIView {
             }
 
             //self.backgroundColor = UIColor.clearColor()
-            blurEffectView.contentView.addSubview(bicycleIconView!)
+            blurEffectView.contentView.addSubview(bicycleIconView)
             blurEffectView.contentView.addSubview(positionsAvailableLabel)
             blurEffectView.contentView.addSubview(spotNameLabel)
             blurEffectView.contentView.addSubview(roundedStatusView)
@@ -165,31 +155,25 @@ class SpotDetailsView: UIView {
             distanceFromUserLabel.font = distanceFromUserLabel.font.withSize(16)
 
             //set constraint
-            bicycleIconView!.snp.makeConstraints {
-                make in
+            bicycleIconView.snp.makeConstraints { make in
 //                make.top.equalTo(self).offset(28)
                 make.top.equalTo(self).offset(14)
                 make.left.equalTo(self).offset(10)
             }
 
-            positionsAvailableLabel.snp.makeConstraints {
-                make in
+            positionsAvailableLabel.snp.makeConstraints { make in
 //                make.top.equalTo(self).offset(28)
                 make.top.equalTo(self).offset(14)
-                make.left.equalTo(bicycleIconView!.snp.right).offset(10)
-
+                make.left.equalTo(bicycleIconView.snp.right).offset(10)
             }
 
-            spotNameLabel.snp.makeConstraints {
-                make in
+            spotNameLabel.snp.makeConstraints { make in
 //                make.top.equalTo(self).offset(28)
                 make.top.equalTo(self).offset(14)
                 make.left.equalTo(positionsAvailableLabel.snp.right).offset(10)
-
             }
 
-            roundedStatusView.snp.makeConstraints {
-                make in
+            roundedStatusView.snp.makeConstraints { make in
                 make.centerY.equalTo(spotNameLabel).offset(22)
                 make.left.equalTo(self).offset(10)
 //                make.left.equalTo(spotNameLabel.snp.right).offset(5)
@@ -197,16 +181,13 @@ class SpotDetailsView: UIView {
             }
             roundedStatusView.layer.cornerRadius = 7
 
-            distanceFromUserLabel.snp.makeConstraints {
-                make in
+            distanceFromUserLabel.snp.makeConstraints { make in
 //                make.top.equalTo(self).offset(28)
                 make.centerY.equalTo(spotNameLabel).offset(22)
                 make.left.equalTo(roundedStatusView.snp.right).offset(3)
 //                make.right.equalTo(self).offset(-10)
             }
-
         }
-
     }
 
     required init?(coder aDecoder: NSCoder) {

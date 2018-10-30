@@ -16,11 +16,8 @@ class PartyHandInViewController: UIViewController, UITableViewDelegate, UITableV
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        self.view.frame.size.width = (UIApplication.shared.keyWindow?.frame.size.width)!
-
         //NavigationBar 的文字
-        self.navigationController!.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor.white
 
         //titleLabel设置
         let titleLabel = UILabel(text: "递交文件", fontSize: 17)
@@ -31,7 +28,9 @@ class PartyHandInViewController: UIViewController, UITableViewDelegate, UITableV
 
         //NavigationBar 的背景，使用了View
 //        self.navigationController!.jz_navigationBarBackgroundAlpha = 0;
-        let bgView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height))
+        let height = (self.navigationController?.navigationBar.frame.size.height ?? 0) + UIApplication.shared.statusBarFrame.size.height
+
+        let bgView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: height))
 
         bgView.backgroundColor = .partyRed
         self.view.addSubview(bgView)
@@ -119,32 +118,29 @@ class PartyHandInViewController: UIViewController, UITableViewDelegate, UITableV
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        var cell = tableView.dequeueReusableCell(withIdentifier: "PartyHandInCell")
-        if cell == nil {
-            cell = UITableViewCell(style: .value1, reuseIdentifier: "PartyHandInCell")
-        }
+        var cell = tableView.dequeueReusableCell(withIdentifier: "PartyHandInCell") ?? UITableViewCell(style: .value1, reuseIdentifier: "PartyHandInCell")
 
-        cell?.textLabel?.text = contentList[indexPath.section].title
+        cell.textLabel?.text = contentList[indexPath.section].title
 
         switch contentList[indexPath.section].available {
         case 0:
-            cell?.detailTextLabel?.text = "正在读取"
-            cell?.textLabel?.textColor = UIColor.lightGray
-            cell?.detailTextLabel?.textColor = UIColor.lightGray
+            cell.detailTextLabel?.text = "正在读取"
+            cell.textLabel?.textColor = UIColor.lightGray
+            cell.detailTextLabel?.textColor = UIColor.lightGray
         case 1:
-            cell?.detailTextLabel?.text = "前往递交"
-            cell?.textLabel?.textColor = UIColor.black
+            cell.detailTextLabel?.text = "前往递交"
+            cell.textLabel?.textColor = UIColor.black
             // FIXME: Charmelon
 //            cell?.detailTextLabel?.textColor = .flatGreen
         case 2:
-            cell?.detailTextLabel?.text = "无法递交"
-            cell?.textLabel?.textColor = UIColor.lightGray
+            cell.detailTextLabel?.text = "无法递交"
+            cell.textLabel?.textColor = UIColor.lightGray
 //            cell?.detailTextLabel?.textColor = .flatRed
         default:
             break
         }
 
-        return cell!
+        return cell
     }
 
     //Table View Data Soucre

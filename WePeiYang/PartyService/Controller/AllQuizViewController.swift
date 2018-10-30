@@ -26,18 +26,18 @@ class AllQuizViewController: UIViewController, UICollectionViewDelegate, UIColle
         //改变 statusBar 颜色
 //        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
         navigationController?.navigationBar.barStyle = .black
-        let downArrow = UIButton(backgroundImageName: "ic_arrow_down", desiredSize: CGSize(width: 88, height: 24))
-        downArrow?.tintColor = UIColor.white
+        let downArrow = UIButton(backgroundImageName: "ic_arrow_down", desiredSize: CGSize(width: 88, height: 24)) ?? UIButton()
+        downArrow.tintColor = UIColor.white
 
-        view.addSubview(downArrow!)
-        downArrow!.snp.makeConstraints {
+        view.addSubview(downArrow)
+        downArrow.snp.makeConstraints {
             make in
             make.top.equalTo(view).offset(28)
             make.centerX.equalTo(view)
 
         }
 
-        downArrow?.addTarget(self, action: #selector(AllQuizViewController.dismissAnimated), for: .touchUpInside)
+        downArrow.addTarget(self, action: #selector(AllQuizViewController.dismissAnimated), for: .touchUpInside)
 
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.dismissAnimated))
         swipeDown.direction = .down
@@ -78,7 +78,7 @@ class AllQuizViewController: UIViewController, UICollectionViewDelegate, UIColle
         //layout.itemSize = CGSizeMake(screenWidth/4, 80)
 
         // 设置CollectionView
-        let collectionView: UICollectionView = UICollectionView(frame: CGRect(x: 0, y: 64, width: (UIApplication.shared.keyWindow?.frame.size.width)!, height: (UIApplication.shared.keyWindow?.frame.size.height)!-64), collectionViewLayout: layout)
+        let collectionView: UICollectionView = UICollectionView(frame: CGRect(x: 0, y: 64, width: self.view.width, height: UIScreen.main.bounds.height-64), collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.white

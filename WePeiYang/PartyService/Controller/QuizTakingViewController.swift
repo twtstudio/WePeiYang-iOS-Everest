@@ -26,15 +26,14 @@ class QuizTakingViewController: UIViewController {
     var quizList: [Quiz?] = []
 
     override func viewWillAppear(_ animated: Bool) {
-
-        self.view.frame.size.width = (UIApplication.shared.keyWindow?.frame.size.width)!
-
         //NavigationBar 的文字
-        self.navigationController!.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor.white
 
         //NavigationBar 的背景，使用了View
 //        self.navigationController!.jz_navigationBarBackgroundAlpha = 0;
-        bgView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.navigationController!.navigationBar.frame.size.height+UIApplication.shared.statusBarFrame.size.height))
+        let height = (self.navigationController?.navigationBar.frame.size.height ?? 0) + UIApplication.shared.statusBarFrame.size.height
+
+        bgView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: height))
 
         bgView.backgroundColor = .partyRed
         self.view.addSubview(bgView)
@@ -68,7 +67,9 @@ class QuizTakingViewController: UIViewController {
         allQuizes.backgroundColor = .red
         allQuizes.addTarget(QuizTakingViewController(), action: #selector(QuizTakingViewController.showAllQuizesList), for: .touchUpInside)
 
-        quizView = QuizView(quiz: Courses.Study20.courseQuizes[currentQuizIndex]!, at: currentQuizIndex)
+        if let quiz = Courses.Study20.courseQuizes[currentQuizIndex] {
+            quizView = QuizView(quiz: quiz, at: currentQuizIndex)
+        }
 
         computeLayout()
 
@@ -123,9 +124,9 @@ extension QuizTakingViewController {
         }
 
         self.view.addSubview(quizView)
-        quizView.snp.makeConstraints {
-            make in
-            make.top.equalTo(self.view).offset(self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height + 18)
+        let height = (self.navigationController?.navigationBar.frame.size.height ?? 0) + UIApplication.shared.statusBarFrame.size.height
+        quizView.snp.makeConstraints { make in
+            make.top.equalTo(self.view).offset(height + 18)
             make.left.equalTo(self.view)
             make.right.equalTo(self.view)
             make.bottom.equalTo(self.bottomTabBar.snp.top)
@@ -162,31 +163,32 @@ extension QuizTakingViewController {
         }
 
         let originalAnswer = Courses.Study20.courseQuizes.flatMap { (quiz: Quiz?) -> Int? in
-            guard let foo = Int((quiz?.answer)!) else {
+            guard let answer = quiz?.answer,
+                let foo = Int(answer) else {
                 SwiftMessages.showErrorMessage(body: "Oops!")
                 return nil
             }
             return foo
         }
 
-        guard originalAnswer.count == userAnswer.count else {
+        guard originalAnswer.count == userAnswer.count, let courseID = self.courseID else {
             return
         }
 
-        Courses.Study20.submitAnswer(of: self.courseID!, originalAnswer: originalAnswer, userAnswer: userAnswer) {
+        Courses.Study20.submitAnswer(of: courseID, originalAnswer: originalAnswer, userAnswer: userAnswer) {
             let finishBtn = UIBarButtonItem(title: "完成", style: UIBarButtonItemStyle.plain, target: self, action: #selector(QuizTakingViewController.finishQuizTaking))
             self.navigationItem.setRightBarButton(finishBtn, animated: true)
 
-            let finishView = FinalView(status: Courses.Study20.finalStatusAfterSubmitting!, msg: Courses.Study20.finalMsgAfterSubmitting!)
+            let finishView = FinalView(status: Courses.Study20.finalStatusAfterSubmitting ?? 0, msg: Courses.Study20.finalMsgAfterSubmitting ?? "")
             for fooView in self.view.subviews {
                 if fooView.isKind(of: QuizView.self) || fooView.isEqual(self.bottomTabBar) {
                     fooView.removeFromSuperview()
                 }
             }
             self.view.addSubview(finishView)
-            finishView.snp.makeConstraints {
-                make in
-                make.top.equalTo(self.view).offset(self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height + 18)
+            let height = (self.navigationController?.navigationBar.frame.size.height ?? 0) + UIApplication.shared.statusBarFrame.size.height
+            finishView.snp.makeConstraints { make in
+                make.top.equalTo(self.view).offset(height + 18)
                 make.left.equalTo(self.view)
                 make.right.equalTo(self.view)
                 make.bottom.equalTo(self.view)
@@ -208,15 +210,16 @@ extension QuizTakingViewController {
             fooView.removeFromSuperview()
         }
 
-        quizView = QuizView(quiz: Courses.Study20.courseQuizes[currentQuizIndex]!, at: currentQuizIndex)
-
-        self.view.addSubview(quizView)
-        quizView.snp.makeConstraints {
-            make in
-            make.top.equalTo(self.view).offset(self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height + 18)
-            make.left.equalTo(self.view)
-            make.right.equalTo(self.view)
-            make.bottom.equalTo(self.bottomTabBar.snp.top)
+        if let quiz = Courses.Study20.courseQuizes[currentQuizIndex] {
+            quizView = QuizView(quiz: quiz, at: currentQuizIndex)
+            self.view.addSubview(quizView)
+            let height = (self.navigationController?.navigationBar.frame.size.height ?? 0) + UIApplication.shared.statusBarFrame.size.height
+            quizView.snp.makeConstraints { make in
+                make.top.equalTo(self.view).offset(height + 18)
+                make.left.equalTo(self.view)
+                make.right.equalTo(self.view)
+                make.bottom.equalTo(self.bottomTabBar.snp.top)
+            }
         }
     }
 
@@ -227,7 +230,11 @@ extension QuizTakingViewController {
             self.currentQuizIndex += 1
             return
         }
-        quizView = QuizView(quiz: Courses.Study20.courseQuizes[currentQuizIndex]!, at: currentQuizIndex)
+        guard let quiz = Courses.Study20.courseQuizes[currentQuizIndex] else {
+            return
+        }
+
+        quizView = QuizView(quiz: quiz, at: currentQuizIndex)
 
         for fooView in self.view.subviews {
             if fooView.isKind(of: QuizView.self) {
@@ -238,9 +245,10 @@ extension QuizTakingViewController {
         }
 
         self.view.addSubview(quizView)
+        let height = (self.navigationController?.navigationBar.frame.size.height ?? 0) + UIApplication.shared.statusBarFrame.size.height
         quizView.snp.makeConstraints {
             make in
-            make.top.equalTo(self.view).offset(self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height + 18)
+            make.top.equalTo(self.view).offset(height + 18)
             make.left.equalTo(self.view)
             make.right.equalTo(self.view)
             make.bottom.equalTo(self.bottomTabBar.snp.top)
@@ -271,16 +279,16 @@ extension QuizTakingViewController {
         }
 
         self.currentQuizIndex = index
-
-        quizView = QuizView(quiz: Courses.Study20.courseQuizes[currentQuizIndex]!, at: currentQuizIndex)
-
-        self.view.addSubview(quizView)
-        quizView.snp.makeConstraints {
-            make in
-            make.top.equalTo(self.view).offset(self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height + 18)
-            make.left.equalTo(self.view)
-            make.right.equalTo(self.view)
-            make.bottom.equalTo(self.bottomTabBar.snp.top)
+        if let quiz = Courses.Study20.courseQuizes[currentQuizIndex] {
+            quizView = QuizView(quiz: quiz, at: currentQuizIndex)
+            self.view.addSubview(quizView)
+            let height = (self.navigationController?.navigationBar.frame.size.height ?? 0) + UIApplication.shared.statusBarFrame.size.height
+            quizView.snp.makeConstraints { make in
+                make.top.equalTo(self.view).offset(height + 18)
+                make.left.equalTo(self.view)
+                make.right.equalTo(self.view)
+                make.bottom.equalTo(self.bottomTabBar.snp.top)
+            }
         }
     }
 

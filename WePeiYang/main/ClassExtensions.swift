@@ -56,10 +56,14 @@ extension UIView {
 
     func snapshot() -> UIImage? {
         UIGraphicsBeginImageContext(self.bounds.size)
-        self.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
+        if let context = UIGraphicsGetCurrentContext() {
+            self.layer.render(in: context)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return image
+        } else {
+            return nil
+        }
     }
 
     var x: CGFloat {
@@ -103,10 +107,14 @@ extension UIView {
 extension CALayer {
     func snapshot() -> UIImage? {
         UIGraphicsBeginImageContext(self.bounds.size)
-        self.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
+        if let context = UIGraphicsGetCurrentContext() {
+            self.render(in: context)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return image
+        } else {
+            return nil
+        }
     }
 }
 
@@ -115,9 +123,9 @@ extension UIImage {
     static func resizedImage(image: UIImage, scaledToSize newSize: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
         image.draw(in: CGRect(x: 0.0, y: 0, width: newSize.width, height: newSize.height))
-        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return newImage
+        return newImage ?? image
     }
 
     static func resizedImageKeepingRatio(image: UIImage, scaledToWidth newWidth: CGFloat) -> UIImage {
@@ -135,38 +143,42 @@ extension UIImage {
     }
 
     func rgb(atPos pos: CGPoint) -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+        if let pixelData = self.cgImage?.dataProvider?.data {
+            let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
 
-        let pixelData = self.cgImage!.dataProvider!.data
-        let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
+            let pixelInfo: Int = ((Int(self.size.width) * Int(pos.y)) + Int(pos.x)) * 4
 
-        let pixelInfo: Int = ((Int(self.size.width) * Int(pos.y)) + Int(pos.x)) * 4
+            let r = CGFloat(data[pixelInfo]) / CGFloat(255.0)
+            let g = CGFloat(data[pixelInfo+1]) / CGFloat(255.0)
+            let b = CGFloat(data[pixelInfo+2]) / CGFloat(255.0)
+            let a = CGFloat(data[pixelInfo+3]) / CGFloat(255.0)
 
-        let r = CGFloat(data[pixelInfo]) / CGFloat(255.0)
-        let g = CGFloat(data[pixelInfo+1]) / CGFloat(255.0)
-        let b = CGFloat(data[pixelInfo+2]) / CGFloat(255.0)
-        let a = CGFloat(data[pixelInfo+3]) / CGFloat(255.0)
-
-        return (r, g, b, a)
+            return (r, g, b, a)
+        } else {
+            return (0, 0, 0, 0)
+        }
     }
 
     func with(color: UIColor) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
         color.setFill()
 
-        let context = UIGraphicsGetCurrentContext()
-        context!.translateBy(x: 0, y: self.size.height)
-        context!.scaleBy(x: 1.0, y: -1.0)
-        context!.setBlendMode(.normal)
+        if let context = UIGraphicsGetCurrentContext(), let cgImage = self.cgImage {
+            context.translateBy(x: 0, y: self.size.height)
+            context.scaleBy(x: 1.0, y: -1.0)
+            context.setBlendMode(.normal)
 
-        let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
+            let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
 
-        context!.clip(to: rect, mask: self.cgImage!)
-        context!.fill(rect)
+            context.clip(to: rect, mask: cgImage)
+            context.fill(rect)
 
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()! as UIImage
-        UIGraphicsEndImageContext()
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return newImage ?? self
+        }
 
-        return newImage
+        return self
     }
 
     //pure color image

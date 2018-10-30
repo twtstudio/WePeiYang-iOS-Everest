@@ -173,10 +173,10 @@ extension LibraryCard: UITableViewDataSource {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
 
-        var image = #imageLiteral(resourceName: "感叹号")
+        var image = UIImage(named: "感叹号") ?? UIImage()
         // 如果还没到还书时间
         if dateFormatter.string(from: Date()) <= book.returnTime {
-            image = #imageLiteral(resourceName: "对号")
+            image = UIImage(named: "对号") ?? UIImage()
         }
 
         let imageSize = CGSize(width: 25, height: 25)

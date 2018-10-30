@@ -74,7 +74,7 @@ class TwentyCourseScoreViewController: UIViewController, UITableViewDelegate, UI
             return nil
         }
 
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: (UIApplication.shared.keyWindow?.frame.size.width)!, height: 40))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 40))
 
         let titleLabel = UILabel(text: "课程名称")
         let scoreLabel = UILabel(text: "成绩")

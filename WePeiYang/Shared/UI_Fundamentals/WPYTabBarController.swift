@@ -122,12 +122,14 @@ class WPYTabBarController: UITabBarController {
 
 extension WPYTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let fromIndex = tabBarController.viewControllers!.index(of: fromVC)!
-        let toIndex = tabBarController.viewControllers!.index(of: toVC)!
+        if let fromIndex = tabBarController.viewControllers?.index(of: fromVC),
+            let toIndex = tabBarController.viewControllers?.index(of: toVC) {
+            let tabChangeDirection: TransitionDirection = toIndex < fromIndex ? .left : .right
 
-        let tabChangeDirection: TransitionDirection = toIndex < fromIndex ? .left : .right
-
-        let animator = TabVCTransitioningAnimator(direction: tabChangeDirection)
-        return animator
+            let animator = TabVCTransitioningAnimator(direction: tabChangeDirection)
+            return animator
+        } else {
+            return nil
+        }
     }
 }

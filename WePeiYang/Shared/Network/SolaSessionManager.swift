@@ -46,7 +46,9 @@ struct SolaSessionManager {
         // encrypt with sha1
         var tmpSign = ""
         for key in keys {
-            tmpSign += (key + fooPara[key]!)
+            if let value = fooPara[key] {
+                tmpSign += key + value
+            }
         }
 
         let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1.uppercased()
@@ -102,8 +104,9 @@ struct SolaSessionManager {
         var paraDict = [String: String]()
         for item in dictionay {
             if let value = item.value as? UIImage {
-                let data = UIImageJPEGRepresentation(value, 1.0)!
-                dataDict[item.key] = data
+                if let data = UIImageJPEGRepresentation(value, 1.0) {
+                    dataDict[item.key] = data
+                }
             } else if let value = item.value as? String {
                 paraDict[item.key] = value
             }
@@ -117,7 +120,9 @@ struct SolaSessionManager {
         // encrypt with sha1
         var tmpSign = ""
         for key in keys {
-            tmpSign += (key + fooPara[key]!)
+            if let value = fooPara[key] {
+                tmpSign += key + value
+            }
         }
 
         let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1.uppercased()
@@ -140,7 +145,9 @@ struct SolaSessionManager {
                     formdata.append(item.value, withName: item.key, fileName: "avatar.jpg", mimeType: "image/jpeg")
                 }
                 for item in paraDict {
-                    formdata.append(item.value.data(using: .utf8)!, withName: item.key)
+                    if let data = item.value.data(using: .utf8) {
+                        formdata.append(data, withName: item.key)
+                    }
                 }
             }, to: fullURL, method: .post, headers: headers, encodingCompletion: { response in
                 switch response {

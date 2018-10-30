@@ -60,20 +60,16 @@ class BicycleServiceNotificationController: UIViewController, UITableViewDelegat
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        var cell = tableView.dequeueReusableCell(withIdentifier: "BicycleNotificationCell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BicycleNotificationCell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "BicycleNotificationCell")
 
-        if cell == nil {
-            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "BicycleNotificationCell")
-        }
-
-        cell?.textLabel?.text = NotificationList.sharedInstance.list[indexPath.row].title
+        cell.textLabel?.text = NotificationList.sharedInstance.list[indexPath.row].title
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        cell?.detailTextLabel?.text = dateFormatter.string(from: NotificationList.sharedInstance.list[indexPath.row].timeStamp as Date)
-        cell?.detailTextLabel?.textColor = UIColor.lightGray
+        cell.detailTextLabel?.text = dateFormatter.string(from: NotificationList.sharedInstance.list[indexPath.row].timeStamp as Date)
+        cell.detailTextLabel?.textColor = UIColor.lightGray
 
-        return cell!
+        return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

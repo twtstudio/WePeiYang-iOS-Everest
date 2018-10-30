@@ -60,7 +60,9 @@ struct KeychainService {
      */
 
     private static func save(service: String, data: String) {
-        let dataFromString: NSData = data.data(using: .utf8, allowLossyConversion: false)! as NSData
+        guard let dataFromString: NSData = data.data(using: .utf8, allowLossyConversion: false) as NSData? else {
+            return
+        }
 
         // Instantiate a new default keychain query
         let keychainQuery: NSMutableDictionary = NSMutableDictionary(objects: [kSecClassGenericPasswordValue, service, userAccount, dataFromString], forKeys: [kSecClassValue, kSecAttrServiceValue, kSecAttrAccountValue, kSecValueDataValue])

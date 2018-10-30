@@ -89,7 +89,7 @@ class SettingsViewController: UIViewController {
 
         headerView.addSubview(avatarView)
         //        avatarView.image = UIImage(named: "ic_account_circle")!.with(color: .gray)
-        avatarView.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "ic_account_circle")!.with(color: .gray))
+        avatarView.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: (UIImage(named: "account-circle.png") ?? UIImage()).with(color: .gray))
 
         avatarView.layer.cornerRadius = 80.0/2
         avatarView.layer.masksToBounds = true
@@ -279,7 +279,8 @@ extension SettingsViewController: UITableViewDelegate {
                 signatureLabel.text = "登录以查看更多信息"
             }
 
-            avatarView.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: UIImage(named: "account_circle")!.with(color: .gray))
+            // account_circle
+            avatarView.sd_setImage(with: URL(string: TwTUser.shared.avatarURL ?? ""), placeholderImage: (UIImage(named: "account-circle.png") ?? UIImage()).with(color: .gray))
 
             return headerView
         }

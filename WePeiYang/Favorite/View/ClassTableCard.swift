@@ -116,8 +116,12 @@ class ClassTableCard: CardView {
             for (idx, time) in keys.enumerated() {
                 // 返回第一个包含时间点的课程 // 可能是 nil
                 let course = courses.first { course in
-                    let range = course.arrange.first!.start...course.arrange.first!.end
-                    return range.contains(time)
+                    if let first = course.arrange.first {
+                        let range = first.start...first.end
+                        return range.contains(time)
+                    } else {
+                        return false
+                    }
                 }
                 if let course = course {
                     let index = courses.index { m in
@@ -125,7 +129,9 @@ class ClassTableCard: CardView {
                             m.arrange.first?.start ==  course.arrange.first?.start &&
                             m.arrange.first?.end ==  course.arrange.first?.end
                     }
-                    courses.remove(at: index!)
+                    if let index = index {
+                        courses.remove(at: index)
+                    }
                     self.cells[idx].dismissIdle()
                     self.cells[idx].load(course: course)
                 } else {

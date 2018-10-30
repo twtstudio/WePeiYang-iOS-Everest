@@ -325,14 +325,15 @@ extension NewsViewController: UITableViewDataSource {
                 cell.titleLabel.text = news.subject
 
                 let HTMLString: String = news.summary
-                if let attributedString = try? NSAttributedString(data: HTMLString.data(using: .unicode)!, options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
+                if let data = HTMLString.data(using: .unicode),
+                    let attributedString = try? NSAttributedString(data: data, options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
                     cell.detailLabel.attributedText = attributedString
                 } else {
                     cell.detailLabel.text = news.summary.replacingOccurrences(of: "&nbsp;", with: "")
                 }
 
                 cell.descLabel.text = "阅读: \(news.visitcount) 评论: \(news.comments)"
-                cell.imgView.sd_setImage(with: URL(string: news.pic), placeholderImage: #imageLiteral(resourceName: "logo_old"), options: [], completed: nil)
+                cell.imgView.sd_setImage(with: URL(string: news.pic), placeholderImage: UIImage(named: "logo_old") ?? UIImage(), options: [], completed: nil)
                 cell.imgView.sd_setIndicatorStyle(.gray)
                 cell.imgView.sd_setShowActivityIndicatorView(true)
             }

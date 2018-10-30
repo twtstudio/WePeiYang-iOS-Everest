@@ -70,8 +70,11 @@ extension TheoryClassicsTableViewController: UITableViewDelegate, UITableViewDat
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = TextTableViewCell(text: textList[indexPath.row]!)
-        return cell
+        if let text = textList[indexPath.row] {
+            let cell = TextTableViewCell(text: text)
+            return cell
+        }
+        return UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -123,8 +123,8 @@ open class FAB: UIButton {
             layer.shadowOffset = CGSize(width: 0, height: 7)
         }
 
-        if mainAction != nil {
-            add(for: .touchUpInside, (mainAction?.function)!)
+        if let function  = mainAction?.function {
+            add(for: .touchUpInside, function)
             // TODO: finish this
         }
 
@@ -270,10 +270,11 @@ open class FAB: UIButton {
 extension FAB {
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        if touches.count == 1 && touches.first?.tapCount == 1 && touches.first?.location(in: self) != nil {
+        if touches.count == 1 && touches.first?.tapCount == 1 && touches.first?.location(in: self) != nil,
+            let origin = touches.first?.location(in: self) {
             CATransaction.begin()
             CATransaction.setDisableActions(true)
-            layer.addSublayer(tintLayer(origin: (touches.first?.location(in: self))!))
+            layer.addSublayer(tintLayer(origin: origin))
             CATransaction.commit()
         }
     }
@@ -306,13 +307,13 @@ extension FAB {
                 }
                 dimView.removeFromSuperview()
                 topVC?.view.addSubview(dimView)
-                log("FAB has rectified itself. Now your fab's superview has changed into the \(String(describing: topVC!))")
+                log("FAB has rectified itself. Now your fab's superview has changed into the \(String(describing: topVC))")
                 log("BTW, you should not add a FAB when there's a TabBar on the bottom of your screen")
                 return
             }
 
             if topVC is UINavigationController && !(parentViewController is UITableViewController) {
-                let navHeight = parentViewController!.navigationController != nil ? parentViewController!.navigationController!.navigationBar.frame.size.height : 0
+                let navHeight = parentViewController?.navigationController?.navigationBar.frame.size.height ?? 0
                 let rectifyingHeight = UIApplication.shared.statusBarFrame.height + navHeight
 
                 frame = CGRect(x: screenWidth-buttonWidth-edgePaddingX, y: screenHeight-buttonHeight-edgePaddingY-rectifyingHeight, width: buttonWidth, height: buttonHeight)
@@ -344,7 +345,10 @@ extension FAB {
             layer.transform = CATransform3DMakeScale(0.2, 0.2, 0.2)
 
             for (index, subButton) in subButtons.enumerated() {
-                let fooLabel = UILabel(text: (subButton.titleLabel?.text)!, fontSize: 18)
+                guard let text = subButton.titleLabel?.text else {
+                    continue
+                }
+                let fooLabel = UILabel(text: text, fontSize: 18)
                 let width = fooLabel.bounds.size.width + 8
                 let height = fooLabel.bounds.size.height + 4
                 subButton.frame = CGRect(x: screenWidth-width-30, y: bottomLineAt-CGFloat(index+1)*(20+height), width: width, height: height)

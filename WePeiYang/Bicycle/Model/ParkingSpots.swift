@@ -37,7 +37,8 @@ class ParkingSpot: NSObject, MKAnnotation {
             return nil
         }
 
-        guard let jsonObj = (try? JSONSerialization.jsonObject(with: jsonData as Data, options: .mutableContainers))! as? NSDictionary else {
+        guard let jsonO = try? JSONSerialization.jsonObject(with: jsonData as Data, options: .mutableContainers),
+        let jsonObj = jsonO as? NSDictionary else {
             return nil
         }
 
@@ -78,7 +79,7 @@ class ParkingSpot: NSObject, MKAnnotation {
 
     init(id: Int, title: String?, coordinate: CLLocationCoordinate2D, numberOfBikes: Int) {
         self.id = id
-        self.title = title!
+        self.title = title ?? ""
         self.coordinate = coordinate
         self.numberOfBikes = numberOfBikes
     }
@@ -146,7 +147,7 @@ extension ParkingSpot {
                     return
             }
 
-            self.numberOfBikes = Int(numberOfBikes)!
+            self.numberOfBikes = Int(numberOfBikes) ?? 0
             self.currentNumberOfBikes = Int(currentNumberOfBikes)
             completion()
         }, failure: { err in
@@ -188,7 +189,7 @@ extension ParkingSpot {
                         SwiftMessages.showErrorMessage(body: "数据解析错误")
                         return
                 }
-                list[i].numberOfBikes = Int(numberOfBikes)!
+                list[i].numberOfBikes = Int(numberOfBikes) ?? 0
                 list[i].currentNumberOfBikes = Int(currentNumberOfBikes)
             }
 

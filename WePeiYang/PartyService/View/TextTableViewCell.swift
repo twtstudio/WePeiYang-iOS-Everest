@@ -27,7 +27,7 @@ extension TextTableViewCell {
     convenience init(text: Courses.StudyText) {
         self.init()
 
-        let nameLabel = UILabel(text: text.fileTitle!)
+        let nameLabel = UILabel(text: text.fileTitle ?? "")
         let tapToSeeDetailLabel = UILabel(text: "查看详情")
         nameLabel.font = UIFont.boldSystemFont(ofSize: 14.0)
         tapToSeeDetailLabel.font = UIFont.boldSystemFont(ofSize: 14.0)

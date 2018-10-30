@@ -26,7 +26,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             } else {
                 messageLabel.isHidden = true
                 nextClass = newValue.first(where: { model in
-                    let arrange = model.arrange.first!
+                    guard let arrange = model.arrange.first else {
+                        return false
+                    }
                     let formatter = DateFormatter()
                     formatter.dateFormat = "HH:mm:ss"
                     let time = formatter.string(from: Date())
@@ -68,7 +70,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         tableView.rowHeight = tableViewHeight
         tableView.allowsSelection = false
         imgView = UIImageView(frame: CGRect(x: 20, y: 20, width: 40, height: 40))
-        imgView.image = #imageLiteral(resourceName: "ic_wifi-1")
+        imgView.image = UIImage(named: "ic_wifi-1") ?? UIImage()
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(buttonTapped))
         imgView.addGestureRecognizer(gestureRecognizer)
         imgView.isUserInteractionEnabled = true
@@ -102,7 +104,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         if DeviceStatus.deviceOSVersion.starts(with: "9") {
             dayLabel.textColor = .white
             messageLabel.textColor = .white
-            imgView.image = #imageLiteral(resourceName: "ic_wifi-1").withRenderingMode(.alwaysTemplate)
+            imgView.image = (UIImage(named: "ic_wifi-1") ?? UIImage()).withRenderingMode(.alwaysTemplate)
             imgView.tintColor = .white
             hintLabel.textColor = .white
         } else {
@@ -236,7 +238,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             formatter.numberStyle = .spellOut
             let comps = cal.dateComponents([.month, .day], from: now)
 
-            dayLabel.text = weekday + " \(comps.month!)月\(comps.day!)日 " + "第\(week)周"
+            dayLabel.text = weekday + " \(comps.month ?? -1)月\(comps.day ?? -1)日 " + "第\(week)周"
             dayLabel.sizeToFit()
         }
 
@@ -264,7 +266,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                     formatter.numberStyle = .spellOut
                     let comps = cal.dateComponents([.month, .day], from: now)
 
-                    self.dayLabel.text = weekday + " \(comps.month!)月\(comps.day!)日 " + "第\(week)周"
+                    self.dayLabel.text = weekday + " \(comps.month ?? -1)月\(comps.day ?? -1)日 " + "第\(week)周"
                     self.dayLabel.sizeToFit()
 
 //                    self.classes = table.classes
@@ -305,7 +307,9 @@ extension TodayViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ClassWidgetCell(style: .default, reuseIdentifier: "ClassWidgetCell")
         let model = classes[indexPath.row]
-        let arrange = model.arrange.first!
+        guard let arrange = model.arrange.first else {
+            return UITableViewCell()
+        }
         cell.coursenameLabel.text = model.courseName
         cell.coursenameLabel.frame.size.width = UIScreen.main.bounds.width - 120
         var rangeText = "\(arrange.start)-\(arrange.end)节"
@@ -324,7 +328,7 @@ extension TodayViewController: UITableViewDataSource {
         cell.infoLabel.text = rangeText + " " + timeText
 
         if arrange.room != "" && arrange.room != "无" {
-            let text = cell.infoLabel.text!
+            let text = cell.infoLabel.text ?? ""
             cell.infoLabel.text = text + " @" + arrange.room
         }
         cell.infoLabel.sizeToFit()

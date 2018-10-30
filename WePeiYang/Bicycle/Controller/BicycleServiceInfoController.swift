@@ -107,7 +107,7 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
     func lineChartView(_ lineChartView: JBLineChartView!, verticalValueForHorizontalIndex horizontalIndex: UInt, atLineIndex lineIndex: UInt) -> CGFloat {
         //let res = data[Int(horizontalIndex)]["dist"] as! CGFloat
         let res = BicycleUser.sharedInstance.recent[Int(horizontalIndex)][1] as? CGFloat
-        return res!
+        return res ?? 0
     }
 
     func lineChartView(_ lineChartView: JBLineChartView!, showsDotsForLineAtLineIndex lineIndex: UInt) -> Bool {
@@ -175,45 +175,42 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        var cell = tableView.dequeueReusableCell(withIdentifier: "BicycleInfoCell")
-        if cell == nil {
-            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "BicycleInfoCell")
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BicycleInfoCell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "BicycleInfoCell")
 
         if indexPath.section == 0 {
             //未完成
-            cell!.textLabel?.text = "用户："
+            cell.textLabel?.text = "用户："
             if let name = BicycleUser.sharedInstance.name {
-                cell!.textLabel?.text = "用户：\(name)"
+                cell.textLabel?.text = "用户：\(name)"
             }
             //For demo
             //cell!.textLabel?.text = "用户：鲍一心"
-            cell!.imageView?.image = UIImage(named: "ic_account_circle")
-            cell!.selectionStyle = .none
+            cell.imageView?.image = UIImage(named: "ic_account_circle")
+            cell.selectionStyle = .none
         } else if indexPath.section == 1 {
-            cell!.textLabel?.text = "余额："
+            cell.textLabel?.text = "余额："
             if let balance = BicycleUser.sharedInstance.balance {
-                cell!.textLabel?.text = "余额：¥\(balance)"
+                cell.textLabel?.text = "余额：¥\(balance)"
             }
-            cell!.imageView?.image = UIImage(named: "ic_account_balance_wallet")
-            cell!.selectionStyle = .none
+            cell.imageView?.image = UIImage(named: "ic_account_balance_wallet")
+            cell.selectionStyle = .none
         } else if indexPath.section == 2 {
-            cell!.textLabel?.text = "最近记录："
+            cell.textLabel?.text = "最近记录："
             if let foo = BicycleUser.sharedInstance.record {
                 var timeStampString = foo["arr_time"] as! String
 
                 //借了车，没还车
                 if Int(timeStampString) == 0 {
-                    cell?.textLabel?.text = "最近记录：借车"
+                    cell.textLabel?.text = "最近记录：借车"
                     timeStampString = foo["dep_time"] as! String
-                    cell?.detailTextLabel?.text = "时间：\(timeStampTransfer.stringFromTimeStampWithFormat(format: "yyyy-MM-dd HH:mm", timeStampString: timeStampString))"
+                    cell.detailTextLabel?.text = "时间：\(timeStampTransfer.stringFromTimeStampWithFormat(format: "yyyy-MM-dd HH:mm", timeStampString: timeStampString))"
                 } else {
-                    cell?.textLabel?.text = "最近记录：还车"
-                    cell?.detailTextLabel?.text = "时间：\(timeStampTransfer.stringFromTimeStampWithFormat(format: "yyyy-MM-dd HH:mm", timeStampString: timeStampString))"
+                    cell.textLabel?.text = "最近记录：还车"
+                    cell.detailTextLabel?.text = "时间：\(timeStampTransfer.stringFromTimeStampWithFormat(format: "yyyy-MM-dd HH:mm", timeStampString: timeStampString))"
                 }
             }
-            cell!.imageView?.image = UIImage(named: "ic_schedule")
-            cell!.selectionStyle = .none
+            cell.imageView?.image = UIImage(named: "ic_schedule")
+            cell.selectionStyle = .none
 //        } else if indexPath.section == 3 {
 //            cell!.imageView?.image = UIImage(named: "ic_history")
 //            cell!.textLabel?.text = "查询记录"
@@ -222,7 +219,7 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
 //            cell!.textLabel?.text = "数据分析"
         }
 
-        return cell!
+        return cell
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -252,18 +249,18 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
             make.top.equalTo(headerView).offset(8)
         }
 
-        let bicycleIconView = UIImageView(imageName: "ic_bike", desiredSize: CGSize(width: 30, height: 30))
-        headerView.addSubview(bicycleIconView!)
-        bicycleIconView?.snp.makeConstraints { make in
+        let bicycleIconView = UIImageView(imageName: "ic_bike", desiredSize: CGSize(width: 30, height: 30)) ?? UIImageView()
+        headerView.addSubview(bicycleIconView)
+        bicycleIconView.snp.makeConstraints { make in
             make.centerY.equalTo(infoLabel)
             make.right.equalTo(infoLabel.snp.left).offset(-8)
         }
 
         //chartViewBackground
-        let chartBackground = UIImageView(imageName: "BicycleChartBackgroundImage", desiredSize: CGSize(width: view.width-16, height: 220))
-        headerView.addSubview(chartBackground!)
+        let chartBackground = UIImageView(imageName: "BicycleChartBackgroundImage", desiredSize: CGSize(width: view.width-16, height: 220)) ?? UIImageView()
+        headerView.addSubview(chartBackground)
 
-        chartBackground?.snp.makeConstraints {
+        chartBackground.snp.makeConstraints {
             make in
             make.top.equalTo(infoLabel.snp.bottom).offset(8)
             make.left.equalTo(headerView).offset(8)
@@ -271,9 +268,9 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
             make.bottom.equalTo(headerView).offset(-8)
         }
 
-        chartBackground!.clipsToBounds = true
-        chartBackground!.layer.cornerRadius = 8
-        for subview in chartBackground!.subviews {
+        chartBackground.clipsToBounds = true
+        chartBackground.layer.cornerRadius = 8
+        for subview in chartBackground.subviews {
             subview.layer.cornerRadius = 8
         }
 
@@ -300,16 +297,6 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
 
     //delegate of tableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 3 {
-            if #available(iOS 9.3, *) {
-                let fitnessVC = BicycleFitnessTrackerViewController()
-                self.navigationController?.pushViewController(fitnessVC, animated: true)
-                tableView.deselectRow(at: indexPath as IndexPath, animated: true)
-            } else {
-                // Fallback on earlier versions
-            }
-
-        }
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
 }

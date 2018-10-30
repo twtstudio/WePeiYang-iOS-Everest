@@ -21,12 +21,19 @@ class CourseAppraiseManager {
     fileprivate init() {}
 
     func submit(_ successHandler: @escaping () -> Void) {
-
-        // let manager = AFHTTPSessionManager()
-        let parameters = ["lesson_id": lesson_id!,
-                          "union_id": union_id!,
-                          "course_id": course_id!,
-                          "term": term!,
+        guard let lesson_id = lesson_id,
+            let union_id = union_id,
+            let course_id = course_id,
+            let term = term,
+            let GPASession = GPASession,
+            scoreArray.count > 4 else {
+                SwiftMessages.showWarningMessage(body: "请填写完整信息")
+                return
+        }
+        let parameters = ["lesson_id": lesson_id,
+                          "union_id": union_id,
+                          "course_id": course_id,
+                          "term": term,
                           "q1": "\(scoreArray[0])",
             "q2": "\(scoreArray[1])",
             "q3": "\(scoreArray[2])",
@@ -34,8 +41,11 @@ class CourseAppraiseManager {
             "q5": "\(scoreArray[4])",
             "note": note]
 
-        let url = "/gpa/evaluate?token=\(GPASession!)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        SolaSessionManager.solaSession(type: .duo, url: url!, token: GPASession!, parameters: parameters, success: { _ in
+        guard let url = "/gpa/evaluate?token=\(GPASession)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            SwiftMessages.showWarningMessage(body: "请重新绑定办公网并重试")
+            return
+        }
+        SolaSessionManager.solaSession(type: .duo, url: url, token: GPASession, parameters: parameters, success: { _ in
             SwiftMessages.showSuccessMessage(body: "评价成功!")
             successHandler()
         }, failure: { error in

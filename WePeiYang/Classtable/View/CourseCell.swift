@@ -84,7 +84,7 @@ class CourseCell: UITableViewCell {
             contentView.alpha = 0.7
 
             var name = course.courseName
-            let maxLength = 4*course.arrange.first!.length
+            let maxLength = 4 * (course.arrange.first?.length ?? 0)
 
             if course.courseName.count > maxLength {
                 name = (name as NSString).substring(to: maxLength) + "..."

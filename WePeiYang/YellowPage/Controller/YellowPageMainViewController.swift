@@ -97,7 +97,7 @@ class YellowPageMainViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.barStyle = .black
 
-        self.navigationController!.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.tintColor = .white
     }
 
     @objc func searchToggle() {

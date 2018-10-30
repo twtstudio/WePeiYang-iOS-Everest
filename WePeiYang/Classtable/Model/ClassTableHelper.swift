@@ -42,7 +42,11 @@ struct ClassTableHelper {
         for course in table.classes {
             // 对 week 进行判定
             // 起止周
-            if week < Int(course.weekStart)! || week > Int(course.weekEnd)! {
+            guard let weekStart = Int(course.weekStart),
+                let weekEnd = Int(course.weekEnd) else {
+                    continue
+            }
+            if week < weekStart || week > weekEnd {
                 // TODO: turn gray
                 continue
             }
@@ -84,9 +88,10 @@ struct ClassTableHelper {
                     // 从上节课的结束到下节课的开始填满
                     for i in (lastEnd+1)...(course.arrange[0].start-1) {
                         // 构造一个假的 model
-                        let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}]}")!
+                        if let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}]}") {
+                            array.append(placeholder)
+                        }
                         // placeholders[i].append(placeholder)
-                        array.append(placeholder)
                     }
                     //                    for i in (lastEnd+1)..<(course.arrange[0].start-1) {
                     //                        // 构造一个假的 model
@@ -101,9 +106,9 @@ struct ClassTableHelper {
             if lastEnd < 12 {
                 for i in (lastEnd+1)...12 {
                     // 构造一个假的 model
-                    let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}]}")!
-                    // placeholders[i].append(placeholder)
-                    array.append(placeholder)
+                    if let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}]}") {
+                        array.append(placeholder)
+                    }
                 }
             }
             // 按开始时间进行排序

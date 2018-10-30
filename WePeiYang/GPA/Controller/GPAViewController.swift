@@ -173,7 +173,10 @@ class GPAViewController: UIViewController {
         rightButton.frame = CGRect(x: UIScreen.main.bounds.width*3/4-20, y: termLabel.y, width: 20, height: 20)
         rightButton.adjustsImageWhenHighlighted = true
         leftButton.add(for: .touchUpInside, {
-            if let index = self.terms.index(where: { $0.name == self.currentTerm!.name }) {
+            guard let currentTerm = self.currentTerm else {
+                return
+            }
+            if let index = self.terms.index(where: { $0.name == currentTerm.name }) {
                 guard index > 0 && index < self.terms.count else {
                     return
                 }
@@ -186,7 +189,10 @@ class GPAViewController: UIViewController {
             }
         })
         rightButton.add(for: .touchUpInside, {
-            if let index = self.terms.index(where: { $0.name == self.currentTerm!.name }) {
+            guard let currentTerm = self.currentTerm else {
+                return
+            }
+            if let index = self.terms.index(where: { $0.name == currentTerm.name }) {
                 guard index >= 0 && index < self.terms.count-1 else {
                     return
                 }
@@ -240,8 +246,7 @@ class GPAViewController: UIViewController {
 
         hidesBottomBarWhenPushed = true
 
-        if isModal {
-            let image = UIImage(named: "ic_back")!
+        if isModal, let image = UIImage(named: "ic_back") {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
         }
 
@@ -346,20 +351,23 @@ class GPAViewController: UIViewController {
     }
 
     private func load() {
+        guard let currentTerm = currentTerm else {
+            return
+        }
         termLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
         UIView.animate(withDuration: 0.2, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
-            self.termLabel.text = self.currentTerm?.name ?? ""
+            self.termLabel.text = currentTerm.name
             self.termLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
         }, completion: nil)
 
         // 第一个
-        if currentTerm!.name == terms[0].name {
+        if currentTerm.name == terms[0].name {
             leftButton.isHidden = true
         } else {
             leftButton.isHidden = false
         }
         // 最后一个
-        if currentTerm!.name == terms[terms.count-1].name {
+        if currentTerm.name == terms[terms.count-1].name {
             rightButton.isHidden = true
         } else {
             rightButton.isHidden = false
@@ -501,8 +509,11 @@ extension GPAViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 100))
+        guard let currentTerm = currentTerm else {
+            return UITableViewCell()
+        }
         cell.backgroundColor = .white
-        let `class` = currentTerm!.classes[indexPath.row]
+        let `class` = currentTerm.classes[indexPath.row]
         let classNameLabel = UILabel(text: `class`.name, color: UIColor(red: 0.32, green: 0.32, blue: 0.32, alpha: 1.00), fontSize: 14)
         let creditLabel = UILabel(text: "学分: \(`class`.credit)", color: UIColor(red: 0.32, green: 0.32, blue: 0.32, alpha: 1.00), fontSize: 14)
         let scoreLabel = UILabel(text: "成绩: \(`class`.score)", color: UIColor(red: 0.32, green: 0.32, blue: 0.32, alpha: 1.00), fontSize: 14)
@@ -526,8 +537,9 @@ extension GPAViewController: UITableViewDataSource {
 extension GPAViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if let cell = tableView.cellForRow(at: indexPath), cell.tag == -1 {
-            let `class` = currentTerm!.classes[indexPath.row]
+        if let cell = tableView.cellForRow(at: indexPath), cell.tag == -1,
+            let currentTerm = currentTerm {
+            let `class` = currentTerm.classes[indexPath.row]
             let appraiseVC = CourseAppraiseViewController()
             appraiseVC.data = `class`
             appraiseVC.GPASession = session
@@ -603,7 +615,7 @@ extension GPAViewController: UIScrollViewDelegate {
             self.title = currentTerm?.name
             if offset > 520 {
                 self.navigationController?.navigationBar.alpha = 1
-                segmentContentView.alpha = self.navigationController!.navigationBar.alpha
+                segmentContentView.alpha = self.navigationController?.navigationBar.alpha ?? 1
 //                self.navigationController?.navigationBar.isTranslucent = false
 //                self.navigationController?.navigationBar.isOpaque = true
                 return
@@ -660,9 +672,13 @@ extension GPAViewController: ChartViewDelegate {
             view.removeFromSuperview()
         }
 
-        let point = lineChartView.getTransformer(forAxis: lineChartView.data!.dataSets[0].axisDependency).pixelForValues(x: entry.x, y: entry.y)
+        guard let data = lineChartView.data else {
+            return
+        }
 
-        let image = UIImage(named: "bubble")!
+        let point = lineChartView.getTransformer(forAxis: data.dataSets[0].axisDependency).pixelForValues(x: entry.x, y: entry.y)
+
+        let image = UIImage(named: "bubble") ?? UIImage()
         let bubbleView = UIImageView(image: image)
         bubbleView.width = 115
         bubbleView.height = 115
@@ -673,10 +689,12 @@ extension GPAViewController: ChartViewDelegate {
         var upsidedownOffset: CGFloat = 0
 
         if bubbleView.y + bubbleView.height > 200 {
-            let revertedImage = UIImage(cgImage: image.cgImage!, scale: 1, orientation: UIImageOrientation.downMirrored)
-            bubbleView.image = revertedImage
-            bubbleView.y -= bubbleView.height + 10 + 10
-            upsidedownOffset = -10
+            if let cgImage = image.cgImage {
+                let revertedImage = UIImage(cgImage: cgImage, scale: 1, orientation: UIImageOrientation.downMirrored)
+                bubbleView.image = revertedImage
+                bubbleView.y -= bubbleView.height + 10 + 10
+                upsidedownOffset = -10
+            }
         }
 
         let scoreLabel = UILabel(text: "加权: \(term.stat.score)", color: .black, fontSize: 12)

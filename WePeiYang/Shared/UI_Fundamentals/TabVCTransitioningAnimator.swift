@@ -33,24 +33,26 @@ class TabVCTransitioningAnimator: NSObject, UIViewControllerAnimatedTransitionin
         var translationX = inView.frame.width
 
         let fromView = transitionContext.view(forKey: .from)
-        let toView = transitionContext.view(forKey: .to)
+        guard let toView = transitionContext.view(forKey: .to) else {
+            return
+        }
 
         translationX = transitionDirection == .left ? translationX : -translationX
         let fromViewTransform = CGAffineTransform(translationX: translationX, y: 0)
         let toViewTransform = CGAffineTransform(translationX: -translationX, y: 0)
 
-        inView.addSubview(toView!)
+        inView.addSubview(toView)
 
         let duration = transitionDuration(using: transitionContext)
 
-        toView?.transform = toViewTransform
+        toView.transform = toViewTransform
 
         UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: [.allowAnimatedContent, .curveEaseInOut], animations: {
             fromView?.transform = fromViewTransform
-            toView?.transform = CGAffineTransform.identity
+            toView.transform = CGAffineTransform.identity
         }) { _ in
             fromView?.transform = CGAffineTransform.identity
-            toView?.transform = CGAffineTransform.identity
+            toView.transform = CGAffineTransform.identity
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
