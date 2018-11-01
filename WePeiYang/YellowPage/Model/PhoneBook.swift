@@ -11,36 +11,37 @@ import UIKit
 class PhoneBook {
     static let shared = PhoneBook()
     private init() {}
-
+    
     static let url = "/yellowpage/data3"
-    var favorite: [ClientItem] = []
-    //var phonebook: [String: [String: [ClientItem]]] = [:]
+    var favorite: [UnitList] = []
+    //var phonebook: [String: [String: [UnitList]]] = [:]
     var sections: [String] = []
     var members: [String: [String]] = [:]
-    var items: [ClientItem] = []
-
+    var items: [UnitList] = []
+    var departments: [String: Int] = [:]
+    
     // given a name, return its phone number
     func getPhoneNumber(with string: String) -> String? {
         for item in items {
-            if item.name.contains(string) {
-                return item.phone
+            if item.itemName.contains(string) {
+                return item.itemPhone
             }
         }
         return nil
     }
-
+    
     // get members with section
     func getMembers(with section: String) -> [String] {
         guard let array = members[section] else {
             return []
         }
         return array
-
+        
     }
-
-    func addFavorite(with model: ClientItem, success: () -> Void) {
+    
+    func addFavorite(with model: UnitList, success: () -> Void) {
         for m in favorite {
-            if m.phone == model.phone && m.name == model.name {
+            if m.itemPhone == model.itemPhone && m.itemName == model.itemName {
                 return
             }
         }
@@ -49,55 +50,52 @@ class PhoneBook {
         favorite.append(m)
         success()
     }
-
-    func removeFavorite(with model: ClientItem, success: () -> Void) {
+    
+    func removeFavorite(with model: UnitList, success: () -> Void) {
         for (index, m) in favorite.enumerated() {
-            if m.phone == model.phone && m.name == model.name {
+            if m.itemPhone == model.itemPhone && m.itemName == model.itemName {
                 favorite.remove(at: index)
             }
         }
         success()
     }
-
+    
     // get models with member name
-    func getModels(with member: String) -> [ClientItem] {
+    func getModels(with member: String) -> [UnitList] {
         return items.filter { item in
-            return item.owner == member
+            let departID = departments[member]
+            return item.itemAttach == departID
         }
     }
-
+    
     // seach result
-    func getResult(with string: String) -> [ClientItem] {
+    func getResult(with string: String) -> [UnitList] {
         return items.filter { item in
-            return item.name.contains(string)
+            return item.itemName.contains(string)
         }
     }
-
+    
     static func checkVersion(success: @escaping () -> Void, failure: @escaping () -> Void) {
         SolaSessionManager.solaSession(url: PhoneBook.url, success: { dict in
-            // FIXME: should be optimized
-            if let categories = dict["category_list"] as? [[String: Any]] {
-                var newItems = [ClientItem]()
-                for category in categories {
-                    let category_name = category["category_name"] as! String
+            let data = try? JSONSerialization.data(withJSONObject: dict, options: [])
+            
+            if let welcome = try? JSONDecoder().decode(Welcome.self, from: data!) {
+                var newItems = [UnitList]()
+                for category in welcome.categoryList {
+                    let category_name = category.categoryName
                     PhoneBook.shared.sections.append(category_name)
-                    if let departments = category["department_list"] as? [[String: Any]] {
-                        for department in departments {
-                            let department_name = department["department_name"] as! String
-                            if PhoneBook.shared.members[category_name] != nil {
-                                PhoneBook.shared.members[category_name]!.append(department_name)
-                            } else {
-                                PhoneBook.shared.members[category_name] = [department_name]
-                            }
-                            if let items = department["unit_list"] as? [AnyObject] {
-                                for item in items {
-                                    if let item_name = item["item_name"] as? String,
-                                        let item_phone = item["item_phone"] as? String {
-                                        newItems.append(ClientItem(name: item_name, phone: item_phone, isFavorite: false, owner: department_name))
-                                    }
-                                }
-                            }
+                    for department in category.departmentList {
+                        PhoneBook.shared.departments[department.departmentName] = department.id
+                        if PhoneBook.shared.members[category_name] != nil {
+                            PhoneBook.shared.members[category_name]!.append(department.departmentName)
+                        } else {
+                            PhoneBook.shared.members[category_name] = [department.departmentName]
                         }
+                        let items = department.unitList
+                        for item in items {
+                            newItems.append(item)
+                        }
+                        
                     }
                 }
                 PhoneBook.shared.items = newItems
@@ -106,6 +104,38 @@ class PhoneBook {
             } else {
                 failure()
             }
+            
+            // FIXME: should be optimized
+            //            if let categories = dict["category_list"] as? [[String: Any]] {
+            //                var newItems = [UnitList]()
+            //                for category in categories {
+            //                    let category_name = category["category_name"] as! String
+            //                    PhoneBook.shared.sections.append(category_name)
+            //                    if let departments = category["department_list"] as? [[String: Any]] {
+            //                        for department in departments {
+            //                            let department_name = department["department_name"] as! String
+            //                            if PhoneBook.shared.members[category_name] != nil {
+            //                                PhoneBook.shared.members[category_name]!.append(department_name)
+            //                            } else {
+            //                                PhoneBook.shared.members[category_name] = [department_name]
+            //                            }
+            //                            if let items = department["unit_list"] as? [AnyObject] {
+            //                                for item in items {
+            //                                    if let item_name = item["item_name"] as? String,
+            //                                        let item_phone = item["item_phone"] as? String {
+            //                                        newItems.append(UnitList(name: item_name, itemPhone: item_phone, isFavorite: false, owner: department_name))
+            //                                    }
+            //                                }
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //                PhoneBook.shared.items = newItems
+            //                PhoneBook.shared.save()
+            //                success()
+            //            } else {
+            //                failure()
+            //            }
         })
     }
 }
@@ -118,20 +148,23 @@ extension PhoneBook {
             Storage.store(PhoneBook.shared.members, in: .documents, as: "yellowpage/members.json")
             Storage.store(PhoneBook.shared.sections, in: .documents, as: "yellowpage/sections.json")
             Storage.store(PhoneBook.shared.favorite, in: .documents, as: "yellowpage/favorite.json")
+            Storage.store(PhoneBook.shared.departments, in: .documents, as: "yellowpage/departments.json")
         }
     }
-
+    
     //读取数据
     func load(success: @escaping () -> Void, failure: @escaping () -> Void) {
         DispatchQueue.global().sync {
-            if let items = Storage.retreive("yellowpage/items.json", from: .documents, as: [ClientItem].self),
+            if let items = Storage.retreive("yellowpage/items.json", from: .documents, as: [UnitList].self),
                 let members = Storage.retreive("yellowpage/members.json", from: .documents, as: [String: [String]].self),
                 let sections = Storage.retreive("yellowpage/sections.json", from: .documents, as: [String].self),
-                let favorite = Storage.retreive("yellowpage/favorite.json", from: .documents, as: [ClientItem].self) {
+                let favorite = Storage.retreive("yellowpage/favorite.json", from: .documents, as: [UnitList].self),
+                let departments = Storage.retreive("yellowpage/departments.json", from: .documents, as: [String: Int].self) {
                 PhoneBook.shared.items = items
                 PhoneBook.shared.members = members
                 PhoneBook.shared.sections = sections
                 PhoneBook.shared.favorite = favorite
+                PhoneBook.shared.departments = departments
                 DispatchQueue.main.async {
                     success()
                 }
@@ -140,6 +173,18 @@ extension PhoneBook {
                     failure()
                 }
             }
+        }
+    }
+}
+
+extension KeyedDecodingContainer {
+    fileprivate func decodeIfPresent(_ type: String.Type, forKey key: K) throws -> String? {
+        if let str = try? decode(type, forKey: key) {
+            return str
+        } else if let int = try? decode(Int.self, forKey: key) {
+            return "\(int)"
+        } else {
+            return nil
         }
     }
 }

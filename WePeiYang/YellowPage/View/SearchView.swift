@@ -13,25 +13,25 @@ class SearchView: UIView {
     let backButton = ExtendedButton()
     let textField = UITextField()
     let backgroundView = UIView()
-
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         backgroundView.frame = rect
         self.addSubview(backgroundView)
         backButton.setImage(UIImage(named: "ypback1"), for: .normal)
-//        self.backgroundColor = UIColor(red: 0.1059, green: 0.6352, blue: 0.9019, alpha: 0.5)
+        //        self.backgroundColor = UIColor(red: 0.1059, green: 0.6352, blue: 0.9019, alpha: 0.5)
         self.backgroundColor = YellowPageMainViewController.mainColor
         backgroundView.backgroundColor = YellowPageMainViewController.mainColor
-//        backgroundView.backgroundColor = UIColor(red: 0.1059, green: 0.6352, blue: 0.9019, alpha: 1)
+        //        backgroundView.backgroundColor = UIColor(red: 0.1059, green: 0.6352, blue: 0.9019, alpha: 1)
         backButton.adjustsImageWhenHighlighted = false
         backgroundView.addSubview(backButton)
         backButton.snp.makeConstraints { make in
             make.width.equalTo(20)
             make.height.equalTo(20)
             make.centerY.equalToSuperview().offset(7)
-            make.left.equalToSuperview().offset(20)
+            make.left.equalToSuperview().offset(10)
         }
-
+        
         let separator = UIView()
         separator.backgroundColor = UIColor(red: 0.074, green: 0.466, blue: 0.662, alpha: 1)
         backgroundView.addSubview(separator)
@@ -41,7 +41,7 @@ class SearchView: UIView {
             make.centerY.equalTo(self).offset(7)
             make.left.equalTo(backButton.snp.right).offset(10)
         }
-
+        
         let iconView = UIImageView()
         iconView.image = UIImage(named: "search1")
         backgroundView.addSubview(iconView)
@@ -51,7 +51,7 @@ class SearchView: UIView {
             make.centerY.equalTo(self).offset(7)
             make.left.equalTo(separator.snp.right).offset(10)
         }
-
+        
         let baseLine = UIView()
         baseLine.backgroundColor = UIColor.white
         backgroundView.addSubview(baseLine)
@@ -61,7 +61,7 @@ class SearchView: UIView {
             make.left.equalTo(iconView.snp.left)
             make.right.equalTo(backgroundView).offset(-15)
         }
-
+        
         self.addSubview(textField)
         textField.snp.makeConstraints { make in
             make.left.equalTo(iconView.snp.right).offset(2)
@@ -73,5 +73,5 @@ class SearchView: UIView {
         textField.textColor = .white
         textField.tintColor = .white
     }
-
+    
 }

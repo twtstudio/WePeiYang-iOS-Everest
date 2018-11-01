@@ -10,31 +10,31 @@
 import UIKit
 
 class CommonUsedView: UIView {
-
+    
     var collectionView: UICollectionView! = nil
-    var models: [ClientItem] = []
-
+    var models: [UnitList] = []
+    
     // FIXME: fix init
-    convenience init(with models: [ClientItem]) {
+    convenience init(with models: [UnitList]) {
         self.init()
         self.models = models
         self.backgroundColor = UIColor.white
         let layout = UICollectionViewFlowLayout()
         let width = UIScreen.main.bounds.size.width
-
+        
         let headerLabel = UILabel(frame: CGRect(x: 15, y: 20, width: 0, height: 0))
         headerLabel.text = "常用部门"
         headerLabel.font = UIFont.flexibleSystemFont(ofSize: 15, weight: .bold)
         headerLabel.sizeToFit()
-
+        
         collectionView = UICollectionView(frame: CGRect(x: 0, y: headerLabel.frame.size.height+30, width: width, height: 150), collectionViewLayout: layout)
-
+        
         // initial fix
         //collectionView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
         //collectionView.contentSize = CGSize(width: width, height: 150)
         collectionView.backgroundColor = UIColor.white
         collectionView.register(CommonClientCell.self, forCellWithReuseIdentifier: "CommonClientCell")
-
+        
         layout.itemSize = CGSize(width: (width-50)/2, height: 40)
         self.addSubview(headerLabel)
         self.addSubview(collectionView)
@@ -49,7 +49,7 @@ class CommonClientCell: UICollectionViewCell {
         imgView.image = UIImage(named: icon)
         label.text = "\(name)"
         label.frame = CGRect(x: 35, y: 10, width: 140, height: 20)
-
+        
         // FIXME: adjust for various iPhones
         //label.font = UIFont.flexibleFont(with: 14)
         label.font = UIFont.systemFont(ofSize: 14)
