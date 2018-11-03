@@ -11,7 +11,7 @@ import MJRefresh
 import PopupDialog
 
 // MARK: UIViewController
-class PracticeWrongViewController: UIViewController {
+class  PracticeWrongViewController: UIViewController {
     
     /* 错题模型 */
     var practiceWrong: PracticeWrongModel!

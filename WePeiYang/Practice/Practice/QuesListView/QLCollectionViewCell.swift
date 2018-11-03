@@ -22,7 +22,7 @@ class QLCollectionViewCell: UICollectionViewCell {
         self.layer.borderWidth = 1
         self.addSubview(label)
         label.snp.makeConstraints { (make) in
-            make.width.equalTo(22)
+            make.width.equalTo(25)
             make.height.equalTo(12)
             make.center.equalTo(self)
         }

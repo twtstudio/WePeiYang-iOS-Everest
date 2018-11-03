@@ -49,6 +49,8 @@ class PracticeHomeViewController: UIViewController {
             self.homeTableView.reloadData()
         }) { _ in
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(popExerciseVC), name: NSNotification.Name(rawValue: "popExerciseVC"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,6 +122,15 @@ class PracticeHomeViewController: UIViewController {
         homeTableView.delegate = self
         homeTableView.dataSource = self
         contentScrollView.addSubview(homeTableView)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "popExerciseVC"), object: nil)
+    }
+    
+    // 进入背题界面 //
+    @objc private func popExerciseVC() {
+        self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
     }
     
     // 进入搜索界面 //
@@ -480,24 +491,29 @@ extension PracticeHomeViewController: UICollectionViewDelegate, UICollectionView
             let leftButton = PracticePopupDialogButton(title: "顺序练习", dismissOnTap: true) {
                 // PracticeFigure.practiceType = "0"
                 // TODO: 进入顺序练习
-                let warningCard = PopupDialog(title: "形式与政策", message: "请选择题目类型", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
-                let leftButton = PracticePopupDialogButton(title: "单选", dismissOnTap: true) {
-                    PracticeFigure.questionType = "0"
-                    PracticeFigure.currentCourseIndex = "0"
-                    self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
-                }
-                let centerButton = PracticePopupDialogButton(title: "多选", dismissOnTap: true) {
-                    PracticeFigure.questionType = "1"
-                    PracticeFigure.currentCourseIndex = "0"
-                    self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
-                }
-                let rightButton = PracticePopupDialogButton(title: "判断", dismissOnTap: true) {
-                    PracticeFigure.questionType = "2"
-                    PracticeFigure.currentCourseIndex = "0"
-                    self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
-                }
-                warningCard.addButtons([leftButton, centerButton, rightButton])
-                self.present(warningCard, animated: true, completion: nil)
+                guard let window = UIApplication.shared.keyWindow else { return }
+                let view = PCourseInfoView()
+                view.frame = CGRect(x: 0, y: 0, width: deviceWidth, height: deviceHeight)
+                view.getCourseInfo(courseID: PracticeFigure.courseID, courseName: "形式与政策")
+                window.addSubview(view)
+//                let warningCard = PopupDialog(title: "形式与政策", message: "请选择题目类型", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+//                let leftButton = PracticePopupDialogButton(title: "单选", dismissOnTap: true) {
+//                    PracticeFigure.questionType = "0"
+//                    PracticeFigure.currentCourseIndex = "0"
+//                    self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
+//                }
+//                let centerButton = PracticePopupDialogButton(title: "多选", dismissOnTap: true) {
+//                    PracticeFigure.questionType = "1"
+//                    PracticeFigure.currentCourseIndex = "0"
+//                    self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
+//                }
+//                let rightButton = PracticePopupDialogButton(title: "判断", dismissOnTap: true) {
+//                    PracticeFigure.questionType = "2"
+//                    PracticeFigure.currentCourseIndex = "0"
+//                    self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
+//                }
+//                warningCard.addButtons([leftButton, centerButton, rightButton])
+//                self.present(warningCard, animated: true, completion: nil)
             }
             let rightButton = PracticePopupDialogButton(title: "模拟考试", dismissOnTap: true) {
                 // PracticeFigure.practiceType = "1"
@@ -517,7 +533,6 @@ extension PracticeHomeViewController: UICollectionViewDelegate, UICollectionView
             return
         }
     }
-    
 }
 
 extension UIColor {

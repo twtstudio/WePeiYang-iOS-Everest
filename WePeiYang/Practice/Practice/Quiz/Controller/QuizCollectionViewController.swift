@@ -120,12 +120,9 @@ class QuizCollectionViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateAnswer), name: NSNotification.Name(rawValue: "QuizOptionSelected"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(changeQues), name: NSNotification.Name(rawValue: "changeQues"), object: nil)
     }
-    
-    func initTimer() {
-        timer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(tickDown), userInfo: nil, repeats: true)
-    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.barTintColor = UIColor.practiceBlue
         navigationController?.navigationBar.tintColor = .white
@@ -136,9 +133,23 @@ class QuizCollectionViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: timeButton)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         guard let tim = self.timer else { return }
         tim.invalidate()
+    }
+    
+    override func navigationShouldPopMethod() -> Bool {
+        let warningCard = PopupDialog(title: "确认交卷？", message: "交卷后答案将不可更改，确认不再检查一遍么？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+        let leftButton = PracticePopupDialogButton(title: "信心满满，交了", dismissOnTap: true) {
+            // TODO: 交卷
+            self.navigationController?.popViewController(animated: true)
+        }
+        let rightButton = PracticePopupDialogButton(title: "再检查一下`", dismissOnTap: true) { return }
+        rightButton.titleColor = UIColor.practiceRed
+        warningCard.addButtons([leftButton, rightButton])
+        self.present(warningCard, animated: true, completion: nil)
+        return true
     }
     
     deinit {
@@ -188,24 +199,24 @@ extension QuizCollectionViewController: UICollectionViewDataSource, UICollection
     }
 }
 
-extension QuizCollectionViewController: UINavigationBarDelegate {
-    func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
-        var shouldPop = true
-        let warningCard = PopupDialog(title: "确认退出？", message: "退出后此次检测将没有成绩", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
-        let leftButton = PracticePopupDialogButton(title: "确认", dismissOnTap: true) {
-            // TODO: 继续退出
-            shouldPop = true
-        }
-        let rightButton = PracticePopupDialogButton(title: "取消", dismissOnTap: true) {
-            // TODO: 不退出
-            shouldPop = false
-        }
-        rightButton.titleColor = UIColor.practiceRed
-        warningCard.addButtons([leftButton, rightButton])
-        self.present(warningCard, animated: true, completion: nil)
-        return shouldPop
-    }
-}
+//extension QuizCollectionViewController: UINavigationBarDelegate {
+//    func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
+//        var shouldPop = true
+//        let warningCard = PopupDialog(title: "确认退出？", message: "退出后此次检测将没有成绩", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+//        let leftButton = PracticePopupDialogButton(title: "确认", dismissOnTap: true) {
+//            // TODO: 继续退出
+//            shouldPop = true
+//        }
+//        let rightButton = PracticePopupDialogButton(title: "取消", dismissOnTap: true) {
+//            // TODO: 不退出
+//            shouldPop = false
+//        }
+//        rightButton.titleColor = UIColor.practiceRed
+//        warningCard.addButtons([leftButton, rightButton])
+//        self.present(warningCard, animated: true, completion: nil)
+//        return shouldPop
+//    }
+//}
 
 //网络请求
 extension QuizCollectionViewController {
@@ -361,6 +372,10 @@ extension QuizCollectionViewController {
         }
     }
     
+    func initTimer() {
+        timer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(tickDown), userInfo: nil, repeats: true)
+    }
+    
     @objc func tickDown() {
         if restTime == 0 {
             //TODO: 检测模式做题时间到，跳转至下一页面
@@ -431,31 +446,17 @@ extension QuizCollectionViewController {
     
     //收藏
     @objc func collect(_ button: UIButton) {
+        let ques = quizArray[1]
+        guard let qType = ques.quesType else { return }
+        guard let qID = ques.id else { return }
         if guards[currentPage - 1].iscollected {
             guards[currentPage - 1].iscollected = false
             button.setImage(#imageLiteral(resourceName: "collect"), for: .normal)
-            
-            let ques = quizArray[1]
-            let data: Dictionary<String, Any> = ["tid": 0,
-                                                 "ques_type": ques.quesType!,
-                                                 "ques_id": ques.id!]
-            ExerciseNetwork.addCollection(data: data, failure: { (err) in
-                log(err)
-            }) { (dic) in
-                //TODO: 收藏后动作
-            }
+            PracticeCollectionHelper.addCollection(quesType: String(qType), quesID: String(qID))
         }else {
             guards[currentPage - 1].iscollected = true
             button.setImage(#imageLiteral(resourceName: "collected"), for: .normal)
-            let ques = quizArray[1]
-            let data: Dictionary<String, Any> = ["tid": 0,
-                                                 "ques_type": ques.quesType!,
-                                                 "ques_id": ques.id!]
-            ExerciseNetwork.deleteCollection(data: data, failure: { (err) in
-                log(err)
-            }) { (dic) in
-                //TODO: 取消收藏后动作
-            }
+            PracticeCollectionHelper.deleteCollection(quesType: String(qType), quesID: String(qID))
         }
     }
     

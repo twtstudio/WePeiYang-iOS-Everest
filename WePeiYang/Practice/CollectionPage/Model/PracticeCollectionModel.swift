@@ -23,6 +23,7 @@ struct PracticeCollectionHelper {
     
     static func addCollection(quesType: String, quesID: String) {
         SolaSessionManager.solaSession(type: .post, baseURL: PracticeAPI.root, url: PracticeAPI.special + "/addQues/0", parameters: ["ques_type": quesType, "ques_id": quesID], success: { dic in
+            log(dic)
         }) { _ in
             debugPrint("ERROR -- PracticeCollectionHelper.addCollection")
         }
@@ -30,6 +31,7 @@ struct PracticeCollectionHelper {
     
     static func deleteCollection(quesType: String, quesID: String) {
         SolaSessionManager.solaSession(type: .post, baseURL: PracticeAPI.root, url: PracticeAPI.special + "/deleteQues/0", parameters: ["ques_type": quesType, "ques_id": quesID], success: { dic in
+            log(dic)
         }) { _ in
             debugPrint("ERROR -- PracticeCollectionHelper.deleteCollection")
         }

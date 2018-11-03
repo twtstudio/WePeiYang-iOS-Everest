@@ -40,7 +40,6 @@ class QLCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, UI
 
         self.delegate = self
         self.dataSource = self
-
     }
     
     func initCollectionView(currentPage: Int, pagesNum: Int, isCorrect: [isCorrect]) {
@@ -61,10 +60,9 @@ class QLCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, UI
         let selectedBlue = UIColor(red: 228/255, green: 243/255, blue: 1, alpha: 1)
         let selectedRed = UIColor(red: 1, green: 228/255, blue: 243/255, alpha: 1)
         let cell = self.dequeueReusableCell(withReuseIdentifier: "quesCollection cell", for: indexPath) as! QLCollectionViewCell
-//        var bgColor: UIColor = .clear
-//        var fontColor: UIColor = .clear
         cell.label.text = "\(indexPath.item + 1)"
         cell.layer.cornerRadius = cellW * 0.5
+        
         if curPage == indexPath.item + 1 {
             switch isCorrected[indexPath.item] {
             case .unknown:

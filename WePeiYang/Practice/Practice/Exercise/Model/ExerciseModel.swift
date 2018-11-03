@@ -9,7 +9,7 @@
 import Foundation
 
 class ExerciseModel {
-        let practiceModel = PracticeModel()
+    let practiceModel = PracticeModel()
     //    func answerSelected(answer: String, optionCount: Int) -> [Bool] {
     //        var array: [Bool] = []
     //        for _ in 0..<optionCount {
@@ -22,7 +22,6 @@ class ExerciseModel {
     //            return array
     //        }
     //    }
-    
     func ansResult(order: Int, rightAns: String) -> Bool {
         if practiceModel.optionDics[order + 2] == rightAns {
             return true

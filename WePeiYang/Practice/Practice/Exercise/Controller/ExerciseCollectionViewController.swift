@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import PopupDialog
 
-class ExerciseCollectionViewController: UIViewController {    
+class ExerciseCollectionViewController: UIViewController {
     let questionViewParameters = QuestionViewParameters()
 
     var isExercising: Bool = true
@@ -28,9 +29,6 @@ class ExerciseCollectionViewController: UIViewController {
     var classId = Int(PracticeFigure.classID)!
     var courseId = Int(PracticeFigure.courseID)!
     var quesType = Int(PracticeFigure.questionType)!
-//    var classId = 2
-//    var courseId = 2
-//    var quesType = 0
 
     var currentPage = 1
     var currentIndex = 0
@@ -84,6 +82,7 @@ class ExerciseCollectionViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        
         //答题、背题切换
         let items = ["背题", "答题"]
         let segmentedControl = UISegmentedControl(items: items)
@@ -96,7 +95,8 @@ class ExerciseCollectionViewController: UIViewController {
         segmentedControl.layer.borderColor = UIColor.white.cgColor
         segmentedControl.layer.cornerRadius = 12
         segmentedControl.clipsToBounds = true
-        
+
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.barTintColor = UIColor.practiceBlue
         navigationController?.navigationBar.tintColor = .white
@@ -110,19 +110,15 @@ class ExerciseCollectionViewController: UIViewController {
         }
     }
     
-    @objc func changeMode(_ segmented: UISegmentedControl) {
-        switch segmented.selectedSegmentIndex {
-        case 0:
-            mode = .memorize
-            collectionView.reloadData()
-        case 1:
-            mode = .exercise
-            collectionView.reloadData()
-        default:
-            break
-        }
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
-    
+    override func navigationShouldPopMethod() -> Bool {
+        let message = recordQuesIndex()
+//        let warningCard = PopupDialog(title: message, message: message, buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+//        self.present(warningCard, animated: true)
+        return true
+    }
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "optionSelected"), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "changeQues"), object: nil)
@@ -140,27 +136,31 @@ extension ExerciseCollectionViewController: UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        var selected: Bool = false
         let ques = questionArray[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! ExerciseCell
-
-        if let content = ques.quesDetail?.content, let optionArray = ques.quesDetail?.option, let correctAns = ques.quesDetail?.correctAnswer, let quesType = ques.quesDetail?.type {
-            cell.loadQues(answer: usrMultipleAnser[indexArray[indexPath.item]], ques: content, options: optionArray, selected: guards[indexArray[indexPath.item]].selected, rightAns: correctAns, qType: quesType)
-            cell.questionView.reloadData()
-        } else {
-            cell.loadQues(answer: "none", ques: "oops, no data", options: ["oops, no data", "oops, no data", "oops, no data", "oops, no data"], selected: guards[currentPage - 1].selected, rightAns: "no data", qType: 0)
-        }
-        cell.initExerciseCell()
-
         //如果之前查看了答案要把answerView加上去
         if mode == .memorize {
+            selected = true
             cell.addAnswerView(result: guards[indexArray[indexPath.item]].answer, rightAnswer: ques.quesDetail?.correctAnswer)
         } else {
+            selected = guards[indexArray[indexPath.item]].selected
             if guards[indexArray[indexPath.item]].ischecked {
                 cell.addAnswerView(result: guards[indexArray[indexPath.item]].answer, rightAnswer: ques.quesDetail?.correctAnswer)
             } else {
                 cell.removeAnswerView()
             }
         }
+        
+        if let content = ques.quesDetail?.content, let optionArray = ques.quesDetail?.option, let correctAns = ques.quesDetail?.correctAnswer, let quesType = ques.quesDetail?.type {
+            
+            cell.loadQues(answer: usrMultipleAnser[indexArray[indexPath.item]], ques: content, options: optionArray, selected: selected, rightAns: correctAns, qType: quesType)
+            cell.questionView.reloadData()
+        } else {
+            cell.loadQues(answer: "none", ques: "oops, no data", options: ["oops, no data", "oops, no data", "oops, no data", "oops, no data"], selected: selected, rightAns: "no data", qType: 0)
+        }
+        cell.initExerciseCell()
+
         return cell
     }
     
@@ -239,7 +239,6 @@ extension ExerciseCollectionViewController {
                 self.count = 0
                 self.updateData()
             }
-            
         }) { (err) in
             log(err)
         }
@@ -268,6 +267,7 @@ extension ExerciseCollectionViewController {
     
     private func getQuesArray() {
         ExerciseCollectionViewController.questions = []
+        if idList.count == 0 { return }
         for index in indexArray {
             if let id = idList[index] {
                 getQues(id: id)
@@ -352,11 +352,27 @@ extension ExerciseCollectionViewController {
         self.collectionView.reloadItems(at: array)
         scrollDirection = .none
     }
-    
 }
 
 //界面初始化、基本控件加载、点击事件
 extension ExerciseCollectionViewController {
+    
+    /// <#Description#>
+    ///
+    /// - Returns: 0: 添加完成  1: 已添加   2: 添加失败
+    private func recordQuesIndex() -> String {
+        var message: String = "添加失败"
+        if questionArray.count == 0 { return "" }
+        guard let quesId = questionArray[1].quesDetail?.id else { return message }
+        guard let quesType = questionArray[1].quesDetail?.type else { return message }
+
+        ExerciseNetwork.recordQuesIndex(courseId: courseId, quesId: quesId, quesType: quesType, index: currentIndex, success: { (errorCode, response) in
+            message = response
+        }) { (err) in
+            log(err)
+        }
+        return message
+    }
     
     private func loadData() {
         getQuesArray()
@@ -496,32 +512,31 @@ extension ExerciseCollectionViewController {
         }
     }
     
+    //MARK: MODEL职能
     @objc private func updateAnswer() {
+        var isWrite = "0"
         guards[currentIndex].selected = true
         guards[currentIndex].answer = QuestionTableView.selectedAnswer
         guard let usrAns = QuestionTableView.selectedAnswer else { return }
+        guard let quesID = questionArray[1].quesDetail?.id else { return }
+        guard let quesType = questionArray[1].quesDetail?.type else { return }
         usrMultipleAnser[currentIndex] = usrAns
-        
-        guard let answer = guards[currentIndex].answer else { return }
-        if answer == questionArray[1].quesDetail!.correctAnswer {
+
+        if usrAns == questionArray[1].quesDetail!.correctAnswer {
             guards[currentIndex].iscorrect = .right
+            isWrite = "1"
         } else {
             guards[currentIndex].iscorrect = .wrong
-            
-            let mistakeQuesData: Dictionary<String, Any> = ["tid": 1,
-                                                            "ques_id": questionArray[1].quesDetail?.id ?? 0,
-                                                            "ques_type": questionArray[1].quesDetail?.type ?? 3,
-                                                            "error_option": answer]
-            ExerciseNetwork.postMistakeQues(courseId: courseId, data: mistakeQuesData, failure: { (err) in
-                log(err)
-            }) { (mess) in
-                //TODO: POST，提交错题后，返回数据
-                let message = mess
-                print(message)
-            }
+            isWrite = "2"
+            PracticeWrongHelper.addMistakeQues(quesId: String(quesID), quesType: String(quesType), usrAns: usrAns)
         }
         
-        check()
+        ExerciseNetwork.postWritingQues(courseId: String(courseId), quesType: String(quesType), index: String(currentIndex), isWrite: isWrite, errorOption: usrAns, success: { (message) in
+            print(message)
+        }) { (err) in
+            log(err)
+        }
+        self.check()
         QuestionTableView.selectedAnswer = nil
     }
     
@@ -533,36 +548,17 @@ extension ExerciseCollectionViewController {
     
     //收藏
     @objc private func collect(_ button: UIButton) {
+        guard let ques = questionArray[1].quesDetail else { return }
+        guard let qType = ques.type else { return }
+        guard let qID = ques.id else { return }
         if guards[currentIndex].iscollected {
             guards[currentIndex].iscollected = false
             button.setImage(#imageLiteral(resourceName: "collect"), for: .normal)
-            
-            let ques = questionArray[1].quesDetail!
-            let data: Dictionary<String, Any> = ["tid": 0,
-                                                 "ques_type": ques.type!,
-                                                 "ques_id": ques.id!]
-            ExerciseNetwork.deleteCollection(data: data, failure: { (err) in
-                log(err)
-            }) { (mess) in
-                //TODO: 取消收藏后动作
-                let message = mess
-                log(message)
-            }
+            PracticeCollectionHelper.deleteCollection(quesType: String(qType), quesID: String(qID))
         } else {
             guards[currentIndex].iscollected = true
             button.setImage(#imageLiteral(resourceName: "collected"), for: .normal)
-            let ques = questionArray[1].quesDetail!
-            let data: Dictionary<String, Any> = ["tid": 0,
-                                                 "ques_type": ques.type!,
-                                                 "ques_id": ques.id!]
-
-            ExerciseNetwork.addCollection(data: data, failure: { (err) in
-                log(err)
-            }) { (dic) in
-                //TODO: 收藏后动作
-                let message = dic
-                log(message)
-            }
+            PracticeCollectionHelper.addCollection(quesType: String(qType), quesID: String(qID))
         }
     }
     
@@ -627,6 +623,19 @@ extension ExerciseCollectionViewController {
                 self.quesListCollectionView.removeFromSuperview()
                 self.quesListBkgView.removeFromSuperview()
             }
+        }
+    }
+    
+    @objc func changeMode(_ segmented: UISegmentedControl) {
+        switch segmented.selectedSegmentIndex {
+        case 0:
+            mode = .memorize
+            collectionView.reloadData()
+        case 1:
+            mode = .exercise
+            collectionView.reloadData()
+        default:
+            break
         }
     }
 }

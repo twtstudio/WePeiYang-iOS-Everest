@@ -68,22 +68,22 @@ class PracticeUploadViewController: UIViewController {
 // MARK: - UILabel
 /* 支持复制功能的 UILabel */
 class UICopyLabel: UILabel {
-    
+
     override var canBecomeFirstResponder: Bool {
         return true
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         sharedInit()
     }
-    
+
     // 添加长按识别 //
     func sharedInit() {
         isUserInteractionEnabled = true
         addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(showMenu)))
     }
-    
+
     // 支持复制 //
     override func copy(_ sender: Any?) {
         let board = UIPasteboard.general
@@ -92,12 +92,12 @@ class UICopyLabel: UILabel {
         menu.setMenuVisible(false, animated: true)
         SwiftMessages.showSuccessMessage(body: "复制成功啦 🌝")
     }
-   
+
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(UIResponderStandardEditActions.copy(_:)) { return true }
         return false
     }
-    
+
     @objc func showMenu(_ sender: UILongPressGestureRecognizer) {
         becomeFirstResponder()
         let menu = UIMenuController.shared
@@ -106,10 +106,10 @@ class UICopyLabel: UILabel {
             menu.setMenuVisible(true, animated: true)
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         sharedInit()
     }
-    
+
 }

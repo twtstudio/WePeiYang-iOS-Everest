@@ -12,6 +12,7 @@ import Foundation
 struct PracticeWrongHelper {
     static func getWrong(success: @escaping (PracticeWrongModel)->(), failure: @escaping (Error)->()) {
         SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: PracticeAPI.special + "/getQues/1", success: { dic in
+            log(dic)
             if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let practiceWrong = try? PracticeWrongModel(data: data) {
                 success(practiceWrong)
             } else { debugPrint("WARNING -- PracticeWrongHelper.getWrong") }
@@ -20,10 +21,28 @@ struct PracticeWrongHelper {
             debugPrint("ERROR -- PracticeWrongHelper.getWrong")
         }
     }
-    
+
+    static func addMistakeQues(quesId: String, quesType: String, usrAns: String) {
+        var message: String = ""
+        let mistakeQuesData: Dictionary<String, String> = [ "tid": "1",
+                                                            "ques_id": quesId,
+                                                            "ques_type": quesType,
+                                                            "error_answer": usrAns]
+        SolaSessionManager.solaSession(type: .post, baseURL: PracticeAPI.root, url: "/special/addQues/1", parameters: mistakeQuesData, success: { dic in
+            log(dic)
+         }, failure: { err in
+            log(err)
+         })
+    }
+
     static func deleteWrong(quesType: String, quesID: String) {
         SolaSessionManager.solaSession(type: .post, baseURL: PracticeAPI.root, url: PracticeAPI.special + "/deleteQues/1", parameters: ["ques_type": quesType, "ques_id": quesID], success: { dic in
+            log(dic)
+            log(quesType)
+            log(quesID)
+            
         }) { _ in
+            
             debugPrint("ERROR -- PracticeWrongHelper.deleteWrong")
         }
     }

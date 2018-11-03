@@ -7,16 +7,50 @@
 //
 
 import Foundation
+import Alamofire
 
 class ExerciseNetwork {
-    static func markHistory(dic: [String: Any], success: @escaping(String)->(), failure: (Error)->()) {
-        var message: String = ""
-        SolaSessionManager.upload(dictionay: dic, baseURL: "https://exam.twtstudio.com", url: "/api/remember/mark") { (dic) in
-            message = dic["message"] as? String ?? "添加失败"
-        }
-        success(message)
+    static func postWritingQues(courseId: String, quesType: String, index: String, isWrite: String, errorOption: String, success: @escaping (String) -> (), failure: @escaping (Error) -> ()) {
+        let dic = ["course_id": courseId,
+                   "ques_type": quesType,
+                   "index": index,
+                   "is_write": isWrite,
+                   "error_option": errorOption]
+        SolaSessionManager.solaSession(type: .post, baseURL: PracticeAPI.root, url: "/remember/current_course/write", parameters: dic, success: { (response) in
+            let message = response["message"] as? String ?? ""
+            success(message)
+        }, failure: { (err) in
+            failure(err)
+        })
     }
     
+    static func recordQuesIndex(courseId: Int, quesId: Int, quesType: Int, index: Int, success: @escaping (Int, String) -> (), failure: @escaping (Error) -> ()) {
+        let dic = ["course_id": String(courseId),
+                   "ques_type": String(quesType),
+                   "ques_id": String(quesId),
+                   "index": String(index)]
+        SolaSessionManager.solaSession(type: .post, baseURL: PracticeAPI.root, url:  "/remember/mark", parameters: dic, success: { response in
+            log(response)
+        }) { err in
+            log(err)
+        }
+    }
+
+    func postRequest(urlString : String, params : [String : Any], success : @escaping (_ response : [String : AnyObject])->(), failture : @escaping (_ error : Error)->()) {
+        Alamofire.request(urlString, method: HTTPMethod.post, parameters: params).responseJSON { (response) in
+            switch response.result{
+            case .success:
+                if let value = response.result.value as? [String: AnyObject] {
+                    success(value)
+                    log(value)
+                }
+            case .failure(let error):
+                failture(error)
+                log("error:\(error)")
+            }
+        }
+    }
+
     static func getQues(courseId: Int, quesType: Int, id: Int, success: @escaping(Question)->(), failure: (Error)->()) {
         SolaSessionManager.solaSession(baseURL: "https://exam.twtstudio.com", url: "/api/remember/getQuesById/\(courseId)/\(quesType)/\(id)", success: { (dic) in
             let ques = dic["data"] as? [String: Any]
@@ -54,29 +88,6 @@ class ExerciseNetwork {
         }
     }
 
-    
-    static func postMistakeQues(courseId: Int, data: Dictionary<String, Any>, failure: @escaping (Error) ->(), success: @escaping (String) -> ()) {
-        var message: String = ""
-        SolaSessionManager.upload(dictionay: data, baseURL: "https://exam.twtstudio.com", url: "/api/remember/addMistakeQues/\(1)", method: .post, progressBlock: nil, failure: { (err) in
-            log(err)
-        }, success: { (dic) in
-            message = dic["message"] as? String ?? ""
-            print(dic)
-        })
-        success(message)
-    }
-    
-    static func addCollection(data: Dictionary<String, Any>, failure: @escaping (Error) -> (), success: @escaping (String) -> ()) {
-        var message: String = ""
-        SolaSessionManager.upload(dictionay: data, baseURL: "https://exam.twtstudio.com", url: "/api/special/addQues/\(0)", method: .post, progressBlock: nil, failure: { (err) in
-            log(err)
-        }, success: { (dic) in
-            message = dic["message"] as? String ?? ""
-            print(dic)
-        })
-//        success(message)
-    }
-    
     static func deleteCollection(data: Dictionary<String, Any>, failure: @escaping (Error) -> (), success: @escaping (String) -> ()) {
         var message = ""
         SolaSessionManager.upload(dictionay: data, baseURL: "https://exam.twtstudio.com", url: "/api/collect/deleteCollection", method: .post, progressBlock: nil, failure: { (err) in
