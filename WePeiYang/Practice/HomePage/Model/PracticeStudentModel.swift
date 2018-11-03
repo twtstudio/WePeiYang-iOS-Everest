@@ -123,12 +123,21 @@ struct PracticeStudentData: Codable {
 }
 
 struct QuickSelect: Codable {
-    let id: Int
+    let type: String?
+    let courseID: Int
     let courseName: String
+    let quesType, doneCount, doneIndex, time: String?
+    let dateTimestamp: String?
     
     enum CodingKeys: String, CodingKey {
-        case id
+        case type
+        case courseID = "course_id"
         case courseName = "course_name"
+        case quesType = "ques_type"
+        case doneCount = "done_count"
+        case doneIndex = "done_index"
+        case time
+        case dateTimestamp = "date_timestamp"
     }
 }
 
@@ -256,12 +265,24 @@ extension QuickSelect {
     }
     
     func with(
-        id: Int? = nil,
-        courseName: String? = nil
+        type: String?? = nil,
+        courseID: Int? = nil,
+        courseName: String? = nil,
+        quesType: String?? = nil,
+        doneCount: String?? = nil,
+        doneIndex: String?? = nil,
+        time: String?? = nil,
+        dateTimestamp: String?? = nil
         ) -> QuickSelect {
         return QuickSelect(
-            id: id ?? self.id,
-            courseName: courseName ?? self.courseName
+            type: type ?? self.type,
+            courseID: courseID ?? self.courseID,
+            courseName: courseName ?? self.courseName,
+            quesType: quesType ?? self.quesType,
+            doneCount: doneCount ?? self.doneCount,
+            doneIndex: doneIndex ?? self.doneIndex,
+            time: time ?? self.time,
+            dateTimestamp: dateTimestamp ?? self.dateTimestamp
         )
     }
     
