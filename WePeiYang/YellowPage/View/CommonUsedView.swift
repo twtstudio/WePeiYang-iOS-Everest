@@ -12,10 +12,10 @@ import UIKit
 class CommonUsedView: UIView {
     
     var collectionView: UICollectionView! = nil
-    var models: [UnitList] = []
+    var models: [UnitItem] = []
     
     // FIXME: fix init
-    convenience init(with models: [UnitList]) {
+    convenience init(with models: [UnitItem]) {
         self.init()
         self.models = models
         self.backgroundColor = UIColor.white

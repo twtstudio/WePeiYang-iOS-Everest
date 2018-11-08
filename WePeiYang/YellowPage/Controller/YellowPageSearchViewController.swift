@@ -14,7 +14,7 @@ class YellowPageSearchViewController: UIViewController {
     let tableView = UITableView(frame: CGRect.zero, style: .plain)
     
     var history: [String] = []
-    var result: [UnitList] = []
+    var result: [UnitItem] = []
     var isSearching = false
     
     override func viewWillAppear(_ animated: Bool) {

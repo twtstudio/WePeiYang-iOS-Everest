@@ -35,7 +35,7 @@ class YellowPageCell: UITableViewCell {
     let arrowView = UIImageView()
     var countLabel: UILabel! = nil
     var style: YellowPageCellStyle = .header
-    var detailedModel: UnitList! = nil
+    var detailedModel: UnitItem! = nil
     var commonView: CommonUsedView! = nil
     var likeView: ExtendedButton! = nil
     var phoneLabel: UILabel!
@@ -106,13 +106,13 @@ class YellowPageCell: UITableViewCell {
             //                make.bottom.equalTo(contentView).offset(-11)
         //            }
         case .detailed:
-            fatalError("这个方法请调用func init(with style: YellowPageCellStyle, model: UnitList)")
+            fatalError("这个方法请调用func init(with style: YellowPageCellStyle, model: UnitItem)")
         }
         
     }
     
     var nameLabel: UILabel!
-    convenience init(with style: YellowPageCellStyle, model: UnitList) {
+    convenience init(with style: YellowPageCellStyle, model: UnitItem) {
         self.init(style: .default, reuseIdentifier: style.rawValue)
         guard style == .detailed else {
             return

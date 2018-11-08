@@ -18,7 +18,7 @@ struct Welcome: Codable {
 
 struct CategoryList: Codable {
     let categoryName: String
-    let departmentList: [DepartmentList]
+    let departmentList: [DepartmentItem]
     
     enum CodingKeys: String, CodingKey {
         case categoryName = "category_name"
@@ -26,10 +26,10 @@ struct CategoryList: Codable {
     }
 }
 
-struct DepartmentList: Codable {
+struct DepartmentItem: Codable {
     let id, departmentAttach: Int
     let departmentName: String
-    let unitList: [UnitList]
+    let unitList: [UnitItem]
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -39,7 +39,7 @@ struct DepartmentList: Codable {
     }
 }
 
-struct UnitList: Codable {
+struct UnitItem: Codable {
     let id, itemAttach: Int
     let itemName, itemPhone: String
     var isFavorite = false
