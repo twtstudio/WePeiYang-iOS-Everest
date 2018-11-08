@@ -13,11 +13,11 @@ class PhoneBook {
     private init() {}
     
     static let url = "/yellowpage/data3"
-    var favorite: [UnitList] = []
-    //var phonebook: [String: [String: [UnitList]]] = [:]
+    var favorite: [UnitItem] = []
+    //var phonebook: [String: [String: [UnitItem]]] = [:]
     var sections: [String] = []
     var members: [String: [String]] = [:]
-    var items: [UnitList] = []
+    var items: [UnitItem] = []
     var departments: [String: Int] = [:]
     
     // given a name, return its phone number
@@ -39,7 +39,7 @@ class PhoneBook {
         
     }
     
-    func addFavorite(with model: UnitList, success: () -> Void) {
+    func addFavorite(with model: UnitItem, success: () -> Void) {
         for m in favorite {
             if m.itemPhone == model.itemPhone && m.itemName == model.itemName {
                 return
@@ -51,7 +51,7 @@ class PhoneBook {
         success()
     }
     
-    func removeFavorite(with model: UnitList, success: () -> Void) {
+    func removeFavorite(with model: UnitItem, success: () -> Void) {
         for (index, m) in favorite.enumerated() {
             if m.itemPhone == model.itemPhone && m.itemName == model.itemName {
                 favorite.remove(at: index)
@@ -61,7 +61,7 @@ class PhoneBook {
     }
     
     // get models with member name
-    func getModels(with member: String) -> [UnitList] {
+    func getModels(with member: String) -> [UnitItem] {
         return items.filter { item in
             let departID = departments[member]
             return item.itemAttach == departID
@@ -69,7 +69,7 @@ class PhoneBook {
     }
     
     // seach result
-    func getResult(with string: String) -> [UnitList] {
+    func getResult(with string: String) -> [UnitItem] {
         return items.filter { item in
             return item.itemName.contains(string)
         }
@@ -80,7 +80,7 @@ class PhoneBook {
             let data = try? JSONSerialization.data(withJSONObject: dict, options: [])
             
             if let welcome = try? JSONDecoder().decode(Welcome.self, from: data!) {
-                var newItems = [UnitList]()
+                var newItems = [UnitItem]()
                 for category in welcome.categoryList {
                     let category_name = category.categoryName
                     PhoneBook.shared.sections.append(category_name)
@@ -155,10 +155,10 @@ extension PhoneBook {
     //读取数据
     func load(success: @escaping () -> Void, failure: @escaping () -> Void) {
         DispatchQueue.global().sync {
-            if let items = Storage.retreive("yellowpage/items.json", from: .documents, as: [UnitList].self),
+            if let items = Storage.retreive("yellowpage/items.json", from: .documents, as: [UnitItem].self),
                 let members = Storage.retreive("yellowpage/members.json", from: .documents, as: [String: [String]].self),
                 let sections = Storage.retreive("yellowpage/sections.json", from: .documents, as: [String].self),
-                let favorite = Storage.retreive("yellowpage/favorite.json", from: .documents, as: [UnitList].self),
+                let favorite = Storage.retreive("yellowpage/favorite.json", from: .documents, as: [UnitItem].self),
                 let departments = Storage.retreive("yellowpage/departments.json", from: .documents, as: [String: Int].self) {
                 PhoneBook.shared.items = items
                 PhoneBook.shared.members = members

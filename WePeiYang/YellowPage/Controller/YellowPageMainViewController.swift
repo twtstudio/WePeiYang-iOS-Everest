@@ -21,7 +21,7 @@ class YellowPageMainViewController: UIViewController {
     var sections: [String] {
         return PhoneBook.shared.sections
     }
-    var favorite: [UnitList] {
+    var favorite: [UnitItem] {
         return PhoneBook.shared.favorite
     }
     
