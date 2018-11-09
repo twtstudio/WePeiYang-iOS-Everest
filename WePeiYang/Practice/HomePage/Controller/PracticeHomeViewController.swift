@@ -42,6 +42,12 @@ class PracticeHomeViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
 
+        NotificationCenter.default.addObserver(self, selector: #selector(popExerciseVC), name: NSNotification.Name(rawValue: "popExerciseVC"), object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         /* 用户模型 */
         PracticeStudentHelper.getStudent(success: { practiceStudent in
             self.practiceStudent = practiceStudent
@@ -50,12 +56,6 @@ class PracticeHomeViewController: UIViewController {
         }) { _ in
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(popExerciseVC), name: NSNotification.Name(rawValue: "popExerciseVC"), object: nil)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
         /* 导航栏 */
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.barStyle = .black
@@ -63,7 +63,7 @@ class PracticeHomeViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.tintColor = .white
-        let barHeight = (navigationController?.navigationBar.frame.origin.y)! + (navigationController?.navigationBar.frame.size.height)!
+        let barHeight = UIApplication.shared.statusBarFrame.height //(navigationController?.navigationBar.frame.origin.y)! + (navigationController?.navigationBar.frame.size.height)!
         
         /* 标题 */
         let titleLabel = UILabel(text: "天外天刷题")
