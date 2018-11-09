@@ -354,7 +354,7 @@ extension PracticeHomeViewController: UITableViewDelegate {
                 userView.practicedQuestionNumber.text = practiceStudent.data.doneCount // 已练习题目数
                 userView.practicedCourseNumber.text = "\(practiceStudent.data.courseCount)" // 已练习科目数
                 
-                let correctRateString = String(Int(100 - Double(practiceStudent.data.errorCount)! / Double(practiceStudent.data.doneCount)! * 100))
+                let correctRateString = practiceStudent.data.doneCount == "0" ? "0" : String(Int(100 - Double(practiceStudent.data.errorCount)! / Double(practiceStudent.data.doneCount)! * 100))
                 let correctRateText = NSMutableAttributedString(string: "正确率 \(correctRateString)%") // 使用富文本改变字体
                 correctRateText.addAttribute(.foregroundColor, value: UIColor.darkGray, range: NSMakeRange(0, 4))
                 userView.correctRate.attributedText = correctRateText // 正确率
