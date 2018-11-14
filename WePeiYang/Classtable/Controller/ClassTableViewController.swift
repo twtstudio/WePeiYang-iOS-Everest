@@ -199,7 +199,7 @@ class ClassTableViewController: UIViewController {
 
         // navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(load))
         let refreshBarButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(load))
-        let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(audit))
         navigationItem.rightBarButtonItems = [refreshBarButton, addBarButton]
     }
 
@@ -328,6 +328,10 @@ class ClassTableViewController: UIViewController {
             SwiftMessages.hideLoading()
             SwiftMessages.showErrorMessage(body: errorMessage)
         })
+    }
+    
+    @objc func audit() {
+        navigationController?.pushViewController(AuditHomeViewController(), animated: true)
     }
 
     override func viewWillAppear(_ animated: Bool) {
