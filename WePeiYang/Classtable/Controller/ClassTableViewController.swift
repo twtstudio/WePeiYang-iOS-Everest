@@ -368,6 +368,10 @@ class ClassTableViewController: UIViewController {
     @objc func audit() {
         navigationController?.pushViewController(AuditHomeViewController(), animated: true)
     }
+    
+    @objc func audit() {
+        navigationController?.pushViewController(AuditHomeViewController(), animated: true)
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
