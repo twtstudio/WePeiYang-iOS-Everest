@@ -197,7 +197,10 @@ class ClassTableViewController: UIViewController {
         self.navigationItem.titleView = titleView
         backButton.addTarget(self, action: #selector(toggleWeekSelect), for: .touchUpInside)
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(load))
+        // navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(load))
+        let refreshBarButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(load))
+        let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        navigationItem.rightBarButtonItems = [refreshBarButton, addBarButton]
     }
 
     @objc func weekCellTapped(sender: UITapGestureRecognizer) {
