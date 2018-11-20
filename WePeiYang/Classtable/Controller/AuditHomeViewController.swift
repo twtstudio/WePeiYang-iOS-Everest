@@ -32,6 +32,12 @@ class AuditHomeViewController: UIViewController {
             
         })
         
+        ClasstableDataManager.getAuditDetailCourse(courseID: "1382", success: { model in
+            
+        }, failure: { errStr in
+            
+        })
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,6 +100,15 @@ extension AuditHomeViewController: UITableViewDelegate {
         if isFold == true, indexPath.section == 0, indexPath.row == 3 {
             self.isFold = false
             self.tableView.reloadData()
+            return
+        }
+        
+        if indexPath.section == 0 {
+            let courseID = String(self.popularList[indexPath.row].courseID)
+            let detailVC = AuditDetailViewController(courseID: courseID)
+            self.navigationController?.pushViewController(detailVC, animated: true)
+        } else {
+            
         }
     }
 }
