@@ -54,8 +54,27 @@ struct ClasstableDataManager {
                 failure(message)
                 return
             }
-            
+
             if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let model = try? PopularListModel(data: data) {
+                success(model)
+            } else {
+                failure("解析失败")
+            }
+        }, failure: { error in
+            failure(error.localizedDescription)
+        })
+    }
+    
+    static func getAuditDetailCourse(courseID: String, success: @escaping (AuditDetailCourseModel) -> Void, failure: @escaping (String) -> Void) {
+        SolaSessionManager.solaSession(type: .get, url: "/auditClass/course", parameters: ["course_id" : courseID], success: { dic in
+            if let error_code = dic["error_code"] as? Int,
+                error_code != -1,
+                let message = dic["message"] as? String {
+                failure(message)
+                return
+            }
+            
+            if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let model = try? AuditDetailCourseModel(data: data) {
                 success(model)
             } else {
                 failure("解析失败")
