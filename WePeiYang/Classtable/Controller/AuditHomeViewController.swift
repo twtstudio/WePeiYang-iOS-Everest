@@ -29,14 +29,19 @@ class AuditHomeViewController: UIViewController {
             self.popularList = model.data
             self.tableView.reloadData()
         }, failure: { errStr in
-            
+
         })
+
+
+        AuditUser.shared.load()
         
-        ClasstableDataManager.getAuditDetailCourse(courseID: "1382", success: { model in
-            
-        }, failure: { errStr in
-            
-        })
+        //ClasstableDataManager.searchCourse(courseName: nil, collegeID: nil)
+        
+//        ClasstableDataManager.getAuditDetailCourse(courseID: "1382", success: { model in
+//
+//        }, failure: { errStr in
+//
+//        })
         
     }
     
@@ -54,8 +59,17 @@ class AuditHomeViewController: UIViewController {
         
         let auditBack = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem = auditBack
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(search(_:)))
     }
     
+}
+
+extension AuditHomeViewController {
+    @objc func search(_ sender: UIBarButtonItem) {
+        let searchVC = AuditSearchViewController()
+        self.navigationController?.pushViewController(searchVC, animated: true)
+    }
 }
 
 extension AuditHomeViewController: UITableViewDelegate {
