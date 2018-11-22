@@ -251,6 +251,13 @@ extension AuditHomeViewController: UITableViewDataSource {
     }
 }
 
+extension AuditHomeViewController {
+    @objc func search(_ sender: UIBarButtonItem) {
+        let searchVC = AuditSearchViewController()
+        self.navigationController?.pushViewController(searchVC, animated: true)
+    }
+}
+
 extension AuditHomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
