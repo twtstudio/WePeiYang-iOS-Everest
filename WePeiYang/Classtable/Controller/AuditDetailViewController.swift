@@ -92,7 +92,16 @@ extension AuditDetailViewController: UITableViewDataSource {
         
         let startWeek = item.startWeek
         let endWeek = item.endWeek
-        cell.weekTimeLabel.text = "第 " + String(startWeek) + "-" + String(endWeek) + " 周"
+        var weekType = ""
+        if item.weekType == 1 {
+            weekType = "单周"
+        } else if item.weekType == 2 {
+            weekType = "双周"
+        } else if item.weekType == 3 {
+            weekType = "单双周"
+        }
+        
+        cell.weekTimeLabel.text = "第 " + String(startWeek) + "-" + String(endWeek) + " 周  " + weekType
 
         let dayTime = self.dayTitles[item.weekDay - 1]
         let startTime = item.startTime
