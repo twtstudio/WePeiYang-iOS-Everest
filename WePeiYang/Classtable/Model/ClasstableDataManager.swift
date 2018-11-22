@@ -84,4 +84,50 @@ struct ClasstableDataManager {
         })
     }
     
+    static func getAllColleges(success: @escaping (AuditCollegeModel) -> Void, failure: @escaping (String) -> Void) {
+        SolaSessionManager.solaSession(type: .get, url: "/auditClass/college", parameters: nil, success: { dic in
+            if let error_code = dic["error_code"] as? Int,
+                error_code != -1,
+                let message = dic["message"] as? String {
+                failure(message)
+                return
+            }
+            
+            if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let model = try? AuditCollegeModel(data: data) {
+                success(model)
+            } else {
+                failure("解析失败")
+            }
+        }, failure: { error in
+            failure(error.localizedDescription)
+        })
+    }
+    
+    static func searchCourse(courseName: String? = nil, collegeID: String? = nil, success: @escaping (AuditSearchModel) -> Void, failure: @escaping (String) -> Void) {
+        var para: [String : String] = [:]
+        if let courseName = courseName {
+            para["name"] = courseName
+        }
+        if let collegeID = collegeID {
+            para["college_id"] = collegeID
+        }
+        
+        SolaSessionManager.solaSession(type: .get, url: "/auditClass/search", parameters: para, success: { dic in
+            if let error_code = dic["error_code"] as? Int,
+                error_code != -1,
+                let message = dic["message"] as? String {
+                failure(message)
+                return
+            }
+            
+            if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let model = try? AuditSearchModel(data: data) {
+                success(model)
+            } else {
+                failure("解析失败")
+            }
+        }, failure: { error in
+            failure(error.localizedDescription)
+        })
+    }
+    
 }
