@@ -81,7 +81,7 @@ class HistoryViewCell: UITableViewCell {
             if let correctRate = historyData.score {
                 correctRateLabel.textColor = .practiceRed
                 let correctRateText = NSMutableAttributedString(string: "正确率: \(correctRate)%") // 使用富文本改变字体
-                correctRateText.addAttribute(.foregroundColor, value: UIColor.darkGray, range: NSMakeRange(0, 5))
+                correctRateText.addAttribute(.foregroundColor, value: UIColor.black, range: NSMakeRange(0, 5))
                 correctRateLabel.attributedText = correctRateText
                 correctRateLabel.frame.origin = CGPoint(x: classTypeLabel.frame.origin.x, y: courseNameLabel.frame.maxY + 16)
                 correctRateLabel.sizeToFit()

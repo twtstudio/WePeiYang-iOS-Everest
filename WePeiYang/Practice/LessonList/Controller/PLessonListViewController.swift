@@ -11,8 +11,8 @@ import PopupDialog
 
 class PLessonListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var tableView: UITableView!
-    var searchController = UISearchController()
-    
+    var searchController: UISearchController!
+
     var searchArray:[QuesBasicInfo] = [QuesBasicInfo]() {
         didSet {
             self.tableView.reloadData()
@@ -111,18 +111,15 @@ extension PLessonListViewController: UISearchResultsUpdating
 // 各个控件初始化设置部分
 extension PLessonListViewController: UISearchBarDelegate {
     private func setupSearchController() {
-        self.searchController = ({
-//            let vc = PLessonListViewController()
-            let controller = UISearchController(searchResultsController: nil)
-            controller.searchResultsUpdater = self   //两个样例使用不同的代理
-            controller.hidesNavigationBarDuringPresentation = false
-            controller.dimsBackgroundDuringPresentation = false
-            controller.definesPresentationContext = false
-            controller.searchBar.searchBarStyle = .minimal
-            controller.searchBar.sizeToFit()
-            self.tableView.tableHeaderView = controller.searchBar
-            return controller
-        })()
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self   //两个样例使用不同的代理
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.definesPresentationContext = false
+        searchController.searchBar.searchBarStyle = .minimal
+        searchController.searchBar.sizeToFit()
+        self.tableView.tableHeaderView = searchController.searchBar
+
         // 搜索框
         let bar = searchController.searchBar
         // 样式
@@ -142,9 +139,10 @@ extension PLessonListViewController: UISearchBarDelegate {
         navigationItem.title = "课程列表"
     }
     
-    override func navigationShouldPopMethod() -> Bool {
+//    override func navigationShouldPopMethod() -> Bool {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         self.searchController.dismiss(animated: false, completion: nil)
-        return true
     }
     
     private func setupTableView() {

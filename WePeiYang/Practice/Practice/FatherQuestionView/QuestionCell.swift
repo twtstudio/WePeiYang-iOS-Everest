@@ -18,7 +18,7 @@ class QuestionCell: UITableViewCell {
         let label = UICopyLabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         label.numberOfLines = 0
         label.textAlignment = .left
-        label.adjustsFontSizeToFitWidth = true
+//        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -27,7 +27,7 @@ class QuestionCell: UITableViewCell {
         let label = UILabel()
         label.textColor = UIColor.practiceBlue
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.systemFont(ofSize: 12)
         label.layer.borderWidth = 1
         label.layer.borderColor = UIColor.practiceBlue.cgColor
         return label
@@ -74,7 +74,7 @@ class QuestionCell: UITableViewCell {
         }
         
         qLabel.font = questionViewParameters.qFont
-        height = questionText.calculateHeightWithConstrained(width: CGFloat(questionViewParameters.questionViewW), font: questionViewParameters.qFont)
+        height = (qLabel.text ?? questionText).calculateHeightWithConstrained(width: CGFloat(questionViewParameters.questionViewW), font: questionViewParameters.qFont)
         qLabel.snp.makeConstraints { (make) in
             make.width.equalTo(questionViewParameters.questionViewW)
             make.height.equalTo(height)

@@ -8,8 +8,6 @@ def shared_pods
   pod 'SwiftLint'
 end
 
-#'3.2.0'
-
 target 'WePeiYang' do
   # Pods for WePeiYang
   shared_pods

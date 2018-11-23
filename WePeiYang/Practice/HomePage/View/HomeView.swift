@@ -113,7 +113,7 @@ class HomeViewCell: UITableViewCell {
                     currentPracticeMessage.center.x = deviceWidth / 2
                     currentPracticeMessage.frame.origin.y = cellTitleLabel.frame.maxY + 16
                     contentView.addSubview(currentPracticeMessage)
-                    cellHeight = currentPracticeMessage.frame.maxY + 20
+                    cellHeight = currentPracticeMessage.frame.maxY + 40
                     return
             }
             
@@ -132,7 +132,7 @@ class HomeViewCell: UITableViewCell {
             continueBubbleButton.addTarget(self, action: #selector(clickBubbleButton), for: .touchUpInside)
             contentView.addSubview(continueBubbleButton)
             
-            cellHeight = continueBubbleButton.frame.maxY + 20
+            cellHeight = continueBubbleButton.frame.maxY + 40
         }
     }
     

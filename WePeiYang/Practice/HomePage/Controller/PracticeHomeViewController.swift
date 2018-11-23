@@ -46,20 +46,19 @@ class PracticeHomeViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
 
-        NotificationCenter.default.addObserver(self, selector: #selector(popExerciseVC), name: NSNotification.Name(rawValue: "popExerciseVC"), object: nil)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
         /* 用户模型 */
         PracticeStudentHelper.getStudent(success: { practiceStudent in
             self.practiceStudent = practiceStudent
             self.userTableView.reloadData()
             self.homeTableView.reloadData()
-        }) { _ in
-        }
-        
+        }, failure: { err in
+            SwiftMessages.showErrorMessage(body: err.localizedDescription)
+        })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
         /* 导航栏 */
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.barStyle = .black
@@ -102,7 +101,12 @@ class PracticeHomeViewController: UIViewController {
         contentScrollView.delegate = self
         
         contentScrollView.contentSize = CGSize(width: 2 * deviceWidth, height: contentScrollView.frame.height)
-        if PracticeFigure.isAtRight { contentScrollView.contentOffset = CGPoint(x: deviceWidth, y: 0) } // 滑动视图默认在右, 非默认则为系统初试位置
+        contentScrollView.alwaysBounceVertical = false
+        contentScrollView.isDirectionalLockEnabled = true
+
+        if PracticeFigure.isAtRight {
+            contentScrollView.contentOffset = CGPoint(x: deviceWidth, y: 0)
+        } // 滑动视图默认在右, 非默认则为系统初试位置
         
         contentScrollView.showsHorizontalScrollIndicator = false
         contentScrollView.showsVerticalScrollIndicator = false
@@ -112,6 +116,7 @@ class PracticeHomeViewController: UIViewController {
         
         /* "我的" 视图 */
         userTableView.frame = CGRect(x: deviceWidth, y: 0, width: deviceWidth, height: contentScrollView.frame.height)
+        userTableView.contentInset.bottom = 40
         userTableView.backgroundColor = .clear
         userTableView.showsVerticalScrollIndicator = false
         userTableView.delegate = self
@@ -127,14 +132,9 @@ class PracticeHomeViewController: UIViewController {
         homeTableView.dataSource = self
         contentScrollView.addSubview(homeTableView)
     }
-    
-    @objc func popExerciseVC() {
-        
-    }
-    
+
     // 进入搜索界面 //
     @objc func practiceSearch() {
-        // TODO: 进入搜索界面
         self.navigationController?.pushViewController(PSearchViewController(), animated: true)
     }
     
@@ -329,8 +329,10 @@ extension PracticeHomeViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section != 0 { return nil }
-        
+        guard section == 0 else {
+            return nil
+        }
+
         switch tableView {
             
         // "我的" 视图 - 头视图 //
@@ -344,7 +346,7 @@ extension PracticeHomeViewController: UITableViewDelegate {
                 
                 let correctRateString = practiceStudent.data.doneCount == "0" ? "0" : String(Int(100 - Double(practiceStudent.data.errorCount)! / Double(practiceStudent.data.doneCount)! * 100))
                 let correctRateText = NSMutableAttributedString(string: "正确率 \(correctRateString)%") // 使用富文本改变字体
-                correctRateText.addAttribute(.foregroundColor, value: UIColor.darkGray, range: NSMakeRange(0, 4))
+                correctRateText.addAttribute(.foregroundColor, value: UIColor.black, range: NSMakeRange(0, 4))
                 userView.correctRate.attributedText = correctRateText // 正确率
             } else {
                 userView.userHeadView.image = #imageLiteral(resourceName: "ic_account_circle")
@@ -390,7 +392,7 @@ extension PracticeHomeViewController: UITableViewDelegate {
            
         // "题库" 视图 - 底视图 //
         case homeTableView:
-            return nil
+            return UIView(frame: CGRect(x: 0, y: 0, width: deviceWidth, height: 20))
             
         default:
             return nil
@@ -398,8 +400,10 @@ extension PracticeHomeViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView != userTableView { return }
-        
+        guard tableView == userTableView else {
+            return
+        }
+
         switch indexPath.row {
         case 0:
             // 练习历史 //

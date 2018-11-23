@@ -118,7 +118,7 @@ class WrongViewCell: UITableViewCell {
         
         // 错题图标 //
         isWrongIcon.frame = CGRect(x: deviceWidth - 42, y: lastDynamicLabel.frame.maxY + 18, width: 22, height: 22)
-        isWrongIcon.setSwitchIcon(forNormalAndHighlighted: #imageLiteral(resourceName: "practiceIsWrong"), andSelected: #imageLiteral(resourceName: "practiceIsntWrong"))
+        isWrongIcon.setSwitchIcon(forNormalAndHighlighted: #imageLiteral(resourceName: "practiceIsWrong").with(color: .practiceBlue), andSelected: #imageLiteral(resourceName: "practiceIsntWrong"))
         contentView.addSubview(isWrongIcon)
         
         cellHeight = answerContentLabel.frame.maxY + 20

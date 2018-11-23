@@ -62,7 +62,6 @@ class ExerciseCell: UICollectionViewCell {
             make.height.equalTo(AnswerViewParameters.resultLabelH)
             make.left.equalTo(questionView)
             make.bottom.equalTo(self).offset(-AnswerViewParameters.answerTextViewH)
-
         }
     }
     

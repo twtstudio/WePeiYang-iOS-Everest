@@ -73,7 +73,9 @@ class QuizNetWork {
                         pQuizResultData.append(qdata)
                     }
 //                    let pQuizResult = PQuizResult(score: score, timestamp: timestamp, correctNum: correctNum, errNum: errorNum, notDoneNum: notDoneNum, results: pQuizResultData)
-                    let pQuizResult = PQuizResult(score: score, timestamp: timestamp, correctNum: correctNum, errorNum: errorNum, results: pQuizResultData)
+                    // FIXME: unknown API
+                    let pQuizResult = PQuizResult.init(score: score, timestamp: timestamp, correctNum: correctNum, errNum: errorNum, notDoneNum: notDoneNum, practiceTime: "", results: pQuizResultData)
+//                    let pQuizResult = PQuizResult(score: score, timestamp: timestamp, correctNum: correctNum, errorNum: errorNum, results: pQuizResultData)
                     success(pQuizResult)
                     return
                 }

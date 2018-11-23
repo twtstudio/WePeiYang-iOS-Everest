@@ -49,15 +49,18 @@ class PSearchViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.delegate = self
         tableView.dataSource = self
         self.view.addSubview(tableView)
+
+        setupSearchBar()
     }
     
     private func setupSearchBar() {
-        searchBar = UISearchBar(frame:CGRect(x: 0, y: 120, width: 0.7 * view.bounds.width, height:50))
+        searchBar = UISearchBar()
         searchBar.placeholder = "搜索"
         searchBar.backgroundColor = .white
-        searchBar.layer.borderWidth = 1
-        searchBar.layer.cornerRadius = searchBarH / 2
-        searchBar.layer.borderColor = UIColor.practiceBlue.cgColor
+        searchBar.searchBarStyle = .minimal
+//        searchBar.layer.borderWidth = 1
+//        searchBar.layer.cornerRadius = searchBarH / 2
+//        searchBar.layer.borderColor = UIColor.practiceBlue.cgColor
         searchBar.layer.backgroundColor = UIColor.white.cgColor
         searchBar.delegate = self
     }
@@ -72,18 +75,18 @@ class PSearchViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let searchView = UIView()
-        searchView.frame = CGRect(x: 0, y: 0, width: 0.9 * deviceWidth, height: searchBarH)
-        searchView.backgroundColor = .white
-        
-        setupSearchBar()
-        searchView.addSubview(searchBar)
-        searchBar.snp.makeConstraints { (make) in
-            make.center.equalTo(searchView)
-            make.height.equalTo(searchBarH)
-            make.width.equalTo(0.9 * deviceWidth)
-        }
-        return searchView
+//        let searchView = UIView()
+//        searchView.frame = CGRect(x: 0, y: 0, width: 0.9 * deviceWidth, height: searchBarH)
+//        searchView.backgroundColor = .white
+
+//        setupSearchBar()
+//        searchView.addSubview(searchBar)
+//        searchBar.snp.makeConstraints { (make) in
+//            make.center.equalTo(searchView)
+//            make.height.equalTo(searchBarH)
+//            make.width.equalTo(0.9 * deviceWidth)
+//        }
+        return searchBar
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -17,7 +17,17 @@ class HeadView: UIView {
         
         // 设置圆角 //
         headBackgroundView.setCorners([.bottomLeft, .bottomRight], radius: 20)
-        
+
+        // 渐变
+        let gradient = CAGradientLayer()
+
+        gradient.frame = CGRect(x: 0, y: 0, width: deviceWidth, height: 128)
+        gradient.colors = [UIColor.practiceBlue.cgColor, UIColor.white.cgColor]
+        gradient.startPoint = CGPoint(x: 0, y: 0)
+        gradient.endPoint = CGPoint(x: 0, y: 1)
+
+        headBackgroundView.layer.insertSublayer(gradient, at: 0)
+
         return headBackgroundView
     }()
     

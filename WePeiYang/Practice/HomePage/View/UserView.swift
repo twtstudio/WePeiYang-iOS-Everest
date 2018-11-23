@@ -27,7 +27,7 @@ class UserView: UIView {
         let userNameLabel = UILabel()
         
         userNameLabel.textColor = .practiceBlue
-        userNameLabel.font = UIFont.systemFont(ofSize: 21)
+        userNameLabel.font = UIFont.systemFont(ofSize: 25)
         
         return userNameLabel
     }()
@@ -42,7 +42,7 @@ class UserView: UIView {
     }()
     
     /* 用户头衔 */
-    let userTitleLabel = UILabel(text: "", color: .practiceRed)
+    let userTitleLabel = UILabel(text: "", color: .black)
     
     /* 顶部约束 */
     private let topHorizontalLine = UIView(color: .clear)
@@ -51,7 +51,7 @@ class UserView: UIView {
     let practicedQuestionNumber: UILabel = {
         let practicedQuestionNumber = UILabel()
         
-        practicedQuestionNumber.font = UIFont.boldSystemFont(ofSize: 21)
+        practicedQuestionNumber.font = UIFont.boldSystemFont(ofSize: 23)
         practicedQuestionNumber.textAlignment = .center
         
         return practicedQuestionNumber
@@ -81,7 +81,7 @@ class UserView: UIView {
     let practicedCourseNumber: UILabel = {
         let practicedCourseNumber = UILabel()
         
-        practicedCourseNumber.font = UIFont.boldSystemFont(ofSize: 21)
+        practicedCourseNumber.font = UIFont.boldSystemFont(ofSize: 23)
         practicedCourseNumber.textAlignment = .center
         
         return practicedCourseNumber
@@ -116,7 +116,7 @@ class UserView: UIView {
         self.addSubview(userNameLabel)
         
         // 头衔图标 //
-        userTitleView.frame = CGRect(x: userNameLabel.frame.minX, y: userNameLabel.frame.maxY, width: 44, height: 44)
+        userTitleView.frame = CGRect(x: userNameLabel.frame.minX-10, y: userNameLabel.frame.maxY, width: 44, height: 44)
         self.addSubview(userTitleView)
         
         // 用户头衔 //

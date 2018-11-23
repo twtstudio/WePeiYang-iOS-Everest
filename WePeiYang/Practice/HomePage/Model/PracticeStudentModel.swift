@@ -35,7 +35,7 @@ struct PracticeDictionary {
 // MARK: - Figure
 struct PracticeFigure {
     
-    static var isAtRight = true
+    static var isAtRight = false
     
     static var practiceType = ""
     

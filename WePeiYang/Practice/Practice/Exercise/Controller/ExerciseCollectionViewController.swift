@@ -87,7 +87,7 @@ class ExerciseCollectionViewController: UIViewController {
         let segmentedControl = UISegmentedControl(items: items)
         segmentedControl.tintColor = UIColor.white
         segmentedControl.backgroundColor = .clear
-        segmentedControl.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.white], for: .normal)
+        segmentedControl.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15)], for: .normal)
         segmentedControl.selectedSegmentIndex = 1
         segmentedControl.addTarget(self, action: #selector(changeMode(_:)   ), for: .valueChanged)
         segmentedControl.layer.borderWidth = 1
