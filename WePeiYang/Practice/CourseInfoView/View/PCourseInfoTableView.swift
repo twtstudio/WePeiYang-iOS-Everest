@@ -16,9 +16,9 @@ class PCourseInfoTableView: UITableView {
     
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
-        self.isUserInteractionEnabled = false
         self.bounces = false
         self.separatorStyle = .none
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,15 +45,16 @@ extension PCourseInfoTableView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        log(indexPath.item)
         switch indexPath.item {
         case 0:
             let cell = UITableViewCell()
+            cell.selectionStyle = .none
             cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 15)
             cell.textLabel?.text = title
             return cell
         case 1:
             let cell = UITableViewCell()
+            cell.selectionStyle = .none
             cell.textLabel?.font = UIFont.systemFont(ofSize: 10)
             cell.textLabel?.text = "顺序练习 - 题型选择"
             return cell

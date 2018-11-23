@@ -82,7 +82,6 @@ class ExerciseCollectionViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        
         //答题、背题切换
         let items = ["背题", "答题"]
         let segmentedControl = UISegmentedControl(items: items)
@@ -515,11 +514,11 @@ extension ExerciseCollectionViewController {
     //MARK: MODEL职能
     @objc private func updateAnswer() {
         var isWrite = "0"
-        guards[currentIndex].selected = true
-        guards[currentIndex].answer = QuestionTableView.selectedAnswer
         guard let usrAns = QuestionTableView.selectedAnswer else { return }
         guard let quesID = questionArray[1].quesDetail?.id else { return }
         guard let quesType = questionArray[1].quesDetail?.type else { return }
+        guards[currentIndex].selected = true
+        guards[currentIndex].answer = QuestionTableView.selectedAnswer
         usrMultipleAnser[currentIndex] = usrAns
 
         if usrAns == questionArray[1].quesDetail!.correctAnswer {
@@ -530,9 +529,10 @@ extension ExerciseCollectionViewController {
             isWrite = "2"
             PracticeWrongHelper.addMistakeQues(quesId: String(quesID), quesType: String(quesType), usrAns: usrAns)
         }
-        
+        let message = recordQuesIndex()
+        log(message)
         ExerciseNetwork.postWritingQues(courseId: String(courseId), quesType: String(quesType), index: String(currentIndex), isWrite: isWrite, errorOption: usrAns, success: { (message) in
-            print(message)
+            log(message)
         }) { (err) in
             log(err)
         }
@@ -572,6 +572,8 @@ extension ExerciseCollectionViewController {
         //储存答案String
         let startValue = Int(("A" as UnicodeScalar).value)
         var answerString = ""
+        var isWrite = "0"
+
         for i in 0..<QuestionTableView.selectedAnswerArray.count where QuestionTableView.selectedAnswerArray[i] {
             let string = String(UnicodeScalar(i + startValue)!)
             answerString = answerString + string
@@ -579,12 +581,23 @@ extension ExerciseCollectionViewController {
 
         if answerString == questionArray[1].quesDetail?.correctAnswer {
             guards[currentIndex].iscorrect = .right
+            isWrite = "1"
         } else {
             guards[currentIndex].iscorrect = .wrong
+            isWrite = "2"
         }
         usrMultipleAnser[currentIndex] = answerString
         let indexPath = IndexPath(item: 1, section: 0)
-        self.collectionView.reloadItems(at: [indexPath])       
+        self.collectionView.reloadItems(at: [indexPath])
+        
+        let message = recordQuesIndex()
+        log(message)
+        ExerciseNetwork.postWritingQues(courseId: String(courseId), quesType: "1", index: String(currentIndex), isWrite: isWrite, errorOption: answerString, success: { (message) in
+            log(message)
+        }) { (err) in
+            log(err)
+        }
+        
     }
     
     //显示题号列表

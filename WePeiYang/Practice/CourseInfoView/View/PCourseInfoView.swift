@@ -19,10 +19,15 @@ class PCourseInfoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupBkgView()
+        NotificationCenter.default.addObserver(self, selector: #selector(hindCourseInfo), name: NSNotification.Name(rawValue: "HindCourseInfoCard"), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "HindCourseInfoCard"), object: nil)
     }
     
     func getCourseInfo(courseID: String, courseName: String) {

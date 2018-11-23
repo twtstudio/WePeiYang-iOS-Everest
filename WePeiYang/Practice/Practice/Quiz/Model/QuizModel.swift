@@ -16,3 +16,25 @@ struct QuizQuestion {
     var options: [String]?
     var isCollected: Int?
 }
+
+struct PQuizResultData {
+    let quesID: String
+    let quesType, content: String
+    let option: [String]
+    let answer: String
+    let isCollected: Int
+    let errorOption: String
+    let isDone: Int
+    let isTrue: Int
+}
+
+struct PQuizResult {
+    var score: String = ""
+    var timestamp: String = ""
+    var correctNum: String = ""
+    var errNum: String = ""
+    var notDoneNum: String = ""
+    var practiceTime: String = ""
+    var results: [PQuizResultData] = []
+}
+

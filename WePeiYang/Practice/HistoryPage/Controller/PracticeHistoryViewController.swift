@@ -145,7 +145,7 @@ extension PracticeHistoryViewController: UITableViewDelegate {
             self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
         case "1":
             // TODO: 进入当前模拟考试具体信息页面
-            self.navigationController?.pushViewController(QuizCollectionViewController(), animated: true)
+            self.navigationController?.pushViewController(PQuizCollectionViewController(), animated: true)
         default:
             return
         }

@@ -60,7 +60,7 @@ struct SolaSessionManager {
         } else {
             log("can't load twtToken")
         }
-
+        log(headers)
         var method: HTTPMethod!
         switch type {
         case .get:

@@ -7,10 +7,80 @@
 //
 
 import Foundation
+import Alamofire
 
 class QuizNetWork {
-    static func postQuizResult(dics: [String: Any], courseId: String, time: Int, success: @escaping (Dictionary<String, Any>)->()) {
-        SolaSessionManager.upload(dictionay: dics, url: "/api/exercise/getScore/\(courseId)/\(time)", success: success)
+    static func postQuizResult(dics: [String: String], courseId: String, time: Int, token: String? = nil, success: @escaping (PQuizResult)->()) {
+        let timeStamp = String(Int64(Date().timeIntervalSince1970))
+        var para = [String: String]()
+        para["t"] = timeStamp
+        var fooPara = para
+        let keys = fooPara.keys.sorted()
+        // encrypt with sha1
+        var tmpSign = ""
+        for key in keys {
+            tmpSign += (key + fooPara[key]!)
+        }
+        
+        let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1.uppercased()
+        para["sign"] = sign
+        para["app_key"] = TwTKeychain.shared.appKey
+        
+        var headers = HTTPHeaders()
+        headers["User-Agent"] = DeviceStatus.userAgent
+        
+        if let twtToken = TwTUser.shared.token {
+            headers["Authorization"] = "Bearer \(twtToken)"
+        } else {
+            log("can't load twtToken")
+        }
+        let urlString = URL(string: PracticeAPI.root + "/exercise/getScore/\(courseId)/\(time)")
+        let json = dics["result"]
+        let jsonData = json?.data(using: .utf8, allowLossyConversion: false)!
+        guard let url = urlString else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.allHTTPHeaderFields = headers
+        request.httpBody = jsonData
+    
+        Alamofire.request(request).responseJSON {
+            (response) in
+            if response.result.isSuccess {
+//                let json = JSON(response.data!)
+                guard let json = response.result.value else { return }
+                if let dict = json as? [String: Any] {
+                    let data = dict["data"] as? [String: Any] ?? [:]
+                    let score = data["score"] as? String ?? ""
+                    let timestamp = data["timestamp"] as? String ?? ""
+                    let correctNum = data["correct_num"] as? String ?? ""
+                    let errorNum = data["error_num"] as? String ?? ""
+                    let notDoneNum = data["not_done_num"] as? String ?? ""
+                    guard let results = data["result"] as? [[String: Any]] else { return }
+                    var pQuizResultData: [PQuizResultData] = []
+                    for result in results {
+                        let quesId = result["ques_id"] as? String ?? ""
+                        let quesType = result["ques_type"] as? String ?? ""
+                        let content = result["ques_content"] as? String ?? ""
+                        let option = result["ques_option"] as? [String] ?? []
+                        let isDone = result["is_done"] as? Int ?? 2
+                        let isTrue = result["is_true"] as? Int ?? 2
+                        let answer = result["answer"] as? String ?? ""
+                        let trueAns = result["true_answer"] as? String ?? ""
+                        let isCollect = result["is_collected"] as? Int ?? 2
+                        
+                        let qdata = PQuizResultData(quesID: quesId, quesType: quesType, content: content, option: option, answer: trueAns, isCollected: isCollect, errorOption: answer, isDone: isDone, isTrue: isTrue)
+                        pQuizResultData.append(qdata)
+                    }
+                    let pQuizResult = PQuizResult(score: score, timestamp: timestamp, correctNum: correctNum, errNum: errorNum, notDoneNum: notDoneNum, results: pQuizResultData)
+                    success(pQuizResult)
+                    return
+                }
+            } else {
+                print("postQuizResult Network Error")
+            }
+            print("postQuizResult Network Error")
+        }
     }
     
     static func getQuizQuesArray(courseId: String, success: @escaping ([QuizQuestion], Int) -> (), failure: (Error) -> ()) {

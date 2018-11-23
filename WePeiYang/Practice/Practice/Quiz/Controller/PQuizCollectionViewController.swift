@@ -1,5 +1,5 @@
 //
-//  QuizCollectionViewController.swift
+//  PQuizCollectionViewController.swift
 //  WePeiYang
 //
 //  Created by yuting jiang on 2018/9/3.
@@ -9,11 +9,12 @@
 import Foundation
 import PopupDialog
 
-class QuizCollectionViewController: UIViewController {
+class PQuizCollectionViewController: UIViewController {
     let questionViewParameters = QuestionViewParameters()
 
     var timer: Timer!
     static var usrAnsArray: [String] = []
+    static var quizResult: PQuizResult = PQuizResult()
     var quizArray: [QuizQuestion] = []
     var guards: [Guard] = []
     var isSelected: [isCorrect] = []
@@ -140,14 +141,20 @@ class QuizCollectionViewController: UIViewController {
     }
     
     override func navigationShouldPopMethod() -> Bool {
-        let warningCard = PopupDialog(title: "确认交卷？", message: "交卷后答案将不可更改，确认不再检查一遍么？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+        let doneNum = getDoneNum()
+        let warningCard = PopupDialog(title: "本次测试共\(quizArray.count)题，你已完成\(doneNum)题", message: "交卷后，本次测试记录可在“我的历史”中查看。直接退出将不保存本次做题记录。", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
         let leftButton = PracticePopupDialogButton(title: "信心满满，交了", dismissOnTap: true) {
             // TODO: 交卷
+            self.clearUsrAns()
+            self.postResult()
+        }
+        let midButton = PracticePopupDialogButton(title: "再检查一下", dismissOnTap: true) { return }
+        let rightButton = PracticePopupDialogButton(title: "直接退出", dismissOnTap: true) {
+            self.clearUsrAns()
             self.navigationController?.popViewController(animated: true)
         }
-        let rightButton = PracticePopupDialogButton(title: "再检查一下`", dismissOnTap: true) { return }
         rightButton.titleColor = UIColor.practiceRed
-        warningCard.addButtons([leftButton, rightButton])
+        warningCard.addButtons([leftButton, midButton, rightButton])
         self.present(warningCard, animated: true, completion: nil)
         return true
     }
@@ -158,7 +165,7 @@ class QuizCollectionViewController: UIViewController {
     }
 }
 
-extension QuizCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension PQuizCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -173,7 +180,7 @@ extension QuizCollectionViewController: UICollectionViewDataSource, UICollection
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! QuizQuesCollectionCell
         
         if let content = ques.content, let optionArray = ques.options, let quesType = ques.quesType {
-            cell.loadQues(ques: content, options: optionArray, qType: quesType, selectedAns: QuizCollectionViewController.usrAnsArray[indexPath.item])
+            cell.loadQues(ques: content, options: optionArray, qType: quesType, selectedAns: PQuizCollectionViewController.usrAnsArray[indexPath.item])
             cell.questionView.reloadData()
         } else {
             cell.loadQues(ques: "oops, no data", options: ["oops, no data", "oops, no data", "oops, no data", "oops, no data"], qType: 0, selectedAns: "")
@@ -199,27 +206,8 @@ extension QuizCollectionViewController: UICollectionViewDataSource, UICollection
     }
 }
 
-//extension QuizCollectionViewController: UINavigationBarDelegate {
-//    func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
-//        var shouldPop = true
-//        let warningCard = PopupDialog(title: "确认退出？", message: "退出后此次检测将没有成绩", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
-//        let leftButton = PracticePopupDialogButton(title: "确认", dismissOnTap: true) {
-//            // TODO: 继续退出
-//            shouldPop = true
-//        }
-//        let rightButton = PracticePopupDialogButton(title: "取消", dismissOnTap: true) {
-//            // TODO: 不退出
-//            shouldPop = false
-//        }
-//        rightButton.titleColor = UIColor.practiceRed
-//        warningCard.addButtons([leftButton, rightButton])
-//        self.present(warningCard, animated: true, completion: nil)
-//        return shouldPop
-//    }
-//}
-
 //网络请求
-extension QuizCollectionViewController {
+extension PQuizCollectionViewController {
     fileprivate func getQuesArray(courseId: String) {
         QuizNetWork.getQuizQuesArray(courseId: courseId, success: { (data, tim) in
             self.time = tim
@@ -227,7 +215,7 @@ extension QuizCollectionViewController {
             for _ in 0..<self.quizArray.count {
                 let g = Guard()
                 self.guards.append(g)
-                QuizCollectionViewController.usrAnsArray.append("")
+                PQuizCollectionViewController.usrAnsArray.append("")
             }
             self.setupButtons()
             if self.isinited == 0 {
@@ -243,29 +231,183 @@ extension QuizCollectionViewController {
     }
     
     @objc func postResult() {
-        var dicArray: [[String: Any]] = []
+        var dicArray: [[String: String]] = []
         for i in 0..<quizArray.count {
-            var dic: [String: Any] = [:]
-            dic["id"] = quizArray[i].id
+            var dic: [String: String] = [:]
+            guard let quesId = quizArray[i].id else { return }
+            guard let quesType = quizArray[i].quesType else { return }
+            dic["id"] = String(quesId)
             if let ans = guards[i].answer {
                 dic["answer"] = ans
             } else {
                 dic["answer"] = ""
             }
-            dic["type"] = quizArray[i].quesType
+            
+            dic["type"] = String(quesType)
             dicArray.append(dic)
         }
-        let dic = ["data": dicArray]
-        QuizNetWork.postQuizResult(dics: dic, courseId: courseId, time: time) { (dic) in
-            // TODO: 提交答案之后应该跳转页面
-            
+
+        let result = try? dicArray.jsonString()
+        guard let resultdata = result else { return }
+        guard let resultData = resultdata else { return }
+        let dic = ["result": resultData,
+                   "course_id": courseId,
+                   "time": String(time)]
+        
+        QuizNetWork.postQuizResult(dics: dic, courseId: courseId, time: time) { (data) in
+//            log(data)
+            PQuizCollectionViewController.quizResult = data
+            self.turnToResultVc()
         }
     }
 }
 
+//MARK: objc func
+extension PQuizCollectionViewController {
+    @objc func tickDown() {
+        if restTime == 0 {
+            //TODO: 检测模式做题时间到，跳转至下一页面
+            guard let tim = self.timer else { return }
+            tim.invalidate()
+            
+            // 规定时间到
+            let warningCard = PopupDialog(title: "时间到！", message: "检测时间到，必须交卷了哦", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+            let button = PracticePopupDialogButton(title: "确认", dismissOnTap: true) {
+                self.postResult()
+            }
+            button.titleColor = UIColor.practiceRed
+            warningCard.addButtons([button])
+            self.present(warningCard, animated: true, completion: nil)
+            return
+        }
+        restTime -= 1
+        let min: Int = restTime / 60
+        let sec: Int = restTime % 60
+        if sec < 10 {
+            timeButton.setTitle("\(min):0\(sec)", for: .normal)
+        }
+        timeButton.titleLabel?.text = "\(min):\(sec)"
+    }
+    
+    @objc func postBtnTapped(_ button: UIButton) {
+        let doneNum = getDoneNum()
+        let warningCard = PopupDialog(title: "本次测试共\(quizArray.count)题，你已完成\(doneNum)题", message: "提交后答案将不可更改", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+        let leftButton = PracticePopupDialogButton(title: "信心满满，交卷了", dismissOnTap: true) {
+            //TODO: 交卷
+            self.clearUsrAns()
+            self.postResult()
+        }
+        let rightButton = PracticePopupDialogButton(title: "再检查一下", dismissOnTap: true) {
+            // TODO: 进入模拟考试
+            warningCard.dismiss()
+        }
+        rightButton.titleColor = UIColor.practiceRed
+        warningCard.addButtons([leftButton, rightButton])
+        hindQuesList()
+        self.present(warningCard, animated: true, completion: nil)
+    }
+    
+    @objc func updateAnswer() {
+        // 储存答案String
+        let startValue = Int(("A" as UnicodeScalar).value)
+        var answerString = ""
+        for i in 0..<QuestionTableView.selectedAnswerArray.count {
+            if QuestionTableView.selectedAnswerArray[i] {
+                let string = String(UnicodeScalar(i + startValue)!)
+                answerString = answerString + string
+            }
+        }
+        PQuizCollectionViewController.usrAnsArray[currentPage - 1] = answerString
+        guards[currentPage - 1].answer = answerString
+        if answerString != "" {
+            guards[currentPage - 1].iscorrect = .right
+        } else {
+            guards[currentPage - 1].iscorrect = .unknown
+        }
+    }
+    
+    // 通过列表切换题目
+    @objc func changeQues() {
+        currentPage = QLCollectionView.chosenPage
+        collectionView.contentOffset.x = CGFloat(currentPage - 1) * deviceWidth
+        for i in 0..<quizArray.count {
+            isSelected.append(guards[i].iscorrect)
+        }
+        quesListCollectionView.initCollectionView(currentPage: currentPage, pagesNum: quizArray.count, isCorrect: isSelected)
+        quesListCollectionView.reloadData()
+        setupButtons()
+    }
+    
+    // 收藏
+    @objc func collect(_ button: UIButton) {
+        let ques = quizArray[1]
+        guard let qType = ques.quesType else { return }
+        guard let qID = ques.id else { return }
+        if guards[currentPage - 1].iscollected {
+            guards[currentPage - 1].iscollected = false
+            button.setImage(#imageLiteral(resourceName: "collect"), for: .normal)
+            PracticeCollectionHelper.addCollection(quesType: String(qType), quesID: String(qID))
+        }else {
+            guards[currentPage - 1].iscollected = true
+            button.setImage(#imageLiteral(resourceName: "collected"), for: .normal)
+            PracticeCollectionHelper.deleteCollection(quesType: String(qType), quesID: String(qID))
+        }
+    }
+    
+    // 显示题号列表
+    @objc func showQuesCollectionView(_ button: UIButton) {
+        guard let window = UIApplication.shared.keyWindow else { return }
+        quesListBkgView.frame = window.bounds
+        quesListBkgView.backgroundColor = UIColor(white: 0.1, alpha: 0.6)
+        window.addSubview(quesListBkgView)
+        let pageNum = quizArray.count
+        
+        isSelected = []
+        for i in 0..<pageNum {
+            isSelected.append(guards[i].iscorrect)
+        }
+        
+        quesListCollectionView.contentSize = CGSize(width: deviceWidth - 20, height: 0.45 * deviceHeight)
+        quesListCollectionView.initCollectionView(currentPage: currentPage, pagesNum: pageNum, isCorrect: isSelected)
+        quesListCollectionView.reloadData()
+        window.addSubview(quesListCollectionView)
+        window.addSubview(listPostButton)
+        quesListCollectionView.frame = CGRect(x: 0, y: deviceHeight + 30, width: deviceWidth, height: 0.45 * deviceHeight)
+        listPostButton.frame = CGRect(x: 0, y: 1.45 * deviceHeight + 30, width: deviceWidth, height: 0.08 * deviceHeight)
+        listPostButton.addTarget(self, action: #selector(postBtnTapped(_:)), for: .touchUpInside)
+        
+        UIView.animate(withDuration: 0.3) {
+            self.quesListCollectionView.frame = CGRect(x: 0, y: 0.48 * deviceHeight, width: deviceWidth, height: 0.45 * deviceHeight)
+            self.listPostButton.frame = CGRect(x: 0, y: 0.92 * deviceHeight, width: deviceWidth, height: 0.08 * deviceHeight)
+        }
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(hindQuesList))
+        quesListBkgView.addGestureRecognizer(gesture)
+    }
+    
+    @objc func hindQuesList() {
+        UIView.animate(withDuration: 0.3) {
+            // 尾随闭包播放弹出动画
+            self.quesListCollectionView.frame = CGRect(x: 0, y: deviceHeight + 30, width: deviceWidth, height: 0.45 * deviceHeight)
+            self.listPostButton.frame = CGRect(x: 0, y: 1.45 * deviceHeight + 30, width: deviceWidth, height: 0.08 * deviceHeight)
+            // 提交一个延时任务线程
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.quesListCollectionView.removeFromSuperview()
+                self.quesListBkgView.removeFromSuperview()
+                self.listPostButton.removeFromSuperview()
+            }
+        }
+    }
+}
 
-//界面初始化、基本控件加载、点击事件
-extension QuizCollectionViewController {
+//MARK: 界面初始化、基本控件加载
+extension PQuizCollectionViewController {
+    func turnToResultVc() {
+//        self.dismiss(animated: false, completion: nil)
+        let resultVC = PracticeResultViewController()
+        self.navigationController?.pushViewController(resultVC, animated: true)
+    }
+    
     func loadData() {
         getQuesArray(courseId: courseId)
     }
@@ -376,136 +518,15 @@ extension QuizCollectionViewController {
         timer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(tickDown), userInfo: nil, repeats: true)
     }
     
-    @objc func tickDown() {
-        if restTime == 0 {
-            //TODO: 检测模式做题时间到，跳转至下一页面
-            guard let tim = self.timer else { return }
-            tim.invalidate()
-            
-            // 规定时间到
-            let warningCard = PopupDialog(title: "时间到！", message: "检测时间到，必须交卷了哦", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
-            let button = PracticePopupDialogButton(title: "确认", dismissOnTap: true) {
-                self.postResult()
-            }
-            button.titleColor = UIColor.practiceRed
-            warningCard.addButtons([button])
-            self.present(warningCard, animated: true, completion: nil)
-            return
+    func getDoneNum() -> Int {
+        var doneNum: Int = 0
+        for i in guards where i.iscorrect == .right {
+            doneNum += 1
         }
-        restTime -= 1
-        let min: Int = restTime / 60
-        let sec: Int = restTime % 60
-        if sec < 10 {
-            timeButton.setTitle("\(min):0\(sec)", for: .normal)
-        }
-        timeButton.titleLabel?.text = "\(min):\(sec)"
+        return doneNum
     }
     
-    @objc func postBtnTapped(_ button: UIButton) {
-        let warningCard = PopupDialog(title: "确认提交？", message: "提交后答案将不可更改", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
-        let leftButton = PracticePopupDialogButton(title: "信心满满，交卷了", dismissOnTap: true) {
-            self.postResult()
-        }
-        let rightButton = PracticePopupDialogButton(title: "再检查一下", dismissOnTap: true) {
-            // TODO: 进入模拟考试
-            warningCard.dismiss()
-        }
-        rightButton.titleColor = UIColor.practiceRed
-        warningCard.addButtons([leftButton, rightButton])
-        self.present(warningCard, animated: true, completion: nil)
-    }
-    
-    @objc func updateAnswer() {
-        //储存答案String
-        let startValue = Int(("A" as UnicodeScalar).value)
-        var answerString = ""
-        for i in 0..<QuestionTableView.selectedAnswerArray.count {
-            if QuestionTableView.selectedAnswerArray[i] {
-                let string = String(UnicodeScalar(i + startValue)!)
-                answerString = answerString + string
-            }
-        }
-        QuizCollectionViewController.usrAnsArray[currentPage - 1] = answerString
-
-        if answerString != "" {
-            guards[currentPage - 1].iscorrect = .right
-        }
-    }
-    
-    // 通过列表切换题目
-    @objc func changeQues() {
-        currentPage = QLCollectionView.chosenPage
-        collectionView.contentOffset.x = CGFloat(currentPage - 1) * deviceWidth
-        for i in 0..<quizArray.count {
-            isSelected.append(guards[i].iscorrect)
-        }
-        quesListCollectionView.initCollectionView(currentPage: currentPage, pagesNum: quizArray.count, isCorrect: isSelected)
-        quesListCollectionView.reloadData()
-        setupButtons()
-    }
-    
-    //收藏
-    @objc func collect(_ button: UIButton) {
-        let ques = quizArray[1]
-        guard let qType = ques.quesType else { return }
-        guard let qID = ques.id else { return }
-        if guards[currentPage - 1].iscollected {
-            guards[currentPage - 1].iscollected = false
-            button.setImage(#imageLiteral(resourceName: "collect"), for: .normal)
-            PracticeCollectionHelper.addCollection(quesType: String(qType), quesID: String(qID))
-        }else {
-            guards[currentPage - 1].iscollected = true
-            button.setImage(#imageLiteral(resourceName: "collected"), for: .normal)
-            PracticeCollectionHelper.deleteCollection(quesType: String(qType), quesID: String(qID))
-        }
-    }
-    
-    //显示题号列表
-    @objc func showQuesCollectionView(_ button: UIButton) {
-        guard let window = UIApplication.shared.keyWindow else { return }
-        quesListBkgView.frame = window.bounds
-        quesListBkgView.backgroundColor = UIColor(white: 0.1, alpha: 0.6)
-        window.addSubview(quesListBkgView)
-        let pageNum = quizArray.count
-        
-        isSelected = []
-        for i in 0..<pageNum {
-            isSelected.append(guards[i].iscorrect)
-        }
-        
-        quesListCollectionView.contentSize = CGSize(width: deviceWidth - 20, height: 0.45 * deviceHeight)
-        quesListCollectionView.initCollectionView(currentPage: currentPage, pagesNum: pageNum, isCorrect: isSelected)
-        quesListCollectionView.reloadData()
-        window.addSubview(quesListCollectionView)
-        window.addSubview(listPostButton)
-        quesListCollectionView.frame = CGRect(x: 0, y: deviceHeight + 30, width: deviceWidth, height: 0.45 * deviceHeight)
-        listPostButton.frame = CGRect(x: 0, y: 1.45 * deviceHeight + 30, width: deviceWidth, height: 0.08 * deviceHeight)
-
-        UIView.animate(withDuration: 0.3) {
-            self.quesListCollectionView.frame = CGRect(x: 0, y: 0.48 * deviceHeight, width: deviceWidth, height: 0.45 * deviceHeight)
-            self.listPostButton.frame = CGRect(x: 0, y: 0.92 * deviceHeight, width: deviceWidth, height: 0.08 * deviceHeight)
-        }
-        
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(hindQuesList))
-        quesListBkgView.addGestureRecognizer(gesture)
-    }
-    
-    @objc func hindQuesList() {
-        UIView.animate(withDuration: 0.3) {
-            // 尾随闭包播放弹出动画
-            self.quesListCollectionView.frame = CGRect(x: 0, y: deviceHeight + 30, width: deviceWidth, height: 0.45 * deviceHeight)
-            self.listPostButton.frame = CGRect(x: 0, y: 1.45 * deviceHeight + 30, width: deviceWidth, height: 0.08 * deviceHeight)
-            // 提交一个延时任务线程
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                self.quesListCollectionView.removeFromSuperview()
-                self.quesListBkgView.removeFromSuperview()
-                self.listPostButton.removeFromSuperview()
-            }
-        }
+    func clearUsrAns() {
+        PQuizCollectionViewController.usrAnsArray = []
     }
 }
-
-
-
-
-

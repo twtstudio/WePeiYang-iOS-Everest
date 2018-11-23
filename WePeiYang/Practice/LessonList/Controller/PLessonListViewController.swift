@@ -92,7 +92,10 @@ class PLessonListViewController: UIViewController, UITableViewDelegate, UITableV
         guard let title = cell.textLabel?.text else { return }
         presentWarningCard(with: title, of: PracticeFigure.classID)
     }
-
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 44
+    }
 }
 
 extension PLessonListViewController: UISearchResultsUpdating
@@ -139,6 +142,11 @@ extension PLessonListViewController: UISearchBarDelegate {
         navigationItem.title = "课程列表"
     }
     
+    override func navigationShouldPopMethod() -> Bool {
+        self.searchController.dismiss(animated: false, completion: nil)
+        return true
+    }
+    
     private func setupTableView() {
         tableView = UITableView(frame: self.view.bounds, style: .grouped)
         tableView.backgroundColor = .white
@@ -150,25 +158,16 @@ extension PLessonListViewController: UISearchBarDelegate {
         let leftButton = PracticePopupDialogButton(title: "顺序练习", dismissOnTap: true) {
             PracticeFigure.currentCourseIndex = "0"
             // TODO: 点击卡片，进入练习
-            let warningCard = PopupDialog(title: title, message: "请选择题目类型", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
-            let leftButton = PracticePopupDialogButton(title: "单选", dismissOnTap: true) {
-                PracticeFigure.questionType = "0"
-                self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
-            }
-            let centerButton = PracticePopupDialogButton(title: "多选", dismissOnTap: true) {
-                PracticeFigure.questionType = "1"
-                self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
-            }
-            let rightButton = PracticePopupDialogButton(title: "判断", dismissOnTap: true) {
-                PracticeFigure.questionType = "2"
-                self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
-            }
-            warningCard.addButtons([leftButton, centerButton, rightButton])
-            self.present(warningCard, animated: true, completion: nil)
+            guard let window = UIApplication.shared.keyWindow else { return }
+            let courseInfoView = PCourseInfoView()
+            courseInfoView.frame = CGRect(x: 0, y: 0, width: deviceWidth, height: deviceHeight)
+            courseInfoView.getCourseInfo(courseID: PracticeFigure.courseID, courseName: title)
+            window.addSubview(courseInfoView)
         }
         let rightButton = PracticePopupDialogButton(title: "模拟考试", dismissOnTap: true) {
             // TODO: 进入模拟考试
-            self.navigationController?.pushViewController(QuizCollectionViewController(), animated: true)
+            self.searchController.dismiss(animated: false, completion: nil)
+            self.navigationController?.pushViewController(PQuizCollectionViewController(), animated: true)
         }
         warningCard.addButtons([leftButton, rightButton])
         self.present(warningCard, animated: true, completion: nil)
@@ -196,7 +195,6 @@ extension PLessonListViewController {
                     let courseName = data[i]["course_name"] as? String ?? ""
                     let quesInfo = QuesBasicInfo(id: id, courseName: courseName)
                     array.append(quesInfo)
-                    log(quesInfo)
                 }
             }
             success(array)

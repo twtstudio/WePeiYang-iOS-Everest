@@ -29,6 +29,7 @@ class PCourseInfoCell: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -56,7 +57,7 @@ class PCourseInfoCell: UITableViewCell {
         
         self.addSubview(qTypeLabel)
         qTypeLabel.snp.makeConstraints { (make) in
-            make.width.equalTo(0.45 * self.width)
+            make.width.equalTo(0.5 * self.width)
             make.height.equalTo(kitH)
             make.left.equalTo(self).offset(0.06 * self.width)
             make.centerY.equalTo(self)
@@ -64,8 +65,48 @@ class PCourseInfoCell: UITableViewCell {
     }
     
     @objc private func popExerciseVC(_ button: UIButton) {
+        log("POP BTN TAPPED")
         let typeInt = button.tag
         PracticeFigure.questionType = String(typeInt)
         PracticeFigure.currentCourseIndex = self.index
+        let topVC = UIViewController.currentViewController()
+        topVC?.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "HindCourseInfoCard"), object: nil)
+    }
+    
+    // 获取当前最顶层的controller
+    func currentVc() -> UIViewController {
+        let keywindow = UIApplication.shared.keyWindow
+        let firstView: UIView = (keywindow?.subviews.first)!
+        let secondView: UIView = firstView.subviews.first!
+        let vc = viewForController(view: secondView)
+        return vc!
+    }
+    
+    func viewForController(view:UIView)->UIViewController?{
+        var next:UIView? = view
+        repeat{
+            if let nextResponder = next?.next, nextResponder is UIViewController {
+                return (nextResponder as! UIViewController)
+            }
+            next = next?.superview
+        }while next != nil
+        return nil
     }
 }
+
+extension UIViewController {
+    class func currentViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+        if let nav = base as? UINavigationController {
+            return currentViewController(base: nav.visibleViewController)
+        }
+        if let tab = base as? UITabBarController {
+            return currentViewController(base: tab.selectedViewController)
+        }
+        if let presented = base?.presentedViewController {
+            return currentViewController(base: presented)
+        }
+        return base
+    }
+}
+

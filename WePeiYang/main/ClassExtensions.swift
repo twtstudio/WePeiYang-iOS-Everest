@@ -352,7 +352,6 @@ extension UIViewController {
     }
 
     static var top: UIViewController? {
-
         if let appRootVC = UIApplication.shared.keyWindow?.rootViewController {
             var topVC: UIViewController? = appRootVC
             while topVC?.presentedViewController != nil {
