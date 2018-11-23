@@ -72,7 +72,8 @@ class QuizNetWork {
                         let qdata = PQuizResultData(quesID: quesId, quesType: quesType, content: content, option: option, answer: trueAns, isCollected: isCollect, errorOption: answer, isDone: isDone, isTrue: isTrue)
                         pQuizResultData.append(qdata)
                     }
-                    let pQuizResult = PQuizResult(score: score, timestamp: timestamp, correctNum: correctNum, errNum: errorNum, notDoneNum: notDoneNum, results: pQuizResultData)
+//                    let pQuizResult = PQuizResult(score: score, timestamp: timestamp, correctNum: correctNum, errNum: errorNum, notDoneNum: notDoneNum, results: pQuizResultData)
+                    let pQuizResult = PQuizResult(score: score, timestamp: timestamp, correctNum: correctNum, errorNum: errorNum, results: pQuizResultData)
                     success(pQuizResult)
                     return
                 }

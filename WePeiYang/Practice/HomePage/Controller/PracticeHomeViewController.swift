@@ -46,6 +46,12 @@ class PracticeHomeViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
 
+        NotificationCenter.default.addObserver(self, selector: #selector(popExerciseVC), name: NSNotification.Name(rawValue: "popExerciseVC"), object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         /* 用户模型 */
         PracticeStudentHelper.getStudent(success: { practiceStudent in
             self.practiceStudent = practiceStudent
@@ -53,10 +59,6 @@ class PracticeHomeViewController: UIViewController {
             self.homeTableView.reloadData()
         }) { _ in
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         /* 导航栏 */
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -65,7 +67,7 @@ class PracticeHomeViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.tintColor = .white
-        let barHeight = (navigationController?.navigationBar.frame.origin.y)! + (navigationController?.navigationBar.frame.size.height)!
+        let barHeight = UIApplication.shared.statusBarFrame.height //(navigationController?.navigationBar.frame.origin.y)! + (navigationController?.navigationBar.frame.size.height)!
         
         /* 标题 */
         let titleLabel = UILabel(text: "天外天刷题")
@@ -124,6 +126,10 @@ class PracticeHomeViewController: UIViewController {
         homeTableView.delegate = self
         homeTableView.dataSource = self
         contentScrollView.addSubview(homeTableView)
+    }
+    
+    @objc func popExerciseVC() {
+        
     }
     
     // 进入搜索界面 //
@@ -336,7 +342,7 @@ extension PracticeHomeViewController: UITableViewDelegate {
                 userView.practicedQuestionNumber.text = practiceStudent.data.doneCount // 已练习题目数
                 userView.practicedCourseNumber.text = "\(practiceStudent.data.courseCount)" // 已练习科目数
                 
-                let correctRateString = String(Int(100 - Double(practiceStudent.data.errorCount)! / Double(practiceStudent.data.doneCount)! * 100))
+                let correctRateString = practiceStudent.data.doneCount == "0" ? "0" : String(Int(100 - Double(practiceStudent.data.errorCount)! / Double(practiceStudent.data.doneCount)! * 100))
                 let correctRateText = NSMutableAttributedString(string: "正确率 \(correctRateString)%") // 使用富文本改变字体
                 correctRateText.addAttribute(.foregroundColor, value: UIColor.darkGray, range: NSMakeRange(0, 4))
                 userView.correctRate.attributedText = correctRateText // 正确率

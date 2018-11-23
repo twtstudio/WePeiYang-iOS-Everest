@@ -66,7 +66,7 @@ struct PracticeWrongData: Codable {
     let option: [String]
     let answer: String
     let isCollected, isMistake: Int
-    let errorOption: String
+    let errorOption, courseName: String
     
     enum CodingKeys: String, CodingKey {
         case quesID = "ques_id"
@@ -77,6 +77,7 @@ struct PracticeWrongData: Codable {
         case isCollected = "is_collected"
         case isMistake = "is_mistake"
         case errorOption = "error_option"
+        case courseName = "course_name"
     }
 }
 
@@ -144,7 +145,8 @@ extension PracticeWrongData {
         answer: String? = nil,
         isCollected: Int? = nil,
         isMistake: Int? = nil,
-        errorOption: String? = nil
+        errorOption: String? = nil,
+        courseName: String? = nil
         ) -> PracticeWrongData {
         return PracticeWrongData(
             quesID: quesID ?? self.quesID,
@@ -156,7 +158,8 @@ extension PracticeWrongData {
             answer: answer ?? self.answer,
             isCollected: isCollected ?? self.isCollected,
             isMistake: isMistake ?? self.isMistake,
-            errorOption: errorOption ?? self.errorOption
+            errorOption: errorOption ?? self.errorOption,
+            courseName: courseName ?? self.courseName
         )
     }
     

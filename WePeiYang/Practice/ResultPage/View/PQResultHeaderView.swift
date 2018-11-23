@@ -66,7 +66,7 @@ class PQResultHeadView: UIView {
         
         practiceTimeLabel.frame = CGRect(x: 0, y: correctRateLabel.frame.maxY, width: deviceWidth / 2, height: 44)
         practiceTimeLabel.textAlignment = .center
-        addSubview(practiceTimeLabel) 
+        addSubview(practiceTimeLabel)
         practiceTimeNumber.frame = CGRect(x: 0, y: practiceTimeLabel.frame.maxY, width: deviceWidth / 2, height: 44)
         practiceTimeNumber.textAlignment = .center
         addSubview(practiceTimeNumber)

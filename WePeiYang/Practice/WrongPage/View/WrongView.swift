@@ -16,6 +16,9 @@ class WrongViewCell: UITableViewCell {
     /* 题目类型 */
     let questionTypeBubbleLabel = UILabel()
     
+    /* 课程名称 */
+    let courseNameLabel = UILabel()
+    
     /* 题目内容 */
     let questionContentLabel = UICopyLabel()
     
@@ -48,6 +51,16 @@ class WrongViewCell: UITableViewCell {
         questionTypeBubbleLabel.frame.origin = CGPoint(x: classTypeBubbleLabel.frame.maxX + 4, y: classTypeBubbleLabel.frame.origin.y)
         questionTypeBubbleLabel.setPracticeBubbleLabel(withText: PracticeDictionary.questionType[wrongData.quesType]!)
         contentView.addSubview(questionTypeBubbleLabel)
+        
+        // 课程名称 //
+        courseNameLabel.text = wrongData.courseName
+        courseNameLabel.textColor = .gray
+        courseNameLabel.sizeToFit()
+        courseNameLabel.frame.size.width = deviceWidth - questionTypeBubbleLabel.frame.maxX - 40
+        courseNameLabel.textAlignment = .right
+        courseNameLabel.center = questionTypeBubbleLabel.center
+        courseNameLabel.frame.origin.x = questionTypeBubbleLabel.frame.maxX + 20
+        contentView.addSubview(courseNameLabel)
         
         // 题目内容 //
         questionContentLabel.text = wrongData.content
