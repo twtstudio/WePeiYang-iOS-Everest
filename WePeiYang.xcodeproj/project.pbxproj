@@ -181,6 +181,23 @@
 		B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B9571EC5C21700B8198E /* FavViewController.swift */; };
 		B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */; };
 		B19DABAA1E6EF5C2004A50B5 /* WePeiYangUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */; };
+		C40BDE0721A93C260046BFA5 /* BookConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE0621A93C260046BFA5 /* BookConstant.swift */; };
+		C40BDE0921A93C470046BFA5 /* DetailBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE0821A93C470046BFA5 /* DetailBook.swift */; };
+		C40BDE0B21A93C5E0046BFA5 /* ListBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE0A21A93C5E0046BFA5 /* ListBook.swift */; };
+		C40BDE0E21A93CA00046BFA5 /* LibraryPageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE0D21A93CA00046BFA5 /* LibraryPageContentView.swift */; };
+		C40BDE1021A93CCE0046BFA5 /* LibraryPageTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE0F21A93CCE0046BFA5 /* LibraryPageTitleView.swift */; };
+		C40BDE1221A93CF30046BFA5 /* LibraryPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE1121A93CF30046BFA5 /* LibraryPageControl.swift */; };
+		C40BDE1421A93D1B0046BFA5 /* BookCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE1321A93D1B0046BFA5 /* BookCollectionCell.swift */; };
+		C40BDE1621A93D500046BFA5 /* BookCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE1521A93D500046BFA5 /* BookCard.swift */; };
+		C40BDE1821A93D800046BFA5 /* BookListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE1721A93D800046BFA5 /* BookListTableViewCell.swift */; };
+		C40BDE1A21A93DD90046BFA5 /* BookDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE1921A93DD90046BFA5 /* BookDetailCard.swift */; };
+		C40BDE1C21A93E040046BFA5 /* BookDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE1B21A93E040046BFA5 /* BookDetailTableViewCell.swift */; };
+		C40BDE1E21A93E3D0046BFA5 /* BookDetailTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE1D21A93E3D0046BFA5 /* BookDetailTableHeaderView.swift */; };
+		C40BDE2121A93E780046BFA5 /* LibraryMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE2021A93E780046BFA5 /* LibraryMainViewController.swift */; };
+		C40BDE2321A93E970046BFA5 /* LibraryBorrowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE2221A93E970046BFA5 /* LibraryBorrowViewController.swift */; };
+		C40BDE2521A93EBD0046BFA5 /* LibraryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE2421A93EBD0046BFA5 /* LibraryListViewController.swift */; };
+		C40BDE2721A93EDA0046BFA5 /* LibraryReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE2621A93EDA0046BFA5 /* LibraryReadViewController.swift */; };
+		C40BDE2921A93EF20046BFA5 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BDE2821A93EF20046BFA5 /* BookDetailViewController.swift */; };
 		DD0B75F32158C6ED009A392C /* YellowPageSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B75DD2158C6ED009A392C /* YellowPageSearchViewController.swift */; };
 		DD0B75F42158C6ED009A392C /* YellowPageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B75DE2158C6ED009A392C /* YellowPageDetailViewController.swift */; };
 		DD0B75F52158C6ED009A392C /* YellowPageMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B75DF2158C6ED009A392C /* YellowPageMainViewController.swift */; };
@@ -421,6 +438,23 @@
 		B19DABA51E6EF5C2004A50B5 /* WePeiYangUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WePeiYangUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WePeiYangUITests.swift; sourceTree = "<group>"; };
 		B19DABAB1E6EF5C2004A50B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C40BDE0621A93C260046BFA5 /* BookConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookConstant.swift; sourceTree = "<group>"; };
+		C40BDE0821A93C470046BFA5 /* DetailBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBook.swift; sourceTree = "<group>"; };
+		C40BDE0A21A93C5E0046BFA5 /* ListBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBook.swift; sourceTree = "<group>"; };
+		C40BDE0D21A93CA00046BFA5 /* LibraryPageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryPageContentView.swift; sourceTree = "<group>"; };
+		C40BDE0F21A93CCE0046BFA5 /* LibraryPageTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryPageTitleView.swift; sourceTree = "<group>"; };
+		C40BDE1121A93CF30046BFA5 /* LibraryPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryPageControl.swift; sourceTree = "<group>"; };
+		C40BDE1321A93D1B0046BFA5 /* BookCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCollectionCell.swift; sourceTree = "<group>"; };
+		C40BDE1521A93D500046BFA5 /* BookCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCard.swift; sourceTree = "<group>"; };
+		C40BDE1721A93D800046BFA5 /* BookListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListTableViewCell.swift; sourceTree = "<group>"; };
+		C40BDE1921A93DD90046BFA5 /* BookDetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailCard.swift; sourceTree = "<group>"; };
+		C40BDE1B21A93E040046BFA5 /* BookDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailTableViewCell.swift; sourceTree = "<group>"; };
+		C40BDE1D21A93E3D0046BFA5 /* BookDetailTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailTableHeaderView.swift; sourceTree = "<group>"; };
+		C40BDE2021A93E780046BFA5 /* LibraryMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryMainViewController.swift; sourceTree = "<group>"; };
+		C40BDE2221A93E970046BFA5 /* LibraryBorrowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryBorrowViewController.swift; sourceTree = "<group>"; };
+		C40BDE2421A93EBD0046BFA5 /* LibraryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListViewController.swift; sourceTree = "<group>"; };
+		C40BDE2621A93EDA0046BFA5 /* LibraryReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryReadViewController.swift; sourceTree = "<group>"; };
+		C40BDE2821A93EF20046BFA5 /* BookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
 		D77E7BD11F959EB50A5A0DED /* Pods-WePeiYangWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.debug.xcconfig"; sourceTree = "<group>"; };
 		DD0B75DD2158C6ED009A392C /* YellowPageSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageSearchViewController.swift; sourceTree = "<group>"; };
 		DD0B75DE2158C6ED009A392C /* YellowPageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageDetailViewController.swift; sourceTree = "<group>"; };
@@ -772,30 +806,19 @@
 			isa = PBXGroup;
 			children = (
 				A5197A3B1FDA8F7F008C445A /* Model */,
-				A5197A3A1FDA8F7A008C445A /* View */,
-				A5197A391FDA8F73008C445A /* Controller */,
+				C40BDE0C21A93C720046BFA5 /* View */,
+				C40BDE1F21A93E500046BFA5 /* Controller */,
 			);
 			path = Library;
-			sourceTree = "<group>";
-		};
-		A5197A391FDA8F73008C445A /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		A5197A3A1FDA8F7A008C445A /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		A5197A3B1FDA8F7F008C445A /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				A5197A3C1FDA8F99008C445A /* LibraryAPIs.swift */,
+				C40BDE0621A93C260046BFA5 /* BookConstant.swift */,
+				C40BDE0821A93C470046BFA5 /* DetailBook.swift */,
+				C40BDE0A21A93C5E0046BFA5 /* ListBook.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1070,6 +1093,34 @@
 				B19DABAB1E6EF5C2004A50B5 /* Info.plist */,
 			);
 			path = WePeiYangUITests;
+			sourceTree = "<group>";
+		};
+		C40BDE0C21A93C720046BFA5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C40BDE0D21A93CA00046BFA5 /* LibraryPageContentView.swift */,
+				C40BDE0F21A93CCE0046BFA5 /* LibraryPageTitleView.swift */,
+				C40BDE1121A93CF30046BFA5 /* LibraryPageControl.swift */,
+				C40BDE1321A93D1B0046BFA5 /* BookCollectionCell.swift */,
+				C40BDE1521A93D500046BFA5 /* BookCard.swift */,
+				C40BDE1721A93D800046BFA5 /* BookListTableViewCell.swift */,
+				C40BDE1921A93DD90046BFA5 /* BookDetailCard.swift */,
+				C40BDE1B21A93E040046BFA5 /* BookDetailTableViewCell.swift */,
+				C40BDE1D21A93E3D0046BFA5 /* BookDetailTableHeaderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C40BDE1F21A93E500046BFA5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C40BDE2021A93E780046BFA5 /* LibraryMainViewController.swift */,
+				C40BDE2221A93E970046BFA5 /* LibraryBorrowViewController.swift */,
+				C40BDE2421A93EBD0046BFA5 /* LibraryListViewController.swift */,
+				C40BDE2621A93EDA0046BFA5 /* LibraryReadViewController.swift */,
+				C40BDE2821A93EF20046BFA5 /* BookDetailViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		D33D5F603943FDFD415D167A /* Frameworks */ = {
@@ -1499,6 +1550,7 @@
 			files = (
 				36449E891FA4BAD10036766B /* PartyScoreViewController.m in Sources */,
 				36FCC2D920545967003379AE /* LoginView.swift in Sources */,
+				C40BDE0721A93C260046BFA5 /* BookConstant.swift in Sources */,
 				36449E661FA4BABA0036766B /* PersonalStatusLabel.swift in Sources */,
 				36449E5E1FA4BABA0036766B /* WXWaveView.m in Sources */,
 				DD0B75F42158C6ED009A392C /* YellowPageDetailViewController.swift in Sources */,
@@ -1520,11 +1572,13 @@
 				A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */,
 				36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */,
 				36449E641FA4BABA0036766B /* QuizView.swift in Sources */,
+				C40BDE2721A93EDA0046BFA5 /* LibraryReadViewController.swift in Sources */,
 				DD0B75F72158C6ED009A392C /* PhoneBook.swift in Sources */,
 				365A8A281FB9CA1700B15443 /* ClassModel.swift in Sources */,
 				DD0B76262158CBA6009A392C /* GPAModel.swift in Sources */,
 				364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */,
 				DD0B762C2158CBA6009A392C /* ScoreHeaderView.swift in Sources */,
+				C40BDE1A21A93DD90046BFA5 /* BookDetailCard.swift in Sources */,
 				36449E491FA4BA9B0036766B /* Applicant.swift in Sources */,
 				36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */,
 				A5E117B91F99DCAE00C86CA2 /* Card.swift in Sources */,
@@ -1538,19 +1592,24 @@
 				36A9C320204C56CD0018B6B3 /* ProgressWebViewController.swift in Sources */,
 				36449E831FA4BAD00036766B /* TwentyCourseViewController.swift in Sources */,
 				36449E8D1FA4BAD10036766B /* PartyCoursesViewController.m in Sources */,
+				C40BDE1421A93D1B0046BFA5 /* BookCollectionCell.swift in Sources */,
 				3631D50A1F1903D70078816D /* TwTUser.swift in Sources */,
 				A5E117C51F99E05200C86CA2 /* BicycleServiceInfoController.swift in Sources */,
 				DD0B762D2158CBA6009A392C /* CourseAppraiseCell.swift in Sources */,
 				DD0B76242158CBA6009A392C /* CourseAppraiseViewController.swift in Sources */,
 				A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */,
+				C40BDE0E21A93CA00046BFA5 /* LibraryPageContentView.swift in Sources */,
 				A5A531EB208F4E4C0073DE38 /* CourseListModel.swift in Sources */,
 				A5FE5665208F624A00B94F0D /* PopularClassModel.swift in Sources */,
 				DD0B76292158CBA6009A392C /* GPAClassModel.swift in Sources */,
 				365A46462035E35500738963 /* Storage.swift in Sources */,
 				A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */,
 				365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */,
+				C40BDE1021A93CCE0046BFA5 /* LibraryPageTitleView.swift in Sources */,
+				C40BDE1C21A93E040046BFA5 /* BookDetailTableViewCell.swift in Sources */,
 				365A46482036956700738963 /* CacheFilenameKey.swift in Sources */,
 				361F885C204AF92D00BCFA19 /* BannerPageControl.swift in Sources */,
+				C40BDE1221A93CF30046BFA5 /* LibraryPageControl.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
 				A51C456A1FD0477700652435 /* BicycleBindingViewController.swift in Sources */,
 				36758FDD1FDA851C0023A99C /* CardView.swift in Sources */,
@@ -1563,6 +1622,7 @@
 				361F885E204AF92D00BCFA19 /* BannerCell.swift in Sources */,
 				36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */,
 				36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */,
+				C40BDE2121A93E780046BFA5 /* LibraryMainViewController.swift in Sources */,
 				36E56BC61FC512230009BD6F /* CourseListView.swift in Sources */,
 				3613DA222056F740000867AE /* UniversalExtension.swift in Sources */,
 				364BDF721FDAE1EF00E61B65 /* GPACard.swift in Sources */,
@@ -1592,8 +1652,11 @@
 				36449E651FA4BABA0036766B /* QuizCell.swift in Sources */,
 				36449E461FA4BA9B0036766B /* Courses.swift in Sources */,
 				36366B2E1FAB86B0001F72A0 /* BicycleServiceViewController.swift in Sources */,
+				C40BDE2921A93EF20046BFA5 /* BookDetailViewController.swift in Sources */,
 				36449E611FA4BABA0036766B /* TextTableViewCell.swift in Sources */,
 				3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */,
+				C40BDE1E21A93E3D0046BFA5 /* BookDetailTableHeaderView.swift in Sources */,
+				C40BDE2521A93EBD0046BFA5 /* LibraryListViewController.swift in Sources */,
 				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
 				365B5399216E5F4000A808EE /* ClassTableSettingViewController.swift in Sources */,
 				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
@@ -1614,9 +1677,11 @@
 				A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */,
 				36B9F75D216BCBA000253C4A /* ClassTableNotificationHelper.swift in Sources */,
 				361F8856204AF92100BCFA19 /* HomePageModel.swift in Sources */,
+				C40BDE2321A93E970046BFA5 /* LibraryBorrowViewController.swift in Sources */,
 				36449E881FA4BAD10036766B /* PartySignUpViewController.swift in Sources */,
 				36449E601FA4BABA0036766B /* TheoryCourseArticleReadingView.swift in Sources */,
 				369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */,
+				C40BDE0921A93C470046BFA5 /* DetailBook.swift in Sources */,
 				A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */,
 				A5E117AF1F99DB8E00C86CA2 /* BicycleUser.swift in Sources */,
 				369140AF2020CBA30022BA3F /* NotificationName.swift in Sources */,
@@ -1639,6 +1704,7 @@
 				369B2D4A20151542009352A8 /* DateTool.swift in Sources */,
 				A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */,
 				DD0B75F82158C6ED009A392C /* YellowPageSearchHistoryCell.swift in Sources */,
+				C40BDE1821A93D800046BFA5 /* BookListTableViewCell.swift in Sources */,
 				B10253FD1EC84ED90064373A /* log.swift in Sources */,
 				361F8853204AF92100BCFA19 /* HomePageHelper.swift in Sources */,
 				365A8A251FB9BA8500B15443 /* ClasstableDataManager.swift in Sources */,
@@ -1647,7 +1713,9 @@
 				B10253F01EC84ED90064373A /* AccountManager.swift in Sources */,
 				DD0B75F32158C6ED009A392C /* YellowPageSearchViewController.swift in Sources */,
 				A53602691FC6EC0500E3D1AF /* TJUBindingViewController.swift in Sources */,
+				C40BDE0B21A93C5E0046BFA5 /* ListBook.swift in Sources */,
 				A50F36501FB8837D00413CF2 /* KeyChain.swift in Sources */,
+				C40BDE1621A93D500046BFA5 /* BookCard.swift in Sources */,
 				DD0B762B2158CBA6009A392C /* StarView.swift in Sources */,
 				361F885F204AF92D00BCFA19 /* BannerProxy.swift in Sources */,
 			);

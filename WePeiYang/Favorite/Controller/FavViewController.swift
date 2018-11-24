@@ -263,6 +263,7 @@ extension FavViewController {
         let card = LibraryCard()
 
         card.refresh()
+        card.shouldPresent(LibraryMainViewController.self, from: self)
         cardDict[Module.library] = card
     }
 }
