@@ -101,9 +101,6 @@ extension ExerciseQuesView {
             indexPathArray.append(indexPath)
         }
         
-        //这种方式不可以传值 (实例化原理了解一下）
-        //exerciseController.answerupdate(selectedAns: practiceModel.optionDics[indexPath.item]!)
-        
         if quesType != 1 {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "optionSelected"), object: nil)
         }

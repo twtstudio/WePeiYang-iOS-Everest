@@ -13,8 +13,8 @@ class PQuizCollectionViewController: UIViewController {
     let questionViewParameters = QuestionViewParameters()
 
     var timer: Timer!
+    static var usedTime: String = "00:00"
     static var usrAnsArray: [String] = []
-    static var quizResult: PQuizResult = PQuizResult()
     var quizArray: [QuizQuestion] = []
     var guards: [Guard] = []
     var isSelected: [isCorrect] = []
@@ -68,6 +68,12 @@ class PQuizCollectionViewController: UIViewController {
         return label
     }()
 
+    let showBtn: UIButton = {
+        let btn = UIButton()
+        btn.setImage(#imageLiteral(resourceName: "questions"), for: .normal)
+        return btn
+    }()
+    
     let collectBtn: UIButton = {
         let btn = UIButton()
         btn.setImage(#imageLiteral(resourceName: "collect"), for: .normal)
@@ -82,6 +88,7 @@ class PQuizCollectionViewController: UIViewController {
     
     let timeButton: UIButton = {
         let btn = UIButton()
+        btn.isUserInteractionEnabled = false
         btn.setTitle("25:00", for: .normal)
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.textAlignment = .center
@@ -129,9 +136,11 @@ class PQuizCollectionViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         navigationController?.navigationBar.isTranslucent = false
-        navigationItem.title = "模拟考试"
         navigationController?.navigationBar.backgroundColor = .clear
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: timeButton)
+        let item = UIBarButtonItem.init(title: "", style: .plain, target: self, action: nil)
+        self.navigationItem.backBarButtonItem = item
+        navigationItem.title = "模拟考试"
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -208,7 +217,7 @@ extension PQuizCollectionViewController: UICollectionViewDataSource, UICollectio
 
 //网络请求
 extension PQuizCollectionViewController {
-    fileprivate func getQuesArray(courseId: String) {
+    private func getQuesArray(courseId: String) {
         QuizNetWork.getQuizQuesArray(courseId: courseId, success: { (data, tim) in
             self.time = tim
             self.quizArray = data
@@ -230,7 +239,7 @@ extension PQuizCollectionViewController {
         }
     }
     
-    @objc func postResult() {
+    @objc private func postResult() {
         var dicArray: [[String: String]] = []
         for i in 0..<quizArray.count {
             var dic: [String: String] = [:]
@@ -242,7 +251,6 @@ extension PQuizCollectionViewController {
             } else {
                 dic["answer"] = ""
             }
-            
             dic["type"] = String(quesType)
             dicArray.append(dic)
         }
@@ -255,16 +263,15 @@ extension PQuizCollectionViewController {
                    "time": String(time)]
         
         QuizNetWork.postQuizResult(dics: dic, courseId: courseId, time: time) { (data) in
-//            log(data)
-            PQuizCollectionViewController.quizResult = data
             self.turnToResultVc()
+            PracticeResultViewController.pQuizResult = data
         }
     }
 }
 
 //MARK: objc func
 extension PQuizCollectionViewController {
-    @objc func tickDown() {
+    @objc private func tickDown() {
         if restTime == 0 {
             //TODO: 检测模式做题时间到，跳转至下一页面
             guard let tim = self.timer else { return }
@@ -289,7 +296,7 @@ extension PQuizCollectionViewController {
         timeButton.titleLabel?.text = "\(min):\(sec)"
     }
     
-    @objc func postBtnTapped(_ button: UIButton) {
+    @objc private func postBtnTapped(_ button: UIButton) {
         let doneNum = getDoneNum()
         let warningCard = PopupDialog(title: "本次测试共\(quizArray.count)题，你已完成\(doneNum)题", message: "提交后答案将不可更改", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
         let leftButton = PracticePopupDialogButton(title: "信心满满，交卷了", dismissOnTap: true) {
@@ -307,7 +314,7 @@ extension PQuizCollectionViewController {
         self.present(warningCard, animated: true, completion: nil)
     }
     
-    @objc func updateAnswer() {
+    @objc private func updateAnswer() {
         // 储存答案String
         let startValue = Int(("A" as UnicodeScalar).value)
         var answerString = ""
@@ -327,7 +334,7 @@ extension PQuizCollectionViewController {
     }
     
     // 通过列表切换题目
-    @objc func changeQues() {
+    @objc private func changeQues() {
         currentPage = QLCollectionView.chosenPage
         collectionView.contentOffset.x = CGFloat(currentPage - 1) * deviceWidth
         for i in 0..<quizArray.count {
@@ -338,24 +345,24 @@ extension PQuizCollectionViewController {
         setupButtons()
     }
     
-    // 收藏
-    @objc func collect(_ button: UIButton) {
+    // 收藏按钮点击事件
+    @objc private func collect(_ button: UIButton) {
         let ques = quizArray[1]
         guard let qType = ques.quesType else { return }
         guard let qID = ques.id else { return }
         if guards[currentPage - 1].iscollected {
             guards[currentPage - 1].iscollected = false
             button.setImage(#imageLiteral(resourceName: "collect"), for: .normal)
-            PracticeCollectionHelper.addCollection(quesType: String(qType), quesID: String(qID))
-        }else {
+            PracticeCollectionHelper.deleteCollection(quesType: String(qType), quesID: String(qID))
+        } else {
             guards[currentPage - 1].iscollected = true
             button.setImage(#imageLiteral(resourceName: "collected"), for: .normal)
-            PracticeCollectionHelper.deleteCollection(quesType: String(qType), quesID: String(qID))
+            PracticeCollectionHelper.addCollection(quesType: String(qType), quesID: String(qID))
         }
     }
     
     // 显示题号列表
-    @objc func showQuesCollectionView(_ button: UIButton) {
+    @objc private func showQuesCollectionView(_ button: UIButton) {
         guard let window = UIApplication.shared.keyWindow else { return }
         quesListBkgView.frame = window.bounds
         quesListBkgView.backgroundColor = UIColor(white: 0.1, alpha: 0.6)
@@ -385,7 +392,7 @@ extension PQuizCollectionViewController {
         quesListBkgView.addGestureRecognizer(gesture)
     }
     
-    @objc func hindQuesList() {
+    @objc private func hindQuesList() {
         UIView.animate(withDuration: 0.3) {
             // 尾随闭包播放弹出动画
             self.quesListCollectionView.frame = CGRect(x: 0, y: deviceHeight + 30, width: deviceWidth, height: 0.45 * deviceHeight)
@@ -402,17 +409,23 @@ extension PQuizCollectionViewController {
 
 //MARK: 界面初始化、基本控件加载
 extension PQuizCollectionViewController {
-    func turnToResultVc() {
-//        self.dismiss(animated: false, completion: nil)
+    private func turnToResultVc() {
+        let min: Int = 24 - restTime / 60
+        let sec: Int = 60 - restTime % 60
+        if sec < 10 {
+            PQuizCollectionViewController.usedTime = "\(min):0\(sec)"
+        }
+        PQuizCollectionViewController.usedTime = "\(min):0\(sec)"
+        PracticeResultViewController.ishistory = false
         let resultVC = PracticeResultViewController()
         self.navigationController?.pushViewController(resultVC, animated: true)
     }
     
-    func loadData() {
+    private func loadData() {
         getQuesArray(courseId: courseId)
     }
     
-    func initcollectionView() {
+    private func initcollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 0
@@ -435,7 +448,7 @@ extension PQuizCollectionViewController {
         }
     }
     
-    func setPostBtn() {
+    private func setPostBtn() {
         self.view.addSubview(postButton)
         postButton.snp.makeConstraints { (make) in
             make.width.bottom.centerX.equalTo(self.view)
@@ -443,16 +456,10 @@ extension PQuizCollectionViewController {
         }
     }
     
-    func setupButtons() {
+    private func setupButtons() {
         let offset = 0.05 * deviceWidth
         let buttonsViewW = questionViewParameters.questionViewW
         let buttonsViewH = 0.05 * deviceHeight
-        
-        let showBtn: UIButton = {
-            let btn = UIButton()
-            btn.setImage(#imageLiteral(resourceName: "questions"), for: .normal)
-            return btn
-        }()
         
         collectBtn.addTarget(self, action: #selector(collect(_:)), for: .touchUpInside)
         showBtn.addTarget(self, action: #selector(showQuesCollectionView(_:)), for: .touchUpInside)
@@ -501,7 +508,7 @@ extension PQuizCollectionViewController {
         }
     }
     
-    func setupSaperator() {
+    private func setupSaperator() {
         let saperatorW = 0.9 * deviceWidth
         let saperatorView = UIView()
         saperatorView.backgroundColor = UIColor(red: 177/255, green: 196/255, blue: 222/255, alpha: 1)
@@ -514,11 +521,11 @@ extension PQuizCollectionViewController {
         }
     }
     
-    func initTimer() {
+    private func initTimer() {
         timer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(tickDown), userInfo: nil, repeats: true)
     }
     
-    func getDoneNum() -> Int {
+    private func getDoneNum() -> Int {
         var doneNum: Int = 0
         for i in guards where i.iscorrect == .right {
             doneNum += 1
@@ -526,7 +533,7 @@ extension PQuizCollectionViewController {
         return doneNum
     }
     
-    func clearUsrAns() {
+    private func clearUsrAns() {
         PQuizCollectionViewController.usrAnsArray = []
     }
 }

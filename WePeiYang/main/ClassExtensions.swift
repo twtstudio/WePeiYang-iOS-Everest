@@ -62,7 +62,6 @@ extension UINavigationController: UINavigationBarDelegate, UIGestureRecognizerDe
 }
 
 extension String {
-    
     /// calculate the height of the text with constrainted width
     ///
     /// - Parameters:

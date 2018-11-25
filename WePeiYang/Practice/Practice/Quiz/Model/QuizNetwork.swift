@@ -51,11 +51,11 @@ class QuizNetWork {
                 guard let json = response.result.value else { return }
                 if let dict = json as? [String: Any] {
                     let data = dict["data"] as? [String: Any] ?? [:]
-                    let score = data["score"] as? String ?? ""
-                    let timestamp = data["timestamp"] as? String ?? ""
-                    let correctNum = data["correct_num"] as? String ?? ""
-                    let errorNum = data["error_num"] as? String ?? ""
-                    let notDoneNum = data["not_done_num"] as? String ?? ""
+                    let score = data["score"] as? Int ?? 2
+                    let timestamp = data["timestamp"] as? Int ?? 2
+                    let correctNum = data["correct_num"] as? Int ?? 0
+                    let errorNum = data["error_num"] as? Int ?? 0
+                    let notDoneNum = data["not_done_num"] as? Int ?? 0
                     guard let results = data["result"] as? [[String: Any]] else { return }
                     var pQuizResultData: [PQuizResultData] = []
                     for result in results {
@@ -75,7 +75,6 @@ class QuizNetWork {
 //                    let pQuizResult = PQuizResult(score: score, timestamp: timestamp, correctNum: correctNum, errNum: errorNum, notDoneNum: notDoneNum, results: pQuizResultData)
                     // FIXME: unknown API
                     let pQuizResult = PQuizResult.init(score: score, timestamp: timestamp, correctNum: correctNum, errNum: errorNum, notDoneNum: notDoneNum, practiceTime: "", results: pQuizResultData)
-//                    let pQuizResult = PQuizResult(score: score, timestamp: timestamp, correctNum: correctNum, errorNum: errorNum, results: pQuizResultData)
                     success(pQuizResult)
                     return
                 }

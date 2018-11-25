@@ -65,7 +65,7 @@ extension QuestionTableView: UITableViewDelegate {
         case 0:
             if let question = content {
                 //cell自适应高度
-                let height = question.calculateHeightWithConstrained(width: frame.width, font: questionViewParameters.qFont) < questionViewParameters.minCellH ? questionViewParameters.minCellH : question.calculateHeightWithConstrained(width: frame.width, font: questionViewParameters.qFont)
+                let height = question.calculateHeightWithConstrained(width: frame.width - 5, font: questionViewParameters.aFont) < questionViewParameters.minCellH ? questionViewParameters.minCellH : question.calculateHeightWithConstrained(width: frame.width, font: questionViewParameters.qFont)
                 return height
             } else {
                 //cell最小高度
@@ -81,6 +81,18 @@ extension QuestionTableView: UITableViewDelegate {
             } else {
                 return questionViewParameters.cellH
             }
+        }
+    }
+}
+
+extension QuestionTableView {
+    func addScrollHint() {
+        let scrollHint = UIImageView(image: #imageLiteral(resourceName: "error"))
+        self.backgroundView = UIView()
+        self.backgroundView!.addSubview(scrollHint)
+        scrollHint.snp.makeConstraints { (make) in
+            make.width.height.equalTo(100)
+            make.bottom.centerX.equalTo(self)
         }
     }
 }

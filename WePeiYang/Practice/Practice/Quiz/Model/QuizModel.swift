@@ -29,11 +29,11 @@ struct PQuizResultData {
 }
 
 struct PQuizResult {
-    var score: String = ""
-    var timestamp: String = ""
-    var correctNum: String = ""
-    var errNum: String = ""
-    var notDoneNum: String = ""
+    var score: Int = 0
+    var timestamp: Int = 0
+    var correctNum: Int = 0
+    var errNum: Int = 0
+    var notDoneNum: Int = 0
     var practiceTime: String = ""
     var results: [PQuizResultData] = []
 }

@@ -53,7 +53,6 @@ extension QuizQuesView: UITableViewDataSource {
             let array = QuestionTableView.selectedAnswerArray
             
             optionCell.initUI(optionsContent: options[optionIndex], order: optionIndex, isSelected: array[optionIndex], isFinished: selected)
-            
             return optionCell
         }
     }

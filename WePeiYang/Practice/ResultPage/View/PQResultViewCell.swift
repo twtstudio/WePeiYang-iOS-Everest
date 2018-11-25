@@ -66,13 +66,15 @@ class PQResultViewCell: UITableViewCell {
         
         // 题目答案 //
         if wrongData.quesType != "2" {
-            answerContentLabel.text = "题目答案: \(wrongData.answer)"
+            answerContentLabel.text = "正确答案: \(wrongData.answer)"
         } else {
             switch wrongData.answer {
             case "A":
-                answerContentLabel.text = "题目答案: √"
+                answerContentLabel.text = "正确答案: √"
+                usrAnsContentLabel.text = "你的答案: √"
             case "B":
-                answerContentLabel.text = "题目答案: ×"
+                answerContentLabel.text = "正确答案: ×"
+                usrAnsContentLabel.text = "你的答案: ×"
             default:
                 return
             }
@@ -82,20 +84,23 @@ class PQResultViewCell: UITableViewCell {
             usrAnsContentLabel.textColor = .practiceBlue
         } else {
             usrAnsContentLabel.textColor = .practiceRed
-
         }
         
         answerContentLabel.textColor = .practiceBlue
-        answerContentLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        answerContentLabel.font = UIFont.boldSystemFont(ofSize: 16)
         answerContentLabel.sizeToFit()
-        answerContentLabel.frame.origin = CGPoint(x: questionContentLabel.frame.origin.x, y: lastDynamicLabel.frame.maxY + 20)
+        answerContentLabel.frame.origin = CGPoint(x: questionContentLabel.frame.origin.x, y: lastDynamicLabel.frame.maxY + 21)
         contentView.addSubview(answerContentLabel)
         
-        usrAnsContentLabel.text = "你的答案：\(wrongData.errorOption)"
-        usrAnsContentLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        if wrongData.errorOption == "" {
+            usrAnsContentLabel.text = "你的答案：未做"
+        } else {
+            usrAnsContentLabel.text = "你的答案：\(wrongData.errorOption)"
+        }
+        usrAnsContentLabel.font = UIFont.boldSystemFont(ofSize: 16)
         usrAnsContentLabel.sizeToFit()
-        usrAnsContentLabel.addSubview(self)
-        usrAnsContentLabel.frame.origin = CGPoint(x: questionContentLabel.frame.origin.x + usrAnsContentLabel.frame.origin.x + 5, y: lastDynamicLabel.frame.maxY + 20)
+        usrAnsContentLabel.frame.origin = CGPoint(x: questionContentLabel.frame.origin.x + 120, y: lastDynamicLabel.frame.maxY + 21)
+        contentView.addSubview(usrAnsContentLabel)
         
         // 收藏图标 //
         isCollectedIcon.frame = CGRect(x: deviceWidth - 42, y: lastDynamicLabel.frame.maxY + 18, width: 22, height: 22)

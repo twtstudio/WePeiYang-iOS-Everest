@@ -32,7 +32,6 @@ class PracticeHistoryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         /* 导航栏 */
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.barStyle = .black
@@ -145,7 +144,10 @@ extension PracticeHistoryViewController: UITableViewDelegate {
             self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
         case "1":
             // TODO: 进入当前模拟考试具体信息页面
-            self.navigationController?.pushViewController(PQuizCollectionViewController(), animated: true)
+            guard let time = historyData.time else { return }
+            PracticeResultViewController.ishistory = true
+            self.navigationController?.pushViewController(PracticeResultViewController(), animated: true)
+            getResultInfo(of: time)
         default:
             return
         }
@@ -156,4 +158,9 @@ extension PracticeHistoryViewController: UITableViewDelegate {
         // }
     }
     
+    func getResultInfo(of time: String) {
+        PracticeHistoryHelper.getResultInfo(of: time) { (resultInfo) in
+            PracticeResultViewController.pQuizResult = resultInfo
+        }
+    }
 }

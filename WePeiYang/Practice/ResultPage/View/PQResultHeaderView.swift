@@ -13,7 +13,7 @@ class PQResultHeadView: UIView {
     
     /* 蓝色背景 */
     private let headBackgroundView: UIView = {
-        let headBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: deviceWidth, height: 220))
+        let headBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: deviceWidth, height: 180))
         headBackgroundView.backgroundColor = .practiceBlue
         
         // 设置圆角 //
@@ -29,7 +29,7 @@ class PQResultHeadView: UIView {
     private let scoreNameNumber = UILabel(text: "25", color: .white)
     
     /* 正确率 */
-    private let correctRateLabel = UILabel(text: "正确率: 4%", color: .white)
+//    private let correctRateLabel = UILabel(text: "", color: .white)
     
     /* 练习时间标签 */
     private let practiceTimeLabel = UILabel(text: "练习时间", color: .white)
@@ -60,25 +60,25 @@ class PQResultHeadView: UIView {
         addSubview(scoreNameNumber)
         
 
-        correctRateLabel.frame = CGRect(x: 0, y: scoreNameNumber.frame.maxY, width: deviceWidth, height: 44)
-        correctRateLabel.textAlignment = .center
-        addSubview(correctRateLabel)
+//        correctRateLabel.frame = CGRect(x: 0, y: scoreNameNumber.frame.maxY, width: deviceWidth, height: 44)
+//        correctRateLabel.textAlignment = .center
+//        addSubview(correctRateLabel)
         
-        practiceTimeLabel.frame = CGRect(x: 0, y: correctRateLabel.frame.maxY, width: deviceWidth / 2, height: 44)
+        practiceTimeLabel.frame = CGRect(x: 0, y: scoreNameNumber.frame.maxY + 5, width: deviceWidth / 2, height: 34)
         practiceTimeLabel.textAlignment = .center
         addSubview(practiceTimeLabel)
-        practiceTimeNumber.frame = CGRect(x: 0, y: practiceTimeLabel.frame.maxY, width: deviceWidth / 2, height: 44)
+        practiceTimeNumber.frame = CGRect(x: 0, y: practiceTimeLabel.frame.maxY, width: deviceWidth / 2, height: 34)
         practiceTimeNumber.textAlignment = .center
         addSubview(practiceTimeNumber)
         
-        verticalLine.frame = CGRect(x: deviceWidth / 2, y: practiceTimeLabel.frame.origin.y + 22, width: 1, height: 44)
+        verticalLine.frame = CGRect(x: deviceWidth / 2, y: practiceTimeLabel.frame.origin.y + 14, width: 1, height: 50)
         addSubview(verticalLine)
         
-        wrongLabel.frame = CGRect(x: deviceWidth / 2, y: correctRateLabel.frame.maxY, width: deviceWidth / 2, height: 44)
+        wrongLabel.frame = CGRect(x: deviceWidth / 2, y: scoreNameNumber.frame.maxY + 5, width: deviceWidth / 2, height: 34)
         wrongLabel.textAlignment = .center
         addSubview(wrongLabel)
         
-        wrongNumber.frame = CGRect(x: deviceWidth / 2, y: wrongLabel.frame.maxY, width: deviceWidth / 2, height: 44)
+        wrongNumber.frame = CGRect(x: deviceWidth / 2, y: wrongLabel.frame.maxY, width: deviceWidth / 2, height: 34)
         wrongNumber.textAlignment = .center
         addSubview(wrongNumber)
     }
@@ -87,9 +87,10 @@ class PQResultHeadView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func initHeader(score: String, correctNum: String, practiceTime: String) {
-        scoreNameNumber.text = score
+    func initHeader(score: Int, practiceTime: String, errorNum: Int) {
+        scoreNameNumber.text = "\(score)"
         practiceTimeNumber.text = practiceTime
+        wrongNumber.text = "\(errorNum)"
     }
     
 }

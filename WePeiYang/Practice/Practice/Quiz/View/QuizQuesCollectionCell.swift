@@ -10,6 +10,11 @@ import Foundation
 
 class QuizQuesCollectionCell: UICollectionViewCell {
     let questionViewParameters = QuestionViewParameters()
+    let scrollHintView: UIImageView = {
+        let imgView = UIImageView()
+        imgView.image = #imageLiteral(resourceName: "error")
+        return imgView
+    }()
     
     var questionView = QuizQuesView(frame: .zero, style: .plain)
     //    var answerView = AnswerScrollView(frame: .zero)
@@ -33,6 +38,15 @@ class QuizQuesCollectionCell: UICollectionViewCell {
     
     func loadQues(ques: String, options: [String], qType: Int, selectedAns: String) {
         questionView.loadQuiz(question: ques, option: options, questionType: qType, usrAns: selectedAns)
+        if questionView.height < questionView.contentSize.height {
+            self.contentView.addSubview(scrollHintView)
+            scrollHintView.snp.makeConstraints { (make) in
+                make.width.height.equalTo(10)
+                make.centerX.bottom.equalTo(questionView)
+            }
+        } else {
+            scrollHintView.removeFromSuperview()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

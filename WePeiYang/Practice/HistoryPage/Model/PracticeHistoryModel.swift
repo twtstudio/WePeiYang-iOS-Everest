@@ -20,6 +20,37 @@ struct PracticeHistoryHelper {
             debugPrint("ERROR -- PracticeHistoryHelper.getHistory")
         }
     }
+    
+    static func getResultInfo(of time: String, success: @escaping (PQuizResult) -> ()) {
+        SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: "/student/exercise_result", parameters: ["time": time], success: { (dict) in
+            let data = dict["data"] as? [String: Any] ?? [:]
+            let score = data["score"] as? Int ?? 2
+            let timestamp = data["timestamp"] as? Int ?? 2
+            let correctNum = data["correct_num"] as? Int ?? 0
+            let errorNum = data["error_num"] as? Int ?? 0
+            let notDoneNum = data["not_done_num"] as? Int ?? 0
+            guard let results = data["result"] as? [[String: Any]] else { return }
+            var pQuizResultData: [PQuizResultData] = []
+            for result in results {
+                let quesId = result["ques_id"] as? String ?? ""
+                let quesType = result["ques_type"] as? String ?? ""
+                let content = result["ques_content"] as? String ?? ""
+                let option = result["ques_option"] as? [String] ?? []
+                let isDone = result["is_done"] as? Int ?? 2
+                let isTrue = result["is_true"] as? Int ?? 2
+                let answer = result["answer"] as? String ?? ""
+                let trueAns = result["true_answer"] as? String ?? ""
+                let isCollect = result["is_collected"] as? Int ?? 2
+                
+                let qdata = PQuizResultData(quesID: quesId, quesType: quesType, content: content, option: option, answer: trueAns, isCollected: isCollect, errorOption: answer, isDone: isDone, isTrue: isTrue)
+                pQuizResultData.append(qdata)
+            }
+            let pQuizResult = PQuizResult.init(score: score, timestamp: timestamp, correctNum: correctNum, errNum: errorNum, notDoneNum: notDoneNum, practiceTime: "", results: pQuizResultData)
+            success(pQuizResult)
+        }) { (err) in
+            log(err)
+        }
+    }
 }
 
 // MARK: - Model
@@ -38,7 +69,7 @@ struct PracticeHistoryData: Codable {
     let type, courseID, classID, courseName: String
     let quesType, quesCount, doneCount: String?
     let doneIndex, timestamp: String
-    let score: String?
+    let score, time: String?
     
     enum CodingKeys: String, CodingKey {
         case type
@@ -49,7 +80,7 @@ struct PracticeHistoryData: Codable {
         case quesCount = "ques_count"
         case doneCount = "done_count"
         case doneIndex = "done_index"
-        case timestamp, score
+        case timestamp, score, time
     }
 }
 
@@ -117,7 +148,8 @@ extension PracticeHistoryData {
         doneCount: String?? = nil,
         doneIndex: String? = nil,
         timestamp: String? = nil,
-        score: String?? = nil
+        score: String?? = nil,
+        time: String?? = nil
         ) -> PracticeHistoryData {
         return PracticeHistoryData(
             type: type ?? self.type,
@@ -129,7 +161,8 @@ extension PracticeHistoryData {
             doneCount: doneCount ?? self.doneCount,
             doneIndex: doneIndex ?? self.doneIndex,
             timestamp: timestamp ?? self.timestamp,
-            score: score ?? self.score
+            score: score ?? self.score,
+            time: time ?? self.time
         )
     }
     
