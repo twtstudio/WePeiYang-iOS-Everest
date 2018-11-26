@@ -23,10 +23,25 @@ struct ClassModel: Mappable {
     var campus = ""
     var ext = ""
     var colorIndex = 0
+    var isPlaceholder: Bool = false
 
     init?(map: Map) {}
 
     mutating func mapping(map: Map) {
+        let transform = TransformOf<Bool, String>(fromJSON: { (value: String?) -> Bool? in
+            if let value = value {
+                return Bool(value)
+            } else {
+                return nil
+            }
+        }, toJSON: { (value: Bool?) -> String? in
+            if let value = value {
+                return String(value)
+            }
+            return nil
+        })
+        
+        
         classID <- map["classid"]
         courseID <- map["courseid"]
         courseName <- map["coursename"]
@@ -42,6 +57,7 @@ struct ClassModel: Mappable {
         ext <- map["ext"]
 
         colorIndex <- map["colorindex"]
+        isPlaceholder <- (map["isPlaceholder"], transform)
     }
 
     mutating func setColorIndex(index: Int) {

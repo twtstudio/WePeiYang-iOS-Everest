@@ -130,4 +130,66 @@ struct ClasstableDataManager {
         })
     }
     
+    static func auditCourse(schoolID: String, courseID: Int, infoIDs: [Int],success: @escaping () -> Void, failure: @escaping (String) -> Void) {
+        var dic: [String : String] = [:]
+        dic["user_number"] = schoolID
+        dic["course_id"] = String(courseID)
+        
+        guard infoIDs.count != 0 else {
+            failure("参数错误")
+            return
+        }
+        var infoIDs = infoIDs
+        dic["info_ids"] = String(infoIDs.remove(at: 0))
+        infoIDs.forEach { id in
+            dic["info_ids"] = dic["info_ids"]! + "," + String(id)
+        }
+        
+        SolaSessionManager.upload(dictionay: dic, url: "/auditClass/audit", progressBlock: nil, success: { dic in
+            success()
+        }, failure: { err in
+            failure(err.localizedDescription)
+        })
+    }
+    
+    static func deleteAuditCourse(schoolID: String, infoIDs: [Int], success: @escaping () -> Void, failure: @escaping (String) -> Void) {
+        guard infoIDs.count != 0 else {
+            failure("参数错误")
+            return
+        }
+        var dic: [String : String] = [:]
+        var infoIDs = infoIDs
+        dic["ids"] = String(infoIDs.remove(at: 0))
+        infoIDs.forEach { id in
+            dic["ids"] = dic["ids"]! + "," + String(id)
+        }
+        dic["user_number"] = schoolID
+        
+        SolaSessionManager.upload(dictionay: dic, url: "/auditClass/audit", method: .delete, progressBlock: nil, success: { dic in
+            success()
+        }, failure: { err in
+            failure(err.localizedDescription)
+        })
+        
+    }
+    
+    static func getPersonalAuditList(success: @escaping (AuditPersonalCourseModel) -> Void, failure: @escaping (String) -> Void) {
+        SolaSessionManager.solaSession(type: .get, url: "/auditClass/audit", parameters: ["user_number" : TwTUser.shared.schoolID], success: { dic in
+            if let error_code = dic["error_code"] as? Int,
+                error_code != -1,
+                let message = dic["message"] as? String {
+                failure(message)
+                return
+            }
+            
+            if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let model = try? AuditPersonalCourseModel(data: data) {
+                success(model)
+            } else {
+                failure("解析失败")
+            }
+        }, failure: { err in
+            failure(err.localizedDescription)
+        })
+    }
+    
 }
