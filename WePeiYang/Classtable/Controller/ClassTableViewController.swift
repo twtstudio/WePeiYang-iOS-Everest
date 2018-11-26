@@ -322,6 +322,20 @@ class ClassTableViewController: UIViewController {
             SwiftMessages.showSuccessMessage(body: "刷新成功\n更新时间: \(table.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
 
             self.listView.load(courses: courses, weeks: 0)
+            
+            ClasstableDataManager.getPersonalAuditList(success: { model in
+                var items: [AuditDetailCourseItem] = []
+                model.data.forEach { list in
+                    list.infos.forEach { item in
+                        items.append(item)
+                    }
+                    
+                }
+                AuditUser.shared.update(originTable: table, auditCourses: items)
+            }, failure: { errStr in
+                
+            })
+            
         }, failure: { errorMessage in
             self.isRefreshing = false
             self.stopRotating()
@@ -358,6 +372,8 @@ class ClassTableViewController: UIViewController {
 
 extension ClassTableViewController {
     func getCourse(table: ClassTableModel, week: Int) -> [[ClassModel]] {
+        return AuditUser.shared.weekCourseDict[week] ?? [[], [], [], [], [], [], []]
+        
         if let dict = weekCourseDict[week] {
             return dict
         }
@@ -411,7 +427,7 @@ extension ClassTableViewController {
                     // 从上节课的结束到下节课的开始填满
                     for i in (lastEnd+1)...(course.arrange[0].start-1) {
                         // 构造一个假的 model
-                        let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}]}")!
+                        let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}], \"isPlaceholder\": \"\(true)\"}")!
                         // placeholders[i].append(placeholder)
                         array.append(placeholder)
                     }
@@ -428,7 +444,7 @@ extension ClassTableViewController {
             if lastEnd < 12 {
                 for i in (lastEnd+1)...12 {
                     // 构造一个假的 model
-                    let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}]}")!
+                    let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}], \"isPlaceholder\": \"\(true)\"}")!
                     // placeholders[i].append(placeholder)
                     array.append(placeholder)
                 }
