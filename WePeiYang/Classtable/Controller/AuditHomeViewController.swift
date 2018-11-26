@@ -256,16 +256,38 @@ extension AuditHomeViewController {
         let searchVC = AuditSearchViewController()
         self.navigationController?.pushViewController(searchVC, animated: true)
     }
+    
+    @objc func refreshAuditList(_ notification: Notification) {
+        ClasstableDataManager.getPersonalAuditList(success: { model in
+            self.personalCourseList = []
+            model.data.forEach { list in
+                list.infos.forEach { item in
+                    self.personalCourseList.append(item)
+                }
+                
+            }
+            self.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+        }, failure: { errStr in
+            
+        })
+    }
 }
 
 extension AuditHomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 45
+        } else {
+            return 130
+        }
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return "热门课程"
-        } else if section == 1 {
+        } else {
             return "我的蹭课"
         }
-        return nil
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -289,14 +311,11 @@ extension AuditHomeViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 0 {
-            return UIView()
-        } else {
-            return UIView()
-        }
+        return UIView()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if isFold == true, indexPath.section == 0, indexPath.row == 3 {
             self.isFold = false
             self.tableView.reloadData()
@@ -308,7 +327,39 @@ extension AuditHomeViewController: UITableViewDelegate {
             let detailVC = AuditDetailViewController(courseID: courseID)
             self.navigationController?.pushViewController(detailVC, animated: true)
         } else {
-            
+            let item = self.personalCourseList[indexPath.row]
+            let popupVC = PopupDialog(title: "确定要取消蹭课吗？亲～", message: "取消蹭课：" + item.courseName, buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+            let cancelButton = CancelButton(title: "我再想想", action: nil)
+            let deleteButton = DestructiveButton(title: "不想蹭了") {
+//                ClasstableDataManager.deleteAuditCourse(schoolID: TwTUser.shared.schoolID, infoIDs: [item.courseID], success: {
+//                    SwiftMessages.showSuccessMessage(body: "删除成功")
+//
+//                    ClasstableDataManager.getPersonalAuditList(success: { model in
+//                        var items: [AuditDetailCourseItem] = []
+//                        model.data.forEach { list in
+//                            items += list.infos
+//                        }
+//                        AuditUser.shared.update(auditCourses: items)
+//                        self.personalCourseList = items
+//                        self.tableView.reloadData()
+//                    }, failure: { errStr in
+//
+//                    })
+//                }, failure: { errStr in
+//
+//                })
+                
+                AuditUser.shared.deleteCourse(infoIDs: [item.courseID], success: { items in
+                    SwiftMessages.showSuccessMessage(body: "删除成功")
+                    
+                    self.personalCourseList = items
+                    self.tableView.reloadData()
+                }, failure: { errStr in
+                    
+                })
+            }
+            popupVC.addButtons([cancelButton, deleteButton])
+            self.present(popupVC, animated: true)
         }
     }
 }
@@ -326,7 +377,7 @@ extension AuditHomeViewController: UITableViewDataSource {
                 return self.popularList.count
             }
         } else {
-            return 6
+            return self.personalCourseList.count
         }
     }
     
@@ -350,7 +401,42 @@ extension AuditHomeViewController: UITableViewDataSource {
                 return cell
             }
         } else {
-            return UITableViewCell()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AuditDetailCourseTableViewCell") as! AuditDetailCourseTableViewCell
+            
+            let item = self.personalCourseList[indexPath.row]
+            
+//            if let conflictCourse = AuditUser.shared.checkConflict(item: item) {
+//                cell.flagLabel.text = "冲突课程：" + conflictCourse
+//                cell.isConflict = true
+//            } else {
+//                cell.flagLabel.text = "没有冲突"
+//                cell.isConflict = false
+//            }
+            cell.flagLabel.isHidden = true
+            
+            cell.nameLabel.text = item.courseName
+            cell.teacherLabel.text = item.teacher + " " + item.teacherType
+            let startWeek = item.startWeek
+            let endWeek = item.endWeek
+            var weekType = ""
+            
+            if item.weekType == 1 {
+                weekType = "单周"
+            } else if item.weekType == 2 {
+                weekType = "双周"
+            } else if item.weekType == 3 {
+                weekType = "单双周"
+            }
+            
+            cell.weekTimeLabel.text = "第 " + String(startWeek) + "-" + String(endWeek) + " 周  " + weekType
+            let dayTime = self.dayTitles[item.weekDay - 1]
+            let startTime = item.startTime
+            let endTime = item.startTime + item.courseLength - 1
+            cell.dayTimeLabel.text = dayTime + " " + String(startTime) + "-" + String(endTime) + " 节"
+            cell.locationLabel.text = item.building + "楼" + item.room
+            cell.collegeLabel.text = item.courseCollege
+            
+            return cell
         }
     }
 }
