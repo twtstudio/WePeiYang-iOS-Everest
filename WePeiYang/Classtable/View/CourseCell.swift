@@ -97,5 +97,32 @@ class CourseCell: UITableViewCell {
             titleLabel.text = name
 
         }
+        
+        titleLabel.text = name
+//        if course.classID == "" {
+//            self.alpha = 0
+//        } else {
+//            self.alpha = 1
+//            let colors = Metadata.Color.fluentColors
+//
+//            // 确保安全
+//            let index = course.colorIndex % colors.count
+//            contentView.backgroundColor = colors[index]
+//            contentView.alpha = 0.7
+//
+//            var name = course.courseName
+//            let maxLength = 4*course.arrange.first!.length
+//
+//            if course.courseName.count > maxLength {
+//                name = (name as NSString).substring(to: maxLength) + "..."
+//            }
+//
+//            if course.arrange[0].room != "" {
+//                name += "\n@" + course.arrange[0].room
+//            }
+//
+//            titleLabel.text = name
+//
+//        }
     }
 }

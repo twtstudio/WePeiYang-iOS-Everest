@@ -66,6 +66,16 @@ class AuditDetailCourseTableViewCell: UITableViewCell {
         return label
     }()
     
+    var isConflict: Bool = false {
+        didSet {
+            if isConflict == true {
+                self.flagLabel.textColor = .red
+            } else {
+                self.flagLabel.textColor = UIColor(hex6: 0x10893e)
+            }
+        }
+    }
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
