@@ -8,9 +8,9 @@
 
 import UIKit
 
-let statusH: CGFloat = UIApplication.shared.statusBarFrame.height
-let navigationBarH: CGFloat = 44
-let tabbarH: CGFloat = 44
+private let statusH: CGFloat = UIApplication.shared.statusBarFrame.height
+private let navigationBarH: CGFloat = 44
+private let tabbarH: CGFloat = 44
 
 class LibraryMainViewController: UIViewController {
     static let mainColor = UIColor(r: 238, g: 143, b: 174)
@@ -63,7 +63,7 @@ class LibraryMainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: LibraryMainViewController.mainColor), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -77,8 +77,8 @@ class LibraryMainViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
     }
 }
@@ -86,13 +86,13 @@ class LibraryMainViewController: UIViewController {
 extension LibraryMainViewController {
     private func setupUI() {
         self.title = "图书馆"
-        let titleLabel = UILabel(text: "图书馆")
-        titleLabel.backgroundColor = UIColor.clear
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
-        titleLabel.textColor = UIColor.white
-        titleLabel.sizeToFit()
-        self.navigationItem.titleView = titleLabel
-        
+//        let titleLabel = UILabel(text: "图书馆")
+//        titleLabel.backgroundColor = UIColor.clear
+//        titleLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
+//        titleLabel.textColor = UIColor.white
+//        titleLabel.sizeToFit()
+//        self.navigationItem.titleView = titleLabel
+
         if isModal {
             let image = UIImage(named: "ic_back")!
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))

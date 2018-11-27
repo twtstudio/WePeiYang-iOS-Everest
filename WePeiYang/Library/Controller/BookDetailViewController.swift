@@ -9,6 +9,10 @@
 import UIKit
 import SnapKit
 
+private let statusH: CGFloat = UIApplication.shared.statusBarFrame.height
+private let navigationBarH: CGFloat = 44
+private let tabbarH: CGFloat = 44
+
 class BookDetailViewController: UIViewController {
     
     var bookID: String = "599771"
@@ -24,46 +28,37 @@ class BookDetailViewController: UIViewController {
     }()
     
     private var labels: [UILabel] = []
+
+    private var borrowNumLabel: UILabel {
+        return labels[1]
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = LibraryMainViewController.bgColor
         setUpViews()
-        getBookDetail(success: {
-            book in
+        getBookDetail(success: { book in
             self.bookView.book = book
-        }, failure: {
-            error in
+        }, failure: { error in
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
-        getBorrowNum(success: { (num) in
+        getBorrowNum(success: { num in
             self.labels[1].text = num.description
-        }, failure: {
-            self.labels[1].text = 0.description
+        }, failure: { err in
+            SwiftMessages.showErrorMessage(body: err.localizedDescription)
+            self.labels[1].text = "0"
         })
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        self.title = "借阅数据"
-        let titleLabel = UILabel(text: "借阅数据")
-        titleLabel.backgroundColor = UIColor.clear
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
-        titleLabel.textColor = UIColor.white
-        titleLabel.sizeToFit()
-        self.navigationItem.titleView = titleLabel
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.title = "图书详情"
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: LibraryMainViewController.mainColor), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.barStyle = .black
-        self.navigationItem.backBarButtonItem?.action = #selector(close)
         self.navigationController?.navigationBar.tintColor = .white
-        
-        let image = UIImage(named: "ic_back")!
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,6 +67,8 @@ class BookDetailViewController: UIViewController {
     }
     
     private func setUpViews() {
+        navigationController?.navigationBar.barTintColor = LibraryMainViewController.mainColor
+
         view.addSubview(bookView)
         view.addSubview(borrowView)
         setUpBorrowView()
@@ -79,13 +76,13 @@ class BookDetailViewController: UIViewController {
         bookView.backgroundColor = .white
         let verticlePadding: CGFloat = 15
         let horizontalPadding: CGFloat = 20
-        bookView.snp.makeConstraints { (make) -> Void in
+        bookView.snp.makeConstraints { make in
             make.top.equalTo(view).offset(verticlePadding + statusH + navigationBarH)
             make.left.equalTo(view).offset(horizontalPadding)
             make.bottom.equalTo(borrowView.snp.top).offset(-verticlePadding)
             make.right.equalTo(view).offset(-horizontalPadding)
         }
-        borrowView.snp.makeConstraints { (make) -> Void in
+        borrowView.snp.makeConstraints { make in
             make.left.equalTo(view).offset(horizontalPadding)
             make.bottom.equalTo(view).offset(-verticlePadding)
             make.right.equalTo(view).offset(-horizontalPadding)
@@ -100,7 +97,7 @@ class BookDetailViewController: UIViewController {
             borrowView.addSubview(labels[i])
             labels[i].textColor = LibraryMainViewController.fontDarkColor
             labels[i].font = UIFont.systemFont(ofSize: 18)
-            labels[i].snp.makeConstraints { (make) -> Void in
+            labels[i].snp.makeConstraints { make in
                 make.centerY.equalTo(borrowView)
             }
         }
@@ -109,46 +106,44 @@ class BookDetailViewController: UIViewController {
         labels[1].text = ""
         labels[1].textColor = LibraryMainViewController.fontColor
         labels[2].text = "次"
-        labels[0].snp.makeConstraints { (make) -> Void in
+        labels[0].snp.makeConstraints { make in
             make.left.equalTo(borrowView).offset(padding)
         }
-        labels[2].snp.makeConstraints { (make) -> Void in
+        labels[2].snp.makeConstraints { make in
             make.right.equalTo(borrowView).offset(-padding)
         }
-        labels[1].snp.makeConstraints { (make) -> Void in
+        labels[1].snp.makeConstraints { make in
             make.right.equalTo(labels[2].snp.left).offset(-padding)
         }
-    }
-    
-    @objc func close() {
-        self.navigationController?.popViewController(animated: true)
     }
 }
 
 extension BookDetailViewController {
     private func getBookDetail(success: @escaping (DetailBook) -> Void, failure: @escaping (Error) -> Void) {
-        SolaSessionManager.solaSession(url: "/library/book/" + "\(bookID)", success: { dict in
+        SolaSessionManager.solaSession(url: "/library/book/" + bookID, success: { dict in
             if let data = dict["data"] as? [String: Any] {
-                let json = try? JSONSerialization.data(withJSONObject: data, options: [])
                 do {
-                    let detailBook = try JSONDecoder().decode(DetailBook.self, from: json!)
+                    let json = try JSONSerialization.data(withJSONObject: data, options: [])
+                    let detailBook = try JSONDecoder().decode(DetailBook.self, from: json)
                     success(detailBook)
                 } catch {
                     failure(error)
                 }
             } else {
-                let error = WPYCustomError.errorCode(-2, "没有该书数据")
+                let error = WPYCustomError.custom("没有该书数据")
                 failure(error)
             }
         })
     }
-    private func getBorrowNum(success: @escaping (Int) -> Void, failure: @escaping () -> Void) {
-        SolaSessionManager.solaSession(url: "/library/book/getTotalBorrow/" + "\(bookID)", success: { dict in
+    private func getBorrowNum(success: @escaping (Int) -> Void, failure: @escaping (Error) -> Void) {
+        SolaSessionManager.solaSession(url: "/library/book/getTotalBorrow/" + bookID, success: { dict in
             if let num = dict["totalBorrowNum"] as? Int {
                 success(num)
             } else {
-                failure()
+                failure(WPYCustomError.custom("没有借阅次数数据"))
             }
+        }, failure: { err in
+            failure(err)
         })
     }
 }

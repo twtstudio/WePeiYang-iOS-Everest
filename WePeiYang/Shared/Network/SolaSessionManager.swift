@@ -49,9 +49,9 @@ struct SolaSessionManager {
             tmpSign += (key + fooPara[key]!)
         }
 
-        let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1.uppercased()
+        let sign = (TwTKeychain.appKey + tmpSign + TwTKeychain.appSecret).sha1.uppercased()
         para["sign"] = sign
-        para["app_key"] = TwTKeychain.shared.appKey
+        para["app_key"] = TwTKeychain.appKey
 
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent
@@ -120,9 +120,9 @@ struct SolaSessionManager {
             tmpSign += (key + fooPara[key]!)
         }
 
-        let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1.uppercased()
+        let sign = (TwTKeychain.appKey + tmpSign + TwTKeychain.appSecret).sha1.uppercased()
         paraDict["sign"] = sign
-        paraDict["app_key"] = TwTKeychain.shared.appKey
+        paraDict["app_key"] = TwTKeychain.appKey
 
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent

@@ -20,6 +20,9 @@
 		3613DA222056F740000867AE /* UniversalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA212056F740000867AE /* UniversalExtension.swift */; };
 		3613DA232056F745000867AE /* UniversalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA212056F740000867AE /* UniversalExtension.swift */; };
 		3613DA25205702E0000867AE /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364F1FB8837D00413CF2 /* KeyChain.swift */; };
+		3615A9C521AC80FC001D1522 /* ECardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3615A9C421AC80FC001D1522 /* ECardView.swift */; };
+		3615A9C721AC825E001D1522 /* ECardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3615A9C621AC825E001D1522 /* ECardModel.swift */; };
+		3615A9CA21ACEBDC001D1522 /* CardTransectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3615A9C921ACEBDC001D1522 /* CardTransectionViewController.swift */; };
 		361F8853204AF92100BCFA19 /* HomePageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F884E204AF92100BCFA19 /* HomePageHelper.swift */; };
 		361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F884F204AF92100BCFA19 /* NewsModel.swift */; };
 		361F8855204AF92100BCFA19 /* GalleryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F8850204AF92100BCFA19 /* GalleryModel.swift */; };
@@ -266,6 +269,9 @@
 		3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMessagesExtension.swift; sourceTree = "<group>"; };
 		3613DA212056F740000867AE /* UniversalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalExtension.swift; sourceTree = "<group>"; };
 		3613DA242056F877000867AE /* WidgetBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WidgetBridgingHeader.h; sourceTree = "<group>"; };
+		3615A9C421AC80FC001D1522 /* ECardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECardView.swift; sourceTree = "<group>"; };
+		3615A9C621AC825E001D1522 /* ECardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECardModel.swift; sourceTree = "<group>"; };
+		3615A9C921ACEBDC001D1522 /* CardTransectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTransectionViewController.swift; sourceTree = "<group>"; };
 		361F884E204AF92100BCFA19 /* HomePageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageHelper.swift; sourceTree = "<group>"; };
 		361F884F204AF92100BCFA19 /* NewsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		361F8850204AF92100BCFA19 /* GalleryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryModel.swift; sourceTree = "<group>"; };
@@ -513,6 +519,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3615A9C121AC80BD001D1522 /* ECard */ = {
+			isa = PBXGroup;
+			children = (
+				3615A9C821ACEB94001D1522 /* Controller */,
+				3615A9C321AC80D8001D1522 /* Model */,
+				3615A9C221AC80CF001D1522 /* View */,
+			);
+			path = ECard;
+			sourceTree = "<group>";
+		};
+		3615A9C221AC80CF001D1522 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3615A9C321AC80D8001D1522 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3615A9C821ACEB94001D1522 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3615A9C921ACEBDC001D1522 /* CardTransectionViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		3641470820471CC500F6DFD5 /* News */ = {
 			isa = PBXGroup;
 			children = (
@@ -1014,6 +1052,7 @@
 			children = (
 				363D0A6F1FE006990095DA57 /* LibraryCardDataProvider.swift */,
 				364922A020260CDC00DFDC35 /* LibraryModel.swift */,
+				3615A9C621AC825E001D1522 /* ECardModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1022,6 +1061,7 @@
 			isa = PBXGroup;
 			children = (
 				360339E820247B9C0006A083 /* LibraryCard.swift */,
+				3615A9C421AC80FC001D1522 /* ECardView.swift */,
 				364BDF711FDAE1EF00E61B65 /* GPACard.swift */,
 				36CAD44B201B9194006F85E3 /* ClassTableCard.swift */,
 			);
@@ -1067,6 +1107,7 @@
 				3641470820471CC500F6DFD5 /* News */,
 				A53602621FC6E23C00E3D1AF /* Binding */,
 				A5197A381FDA850A008C445A /* Library */,
+				3615A9C121AC80BD001D1522 /* ECard */,
 				B181B9551EC5C21700B8198E /* Favorite */,
 				A5159FDB1FB0731B00B466F2 /* WLANLogin */,
 				365A8A131FB9BA8500B15443 /* ClassTable */,
@@ -1607,6 +1648,7 @@
 				365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */,
 				C40BDE1021A93CCE0046BFA5 /* LibraryPageTitleView.swift in Sources */,
 				C40BDE1C21A93E040046BFA5 /* BookDetailTableViewCell.swift in Sources */,
+				3615A9C521AC80FC001D1522 /* ECardView.swift in Sources */,
 				365A46482036956700738963 /* CacheFilenameKey.swift in Sources */,
 				361F885C204AF92D00BCFA19 /* BannerPageControl.swift in Sources */,
 				C40BDE1221A93CF30046BFA5 /* LibraryPageControl.swift in Sources */,
@@ -1628,6 +1670,7 @@
 				364BDF721FDAE1EF00E61B65 /* GPACard.swift in Sources */,
 				36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */,
 				361F885D204AF92D00BCFA19 /* BannerScrollView.swift in Sources */,
+				3615A9CA21ACEBDC001D1522 /* CardTransectionViewController.swift in Sources */,
 				DD0B76282158CBA6009A392C /* GPASessionManager.swift in Sources */,
 				3685D9F1204D276100BA6C3D /* NewsDetailModel.swift in Sources */,
 				A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */,
@@ -1718,6 +1761,7 @@
 				C40BDE1621A93D500046BFA5 /* BookCard.swift in Sources */,
 				DD0B762B2158CBA6009A392C /* StarView.swift in Sources */,
 				361F885F204AF92D00BCFA19 /* BannerProxy.swift in Sources */,
+				3615A9C721AC825E001D1522 /* ECardModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

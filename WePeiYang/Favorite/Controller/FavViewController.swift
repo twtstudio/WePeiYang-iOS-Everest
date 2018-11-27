@@ -164,7 +164,7 @@ class FavViewController: UIViewController {
 
     // 重新加载顺序
     @objc func reloadOrder() {
-        modules = [(.classtable, true), (.gpa, true), (.library, true)]
+        modules = [(.classtable, true), (.gpa, true), (.library, true), (.ecard, true)]
         if let dict = UserDefaults.standard.dictionary(forKey: ModuleArrangementKey) as? [String: [String: String]] {
             var array: [(Module, Bool, Int)] = []
             for item in dict {
@@ -221,6 +221,8 @@ class FavViewController: UIViewController {
                 initGPACard()
             case .library:
                 initLibraryCard()
+            case .ecard:
+                initEcard()
             }
         }
         cardTableView.reloadData()
@@ -265,6 +267,13 @@ extension FavViewController {
         card.refresh()
         card.shouldPresent(LibraryMainViewController.self, from: self)
         cardDict[Module.library] = card
+    }
+
+    func initEcard() {
+        let card = ECardView()
+        card.refresh()
+        card.shouldPresent(CardTransectionViewController.self, from: self)
+        cardDict[Module.ecard] = card
     }
 }
 

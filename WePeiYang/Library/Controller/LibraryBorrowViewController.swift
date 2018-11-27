@@ -104,8 +104,20 @@ extension LibraryBorrowViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: bookCollectionCellID, for: indexPath) as! BookCollectionCell
-        cell.bookCard.book =  LibraryDataContainer.shared.books[indexPath.item % LibraryDataContainer.shared.books.count]
+        let index = indexPath.item % LibraryDataContainer.shared.books.count
+        cell.bookCard.book = LibraryDataContainer.shared.books[index]
+        let tap = UITapGestureRecognizer(target: self, action: #selector(cellSelected(_:)))
+        cell.bookCard.addGestureRecognizer(tap)
+        cell.bookCard.tag = index
         return cell
+    }
+
+    @objc func cellSelected(_ sender: UITapGestureRecognizer) {
+        let index = sender.view?.tag ?? 0
+        let book = LibraryDataContainer.shared.books[index]
+        let vc = BookDetailViewController()
+        vc.bookID = book.id.description
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
