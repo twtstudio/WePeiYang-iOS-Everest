@@ -17,9 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var mainTabVC: WPYTabBarController!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        // 注册通知
         window = UIWindow(frame: UIScreen.main.bounds)
+
         UIApplication.shared.applicationIconBadgeNumber = 0
 
 //        TwTUser.shared.load() // load token and so on

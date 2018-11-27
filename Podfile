@@ -25,7 +25,6 @@ target 'WePeiYang' do
   pod 'IGIdenticon', '0.5.0'
   pod 'SwiftMessages', '4.1.0'
   pod 'PopupDialog', '0.7.1'
-  pod 'TapticEngine'
 end
 
   

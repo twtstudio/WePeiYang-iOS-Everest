@@ -162,7 +162,6 @@ extension LibraryListViewController {
         Alamofire.request("https://vote.twtstudio.com/getBorrowRank.php" + day, method: .post, headers: nil).responseJSON { response in
             switch response.result {
             case .success:
-                var newList = [ListBook]()
                 guard let data = response.result.value,
                 let dict = data as? [String: Any],
                 let result = dict["result"] as? [Any] else {
@@ -172,12 +171,9 @@ extension LibraryListViewController {
                 }
 
                 do {
-                    for book in result {
-                        let bookData = try JSONSerialization.data(withJSONObject: book, options: [])
-                        let listbook = try JSONDecoder().decode(ListBook.self, from: bookData)
-                        newList.append(listbook)
-                    }
-                    success(newList)
+                    let bookData = try JSONSerialization.data(withJSONObject: result, options: [])
+                    let list = try JSONDecoder().decode([ListBook].self, from: bookData)
+                    success(list)
                 } catch let err {
                     failure(err)
                 }
