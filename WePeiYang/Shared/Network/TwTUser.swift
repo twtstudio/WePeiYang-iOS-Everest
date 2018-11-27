@@ -12,9 +12,7 @@ class TwTUser: Codable {
     static let shared = TwTUser()
     private init() {}
     var token: String?
-    var username: String {
-        return TWTKeychain.username(for: .root) ?? ""
-    }
+    var username: String = ""
     var schoolID: String = ""
     var avatarURL: String?
     var twtid: String?
@@ -51,9 +49,8 @@ class TwTUser: Codable {
 
     private func copy(as user: TwTUser) {
         token = user.token
-        if username == "" && user.username != "" {
-            TWTKeychain.set(username: user.username, of: .root)
-        }
+        username = user.username
+        TWTKeychain.set(username: user.username, of: .root)
         schoolID = user.schoolID
         avatarURL = user.avatarURL
         twtid = user.twtid

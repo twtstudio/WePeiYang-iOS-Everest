@@ -122,7 +122,12 @@ class ECardView: CardView {
 
     override func refresh() {
         super.refresh()
-        setState(.loading("加载中...", .white))
+        guard TwTUser.shared.ecardBindingState == true else {
+            self.setState(.failed("请绑定校园卡", .gray))
+            return
+        }
+
+        setState(.loading("加载中...", .gray))
         guard TwTUser.shared.token != nil else {
             return
         }
@@ -131,7 +136,8 @@ class ECardView: CardView {
             self.setState(.data)
             self.load(profile)
         }, failure: { err in
-            SwiftMessages.showErrorMessage(body: err.localizedDescription)
+            self.setState(.failed(err.localizedDescription, .gray))
+//            SwiftMessages.showErrorMessage(body: err.localizedDescription)
         })
 //        CacheManager.retreive("gpa/gpa.json", from: .group, as: String.self, success: { string in
 //            if let model = Mapper<GPAModel>().map(JSONString: string) {

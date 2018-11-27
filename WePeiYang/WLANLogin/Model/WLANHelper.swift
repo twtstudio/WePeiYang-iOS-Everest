@@ -12,8 +12,8 @@ struct WLANHelper {
     static var isOnline = false
 
     static func login(username: String? = nil, password: String? = nil, success: @escaping () -> Void, failure: @escaping (String) -> Void) {
-        guard let account = username ?? TwTUser.shared.WLANAccount,
-            let password = password ?? TwTUser.shared.WLANPassword else {
+        guard let account = username ?? TWTKeychain.username(for: .network),
+            let password = password ?? TWTKeychain.password(for: .network) else {
                 failure("请绑定账号")
                 return
         }
@@ -41,8 +41,8 @@ struct WLANHelper {
     }
 
     static func logout(username: String? = nil, password: String? = nil, success: @escaping () -> Void, failure: @escaping (String) -> Void) {
-        guard let account = username ?? TwTUser.shared.WLANAccount,
-            let password = password ?? TwTUser.shared.WLANPassword else {
+        guard let account = username ?? TWTKeychain.username(for: .network),
+            let password = password ?? TWTKeychain.password(for: .network) else {
                 failure("请绑定账号")
                 return
         }

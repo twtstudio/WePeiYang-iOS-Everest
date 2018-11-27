@@ -159,8 +159,7 @@ class SettingsViewController: UIViewController {
         case 2:
             unbindURL = BindingAPIs.unbindTJUAccount
         case 3:
-            TwTUser.shared.WLANAccount = nil
-            TwTUser.shared.WLANPassword = nil
+            TWTKeychain.erase(.network)
             TwTUser.shared.WLANBindingState = false
             SwiftMessages.showSuccessMessage(body: "解绑成功")
             TwTUser.shared.save()
@@ -324,7 +323,9 @@ extension SettingsViewController: UITableViewDelegate {
                 let cancelButton = CancelButton(title: "取消", action: nil)
 
                 let defaultButton = DestructiveButton(title: "确认", dismissOnTap: true) {
-                    showLoginView()
+                    showLoginView(success: {
+                        self.tableView.reloadData()
+                    })
                 }
                 popup.addButtons([cancelButton, defaultButton])
                 self.present(popup, animated: true, completion: nil)

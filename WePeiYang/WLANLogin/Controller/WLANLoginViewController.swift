@@ -89,10 +89,12 @@ class WLANLoginViewController: UIViewController {
             make.height.equalTo(30)
         }
         accountTextField.placeholder = "请输入账号"
+        accountTextField.text = TWTKeychain.username(for: .network)
         accountTextField.keyboardType = .numberPad
         accountTextField.borderStyle = .roundedRect
 
         passwordTextField = UITextField()
+        passwordTextField.text = TWTKeychain.password(for: .network)
         self.view.addSubview(passwordTextField)
         passwordTextField.snp.makeConstraints { make in
             make.top.equalTo(accountTextField.snp.bottom).offset(10)
@@ -105,10 +107,6 @@ class WLANLoginViewController: UIViewController {
         passwordTextField.keyboardType = .default
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.isSecureTextEntry = true
-
-        // auto fill
-        accountTextField.text = TwTUser.shared.WLANAccount
-        passwordTextField.text = TwTUser.shared.WLANPassword
 
         loginButton = UIButton()
         self.view.addSubview(loginButton)
@@ -169,18 +167,18 @@ class WLANLoginViewController: UIViewController {
     }
 
     @objc func login(button: UIButton) {
-
-        if accountTextField.hasText && passwordTextField.hasText {
-
-            WLANHelper.login(username: accountTextField.text, password: passwordTextField.text, success: {
-                TwTUser.shared.WLANAccount = self.accountTextField.text
-                TwTUser.shared.WLANPassword = self.passwordTextField.text
-                TwTUser.shared.save()
-                SwiftMessages.showSuccessMessage(body: "登录成功", context: .view(self.view))
-            }, failure: { msg in
-                SwiftMessages.showErrorMessage(body: msg, context: .view(self.view))
-            })
+        guard let username = accountTextField.text,
+            let password = passwordTextField.text else {
+                SwiftMessages.showWarningMessage(body: "请填写账号或密码")
+                return
         }
+
+        WLANHelper.login(username: username, password: password, success: {
+            TwTUser.shared.save()
+            SwiftMessages.showSuccessMessage(body: "登录成功", context: .view(self.view))
+        }, failure: { msg in
+            SwiftMessages.showErrorMessage(body: msg, context: .view(self.view))
+        })
     }
 
     @objc func logout(button: UIButton) {
