@@ -1,5 +1,5 @@
 //
-//  CardTransectionViewController.swift
+//  CardTransactionViewController.swift
 //  WePeiYang
 //
 //  Created by Halcao on 2018/11/27.
@@ -9,10 +9,10 @@
 import UIKit
 import MJRefresh
 
-class CardTransectionViewController: UIViewController {
+class CardTransactionViewController: UIViewController {
     private var tableView = UITableView(frame: .zero, style: .plain)
     private var page = 1
-    var transections: [Transection] = []
+    var transactions: [Transaction] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,10 +37,10 @@ class CardTransectionViewController: UIViewController {
     }
 
     @objc private func refresh() {
-        ECardAPI.getTransection(page: 1, type: .expense, success: { transection in
+        ECardAPI.getTransaction(page: 1, type: .expense, success: { transaction in
             self.page = 1
             self.tableView.mj_header.endRefreshing()
-            self.transections = transection.transection
+            self.transactions = transaction.transaction
             self.tableView.reloadData()
         }, failure: { err in
             self.tableView.mj_header.endRefreshing()
@@ -49,10 +49,10 @@ class CardTransectionViewController: UIViewController {
     }
 
     @objc private func load() {
-        ECardAPI.getTransection(page: page + 1, type: .expense, success: { transection in
+        ECardAPI.getTransaction(page: page + 1, type: .expense, success: { transaction in
             self.tableView.mj_footer.endRefreshing()
             self.page += 1
-            self.transections = transection.transection
+            self.transactions = transaction.transaction
             self.tableView.reloadData()
         }, failure: { err in
             self.tableView.mj_footer.endRefreshing()
@@ -77,18 +77,18 @@ class CardTransectionViewController: UIViewController {
     }
 }
 
-extension CardTransectionViewController: UITableViewDelegate {
+extension CardTransactionViewController: UITableViewDelegate {
 
 }
 
-extension CardTransectionViewController: UITableViewDataSource {
+extension CardTransactionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return transections.count
+        return transactions.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TransectionCell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "TransectionCell")
-        let item = transections[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionCell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "TransactionCell")
+        let item = transactions[indexPath.row]
         cell.textLabel?.text = " POS消费: " + item.amount
         cell.detailTextLabel?.textColor = .darkGray
         cell.detailTextLabel?.text = item.location + " " + dateFormat(date: item.date, time: item.time)

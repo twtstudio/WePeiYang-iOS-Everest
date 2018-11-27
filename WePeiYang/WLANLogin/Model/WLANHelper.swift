@@ -68,9 +68,9 @@ struct WLANHelper {
         })
     }
 
-    static func getStatus(username: String? = nil, password: String? = nil, success: @escaping (Bool) -> Void, failure: @escaping (String) -> Void) {
-        guard let account = username ?? TwTUser.shared.WLANAccount,
-            let password = password ?? TwTUser.shared.WLANPassword else {
+    static func getStatus(success: @escaping (Bool) -> Void, failure: @escaping (String) -> Void) {
+        guard let account = TWTKeychain.username(for: .network),
+            let password = TWTKeychain.password(for: .network) else {
                 failure("请绑定账号")
                 return
         }

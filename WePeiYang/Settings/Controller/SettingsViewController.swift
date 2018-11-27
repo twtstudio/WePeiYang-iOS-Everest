@@ -39,7 +39,9 @@ class SettingsViewController: UIViewController {
         ("办公网", TJUBindingViewController.self, "", {
             return TwTUser.shared.tjuBindingState}),
         ("校园网", WLANBindingViewController.self, "", {
-            return TwTUser.shared.WLANBindingState})
+            return TwTUser.shared.WLANBindingState}),
+        ("校园卡", ECardBindingViewController.self, "", {
+            return TwTUser.shared.ecardBindingState})
     ]
     fileprivate let settingTitles: [(title: String, iconName: String)] = [("设置", "")]
 
@@ -163,6 +165,11 @@ class SettingsViewController: UIViewController {
             SwiftMessages.showSuccessMessage(body: "解绑成功")
             TwTUser.shared.save()
             self.tableView.reloadData()
+            return
+        case 4:
+            ECardBindingViewController.unbind()
+            self.tableView.reloadData()
+            SwiftMessages.showSuccessMessage(body: "解绑成功")
             return
         default:
             return

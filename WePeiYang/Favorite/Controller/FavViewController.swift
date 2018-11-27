@@ -272,7 +272,7 @@ extension FavViewController {
     func initEcard() {
         let card = ECardView()
         card.refresh()
-        card.shouldPresent(CardTransectionViewController.self, from: self)
+        card.shouldPresent(CardTransactionViewController.self, from: self)
         cardDict[Module.ecard] = card
     }
 }

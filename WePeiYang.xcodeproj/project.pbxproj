@@ -14,7 +14,7 @@
 		3613DA172056F1B9000867AE /* WLANHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586543620514E860069CF53 /* WLANHelper.swift */; };
 		3613DA182056F56A000867AE /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		3613DA192056F571000867AE /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E21EC84ED90064373A /* SolaSessionManager.swift */; };
-		3613DA1A2056F65C000867AE /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TwTKeychain.swift */; };
+		3613DA1A2056F65C000867AE /* TWTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TWTKeychain.swift */; };
 		3613DA1B2056F664000867AE /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EE1EC84ED90064373A /* DeviceStatus.swift */; };
 		3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */; };
 		3613DA222056F740000867AE /* UniversalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA212056F740000867AE /* UniversalExtension.swift */; };
@@ -89,6 +89,7 @@
 		364922A3202620CC00DFDC35 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364922A2202620CC00DFDC35 /* CardButton.swift */; };
 		364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */; };
 		364BDF721FDAE1EF00E61B65 /* GPACard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BDF711FDAE1EF00E61B65 /* GPACard.swift */; };
+		364EBDE621AD11D600CA88FD /* ECardBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364EBDE521AD11D600CA88FD /* ECardBindingViewController.swift */; };
 		365261561FB9F83400025B8A /* ClassTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365261551FB9F83400025B8A /* ClassTableModel.swift */; };
 		3653DD911FBAD0B600501C3B /* ClassTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3653DD901FBAD0B600501C3B /* ClassTableViewController.swift */; };
 		36575FBF2051C78B00A1A558 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36575FBE2051C78B00A1A558 /* LaunchScreen.storyboard */; };
@@ -174,7 +175,7 @@
 		A5FE5665208F624A00B94F0D /* PopularClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FE5664208F624A00B94F0D /* PopularClassModel.swift */; };
 		B10253F01EC84ED90064373A /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E01EC84ED90064373A /* AccountManager.swift */; };
 		B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E21EC84ED90064373A /* SolaSessionManager.swift */; };
-		B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TwTKeychain.swift */; };
+		B10253F31EC84ED90064373A /* TWTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TWTKeychain.swift */; };
 		B10253FD1EC84ED90064373A /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EF1EC84ED90064373A /* log.swift */; };
 		B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102540A1EC8520A0064373A /* AppDelegate.swift */; };
 		B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102540B1EC8520A0064373A /* ClassExtensions.swift */; };
@@ -336,6 +337,7 @@
 		364922A2202620CC00DFDC35 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewTransitionAnimator.swift; sourceTree = "<group>"; };
 		364BDF711FDAE1EF00E61B65 /* GPACard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPACard.swift; sourceTree = "<group>"; };
+		364EBDE521AD11D600CA88FD /* ECardBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECardBindingViewController.swift; sourceTree = "<group>"; };
 		365261551FB9F83400025B8A /* ClassTableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableModel.swift; sourceTree = "<group>"; };
 		3653DD901FBAD0B600501C3B /* ClassTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewController.swift; sourceTree = "<group>"; };
 		36575FBE2051C78B00A1A558 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -425,7 +427,7 @@
 		B10253E01EC84ED90064373A /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		B10253E11EC84ED90064373A /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		B10253E21EC84ED90064373A /* SolaSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolaSessionManager.swift; sourceTree = "<group>"; };
-		B10253E31EC84ED90064373A /* TwTKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTKeychain.swift; sourceTree = "<group>"; };
+		B10253E31EC84ED90064373A /* TWTKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWTKeychain.swift; sourceTree = "<group>"; };
 		B10253EE1EC84ED90064373A /* DeviceStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceStatus.swift; sourceTree = "<group>"; };
 		B10253EF1EC84ED90064373A /* log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = log.swift; sourceTree = "<group>"; };
 		B102540A1EC8520A0064373A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -891,6 +893,7 @@
 			children = (
 				A53602661FC6E36100E3D1AF /* LibraryBindingViewController.swift */,
 				A51C45691FD0477700652435 /* BicycleBindingViewController.swift */,
+				364EBDE521AD11D600CA88FD /* ECardBindingViewController.swift */,
 				A53602681FC6EC0500E3D1AF /* TJUBindingViewController.swift */,
 				A51C45671FD0227800652435 /* WLANBindingViewController.swift */,
 			);
@@ -970,7 +973,7 @@
 				B10253E01EC84ED90064373A /* AccountManager.swift */,
 				B10253E11EC84ED90064373A /* CacheManager.swift */,
 				B10253E21EC84ED90064373A /* SolaSessionManager.swift */,
-				B10253E31EC84ED90064373A /* TwTKeychain.swift */,
+				B10253E31EC84ED90064373A /* TWTKeychain.swift */,
 				3631D5091F1903D70078816D /* TwTUser.swift */,
 			);
 			path = Network;
@@ -1270,6 +1273,7 @@
 				365A46492036EFB700738963 /* Sources */,
 				365A464A2036EFB700738963 /* Frameworks */,
 				365A464B2036EFB700738963 /* Resources */,
+				340E36388809D9DBE4B8BBBD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1291,6 +1295,7 @@
 				B19DAB841E6EF5C2004A50B5 /* Resources */,
 				9425E5E6C1FDC2E7D9F81A80 /* [CP] Embed Pods Frameworks */,
 				365A465D2036EFB800738963 /* Embed App Extensions */,
+				E0A27293B4F57E68F680B95E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1372,7 +1377,7 @@
 								enabled = 1;
 							};
 							com.apple.Keychain = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.Push = {
 								enabled = 1;
@@ -1481,6 +1486,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		340E36388809D9DBE4B8BBBD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		36A71BCC216A74970036983A /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1507,6 +1527,7 @@
 				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
 				"${BUILT_PRODUCTS_DIR}/IGIdenticon/IGIdenticon.framework",
 				"${BUILT_PRODUCTS_DIR}/JBChartView/JBChartView.framework",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
@@ -1523,6 +1544,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicBlurView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGIdenticon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JBChartView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
@@ -1535,6 +1557,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E0A27293B4F57E68F680B95E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F8D142B23E26238DDC2405BB /* [CP] Check Pods Manifest.lock */ = {
@@ -1570,7 +1607,7 @@
 				3613DA1B2056F664000867AE /* DeviceStatus.swift in Sources */,
 				36B2C892203A806C00AD2E3F /* CacheManager.swift in Sources */,
 				36B2C895203A80D600AD2E3F /* ArrangeModel.swift in Sources */,
-				3613DA1A2056F65C000867AE /* TwTKeychain.swift in Sources */,
+				3613DA1A2056F65C000867AE /* TWTKeychain.swift in Sources */,
 				3685D9F2204D97A200BA6C3D /* DateTool.swift in Sources */,
 				363C754D215A724000D3E2B1 /* WPYCustomError.swift in Sources */,
 				3613DA192056F571000867AE /* SolaSessionManager.swift in Sources */,
@@ -1669,6 +1706,7 @@
 				3613DA222056F740000867AE /* UniversalExtension.swift in Sources */,
 				364BDF721FDAE1EF00E61B65 /* GPACard.swift in Sources */,
 				36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */,
+				364EBDE621AD11D600CA88FD /* ECardBindingViewController.swift in Sources */,
 				361F885D204AF92D00BCFA19 /* BannerScrollView.swift in Sources */,
 				3615A9CA21ACEBDC001D1522 /* CardTransectionViewController.swift in Sources */,
 				DD0B76282158CBA6009A392C /* GPASessionManager.swift in Sources */,
@@ -1700,7 +1738,7 @@
 				3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */,
 				C40BDE1E21A93E3D0046BFA5 /* BookDetailTableHeaderView.swift in Sources */,
 				C40BDE2521A93EBD0046BFA5 /* LibraryListViewController.swift in Sources */,
-				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
+				B10253F31EC84ED90064373A /* TWTKeychain.swift in Sources */,
 				365B5399216E5F4000A808EE /* ClassTableSettingViewController.swift in Sources */,
 				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
 				A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */,
@@ -1818,7 +1856,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TYRRVX7RWJ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1851,7 +1889,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TYRRVX7RWJ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

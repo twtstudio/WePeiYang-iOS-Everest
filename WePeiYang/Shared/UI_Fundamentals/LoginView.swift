@@ -145,12 +145,8 @@ class LoginView: MessageView {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
 
-        if TwTUser.shared.username != "" {
-            usernameField.text = TwTUser.shared.username
-        }
-        if TwTUser.shared.password != "" {
-            passwordField.text = TwTUser.shared.password
-        }
+        usernameField.text = TWTKeychain.username(for: .root)
+        passwordField.text = TWTKeychain.password(for: .root)
     }
 
     deinit {
@@ -173,9 +169,8 @@ extension LoginView {
 
         SwiftMessages.showLoading()
         AccountManager.getToken(username: username, password: password, success: { token in
+            TWTKeychain.set(username: username, password: password, of: .root)
             TwTUser.shared.token = token
-            TwTUser.shared.username = username
-            TwTUser.shared.password = password
             TwTUser.shared.save()
             self.extraProcedures()
             SwiftMessages.hideLoading()

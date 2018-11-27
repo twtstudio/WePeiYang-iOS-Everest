@@ -1,15 +1,14 @@
 //
-//  TJUBindingViewController.swift
+//  ECardBindingViewController.swift
 //  WePeiYang
 //
-//  Created by Tigris on 23/11/2017.
-//  Copyright © 2017 twtstudio. All rights reserved.
+//  Created by Halcao on 2018/11/27.
+//  Copyright © 2018 twtstudio. All rights reserved.
 //
 
 import UIKit
 
-class TJUBindingViewController: UIViewController {
-
+class ECardBindingViewController: UIViewController {
     var usernameTextField: UITextField!
     var passwordTextField: UITextField!
     var bindButton: UIButton!
@@ -27,9 +26,9 @@ class TJUBindingViewController: UIViewController {
 
         self.navigationController?.navigationBar.barStyle = .black
 
-        self.title = "办公网绑定"
+        self.title = "校园卡绑定"
 
-        logoImage = UIImage(named: "TJUAccoundBinding")
+        logoImage = UIImage(named: "ecardBinding")
         let imageRatio: CGFloat = logoImage.size.width / logoImage.size.height
         let imageViewWidth: CGFloat = UIScreen.main.bounds.width * 0.5
         logoImageView = UIImageView.init(image: logoImage)
@@ -38,7 +37,7 @@ class TJUBindingViewController: UIViewController {
 
         let textFieldWidth: CGFloat = 250
         usernameTextField = UITextField()
-        usernameTextField.text = TWTKeychain.username(for: .tju)
+        usernameTextField.text = TWTKeychain.username(for: .ecard) ?? TwTUser.shared.schoolID
         usernameTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*2.0/5.0), size: CGSize(width: textFieldWidth, height: 40))
         usernameTextField.placeholder = "请输入账号"
         usernameTextField.keyboardType = .numberPad
@@ -46,9 +45,9 @@ class TJUBindingViewController: UIViewController {
         usernameTextField.clearButtonMode = .always
         usernameTextField.autocapitalizationType = .none
         passwordTextField = UITextField()
-        passwordTextField.text = TWTKeychain.password(for: .tju)
+        passwordTextField.text = TWTKeychain.password(for: .ecard)
         passwordTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: usernameTextField.frame.origin.y + usernameTextField.frame.size.height + 30), size: CGSize(width: textFieldWidth, height: 40))
-        passwordTextField.placeholder = "请输入密码"
+        passwordTextField.placeholder = "请输入校园卡密码"
         passwordTextField.keyboardType = .default
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.isSecureTextEntry = true
@@ -93,70 +92,27 @@ class TJUBindingViewController: UIViewController {
                 return
         }
 
-        TWTKeychain.set(username: username, password: password, of: .tju)
+        TWTKeychain.set(username: username, password: password, of: .ecard)
 
-        SolaSessionManager.solaSession(type: .get, url: "/auth/bind/tju", parameters: ["tjuuname": username, "tjupasswd": password], success: { dictionary in
-            guard let errorCode: Int = dictionary["error_code"] as? Int,
-                let errMsg = dictionary["message"] as? String else {
-                    SwiftMessages.showErrorMessage(body: "绑定错误")
-                    return
-            }
-
-            if errorCode == -1 {
-                TwTUser.shared.tjuBindingState = true
-                TwTUser.shared.save()
-                NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("tju", true))
-                SwiftMessages.showSuccessMessage(body: "绑定成功！")
-                self.dismiss(animated: true, completion: {
-                    self.completion?(true)
-                })
-            } else {
-                TWTKeychain.erase(.tju)
-                SwiftMessages.showErrorMessage(body: errMsg)
-            }
-        }, failure: { error in
-            if error.localizedDescription == "您已绑定" {
-                TwTUser.shared.tjuBindingState = true
-                TwTUser.shared.save()
-                self.dismiss(animated: true, completion: {
-                    self.completion?(true)
-                })
-            }
-            SwiftMessages.showErrorMessage(body: error.localizedDescription)
+        ECardAPI.getProfile(success: { _ in
+            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("ecard", true))
+            TwTUser.shared.ecardBindingState = true
+            TwTUser.shared.save()
+            SwiftMessages.showSuccessMessage(body: "绑定成功！")
+            self.dismiss(animated: true, completion: {
+                self.completion?(true)
+            })
+        }, failure: { err in
+            SwiftMessages.showErrorMessage(body: err.localizedDescription)
+            TWTKeychain.erase(.ecard)
+            TwTUser.shared.ecardBindingState = false
         })
     }
 
-    func cancelLogin() {
-
-        // unbind tju account
-        var loginInfo: [String: String] = [String: String]()
-        loginInfo["tjuuname"] = usernameTextField.text
-        loginInfo["tjupasswd"] = passwordTextField.text
-
-        SolaSessionManager.solaSession(type: .get, url: "/auth/unbind/tju", token: TwTUser.shared.token, parameters: loginInfo, success: { dictionary in
-
-            guard let errorCode: Int = dictionary["error_code"] as? Int else {
-                SwiftMessages.showErrorMessage(body: "解绑错误")
-                return
-            }
-
-            if errorCode == -1 {
-                TwTUser.shared.tjuBindingState = false
-                TwTUser.shared.save()
-                self.dismiss(animated: true, completion: {
-                    self.completion?(true)
-                })
-            } else {
-                let message = dictionary["message"] as? String
-                SwiftMessages.showErrorMessage(body: message ?? "解析错误")
-            }
-        }, failure: { error in
-            SwiftMessages.showErrorMessage(body: error.localizedDescription)
-            self.dismiss(animated: true, completion: {
-                self.completion?(false)
-            })
-
-        })
+    static func unbind() {
+        TWTKeychain.erase(.ecard)
+        TwTUser.shared.ecardBindingState = false
+        TwTUser.shared.save()
     }
 
     @objc func dismissBinding() {

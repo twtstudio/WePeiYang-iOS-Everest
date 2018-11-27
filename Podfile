@@ -6,6 +6,7 @@ def shared_pods
   pod 'ObjectMapper', '3.3.0'
   pod 'Alamofire', '4.7.3'
   pod 'SwiftLint'
+  pod 'KeychainAccess'
 end
 
 #'3.2.0'
