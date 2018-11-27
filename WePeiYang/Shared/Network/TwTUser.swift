@@ -12,8 +12,8 @@ class TwTUser: Codable {
     static let shared = TwTUser()
     private init() {}
     var token: String?
-    var username: String = ""
-    var schoolID: String = ""
+    var username: String?
+    var schoolID: String?
     var avatarURL: String?
     var twtid: String?
     var realname: String?
@@ -24,6 +24,25 @@ class TwTUser: Codable {
     var bicycleBindingState: Bool = false
     var WLANBindingState: Bool = false
 
+    required init(from decoder: Decoder) {
+        do {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            token = try container.decodeIfPresent(String.self, forKey: .token)
+            username = try container.decodeIfPresent(String.self, forKey: .username)
+            schoolID = try container.decodeIfPresent(String.self, forKey: .schoolID)
+            avatarURL = try container.decodeIfPresent(String.self, forKey: .avatarURL)
+            twtid = try container.decodeIfPresent(String.self, forKey: .twtid)
+            realname = try container.decodeIfPresent(String.self, forKey: .realname)
+
+            tjuBindingState = try container.decodeIfPresent(Bool.self, forKey: .tjuBindingState) ?? false
+            ecardBindingState = try container.decodeIfPresent(Bool.self, forKey: .ecardBindingState) ?? false
+            libBindingState = try container.decodeIfPresent(Bool.self, forKey: .libBindingState) ?? false
+            bicycleBindingState = try container.decodeIfPresent(Bool.self, forKey: .bicycleBindingState) ?? false
+            WLANBindingState = try container.decodeIfPresent(Bool.self, forKey: .WLANBindingState) ?? false
+        } catch let err {
+            log(err)
+        }
+    }
     func save() {
         let queue = DispatchQueue(label: "com.wpy.cache")
         queue.async {

@@ -128,9 +128,6 @@ class PartyMainViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
 //        UIApplication.shared.setStatusBarStyle(.default, animated: true)
         navigationController?.navigationBar.barStyle = .default
-        guard Applicant.sharedInstance.realName != nil else {
-            return
-        }
     }
 
     /*

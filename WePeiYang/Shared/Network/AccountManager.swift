@@ -93,8 +93,7 @@ struct AccountManager {
             if let errorno = dict["error_code"] as? Int,
                 let message = dict["message"] as? String,
             message == "token expired" || errorno == 10003 || errorno == 10000 {
-                let username = TwTUser.shared.username
-                guard username != "",
+                guard let username = TwTUser.shared.username,
                     let password = TWTKeychain.password(for: .root) else {
                     SwiftMessages.showWarningMessage(body: "登录过期，请重新登录")
                     showLoginView()

@@ -24,6 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 //        TwTUser.shared.load() // load token and so on
         TwTUser.shared.load(success: {
+            
+            // 迁移旧缓存
+            CacheManager.migrate()
+
             NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
 
             BicycleUser.sharedInstance.auth(success: {
@@ -101,15 +105,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func showNewFeature() {
         let NewFeatureVersionKey = "NewFeatureVersionKey"
         // plus one next version
-        let currentVersion = 1
+        let currentVersion = 2
+
         let version = UserDefaults.standard.integer(forKey: NewFeatureVersionKey)
         if currentVersion > version {
-            let popup = PopupDialog(title: "新功能提醒", message: "微北洋支持课程提醒啦！快去看看吧~", buttonAlignment: .vertical)
+            let popup = PopupDialog(title: "新功能提醒", message: "微北洋支持校园卡查询啦！\n如果使用中发现有问题，请加入「设置」中的QQ群反馈问题，我们会积极解决的!", buttonAlignment: .vertical)
 //            let cancelButton = CancelButton(title: "取消", action: nil)
             let goButton = DefaultButton(title: "好哒！", action: {
                 UserDefaults.standard.set(currentVersion, forKey: NewFeatureVersionKey)
-                let alertVC = ClassTableSettingViewController()
-                self.window?.rootViewController?.present(UINavigationController(rootViewController: alertVC), animated: true, completion: nil)
             })
             popup.addButton(goButton)
             window?.rootViewController?.present(popup, animated: true, completion: nil)
