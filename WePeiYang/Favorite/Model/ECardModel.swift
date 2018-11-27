@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum TransactionType: Int {
+    case topup = 1
+    case expense = 2
+}
+
 struct EcardProfile: Codable {
     let cardnum, cardstatus, balance, expiry: String
     let subsidy: String
@@ -18,15 +23,19 @@ struct EcardTransaction: Codable {
 }
 
 struct Transaction: Codable {
+    enum CodingKeys: String, CodingKey {
+        case date
+        case location
+        case amount
+        case balance
+        case time
+    }
     let date, time, location, amount: String
     let balance: String
+    var type = 2
 }
 
 struct ECardAPI {
-    enum TransactionType: Int {
-        case topup = 1
-        case expense = 2
-    }
 
     static func getProfile(success: @escaping (EcardProfile) -> Void, failure: @escaping (Error) -> Void) {
         guard let username = TWTKeychain.username(for: .ecard),
@@ -45,25 +54,76 @@ struct ECardAPI {
         }, failure: failure)
     }
 
-    static func getTransaction(page: Int = 1, type: TransactionType, success: @escaping (EcardTransaction) -> Void, failure: @escaping (Error) -> Void) {
+    static func getTransaction(page: Int = 1, callback: @escaping ([Transaction], Error?) -> Void) {
+        var error: Error?
         guard let username = TWTKeychain.username(for: .ecard),
             let password = TWTKeychain.password(for: .ecard) else {
-                failure(WPYCustomError.custom("请先绑定校园卡"))
+                error = WPYCustomError.custom("请先绑定校园卡")
+                callback([], error)
                 return
         }
         let day = page * 7
 
-        SolaSessionManager.solaSession(type: .get, url: "/ecard/transaction", parameters: ["password": password, "cardnum": username, "day": "\(day)", "type": "\(type.rawValue)"], success: { dict in
+        var result: [Transaction] = []
+        let group = DispatchGroup()
+        group.enter()
+        SolaSessionManager.solaSession(type: .get, url: "/ecard/transaction", parameters: ["password": password, "cardnum": username, "day": "\(day)", "type": "\(TransactionType.topup.rawValue)"], success: { dict in
+            defer {
+                group.leave()
+            }
             if let errmsg = (dict["data"] as? [String: String])?["info"] {
-                failure(WPYCustomError.custom(errmsg))
+                error = WPYCustomError.custom(errmsg)
                 return
             }
             if let data = try? JSONSerialization.data(withJSONObject: dict["data"] as Any, options: .init(rawValue: 0)),
-                let response = try? EcardTransaction(data: data) {
-                success(response)
+                let topup = try? EcardTransaction(data: data) {
+                let list = topup.transaction.map { item -> Transaction in
+                    var item = item
+                    item.type = TransactionType.topup.rawValue
+                    return item
+                }
+                result.append(contentsOf: list)
             } else {
-                failure(WPYCustomError.custom("流水解析失败"))
+                error = WPYCustomError.custom("流水解析失败")
             }
-        }, failure: failure)
+        }, failure: { err in
+            group.leave()
+            error = err
+        })
+
+        group.enter()
+        SolaSessionManager.solaSession(type: .get, url: "/ecard/transaction", parameters: ["password": password, "cardnum": username, "day": "\(day)", "type": "\(TransactionType.expense.rawValue)"], success: { dict in
+            defer {
+                group.leave()
+            }
+            if let errmsg = (dict["data"] as? [String: String])?["info"] {
+                error = WPYCustomError.custom(errmsg)
+                return
+            }
+            if let data = try? JSONSerialization.data(withJSONObject: dict["data"] as Any, options: .init(rawValue: 0)),
+                let expense = try? EcardTransaction(data: data) {
+                let list = expense.transaction.map { item -> Transaction in
+                    var item = item
+                    item.type = TransactionType.expense.rawValue
+                    return item
+                }
+                result.append(contentsOf: list)
+            } else {
+                error = WPYCustomError.custom("流水解析失败")
+            }
+        }, failure: { err in
+            error = err
+            group.leave()
+        })
+
+        group.notify(queue: .main, execute: {
+            result.sort(by: { a, b in
+                let aval = a.date + a.time
+                let bval = b.date + b.time
+                return aval > bval
+            })
+
+            callback(result, error)
+        })
     }
 }

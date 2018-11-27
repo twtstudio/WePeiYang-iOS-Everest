@@ -163,22 +163,24 @@ extension LibraryListViewController {
             switch response.result {
             case .success:
                 var newList = [ListBook]()
-                if let data = response.result.value {
-                    if let dict = data as? [String: Any] {
-                        if let result = dict["result"] as? [Any] {
-                            for book in result {
-                                let bookData = try? JSONSerialization.data(withJSONObject: book, options: [])
-                                if let listbook = try? JSONDecoder().decode(ListBook.self, from: bookData!) {
-                                    newList.append(listbook)
-                                }
-                            }
-                            success(newList)
-                            return
-                        }
-                    }
+                guard let data = response.result.value,
+                let dict = data as? [String: Any],
+                let result = dict["result"] as? [Any] else {
+                    let error = response.error ?? WPYCustomError.errorCode(-2, "数据解析错误")
+                    failure(error)
+                    return
                 }
-                let error = response.error ?? WPYCustomError.errorCode(-2, "数据解析错误")
-                failure(error)
+
+                do {
+                    for book in result {
+                        let bookData = try JSONSerialization.data(withJSONObject: book, options: [])
+                        let listbook = try JSONDecoder().decode(ListBook.self, from: bookData)
+                        newList.append(listbook)
+                    }
+                    success(newList)
+                } catch let err {
+                    failure(err)
+                }
             case .failure(let error):
                 failure(error)
             }
@@ -187,7 +189,8 @@ extension LibraryListViewController {
     
     @objc func refreshList(sender: UIButton) {
         sender.backgroundColor = chooseColor
-        buttons.filter { return $0 != sender }.map { $0.backgroundColor = defaultColor }
+        buttons.filter { $0 != sender }.forEach { $0.backgroundColor = defaultColor }
+
         var day = ""
         switch sender {
         case buttons[0]:

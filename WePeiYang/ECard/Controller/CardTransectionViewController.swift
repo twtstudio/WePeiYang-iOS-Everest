@@ -33,30 +33,36 @@ class CardTransactionViewController: UIViewController {
         let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(load))
         self.tableView.mj_header = header
         self.tableView.mj_footer = footer
-        refresh()
+        self.tableView.mj_header.beginRefreshing()
     }
 
     @objc private func refresh() {
-        ECardAPI.getTransaction(page: 1, type: .expense, success: { transaction in
-            self.page = 1
+        ECardAPI.getTransaction(callback: { list, err in
             self.tableView.mj_header.endRefreshing()
-            self.transactions = transaction.transaction
-            self.tableView.reloadData()
-        }, failure: { err in
-            self.tableView.mj_header.endRefreshing()
-            SwiftMessages.showErrorMessage(body: err.localizedDescription)
+            if !list.isEmpty {
+                self.page = 1
+                self.transactions = list
+                self.tableView.reloadData()
+                return
+            }
+            if let err = err {
+                SwiftMessages.showErrorMessage(body: err.localizedDescription)
+            }
         })
     }
 
     @objc private func load() {
-        ECardAPI.getTransaction(page: page + 1, type: .expense, success: { transaction in
+        ECardAPI.getTransaction(page: page+1, callback: { list, err in
             self.tableView.mj_footer.endRefreshing()
-            self.page += 1
-            self.transactions = transaction.transaction
-            self.tableView.reloadData()
-        }, failure: { err in
-            self.tableView.mj_footer.endRefreshing()
-            SwiftMessages.showErrorMessage(body: err.localizedDescription)
+            if !list.isEmpty {
+                self.page += 1
+                self.transactions = list
+                self.tableView.reloadData()
+                return
+            }
+            if let err = err {
+                SwiftMessages.showErrorMessage(body: err.localizedDescription)
+            }
         })
     }
 
@@ -88,8 +94,40 @@ extension CardTransactionViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionCell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "TransactionCell")
+        cell.selectionStyle = .none
         let item = transactions[indexPath.row]
-        cell.textLabel?.text = " POS消费: " + item.amount
+
+        var image = UIImage(named: "小箭头")!
+        var color: UIColor
+        if item.type == TransactionType.topup.rawValue {
+            color = UIColor(hex6: 0xff5691)
+            cell.imageView?.transform = .identity
+            cell.textLabel?.text = " 充值: +" + item.amount
+        } else {
+            color = UIColor(hex6: 0x568fff)
+            cell.imageView?.transform = CGAffineTransform(scaleX: 1, y: -1)
+            cell.textLabel?.text = " POS机消费: -" + item.amount
+        }
+
+        let imageSize = CGSize(width: 15, height: 15)
+        image = UIImage.resizedImage(image: image, scaledToSize: imageSize).with(color: color)
+        UIGraphicsBeginImageContext(imageSize)
+        let imageRect = CGRect(origin: .zero, size: imageSize)
+        image.draw(in: imageRect)
+        cell.imageView?.contentMode = .scaleAspectFit
+        cell.imageView?.image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        cell.imageView?.snp.makeConstraints { make in
+            make.top.equalTo(cell.textLabel?.snp.bottom ?? UILabel()).offset(4)
+            make.left.equalTo(cell.textLabel ?? UILabel())
+        }
+
+        cell.detailTextLabel?.snp.makeConstraints { make in
+            make.centerY.equalTo(cell.imageView ?? UIView())
+            make.left.equalTo(cell.imageView?.snp.right ?? UIView()).offset(2)
+        }
+
         cell.detailTextLabel?.textColor = .darkGray
         cell.detailTextLabel?.text = item.location + " " + dateFormat(date: item.date, time: item.time)
         return cell

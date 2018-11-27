@@ -60,7 +60,7 @@ class ModulesSettingsViewController: UIViewController {
         self.title = "模块管理"
 //        tableView.allowsSelection = false
 
-        modules = [(.classtable, true), (.gpa, true), (.library, true)]
+        modules = [(.classtable, true), (.gpa, true), (.library, true), (.ecard, true)]
         if let dict = UserDefaults.standard.dictionary(forKey: ModuleArrangementKey) as? [String: [String: String]] {
             var array: [(Module, Bool, Int)] = []
             for item in dict {
