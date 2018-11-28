@@ -331,30 +331,13 @@ extension AuditHomeViewController: UITableViewDelegate {
             let popupVC = PopupDialog(title: "确定要取消蹭课吗？亲～", message: "取消蹭课：" + item.courseName, buttonAlignment: .horizontal, transitionStyle: .zoomIn)
             let cancelButton = CancelButton(title: "我再想想", action: nil)
             let deleteButton = DestructiveButton(title: "不想蹭了") {
-//                ClasstableDataManager.deleteAuditCourse(schoolID: TwTUser.shared.schoolID, infoIDs: [item.courseID], success: {
-//                    SwiftMessages.showSuccessMessage(body: "删除成功")
-//
-//                    ClasstableDataManager.getPersonalAuditList(success: { model in
-//                        var items: [AuditDetailCourseItem] = []
-//                        model.data.forEach { list in
-//                            items += list.infos
-//                        }
-//                        AuditUser.shared.update(auditCourses: items)
-//                        self.personalCourseList = items
-//                        self.tableView.reloadData()
-//                    }, failure: { errStr in
-//
-//                    })
-//                }, failure: { errStr in
-//
-//                })
-                
                 AuditUser.shared.deleteCourse(infoIDs: [item.courseID], success: { items in
                     SwiftMessages.showSuccessMessage(body: "删除成功")
                     
                     self.personalCourseList = items
                     self.tableView.reloadData()
-                }, failure: { errStr in
+                    NotificationCenter.default.post(name: NotificationName.NotificationClassTableWillRefresh.name, object: nil)
+                }, failure: { _ in
                     
                 })
             }
@@ -372,7 +355,7 @@ extension AuditHomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             if self.isFold == true {
-                return self.popularList.count == 0 ? 0 : 3 + 1
+                return self.popularList.isEmpty ? 0 : 3 + 1
             } else {
                 return self.popularList.count
             }
@@ -385,8 +368,9 @@ extension AuditHomeViewController: UITableViewDataSource {
         if indexPath.section == 0 {
             if isFold == true {
                 if indexPath.row < 3 {
-                    let cell = UITableViewCell(style: .default, reuseIdentifier: "CELL_default")
+                    let cell = UITableViewCell(style: .default, reuseIdentifier: PopularCourseCellIdentifier)
                     cell.textLabel?.text = self.popularList[indexPath.row].course.name
+                    cell.imageView?.image = AuditCourseIcon
                     return cell
                 } else {
                     let cell = UITableViewCell(style: .default, reuseIdentifier: "CELL_default")
@@ -395,23 +379,14 @@ extension AuditHomeViewController: UITableViewDataSource {
                     return cell
                 }
             } else {
-                let cell = UITableViewCell(style: .default, reuseIdentifier: "CELL_default")
+                let cell = UITableViewCell(style: .default, reuseIdentifier: PopularCourseCellIdentifier)
                 cell.textLabel?.text = self.popularList[indexPath.row].course.name
-                cell.imageView?.image = UIImage.resizedImage(image: UIImage(named: "readerAvatar0")!, scaledToSize: CGSize(width: 12, height: 12))
+                cell.imageView?.image = AuditCourseIcon
                 return cell
             }
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AuditDetailCourseTableViewCell") as! AuditDetailCourseTableViewCell
-            
             let item = self.personalCourseList[indexPath.row]
-            
-//            if let conflictCourse = AuditUser.shared.checkConflict(item: item) {
-//                cell.flagLabel.text = "冲突课程：" + conflictCourse
-//                cell.isConflict = true
-//            } else {
-//                cell.flagLabel.text = "没有冲突"
-//                cell.isConflict = false
-//            }
             cell.flagLabel.isHidden = true
             
             cell.nameLabel.text = item.courseName
