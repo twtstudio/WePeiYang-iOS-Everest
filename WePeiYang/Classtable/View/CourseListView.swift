@@ -260,7 +260,7 @@ extension CourseListView: UITableViewDataSource {
         // 构造 cell
         var model = coursesForDay[tableView.tag][indexPath.row]
         let cell = CourseCell(style: .default, reuseIdentifier: "reuse[\(tableView.tag)]\(indexPath)")
-        if model.courseID.count > 0, model.courseID.hasPrefix("-") {
+        if !model.courseID.isEmpty, model.courseID.hasPrefix("-") {
             model.colorIndex = 8
         }
         cell.load(course: model)

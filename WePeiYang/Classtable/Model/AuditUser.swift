@@ -12,23 +12,23 @@ class AuditUser {
     static var shared = AuditUser()
     private init() {}
     
-    private var idDict: [Int : [Int]] = [:]
-    private var originTable: ClassTableModel?
+    var mergedTable: ClassTableModel?
     var weekCourseDict: [Int: [[ClassModel]]] = [:]
     
     func deleteCourse(infoIDs: [Int], success: @escaping ([AuditDetailCourseItem]) -> Void, failure: @escaping (String) -> Void) {
         ClasstableDataManager.deleteAuditCourse(schoolID: self.schoolID, infoIDs: infoIDs, success: {
             ClasstableDataManager.getPersonalAuditList(success: { model in
-//                infoIDs.forEach {
-//                    self.idDict[$0] = nil
-//                }
-                
                 var items: [AuditDetailCourseItem] = []
                 model.data.forEach { list in
                     items += list.infos
                 }
-                AuditUser.shared.update(auditCourses: items)
-                success(items)
+                
+                ClasstableDataManager.getClassTable(success: { table in
+                    AuditUser.shared.updateCourses(originTable: table, auditCourses: items, isStore: true)
+                    success(items)
+                }, failure: { errStr in
+                    failure(errStr)
+                })
             }, failure: { errStr in
                 failure(errStr)
             })
@@ -39,51 +39,47 @@ class AuditUser {
     
     func auditCourse(item: AuditDetailCourseItem, success: @escaping ([AuditDetailCourseItem]) -> Void, failure: @escaping (String) -> Void) {
         let courseID = item.courseID
-        if let infoIDs = self.idDict[courseID] {
-            if !infoIDs.contains(item.id) {
-                self.idDict[courseID]!.append(item.id)
-            }
-        } else {
-            self.idDict[courseID] = [item.id]
-        }
-        
-        ClasstableDataManager.auditCourse(schoolID: self.schoolID, courseID: courseID, infoIDs: self.idDict[courseID]!, success: {
-            ClasstableDataManager.getPersonalAuditList(success: { model in
-                var items: [AuditDetailCourseItem] = []
-                model.data.forEach { list in
-                    items += list.infos
+        ClasstableDataManager.getPersonalAuditList(success: { model in
+            var infoIDs: [Int] = []
+            model.data.forEach { list in
+                list.infos.forEach { info in
+                    if courseID == info.courseID {
+                        infoIDs.append(info.id)
+                    }
                 }
-                AuditUser.shared.update(auditCourses: items)
-                success(items)
+            }
+            if !infoIDs.contains(item.id) {
+                infoIDs.append(item.id)
+            }
+            
+            ClasstableDataManager.auditCourse(schoolID: self.schoolID, courseID: courseID, infoIDs: infoIDs, success: {
+                ClasstableDataManager.getPersonalAuditList(success: { model in
+                    var items: [AuditDetailCourseItem] = []
+                    model.data.forEach { list in
+                        items += list.infos
+                    }
+                    
+                    ClasstableDataManager.getClassTable(success: { table in
+                        AuditUser.shared.updateCourses(originTable: table, auditCourses: items, isStore: true)
+                        success(items)
+                    }, failure: { errStr in
+                        failure(errStr)
+                    })
+                    
+                }, failure: { errStr in
+                    failure(errStr)
+                })
             }, failure: { errStr in
-                failure(errStr)
+                 failure(errStr)
             })
         }, failure: { errStr in
             failure(errStr)
         })
     }
     
-    
-    // 更新课程表
-    func update(originTable table: ClassTableModel? = nil, auditCourses: [AuditDetailCourseItem] = []) {
-        self.originTable = table ?? self.originTable
-        
-        self.idDict = [:]
-        auditCourses.forEach { item in
-            let courseID = item.courseID
-            if let infoIDs = self.idDict[courseID] {
-                if !infoIDs.contains(item.id) {
-                    self.idDict[courseID]!.append(item.id)
-                }
-            } else {
-                self.idDict[courseID] = [item.id]
-            }
-        }
-        
-        guard var table = self.originTable else {
-            return
-        }
-        
+    // MARK: - 更新课程表
+    func updateCourses(originTable table: ClassTableModel, auditCourses: [AuditDetailCourseItem] = [], isStore: Bool) {
+        var table = table
         auditCourses.forEach { item in
             var auditCourse = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(item.weekDay)\", \"start\":\"\(item.startTime)\", \"end\":\"\(item.startTime + item.courseLength - 1)\"}], \"isPlaceholder\": \"\(false)\"}")!
             if item.weekType == 1 {
@@ -104,6 +100,20 @@ class AuditUser {
             
             table.classes.append(auditCourse)
         }
+        self.mergedTable = table
+        
+        if UserDefaults.standard.bool(forKey: ClassTableNotificationEnabled) {
+            ClassTableNotificationHelper.addNotification(table: table)
+        }
+        
+        if isStore == true {
+            let string = table.toJSONString() ?? ""
+            CacheManager.store(object: string, in: .group, as: "classtable/classtable.json")
+            
+            let termStart = Date(timeIntervalSince1970: Double(table.termStart))
+            CacheManager.saveGroupCache(with: termStart, key: "TermStart")
+        }
+        
         self.weekCourseDict = [:]
         for i in 1...22 {
             self.weekCourseDict[i] = self.getCourse(table: table, week: i)
@@ -145,10 +155,8 @@ class AuditUser {
         return nil
     }
     
-    var collegeDic: [Int : String] = [:]
-    var schoolID: String {
-        return TwTUser.shared.schoolID
-    }
+    var collegeDic: [Int: String] = [:]
+    var schoolID: String { return TwTUser.shared.schoolID }
     
     func getCollegeName(ID: Int) -> String {
         if let name = self.collegeDic[ID] {
@@ -164,7 +172,7 @@ class AuditUser {
                 self.collegeDic[item.collegeID] = item.collegeName
             }
         }, failure: { errStr in
-            
+            log(errStr)
         })
     }
     
