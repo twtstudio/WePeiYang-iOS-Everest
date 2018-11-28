@@ -22,7 +22,6 @@ private let timeArray = [(start: "8:30", end: "9:15"),
                  (start: "21:00", end: "21:45")]
 
 struct ArrangeModel: Mappable {
-
     var week = ""
     var day = 0
     var start = 0
