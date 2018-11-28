@@ -41,7 +41,6 @@ struct ClassModel: Mappable {
             return nil
         })
         
-        
         classID <- map["classid"]
         courseID <- map["courseid"]
         courseName <- map["coursename"]

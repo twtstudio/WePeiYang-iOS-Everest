@@ -70,7 +70,7 @@ class AuditSearchViewController: UIViewController {
 
 extension AuditSearchViewController {
     func search(with keyword: String) {
-        guard keyword.count != 0 else {
+        guard !keyword.isEmpty else {
             return
         }
         
@@ -82,7 +82,7 @@ extension AuditSearchViewController {
                 }
                 self.tableView.reloadData()
             }, failure: { errStr in
-                
+                log(errStr)
             })
         case .course:
             ClasstableDataManager.searchCourse(courseName: keyword, success: { model in
@@ -92,7 +92,7 @@ extension AuditSearchViewController {
                 }
                 self.tableView.reloadData()
             }, failure: { errStr in
-                
+                log(errStr)
             })
         }
     }

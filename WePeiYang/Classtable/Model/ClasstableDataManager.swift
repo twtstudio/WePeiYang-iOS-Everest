@@ -66,7 +66,7 @@ struct ClasstableDataManager {
     }
     
     static func getAuditDetailCourse(courseID: String, success: @escaping (AuditDetailCourseModel) -> Void, failure: @escaping (String) -> Void) {
-        SolaSessionManager.solaSession(type: .get, url: "/auditClass/course", parameters: ["course_id" : courseID], success: { dic in
+        SolaSessionManager.solaSession(type: .get, url: "/auditClass/course", parameters: ["course_id": courseID], success: { dic in
             if let error_code = dic["error_code"] as? Int,
                 error_code != -1,
                 let message = dic["message"] as? String {
@@ -104,7 +104,7 @@ struct ClasstableDataManager {
     }
     
     static func searchCourse(courseName: String? = nil, collegeID: String? = nil, success: @escaping (AuditSearchModel) -> Void, failure: @escaping (String) -> Void) {
-        var para: [String : String] = [:]
+        var para: [String: String] = [:]
         if let courseName = courseName {
             para["name"] = courseName
         }
@@ -130,12 +130,12 @@ struct ClasstableDataManager {
         })
     }
     
-    static func auditCourse(schoolID: String, courseID: Int, infoIDs: [Int],success: @escaping () -> Void, failure: @escaping (String) -> Void) {
-        var dic: [String : String] = [:]
+    static func auditCourse(schoolID: String, courseID: Int, infoIDs: [Int], success: @escaping () -> Void, failure: @escaping (String) -> Void) {
+        var dic: [String: String] = [:]
         dic["user_number"] = schoolID
         dic["course_id"] = String(courseID)
         
-        guard infoIDs.count != 0 else {
+        guard !infoIDs.isEmpty else {
             failure("参数错误")
             return
         }
@@ -145,7 +145,7 @@ struct ClasstableDataManager {
             dic["info_ids"] = dic["info_ids"]! + "," + String(id)
         }
         
-        SolaSessionManager.upload(dictionay: dic, url: "/auditClass/audit", progressBlock: nil, success: { dic in
+        SolaSessionManager.upload(dictionay: dic, url: "/auditClass/audit", progressBlock: nil, success: { _ in
             success()
         }, failure: { err in
             failure(err.localizedDescription)
@@ -153,11 +153,11 @@ struct ClasstableDataManager {
     }
     
     static func deleteAuditCourse(schoolID: String, infoIDs: [Int], success: @escaping () -> Void, failure: @escaping (String) -> Void) {
-        guard infoIDs.count != 0 else {
+        guard !infoIDs.isEmpty else {
             failure("参数错误")
             return
         }
-        var dic: [String : String] = [:]
+        var dic: [String: String] = [:]
         var infoIDs = infoIDs
         dic["ids"] = String(infoIDs.remove(at: 0))
         infoIDs.forEach { id in
@@ -165,7 +165,7 @@ struct ClasstableDataManager {
         }
         dic["user_number"] = schoolID
         
-        SolaSessionManager.upload(dictionay: dic, url: "/auditClass/audit", method: .delete, progressBlock: nil, success: { dic in
+        SolaSessionManager.upload(dictionay: dic, url: "/auditClass/audit", method: .delete, progressBlock: nil, success: { _ in
             success()
         }, failure: { err in
             failure(err.localizedDescription)
@@ -174,7 +174,7 @@ struct ClasstableDataManager {
     }
     
     static func getPersonalAuditList(success: @escaping (AuditPersonalCourseModel) -> Void, failure: @escaping (String) -> Void) {
-        SolaSessionManager.solaSession(type: .get, url: "/auditClass/audit", parameters: ["user_number" : TwTUser.shared.schoolID], success: { dic in
+        SolaSessionManager.solaSession(type: .get, url: "/auditClass/audit", parameters: ["user_number": TwTUser.shared.schoolID], success: { dic in
             if let error_code = dic["error_code"] as? Int,
                 error_code != -1,
                 let message = dic["message"] as? String {
