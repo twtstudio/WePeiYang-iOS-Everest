@@ -62,7 +62,7 @@ class BookDetailViewController: UIViewController {
         self.navigationItem.backBarButtonItem?.action = #selector(close)
         self.navigationController?.navigationBar.tintColor = .white
         
-        let image = UIImage(named: "ic_back")!
+        let image = UIImage(named: "ic_back")
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
     }
     
@@ -129,9 +129,9 @@ extension BookDetailViewController {
     private func getBookDetail(success: @escaping (DetailBook) -> Void, failure: @escaping (Error) -> Void) {
         SolaSessionManager.solaSession(url: "/library/book/" + "\(bookID)", success: { dict in
             if let data = dict["data"] as? [String: Any] {
-                let json = try? JSONSerialization.data(withJSONObject: data, options: [])
                 do {
-                    let detailBook = try JSONDecoder().decode(DetailBook.self, from: json!)
+                    let json = try JSONSerialization.data(withJSONObject: data, options: [])
+                    let detailBook = try JSONDecoder().decode(DetailBook.self, from: json)
                     success(detailBook)
                 } catch {
                     failure(error)
