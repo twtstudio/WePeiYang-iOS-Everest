@@ -36,7 +36,7 @@ class AuditCollegeCourseViewController: UIViewController {
             self.courseList = model.data.map { ($0.id, $0.name) }
             self.tableView.reloadData()
         }, failure: { errStr in
-            
+            log(errStr)
         })
     }
     

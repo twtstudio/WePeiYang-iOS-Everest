@@ -41,7 +41,7 @@ class AuditDetailViewController: UIViewController {
             }
             self.tableView.reloadData()
         }, failure: { errStr in
-            
+            log(errStr)
         })
         
     }
@@ -67,14 +67,7 @@ extension AuditDetailViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-//        ClasstableDataManager.getPersonalAuditList(success: {
-//            
-//        }, failure: { errStr in
-//            
-//        })
-        
-        
+
         let cell = tableView.cellForRow(at: indexPath) as! AuditDetailCourseTableViewCell
         if cell.isConflict == true {
             //let courseName = self.detailCourseList[indexPath.row].courseName
@@ -95,36 +88,19 @@ extension AuditDetailViewController: UITableViewDelegate {
             let cancelButton = CancelButton(title: "取消", action: nil)
             let auditButton = DefaultButton(title: "蹭课") {
                 let item = self.detailCourseList[indexPath.row]
-//                ClasstableDataManager.auditCourse(schoolID: TwTUser.shared.schoolID, courseID: item.courseID, infoIDs: [item.id], success: {
-//                    SwiftMessages.showSuccessMessage(body: "蹭课成功！")
-//
-//                    ClasstableDataManager.getPersonalAuditList(success: { model in
-//                        var items: [AuditDetailCourseItem] = []
-//                        model.data.forEach { list in
-//                            items += list.infos
-//                        }
-//                        AuditUser.shared.update(auditCourses: items)
-//                        self.tableView.reloadData()
-//                    }, failure: { errStr in
-//
-//                    })
-//                }, failure: { errStr in
-//
-//                })
-                AuditUser.shared.auditCourse(item: item, success: { items in
+                AuditUser.shared.auditCourse(item: item, success: { _ in
                     SwiftMessages.showSuccessMessage(body: "蹭课成功")
                     
                     self.tableView.reloadData()
-                    
                     NotificationCenter.default.post(name: NotificationName.NotificationAuditListWillRefresh.name, object: nil)
+                    NotificationCenter.default.post(name: NotificationName.NotificationClassTableWillRefresh.name, object: nil)
                 }, failure: { errStr in
-                    
+                    log(errStr)
                 })
             }
             popupVC.addButtons([cancelButton, auditButton])
             self.present(popupVC, animated: true)
         }
-        
     }
 }
 

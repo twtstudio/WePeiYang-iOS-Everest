@@ -73,14 +73,21 @@ class ClassDetailViewController: UIViewController {
             }
         }
 
-        var detailString = "逻辑班号: " + course.classID
-        detailString += "\n课程编号: " + course.courseID
-        detailString += "\n课程类型: " + course.courseType
-        detailString += "\n课程性质: " + course.courseNature
-        detailString += "\n学分: " + course.credit
-        detailString += "\n授课教师: " + teacherString
-        detailString += "\n开课学院: " + course.college
-        detailString += "\n校区: " + course.campus
+        var detailString: String = ""
+        if !course.courseID.isEmpty, course.courseID.hasPrefix("-") {
+            detailString = "课程类型: 蹭课"
+            detailString += "\n授课教师: " + teacherString
+            detailString += "\n开课学院: " + course.college
+        } else {
+            detailString = "逻辑班号: " + course.classID
+            detailString += "\n课程编号: " + course.courseID
+            detailString += "\n课程类型: " + course.courseType
+            detailString += "\n课程性质: " + course.courseNature
+            detailString += "\n学分: " + course.credit
+            detailString += "\n授课教师: " + teacherString
+            detailString += "\n开课学院: " + course.college
+            detailString += "\n校区: " + course.campus
+        }
         if course.ext != "" {
             detailString += "\n备注: " + course.ext
         }
