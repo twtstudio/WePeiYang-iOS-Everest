@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwiftMessages
 
 class TJUBindingViewController: UIViewController {
 
@@ -39,6 +38,7 @@ class TJUBindingViewController: UIViewController {
 
         let textFieldWidth: CGFloat = 250
         usernameTextField = UITextField()
+        usernameTextField.text = TWTKeychain.username(for: .tju)
         usernameTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*2.0/5.0), size: CGSize(width: textFieldWidth, height: 40))
         usernameTextField.placeholder = "请输入账号"
         usernameTextField.keyboardType = .numberPad
@@ -46,6 +46,7 @@ class TJUBindingViewController: UIViewController {
         usernameTextField.clearButtonMode = .always
         usernameTextField.autocapitalizationType = .none
         passwordTextField = UITextField()
+        passwordTextField.text = TWTKeychain.password(for: .tju)
         passwordTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: usernameTextField.frame.origin.y + usernameTextField.frame.size.height + 30), size: CGSize(width: textFieldWidth, height: 40))
         passwordTextField.placeholder = "请输入密码"
         passwordTextField.keyboardType = .default
@@ -68,23 +69,6 @@ class TJUBindingViewController: UIViewController {
         bindButton.addTarget(self, action: #selector(bind), for: .touchUpInside)
         self.view.addSubview(bindButton)
 
-        /*
-        dismissButton = UIButton()
-        dismissButton.setTitle("暂不绑定", for: .normal)
-        dismissButton.isUserInteractionEnabled = true
-        dismissButton.backgroundColor = UIColor(hex6: 0xd3d3d3)
-        dismissButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
-        dismissButton.layer.borderWidth = 2
-        dismissButton.layer.cornerRadius = 5
-        dismissButton.addTarget(self, action: #selector(dismissBinding), for: .touchUpInside)
-        self.view.addSubview(dismissButton)
-        dismissButton.snp.makeConstraints { (make) -> Void in
-            make.left.equalTo(20)
-            make.right.equalTo(-20)
-            make.top.equalTo(bindButton.snp.bottom).offset(10)
-        }
-         */
-
         dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: bindButton.y + bindButton.height + 20, width: 30, height: 20))
         dismissButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         dismissButton.setTitleColor(UIColor.gray, for: .normal)
@@ -103,45 +87,43 @@ class TJUBindingViewController: UIViewController {
     }
 
     @objc func bind() {
-
-        if usernameTextField.hasText && passwordTextField.hasText {
-            var loginInfo: [String: String] = [String: String]()
-            loginInfo["tjuuname"] = usernameTextField.text
-            loginInfo["tjupasswd"] = passwordTextField.text
-
-            SolaSessionManager.solaSession(type: .get, url: "/auth/bind/tju", parameters: loginInfo, success: { dictionary in
-                guard let errorCode: Int = dictionary["error_code"] as? Int,
-                    let errMsg = dictionary["message"] as? String else {
-                        SwiftMessages.showErrorMessage(body: "绑定错误")
-                        return
-                }
-
-                if errorCode == -1 {
-                    TwTUser.shared.tjuBindingState = true
-                    TwTUser.shared.tjuPassword = self.passwordTextField.text!
-                    TwTUser.shared.save()
-                    NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("tju", true))
-                    SwiftMessages.showSuccessMessage(body: "绑定成功！")
-                    self.dismiss(animated: true, completion: {
-                        self.completion?(true)
-                    })
-                } else {
-                    SwiftMessages.showErrorMessage(body: errMsg)
-                }
-            }, failure: { error in
-                if error.localizedDescription == "您已绑定" {
-                    TwTUser.shared.tjuBindingState = true
-                    TwTUser.shared.tjuPassword = self.passwordTextField.text!
-                    TwTUser.shared.save()
-                    self.dismiss(animated: true, completion: {
-                        self.completion?(true)
-                    })
-                }
-                SwiftMessages.showErrorMessage(body: error.localizedDescription)
-            })
-        } else {
-            SwiftMessages.showWarningMessage(body: "请填写账号和密码")
+        guard let username = usernameTextField.text,
+            let password = passwordTextField.text else {
+                SwiftMessages.showWarningMessage(body: "请填写账号或密码")
+                return
         }
+
+        TWTKeychain.set(username: username, password: password, of: .tju)
+
+        SolaSessionManager.solaSession(type: .get, url: "/auth/bind/tju", parameters: ["tjuuname": username, "tjupasswd": password], success: { dictionary in
+            guard let errorCode: Int = dictionary["error_code"] as? Int,
+                let errMsg = dictionary["message"] as? String else {
+                    SwiftMessages.showErrorMessage(body: "绑定错误")
+                    return
+            }
+
+            if errorCode == -1 {
+                TwTUser.shared.tjuBindingState = true
+                TwTUser.shared.save()
+                NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("tju", true))
+                SwiftMessages.showSuccessMessage(body: "绑定成功！")
+                self.dismiss(animated: true, completion: {
+                    self.completion?(true)
+                })
+            } else {
+                TWTKeychain.erase(.tju)
+                SwiftMessages.showErrorMessage(body: errMsg)
+            }
+        }, failure: { error in
+            if error.localizedDescription == "您已绑定" {
+                TwTUser.shared.tjuBindingState = true
+                TwTUser.shared.save()
+                self.dismiss(animated: true, completion: {
+                    self.completion?(true)
+                })
+            }
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
+        })
     }
 
     func cancelLogin() {

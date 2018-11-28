@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwiftMessages
 
 class LibraryBindingViewController: UIViewController {
 
@@ -39,6 +38,7 @@ class LibraryBindingViewController: UIViewController {
 
         let textFieldWidth: CGFloat = 250
         passwordTextField = UITextField()
+        passwordTextField.text = TWTKeychain.password(for: .library)
         passwordTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*2.0/5.0), size: CGSize(width: textFieldWidth, height: 40))
         passwordTextField.placeholder = "请输入密码"
         passwordTextField.keyboardType = .default
@@ -72,20 +72,20 @@ class LibraryBindingViewController: UIViewController {
         self.view.addSubview(bindButton)
 
         /*
-        cancelButton = UIButton()
-        cancelButton.setTitle("暂不绑定", for: .normal)
-        cancelButton.isUserInteractionEnabled = true
-        cancelButton.backgroundColor = UIColor(hex6: 0xd3d3d3)
-        cancelButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
-        cancelButton.layer.borderWidth = 2
-        cancelButton.layer.cornerRadius = 5
-        cancelButton.addTarget(self, action: #selector(dismissBinding), for: .touchUpInside)
-        self.view.addSubview(cancelButton)
-        cancelButton.snp.makeConstraints { (make) -> Void in
-            make.left.equalTo(20)
-            make.right.equalTo(-20)
-            make.top.equalTo(bindButton.snp.bottom).offset(10)
-        }
+         cancelButton = UIButton()
+         cancelButton.setTitle("暂不绑定", for: .normal)
+         cancelButton.isUserInteractionEnabled = true
+         cancelButton.backgroundColor = UIColor(hex6: 0xd3d3d3)
+         cancelButton.layer.borderColor = UIColor(hex6: 0xd3d3d3).cgColor
+         cancelButton.layer.borderWidth = 2
+         cancelButton.layer.cornerRadius = 5
+         cancelButton.addTarget(self, action: #selector(dismissBinding), for: .touchUpInside)
+         self.view.addSubview(cancelButton)
+         cancelButton.snp.makeConstraints { (make) -> Void in
+         make.left.equalTo(20)
+         make.right.equalTo(-20)
+         make.top.equalTo(bindButton.snp.bottom).offset(10)
+         }
          */
 
         dismissButton = UIButton(frame: CGRect(x: self.view.frame.width, y: bindButton.y + bindButton.height + 20, width: 30, height: 20))
@@ -115,34 +115,33 @@ class LibraryBindingViewController: UIViewController {
     }
 
     @objc func bind() {
+        guard let password = passwordTextField.text else {
+            SwiftMessages.showWarningMessage(body: "请填写密码")
+            return
+        }
 
-        if passwordTextField.hasText {
-            var loginInfo: [String: String] = [String: String]()
-            loginInfo["libpasswd"] = passwordTextField.text
+        TWTKeychain.set(password: password, of: .library)
 
-            SolaSessionManager.solaSession(type: .get, url: "/auth/bind/lib", token: TwTUser.shared.token, parameters: loginInfo, success: { dictionary in
-                guard let errorCode: Int = dictionary["error_code"] as? Int,
+        SolaSessionManager.solaSession(type: .get, url: "/auth/bind/lib", token: TwTUser.shared.token, parameters: ["libpasswd": password], success: { dictionary in
+            guard let errorCode: Int = dictionary["error_code"] as? Int,
                 let errMsg = dictionary["message"] as? String else {
                     SwiftMessages.showErrorMessage(body: "解析错误")
                     return
-                }
+            }
 
-                if errorCode == -1 {
-                    TwTUser.shared.libBindingState = true
-                    TwTUser.shared.libPassword = self.passwordTextField.text!
-                    TwTUser.shared.save()
-                    NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("lib", true))
-                    SwiftMessages.showSuccessMessage(body: "绑定成功！")
-                    self.dismiss(animated: true, completion: nil)
-                } else {
-                    SwiftMessages.showErrorMessage(body: errMsg)
-                }
-            }, failure: { error in
-                SwiftMessages.showErrorMessage(body: error.localizedDescription)
-            })
-        } else {
-            SwiftMessages.showWarningMessage(body: "请填写密码")
-        }
+            if errorCode == -1 {
+                TwTUser.shared.libBindingState = true
+                TwTUser.shared.save()
+                NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("lib", true))
+                SwiftMessages.showSuccessMessage(body: "绑定成功！")
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                SwiftMessages.showErrorMessage(body: errMsg)
+            }
+        }, failure: { error in
+            TWTKeychain.erase(.library)
+            SwiftMessages.showErrorMessage(body: error.localizedDescription)
+        })
     }
 
     func cancelLogin() {

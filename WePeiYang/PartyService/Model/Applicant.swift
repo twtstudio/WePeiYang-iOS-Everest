@@ -9,49 +9,20 @@
 import Foundation
 
 class Applicant: NSObject {
-
     //FIXME: 还是需要保证数据的正确，再加载UI
-    var realName: String? = TwTUser.shared.realname
-    var studentNumber: String = TwTUser.shared.schoolID
     var personalStatus = [[String: Any]]()
     var scoreOf20Course = [[String: Any]]()
     var applicantGrade = [[String: Any]]()
     var academyGrade = [[String: Any]]()
     var probationaryGrade = [[String: Any]]()
     var handInHandler: [String: Any]?
+    var studentNumber: String {
+        return TwTUser.shared.schoolID ?? ""
+    }
 
     static let sharedInstance = Applicant()
 
     fileprivate override init() {}
-
-    //TODO: 未完成
-    func getStudentNumber(_ success: @escaping () -> Void) {
-        //TODO:这样做还不够优雅，应该在登录完成之后自动重新加载
-        guard let token = TwTUser.shared.token else {
-            SwiftMessages.showErrorMessage(body: "需要登录才能使用党建功能")
-            return
-        }
-
-        let parameters = ["token": token]
-            // as [String: AnyObject]
-        //let parameters = ["token": "aabbcc"]
-        SolaSessionManager.solaSession(type: .get, baseURL: "https://open.twtstudio.com/api/v2/auth/self", url: "", token: nil, parameters: parameters, success: { dict in
-            guard let fooRealName = dict["realname"] as? String,
-                let fooStudentNumber = dict["studentid"] as? String else {
-                    SwiftMessages.showErrorMessage(body: "获取学号失败，请稍候再试")
-                    return
-            }
-
-            self.realName = fooRealName
-            self.studentNumber = fooStudentNumber
-
-            UserDefaults.standard.set(self.studentNumber, forKey: "studentID")
-            UserDefaults.standard.set(self.realName, forKey: "studentName")
-            success()
-        }, failure: { error in
-            SwiftMessages.showErrorMessage(body: error.localizedDescription)
-        })
-    }
 
     func getPersonalStatus(_ doSomething: @escaping () -> Void) {
 
@@ -75,7 +46,6 @@ class Applicant: NSObject {
     }
 
     func get20score(_ doSomething: @escaping () -> Void) {
-
         let parameters = ["page": "api", "do": "20score", "sno": studentNumber]
 
         SolaSessionManager.solaSession(type: .get, baseURL: PartyAPI.rootURL, url: "", token: "", parameters: parameters, success: { dict in

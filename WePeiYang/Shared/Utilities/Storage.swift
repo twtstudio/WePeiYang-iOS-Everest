@@ -127,6 +127,19 @@ struct Storage {
         }
     }
 
+    @discardableResult
+    static func move(source: String, destination: String, in directory: Directory) -> Bool {
+        let sourceURL = getURL(for: directory).appendingPathComponent(source)
+        let destinationURL = getURL(for: directory).appendingPathComponent(destination)
+        do {
+            try FileManager.default.moveItem(at: sourceURL, to: destinationURL)
+        } catch {
+            log(error)
+            return false
+        }
+        return true
+    }
+
     /// Returns BOOL indicating whether file exists at specified directory with specified file name
     static func fileExists(_ filename: String, in directory: Directory) -> Bool {
         let url = getURL(for: directory).appendingPathComponent(filename, isDirectory: false)

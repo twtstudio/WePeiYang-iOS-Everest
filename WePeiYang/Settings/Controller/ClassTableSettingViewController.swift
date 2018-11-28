@@ -58,13 +58,16 @@ class ClassTableSettingViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if notificationSwitch.isOn {
-            UserDefaults.standard.set(offsetMin, forKey: ClassTableNotificationOffsetKey)
-            CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
-                guard let table = Mapper<ClassTableModel>().map(JSONString: string) else {
-                    return
-                }
-                ClassTableNotificationHelper.addNotification(table: table)
-            })
+            let prevValue = UserDefaults.standard.bool(forKey: ClassTableNotificationEnabled)
+            if prevValue == false {
+                UserDefaults.standard.set(offsetMin, forKey: ClassTableNotificationOffsetKey)
+                CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
+                    guard let table = Mapper<ClassTableModel>().map(JSONString: string) else {
+                        return
+                    }
+                    ClassTableNotificationHelper.addNotification(table: table)
+                })
+            }
         } else {
             ClassTableNotificationHelper.removeNotification()
         }
@@ -105,7 +108,9 @@ class ClassTableSettingViewController: UIViewController {
                             }
                         }
                     case .denied:
-                        SwiftMessages.showErrorMessage(body: "课程提醒需要开启推送权限，请到设置中开启推送权限")
+                        DispatchQueue.main.async {
+                            SwiftMessages.showErrorMessage(body: "课程提醒需要开启推送权限，请到设置中开启推送权限")
+                        }
                     default:
                         break
                     }
