@@ -26,6 +26,12 @@ enum NotificationName: String {
 
     // reload card order
     case NotificationCardOrderChanged
+    
+    // refresh class table
+    case NotificationClassTableWillRefresh
+    
+    // refresh audit list
+    case NotificationAuditListWillRefresh
 }
 
 extension NotificationName {
