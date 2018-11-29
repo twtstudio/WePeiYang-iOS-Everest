@@ -97,7 +97,7 @@ struct SolaSessionManager {
         }
     }
 
-    static func upload(dictionay: [String: Any], url: String, method: HTTPMethod = .post, progressBlock: ((Progress) -> Void)? = nil, failure: ((Error) -> Void)? = nil, success: (([String: Any]) -> Void)?) {
+    static func upload(dictionay: [String: Any], url: String, method: HTTPMethod = .post, progressBlock: ((Progress) -> Void)? = nil, success: (([String: Any]) -> Void)?, failure: ((Error) -> Void)? = nil) {
 
         var dataDict = [String: Data]()
         var paraDict = [String: String]()
@@ -134,6 +134,7 @@ struct SolaSessionManager {
             log("can't load twtToken")
         }
         let fullURL = TWT_ROOT_URL + url
+        
         if method == .post {
             Alamofire.upload(multipartFormData: { formdata in
                 for item in dataDict {
@@ -143,12 +144,12 @@ struct SolaSessionManager {
                 for item in paraDict {
                     formdata.append(item.value.data(using: .utf8)!, withName: item.key)
                 }
-            }, to: fullURL, method: .post, headers: headers, encodingCompletion: { response in
+            }, to: fullURL, method: method, headers: headers, encodingCompletion: { response in
                 switch response {
                 case .success(let upload, _, _):
                     upload.responseJSON { response in
                         if let data = response.result.value {
-                            if let dict = data as? [String: Any], dict["error_code"] as? Int == 0 {
+                            if let dict = data as? [String: Any], dict["error_code"] as? Int == -1 {
                                 success?(dict)
                             } else {
                             }
@@ -161,6 +162,23 @@ struct SolaSessionManager {
                     failure?(error)
                 }
             })
+            return
+        }
+        
+        if method == .delete {
+            Alamofire.request(fullURL, method: .delete, parameters: paraDict, headers: headers).responseJSON { response in
+                switch response.result {
+                case .success(let data):
+                    if let dict = data as? [String: Any], dict["error_code"] as? Int == -1 {
+                        success?(dict)
+                    } else {
+                        
+                    }
+                case .failure(let error):
+                    failure?(error)
+                }
+            }
+            return
         }
     }
 }
