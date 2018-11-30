@@ -159,7 +159,7 @@ class AuditUser {
     }
     
     var collegeDic: [Int: String] = [:]
-    var schoolID: String { return TwTUser.shared.schoolID }
+    var schoolID: String { return "3016218106" }
     
     func getCollegeName(ID: Int) -> String {
         if let name = self.collegeDic[ID] {

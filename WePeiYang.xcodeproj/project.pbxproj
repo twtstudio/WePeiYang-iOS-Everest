@@ -14,7 +14,6 @@
 		3613DA172056F1B9000867AE /* WLANHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586543620514E860069CF53 /* WLANHelper.swift */; };
 		3613DA182056F56A000867AE /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		3613DA192056F571000867AE /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E21EC84ED90064373A /* SolaSessionManager.swift */; };
-		3613DA1A2056F65C000867AE /* TWTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TWTKeychain.swift */; };
 		3613DA1B2056F664000867AE /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EE1EC84ED90064373A /* DeviceStatus.swift */; };
 		3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */; };
 		3613DA222056F740000867AE /* UniversalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA212056F740000867AE /* UniversalExtension.swift */; };
@@ -172,7 +171,6 @@
 		A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E117C61F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift */; };
 		B10253F01EC84ED90064373A /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E01EC84ED90064373A /* AccountManager.swift */; };
 		B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E21EC84ED90064373A /* SolaSessionManager.swift */; };
-		B10253F31EC84ED90064373A /* TWTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TWTKeychain.swift */; };
 		B10253FD1EC84ED90064373A /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EF1EC84ED90064373A /* log.swift */; };
 		B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102540A1EC8520A0064373A /* AppDelegate.swift */; };
 		B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102540B1EC8520A0064373A /* ClassExtensions.swift */; };
@@ -229,6 +227,8 @@
 		DD41A83D21A5341100886BB4 /* AuditSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD41A83C21A5341100886BB4 /* AuditSearchViewController.swift */; };
 		DD6A663421A59D260070C4B2 /* AuditCollegeCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6A663321A59D260070C4B2 /* AuditCollegeCourseViewController.swift */; };
 		DD6A663621ABCEB10070C4B2 /* AuditPersonalCourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6A663521ABCEB10070C4B2 /* AuditPersonalCourseModel.swift */; };
+		DD71097A21B1AEC900828812 /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD71097921B1AEC900828812 /* TwTKeychain.swift */; };
+		DD71097B21B1B4C100828812 /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD71097921B1AEC900828812 /* TwTKeychain.swift */; };
 		DDC7891E21B1302C00ABA33F /* CourseNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7891D21B1302C00ABA33F /* CourseNode.swift */; };
 		DDC7892021B132A700ABA33F /* CourseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7891F21B132A700ABA33F /* CourseList.swift */; };
 /* End PBXBuildFile section */
@@ -434,7 +434,6 @@
 		B10253E01EC84ED90064373A /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		B10253E11EC84ED90064373A /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		B10253E21EC84ED90064373A /* SolaSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolaSessionManager.swift; sourceTree = "<group>"; };
-		B10253E31EC84ED90064373A /* TWTKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWTKeychain.swift; sourceTree = "<group>"; };
 		B10253EE1EC84ED90064373A /* DeviceStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceStatus.swift; sourceTree = "<group>"; };
 		B10253EF1EC84ED90064373A /* log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = log.swift; sourceTree = "<group>"; };
 		B102540A1EC8520A0064373A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -501,6 +500,7 @@
 		DD41A83C21A5341100886BB4 /* AuditSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditSearchViewController.swift; sourceTree = "<group>"; };
 		DD6A663321A59D260070C4B2 /* AuditCollegeCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditCollegeCourseViewController.swift; sourceTree = "<group>"; };
 		DD6A663521ABCEB10070C4B2 /* AuditPersonalCourseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditPersonalCourseModel.swift; sourceTree = "<group>"; };
+		DD71097921B1AEC900828812 /* TwTKeychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwTKeychain.swift; sourceTree = "<group>"; };
 		DDC7891D21B1302C00ABA33F /* CourseNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNode.swift; sourceTree = "<group>"; };
 		DDC7891F21B132A700ABA33F /* CourseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -992,6 +992,7 @@
 				B10254101EC8547E0064373A /* UI_Fundamentals */,
 				B10253DF1EC84ED90064373A /* Network */,
 				B10253ED1EC84ED90064373A /* Utilities */,
+				DD71097921B1AEC900828812 /* TwTKeychain.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1002,7 +1003,6 @@
 				B10253E01EC84ED90064373A /* AccountManager.swift */,
 				B10253E11EC84ED90064373A /* CacheManager.swift */,
 				B10253E21EC84ED90064373A /* SolaSessionManager.swift */,
-				B10253E31EC84ED90064373A /* TWTKeychain.swift */,
 				3631D5091F1903D70078816D /* TwTUser.swift */,
 			);
 			path = Network;
@@ -1529,20 +1529,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		36A71BCC216A74970036983A /* Swift Lint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Swift Lint";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./swiftlint.sh\n";
-		};
 		9425E5E6C1FDC2E7D9F81A80 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1625,6 +1611,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD71097B21B1B4C100828812 /* TwTKeychain.swift in Sources */,
 				36B2C899203DB8DB00AD2E3F /* ClassWidgetCell.swift in Sources */,
 				36B2C89B203DE86700AD2E3F /* TwTUser.swift in Sources */,
 				3613DA182056F56A000867AE /* WLANLoginAPIs.swift in Sources */,
@@ -1633,7 +1620,6 @@
 				3613DA1B2056F664000867AE /* DeviceStatus.swift in Sources */,
 				36B2C892203A806C00AD2E3F /* CacheManager.swift in Sources */,
 				36B2C895203A80D600AD2E3F /* ArrangeModel.swift in Sources */,
-				3613DA1A2056F65C000867AE /* TWTKeychain.swift in Sources */,
 				3685D9F2204D97A200BA6C3D /* DateTool.swift in Sources */,
 				363C754D215A724000D3E2B1 /* WPYCustomError.swift in Sources */,
 				3613DA192056F571000867AE /* SolaSessionManager.swift in Sources */,
@@ -1702,8 +1688,6 @@
 				DD0B76242158CBA6009A392C /* CourseAppraiseViewController.swift in Sources */,
 				A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */,
 				C40BDE0E21A93CA00046BFA5 /* LibraryPageContentView.swift in Sources */,
-				A5A531EB208F4E4C0073DE38 /* CourseListModel.swift in Sources */,
-				A5FE5665208F624A00B94F0D /* PopularClassModel.swift in Sources */,
 				DD0B76292158CBA6009A392C /* GPAClassModel.swift in Sources */,
 				DD41A83B21A52F7100886BB4 /* AuditSearchModel.swift in Sources */,
 				365A46462035E35500738963 /* Storage.swift in Sources */,
@@ -1750,6 +1734,7 @@
 				36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */,
 				DD0B762A2158CBA6009A392C /* GPAStatModel.swift in Sources */,
 				36449E841FA4BAD10036766B /* TwentyCourseScoreViewController.swift in Sources */,
+				DD71097A21B1AEC900828812 /* TwTKeychain.swift in Sources */,
 				36449E6D1FA4BABA0036766B /* FinalView.swift in Sources */,
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
 				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
@@ -1768,7 +1753,6 @@
 				3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */,
 				C40BDE1E21A93E3D0046BFA5 /* BookDetailTableHeaderView.swift in Sources */,
 				C40BDE2521A93EBD0046BFA5 /* LibraryListViewController.swift in Sources */,
-				B10253F31EC84ED90064373A /* TWTKeychain.swift in Sources */,
 				365B5399216E5F4000A808EE /* ClassTableSettingViewController.swift in Sources */,
 				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
 				DD41A83D21A5341100886BB4 /* AuditSearchViewController.swift in Sources */,
