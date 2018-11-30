@@ -118,6 +118,9 @@ class AuditUser {
         for i in 1...22 {
             self.weekCourseDict[i] = self.getCourse(table: table, week: i)
         }
+
+        //
+        self.updateCourseTable(table: table)
     }
     
     // 检查要蹭的课程是否有冲突
@@ -253,4 +256,98 @@ class AuditUser {
         self.weekCourseDict[week] = coursesForDay
         return coursesForDay
     }
+
+    // MARK: - New AuditUser
+
+    // 全局课程表映射
+    var courseMappingDic: [Int: ClassModel] = [:]
+
+    // 全局课程表映射的数量
+    var courseTableMax: Int {
+        return self.courseMappingDic.count
+    }
+
+    // 课程表矩阵
+    var courseTable: [[CourseList]] = Array(repeating: Array(repeating: CourseList(), count: 13), count: 8)
+
+    func updateCourseTable(table: ClassTableModel) {
+        //self.courseMappingDic = [:]
+        //self.courseTable = Array(repeating: Array(repeating: CourseList(), count: 13), count: 8)
+        for a in 1...7 {
+            for b in 1...12 {
+                self.courseTable[a][b] = CourseList()
+            }
+        }
+        for course in table.classes {
+            for arrange in course.arrange {
+                let day = arrange.day
+                // 如果是实习什么的课
+                if day < 1 || day > 7 {
+                    continue
+                }
+                var newCourse = course
+                newCourse.arrange = [arrange]
+                let index = self.courseTableMax + 1
+                //log(index)
+                self.courseMappingDic[index] = newCourse
+                let courseList = self.courseTable[newCourse.arrange.first!.day][newCourse.arrange.first!.start]
+                
+                for week in 1...22 {
+                    if (week < Int(newCourse.weekStart)!) || (week > Int(newCourse.weekEnd)!) {
+                        courseList.undisplayCourses[week].append(index)
+
+                    } else if (week % 2 == 0 && arrange.week == "单周") || (week % 2 == 1 && arrange.week == "双周") {
+                        courseList.undisplayCourses[week].append(index)
+
+                    } else {
+                        courseList.displayCourses[week].append(index)
+                        //log(courseList.displayCourses[week])
+                    }
+                }
+                log("\(newCourse.courseName)          \(newCourse.arrange.first!.day)     \(newCourse.arrange.first!.start)")
+                if let ID = self.courseTable[1][1].displayCourses[4].first, let model = self.courseMappingDic[ID] {
+                    log(model)
+                } else {
+                    log(self.courseTable[1][1].displayCourses[4].count)
+                }
+
+            }
+        }
+
+    }
+
+    func getClassModels(week: Int) -> [[ClassModel]] {
+        //log(self.courseTableMax)
+        var classModels: [[ClassModel]] = [[], [], [], [], [], [], []]
+        for day in 0...6 {
+            var index: Int = 1
+            while index <= 12 {
+                let courseList = self.courseTable[day + 1][index]
+                if courseList.displayNumber(week: week) == 0 {
+                    if courseList.undisplayNumber(week: week) == 0 {
+                        let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(day)\", \"start\":\"\(index)\", \"end\":\"\(index)\"}], \"isPlaceholder\": \"\(true)\"}")!
+                        classModels[day].append(placeholder)
+                        index += 1
+                    } else {
+                        var model = self.courseMappingDic[courseList.undisplayCourses[week].first!]!
+                        model.courseName = "【蹭课】" + model.courseName
+                        classModels[day].append(model)
+                        index = model.arrange.first!.end + 1
+                    }
+                } else {
+                    let model = self.courseMappingDic[courseList.displayCourses[week].first!]!
+                    classModels[day].append(model)
+                    index = model.arrange.first!.end + 1
+                }
+            }
+        }
+//        for i in 0...6 {
+//            let dayList = classModels[i]
+//            classModels[i] = dayList.sorted(by: { am, bm in
+//                return am.arrange.first!.start < bm.arrange.first!.start
+//            })
+//        }
+        return classModels
+    }
+
 }
