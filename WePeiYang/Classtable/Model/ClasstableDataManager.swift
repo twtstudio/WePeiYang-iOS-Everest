@@ -174,7 +174,7 @@ struct ClasstableDataManager {
     }
     
     static func getPersonalAuditList(success: @escaping (AuditPersonalCourseModel) -> Void, failure: @escaping (String) -> Void) {
-        SolaSessionManager.solaSession(type: .get, url: "/auditClass/audit", parameters: ["user_number": TwTUser.shared.schoolID], success: { dic in
+        SolaSessionManager.solaSession(type: .get, url: "/auditClass/audit", parameters: ["user_number": "3016218106"], success: { dic in
             if let error_code = dic["error_code"] as? Int,
                 error_code != -1,
                 let message = dic["message"] as? String {
