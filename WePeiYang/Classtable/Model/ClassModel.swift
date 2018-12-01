@@ -24,6 +24,9 @@ struct ClassModel: Mappable {
     var ext = ""
     var colorIndex = 0
     var isPlaceholder: Bool = false
+    var isDisplay: Bool = true
+    var displayCourses: [Int] = []
+    var undispalyCourses: [Int] = []
 
     init?(map: Map) {}
 

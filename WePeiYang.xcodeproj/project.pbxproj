@@ -219,6 +219,8 @@
 		DD0B762B2158CBA6009A392C /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B76202158CBA5009A392C /* StarView.swift */; };
 		DD0B762C2158CBA6009A392C /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B76212158CBA5009A392C /* ScoreHeaderView.swift */; };
 		DD0B762D2158CBA6009A392C /* CourseAppraiseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B76222158CBA5009A392C /* CourseAppraiseCell.swift */; };
+		DD2A2ABD21B2DC5100EA6F8F /* CourseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A2ABC21B2DC5100EA6F8F /* CourseCollectionView.swift */; };
+		DD2A2ABF21B2DEBB00EA6F8F /* CourseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A2ABE21B2DEBB00EA6F8F /* CourseCollectionViewCell.swift */; };
 		DD41A82F21A3265800886BB4 /* PopularListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD41A82E21A3265800886BB4 /* PopularListModel.swift */; };
 		DD41A83121A3B00300886BB4 /* AuditDetailCourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD41A83021A3B00300886BB4 /* AuditDetailCourseTableViewCell.swift */; };
 		DD41A83321A4704000886BB4 /* AuditDetailCourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD41A83221A4704000886BB4 /* AuditDetailCourseModel.swift */; };
@@ -493,6 +495,8 @@
 		DD0B76202158CBA5009A392C /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		DD0B76212158CBA5009A392C /* ScoreHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
 		DD0B76222158CBA5009A392C /* CourseAppraiseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseCell.swift; sourceTree = "<group>"; };
+		DD2A2ABC21B2DC5100EA6F8F /* CourseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCollectionView.swift; sourceTree = "<group>"; };
+		DD2A2ABE21B2DEBB00EA6F8F /* CourseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCollectionViewCell.swift; sourceTree = "<group>"; };
 		DD41A82E21A3265800886BB4 /* PopularListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularListModel.swift; sourceTree = "<group>"; };
 		DD41A83021A3B00300886BB4 /* AuditDetailCourseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditDetailCourseTableViewCell.swift; sourceTree = "<group>"; };
 		DD41A83221A4704000886BB4 /* AuditDetailCourseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditDetailCourseModel.swift; sourceTree = "<group>"; };
@@ -757,6 +761,8 @@
 			isa = PBXGroup;
 			children = (
 				36E56BC51FC512230009BD6F /* CourseListView.swift */,
+				DD2A2ABC21B2DC5100EA6F8F /* CourseCollectionView.swift */,
+				DD2A2ABE21B2DEBB00EA6F8F /* CourseCollectionViewCell.swift */,
 				36D0FE75201867CF0014E667 /* ArrangeCell.swift */,
 				369D92062015D914004BA1D0 /* WeekSelectView.swift */,
 				369D92082015D97A004BA1D0 /* WeekItemCell.swift */,
@@ -1712,6 +1718,7 @@
 				361F8857204AF92100BCFA19 /* NewsReporter.swift in Sources */,
 				36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */,
 				DD0B76252158CBA6009A392C /* GPATermModel.swift in Sources */,
+				DD2A2ABF21B2DEBB00EA6F8F /* CourseCollectionViewCell.swift in Sources */,
 				DD0B75FB2158C6ED009A392C /* YellowPageCell.swift in Sources */,
 				78B400E7219C6366006A8A45 /* AuditHomeViewController.swift in Sources */,
 				361F885E204AF92D00BCFA19 /* BannerCell.swift in Sources */,
@@ -1719,6 +1726,7 @@
 				36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */,
 				C40BDE2121A93E780046BFA5 /* LibraryMainViewController.swift in Sources */,
 				36E56BC61FC512230009BD6F /* CourseListView.swift in Sources */,
+				DD2A2ABD21B2DC5100EA6F8F /* CourseCollectionView.swift in Sources */,
 				3613DA222056F740000867AE /* UniversalExtension.swift in Sources */,
 				364BDF721FDAE1EF00E61B65 /* GPACard.swift in Sources */,
 				36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */,

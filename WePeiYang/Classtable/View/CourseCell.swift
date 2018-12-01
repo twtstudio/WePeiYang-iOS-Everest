@@ -79,14 +79,19 @@ class CourseCell: UITableViewCell {
             let colors = Metadata.Color.fluentColors
 
             // 确保安全
-            var index = course.colorIndex % colors.count
+            let index = course.colorIndex % colors.count
             
-            if course.courseID.hasPrefix("-") {
-                index = 3
-            }
-            
+//            if course.courseID.hasPrefix("-") {
+//                index = 3
+//            }
+
             contentView.backgroundColor = colors[index]
-            contentView.alpha = 0.7
+            if course.isDisplay == false {
+                contentView.backgroundColor = .gray
+                contentView.alpha = 0.3
+            } else {
+                contentView.alpha = 0.7
+            }
 
             var name = course.courseName
             let maxLength = 4*course.arrange.first!.length

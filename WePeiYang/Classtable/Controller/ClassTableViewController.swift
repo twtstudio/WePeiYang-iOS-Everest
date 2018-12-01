@@ -383,6 +383,8 @@ class ClassTableViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+
+        self.listView.cancelEmptyView()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -456,6 +458,26 @@ extension ClassTableViewController: CourseListViewDelegate {
             }
         }
         
+        let detailVC = ClassDetailViewController(courses: singleArrangeCourses)
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+
+    func collectionView(_ listView: CourseCollectionView, didSelectCourse course: ClassModel) {
+        guard let table = AuditUser.shared.mergedTable else {
+            return
+        }
+
+        let similiarCourses = table.classes.filter { $0.courseID == course.courseID }
+        var singleArrangeCourses = [ClassModel]()
+        // 每个 arrange 作为一个 class
+        for course in similiarCourses {
+            for arrange in course.arrange {
+                var newCourse = course
+                newCourse.arrange = [arrange]
+                singleArrangeCourses.append(newCourse)
+            }
+        }
+
         let detailVC = ClassDetailViewController(courses: singleArrangeCourses)
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
