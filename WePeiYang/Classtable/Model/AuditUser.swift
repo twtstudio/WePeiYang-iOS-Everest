@@ -270,12 +270,11 @@ class AuditUser {
     // 课程表矩阵
     var courseTable: [[CourseList]] = Array(repeating: Array(repeating: CourseList(), count: 13), count: 8)
 
+    // 更新课程表矩阵
     func updateCourseTable(table: ClassTableModel) {
-        //self.courseMappingDic = [:]
-        //self.courseTable = Array(repeating: Array(repeating: CourseList(), count: 13), count: 8)
-        for a in 1...7 {
-            for b in 1...12 {
-                self.courseTable[a][b] = CourseList()
+        for day in 1...7 {
+            for index in 1...12 {
+                self.courseTable[day][index] = CourseList()
             }
         }
         for course in table.classes {
@@ -288,7 +287,7 @@ class AuditUser {
                 var newCourse = course
                 newCourse.arrange = [arrange]
                 let index = self.courseTableMax + 1
-                //log(index)
+
                 self.courseMappingDic[index] = newCourse
                 let courseList = self.courseTable[newCourse.arrange.first!.day][newCourse.arrange.first!.start]
                 
@@ -301,21 +300,13 @@ class AuditUser {
 
                     } else {
                         courseList.displayCourses[week].append(index)
-                        //log(courseList.displayCourses[week])
                     }
                 }
-                log("\(newCourse.courseName)          \(newCourse.arrange.first!.day)     \(newCourse.arrange.first!.start)")
-                if let ID = self.courseTable[1][1].displayCourses[4].first, let model = self.courseMappingDic[ID] {
-                    log(model)
-                } else {
-                    log(self.courseTable[1][1].displayCourses[4].count)
-                }
-
             }
         }
-
     }
 
+    // 返回 CourseListView 数据
     func getClassModels(week: Int) -> [[ClassModel]] {
         //log(self.courseTableMax)
         var classModels: [[ClassModel]] = [[], [], [], [], [], [], []]
@@ -330,24 +321,41 @@ class AuditUser {
                         index += 1
                     } else {
                         var model = self.courseMappingDic[courseList.undisplayCourses[week].first!]!
-                        model.courseName = "【蹭课】" + model.courseName
+                        model.courseName = "【非本周】" + model.courseName
+                        model.isDisplay = false
+                        //
+                        model.undispalyCourses = courseList.undisplayCourses[week]
                         classModels[day].append(model)
                         index = model.arrange.first!.end + 1
                     }
                 } else {
-                    let model = self.courseMappingDic[courseList.displayCourses[week].first!]!
+                    var model = self.courseMappingDic[courseList.displayCourses[week].first!]!
+                    //
+                    model.displayCourses = courseList.displayCourses[week]
+                    model.undispalyCourses = courseList.undisplayCourses[week]
                     classModels[day].append(model)
                     index = model.arrange.first!.end + 1
                 }
             }
         }
-//        for i in 0...6 {
-//            let dayList = classModels[i]
-//            classModels[i] = dayList.sorted(by: { am, bm in
-//                return am.arrange.first!.start < bm.arrange.first!.start
-//            })
-//        }
         return classModels
+    }
+
+    func getClassList(model: ClassModel) -> [[ClassModel]] {
+        var classList: [[ClassModel]] = [[], []]
+        model.displayCourses.forEach { id in
+            if let item = self.courseMappingDic[id] {
+                classList[0].append(item)
+            }
+        }
+        model.undispalyCourses.forEach { id in
+            if var item = self.courseMappingDic[id] {
+                item.courseName = "【非本周】" + item.courseName
+                item.isDisplay = false
+                classList[1].append(item)
+            }
+        }
+        return classList
     }
 
 }
