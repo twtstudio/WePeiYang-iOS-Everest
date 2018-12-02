@@ -24,7 +24,7 @@ struct Courses {
                 return
             }
 
-            courses = fooCourses.compactMap({ dict -> Study20? in
+            courses = fooCourses.flatMap({ dict -> Study20? in
                 guard let courseID = dict["course_id"] as? String, let courseName = dict["course_name"] as? String else {
                     return nil
                 }
@@ -73,7 +73,7 @@ struct Courses {
                     return
                 }
 
-                courseDetails = fooDetails.compactMap({ dict -> Detail? in
+                courseDetails = fooDetails.flatMap({ dict -> Detail? in
                     guard let courseID = dict["course_id"] as? String,
                         let courseName = dict["course_name"] as? String,
                         let articleID = dict["article_id"] as? String,
@@ -173,7 +173,7 @@ struct Courses {
                 return
             }
 
-            texts = fooTexts.compactMap({ dict -> StudyText? in
+            texts = fooTexts.flatMap({ dict -> StudyText? in
                 guard let fileID = dict["file_id"] as? String, let fileTitle = dict["file_title"] as? String //let fileAddTime = dict["file_addtime"] as? NSDate
                     else {
                         return nil

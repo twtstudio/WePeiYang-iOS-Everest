@@ -12,7 +12,7 @@ import Alamofire
 class GetLostAPI {
     
     static func getLost(page: Int, success: @escaping ([LostFoundModel]) -> Void, failure: @escaping (Error) -> Void) {
-        SolaSessionManager.solaSession(url: "/lostfound/lost?page=\(page)", success: {
+        SolaSessionManager.solaSession(baseURL: "https://open-lostfound.twtstudio.com/api/v1", url: "/lostfound/lost?page=\(page)", success: {
             dic in
             
             if let lostData = dic["data"] as? [[String: Any]] {
@@ -45,7 +45,7 @@ class GetLostAPI {
 class GetFoundAPI {
     
     static func getFound(page: Int, success: @escaping ([LostFoundModel]) -> Void, failure: @escaping (Error) -> Void) {
-        SolaSessionManager.solaSession(url: "/lostfound/found?page=\(page)", success: { dic in
+        SolaSessionManager.solaSession(baseURL: "https://open-lostfound.twtstudio.com/api/v1", url: "/lostfound/found?page=\(page)", success: { dic in
             if let foundData = dic["data"] as? [[String: Any]] {
                 var founds = [LostFoundModel]()
                 for found in foundData {
@@ -79,7 +79,7 @@ class GetMyLostAPI {
     
     static func getMyLost(page: Int, success: @escaping ([MyLostFoundModel]) -> Void, failure: @escaping (Error) -> Void) {
         
-        SolaSessionManager.solaSession(url: "/lostfound/user/lost?page=\(page)", success: { dic in
+        SolaSessionManager.solaSession(baseURL: "https://open-lostfound.twtstudio.com/api/v1", url: "/lostfound/user/lost?page=\(page)", success: { dic in
             if let myLostData = dic["data"] as? [[String: Any]] {
                 var myLosts = [MyLostFoundModel]()
                 for lost in myLostData {
@@ -111,7 +111,7 @@ class GetMyFoundAPI {
     
     static func getMyFound(page: Int, success: @escaping ([MyLostFoundModel]) -> Void, failure: @escaping (Error) -> Void) {
         
-        SolaSessionManager.solaSession(url: "/lostfound/user/found?page=\(page)", success: { dic in
+        SolaSessionManager.solaSession(baseURL: "https://open-lostfound.twtstudio.com/api/v1", url: "/lostfound/user/found?page=\(page)", success: { dic in
             if let myFoundData = dic["data"] as? [[String: Any]] {
                 var myFounds = [MyLostFoundModel]()
                 for found in myFoundData {
@@ -145,7 +145,7 @@ class DetailAPI {
     var detailDisplay: [Any] = []
     
     func getDetail(id: String, success: @escaping ([LostFoundDetailModel]) -> Void, failure: @escaping (Error) -> Void) {
-        SolaSessionManager.solaSession(url: ("/lostfound/"+"\(id)"), success: { dic in
+        SolaSessionManager.solaSession(baseURL: "https://open-lostfound.twtstudio.com/api/v1", url: ("/lostfound/"+"\(id)"), success: { dic in
             if let detailData = dic["data"] as? [String: Any] {
                 
                 var details = [LostFoundDetailModel]()
@@ -186,7 +186,7 @@ class GetSearchAPI {
     static func getSearch(inputText: String, page: Int, success: @escaping ([LostFoundModel]) -> Void, failure: @escaping (Error) -> Void) {
         
         let utf8Text = "/lostfound/search?keyword=\(inputText)&page=\(page)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        SolaSessionManager.solaSession(type: .get, url: utf8Text, success: { dic in
+        SolaSessionManager.solaSession(type: .get, baseURL: "https://open-lostfound.twtstudio.com/api/v1", url: utf8Text, success: { dic in
             if let searchData = dic["data"] as? [[String: Any]] {
                 
                 var searchs = [LostFoundModel]()
@@ -229,7 +229,7 @@ class PostLostAPI {
 class GetInverseAPI {
     
     static func getInverse(id: String, success: @escaping (Int) -> Void, failure: @escaping (Error) -> Void) {
-        SolaSessionManager.solaSession(type: .get, url: "/lostfound/inverse/" + "\(id)", success: { dic in
+        SolaSessionManager.solaSession(type: .get, baseURL: "https://open-lostfound.twtstudio.com/api/v1", url: "/lostfound/inverse/" + "\(id)", success: { dic in
             if let error_code = dic["error_code"] as? Int {
                 success(error_code)
             }
