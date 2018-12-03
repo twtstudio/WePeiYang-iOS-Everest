@@ -69,6 +69,7 @@ class LoginView: MessageView {
         }
 
         usernameField = WPYTextField()
+        usernameField.delegate = self
         usernameField.autocorrectionType = .no
         usernameField.autocapitalizationType = .none
         usernameField.keyboardType = .asciiCapable
@@ -91,6 +92,7 @@ class LoginView: MessageView {
         }
 
         passwordField.autocorrectionType = .no
+        passwordField.delegate = self
         passwordField.autocapitalizationType = .none
         passwordField.keyboardType = .asciiCapable
         passwordField.returnKeyType = .go
@@ -126,7 +128,7 @@ class LoginView: MessageView {
             make.bottom.equalTo(passwordField.snp.bottom).offset(15)
         }
 
-        loginButton.addTarget(self, action: #selector(login(button:)), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
         loginButton.setTitle("登录", for: .normal)
         loginButton.layer.cornerRadius = loginButton.height/2
         loginButton.backgroundColor = Metadata.Color.WPYAccentColor
@@ -145,12 +147,8 @@ class LoginView: MessageView {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
 
-        if TwTUser.shared.username != "" {
-            usernameField.text = TwTUser.shared.username
-        }
-        if TwTUser.shared.password != "" {
-            passwordField.text = TwTUser.shared.password
-        }
+        usernameField.text = TwTUser.shared.username
+        passwordField.text = TWTKeychain.password(for: .root)
     }
 
     deinit {
@@ -160,7 +158,7 @@ class LoginView: MessageView {
 
 // 这部分应该是 Controller 在做 但我不知道怎么样比较合适
 extension LoginView {
-    @objc func login(button: UIButton) {
+    @objc func login() {
         guard let username = usernameField.text, !username.isEmpty else {
             self.showErrorMessage(title: "用户名不能为空")
             return
@@ -173,9 +171,9 @@ extension LoginView {
 
         SwiftMessages.showLoading()
         AccountManager.getToken(username: username, password: password, success: { token in
-            TwTUser.shared.token = token
             TwTUser.shared.username = username
-            TwTUser.shared.password = password
+            TWTKeychain.set(username: username, password: password, of: .root)
+            TwTUser.shared.token = token
             TwTUser.shared.save()
             self.extraProcedures()
             SwiftMessages.hideLoading()
@@ -215,6 +213,21 @@ extension LoginView {
         }, failure: { _ in
 
         })
+    }
+}
+
+extension LoginView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == usernameField && textField.returnKeyType == .next {
+            passwordField.becomeFirstResponder()
+            return true
+        }
+
+        if textField == passwordField && textField.returnKeyType == .go {
+            login()
+            return true
+        }
+        return false
     }
 }
 

@@ -39,7 +39,9 @@ class SettingsViewController: UIViewController {
         ("办公网", TJUBindingViewController.self, "", {
             return TwTUser.shared.tjuBindingState}),
         ("校园网", WLANBindingViewController.self, "", {
-            return TwTUser.shared.WLANBindingState})
+            return TwTUser.shared.WLANBindingState}),
+        ("校园卡", ECardBindingViewController.self, "", {
+            return TwTUser.shared.ecardBindingState})
     ]
     fileprivate let settingTitles: [(title: String, iconName: String)] = [("设置", "")]
 
@@ -157,12 +159,16 @@ class SettingsViewController: UIViewController {
         case 2:
             unbindURL = BindingAPIs.unbindTJUAccount
         case 3:
-            TwTUser.shared.WLANAccount = nil
-            TwTUser.shared.WLANPassword = nil
+            TWTKeychain.erase(.network)
             TwTUser.shared.WLANBindingState = false
             SwiftMessages.showSuccessMessage(body: "解绑成功")
             TwTUser.shared.save()
             self.tableView.reloadData()
+            return
+        case 4:
+            ECardBindingViewController.unbind()
+            self.tableView.reloadData()
+            SwiftMessages.showSuccessMessage(body: "解绑成功")
             return
         default:
             return
@@ -317,7 +323,9 @@ extension SettingsViewController: UITableViewDelegate {
                 let cancelButton = CancelButton(title: "取消", action: nil)
 
                 let defaultButton = DestructiveButton(title: "确认", dismissOnTap: true) {
-                    showLoginView()
+                    showLoginView(success: {
+                        self.tableView.reloadData()
+                    })
                 }
                 popup.addButtons([cancelButton, defaultButton])
                 self.present(popup, animated: true, completion: nil)

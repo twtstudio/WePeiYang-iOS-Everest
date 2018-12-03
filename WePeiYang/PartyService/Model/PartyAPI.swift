@@ -13,8 +13,6 @@ struct PartyAPI {
     // static let studentID: String? = "3014218099"
 
     static var studentID: String? {
-//        let foo = UserDefaults.standard.object(forKey: "studentID") as? String
-//        return foo
         return TwTUser.shared.schoolID
     }
 

@@ -88,66 +88,20 @@ struct AccountManager {
         })
     }
 
-    static func bindTju(tjuname: String, tjupwd: String, success: (() -> Void)?, failure: (() -> Void)?) {
-        let para = ["tjuuname": tjuname,
-                    "tjupasswd": tjupwd]
-        SolaSessionManager.solaSession(type: .get, url: "/auth/bind/tju", parameters: para, success: { dict in
-            if let error_code = dict["error_code"] as? Int {
-                if error_code == -1 {
-                    TwTUser.shared.tjuBindingState = true
-                    TwTUser.shared.save()
-//                    UserDefaults.standard.set(true, forKey: TJU_BIND_KEY)
-                    success?()
-                } else {
-                    if let msg = dict["message"] as? String {
-                        log(msg)
-                    }
-                }
-            }
-        }, failure: { error in
-            log(error)
-            failure?()
-        })
-    }
-
-    static func unbindTju(tjuname: String, tjupwd: String, success: (() -> Void)?, failure: (() -> Void)?) {
-        SolaSessionManager.solaSession(type: .get, url: "/auth/unbind/tju", parameters: nil, success: { dict in
-            if let error_code = dict["error_code"] as? Int {
-                if error_code == -1 {
-                    TwTUser.shared.tjuBindingState = false
-                    TwTUser.shared.save()
-//                    UserDefaults.standard.set(false, forKey: TJU_BIND_KEY)
-//                    CacheManager.removeCache(withKey: GPA_CACHE)
-//                    CacheManager.removeCache(withKey: GPA_USER_NAME_CACHE)
-//                    CacheManager.removeGroupCache(withKey: CLASSTABLE_COLOR_CONFIG_KEY)
-//                    CacheManager.removeGroupCache(withKey: CLASSTABLE_CACHE_KEY)
-//                    CacheManager.removeGroupCache(withKey: CLASSTABLE_TERM_START_KEY)
-                    // TODO: Spotlight
-                    success?()
-                } else {
-                    if let msg = dict["message"] as? String {
-                        log(msg)
-                    }
-                }
-            }
-        }, failure: { error in
-            log(error)
-            failure?()
-        })
-    }
-
     static func getSelf(success: (() -> Void)?, failure: (() -> Void)?) {
         SolaSessionManager.solaSession(type: .get, baseURL: "https://open.twtstudio.com", url: "/api/v2/auth/self", parameters: nil, success: { dict in
             if let errorno = dict["error_code"] as? Int,
                 let message = dict["message"] as? String,
             message == "token expired" || errorno == 10003 || errorno == 10000 {
-                guard TwTUser.shared.username != "", TwTUser.shared.password != "" else {
+                guard let username = TwTUser.shared.username,
+                    let password = TWTKeychain.password(for: .root) else {
                     SwiftMessages.showWarningMessage(body: "登录过期，请重新登录")
                     showLoginView()
                     return
                 }
 
-                AccountManager.getToken(username: TwTUser.shared.username, password: TwTUser.shared.password, success: { token in
+                AccountManager.getToken(username: username, password: password, success: { token in
+                    TwTUser.shared.username = username
                     TwTUser.shared.token = token
                     TwTUser.shared.save()
                 }, failure: { _ in

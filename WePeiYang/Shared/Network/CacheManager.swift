@@ -115,8 +115,8 @@ struct CacheManager {
     }
 
     static func store<T: Encodable>(object: T, in directory: Storage.Directory, as filename: String) {
-        let newFilename = directory != .caches ? TwTUser.shared.schoolID + "/" + filename : filename
-        Storage.store(["com.wpy.cache": object], in: directory, as: newFilename)
+        let newName = newFilename(in: directory, filename: filename)
+        Storage.store(["com.wpy.cache": object], in: directory, as: newName)
     }
 
     static func retreive<T: Decodable>(_ filename: String, from directory: Storage.Directory, as type: T.Type, success: @escaping (T) -> Void, failure: (() -> Void)? = nil) {
@@ -127,8 +127,8 @@ struct CacheManager {
 
         let queue = DispatchQueue(label: "com.wpy.cache")
         queue.async {
-            let newFilename = directory != .caches ? TwTUser.shared.schoolID + "/" + filename : filename
-            let obj = Storage.retreive(newFilename, from: directory, as: [String: T].self)
+            let newName = newFilename(in: directory, filename: filename)
+            let obj = Storage.retreive(newName, from: directory, as: [String: T].self)
             DispatchQueue.main.async {
                 if let obj = obj, let object = obj["com.wpy.cache"] {
                     success(object)
@@ -140,19 +140,42 @@ struct CacheManager {
     }
 
     static func fileExists(filename: String, in directory: Storage.Directory) -> Bool {
-        let newFilename = directory != .caches ? TwTUser.shared.schoolID + "/" + filename : filename
-        return Storage.fileExists(newFilename, in: directory)
+        let newName = newFilename(in: directory, filename: filename)
+        return Storage.fileExists(newName, in: directory)
     }
 
     static func clear(directory: Storage.Directory) {
-        Storage.clear(subdirectory: TwTUser.shared.schoolID, in: directory)
+        if let username = TwTUser.shared.username {
+            Storage.clear(subdirectory: username, in: directory)
+        }
     }
 
     static func delete(filename: String, in directory: Storage.Directory) {
         guard fileExists(filename: filename, in: directory) else {
             return
         }
-        let newFilename = directory != .caches ? TwTUser.shared.schoolID + "/" + filename : filename
-        Storage.remove(newFilename, from: directory)
+        let newName = newFilename(in: directory, filename: filename)
+        Storage.remove(newName, from: directory)
+    }
+
+    static private func newFilename(in directory: Storage.Directory, filename: String) -> String {
+        let username = TwTUser.shared.username ?? ""
+        let newFilename = directory != .caches ? username + "/" + filename : filename
+        return newFilename
+    }
+
+    // user relevant data is stored in `schoolID` subdirectory before
+    // and now it should be in `username` subdirectory
+    static func migrate() {
+        guard let schoolID = TwTUser.shared.schoolID,
+            let username = TwTUser.shared.username else {
+                return
+        }
+        if Storage.fileExists(schoolID, in: .documents) {
+            Storage.move(source: schoolID, destination: username, in: .documents)
+        }
+        if Storage.fileExists(schoolID, in: .group) {
+            Storage.move(source: schoolID, destination: username, in: .group)
+        }
     }
 }

@@ -7,11 +7,7 @@
 //
 
 import UIKit
-import WMPageController
-import SnapKit
-import Alamofire
 import SafariServices
-import SwiftMessages
 
 class WLANBindingViewController: UIViewController {
 
@@ -44,6 +40,7 @@ class WLANBindingViewController: UIViewController {
 
         let textFieldWidth: CGFloat = 250
         usernameTextField = UITextField()
+        usernameTextField.text = TWTKeychain.username(for: .network)
         usernameTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*2.0/5.0), size: CGSize(width: textFieldWidth, height: 40))
         usernameTextField.placeholder = "请输入账号"
         usernameTextField.keyboardType = .numberPad
@@ -51,6 +48,7 @@ class WLANBindingViewController: UIViewController {
         usernameTextField.clearButtonMode = .always
         usernameTextField.autocapitalizationType = .none
         passwordTextField = UITextField()
+        passwordTextField.text = TWTKeychain.password(for: .network)
         passwordTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: usernameTextField.frame.origin.y + usernameTextField.frame.size.height + 30), size: CGSize(width: textFieldWidth, height: 40))
         passwordTextField.placeholder = "请输入密码"
         passwordTextField.keyboardType = .default
@@ -70,8 +68,8 @@ class WLANBindingViewController: UIViewController {
         self.view.addSubview(campusSwitch)
 
         // Auto fill
-        usernameTextField.text = TwTUser.shared.WLANAccount
-        passwordTextField.text = TwTUser.shared.WLANPassword
+        usernameTextField.text = TWTKeychain.username(for: .network)
+        passwordTextField.text = TWTKeychain.password(for: .network)
         campusSwitch.isOn = UserDefaults.standard.bool(forKey: "newCampus")
 
         bindButton = UIButton()
@@ -105,14 +103,15 @@ class WLANBindingViewController: UIViewController {
     }
 
     @objc func bind() {
-        guard usernameTextField.hasText && passwordTextField.hasText else {
+        guard let username = usernameTextField.text,
+            let password = passwordTextField.text else {
             SwiftMessages.showWarningMessage(body: "请填写账号或密码")
             return
         }
-        var loginInfo: [String: String] = [String: String]()
-        loginInfo["username"] = usernameTextField.text!
-        loginInfo["password"] = passwordTextField.text!
-        loginInfo["campus"] = campusSwitch.isOn == true ? "1" : "0"
+        
+        let campus = campusSwitch.isOn == true ? "1" : "0"
+        let loginInfo = ["username": username, "password": password, "campus": campus]
+        TWTKeychain.set(username: username, password: password, of: .network)
 
         SwiftMessages.showLoading()
         SolaSessionManager.solaSession(type: .get, url: WLANLoginAPIs.loginURL, parameters: loginInfo, success: { dictionary in
@@ -125,19 +124,14 @@ class WLANBindingViewController: UIViewController {
 
             if errorCode == -1 {
                 TwTUser.shared.WLANBindingState = true
-                TwTUser.shared.WLANAccount = loginInfo["username"]
-                TwTUser.shared.WLANPassword = loginInfo["password"]
                 UserDefaults.standard.set(self.campusSwitch.isOn, forKey: "newCampus")
                 TwTUser.shared.save()
-                KeychainService.saveWLAN(account: loginInfo["username"]!, password: loginInfo["password"]!)
                 SwiftMessages.showSuccessMessage(body: "绑定成功！")
                 NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
                 self.dismiss(animated: true, completion: nil)
             } else if errorCode == 50002 {
                 SwiftMessages.showErrorMessage(body: "密码错误")
             } else {
-                TwTUser.shared.WLANAccount = loginInfo["username"]
-                TwTUser.shared.WLANPassword = loginInfo["password"]
                 UserDefaults.standard.set(self.campusSwitch.isOn, forKey: "newCampus")
                 TwTUser.shared.save()
                 SwiftMessages.hideLoading()
@@ -145,8 +139,6 @@ class WLANBindingViewController: UIViewController {
             }
         }, failure: { error in
             SwiftMessages.hideLoading()
-            TwTUser.shared.WLANAccount = self.usernameTextField.text!
-            TwTUser.shared.WLANPassword = self.passwordTextField.text!
             UserDefaults.standard.set(self.campusSwitch.isOn, forKey: "newCampus")
             SwiftMessages.showErrorMessage(body: error.localizedDescription + "\n" + "已为你保存账号密码")
         })
@@ -157,7 +149,7 @@ class WLANBindingViewController: UIViewController {
     }
 
     @objc func showService() {
-        if let url = URL(string: "http://202.113.4.11/") {
+        if let url = URL(string: "http://g.tju.edu.cn/") {
             let vc = SFSafariViewController(url: url)
             present(vc, animated: true)
         }

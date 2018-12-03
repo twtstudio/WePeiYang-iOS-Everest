@@ -62,7 +62,8 @@ struct LibraryBook: Codable {
     let loanTime: String
     let type: String
     let returnTime: String
-
+    let id: Int
+    
     enum CodingKeys: String, CodingKey {
         case author
         case callno
@@ -72,6 +73,7 @@ struct LibraryBook: Codable {
         case loanTime
         case type
         case returnTime
+        case id
     }
 }
 

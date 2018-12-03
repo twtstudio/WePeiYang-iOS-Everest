@@ -22,29 +22,7 @@ class YellowPageSearchViewController: UIViewController {
         history = (UserDefaults.standard.object(forKey: "YellowPageHistory") as? [String]) ?? []
         self.navigationController?.navigationBar.barStyle = .black
     }
-    
-    //    func setStatusBarColor(color: UIColor?) {
-    //            if let statusBar = (UIApplication.shared.value(forKey: "statusBarWindow") as? NSObject)?.value(forKey: "statusBar") as? UIView {
-    //                statusBar.backgroundColor = color
-    //            }
-    //    }
-    
-    //    @objc func keyboardWillHide(notification: Notification) {
-    //        let height = view.frame.size.height - searchView.frame.size.height
-    //        tableView.frame = CGRect(x: 0, y: searchView.frame.size.height, width: tableView.frame.size.width, height: height)
-    //        tableView.setNeedsLayout()
-    //        tableView.layoutIfNeeded()
-    //    }
-    
-    //    @objc func keyboardWillShow(notification: Notification) {
-    //        if let endRect = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue, let beginRect = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as AnyObject).cgRectValue {
-    //            if beginRect.size.height > 0 && beginRect.origin.y - endRect.origin.y > 0 {
-    //                let height = view.frame.size.height - searchView.frame.size.height - endRect.size.height
-    //                tableView.frame = CGRect(x: 0, y: searchView.frame.size.height, width: tableView.frame.size.width, height: height)
-    //            }
-    //        }
-    //    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         //改变 statusBar 颜色

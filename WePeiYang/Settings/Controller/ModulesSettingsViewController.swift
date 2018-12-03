@@ -12,6 +12,7 @@ enum Module: String {
     case gpa = "GPA"
     case library = "图书馆"
     case classtable = "课程表"
+    case ecard = "校园卡"
 }
 
 let ModuleArrangementKey = "ModuleArrangementKey"
@@ -59,7 +60,7 @@ class ModulesSettingsViewController: UIViewController {
         self.title = "模块管理"
 //        tableView.allowsSelection = false
 
-        modules = [(.classtable, true), (.gpa, true), (.library, true)]
+        modules = [(.classtable, true), (.gpa, true), (.library, true), (.ecard, true)]
         if let dict = UserDefaults.standard.dictionary(forKey: ModuleArrangementKey) as? [String: [String: String]] {
             var array: [(Module, Bool, Int)] = []
             for item in dict {
