@@ -19,7 +19,7 @@ class LibraryPageControl: UIPageControl {
         self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: CGFloat(newW), height: self.frame.size.height)
         
         var center = self.center
-        center.x = (self.superview?.center.x)!
+        center.x = (self.superview?.center.x) ?? 0
         self.center = center
         for i in 0..<self.subviews.count {
             let dot = self.subviews[i]
