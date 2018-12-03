@@ -94,7 +94,7 @@ extension LibraryMainViewController {
 //        self.navigationItem.titleView = titleLabel
 
         if isModal {
-            let image = UIImage(named: "ic_back")!
+            let image = UIImage(named: "ic_back")
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
         }
         
