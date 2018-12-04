@@ -242,12 +242,13 @@ class CourseListView: UIView {
         if let indexPath = indexPath {
             // 代理事件
             let model = coursesForDay[index][indexPath.row]
-
             if model.displayCourses.count + model.undispalyCourses.count > 1 {
                 if let rootView = UIApplication.shared.keyWindow {
-                    let models = AuditUser.shared.getClassList(model: model)[0] + AuditUser.shared.getClassList(model: model)[1]
-                    let colletionView = CourseCollectionView(classModels: models, frame: self.bounds)
+                    let models = AuditUser.shared.getCollectionCourses(model: model)[0] + AuditUser.shared.getCollectionCourses(model: model)[1]
+                    let colletionView = CourseCollectionView(classModels: models, frame: CGRect.zero)
                     self.emptyView.addSubview(colletionView)
+                    colletionView.showsVerticalScrollIndicator = false
+                    colletionView.alwaysBounceVertical = true
                     colletionView.courseDelegate = self.delegate
                     colletionView.snp.makeConstraints { make in
                         make.edges.equalToSuperview()
@@ -290,9 +291,6 @@ extension CourseListView: UITableViewDataSource {
         // 构造 cell
         var model = coursesForDay[tableView.tag][indexPath.row]
         let cell = CourseCell(style: .default, reuseIdentifier: "reuse[\(tableView.tag)]\(indexPath)")
-        if !model.courseID.isEmpty, model.courseID.hasPrefix("-") {
-            model.colorIndex = 8
-        }
         cell.load(course: model)
         return cell
     }
