@@ -117,17 +117,30 @@ extension AuditDetailViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AuditDetailCourseTableViewCell") as! AuditDetailCourseTableViewCell
         let item = self.detailCourseList[indexPath.row]
         
-        if let conflictCourse = AuditUser.shared.checkConflict(item: item) {
-            if conflictCourse == "[已蹭课]" {
-                cell.flagLabel.text = conflictCourse
-                cell.isConflict = false
-            } else {
-                cell.flagLabel.text = "冲突课程：" + conflictCourse
-                cell.isConflict = true
-            }
-        } else {
-            cell.flagLabel.text = "没有冲突"
+//        if let conflictCourse = AuditUser.shared.checkConflict(item: item) {
+//            if conflictCourse == "[已蹭课]" {
+//                cell.flagLabel.text = conflictCourse
+//                cell.isConflict = false
+//            } else {
+//                cell.flagLabel.text = "冲突课程：" + conflictCourse
+//                cell.isConflict = true
+//            }
+//        } else {
+//            cell.flagLabel.text = "没有冲突"
+//            cell.isConflict = false
+//        }
+
+        if AuditUser.shared.auditCourseSet.contains(item.id) {
+            cell.flagLabel.text = "已蹭课"
             cell.isConflict = false
+        } else {
+            if AuditUser.shared.checkConflictAgain(item: item) {
+                cell.flagLabel.text = "有冲突"
+                cell.isConflict = true
+            } else {
+                cell.flagLabel.text = "没有冲突"
+                cell.isConflict = false
+            }
         }
         
         cell.nameLabel.text = item.courseName

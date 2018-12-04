@@ -45,6 +45,13 @@ extension CourseCollectionView: UICollectionViewDelegate {
         let model = self.classModels[indexPath.item]
         courseDelegate?.collectionView(self, didSelectCourse: model)
     }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 1)
+        UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+            cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
+        }, completion: nil)
+    }
 }
 
 extension CourseCollectionView: UICollectionViewDataSource {
@@ -55,8 +62,17 @@ extension CourseCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CourseCollectionViewCell", for: indexPath) as! CourseCollectionViewCell
         let model = self.classModels[indexPath.item]
-        cell.nameLabel.text = model.courseName
-        cell.locationLabel.text = model.teacher
+
+        if model.courseName.hasPrefix("【非本周】") {
+            cell.nameLabel.text = model.courseName
+            cell.nameLabel.textColor = .gray
+            cell.locationLabel.textColor = .gray
+        } else {
+            cell.nameLabel.text = "【本周】" + model.courseName
+            cell.nameLabel.textColor = .white
+            cell.locationLabel.textColor = .white
+        }
+        cell.locationLabel.text = "@" + model.arrange.first!.room
         if model.isDisplay == true {
             cell.contentView.backgroundColor = Metadata.Color.fluentColors[model.colorIndex].withAlphaComponent(0.7)
         } else {

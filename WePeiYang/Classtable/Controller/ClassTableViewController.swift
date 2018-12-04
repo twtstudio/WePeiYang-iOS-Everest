@@ -273,11 +273,21 @@ class ClassTableViewController: UIViewController {
                 }
                 self.currentWeek = Int(week)
                 self.currentDisplayWeek = Int(week)
-                
+
+//                self.weekCourseDict = AuditUser.shared.weekCourseDict
+//                if let courses = self.weekCourseDict[self.currentWeek] {
+//                    self.listView.load(courses: courses, weeks: 0)
+//                }
+
                 AuditUser.shared.updateCourses(originTable: table, isStore: false)
-                self.weekCourseDict = AuditUser.shared.weekCourseDict
+                var weekDic = [Int: [[ClassModel]]]()
+                for week in 1...22 {
+                    weekDic[week] = AuditUser.shared.getCourseListModel(week: week)
+                }
+                self.weekCourseDict = weekDic
+
                 if let courses = self.weekCourseDict[self.currentWeek] {
-                    self.listView.load(courses: courses, weeks: 0)
+                    self.listView.load(courses: courses, weeks: self.currentWeek)
                 }
             }
         }, failure: {
@@ -336,8 +346,8 @@ class ClassTableViewController: UIViewController {
             self.stopRotating()
             
             if let table = originTable, let auditItems = auditItems {
-//                AuditUser.shared.updateCourses(originTable: table, auditCourses: auditItems, isStore: true)
-                AuditUser.shared.updateCourses(originTable: table, isStore: true)
+                AuditUser.shared.updateCourses(originTable: table, auditCourses: auditItems, isStore: true)
+//                AuditUser.shared.updateCourses(originTable: table, isStore: true)
             }
             
             guard let table = AuditUser.shared.mergedTable else {
@@ -352,13 +362,18 @@ class ClassTableViewController: UIViewController {
             }
             self.currentWeek = Int(week)
             self.currentDisplayWeek = Int(week)
-            
-            self.weekCourseDict = AuditUser.shared.weekCourseDict
-            let courses = AuditUser.shared.getClassModels(week: self.currentWeek)
-            self.listView.load(courses: courses, weeks: self.currentWeek)
-//            if let courses = self.weekCourseDict[self.currentWeek] {
-//                self.listView.load(courses: courses, weeks: 0)
-//            }
+
+            var weekDic = [Int: [[ClassModel]]]()
+            for week in 1...22 {
+                weekDic[week] = AuditUser.shared.getCourseListModel(week: week)
+            }
+            self.weekCourseDict = weekDic
+
+            if let courses = self.weekCourseDict[self.currentWeek] {
+                self.listView.load(courses: courses, weeks: self.currentWeek)
+            }
+//            let courses = AuditUser.shared.getCourseListModel(week: self.currentWeek)
+//            self.listView.load(courses: courses, weeks: self.currentWeek)
             // 和本周的差距
             SwiftMessages.showSuccessMessage(body: "刷新成功\n更新时间: \(table.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
         }

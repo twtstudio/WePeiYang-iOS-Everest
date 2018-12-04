@@ -80,10 +80,6 @@ class CourseCell: UITableViewCell {
 
             // 确保安全
             let index = course.colorIndex % colors.count
-            
-//            if course.courseID.hasPrefix("-") {
-//                index = 3
-//            }
 
             contentView.backgroundColor = colors[index]
             if course.isDisplay == false {
