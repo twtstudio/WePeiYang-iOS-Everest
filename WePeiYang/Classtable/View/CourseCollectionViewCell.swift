@@ -14,6 +14,8 @@ class CourseCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.textColor = .white
         label.text = "jjjjjjjjj"
+        label.numberOfLines = 0
+        label.lineBreakMode = .byCharWrapping
         return label
     }()
     
@@ -22,6 +24,8 @@ class CourseCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.textColor = .white
         label.text = "weiuhgvwenvwrjv"
+        label.numberOfLines = 0
+        label.lineBreakMode = .byCharWrapping
         return label
     }()
 
@@ -32,23 +36,26 @@ class CourseCollectionViewCell: UICollectionViewCell {
         self.contentView.layer.cornerRadius = 15
         self.contentView.tag = 10086
 
+        self.nameLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: UILayoutConstraintAxis.vertical)
+        self.nameLabel.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: UILayoutConstraintAxis.vertical)
+
         self.contentView.addSubview(nameLabel)
         self.contentView.addSubview(locationLabel)
         nameLabel.snp.makeConstraints { make in
-            make.top.right.left.equalToSuperview()
-            make.height.equalTo(40)
+            make.top.equalToSuperview().inset(15)
+            make.left.right.equalToSuperview().inset(10)
         }
         locationLabel.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(nameLabel.snp.bottom)
-            make.height.equalTo(35)
+            make.left.right.equalToSuperview().inset(10)
+            make.top.equalTo(nameLabel.snp.bottom).offset(10)
+            make.bottom.lessThanOrEqualToSuperview().inset(15)
         }
+        nameLabel.sizeToFit()
+        locationLabel.sizeToFit()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    
 
 }

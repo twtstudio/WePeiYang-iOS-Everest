@@ -36,7 +36,7 @@ class AuditUser {
             failure(errStr)
         })
     }
-    
+
     func auditCourse(item: AuditDetailCourseItem, success: @escaping ([AuditDetailCourseItem]) -> Void, failure: @escaping (String) -> Void) {
         let courseID = item.courseID
         ClasstableDataManager.getPersonalAuditList(success: { model in
@@ -80,6 +80,9 @@ class AuditUser {
     // MARK: - 更新课程表
     func updateCourses(originTable table: ClassTableModel, auditCourses: [AuditDetailCourseItem] = [], isStore: Bool) {
         var table = table
+
+        self.auditCourseSet = Set<Int>()
+
         auditCourses.forEach { item in
             var auditCourse = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(item.weekDay)\", \"start\":\"\(item.startTime)\", \"end\":\"\(item.startTime + item.courseLength - 1)\"}], \"isPlaceholder\": \"\(false)\"}")!
             if item.weekType == 1 {
@@ -96,10 +99,31 @@ class AuditUser {
             auditCourse.weekEnd = String(item.endWeek)
             auditCourse.teacher = item.teacher + "  " + item.teacherType
             auditCourse.college = item.courseCollege
-            auditCourse.courseID = String(-item.id)
+            auditCourse.courseID = String(-item.courseID)
+            auditCourse.classID = String(-item.id)
+
+            self.auditCourseSet.insert(item.id)
             
             table.classes.append(auditCourse)
         }
+
+        // 配色
+        var colorConfig = [String: Int]()
+        table.classes = table.classes.map { course in
+            var course = course
+            if let colorIndex = colorConfig[course.courseID] {
+                course.setColorIndex(index: colorIndex)
+            } else {
+                var index = 0
+                repeat {
+                    index = Int(arc4random()) % Metadata.Color.fluentColors.count
+                } while colorConfig.values.contains(index)
+                course.setColorIndex(index: index)
+                colorConfig[course.courseID] = index
+            }
+            return course
+        }
+
         self.mergedTable = table
         
         if UserDefaults.standard.bool(forKey: ClassTableNotificationEnabled) {
@@ -259,6 +283,23 @@ class AuditUser {
 
     // MARK: - New AuditUser
 
+
+    func checkConflictAgain(item: AuditDetailCourseItem) -> Bool {
+        let day = item.weekDay - 1
+        for week in item.startWeek...item.endWeek {
+            if (week % 2 == 0 && item.weekType == 1) || (week % 2 == 1 && item.weekType == 2) {
+                continue
+            }
+            for i in item.startTime...(item.startTime + item.courseLength - 1) {
+                let index = i - 1
+                if self.conflictHashTable[84 * (week - 1) + 12 * day + index] == true {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
     // 全局课程表映射
     var courseMappingDic: [Int: ClassModel] = [:]
 
@@ -266,6 +307,12 @@ class AuditUser {
     var courseTableMax: Int {
         return self.courseMappingDic.count
     }
+
+    // 检测冲突的 Hash 表     84 * week + 12 * day + index
+    var conflictHashTable: [Bool] = []
+
+    //
+    var auditCourseSet = Set<Int>()
 
     // 课程表矩阵
     var courseTable: [[CourseList]] = Array(repeating: Array(repeating: CourseList(), count: 13), count: 8)
@@ -277,6 +324,9 @@ class AuditUser {
                 self.courseTable[day][index] = CourseList()
             }
         }
+        self.courseMappingDic = [:]
+        self.conflictHashTable = Array(repeating: false, count: 1850)
+
         for course in table.classes {
             for arrange in course.arrange {
                 let day = arrange.day
@@ -294,12 +344,17 @@ class AuditUser {
                 for week in 1...22 {
                     if (week < Int(newCourse.weekStart)!) || (week > Int(newCourse.weekEnd)!) {
                         courseList.undisplayCourses[week].append(index)
-
                     } else if (week % 2 == 0 && arrange.week == "单周") || (week % 2 == 1 && arrange.week == "双周") {
                         courseList.undisplayCourses[week].append(index)
 
                     } else {
                         courseList.displayCourses[week].append(index)
+                        // 标记
+                        for i in newCourse.arrange.first!.start...newCourse.arrange.first!.end {
+                            let index = i - 1
+                            let day = newCourse.arrange.first!.day - 1
+                            self.conflictHashTable[84 * (week - 1) + 12 * day + index] = true
+                        }
                     }
                 }
             }
@@ -307,7 +362,7 @@ class AuditUser {
     }
 
     // 返回 CourseListView 数据
-    func getClassModels(week: Int) -> [[ClassModel]] {
+    func getCourseListModel(week: Int) -> [[ClassModel]] {
         //log(self.courseTableMax)
         var classModels: [[ClassModel]] = [[], [], [], [], [], [], []]
         for day in 0...6 {
@@ -341,7 +396,7 @@ class AuditUser {
         return classModels
     }
 
-    func getClassList(model: ClassModel) -> [[ClassModel]] {
+    func getCollectionCourses(model: ClassModel) -> [[ClassModel]] {
         var classList: [[ClassModel]] = [[], []]
         model.displayCourses.forEach { id in
             if let item = self.courseMappingDic[id] {
