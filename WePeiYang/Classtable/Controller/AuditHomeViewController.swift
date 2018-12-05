@@ -166,14 +166,17 @@ extension AuditHomeViewController: UITableViewDelegate {
             let popupVC = PopupDialog(title: "确定要取消蹭课吗？亲～", message: "取消蹭课：" + item.courseName, buttonAlignment: .horizontal, transitionStyle: .zoomIn)
             let cancelButton = CancelButton(title: "我再想想", action: nil)
             let deleteButton = DestructiveButton(title: "不想蹭了") {
-                AuditUser.shared.deleteCourse(infoIDs: [item.courseID], success: { items in
+                AuditUser.shared.deleteCourse(item: item, success: { items in
                     SwiftMessages.showSuccessMessage(body: "删除成功")
-                    
+
+                    AuditCacheManager.deleteAudit(withKey: item.courseID, ids: [item.id])
+                    AuditUser.shared.auditCourseSet.remove(item.id)
                     self.personalCourseList = items
                     self.tableView.reloadData()
+
                     NotificationCenter.default.post(name: NotificationName.NotificationClassTableWillRefresh.name, object: nil)
-                }, failure: { _ in
-                    
+                }, failure: { errStr in
+                    log(errStr)
                 })
             }
             popupVC.addButtons([cancelButton, deleteButton])

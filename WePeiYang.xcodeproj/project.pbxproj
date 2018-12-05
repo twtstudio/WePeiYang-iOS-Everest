@@ -221,6 +221,7 @@
 		DD0B762D2158CBA6009A392C /* CourseAppraiseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B76222158CBA5009A392C /* CourseAppraiseCell.swift */; };
 		DD2A2ABD21B2DC5100EA6F8F /* CourseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A2ABC21B2DC5100EA6F8F /* CourseCollectionView.swift */; };
 		DD2A2ABF21B2DEBB00EA6F8F /* CourseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A2ABE21B2DEBB00EA6F8F /* CourseCollectionViewCell.swift */; };
+		DD2A2AC321B773B600EA6F8F /* AuditCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A2AC221B773B600EA6F8F /* AuditCacheManager.swift */; };
 		DD41A82F21A3265800886BB4 /* PopularListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD41A82E21A3265800886BB4 /* PopularListModel.swift */; };
 		DD41A83121A3B00300886BB4 /* AuditDetailCourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD41A83021A3B00300886BB4 /* AuditDetailCourseTableViewCell.swift */; };
 		DD41A83321A4704000886BB4 /* AuditDetailCourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD41A83221A4704000886BB4 /* AuditDetailCourseModel.swift */; };
@@ -497,6 +498,7 @@
 		DD0B76222158CBA5009A392C /* CourseAppraiseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseCell.swift; sourceTree = "<group>"; };
 		DD2A2ABC21B2DC5100EA6F8F /* CourseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCollectionView.swift; sourceTree = "<group>"; };
 		DD2A2ABE21B2DEBB00EA6F8F /* CourseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCollectionViewCell.swift; sourceTree = "<group>"; };
+		DD2A2AC221B773B600EA6F8F /* AuditCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditCacheManager.swift; sourceTree = "<group>"; };
 		DD41A82E21A3265800886BB4 /* PopularListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularListModel.swift; sourceTree = "<group>"; };
 		DD41A83021A3B00300886BB4 /* AuditDetailCourseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditDetailCourseTableViewCell.swift; sourceTree = "<group>"; };
 		DD41A83221A4704000886BB4 /* AuditDetailCourseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditDetailCourseModel.swift; sourceTree = "<group>"; };
@@ -742,6 +744,7 @@
 				DD41A82E21A3265800886BB4 /* PopularListModel.swift */,
 				DD41A83821A4FE8100886BB4 /* AuditCollegeModel.swift */,
 				DD41A83621A4FCD400886BB4 /* AuditUser.swift */,
+				DD2A2AC221B773B600EA6F8F /* AuditCacheManager.swift */,
 				DD41A83221A4704000886BB4 /* AuditDetailCourseModel.swift */,
 				DD6A663521ABCEB10070C4B2 /* AuditPersonalCourseModel.swift */,
 				DD41A83A21A52F7100886BB4 /* AuditSearchModel.swift */,
@@ -1660,6 +1663,7 @@
 				36042DB81FC7BB270016E859 /* CourseCell.swift in Sources */,
 				3685D9EF204D255700BA6C3D /* NewsDetailViewController.swift in Sources */,
 				365261561FB9F83400025B8A /* ClassTableModel.swift in Sources */,
+				DD2A2AC321B773B600EA6F8F /* AuditCacheManager.swift in Sources */,
 				36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */,
 				A5197A3D1FDA8F99008C445A /* LibraryAPIs.swift in Sources */,
 				36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */,

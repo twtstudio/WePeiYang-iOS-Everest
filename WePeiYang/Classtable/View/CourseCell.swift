@@ -81,12 +81,12 @@ class CourseCell: UITableViewCell {
             // 确保安全
             let index = course.colorIndex % colors.count
 
-            contentView.backgroundColor = colors[index]
             if course.isDisplay == false {
-                contentView.backgroundColor = .gray
-                contentView.alpha = 0.3
+                titleLabel.textColor = UIColor.gray.withAlphaComponent(0.7)
+                contentView.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
             } else {
-                contentView.alpha = 0.7
+                titleLabel.textColor = .white
+                contentView.backgroundColor = colors[index].withAlphaComponent(0.7)
             }
 
             var name = course.courseName

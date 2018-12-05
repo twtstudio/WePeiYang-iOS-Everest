@@ -274,11 +274,6 @@ class ClassTableViewController: UIViewController {
                 self.currentWeek = Int(week)
                 self.currentDisplayWeek = Int(week)
 
-//                self.weekCourseDict = AuditUser.shared.weekCourseDict
-//                if let courses = self.weekCourseDict[self.currentWeek] {
-//                    self.listView.load(courses: courses, weeks: 0)
-//                }
-
                 AuditUser.shared.updateCourses(originTable: table, isStore: false)
                 var weekDic = [Int: [[ClassModel]]]()
                 for week in 1...22 {
@@ -335,6 +330,7 @@ class ClassTableViewController: UIViewController {
                     auditItems!.append(item)
                 }
             }
+            AuditCacheManager.load(model: model)
             group.leave()
         }, failure: { errStr in
             SwiftMessages.showErrorMessage(body: errStr)
@@ -345,14 +341,11 @@ class ClassTableViewController: UIViewController {
             self.isRefreshing = false
             self.stopRotating()
             
-            if let table = originTable, let auditItems = auditItems {
-                AuditUser.shared.updateCourses(originTable: table, auditCourses: auditItems, isStore: true)
-//                AuditUser.shared.updateCourses(originTable: table, isStore: true)
-            }
-            
-            guard let table = AuditUser.shared.mergedTable else {
+            guard let table = originTable, let auditItems = auditItems else {
                 return
             }
+            
+            AuditUser.shared.updateCourses(originTable: table, auditCourses: auditItems, isStore: true)
             
             let now = Date()
             let termStart = Date(timeIntervalSince1970: Double(table.termStart))
@@ -372,8 +365,6 @@ class ClassTableViewController: UIViewController {
             if let courses = self.weekCourseDict[self.currentWeek] {
                 self.listView.load(courses: courses, weeks: self.currentWeek)
             }
-//            let courses = AuditUser.shared.getCourseListModel(week: self.currentWeek)
-//            self.listView.load(courses: courses, weeks: self.currentWeek)
             // 和本周的差距
             SwiftMessages.showSuccessMessage(body: "刷新成功\n更新时间: \(table.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
         }
