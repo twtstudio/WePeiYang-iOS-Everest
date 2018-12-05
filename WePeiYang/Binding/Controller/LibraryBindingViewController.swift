@@ -169,6 +169,7 @@ class LibraryBindingViewController: UIViewController {
     }
 
     @objc func dismissBinding() {
+        TWTKeychain.erase(.library)
         self.dismiss(animated: true, completion: nil)
     }
 

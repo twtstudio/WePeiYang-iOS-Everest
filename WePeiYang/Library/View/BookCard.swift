@@ -126,6 +126,16 @@ class BookCard: CardView {
     }
 }
 
+extension BookCard {
+    func calculateDay(returnTime: String) -> Int {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let returnDate = dateFormatter.date(from: returnTime)
+        let between = Calendar.current.dateComponents([.day], from: Date(), to: returnDate!)
+        return between.day ?? 0
+    }
+}
+
 extension LibraryBook {
     static func getImage(id: String, success: ((String) -> Void)? = nil, failure: @escaping () -> Void) {
         SolaSessionManager.solaSession(url: "/library/book/" + id, success: { dict in
