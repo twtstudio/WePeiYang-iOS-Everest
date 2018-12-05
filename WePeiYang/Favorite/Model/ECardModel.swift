@@ -45,12 +45,14 @@ struct ECardAPI {
         }
 
         SolaSessionManager.solaSession(type: .get, url: "/ecard/profile", parameters: ["password": password, "cardnum": username], success: { dict in
-            if let data = try? JSONSerialization.data(withJSONObject: dict["data"] as Any, options: .init(rawValue: 0)),
-                let response = try? EcardProfile(data: data) {
-                success(response)
-            } else {
-                failure(WPYCustomError.custom("校园卡解析失败"))
+            guard let content = dict["data"] as? [String: Any],
+                let data = try? JSONSerialization.data(withJSONObject: content, options: .init(rawValue: 0)),
+                let response = try? EcardProfile(data: data) else {
+                    failure(WPYCustomError.custom("校园卡解析失败"))
+                    return
             }
+            success(response)
+
         }, failure: failure)
     }
 
@@ -71,21 +73,26 @@ struct ECardAPI {
             defer {
                 group.leave()
             }
-            if let errmsg = (dict["data"] as? [String: String])?["info"] {
+
+            if let data = dict["data"] as? [String: String],
+                let errmsg = data["info"] {
                 error = WPYCustomError.custom(errmsg)
                 return
             }
-            if let data = try? JSONSerialization.data(withJSONObject: dict["data"] as Any, options: .init(rawValue: 0)),
-                let topup = try? EcardTransaction(data: data) {
-                let list = topup.transaction.map { item -> Transaction in
-                    var item = item
-                    item.type = TransactionType.topup.rawValue
-                    return item
-                }
-                result.append(contentsOf: list)
-            } else {
-                error = WPYCustomError.custom("流水解析失败")
+
+            guard let content = dict["data"] as? [String: Any],
+                let data = try? JSONSerialization.data(withJSONObject: content, options: .init(rawValue: 0)),
+                let topup = try? EcardTransaction(data: data) else {
+                    error = WPYCustomError.custom("流水解析失败")
+                    return
             }
+
+            let list = topup.transaction.map { item -> Transaction in
+                var item = item
+                item.type = TransactionType.topup.rawValue
+                return item
+            }
+            result.append(contentsOf: list)
         }, failure: { err in
             group.leave()
             error = err
@@ -96,21 +103,26 @@ struct ECardAPI {
             defer {
                 group.leave()
             }
-            if let errmsg = (dict["data"] as? [String: String])?["info"] {
+            
+            if let data = dict["data"] as? [String: String],
+                let errmsg = data["info"] {
                 error = WPYCustomError.custom(errmsg)
                 return
             }
-            if let data = try? JSONSerialization.data(withJSONObject: dict["data"] as Any, options: .init(rawValue: 0)),
-                let expense = try? EcardTransaction(data: data) {
-                let list = expense.transaction.map { item -> Transaction in
-                    var item = item
-                    item.type = TransactionType.expense.rawValue
-                    return item
-                }
-                result.append(contentsOf: list)
-            } else {
-                error = WPYCustomError.custom("流水解析失败")
+
+            guard let content = dict["data"] as? [String: Any],
+                let data = try? JSONSerialization.data(withJSONObject: content, options: .init(rawValue: 0)),
+                let expense = try? EcardTransaction(data: data) else {
+                    error = WPYCustomError.custom("流水解析失败")
+                    return
             }
+
+            let list = expense.transaction.map { item -> Transaction in
+                var item = item
+                item.type = TransactionType.expense.rawValue
+                return item
+            }
+            result.append(contentsOf: list)
         }, failure: { err in
             error = err
             group.leave()
