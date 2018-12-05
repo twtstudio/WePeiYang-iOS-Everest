@@ -139,7 +139,7 @@ class LFDetailViewController: UIViewController {
         LostFoundHelper.getLFDetail(id: id, success: { detail in
             self.detail = detail
             guard let detailData = detail.data else { return }
-            self.detailDisplayArray = [detailData.time!, detailData.place!, "\(detailData.detailType!)", detailData.name!, detailData.phone!, detailData.itemDescription!]
+            self.detailDisplayArray = [detailData.time ?? "", detailData.place ?? "", "\(detailData.detailType!)", detailData.name ?? "", detailData.phone ?? "", detailData.itemDescription ?? ""]
             
             var lastLabel: UILabel!
             var labels: [UILabel] = []
@@ -191,10 +191,10 @@ class LFDetailViewController: UIViewController {
             
             if let picture = detailData.picture {
                 if picture[0] == "" {
-                    self.detailImageView.image = UIImage(named: "暂无图片")
+                    self.detailImageView.image = #imageLiteral(resourceName: "LFNoImage")
                 } else {
                     self.imageURL = picture[0]
-                    let TWT_URL = "http://open.twtstudio.com/"
+                    // let TWT_URL = "http://open.twtstudio.com/"
                     self.detailImageView.sd_setImage(with: URL(string: TWT_URL + self.imageURL))
                     self.image = TWT_URL + self.imageURL
                 }
@@ -214,7 +214,7 @@ class LFDetailViewController: UIViewController {
     }
     
     @objc func share() {
-        let vc = UIActivityViewController(activityItems: [UIImage(named: "暂无图片")!, "[失物招领]\(self.detail.data!.title!)", URL(string: "http://open.twtstudio.com/lostfound/detail.html#\(id)")!], applicationActivities: [])
+        let vc = UIActivityViewController(activityItems: [#imageLiteral(resourceName: "LFNoImage"), "[失物招领]\(self.detail.data!.title!)", URL(string: "http://open.twtstudio.com/lostfound/detail.html#\(id)")!], applicationActivities: [])
         present(vc, animated: true, completion: nil)
     }
     

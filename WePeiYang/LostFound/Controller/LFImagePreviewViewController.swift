@@ -43,7 +43,7 @@ class LFImagePreviewViewController: UIViewController {
                 imageView.sd_setImage(with: imageURL)
             }
         } else {
-            imageView.image = UIImage(named: "暂无图片")
+            imageView.image = #imageLiteral(resourceName: "LFNoImage")
         }
         imageView.isUserInteractionEnabled = true
         imageView.frame = scrollView.frame

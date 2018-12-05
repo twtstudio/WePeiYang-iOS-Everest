@@ -61,8 +61,8 @@ class MyLostFoundTableViewCell: UITableViewCell {
         if pic != "", let picURL = URL(string: TWT_URL + pic) {
             pictureImageView.sd_setImage(with: picURL)
         } else {
-            let picURL = "暂无图片"
-            pictureImageView.image = UIImage(named: picURL)
+            // let picURL = "暂无图片"
+            pictureImageView.image = #imageLiteral(resourceName: "LFNoImage")
         }
         pictureImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)

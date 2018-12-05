@@ -14,7 +14,8 @@ enum MyURLState: String {
     case foundURL = "found"
 }
 
-let TWT_URL = "http://open.twtstudio.com/"
+// let TWT_URL = "http://open.twtstudio.com/"
+let TWT_URL = "https://open-lostfound.twtstudio.com/"
 
 class MyLostViewController: UIViewController {
     
