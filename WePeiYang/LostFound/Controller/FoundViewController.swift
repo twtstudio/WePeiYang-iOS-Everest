@@ -9,7 +9,7 @@
 import UIKit
 import MJRefresh
 
-var foundList: [LostFoundModel] = []
+var foundList: [FoundData] = []
 
 class FoundViewController: UIViewController {
     
@@ -61,8 +61,14 @@ class FoundViewController: UIViewController {
     }
     
     func refresh() {
-        GetFoundAPI.getFound(page: curPage, success: { founds in
-            foundList = founds
+//        GetFoundAPI.getFound(page: curPage, success: { founds in
+//            foundList = founds
+//            self.selectView()
+//            self.foundView.reloadData()
+//        }) { _ in
+//        }
+        LostFoundHelper.getFound(page: curPage, success: { found in
+            foundList = found.data
             self.selectView()
             self.foundView.reloadData()
         }) { _ in
@@ -72,10 +78,21 @@ class FoundViewController: UIViewController {
     // 底部上拉加载
     @objc func footerLoad() {
         self.curPage += 1
-        GetFoundAPI.getFound(page: curPage, success: { losts in
-            foundList += losts
+//        GetFoundAPI.getFound(page: curPage, success: { losts in
+//            foundList += losts
+//            self.foundView.reloadData()
+//            if losts.isEmpty {
+//                self.curPage -= 1
+//                self.foundView.mj_footer.endRefreshingWithNoMoreData()
+//            } else {
+//                self.foundView.mj_footer.endRefreshing()
+//            }
+//        }) { _ in
+//        }
+        LostFoundHelper.getFound(page: curPage, success: { found in
+            foundList += found.data
             self.foundView.reloadData()
-            if losts.isEmpty {
+            if found.data.isEmpty {
                 self.curPage -= 1
                 self.foundView.mj_footer.endRefreshingWithNoMoreData()
             } else {
@@ -88,8 +105,19 @@ class FoundViewController: UIViewController {
     
     // 顶部下拉刷新
     @objc func headerRefresh() {
-        GetFoundAPI.getFound(page: 1, success: { losts in
-            foundList = losts
+//        GetFoundAPI.getFound(page: 1, success: { losts in
+//            foundList = losts
+//            self.selectView()
+//            self.foundView.mj_footer.resetNoMoreData()
+//            // 结束刷新
+//            self.foundView.mj_header.endRefreshing()
+//            self.promptView.mj_header.endRefreshing()
+//            self.foundView.reloadData()
+//            self.curPage = 1
+//        }) { _ in
+//        }
+        LostFoundHelper.getFound(success: { found in
+            foundList = found.data
             self.selectView()
             self.foundView.mj_footer.resetNoMoreData()
             // 结束刷新
@@ -115,14 +143,14 @@ extension FoundViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "foundCell", for: indexPath) as? LostFoundCollectionViewCell {
-            let picURL = foundList[indexPath.row].picture
-            cell.initUI(pic: picURL, title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detailType, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
+            let picURL = foundList[indexPath.row].picture ?? [""]
+            cell.initUI(pic: picURL[0], title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detailType, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
             return cell
             
         }
         let cell = LostFoundCollectionViewCell(frame: .zero)
-        let picURL = foundList[indexPath.row].picture
-        cell.initUI(pic: picURL, title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detailType, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
+        let picURL = foundList[indexPath.row].picture ?? [""]
+        cell.initUI(pic: picURL[0], title: foundList[indexPath.row].title, mark: foundList[indexPath.row].detailType, time: foundList[indexPath.row].time, place: foundList[indexPath.row].place)
         return cell
     }
     

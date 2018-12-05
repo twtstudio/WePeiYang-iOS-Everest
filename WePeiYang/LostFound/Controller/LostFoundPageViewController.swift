@@ -135,12 +135,15 @@ class LostFoundPageViewController: WMPageController {
     }
     
     func refresh() {
-        GetFoundAPI.getFound(page: 1, success: { founds in
-            foundList = founds
-            //            self.foundView.reloadData()
-        }) { _ in
-        }
-        
+//        GetFoundAPI.getFound(page: 1, success: { founds in
+//            foundList = founds
+//            //            self.foundView.reloadData()
+//        }) { _ in
+//        }
+        LostFoundHelper.getFound(success: { found in
+            foundList = found.data
+        }, failure: { _ in
+        })
 //        GetLostAPI.getLost(page: 1, success: { _ in
 //            lostList = losts
 //            //            self.lostView.reloadData()

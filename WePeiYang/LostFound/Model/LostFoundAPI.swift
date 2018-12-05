@@ -15,6 +15,8 @@ struct LostFoundAPI {
     
     static let lost = "/lost"
     
+    static let found = "/found"
+    
 }
 
 // MARK: - Network
@@ -23,10 +25,21 @@ struct LostFoundHelper {
         SolaSessionManager.solaSession(baseURL: LostFoundAPI.root, url: LostFoundAPI.lost, parameters: ["timeblock": String(timeblock), "campus": String(campus), "page": String(page), "detail_type": String(detailType)], success: { dic in
             if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let lost = try? LostModel(data: data) {
                 success(lost)
-            } else { log("WARNING -- LostModel.getLost") }
+            } else { log("WARNING -- LostFoundHelper.getLost") }
         }) { error in
             failure(error)
-            log("ERROR -- LostModel.getLost")
+            log("ERROR -- LostFoundHelper.getLost")
+        }
+    }
+    
+    static func getFound(timeblock: Int = 5, campus: Int = 1, page: Int = 1, detailType: Int = 0, success: @escaping (FoundModel) -> Void, failure: @escaping (Error) -> Void) {
+        SolaSessionManager.solaSession(baseURL: LostFoundAPI.root, url: LostFoundAPI.found, parameters: ["timeblock": String(timeblock), "campus": String(campus), "page": String(page), "detail_type": String(detailType)], success: { dic in
+            if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let found = try? FoundModel(data: data) {
+                success(found)
+            } else { log("WARNING -- LostFoundHelper.getFound") }
+        }) { error in
+            failure(error)
+            log("ERROR -- LostFoundHelper.getFound")
         }
     }
 }
@@ -168,6 +181,137 @@ func newJSONEncoder() -> JSONEncoder {
         encoder.dateEncodingStrategy = .iso8601
     }
     return encoder
+}
+
+// MARK: - Model
+struct FoundModel: Codable {
+    let errorCode: Int
+    let message: String
+    let data: [FoundData]
+    
+    enum CodingKeys: String, CodingKey {
+        case errorCode = "error_code"
+        case message, data
+    }
+}
+
+struct FoundData: Codable {
+    let id, type: Int
+    let name, title, place, time: String
+    let phone: String
+    let detailType, isback: Int
+    let picture: [String]?
+    let recapturePlace: String
+    let recaptureEntrance: Int
+    let publishEnd: String
+    let campus: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case id, type, name, title, place, time, phone
+        case detailType = "detail_type"
+        case isback, picture
+        case recapturePlace = "recapture_place"
+        case recaptureEntrance = "recapture_entrance"
+        case publishEnd = "publish_end"
+        case campus
+    }
+}
+
+// MARK: - Initialization
+extension FoundModel {
+    init(data: Data) throws {
+        self = try newJSONDecoder().decode(FoundModel.self, from: data)
+    }
+    
+    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
+        guard let data = json.data(using: encoding) else {
+            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
+        }
+        try self.init(data: data)
+    }
+    
+    init(fromURL url: URL) throws {
+        try self.init(data: try Data(contentsOf: url))
+    }
+    
+    func with(
+        errorCode: Int? = nil,
+        message: String? = nil,
+        data: [FoundData]? = nil
+        ) -> FoundModel {
+        return FoundModel(
+            errorCode: errorCode ?? self.errorCode,
+            message: message ?? self.message,
+            data: data ?? self.data
+        )
+    }
+    
+    func jsonData() throws -> Data {
+        return try newJSONEncoder().encode(self)
+    }
+    
+    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
+        return String(data: try self.jsonData(), encoding: encoding)
+    }
+}
+
+extension FoundData {
+    init(data: Data) throws {
+        self = try newJSONDecoder().decode(FoundData.self, from: data)
+    }
+    
+    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
+        guard let data = json.data(using: encoding) else {
+            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
+        }
+        try self.init(data: data)
+    }
+    
+    init(fromURL url: URL) throws {
+        try self.init(data: try Data(contentsOf: url))
+    }
+    
+    func with(
+        id: Int? = nil,
+        type: Int? = nil,
+        name: String? = nil,
+        title: String? = nil,
+        place: String? = nil,
+        time: String? = nil,
+        phone: String? = nil,
+        detailType: Int? = nil,
+        isback: Int? = nil,
+        picture: [String]?? = nil,
+        recapturePlace: String? = nil,
+        recaptureEntrance: Int? = nil,
+        publishEnd: String? = nil,
+        campus: Int? = nil
+        ) -> FoundData {
+        return FoundData(
+            id: id ?? self.id,
+            type: type ?? self.type,
+            name: name ?? self.name,
+            title: title ?? self.title,
+            place: place ?? self.place,
+            time: time ?? self.time,
+            phone: phone ?? self.phone,
+            detailType: detailType ?? self.detailType,
+            isback: isback ?? self.isback,
+            picture: picture ?? self.picture,
+            recapturePlace: recapturePlace ?? self.recapturePlace,
+            recaptureEntrance: recaptureEntrance ?? self.recaptureEntrance,
+            publishEnd: publishEnd ?? self.publishEnd,
+            campus: campus ?? self.campus
+        )
+    }
+    
+    func jsonData() throws -> Data {
+        return try newJSONEncoder().encode(self)
+    }
+    
+    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
+        return String(data: try self.jsonData(), encoding: encoding)
+    }
 }
 
 // MARK: - Origin
