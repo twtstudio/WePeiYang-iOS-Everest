@@ -448,30 +448,25 @@ extension ClassTableViewController {
         for i in 1...22 {
             let courses = getCourse(table: table, week: i)
             var matrix: [[Bool]] = [[], [], [], [], []]
-            for i in 0..<5 {
-                matrix[i] = [false, false, false, false, false]
+            for index in 0..<5 {
+                matrix[index] = [false, false, false, false, false]
             }
 
-            let items = [1, 3, 5, 7, 9]
             let classes = courses.flatMap { $0 }
 
             // day, index
-            var coordinates: [(Int, Int, Bool)] = []
             for course in classes {
-                if course.arrange.first!.day > 5 || course.arrange.first!.day <= 0 {
+                if course.courseName == "" || course.arrange.first!.day > 5 || course.arrange.first!.day <= 0 {
                     continue
                 }
-                for i in course.arrange.first!.start...course.arrange.first!.end {
-                    if i > 9 {
-                        continue
+
+                for num in course.arrange.first!.start...course.arrange.first!.end {
+                    if num > 9 || num < 0 {
+                        break
                     }
-                    if !items.contains(i) {
-                        continue
-                    }
-                    let isReal = course.courseName != "" ? true : false
-                    coordinates.append((course.arrange.first!.day-1, i, isReal))
-                    let orig = matrix[i/2][course.arrange.first!.day-1]
-                    matrix[i/2][course.arrange.first!.day-1] = isReal || orig
+
+                    let start = (num - 1) / 2
+                    matrix[start][course.arrange.first!.day-1] = true
                 }
             }
 
