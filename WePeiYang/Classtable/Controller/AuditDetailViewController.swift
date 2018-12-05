@@ -72,10 +72,36 @@ extension AuditDetailViewController: UITableViewDelegate {
             //let courseName = self.detailCourseList[indexPath.row].courseName
             let popupVC = PopupDialog(title: "亲～课程冲突啦", message: nil, buttonAlignment: .horizontal, transitionStyle: .zoomIn)
             let cancelButton = DestructiveButton(title: "知道啦", action: nil)
-            popupVC.addButton(cancelButton)
+            let auditButton = DefaultButton(title: "就是要蹭") {
+                let item = self.detailCourseList[indexPath.row]
+
+                AuditUser.shared.auditCourse(item: item, success: {
+                    SwiftMessages.showSuccessMessage(body: "蹭课成功")
+
+                    AuditCacheManager.saveAudit(withKey: item.courseID, ids: [item.id])
+                    AuditUser.shared.auditCourseSet.insert(item.id)
+                    let day = item.weekDay - 1
+                    for week in item.startWeek...item.endWeek {
+                        if (week % 2 == 0 && item.weekType == 1) || (week % 2 == 1 && item.weekType == 2) {
+                            continue
+                        }
+                        for i in item.startTime...(item.startTime + item.courseLength - 1) {
+                            let index = i - 1
+                            AuditUser.shared.conflictHashTable[84 * (week - 1) + 12 * day + index] = true
+                        }
+                    }
+
+                    self.tableView.reloadData()
+                    NotificationCenter.default.post(name: NotificationName.NotificationAuditListWillRefresh.name, object: nil)
+                    NotificationCenter.default.post(name: NotificationName.NotificationClassTableWillRefresh.name, object: nil)
+                }, failure: { errStr in
+                    log(errStr)
+                })
+            }
+            popupVC.addButtons([cancelButton, auditButton])
             self.present(popupVC, animated: true)
         } else {
-            if cell.flagLabel.text == "[已蹭课]" {
+            if cell.flagLabel.text == "已蹭课" {
                 let popupVC = PopupDialog(title: "亲～课程已经蹭上啦", message: nil, buttonAlignment: .horizontal, transitionStyle: .zoomIn)
                 let cancelButton = DefaultButton(title: "知道啦", action: nil)
                 popupVC.addButton(cancelButton)
@@ -87,9 +113,23 @@ extension AuditDetailViewController: UITableViewDelegate {
             let cancelButton = CancelButton(title: "取消", action: nil)
             let auditButton = DefaultButton(title: "蹭课") {
                 let item = self.detailCourseList[indexPath.row]
-                AuditUser.shared.auditCourse(item: item, success: { _ in
+
+                AuditUser.shared.auditCourse(item: item, success: {
                     SwiftMessages.showSuccessMessage(body: "蹭课成功")
-                    
+
+                    AuditCacheManager.saveAudit(withKey: item.courseID, ids: [item.id])
+                    AuditUser.shared.auditCourseSet.insert(item.id)
+                    let day = item.weekDay - 1
+                    for week in item.startWeek...item.endWeek {
+                        if (week % 2 == 0 && item.weekType == 1) || (week % 2 == 1 && item.weekType == 2) {
+                            continue
+                        }
+                        for i in item.startTime...(item.startTime + item.courseLength - 1) {
+                            let index = i - 1
+                            AuditUser.shared.conflictHashTable[84 * (week - 1) + 12 * day + index] = true
+                        }
+                    }
+
                     self.tableView.reloadData()
                     NotificationCenter.default.post(name: NotificationName.NotificationAuditListWillRefresh.name, object: nil)
                     NotificationCenter.default.post(name: NotificationName.NotificationClassTableWillRefresh.name, object: nil)
@@ -133,7 +173,7 @@ extension AuditDetailViewController: UITableViewDataSource {
             cell.flagLabel.text = "已蹭课"
             cell.isConflict = false
         } else {
-            if AuditUser.shared.checkConflictAgain(item: item) {
+            if AuditUser.shared.checkConflict(item: item) {
                 cell.flagLabel.text = "有冲突"
                 cell.isConflict = true
             } else {

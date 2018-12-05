@@ -13,18 +13,19 @@ class AuditUser {
     private init() {}
     
     var mergedTable: ClassTableModel?
-    var weekCourseDict: [Int: [[ClassModel]]] = [:]
-    
-    func deleteCourse(infoIDs: [Int], success: @escaping ([AuditDetailCourseItem]) -> Void, failure: @escaping (String) -> Void) {
-        ClasstableDataManager.deleteAuditCourse(schoolID: self.schoolID, infoIDs: infoIDs, success: {
-            ClasstableDataManager.getPersonalAuditList(success: { model in
-                var items: [AuditDetailCourseItem] = []
-                model.data.forEach { list in
-                    items += list.infos
-                }
-                
-                ClasstableDataManager.getClassTable(success: { table in
-                    AuditUser.shared.updateCourses(originTable: table, auditCourses: items, isStore: true)
+
+    // 删除课程
+    func deleteCourse(item: AuditDetailCourseItem, success: @escaping ([AuditDetailCourseItem]) -> Void, failure: @escaping (String) -> Void) {
+        let courseID = item.courseID
+        var infoIDs: [Int] = AuditCacheManager.getCourseids(withKey: courseID)
+        infoIDs = infoIDs.filter { $0 != item.id }
+        if infoIDs.count == 0 {
+            ClasstableDataManager.deleteAuditCourse(schoolID: self.schoolID, infoIDs: [courseID], success: {
+                ClasstableDataManager.getPersonalAuditList(success: { model in
+                    var items: [AuditDetailCourseItem] = []
+                    model.data.forEach { list in
+                        items += list.infos
+                    }
                     success(items)
                 }, failure: { errStr in
                     failure(errStr)
@@ -32,55 +33,41 @@ class AuditUser {
             }, failure: { errStr in
                 failure(errStr)
             })
-        }, failure: { errStr in
-            failure(errStr)
-        })
-    }
-
-    func auditCourse(item: AuditDetailCourseItem, success: @escaping ([AuditDetailCourseItem]) -> Void, failure: @escaping (String) -> Void) {
-        let courseID = item.courseID
-        ClasstableDataManager.getPersonalAuditList(success: { model in
-            var infoIDs: [Int] = []
-            model.data.forEach { list in
-                list.infos.forEach { info in
-                    if courseID == info.courseID {
-                        infoIDs.append(info.id)
-                    }
-                }
-            }
-            if !infoIDs.contains(item.id) {
-                infoIDs.append(item.id)
-            }
-            
+        } else {
             ClasstableDataManager.auditCourse(schoolID: self.schoolID, courseID: courseID, infoIDs: infoIDs, success: {
                 ClasstableDataManager.getPersonalAuditList(success: { model in
                     var items: [AuditDetailCourseItem] = []
                     model.data.forEach { list in
                         items += list.infos
                     }
-                    
-                    ClasstableDataManager.getClassTable(success: { table in
-                        AuditUser.shared.updateCourses(originTable: table, auditCourses: items, isStore: true)
-                        success(items)
-                    }, failure: { errStr in
-                        failure(errStr)
-                    })
-                    
+                    success(items)
                 }, failure: { errStr in
                     failure(errStr)
                 })
             }, failure: { errStr in
-                 failure(errStr)
+                failure(errStr)
             })
+        }
+    }
+    
+    // 蹭课
+    func auditCourse(item: AuditDetailCourseItem, success: @escaping () -> Void, failure: @escaping (String) -> Void) {
+        let courseID = item.courseID
+        var infoIDs: [Int] = AuditCacheManager.getCourseids(withKey: courseID)
+        if !infoIDs.contains(item.id) {
+            infoIDs.append(item.id)
+        }
+
+        ClasstableDataManager.auditCourse(schoolID: self.schoolID, courseID: courseID, infoIDs: infoIDs, success: {
+            success()
         }, failure: { errStr in
             failure(errStr)
         })
     }
-    
+
     // MARK: - 更新课程表
     func updateCourses(originTable table: ClassTableModel, auditCourses: [AuditDetailCourseItem] = [], isStore: Bool) {
         var table = table
-
         self.auditCourseSet = Set<Int>()
 
         auditCourses.forEach { item in
@@ -94,19 +81,18 @@ class AuditUser {
             }
             auditCourse.arrange[0].day = item.weekDay
             auditCourse.arrange[0].room = item.building + "楼" + item.room
-            auditCourse.courseName = item.courseName
+            auditCourse.courseName = "[蹭课] " + item.courseName
             auditCourse.weekStart = String(item.startWeek)
             auditCourse.weekEnd = String(item.endWeek)
-            auditCourse.teacher = item.teacher + "  " + item.teacherType
+//            auditCourse.teacher = item.teacher + "  " + item.teacherType
+            auditCourse.teacher = item.teacher
             auditCourse.college = item.courseCollege
             auditCourse.courseID = String(-item.courseID)
             auditCourse.classID = String(-item.id)
 
             self.auditCourseSet.insert(item.id)
-            
             table.classes.append(auditCourse)
         }
-
         // 配色
         var colorConfig = [String: Int]()
         table.classes = table.classes.map { course in
@@ -123,7 +109,6 @@ class AuditUser {
             }
             return course
         }
-
         self.mergedTable = table
         
         if UserDefaults.standard.bool(forKey: ClassTableNotificationEnabled) {
@@ -137,53 +122,12 @@ class AuditUser {
             let termStart = Date(timeIntervalSince1970: Double(table.termStart))
             CacheManager.saveGroupCache(with: termStart, key: "TermStart")
         }
-        
-        self.weekCourseDict = [:]
-        for i in 1...22 {
-            self.weekCourseDict[i] = self.getCourse(table: table, week: i)
-        }
 
-        //
         self.updateCourseTable(table: table)
     }
-    
-    // 检查要蹭的课程是否有冲突
-    func checkConflict(item: AuditDetailCourseItem) -> String? {
-        for weekIndex in item.startWeek...item.endWeek {
-            if (weekIndex % 2 == 0 && item.weekType == 1) || (weekIndex % 2 == 1 && item.weekType == 2) {
-                continue
-            }
-            
-            guard let coursesForDay = self.weekCourseDict[weekIndex] else {
-                continue
-            }
-            
-            let courseForSpecifiedDay = coursesForDay[item.weekDay - 1]
-            for courseIndex in 0..<courseForSpecifiedDay.count {
-                let course = courseForSpecifiedDay[courseIndex]
-                guard course.isPlaceholder == false else {
-                    continue
-                }
-                
-                let startForCourse = course.arrange.first!.start
-                let endForCourse = course.arrange.first!.end
-                let startForItem = item.startTime
-                let endForItem = item.startTime + item.courseLength - 1
-                guard endForCourse < startForItem || startForCourse > endForItem else {
-                    // 冲突了
-                    if course.courseID == String(-item.id) {
-                        return "[已蹭课]"
-                    } else {
-                        return course.courseName
-                    }
-                }
-            }
-        }
-        return nil
-    }
-    
+
     var collegeDic: [Int: String] = [:]
-    var schoolID: String { return "3016218106" }
+    var schoolID: String { return TwTUser.shared.schoolID ?? "" }
     
     func getCollegeName(ID: Int) -> String {
         if let name = self.collegeDic[ID] {
@@ -202,89 +146,9 @@ class AuditUser {
             log(errStr)
         })
     }
-    
-    // MARK: - private
-    private func getCourse(table: ClassTableModel, week: Int) -> [[ClassModel]] {
-        if let dict = weekCourseDict[week] {
-            return dict
-        }
-        // TODO: optimize
-        
-        var coursesForDay: [[ClassModel]] = [[], [], [], [], [], [], []]
-        var classes = [] as [ClassModel]
-        //        var coursesForDay: [[ClassModel]] = []
-        for course in table.classes {
-            // 对 week 进行判定
-            // 起止周
-            if week < Int(course.weekStart)! || week > Int(course.weekEnd)! {
-                // TODO: turn gray
-                continue
-            }
-            
-            // 每个 arrange 变成一个
-            for arrange in course.arrange {
-                let day = arrange.day-1
-                // 如果是实习什么的课
-                if day < 0 || day > 6 {
-                    continue
-                }
-                // 对 week 进行判定
-                // 单双周
-                if (week % 2 == 0 && arrange.week == "单周")
-                    || (week % 2 == 1 && arrange.week == "双周") {
-                    // TODO: turn gray
-                    continue
-                }
-                
-                var newCourse = course
-                newCourse.arrange = [arrange]
-                // TODO: 这个是啥来着?
-                classes.append(newCourse)
-                coursesForDay[day].append(newCourse)
-            }
-        }
-        
-        for day in 0..<7 {
-            var array = coursesForDay[day]
-            // 按课程开始时间排序
-            array.sort(by: { a, b in
-                return a.arrange[0].start < b.arrange[0].start
-            })
-            
-            var lastEnd = 0
-            for course in array {
-                // 如果两节课之前有空格，加入长度为一的占位符
-                if (course.arrange[0].start-1) - (lastEnd+1) >= 0 {
-                    // 从上节课的结束到下节课的开始填满
-                    for i in (lastEnd+1)...(course.arrange[0].start-1) {
-                        // 构造一个假的 model
-                        let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}], \"isPlaceholder\": \"\(true)\"}")!
-                        // placeholders[i].append(placeholder)
-                        array.append(placeholder)
-                    }
-                }
-                lastEnd = course.arrange[0].end
-            }
-            // 补下剩余的空白
-            if lastEnd < 12 {
-                for i in (lastEnd+1)...12 {
-                    // 构造一个假的 model
-                    let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}], \"isPlaceholder\": \"\(true)\"}")!
-                    array.append(placeholder)
-                }
-            }
-            // 按开始时间进行排序
-            array.sort(by: { $0.arrange[0].start < $1.arrange[0].start })
-            coursesForDay[day] = array
-        }
-        self.weekCourseDict[week] = coursesForDay
-        return coursesForDay
-    }
 
-    // MARK: - New AuditUser
-
-
-    func checkConflictAgain(item: AuditDetailCourseItem) -> Bool {
+    // 检查要蹭的课程是否有冲突
+    func checkConflict(item: AuditDetailCourseItem) -> Bool {
         let day = item.weekDay - 1
         for week in item.startWeek...item.endWeek {
             if (week % 2 == 0 && item.weekType == 1) || (week % 2 == 1 && item.weekType == 2) {
@@ -308,10 +172,10 @@ class AuditUser {
         return self.courseMappingDic.count
     }
 
-    // 检测冲突的 Hash 表     84 * week + 12 * day + index
+    // 检测冲突的 Hash 表    84 * week + 12 * day + index
     var conflictHashTable: [Bool] = []
 
-    //
+    // 蹭课 Set
     var auditCourseSet = Set<Int>()
 
     // 课程表矩阵
@@ -376,7 +240,7 @@ class AuditUser {
                         index += 1
                     } else {
                         var model = self.courseMappingDic[courseList.undisplayCourses[week].first!]!
-                        model.courseName = "【非本周】" + model.courseName
+                        model.courseName = "[非本周]" + model.courseName
                         model.isDisplay = false
                         //
                         model.undispalyCourses = courseList.undisplayCourses[week]
@@ -405,7 +269,7 @@ class AuditUser {
         }
         model.undispalyCourses.forEach { id in
             if var item = self.courseMappingDic[id] {
-                item.courseName = "【非本周】" + item.courseName
+                item.courseName = "[非本周]\n" + item.courseName
                 item.isDisplay = false
                 classList[1].append(item)
             }
@@ -414,3 +278,181 @@ class AuditUser {
     }
 
 }
+
+//    func deleteCourse(infoIDs: [Int], success: @escaping ([AuditDetailCourseItem]) -> Void, failure: @escaping (String) -> Void) {
+//        ClasstableDataManager.deleteAuditCourse(schoolID: self.schoolID, infoIDs: infoIDs, success: {
+//            ClasstableDataManager.getPersonalAuditList(success: { model in
+//                var items: [AuditDetailCourseItem] = []
+//                model.data.forEach { list in
+//                    items += list.infos
+//                }
+//
+//                ClasstableDataManager.getClassTable(success: { table in
+//                    AuditUser.shared.updateCourses(originTable: table, auditCourses: items, isStore: true)
+//                    success(items)
+//                }, failure: { errStr in
+//                    failure(errStr)
+//                })
+//            }, failure: { errStr in
+//                failure(errStr)
+//            })
+//        }, failure: { errStr in
+//            failure(errStr)
+//        })
+//    }
+
+
+
+
+//    func auditCourse(item: AuditDetailCourseItem, success: @escaping ([AuditDetailCourseItem]) -> Void, failure: @escaping (String) -> Void) {
+//        let courseID = item.courseID
+//        ClasstableDataManager.getPersonalAuditList(success: { model in
+//            var infoIDs: [Int] = []
+//            model.data.forEach { list in
+//                list.infos.forEach { info in
+//                    if courseID == info.courseID {
+//                        infoIDs.append(info.id)
+//                    }
+//                }
+//            }
+//            if !infoIDs.contains(item.id) {
+//                infoIDs.append(item.id)
+//            }
+//
+//            ClasstableDataManager.auditCourse(schoolID: self.schoolID, courseID: courseID, infoIDs: infoIDs, success: {
+//                ClasstableDataManager.getPersonalAuditList(success: { model in
+//                    var items: [AuditDetailCourseItem] = []
+//                    model.data.forEach { list in
+//                        items += list.infos
+//                    }
+//
+//                    ClasstableDataManager.getClassTable(success: { table in
+//                        AuditUser.shared.updateCourses(originTable: table, auditCourses: items, isStore: true)
+//                        success(items)
+//                    }, failure: { errStr in
+//                        failure(errStr)
+//                    })
+//
+//                }, failure: { errStr in
+//                    failure(errStr)
+//                })
+//            }, failure: { errStr in
+//                 failure(errStr)
+//            })
+//        }, failure: { errStr in
+//            failure(errStr)
+//        })
+//    }
+
+
+//    func checkConflict(item: AuditDetailCourseItem) -> String? {
+//        for weekIndex in item.startWeek...item.endWeek {
+//            if (weekIndex % 2 == 0 && item.weekType == 1) || (weekIndex % 2 == 1 && item.weekType == 2) {
+//                continue
+//            }
+//
+//            guard let coursesForDay = self.weekCourseDict[weekIndex] else {
+//                continue
+//            }
+//
+//            let courseForSpecifiedDay = coursesForDay[item.weekDay - 1]
+//            for courseIndex in 0..<courseForSpecifiedDay.count {
+//                let course = courseForSpecifiedDay[courseIndex]
+//                guard course.isPlaceholder == false else {
+//                    continue
+//                }
+//
+//                let startForCourse = course.arrange.first!.start
+//                let endForCourse = course.arrange.first!.end
+//                let startForItem = item.startTime
+//                let endForItem = item.startTime + item.courseLength - 1
+//                guard endForCourse < startForItem || startForCourse > endForItem else {
+//                    // 冲突了
+//                    if course.courseID == String(-item.id) {
+//                        return "[已蹭课]"
+//                    } else {
+//                        return course.courseName
+//                    }
+//                }
+//            }
+//        }
+//        return nil
+//    }
+
+
+//    private func getCourse(table: ClassTableModel, week: Int) -> [[ClassModel]] {
+//        if let dict = weekCourseDict[week] {
+//            return dict
+//        }
+//        // TODO: optimize
+//
+//        var coursesForDay: [[ClassModel]] = [[], [], [], [], [], [], []]
+//        var classes = [] as [ClassModel]
+//        //        var coursesForDay: [[ClassModel]] = []
+//        for course in table.classes {
+//            // 对 week 进行判定
+//            // 起止周
+//            if week < Int(course.weekStart)! || week > Int(course.weekEnd)! {
+//                // TODO: turn gray
+//                continue
+//            }
+//
+//            // 每个 arrange 变成一个
+//            for arrange in course.arrange {
+//                let day = arrange.day-1
+//                // 如果是实习什么的课
+//                if day < 0 || day > 6 {
+//                    continue
+//                }
+//                // 对 week 进行判定
+//                // 单双周
+//                if (week % 2 == 0 && arrange.week == "单周")
+//                    || (week % 2 == 1 && arrange.week == "双周") {
+//                    // TODO: turn gray
+//                    continue
+//                }
+//
+//                var newCourse = course
+//                newCourse.arrange = [arrange]
+//                // TODO: 这个是啥来着?
+//                classes.append(newCourse)
+//                coursesForDay[day].append(newCourse)
+//            }
+//        }
+//
+//        for day in 0..<7 {
+//            var array = coursesForDay[day]
+//            // 按课程开始时间排序
+//            array.sort(by: { a, b in
+//                return a.arrange[0].start < b.arrange[0].start
+//            })
+//
+//            var lastEnd = 0
+//            for course in array {
+//                // 如果两节课之前有空格，加入长度为一的占位符
+//                if (course.arrange[0].start-1) - (lastEnd+1) >= 0 {
+//                    // 从上节课的结束到下节课的开始填满
+//                    for i in (lastEnd+1)...(course.arrange[0].start-1) {
+//                        // 构造一个假的 model
+//                        let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}], \"isPlaceholder\": \"\(true)\"}")!
+//                        // placeholders[i].append(placeholder)
+//                        array.append(placeholder)
+//                    }
+//                }
+//                lastEnd = course.arrange[0].end
+//            }
+//            // 补下剩余的空白
+//            if lastEnd < 12 {
+//                for i in (lastEnd+1)...12 {
+//                    // 构造一个假的 model
+//                    let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}], \"isPlaceholder\": \"\(true)\"}")!
+//                    array.append(placeholder)
+//                }
+//            }
+//            // 按开始时间进行排序
+//            array.sort(by: { $0.arrange[0].start < $1.arrange[0].start })
+//            coursesForDay[day] = array
+//        }
+//        self.weekCourseDict[week] = coursesForDay
+//        return coursesForDay
+//    }

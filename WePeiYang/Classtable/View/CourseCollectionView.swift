@@ -63,16 +63,16 @@ extension CourseCollectionView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CourseCollectionViewCell", for: indexPath) as! CourseCollectionViewCell
         let model = self.classModels[indexPath.item]
 
-        if model.courseName.hasPrefix("【非本周】") {
+        if model.courseName.hasPrefix("[非本周]") {
             cell.nameLabel.text = model.courseName
-            cell.nameLabel.textColor = .gray
-            cell.locationLabel.textColor = .gray
+            cell.nameLabel.textColor = UIColor.gray.withAlphaComponent(0.8)
+            cell.locationLabel.textColor = UIColor.gray.withAlphaComponent(0.8)
         } else {
-            cell.nameLabel.text = "【本周】" + model.courseName
+            cell.nameLabel.text = "[本周]\n" + model.courseName
             cell.nameLabel.textColor = .white
             cell.locationLabel.textColor = .white
         }
-        cell.locationLabel.text = "@" + model.arrange.first!.room
+        cell.locationLabel.text = "@" + model.teacher + "\n@" + model.arrange.first!.room
         if model.isDisplay == true {
             cell.contentView.backgroundColor = Metadata.Color.fluentColors[model.colorIndex].withAlphaComponent(0.7)
         } else {
