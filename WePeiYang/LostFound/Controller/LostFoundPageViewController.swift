@@ -141,11 +141,15 @@ class LostFoundPageViewController: WMPageController {
         }) { _ in
         }
         
-        GetLostAPI.getLost(page: 1, success: { losts in
-            lostList = losts
-            //            self.lostView.reloadData()
-        }) { _ in
-        }
+//        GetLostAPI.getLost(page: 1, success: { _ in
+//            lostList = losts
+//            //            self.lostView.reloadData()
+//        }) { _ in
+//        }
+        LostFoundHelper.getLost(success: { lost in
+            lostList = lost.data
+        }, failure: { _ in
+        })
     }
     
     func backToPrevious(sender: UIButton) {

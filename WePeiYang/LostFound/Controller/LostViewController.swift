@@ -10,7 +10,8 @@ import UIKit
 import SDWebImage
 import MJRefresh
 
-var lostList: [LostFoundModel] = []
+// var lostList: [LostFoundModel] = []
+var lostList: [LostData] = []
 class LostViewController: UIViewController {
     
     var lostView: UICollectionView!
@@ -64,13 +65,21 @@ class LostViewController: UIViewController {
     }
     // 网络的异步请求
     func refresh() {
-        GetLostAPI.getLost(page: 1, success: { losts in
-            lostList = losts
+//        GetLostAPI.getLost(page: 1, success: { losts in
+//            lostList = losts
+//            self.selectView()
+//            self.lostView.backgroundColor = UIColor(hex6: 0xeeeeee)
+//            self.curPage = 1
+//            self.lostView.mj_footer.resetNoMoreData()
+//            //            self.lostView.reloadData()
+//        }, failure: { _ in
+//        })
+        LostFoundHelper.getLost(success: { lost in
+            lostList = lost.data
             self.selectView()
             self.lostView.backgroundColor = UIColor(hex6: 0xeeeeee)
             self.curPage = 1
             self.lostView.mj_footer.resetNoMoreData()
-            //            self.lostView.reloadData()
         }, failure: { _ in
         })
     }
@@ -87,9 +96,21 @@ class LostViewController: UIViewController {
     //底部上拉加载
     @objc func footerLoad() {
         self.curPage += 1
-        GetLostAPI.getLost(page: curPage, success: { losts in
-            lostList += losts
-            if losts.isEmpty {
+//        GetLostAPI.getLost(page: curPage, success: { losts in
+//            lostList += losts
+//            if losts.isEmpty {
+//                self.lostView.mj_footer.endRefreshingWithNoMoreData()
+//                self.curPage -= 1
+//            } else {
+//                self.lostView.mj_footer.endRefreshing()
+//            }
+//            self.lostView.reloadData()
+//        }, failure: { _ in
+//            self.curPage -= 1
+//        })
+        LostFoundHelper.getLost(page: curPage, success: { lost in
+            lostList += lost.data
+            if lost.data.isEmpty {
                 self.lostView.mj_footer.endRefreshingWithNoMoreData()
                 self.curPage -= 1
             } else {
@@ -103,8 +124,20 @@ class LostViewController: UIViewController {
     
     //顶部下拉刷新
     @objc func headerRefresh() {
-        GetLostAPI.getLost(page: 1, success: { losts in
-            lostList = losts
+//        GetLostAPI.getLost(page: 1, success: { losts in
+//            lostList = losts
+//
+//            self.selectView()
+//            //结束刷新
+//            self.lostView.mj_header.endRefreshing()
+//            self.promptView.mj_header.endRefreshing()
+//            self.curPage = 1
+//            self.lostView.mj_footer.resetNoMoreData()
+//            self.lostView.reloadData()
+//        }, failure: { _ in
+//        })
+        LostFoundHelper.getLost(success: { lost in
+            lostList = lost.data
             
             self.selectView()
             //结束刷新
@@ -127,15 +160,15 @@ extension LostViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "lostCell", for: indexPath) as? LostFoundCollectionViewCell {
-            let picURL = lostList[indexPath.row].picture
-            cell.initUI(pic: picURL, title: lostList[indexPath.row].title, mark: lostList[indexPath.row].detailType, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+            let picURL = lostList[indexPath.row].picture ?? [""]
+            cell.initUI(pic: picURL[0], title: lostList[indexPath.row].title, mark: lostList[indexPath.row].detailType, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
             
             return cell
         }
         let cell = LostFoundCollectionViewCell(frame: .zero)
         
-        let picURL = lostList[indexPath.row].picture
-        cell.initUI(pic: picURL, title: lostList[indexPath.row].title, mark: lostList[indexPath.row].detailType, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
+        let picURL = lostList[indexPath.row].picture ?? [""]
+        cell.initUI(pic: picURL[0], title: lostList[indexPath.row].title, mark: lostList[indexPath.row].detailType, time: lostList[indexPath.row].time, place: lostList[indexPath.row].place)
         return cell
     }
     
