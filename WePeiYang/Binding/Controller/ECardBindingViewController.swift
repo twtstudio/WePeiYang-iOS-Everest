@@ -116,6 +116,7 @@ class ECardBindingViewController: UIViewController {
     }
 
     @objc func dismissBinding() {
+        TWTKeychain.erase(.ecard)
         self.dismiss(animated: true, completion: {
             self.completion?(false)
         })

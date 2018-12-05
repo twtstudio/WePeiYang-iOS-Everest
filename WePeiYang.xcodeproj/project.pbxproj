@@ -19,7 +19,6 @@
 		3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */; };
 		3613DA222056F740000867AE /* UniversalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA212056F740000867AE /* UniversalExtension.swift */; };
 		3613DA232056F745000867AE /* UniversalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA212056F740000867AE /* UniversalExtension.swift */; };
-		3613DA25205702E0000867AE /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364F1FB8837D00413CF2 /* KeyChain.swift */; };
 		3615A9C521AC80FC001D1522 /* ECardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3615A9C421AC80FC001D1522 /* ECardView.swift */; };
 		3615A9C721AC825E001D1522 /* ECardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3615A9C621AC825E001D1522 /* ECardModel.swift */; };
 		3615A9CA21ACEBDC001D1522 /* CardTransectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3615A9C921ACEBDC001D1522 /* CardTransectionViewController.swift */; };
@@ -147,7 +146,6 @@
 		A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51C456B1FD122F700652435 /* Assets.xcassets */; };
 		A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */; };
-		A50F36501FB8837D00413CF2 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364F1FB8837D00413CF2 /* KeyChain.swift */; };
 		A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51497F91FC80D5E00622A7B /* BindingAPIs.swift */; };
 		A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */; };
 		A5197A3D1FDA8F99008C445A /* LibraryAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5197A3C1FDA8F99008C445A /* LibraryAPIs.swift */; };
@@ -389,7 +387,6 @@
 		9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.debug.xcconfig"; sourceTree = "<group>"; };
 		A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANLoginAPIs.swift; sourceTree = "<group>"; };
 		A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
-		A50F364F1FB8837D00413CF2 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		A51497F91FC80D5E00622A7B /* BindingAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingAPIs.swift; sourceTree = "<group>"; };
 		A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANLoginViewController.swift; sourceTree = "<group>"; };
 		A5197A3C1FDA8F99008C445A /* LibraryAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAPIs.swift; sourceTree = "<group>"; };
@@ -821,7 +818,6 @@
 			children = (
 				A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */,
 				A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */,
-				A50F364F1FB8837D00413CF2 /* KeyChain.swift */,
 				A586543620514E860069CF53 /* WLANHelper.swift */,
 			);
 			path = Model;
@@ -1614,7 +1610,6 @@
 				365A46522036EFB800738963 /* TodayViewController.swift in Sources */,
 				36B2C89120388DF200AD2E3F /* LibraryModel.swift in Sources */,
 				36B2C8902038898400AD2E3F /* Storage.swift in Sources */,
-				3613DA25205702E0000867AE /* KeyChain.swift in Sources */,
 				36B2C896203A80F700AD2E3F /* log.swift in Sources */,
 				36B2C893203A80CB00AD2E3F /* ClassTableModel.swift in Sources */,
 			);
@@ -1793,7 +1788,6 @@
 				DD0B75F32158C6ED009A392C /* YellowPageSearchViewController.swift in Sources */,
 				A53602691FC6EC0500E3D1AF /* TJUBindingViewController.swift in Sources */,
 				C40BDE0B21A93C5E0046BFA5 /* ListBook.swift in Sources */,
-				A50F36501FB8837D00413CF2 /* KeyChain.swift in Sources */,
 				C40BDE1621A93D500046BFA5 /* BookCard.swift in Sources */,
 				DD0B762B2158CBA6009A392C /* StarView.swift in Sources */,
 				361F885F204AF92D00BCFA19 /* BannerProxy.swift in Sources */,
