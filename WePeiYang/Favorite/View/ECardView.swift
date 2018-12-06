@@ -14,29 +14,10 @@ class ECardView: CardView {
     private let titleLabel = UILabel()
     private let balanceLabel = UILabel()
     private let cardnumHintLabel = UILabel()
-    private let expiryHintLabel = UILabel()
+    private let balanceHintLabel = UILabel()
     private let cardnumLabel = UILabel()
-    private let expiryLabel = UILabel()
-
-//    override func initialize() {
-//        super.initialize()
-//        let padding: CGFloat = 20
-//
-//        titleLabel.frame = CGRect(x: padding, y: padding, width: 200, height: 30)
-//        titleLabel.text = "校园卡"
-//        titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.semibold)
-//        titleLabel.textColor = .black
-//        titleLabel.sizeToFit()
-//        self.addSubview(titleLabel)
-//
-//        balanceLabel.frame = CGRect(x: padding, y: padding + 30 + 20, width: 200, height: 30)
-//        balanceLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.bold)
-//        balanceLabel.textColor = .black
-////        balanceLabel.sizeToFit()
-//        self.addSubview(balanceLabel)
-//
-//        self.backgroundColor = .white
-//    }
+    private let todayHintLabel = UILabel()
+    private let todayLabel = UILabel()
 
     override func initialize() {
         super.initialize()
@@ -53,15 +34,27 @@ class ECardView: CardView {
             make.height.equalTo(30)
         }
 
-        balanceLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.medium)
-        balanceLabel.textColor = .black
-        balanceLabel.sizeToFit()
-        balanceLabel.textAlignment = .center
-        self.addSubview(balanceLabel)
-        balanceLabel.snp.makeConstraints { make in
+        todayLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.medium)
+        todayLabel.textColor = .black
+        todayLabel.sizeToFit()
+        todayLabel.textAlignment = .center
+        self.addSubview(todayLabel)
+        todayLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.width.equalTo(200)
+            make.width.equalTo(100)
             make.height.equalTo(30)
+        }
+
+        todayHintLabel.textColor = .darkGray
+        todayHintLabel.text = "今日消费: "
+        todayHintLabel.textAlignment = .right
+        todayHintLabel.font = UIFont.systemFont(ofSize: 13)
+        self.addSubview(todayHintLabel)
+        todayHintLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(todayLabel.snp.bottom)
+            make.right.equalTo(todayLabel.snp.left)
+            make.width.equalTo(100)
+            make.height.equalTo(20)
         }
 
         cardnumLabel.textColor = .darkGray
@@ -83,23 +76,23 @@ class ECardView: CardView {
             make.bottom.equalTo(cardnumLabel.snp.top).offset(-4)
         }
 
-        expiryLabel.textColor = .darkGray
-        expiryLabel.font = UIFont.systemFont(ofSize: 13)
-        self.addSubview(expiryLabel)
-        expiryLabel.snp.makeConstraints { make in
+        balanceLabel.textColor = .darkGray
+        balanceLabel.font = UIFont.systemFont(ofSize: 13)
+        self.addSubview(balanceLabel)
+        balanceLabel.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-padding)
             make.right.equalToSuperview().offset(-padding)
             make.width.equalTo(100)
             make.height.equalTo(20)
         }
 
-        expiryHintLabel.text = "EXPIRY"
-        expiryHintLabel.textColor = .gray
-        expiryHintLabel.font = UIFont.systemFont(ofSize: 13)
-        self.addSubview(expiryHintLabel)
-        expiryHintLabel.snp.makeConstraints { make in
-            make.left.equalTo(expiryLabel.snp.left)
-            make.bottom.equalTo(expiryLabel.snp.top).offset(-4)
+        balanceHintLabel.text = "余额"
+        balanceHintLabel.textColor = .gray
+        balanceHintLabel.font = UIFont.systemFont(ofSize: 13)
+        self.addSubview(balanceHintLabel)
+        balanceHintLabel.snp.makeConstraints { make in
+            make.left.equalTo(balanceLabel.snp.left)
+            make.bottom.equalTo(balanceLabel.snp.top).offset(-4)
         }
     }
 
@@ -115,9 +108,9 @@ class ECardView: CardView {
     }
 
     func load(_ profile: EcardProfile) {
+        self.todayLabel.text = "¥" + profile.amount
         self.balanceLabel.text = "¥" + profile.balance.replacingOccurrences(of: "元", with: "")
         self.cardnumLabel.text = profile.cardnum
-        self.expiryLabel.text = profile.expiry
     }
 
     override func refresh() {
@@ -137,7 +130,6 @@ class ECardView: CardView {
             self.load(profile)
         }, failure: { err in
             self.setState(.failed(err.localizedDescription, .gray))
-//            SwiftMessages.showErrorMessage(body: err.localizedDescription)
         })
 //        CacheManager.retreive("gpa/gpa.json", from: .group, as: String.self, success: { string in
 //            if let model = Mapper<GPAModel>().map(JSONString: string) {
