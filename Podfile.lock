@@ -1,0 +1,55 @@
+PODS:
+  - Alamofire (4.7.3)
+  - Charts (3.1.0):
+    - Charts/Core (= 3.1.0)
+  - Charts/Core (3.1.0)
+  - DynamicBlurView (2.0.2)
+  - IGIdenticon (0.5)
+  - JBChartView (3.0.13)
+  - KeychainAccess (3.1.2)
+  - MJRefresh (3.1.15.7)
+  - ObjectMapper (3.3.0)
+  - PopupDialog (0.7.1):
+    - DynamicBlurView (~> 2.0)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
+  - SnapKit (4.0.1)
+  - SwiftLint (0.27.0)
+  - SwiftMessages (4.1.0)
+  - WMPageController (2.3.0)
+
+DEPENDENCIES:
+  - Alamofire (= 4.7.3)
+  - Charts (= 3.1)
+  - IGIdenticon (= 0.5.0)
+  - JBChartView (= 3.0.13)
+  - KeychainAccess
+  - MJRefresh (= 3.1.15.7)
+  - ObjectMapper (= 3.3.0)
+  - PopupDialog (= 0.7.1)
+  - SDWebImage (= 4.4.2)
+  - SnapKit (= 4.0.1)
+  - SwiftLint
+  - SwiftMessages (= 4.1.0)
+  - WMPageController (= 2.3.0)
+
+SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Charts: 0b0c96f6118b6ce63f11adbcaa3b31045ee4d772
+  DynamicBlurView: aa6db4defc6e537eb86fc5e58dd3991666178399
+  IGIdenticon: 0f8fa2c776e35d4cb204bedbc5005ef748b263d8
+  JBChartView: ea240dca7b83a92f47d4ae766beb3714753988a1
+  KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b
+  MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
+  ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
+  PopupDialog: 39598b7d41719f5c025b4b70e62728bae7734fef
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
+  SwiftMessages: 1bacc783c8f10bdfdc57c14860cae8a1f1fa6591
+  WMPageController: 9f219bb8912a1a1f51af11fde61e2682a7b7e7f2
+
+PODFILE CHECKSUM: 50476c92a294715b1bedd013a6c2b58597253fe3
+
+COCOAPODS: 1.4.0
