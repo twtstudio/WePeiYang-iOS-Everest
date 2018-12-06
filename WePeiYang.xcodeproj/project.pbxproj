@@ -14,7 +14,6 @@
 		3613DA172056F1B9000867AE /* WLANHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586543620514E860069CF53 /* WLANHelper.swift */; };
 		3613DA182056F56A000867AE /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		3613DA192056F571000867AE /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E21EC84ED90064373A /* SolaSessionManager.swift */; };
-		3613DA1A2056F65C000867AE /* TWTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TWTKeychain.swift */; };
 		3613DA1B2056F664000867AE /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EE1EC84ED90064373A /* DeviceStatus.swift */; };
 		3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */; };
 		3613DA222056F740000867AE /* UniversalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA212056F740000867AE /* UniversalExtension.swift */; };
@@ -108,6 +107,8 @@
 		3685D9EF204D255700BA6C3D /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3685D9EE204D255700BA6C3D /* NewsDetailViewController.swift */; };
 		3685D9F1204D276100BA6C3D /* NewsDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3685D9F0204D276100BA6C3D /* NewsDetailModel.swift */; };
 		3685D9F2204D97A200BA6C3D /* DateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369B2D4920151542009352A8 /* DateTool.swift */; };
+		3687C39621B98AF400288557 /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C39521B98AF400288557 /* TwTKeychain.swift */; };
+		3687C39721B98AF400288557 /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C39521B98AF400288557 /* TwTKeychain.swift */; };
 		368C3C8A204DAB4F00C1E6B6 /* WPYCustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C3C89204DAB4F00C1E6B6 /* WPYCustomError.swift */; };
 		369140AF2020CBA30022BA3F /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369140AE2020CBA30022BA3F /* NotificationName.swift */; };
 		369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369306941F2B976C008E90DC /* ModuleCollectionViewCell.swift */; };
@@ -173,7 +174,6 @@
 		A5FE5665208F624A00B94F0D /* PopularClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FE5664208F624A00B94F0D /* PopularClassModel.swift */; };
 		B10253F01EC84ED90064373A /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E01EC84ED90064373A /* AccountManager.swift */; };
 		B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E21EC84ED90064373A /* SolaSessionManager.swift */; };
-		B10253F31EC84ED90064373A /* TWTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E31EC84ED90064373A /* TWTKeychain.swift */; };
 		B10253FD1EC84ED90064373A /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253EF1EC84ED90064373A /* log.swift */; };
 		B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102540A1EC8520A0064373A /* AppDelegate.swift */; };
 		B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102540B1EC8520A0064373A /* ClassExtensions.swift */; };
@@ -357,6 +357,7 @@
 		36758FDC1FDA851C0023A99C /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		3685D9EE204D255700BA6C3D /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		3685D9F0204D276100BA6C3D /* NewsDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailModel.swift; sourceTree = "<group>"; };
+		3687C39521B98AF400288557 /* TwTKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTKeychain.swift; sourceTree = "<group>"; };
 		368C3C89204DAB4F00C1E6B6 /* WPYCustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPYCustomError.swift; sourceTree = "<group>"; };
 		369140AE2020CBA30022BA3F /* NotificationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		369306941F2B976C008E90DC /* ModuleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -424,7 +425,6 @@
 		B10253E01EC84ED90064373A /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		B10253E11EC84ED90064373A /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		B10253E21EC84ED90064373A /* SolaSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolaSessionManager.swift; sourceTree = "<group>"; };
-		B10253E31EC84ED90064373A /* TWTKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWTKeychain.swift; sourceTree = "<group>"; };
 		B10253EE1EC84ED90064373A /* DeviceStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceStatus.swift; sourceTree = "<group>"; };
 		B10253EF1EC84ED90064373A /* log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = log.swift; sourceTree = "<group>"; };
 		B102540A1EC8520A0064373A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -969,7 +969,7 @@
 				B10253E01EC84ED90064373A /* AccountManager.swift */,
 				B10253E11EC84ED90064373A /* CacheManager.swift */,
 				B10253E21EC84ED90064373A /* SolaSessionManager.swift */,
-				B10253E31EC84ED90064373A /* TWTKeychain.swift */,
+				3687C39521B98AF400288557 /* TwTKeychain.swift */,
 				3631D5091F1903D70078816D /* TwTUser.swift */,
 			);
 			path = Network;
@@ -1600,8 +1600,8 @@
 				36B2C894203A80D100AD2E3F /* ClassModel.swift in Sources */,
 				3613DA1B2056F664000867AE /* DeviceStatus.swift in Sources */,
 				36B2C892203A806C00AD2E3F /* CacheManager.swift in Sources */,
+				3687C39721B98AF400288557 /* TwTKeychain.swift in Sources */,
 				36B2C895203A80D600AD2E3F /* ArrangeModel.swift in Sources */,
-				3613DA1A2056F65C000867AE /* TWTKeychain.swift in Sources */,
 				3685D9F2204D97A200BA6C3D /* DateTool.swift in Sources */,
 				363C754D215A724000D3E2B1 /* WPYCustomError.swift in Sources */,
 				3613DA192056F571000867AE /* SolaSessionManager.swift in Sources */,
@@ -1678,6 +1678,7 @@
 				365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */,
 				C40BDE1021A93CCE0046BFA5 /* LibraryPageTitleView.swift in Sources */,
 				C40BDE1C21A93E040046BFA5 /* BookDetailTableViewCell.swift in Sources */,
+				3687C39621B98AF400288557 /* TwTKeychain.swift in Sources */,
 				3615A9C521AC80FC001D1522 /* ECardView.swift in Sources */,
 				365A46482036956700738963 /* CacheFilenameKey.swift in Sources */,
 				361F885C204AF92D00BCFA19 /* BannerPageControl.swift in Sources */,
@@ -1731,7 +1732,6 @@
 				3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */,
 				C40BDE1E21A93E3D0046BFA5 /* BookDetailTableHeaderView.swift in Sources */,
 				C40BDE2521A93EBD0046BFA5 /* LibraryListViewController.swift in Sources */,
-				B10253F31EC84ED90064373A /* TWTKeychain.swift in Sources */,
 				365B5399216E5F4000A808EE /* ClassTableSettingViewController.swift in Sources */,
 				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
 				A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */,
