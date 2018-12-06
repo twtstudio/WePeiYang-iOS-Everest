@@ -17,6 +17,8 @@ struct LostFoundAPI {
     
     static let found = "/found"
     
+    static let search = "/search"
+    
 }
 
 // MARK: - Network
@@ -52,6 +54,17 @@ struct LostFoundHelper {
         }) { error in
             failure(error)
             log("ERROR -- LostFoundHelper.getLFDetail")
+        }
+    }
+    
+    static func getSearch(keyword: String = "", campus: Int = 1, page: Int = 1, detailType: Int = 0, success: @escaping (LostModel) -> Void, failure: @escaping (Error) -> Void) {
+        SolaSessionManager.solaSession(baseURL: LostFoundAPI.root, url: LostFoundAPI.search, parameters: ["keyword": keyword, "campus": String(campus), "page": String(page), "detail_type": String(detailType)], success: { dic in
+            if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let lost = try? LostModel(data: data) {
+                success(lost)
+            } else { log("WARNING -- LostFoundHelper.getSearch") }
+        }) { error in
+            failure(error)
+            log("ERROR -- LostFoundHelper.getSearch")
         }
     }
     

@@ -14,7 +14,7 @@ class LFSearchedResultViewController: UIViewController {
     var searchedView: UICollectionView!
     var promptView: UIScrollView!
     let layout = UICollectionViewFlowLayout()
-    var searchedList: [LostFoundModel] = []
+    var searchedList: [LostData] = []
     let footer = MJRefreshAutoNormalFooter()
     let header = MJRefreshNormalHeader()
     var curPage: Int = 1
@@ -67,17 +67,28 @@ class LFSearchedResultViewController: UIViewController {
     }
     
     func refresh() {
-        GetSearchAPI.getSearch(inputText: inputText, page: 1, success: { searchs in
-            if searchs.isEmpty {
+//        GetSearchAPI.getSearch(inputText: inputText, page: 1, success: { searchs in
+//            if searchs.isEmpty {
+//                SwiftMessages.showWarningMessage(body: "暂时没有该类物品")
+//                return
+//            }
+//            self.searchedList = searchs
+//            self.selectView()
+//            self.searchedView.reloadData()
+//            self.curPage = 1
+//        }) { _ in
+//        }
+        LostFoundHelper.getSearch(keyword: inputText, success: { search in
+            if search.data.isEmpty {
                 SwiftMessages.showWarningMessage(body: "暂时没有该类物品")
                 return
             }
-            self.searchedList = searchs
+            self.searchedList = search.data
             self.selectView()
             self.searchedView.reloadData()
             self.curPage = 1
-        }) { _ in
-        }
+        }, failure: { _ in
+        })
     }
     
     func selectView() {
@@ -87,9 +98,21 @@ class LFSearchedResultViewController: UIViewController {
     // 底部上拉加载
     @objc func footerLoad() {
         self.curPage += 1
-        GetSearchAPI.getSearch(inputText: inputText, page: curPage, success: { searchs in
-            self.searchedList += searchs
-            if searchs.isEmpty {
+//        GetSearchAPI.getSearch(inputText: inputText, page: curPage, success: { searchs in
+//            self.searchedList += searchs
+//            if searchs.isEmpty {
+//                self.searchedView.mj_footer.endRefreshingWithNoMoreData()
+//                self.curPage -= 1
+//            } else {
+//                self.searchedView.mj_footer.endRefreshing()
+//            }
+//            self.searchedView.reloadData()
+//        }, failure: { _ in
+//            self.curPage -= 1
+//        })
+        LostFoundHelper.getSearch(keyword: inputText, page: curPage, success: { search in
+            self.searchedList += search.data
+            if search.data.isEmpty {
                 self.searchedView.mj_footer.endRefreshingWithNoMoreData()
                 self.curPage -= 1
             } else {
@@ -104,8 +127,19 @@ class LFSearchedResultViewController: UIViewController {
     
     // 顶部下拉刷新
     @objc func headerRefresh() {
-        GetSearchAPI.getSearch(inputText: inputText, page: 1, success: { searchs in
-            self.searchedList = searchs
+//        GetSearchAPI.getSearch(inputText: inputText, page: 1, success: { searchs in
+//            self.searchedList = searchs
+//            self.selectView()
+//            // 结束刷新
+//            self.searchedView.mj_header.endRefreshing()
+//            self.promptView.mj_header.endRefreshing()
+//            self.curPage = 1
+//            self.searchedView.mj_footer.resetNoMoreData()
+//            self.searchedView.reloadData()
+//        }) { _ in
+//        }
+        LostFoundHelper.getSearch(keyword: inputText, page: 1, success: { search in
+            self.searchedList = search.data
             self.selectView()
             // 结束刷新
             self.searchedView.mj_header.endRefreshing()
@@ -113,8 +147,8 @@ class LFSearchedResultViewController: UIViewController {
             self.curPage = 1
             self.searchedView.mj_footer.resetNoMoreData()
             self.searchedView.reloadData()
-        }) { _ in
-        }
+        }, failure: { _ in
+        })
     }
     
     @objc func backToMain() {
@@ -133,7 +167,7 @@ extension LFSearchedResultViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchedCell", for: indexPath) as? LostFoundCollectionViewCell {
             let picURL = searchedList[indexPath.row].picture
-            cell.initUI(pic: picURL, title: searchedList[indexPath.row].title, mark: searchedList[indexPath.row].detailType, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
+            cell.initUI(pic: picURL?[0] ?? "", title: searchedList[indexPath.row].title, mark: searchedList[indexPath.row].detailType, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
             return cell
             
         }
@@ -141,7 +175,7 @@ extension LFSearchedResultViewController: UICollectionViewDataSource {
         let cell = LostFoundCollectionViewCell()
         
         let picURL = searchedList[indexPath.row].picture
-        cell.initUI(pic: picURL, title: searchedList[indexPath.row].title, mark: searchedList[indexPath.row].detailType, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
+        cell.initUI(pic: picURL?[0] ?? "", title: searchedList[indexPath.row].title, mark: searchedList[indexPath.row].detailType, time: searchedList[indexPath.row].time, place: searchedList[indexPath.row].place)
         
         return cell
     }
