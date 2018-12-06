@@ -15,6 +15,7 @@ enum TransactionType: Int {
 
 struct EcardProfile: Codable {
     let cardnum, cardstatus, balance, expiry: String
+    let amount: String
     let subsidy: String
 }
 

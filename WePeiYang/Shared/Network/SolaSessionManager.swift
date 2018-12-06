@@ -16,8 +16,6 @@ enum SessionType {
 }
 
 let TWT_ROOT_URL = "https://open.twtstudio.com/api/v1"
-//let TWT_ROOT_URL = "http://192.168.1.113:1080/api/v1"
-let DEV_RECORD_SESSION_INFO = "DEV_RECORD_SESSION_INFO"
 
 struct SolaSessionManager {
 
