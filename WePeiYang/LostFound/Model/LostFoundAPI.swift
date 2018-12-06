@@ -68,6 +68,13 @@ struct LostFoundHelper {
         }
     }
     
+    static func postLost(dic: [String: Any], success: @escaping ([String: Any]) -> Void, failure: @escaping (Error) -> Void) {
+        SolaSessionManager.upload(dictionay: dic, baseURL: LostFoundAPI.root, url: LostFoundAPI.lost, failure: { error in
+            failure(error)
+            log("ERROR -- LostFoundHelper.postLost")
+        }, success: success)
+    }
+    
 }
 
 // MARK: - Origin

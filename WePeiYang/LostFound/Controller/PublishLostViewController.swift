@@ -102,6 +102,19 @@ class PublishLostViewController: UIViewController, UITextFieldDelegate {
             self.navigationController?.pushViewController(successVC, animated: true)
         }, failure: { _ in
         })
+//        if String(describing: markDict["地点"]).contains("北洋") {
+//            self.markDict["campus"] = "1"
+//        } else {
+//            self.markDict["campus"] = "2"
+//        }
+//        markDict["detail_type"] = "1"
+//        log(markDict)
+//        LostFoundHelper.postLost(dic: markDict, success: { _ in
+//            log("SUCCESS")
+//            self.navigationController?.pushViewController(PublishSuccessViewController(), animated: true)
+//        }, failure: { _ in
+//            log("FAILURE")
+//        })
     }
     
     func comfirmButtonTapped() {
