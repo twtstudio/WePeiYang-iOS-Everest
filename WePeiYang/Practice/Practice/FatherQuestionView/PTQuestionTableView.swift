@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  PTQuestionTableView.swift
 //  WePeiYang
 //
 //  Created by yuting jiang on 2018/7/16.
@@ -9,10 +9,10 @@
 import Foundation
 
 /// 题目及选项TableView父类
-class QuestionTableView: UITableView {
+class PTQuestionTableView: UITableView {
     let practiceModel = PracticeModel()
-    let exerciseModel = ExerciseModel()
-    let questionViewParameters = QuestionViewParameters()
+    let exerciseModel = PTExerciseModel()
+    let questionViewParameters = PTQuestionViewParameters()
     
     static var selectedAnswer: String?
     var content: String?                   //题目字符串
@@ -51,6 +51,8 @@ class QuestionTableView: UITableView {
         self.showsVerticalScrollIndicator = false
         self.bounces = false
         self.delegate = self
+        self.contentOffset.y = 0
+        
         self.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
     }
 
@@ -59,13 +61,13 @@ class QuestionTableView: UITableView {
     }
 }
 
-extension QuestionTableView: UITableViewDelegate {
+extension PTQuestionTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.item {
         case 0:
             if let question = content {
                 //cell自适应高度
-                let height = question.calculateHeightWithConstrained(width: frame.width - 5, font: questionViewParameters.aFont) < questionViewParameters.minCellH ? questionViewParameters.minCellH : question.calculateHeightWithConstrained(width: frame.width, font: questionViewParameters.qFont)
+                let height = question.calculateHeightWithConstrained(width: frame.width , font: questionViewParameters.qFont) < questionViewParameters.minCellH ? questionViewParameters.minCellH : question.calculateHeightWithConstrained(width: frame.width, font: questionViewParameters.qFont)
                 return height
             } else {
                 //cell最小高度
@@ -85,7 +87,7 @@ extension QuestionTableView: UITableViewDelegate {
     }
 }
 
-extension QuestionTableView {
+extension PTQuestionTableView {
     func addScrollHint() {
         let scrollHint = UIImageView(image: #imageLiteral(resourceName: "error"))
         self.backgroundView = UIView()

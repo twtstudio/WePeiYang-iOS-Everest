@@ -11,8 +11,8 @@ import UIKit
 import SnapKit
 
 /// 题目（不含选项）Cell的父类
-class QuestionCell: UITableViewCell {
-    let questionViewParameters = QuestionViewParameters()
+class PTQuestionCell: UITableViewCell {
+    let questionViewParameters = PTQuestionViewParameters()
     //题目Label
     let qLabel: UICopyLabel = {
         let label = UICopyLabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))

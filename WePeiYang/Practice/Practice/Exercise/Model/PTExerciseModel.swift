@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ExerciseModel {
+class PTExerciseModel {
     let practiceModel = PracticeModel()
     //    func answerSelected(answer: String, optionCount: Int) -> [Bool] {
     //        var array: [Bool] = []

@@ -54,8 +54,16 @@ class PracticeHomeViewController: UIViewController {
         }, failure: { err in
             SwiftMessages.showErrorMessage(body: err.localizedDescription)
         })
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadPage), name: NSNotification.Name(rawValue: "reloadPage"), object: nil)
+
     }
-    
+    @objc func reloadPage() {
+        self.view.reloadInputViews()
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reloadPage"), object: nil)
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -269,7 +277,7 @@ extension PracticeHomeViewController: UITableViewDataSource {
         }
         let rightButton = PracticePopupDialogButton(title: "模拟考试", dismissOnTap: true) {
             // TODO: 进入模拟考试
-            self.navigationController?.pushViewController(PQuizCollectionViewController(), animated: true)
+            self.navigationController?.pushViewController(PTQuizCollectionViewController(), animated: true)
         }
         warningCard.addButtons([leftButton, rightButton])
         self.present(warningCard, animated: true, completion: nil)
@@ -287,7 +295,7 @@ extension PracticeHomeViewController: UITableViewDataSource {
         PracticeFigure.questionType = studentData.currentQuesType!
         PracticeFigure.currentCourseIndex = currentCourseIndex
         // TODO: 进入当前练习
-        self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
+        self.navigationController?.pushViewController(PTExerciseCollectionViewController(), animated: true)
     }
     
 }
@@ -382,7 +390,7 @@ extension PracticeHomeViewController: UITableViewDelegate {
         case userTableView:
             if section != 0 { return nil }
             
-            let mottoLabel = UILabel(text: "\nPractice Makes Perfect.\n— Jason C.\n", color: .darkGray)
+            let mottoLabel = UILabel(text: "\nPractice Makes Perfect.\n", color: .darkGray)
             mottoLabel.font = UIFont(name: "Zapfino", size: 16) // "Bradley Hand" "Chalkboard SE"
             mottoLabel.textAlignment = .center
             mottoLabel.numberOfLines = 0
@@ -491,7 +499,7 @@ extension PracticeHomeViewController: UICollectionViewDelegate, UICollectionView
             let rightButton = PracticePopupDialogButton(title: "模拟考试", dismissOnTap: true) {
                 // PracticeFigure.practiceType = "1"
                 // TODO: 进入模拟考试
-                self.navigationController?.pushViewController(PQuizCollectionViewController(), animated: true)
+                self.navigationController?.pushViewController(PTQuizCollectionViewController(), animated: true)
             }
             warningCard.addButtons([leftButton, rightButton])
             self.present(warningCard, animated: true, completion: nil)

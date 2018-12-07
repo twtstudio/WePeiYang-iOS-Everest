@@ -1,5 +1,5 @@
 //
-//  PQuizCollectionViewController.swift
+//  PTQuizCollectionViewController.swift
 //  WePeiYang
 //
 //  Created by yuting jiang on 2018/9/3.
@@ -9,13 +9,13 @@
 import Foundation
 import PopupDialog
 
-class PQuizCollectionViewController: UIViewController {
-    let questionViewParameters = QuestionViewParameters()
+class PTQuizCollectionViewController: UIViewController {
+    let questionViewParameters = PTQuestionViewParameters()
 
     var timer: Timer!
     static var usedTime: String = "00:00"
     static var usrAnsArray: [String] = []
-    var quizArray: [QuizQuestion] = []
+    var quizArray: [PTQuizQuestion] = []
     var guards: [Guard] = []
     var isSelected: [isCorrect] = []
     var scrollDirection: Direction = .none
@@ -59,7 +59,7 @@ class PQuizCollectionViewController: UIViewController {
     }()
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-    let quesListCollectionView = QLCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let quesListCollectionView = PTQuesListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let quesListBkgView = UIView()
 
     let orderLabel: UILabel = {
@@ -174,7 +174,7 @@ class PQuizCollectionViewController: UIViewController {
     }
 }
 
-extension PQuizCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension PTQuizCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -186,10 +186,10 @@ extension PQuizCollectionViewController: UICollectionViewDataSource, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let ques = quizArray[indexPath.item]
 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! QuizQuesCollectionCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! PTQuizQuesCollectionCell
         
         if let content = ques.content, let optionArray = ques.options, let quesType = ques.quesType {
-            cell.loadQues(ques: content, options: optionArray, qType: quesType, selectedAns: PQuizCollectionViewController.usrAnsArray[indexPath.item])
+            cell.loadQues(ques: content, options: optionArray, qType: quesType, selectedAns: PTQuizCollectionViewController.usrAnsArray[indexPath.item])
             cell.questionView.reloadData()
         } else {
             cell.loadQues(ques: "oops, no data", options: ["oops, no data", "oops, no data", "oops, no data", "oops, no data"], qType: 0, selectedAns: "")
@@ -216,15 +216,15 @@ extension PQuizCollectionViewController: UICollectionViewDataSource, UICollectio
 }
 
 //网络请求
-extension PQuizCollectionViewController {
+extension PTQuizCollectionViewController {
     private func getQuesArray(courseId: String) {
-        QuizNetWork.getQuizQuesArray(courseId: courseId, success: { (data, tim) in
+        PTQuizNetWork.getQuizQuesArray(courseId: courseId, success: { (data, tim) in
             self.time = tim
             self.quizArray = data
             for _ in 0..<self.quizArray.count {
                 let g = Guard()
                 self.guards.append(g)
-                PQuizCollectionViewController.usrAnsArray.append("")
+                PTQuizCollectionViewController.usrAnsArray.append("")
             }
             self.setupButtons()
             if self.isinited == 0 {
@@ -262,7 +262,7 @@ extension PQuizCollectionViewController {
                    "course_id": courseId,
                    "time": String(time)]
         
-        QuizNetWork.postQuizResult(dics: dic, courseId: courseId, time: time) { (data) in
+        PTQuizNetWork.postQuizResult(dics: dic, courseId: courseId, time: time) { (data) in
             self.turnToResultVc()
             PracticeResultViewController.pQuizResult = data
         }
@@ -270,7 +270,7 @@ extension PQuizCollectionViewController {
 }
 
 //MARK: objc func
-extension PQuizCollectionViewController {
+extension PTQuizCollectionViewController {
     @objc private func tickDown() {
         if restTime == 0 {
             //TODO: 检测模式做题时间到，跳转至下一页面
@@ -318,13 +318,13 @@ extension PQuizCollectionViewController {
         // 储存答案String
         let startValue = Int(("A" as UnicodeScalar).value)
         var answerString = ""
-        for i in 0..<QuestionTableView.selectedAnswerArray.count {
-            if QuestionTableView.selectedAnswerArray[i] {
+        for i in 0..<PTQuestionTableView.selectedAnswerArray.count {
+            if PTQuestionTableView.selectedAnswerArray[i] {
                 let string = String(UnicodeScalar(i + startValue)!)
                 answerString = answerString + string
             }
         }
-        PQuizCollectionViewController.usrAnsArray[currentPage - 1] = answerString
+        PTQuizCollectionViewController.usrAnsArray[currentPage - 1] = answerString
         guards[currentPage - 1].answer = answerString
         if answerString != "" {
             guards[currentPage - 1].iscorrect = .right
@@ -335,7 +335,7 @@ extension PQuizCollectionViewController {
     
     // 通过列表切换题目
     @objc private func changeQues() {
-        currentPage = QLCollectionView.chosenPage
+        currentPage = PTQuesListCollectionView.chosenPage
         collectionView.contentOffset.x = CGFloat(currentPage - 1) * deviceWidth
         for i in 0..<quizArray.count {
             isSelected.append(guards[i].iscorrect)
@@ -408,14 +408,14 @@ extension PQuizCollectionViewController {
 }
 
 //MARK: 界面初始化、基本控件加载
-extension PQuizCollectionViewController {
+extension PTQuizCollectionViewController {
     private func turnToResultVc() {
         let min: Int = 24 - restTime / 60
         let sec: Int = 60 - restTime % 60
         if sec < 10 {
-            PQuizCollectionViewController.usedTime = "\(min):0\(sec)"
+            PTQuizCollectionViewController.usedTime = "\(min):0\(sec)"
         }
-        PQuizCollectionViewController.usedTime = "\(min):0\(sec)"
+        PTQuizCollectionViewController.usedTime = "\(min):0\(sec)"
         PracticeResultViewController.ishistory = false
         let resultVC = PracticeResultViewController()
         self.navigationController?.pushViewController(resultVC, animated: true)
@@ -435,7 +435,7 @@ extension PQuizCollectionViewController {
         collectionView.backgroundColor = .white
         collectionView.contentSize = CGSize(width: deviceWidth * 3, height: deviceHeight)
         collectionView.isPagingEnabled = true
-        collectionView.register(QuizQuesCollectionCell.self, forCellWithReuseIdentifier: "collectionCell")
+        collectionView.register(PTQuizQuesCollectionCell.self, forCellWithReuseIdentifier: "collectionCell")
         collectionView.showsHorizontalScrollIndicator = true
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
@@ -534,6 +534,6 @@ extension PQuizCollectionViewController {
     }
     
     private func clearUsrAns() {
-        PQuizCollectionViewController.usrAnsArray = []
+        PTQuizCollectionViewController.usrAnsArray = []
     }
 }

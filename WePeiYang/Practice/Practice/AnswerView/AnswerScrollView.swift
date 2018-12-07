@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class AnswerScrollView: UIScrollView {
-    let questionViewParameters = QuestionViewParameters()
+    let questionViewParameters = PTQuestionViewParameters()
 
 //    let answerLabel: UILabel = {
 //        let label = UILabel()
@@ -25,7 +25,7 @@ class AnswerScrollView: UIScrollView {
     let label: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.practiceBlue
-        label.font = AnswerViewParameters.aFont
+        label.font = PTAnswerViewParameters.aFont
         return label
     }()
     
@@ -50,7 +50,7 @@ class AnswerScrollView: UIScrollView {
         
         label.snp.makeConstraints { (make) in
             make.width.equalTo(100)
-            make.height.equalTo(AnswerViewParameters.resultLabelH)
+            make.height.equalTo(PTAnswerViewParameters.resultLabelH)
             make.left.top.equalTo(self)
         }
         
@@ -60,7 +60,7 @@ class AnswerScrollView: UIScrollView {
 //            make.left.equalTo(self)
 //            make.top.equalTo(label).offset(AnswerViewParameters.resultLabelH)
 //        }
-        self.contentSize = CGSize(width: frame.width, height: AnswerViewParameters.resultLabelH)
+        self.contentSize = CGSize(width: frame.width, height: PTAnswerViewParameters.resultLabelH)
 //        self.contentSize = CGSize(width: frame.width, height: AnswerViewParameters.resultLabelH + AnswerViewParameters.answerTextViewH)
     }
     

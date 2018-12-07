@@ -200,7 +200,7 @@
 		B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */; };
 		B19DABAA1E6EF5C2004A50B5 /* WePeiYangUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */; };
 		B501F932218DB2C00036D6E4 /* PracticeResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F8DD218DB2C00036D6E4 /* PracticeResultViewController.swift */; };
-		B501F933218DB2C00036D6E4 /* PQResultViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F8DF218DB2C00036D6E4 /* PQResultViewCell.swift */; };
+		B501F933218DB2C00036D6E4 /* PTQuizResultViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F8DF218DB2C00036D6E4 /* PTQuizResultViewCell.swift */; };
 		B501F934218DB2C00036D6E4 /* PracticeHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F8E2218DB2C00036D6E4 /* PracticeHomeViewController.swift */; };
 		B501F935218DB2C00036D6E4 /* PracticeStudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F8E4218DB2C00036D6E4 /* PracticeStudentModel.swift */; };
 		B501F936218DB2C00036D6E4 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F8E6218DB2C00036D6E4 /* UserView.swift */; };
@@ -224,26 +224,26 @@
 		B501F94A218DB2C00036D6E4 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F90B218DB2C00036D6E4 /* HistoryView.swift */; };
 		B501F94B218DB2C00036D6E4 /* PracticeUploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F90E218DB2C00036D6E4 /* PracticeUploadViewController.swift */; };
 		B501F94C218DB2C00036D6E4 /* AnswerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F911218DB2C00036D6E4 /* AnswerScrollView.swift */; };
-		B501F94D218DB2C00036D6E4 /* QuestionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F913218DB2C00036D6E4 /* QuestionTableView.swift */; };
-		B501F94E218DB2C00036D6E4 /* QuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F914218DB2C00036D6E4 /* QuestionCell.swift */; };
-		B501F94F218DB2C00036D6E4 /* OptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F915218DB2C00036D6E4 /* OptionsCell.swift */; };
-		B501F950218DB2C00036D6E4 /* PQuizCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F918218DB2C00036D6E4 /* PQuizCollectionViewController.swift */; };
-		B501F951218DB2C00036D6E4 /* QuizModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F91A218DB2C00036D6E4 /* QuizModel.swift */; };
-		B501F952218DB2C00036D6E4 /* QuizNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F91B218DB2C00036D6E4 /* QuizNetwork.swift */; };
-		B501F953218DB2C00036D6E4 /* QuizOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F91D218DB2C00036D6E4 /* QuizOptionCell.swift */; };
-		B501F954218DB2C00036D6E4 /* QuizQuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F91E218DB2C00036D6E4 /* QuizQuesView.swift */; };
-		B501F955218DB2C00036D6E4 /* QuizQuesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F91F218DB2C00036D6E4 /* QuizQuesCollectionCell.swift */; };
-		B501F956218DB2C00036D6E4 /* QLCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F921218DB2C00036D6E4 /* QLCollectionViewCell.swift */; };
-		B501F957218DB2C00036D6E4 /* QLCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F922218DB2C00036D6E4 /* QLCollectionView.swift */; };
-		B501F958218DB2C00036D6E4 /* ExerciseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F925218DB2C00036D6E4 /* ExerciseCollectionViewController.swift */; };
-		B501F959218DB2C00036D6E4 /* ExerciseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F927218DB2C00036D6E4 /* ExerciseModel.swift */; };
-		B501F95A218DB2C00036D6E4 /* ExerciseNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F928218DB2C00036D6E4 /* ExerciseNetwork.swift */; };
-		B501F95B218DB2C00036D6E4 /* ExerciseQuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F92A218DB2C00036D6E4 /* ExerciseQuesView.swift */; };
-		B501F95C218DB2C00036D6E4 /* ExOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F92B218DB2C00036D6E4 /* ExOptionCell.swift */; };
-		B501F95D218DB2C00036D6E4 /* ExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F92C218DB2C00036D6E4 /* ExerciseCell.swift */; };
+		B501F94D218DB2C00036D6E4 /* PTQuestionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F913218DB2C00036D6E4 /* PTQuestionTableView.swift */; };
+		B501F94E218DB2C00036D6E4 /* PTQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F914218DB2C00036D6E4 /* PTQuestionCell.swift */; };
+		B501F94F218DB2C00036D6E4 /* PTOptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F915218DB2C00036D6E4 /* PTOptionsCell.swift */; };
+		B501F950218DB2C00036D6E4 /* PTQuizCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F918218DB2C00036D6E4 /* PTQuizCollectionViewController.swift */; };
+		B501F951218DB2C00036D6E4 /* PTQuizModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F91A218DB2C00036D6E4 /* PTQuizModel.swift */; };
+		B501F952218DB2C00036D6E4 /* PTQuizNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F91B218DB2C00036D6E4 /* PTQuizNetwork.swift */; };
+		B501F953218DB2C00036D6E4 /* PTQuizOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F91D218DB2C00036D6E4 /* PTQuizOptionCell.swift */; };
+		B501F954218DB2C00036D6E4 /* PTQuizQuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F91E218DB2C00036D6E4 /* PTQuizQuesView.swift */; };
+		B501F955218DB2C00036D6E4 /* PTQuizQuesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F91F218DB2C00036D6E4 /* PTQuizQuesCollectionCell.swift */; };
+		B501F956218DB2C00036D6E4 /* PTQuesListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F921218DB2C00036D6E4 /* PTQuesListCollectionViewCell.swift */; };
+		B501F957218DB2C00036D6E4 /* PTQuesListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F922218DB2C00036D6E4 /* PTQuesListCollectionView.swift */; };
+		B501F958218DB2C00036D6E4 /* PTExerciseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F925218DB2C00036D6E4 /* PTExerciseCollectionViewController.swift */; };
+		B501F959218DB2C00036D6E4 /* PTExerciseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F927218DB2C00036D6E4 /* PTExerciseModel.swift */; };
+		B501F95A218DB2C00036D6E4 /* PTExerciseNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F928218DB2C00036D6E4 /* PTExerciseNetwork.swift */; };
+		B501F95B218DB2C00036D6E4 /* PTExerciseQuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F92A218DB2C00036D6E4 /* PTExerciseQuesView.swift */; };
+		B501F95C218DB2C00036D6E4 /* PTExOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F92B218DB2C00036D6E4 /* PTExOptionCell.swift */; };
+		B501F95D218DB2C00036D6E4 /* PTExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F92C218DB2C00036D6E4 /* PTExerciseCell.swift */; };
 		B501F95E218DB2C00036D6E4 /* TestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F92E218DB2C00036D6E4 /* TestController.swift */; };
-		B501F95F218DB2C00036D6E4 /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F92F218DB2C00036D6E4 /* Parameters.swift */; };
-		B501F960218DB2C00036D6E4 /* QuestionsScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F930218DB2C00036D6E4 /* QuestionsScrollView.swift */; };
+		B501F95F218DB2C00036D6E4 /* PTParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F92F218DB2C00036D6E4 /* PTParameters.swift */; };
+		B501F960218DB2C00036D6E4 /* PTQuestionsScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F930218DB2C00036D6E4 /* PTQuestionsScrollView.swift */; };
 		B501F961218DB2C00036D6E4 /* PracticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501F931218DB2C00036D6E4 /* PracticeModel.swift */; };
 		B50C8F4421A7905A000F88F8 /* PQResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50C8F4321A7905A000F88F8 /* PQResultHeaderView.swift */; };
 /* End PBXBuildFile section */
@@ -492,7 +492,7 @@
 		B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WePeiYangUITests.swift; sourceTree = "<group>"; };
 		B19DABAB1E6EF5C2004A50B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B501F8DD218DB2C00036D6E4 /* PracticeResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeResultViewController.swift; sourceTree = "<group>"; };
-		B501F8DF218DB2C00036D6E4 /* PQResultViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PQResultViewCell.swift; sourceTree = "<group>"; };
+		B501F8DF218DB2C00036D6E4 /* PTQuizResultViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTQuizResultViewCell.swift; sourceTree = "<group>"; };
 		B501F8E2218DB2C00036D6E4 /* PracticeHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeHomeViewController.swift; sourceTree = "<group>"; };
 		B501F8E4218DB2C00036D6E4 /* PracticeStudentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeStudentModel.swift; sourceTree = "<group>"; };
 		B501F8E6218DB2C00036D6E4 /* UserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
@@ -516,26 +516,26 @@
 		B501F90B218DB2C00036D6E4 /* HistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		B501F90E218DB2C00036D6E4 /* PracticeUploadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeUploadViewController.swift; sourceTree = "<group>"; };
 		B501F911218DB2C00036D6E4 /* AnswerScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerScrollView.swift; sourceTree = "<group>"; };
-		B501F913218DB2C00036D6E4 /* QuestionTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableView.swift; sourceTree = "<group>"; };
-		B501F914218DB2C00036D6E4 /* QuestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionCell.swift; sourceTree = "<group>"; };
-		B501F915218DB2C00036D6E4 /* OptionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsCell.swift; sourceTree = "<group>"; };
-		B501F918218DB2C00036D6E4 /* PQuizCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PQuizCollectionViewController.swift; sourceTree = "<group>"; };
-		B501F91A218DB2C00036D6E4 /* QuizModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizModel.swift; sourceTree = "<group>"; };
-		B501F91B218DB2C00036D6E4 /* QuizNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizNetwork.swift; sourceTree = "<group>"; };
-		B501F91D218DB2C00036D6E4 /* QuizOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizOptionCell.swift; sourceTree = "<group>"; };
-		B501F91E218DB2C00036D6E4 /* QuizQuesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizQuesView.swift; sourceTree = "<group>"; };
-		B501F91F218DB2C00036D6E4 /* QuizQuesCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizQuesCollectionCell.swift; sourceTree = "<group>"; };
-		B501F921218DB2C00036D6E4 /* QLCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QLCollectionViewCell.swift; sourceTree = "<group>"; };
-		B501F922218DB2C00036D6E4 /* QLCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QLCollectionView.swift; sourceTree = "<group>"; };
-		B501F925218DB2C00036D6E4 /* ExerciseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseCollectionViewController.swift; sourceTree = "<group>"; };
-		B501F927218DB2C00036D6E4 /* ExerciseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseModel.swift; sourceTree = "<group>"; };
-		B501F928218DB2C00036D6E4 /* ExerciseNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseNetwork.swift; sourceTree = "<group>"; };
-		B501F92A218DB2C00036D6E4 /* ExerciseQuesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseQuesView.swift; sourceTree = "<group>"; };
-		B501F92B218DB2C00036D6E4 /* ExOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExOptionCell.swift; sourceTree = "<group>"; };
-		B501F92C218DB2C00036D6E4 /* ExerciseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseCell.swift; sourceTree = "<group>"; };
+		B501F913218DB2C00036D6E4 /* PTQuestionTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTQuestionTableView.swift; sourceTree = "<group>"; };
+		B501F914218DB2C00036D6E4 /* PTQuestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTQuestionCell.swift; sourceTree = "<group>"; };
+		B501F915218DB2C00036D6E4 /* PTOptionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTOptionsCell.swift; sourceTree = "<group>"; };
+		B501F918218DB2C00036D6E4 /* PTQuizCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTQuizCollectionViewController.swift; sourceTree = "<group>"; };
+		B501F91A218DB2C00036D6E4 /* PTQuizModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTQuizModel.swift; sourceTree = "<group>"; };
+		B501F91B218DB2C00036D6E4 /* PTQuizNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTQuizNetwork.swift; sourceTree = "<group>"; };
+		B501F91D218DB2C00036D6E4 /* PTQuizOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTQuizOptionCell.swift; sourceTree = "<group>"; };
+		B501F91E218DB2C00036D6E4 /* PTQuizQuesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTQuizQuesView.swift; sourceTree = "<group>"; };
+		B501F91F218DB2C00036D6E4 /* PTQuizQuesCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTQuizQuesCollectionCell.swift; sourceTree = "<group>"; };
+		B501F921218DB2C00036D6E4 /* PTQuesListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTQuesListCollectionViewCell.swift; sourceTree = "<group>"; };
+		B501F922218DB2C00036D6E4 /* PTQuesListCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTQuesListCollectionView.swift; sourceTree = "<group>"; };
+		B501F925218DB2C00036D6E4 /* PTExerciseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTExerciseCollectionViewController.swift; sourceTree = "<group>"; };
+		B501F927218DB2C00036D6E4 /* PTExerciseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTExerciseModel.swift; sourceTree = "<group>"; };
+		B501F928218DB2C00036D6E4 /* PTExerciseNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTExerciseNetwork.swift; sourceTree = "<group>"; };
+		B501F92A218DB2C00036D6E4 /* PTExerciseQuesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTExerciseQuesView.swift; sourceTree = "<group>"; };
+		B501F92B218DB2C00036D6E4 /* PTExOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTExOptionCell.swift; sourceTree = "<group>"; };
+		B501F92C218DB2C00036D6E4 /* PTExerciseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTExerciseCell.swift; sourceTree = "<group>"; };
 		B501F92E218DB2C00036D6E4 /* TestController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestController.swift; sourceTree = "<group>"; };
-		B501F92F218DB2C00036D6E4 /* Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
-		B501F930218DB2C00036D6E4 /* QuestionsScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsScrollView.swift; sourceTree = "<group>"; };
+		B501F92F218DB2C00036D6E4 /* PTParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTParameters.swift; sourceTree = "<group>"; };
+		B501F930218DB2C00036D6E4 /* PTQuestionsScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTQuestionsScrollView.swift; sourceTree = "<group>"; };
 		B501F931218DB2C00036D6E4 /* PracticeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeModel.swift; sourceTree = "<group>"; };
 		B50C8F4321A7905A000F88F8 /* PQResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PQResultHeaderView.swift; sourceTree = "<group>"; };
 		D77E7BD11F959EB50A5A0DED /* Pods-WePeiYangWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1293,7 +1293,7 @@
 		B501F8DE218DB2C00036D6E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B501F8DF218DB2C00036D6E4 /* PQResultViewCell.swift */,
+				B501F8DF218DB2C00036D6E4 /* PTQuizResultViewCell.swift */,
 				B50C8F4321A7905A000F88F8 /* PQResultHeaderView.swift */,
 			);
 			path = View;
@@ -1522,9 +1522,9 @@
 		B501F912218DB2C00036D6E4 /* FatherQuestionView */ = {
 			isa = PBXGroup;
 			children = (
-				B501F913218DB2C00036D6E4 /* QuestionTableView.swift */,
-				B501F914218DB2C00036D6E4 /* QuestionCell.swift */,
-				B501F915218DB2C00036D6E4 /* OptionsCell.swift */,
+				B501F913218DB2C00036D6E4 /* PTQuestionTableView.swift */,
+				B501F914218DB2C00036D6E4 /* PTQuestionCell.swift */,
+				B501F915218DB2C00036D6E4 /* PTOptionsCell.swift */,
 			);
 			path = FatherQuestionView;
 			sourceTree = "<group>";
@@ -1542,7 +1542,7 @@
 		B501F917218DB2C00036D6E4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B501F918218DB2C00036D6E4 /* PQuizCollectionViewController.swift */,
+				B501F918218DB2C00036D6E4 /* PTQuizCollectionViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1550,8 +1550,8 @@
 		B501F919218DB2C00036D6E4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B501F91A218DB2C00036D6E4 /* QuizModel.swift */,
-				B501F91B218DB2C00036D6E4 /* QuizNetwork.swift */,
+				B501F91A218DB2C00036D6E4 /* PTQuizModel.swift */,
+				B501F91B218DB2C00036D6E4 /* PTQuizNetwork.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1559,9 +1559,9 @@
 		B501F91C218DB2C00036D6E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B501F91D218DB2C00036D6E4 /* QuizOptionCell.swift */,
-				B501F91E218DB2C00036D6E4 /* QuizQuesView.swift */,
-				B501F91F218DB2C00036D6E4 /* QuizQuesCollectionCell.swift */,
+				B501F91D218DB2C00036D6E4 /* PTQuizOptionCell.swift */,
+				B501F91E218DB2C00036D6E4 /* PTQuizQuesView.swift */,
+				B501F91F218DB2C00036D6E4 /* PTQuizQuesCollectionCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1569,8 +1569,8 @@
 		B501F920218DB2C00036D6E4 /* QuesListView */ = {
 			isa = PBXGroup;
 			children = (
-				B501F921218DB2C00036D6E4 /* QLCollectionViewCell.swift */,
-				B501F922218DB2C00036D6E4 /* QLCollectionView.swift */,
+				B501F921218DB2C00036D6E4 /* PTQuesListCollectionViewCell.swift */,
+				B501F922218DB2C00036D6E4 /* PTQuesListCollectionView.swift */,
 			);
 			path = QuesListView;
 			sourceTree = "<group>";
@@ -1588,7 +1588,7 @@
 		B501F924218DB2C00036D6E4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B501F925218DB2C00036D6E4 /* ExerciseCollectionViewController.swift */,
+				B501F925218DB2C00036D6E4 /* PTExerciseCollectionViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1596,8 +1596,8 @@
 		B501F926218DB2C00036D6E4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B501F927218DB2C00036D6E4 /* ExerciseModel.swift */,
-				B501F928218DB2C00036D6E4 /* ExerciseNetwork.swift */,
+				B501F927218DB2C00036D6E4 /* PTExerciseModel.swift */,
+				B501F928218DB2C00036D6E4 /* PTExerciseNetwork.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1605,9 +1605,9 @@
 		B501F929218DB2C00036D6E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B501F92A218DB2C00036D6E4 /* ExerciseQuesView.swift */,
-				B501F92B218DB2C00036D6E4 /* ExOptionCell.swift */,
-				B501F92C218DB2C00036D6E4 /* ExerciseCell.swift */,
+				B501F92A218DB2C00036D6E4 /* PTExerciseQuesView.swift */,
+				B501F92B218DB2C00036D6E4 /* PTExOptionCell.swift */,
+				B501F92C218DB2C00036D6E4 /* PTExerciseCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1616,8 +1616,8 @@
 			isa = PBXGroup;
 			children = (
 				B501F92E218DB2C00036D6E4 /* TestController.swift */,
-				B501F92F218DB2C00036D6E4 /* Parameters.swift */,
-				B501F930218DB2C00036D6E4 /* QuestionsScrollView.swift */,
+				B501F92F218DB2C00036D6E4 /* PTParameters.swift */,
+				B501F930218DB2C00036D6E4 /* PTQuestionsScrollView.swift */,
 				B501F931218DB2C00036D6E4 /* PracticeModel.swift */,
 			);
 			path = main;
@@ -1989,7 +1989,7 @@
 				360339E920247B9D0006A083 /* LibraryCard.swift in Sources */,
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
 				36042DB81FC7BB270016E859 /* CourseCell.swift in Sources */,
-				B501F953218DB2C00036D6E4 /* QuizOptionCell.swift in Sources */,
+				B501F953218DB2C00036D6E4 /* PTQuizOptionCell.swift in Sources */,
 				3685D9EF204D255700BA6C3D /* NewsDetailViewController.swift in Sources */,
 				365261561FB9F83400025B8A /* ClassTableModel.swift in Sources */,
 				36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */,
@@ -1998,13 +1998,13 @@
 				36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */,
 				361FB1962184693300BD5A1E /* StarView.swift in Sources */,
 				36CAD44A201B8EAA006F85E3 /* ClassTableHelper.swift in Sources */,
-				B501F95C218DB2C00036D6E4 /* ExOptionCell.swift in Sources */,
+				B501F95C218DB2C00036D6E4 /* PTExOptionCell.swift in Sources */,
 				36449E481FA4BA9B0036766B /* ApplicantTest.swift in Sources */,
 				361F8863204AF94200BCFA19 /* NewsTableViewCell.swift in Sources */,
 				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,
 				361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */,
 				368C3C8A204DAB4F00C1E6B6 /* WPYCustomError.swift in Sources */,
-				B501F94F218DB2C00036D6E4 /* OptionsCell.swift in Sources */,
+				B501F94F218DB2C00036D6E4 /* PTOptionsCell.swift in Sources */,
 				A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */,
 				36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */,
 				36449E641FA4BABA0036766B /* QuizView.swift in Sources */,
@@ -2012,12 +2012,12 @@
 				365A8A281FB9CA1700B15443 /* ClassModel.swift in Sources */,
 				365936691F1E2CCF003CE578 /* YellowPageCell.swift in Sources */,
 				364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */,
-				B501F957218DB2C00036D6E4 /* QLCollectionView.swift in Sources */,
+				B501F957218DB2C00036D6E4 /* PTQuesListCollectionView.swift in Sources */,
 				36449E491FA4BA9B0036766B /* Applicant.swift in Sources */,
 				B501F93D218DB2C00036D6E4 /* PCourseInfoNetwork.swift in Sources */,
 				36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */,
 				B50C8F4421A7905A000F88F8 /* PQResultHeaderView.swift in Sources */,
-				B501F958218DB2C00036D6E4 /* ExerciseCollectionViewController.swift in Sources */,
+				B501F958218DB2C00036D6E4 /* PTExerciseCollectionViewController.swift in Sources */,
 				B10254231EC8547E0064373A /* WPYTextField.swift in Sources */,
 				A5E117B91F99DCAE00C86CA2 /* Card.swift in Sources */,
 				361FB1982184693300BD5A1E /* CourseAppraiseCell.swift in Sources */,
@@ -2035,7 +2035,7 @@
 				361FB19A2184698000BD5A1E /* ClassTableNotificationHelper.swift in Sources */,
 				B501F935218DB2C00036D6E4 /* PracticeStudentModel.swift in Sources */,
 				B501F942218DB2C00036D6E4 /* PSearchViewController.swift in Sources */,
-				B501F951218DB2C00036D6E4 /* QuizModel.swift in Sources */,
+				B501F951218DB2C00036D6E4 /* PTQuizModel.swift in Sources */,
 				36449E831FA4BAD00036766B /* TwentyCourseViewController.swift in Sources */,
 				36449E8D1FA4BAD10036766B /* PartyCoursesViewController.m in Sources */,
 				3631D50A1F1903D70078816D /* TwTUser.swift in Sources */,
@@ -2043,28 +2043,28 @@
 				A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */,
 				361FB1932184693300BD5A1E /* GPASessionManager.swift in Sources */,
 				365A46462035E35500738963 /* Storage.swift in Sources */,
-				B501F933218DB2C00036D6E4 /* PQResultViewCell.swift in Sources */,
+				B501F933218DB2C00036D6E4 /* PTQuizResultViewCell.swift in Sources */,
 				A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */,
 				365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */,
 				365A46482036956700738963 /* CacheFilenameKey.swift in Sources */,
-				B501F950218DB2C00036D6E4 /* PQuizCollectionViewController.swift in Sources */,
+				B501F950218DB2C00036D6E4 /* PTQuizCollectionViewController.swift in Sources */,
 				361F885C204AF92D00BCFA19 /* BannerPageControl.swift in Sources */,
-				B501F95D218DB2C00036D6E4 /* ExerciseCell.swift in Sources */,
+				B501F95D218DB2C00036D6E4 /* PTExerciseCell.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
 				A51C456A1FD0477700652435 /* BicycleBindingViewController.swift in Sources */,
-				B501F954218DB2C00036D6E4 /* QuizQuesView.swift in Sources */,
+				B501F954218DB2C00036D6E4 /* PTQuizQuesView.swift in Sources */,
 				365936711F1E38B8003CE578 /* YellowPageSearchHistoryCell.swift in Sources */,
 				B10254051EC84EE00064373A /* PhoneBook.swift in Sources */,
 				361FB1912184693300BD5A1E /* GPAModel.swift in Sources */,
 				36758FDD1FDA851C0023A99C /* CardView.swift in Sources */,
 				B501F93A218DB2C00036D6E4 /* PracticeWrongModel.swift in Sources */,
-				B501F94E218DB2C00036D6E4 /* QuestionCell.swift in Sources */,
+				B501F94E218DB2C00036D6E4 /* PTQuestionCell.swift in Sources */,
 				A5E117B11F99DBB700C86CA2 /* timeStampTransfer.swift in Sources */,
 				A5E117C11F99E01A00C86CA2 /* BicycleCardListViewController.swift in Sources */,
 				361F8857204AF92100BCFA19 /* NewsReporter.swift in Sources */,
 				B501F93F218DB2C00036D6E4 /* PCourseInfoView.swift in Sources */,
 				36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */,
-				B501F95A218DB2C00036D6E4 /* ExerciseNetwork.swift in Sources */,
+				B501F95A218DB2C00036D6E4 /* PTExerciseNetwork.swift in Sources */,
 				B501F961218DB2C00036D6E4 /* PracticeModel.swift in Sources */,
 				361F885E204AF92D00BCFA19 /* BannerCell.swift in Sources */,
 				36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */,
@@ -2079,7 +2079,7 @@
 				3685D9F1204D276100BA6C3D /* NewsDetailModel.swift in Sources */,
 				A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */,
 				A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */,
-				B501F956218DB2C00036D6E4 /* QLCollectionViewCell.swift in Sources */,
+				B501F956218DB2C00036D6E4 /* PTQuesListCollectionViewCell.swift in Sources */,
 				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
 				36449E8A1FA4BAD10036766B /* PartyPersonalStatusViewController.swift in Sources */,
 				B501F948218DB2C00036D6E4 /* PracticeHistoryViewController.swift in Sources */,
@@ -2095,7 +2095,7 @@
 				B501F943218DB2C00036D6E4 /* PLessonListViewController.swift in Sources */,
 				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
 				3667E1D0201CB98800E82241 /* DetailSettingViewController.swift in Sources */,
-				B501F94D218DB2C00036D6E4 /* QuestionTableView.swift in Sources */,
+				B501F94D218DB2C00036D6E4 /* PTQuestionTableView.swift in Sources */,
 				B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */,
 				361F8855204AF92100BCFA19 /* GalleryModel.swift in Sources */,
 				36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */,
@@ -2106,7 +2106,7 @@
 				36449E611FA4BABA0036766B /* TextTableViewCell.swift in Sources */,
 				3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */,
 				B10253F31EC84ED90064373A /* TwTKeychain.swift in Sources */,
-				B501F960218DB2C00036D6E4 /* QuestionsScrollView.swift in Sources */,
+				B501F960218DB2C00036D6E4 /* PTQuestionsScrollView.swift in Sources */,
 				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
 				A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */,
 				364922A3202620CC00DFDC35 /* CardButton.swift in Sources */,
@@ -2126,7 +2126,7 @@
 				36449E861FA4BAD10036766B /* TheoryClassicsTableViewController.swift in Sources */,
 				36449E451FA4BA9B0036766B /* PartyAPI.swift in Sources */,
 				3659367D1F1E5FAE003CE578 /* YellowPageSearchViewController.swift in Sources */,
-				B501F959218DB2C00036D6E4 /* ExerciseModel.swift in Sources */,
+				B501F959218DB2C00036D6E4 /* PTExerciseModel.swift in Sources */,
 				3659366F1F1E37B8003CE578 /* SearchView.swift in Sources */,
 				361FB1952184693300BD5A1E /* GPAStatModel.swift in Sources */,
 				B501F934218DB2C00036D6E4 /* PracticeHomeViewController.swift in Sources */,
@@ -2142,13 +2142,13 @@
 				B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */,
 				36449E851FA4BAD10036766B /* TwentyCourseDetailViewController.swift in Sources */,
 				36449E6E1FA4BABA0036766B /* CourseTableViewCell.swift in Sources */,
-				B501F952218DB2C00036D6E4 /* QuizNetwork.swift in Sources */,
+				B501F952218DB2C00036D6E4 /* PTQuizNetwork.swift in Sources */,
 				B501F938218DB2C00036D6E4 /* HeadView.swift in Sources */,
 				B501F936218DB2C00036D6E4 /* UserView.swift in Sources */,
 				361FB18E2184693300BD5A1E /* GPAViewController.swift in Sources */,
 				364922A120260CDC00DFDC35 /* LibraryModel.swift in Sources */,
 				363D0A701FE006990095DA57 /* LibraryCardDataProvider.swift in Sources */,
-				B501F955218DB2C00036D6E4 /* QuizQuesCollectionCell.swift in Sources */,
+				B501F955218DB2C00036D6E4 /* PTQuizQuesCollectionCell.swift in Sources */,
 				B501F95E218DB2C00036D6E4 /* TestController.swift in Sources */,
 				3659367B1F1E5FAE003CE578 /* YellowPageDetailViewController.swift in Sources */,
 				A5E117B71F99DC9400C86CA2 /* NotificationList.swift in Sources */,
@@ -2158,9 +2158,9 @@
 				36449E8F1FA4BAD10036766B /* HandInDetailViewController.swift in Sources */,
 				A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */,
 				361F8862204AF94200BCFA19 /* NewsHeaderView.swift in Sources */,
-				B501F95B218DB2C00036D6E4 /* ExerciseQuesView.swift in Sources */,
+				B501F95B218DB2C00036D6E4 /* PTExerciseQuesView.swift in Sources */,
 				B501F947218DB2C00036D6E4 /* CollectionView.swift in Sources */,
-				B501F95F218DB2C00036D6E4 /* Parameters.swift in Sources */,
+				B501F95F218DB2C00036D6E4 /* PTParameters.swift in Sources */,
 				369D92072015D914004BA1D0 /* WeekSelectView.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
 				3659367C1F1E5FAE003CE578 /* YellowPageMainViewController.swift in Sources */,

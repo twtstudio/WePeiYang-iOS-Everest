@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct QuizQuestion {
+struct PTQuizQuestion {
     var id: Int?
     var courseId: Int?
     var quesType: Int?
@@ -17,7 +17,7 @@ struct QuizQuestion {
     var isCollected: Int?
 }
 
-struct PQuizResultData {
+struct PTQuizResultData {
     let quesID: String
     let quesType, content: String
     let option: [String]
@@ -28,13 +28,13 @@ struct PQuizResultData {
     let isTrue: Int
 }
 
-struct PQuizResult {
+struct PTQuizResult {
     var score: Int = 0
     var timestamp: Int = 0
     var correctNum: Int = 0
     var errNum: Int = 0
     var notDoneNum: Int = 0
     var practiceTime: String = ""
-    var results: [PQuizResultData] = []
+    var results: [PTQuizResultData] = []
 }
 

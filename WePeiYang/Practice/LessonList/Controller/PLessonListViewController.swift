@@ -165,7 +165,7 @@ extension PLessonListViewController: UISearchBarDelegate {
         let rightButton = PracticePopupDialogButton(title: "模拟考试", dismissOnTap: true) {
             // TODO: 进入模拟考试
             self.searchController.dismiss(animated: false, completion: nil)
-            self.navigationController?.pushViewController(PQuizCollectionViewController(), animated: true)
+            self.navigationController?.pushViewController(PTQuizCollectionViewController(), animated: true)
         }
         warningCard.addButtons([leftButton, rightButton])
         self.present(warningCard, animated: true, completion: nil)

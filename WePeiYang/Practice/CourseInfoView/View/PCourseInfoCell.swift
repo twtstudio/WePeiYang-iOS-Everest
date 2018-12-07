@@ -38,7 +38,8 @@ class PCourseInfoCell: UITableViewCell {
 
     func setupUI(typeInt: Int, quesType: String, numOfQues: String, doneQues: String, index: Int) {
         self.index = String(index)
-        qTypeLabel.text = quesType + "  \(doneQues)/\(numOfQues)   当前：\(index)"
+        let done = (doneQues == "") ? "0" : doneQues
+        qTypeLabel.text = quesType + "  \(done)/\(numOfQues)   当前：\(index)"
         if index == 0 {
             practiceBtn.setTitle("开始练习", for: .normal)
         } else {
@@ -70,7 +71,7 @@ class PCourseInfoCell: UITableViewCell {
         PracticeFigure.questionType = String(typeInt)
         PracticeFigure.currentCourseIndex = self.index
         let topVC = UIViewController.currentViewController()
-        topVC?.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
+        topVC?.navigationController?.pushViewController(PTExerciseCollectionViewController(), animated: true)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "HindCourseInfoCard"), object: nil)
     }
     

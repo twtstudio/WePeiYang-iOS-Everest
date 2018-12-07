@@ -8,7 +8,7 @@
 
 import Foundation
 
-class QLCollectionViewCell: UICollectionViewCell {
+class PTQuesListCollectionViewCell: UICollectionViewCell {
     let label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center

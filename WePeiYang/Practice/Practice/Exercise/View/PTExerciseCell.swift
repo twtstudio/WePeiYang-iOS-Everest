@@ -9,15 +9,15 @@
 import Foundation
 import UIKit
 
-class ExerciseCell: UICollectionViewCell {
-    let questionViewParameters = QuestionViewParameters()
+class PTExerciseCell: UICollectionViewCell {
+    let questionViewParameters = PTQuestionViewParameters()
 
-    var questionView = ExerciseQuesView(frame: .zero, style: .plain)
+    var questionView = PTExerciseQuesView(frame: .zero, style: .plain)
 //    var answerView = AnswerScrollView(frame: .zero)
     let label: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.practiceBlue
-        label.font = AnswerViewParameters.aFont
+        label.font = PTAnswerViewParameters.aFont
         return label
     }()
     
@@ -59,9 +59,9 @@ class ExerciseCell: UICollectionViewCell {
         self.addSubview(label)
         label.snp.makeConstraints { (make) in
             make.width.equalTo(300)
-            make.height.equalTo(AnswerViewParameters.resultLabelH)
+            make.height.equalTo(PTAnswerViewParameters.resultLabelH)
             make.left.equalTo(questionView)
-            make.bottom.equalTo(self).offset(-AnswerViewParameters.answerTextViewH)
+            make.bottom.equalTo(self).offset(-PTAnswerViewParameters.answerTextViewH)
         }
     }
     

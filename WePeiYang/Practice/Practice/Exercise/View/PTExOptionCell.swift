@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ExOptionCell: OptionsCell {
+class PTExOptionCell: PTOptionsCell {
     
     /// 接口，传入选项cell的UI信息
     ///

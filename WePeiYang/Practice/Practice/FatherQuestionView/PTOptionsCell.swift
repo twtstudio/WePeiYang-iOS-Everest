@@ -1,5 +1,5 @@
 //
-//  OptionsCell.swift
+//  PTOptionsCell.swift
 //  WePeiYang
 //
 //  Created by yuting jiang on 2018/7/21.
@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-class OptionsCell: UITableViewCell {
-    let questionViewParameters = QuestionViewParameters()
+class PTOptionsCell: UITableViewCell {
+    let questionViewParameters = PTQuestionViewParameters()
     
     let btnImages: [UIImage] = [#imageLiteral(resourceName: "A"), #imageLiteral(resourceName: "B"), #imageLiteral(resourceName: "C"), #imageLiteral(resourceName: "D"), #imageLiteral(resourceName: "E")]
     let selectedbtnImgs: [UIImage] = [#imageLiteral(resourceName: "selectedA"), #imageLiteral(resourceName: "selectedB"), #imageLiteral(resourceName: "selectedC"), #imageLiteral(resourceName: "selectedD"), #imageLiteral(resourceName: "selectedE")]

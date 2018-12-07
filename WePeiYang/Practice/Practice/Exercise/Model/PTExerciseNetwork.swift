@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class ExerciseNetwork {
+class PTExerciseNetwork {
     static func postWritingQues(courseId: String, quesType: String, index: String, isWrite: String, errorOption: String, success: @escaping (String) -> (), failure: @escaping (Error) -> ()) {
         let dic = ["course_id": courseId,
                    "ques_type": quesType,
@@ -51,11 +51,11 @@ class ExerciseNetwork {
         }
     }
 
-    static func getQues(courseId: Int, quesType: Int, id: Int, success: @escaping(Question)->(), failure: (Error)->()) {
+    static func getQues(courseId: Int, quesType: Int, id: Int, success: @escaping(PTQuestion)->(), failure: (Error)->()) {
         SolaSessionManager.solaSession(baseURL: "https://exam.twtstudio.com", url: "/api/remember/getQuesById/\(courseId)/\(quesType)/\(id)", success: { (dic) in
             let ques = dic["data"] as? [String: Any]
             if let quesDetail = ques {
-                var question = Question()
+                var question = PTQuestion()
                 let id = quesDetail["ques_id"] as? Int
                 let course_id = Int((quesDetail["course_id"] as! NSString).floatValue)
                 let type = Int((quesDetail["ques_type"] as! NSString).floatValue)
@@ -64,10 +64,10 @@ class ExerciseNetwork {
                 let answer = quesDetail["answer"] as? String ?? ""
                 let is_collected = quesDetail["is_collected"] as? Int
                 let is_mistake = quesDetail["is_mistake"] as? Int
-                let questionDetail = QuestionDetails(id: id, classId: nil, courseId: course_id, type: type, content: content, option: option, correctAnswer: answer, isCollected: is_collected, isMistake: is_mistake)
+                let questionDetail = PTQuestionDetails(id: id, classId: nil, courseId: course_id, type: type, content: content, option: option, correctAnswer: answer, isCollected: is_collected, isMistake: is_mistake)
                 question.quesDetail = questionDetail
                 
-                ExerciseCollectionViewController.questions.append(question)
+                PTExerciseCollectionViewController.questions.append(question)
                 success(question)
             }
 

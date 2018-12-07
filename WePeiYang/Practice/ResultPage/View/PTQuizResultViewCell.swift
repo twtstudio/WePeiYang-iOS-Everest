@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 // MARK: - UITableViewCell
-class PQResultViewCell: UITableViewCell {
+class PTQuizResultViewCell: UITableViewCell {
     
     /* 题目内容 */
     let questionContentLabel = UICopyLabel()
@@ -37,7 +37,7 @@ class PQResultViewCell: UITableViewCell {
     /* 单元高度 */
     var cellHeight: CGFloat = 0.0
     
-    convenience init(byModel pQuizResultData: [PQuizResultData], withIndex index: Int) {
+    convenience init(byModel pQuizResultData: [PTQuizResultData], withIndex index: Int) {
         self.init(style: .default, reuseIdentifier: "ResultViewCell")
         let wrongData = pQuizResultData[index]
         

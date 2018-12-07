@@ -9,7 +9,7 @@
 import UIKit
 
 // MARK: UIView
-class PQResultHeadView: UIView {
+class PTQuizResultHeadView: UIView {
     
     /* 蓝色背景 */
     private let headBackgroundView: UIView = {

@@ -18,7 +18,8 @@ class PCourseInfoTableView: UITableView {
         super.init(frame: frame, style: style)
         self.bounces = false
         self.separatorStyle = .none
-        
+        self.delegate = self
+        self.dataSource = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -28,8 +29,8 @@ class PCourseInfoTableView: UITableView {
     func initTableView(courseName: String?, courseInfo: [PCourseInfo]) {
         self.title = courseName
         self.courseInfo = courseInfo
-        self.delegate = self
-        self.dataSource = self
+
+        self.reloadData()
     }
     
 }

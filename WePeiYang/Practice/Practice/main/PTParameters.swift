@@ -9,7 +9,7 @@
 import Foundation
 
 /// QuestionView所用到的所有UI参数
-struct QuestionViewParameters {
+struct PTQuestionViewParameters {
     //TableView
     let questionViewW = 0.9 * deviceWidth
     let questionViewH = 0.48 * deviceHeight
@@ -28,7 +28,7 @@ struct QuestionViewParameters {
     
 }
 
-struct AnswerViewParameters {
+struct PTAnswerViewParameters {
     static let aFont = UIFont.systemFont(ofSize: 16)
     static let resultLabelH = 0.05 * deviceHeight
     static var answerTextViewH = 0.2 * deviceHeight

@@ -1,5 +1,5 @@
 //
-//  QuizOptionCell.swift
+//  PTQuizOptionCell.swift
 //  WePeiYang
 //
 //  Created by yuting jiang on 2018/9/24.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class QuizOptionCell: OptionsCell {
+class PTQuizOptionCell: PTOptionsCell {
     func initUI( optionsContent: String?, order: Int, isSelected: Bool, isFinished: Bool) {
         if isSelected {
             optionIcon.image = selectedbtnImgs[order]

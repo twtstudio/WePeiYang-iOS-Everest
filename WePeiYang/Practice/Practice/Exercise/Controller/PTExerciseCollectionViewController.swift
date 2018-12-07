@@ -9,13 +9,13 @@
 import Foundation
 import PopupDialog
 
-class ExerciseCollectionViewController: UIViewController {
-    let questionViewParameters = QuestionViewParameters()
+class PTExerciseCollectionViewController: UIViewController {
+    let questionViewParameters = PTQuestionViewParameters()
 
     var isExercising: Bool = true
 
-    static var questions: [Question] = []
-    var questionArray: [Question] = []
+    static var questions: [PTQuestion] = []
+    var questionArray: [PTQuestion] = []
 //    var answers: [Answer] = []
     var guards: [Guard] = []
     var idList: [Int?] = []
@@ -38,7 +38,7 @@ class ExerciseCollectionViewController: UIViewController {
     var usrMultipleAnser: [String] = []
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-    let quesListCollectionView = QLCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let quesListCollectionView = PTQuesListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let quesListBkgView = UIView()
     
     let orderLabel: UILabel = {
@@ -116,6 +116,7 @@ class ExerciseCollectionViewController: UIViewController {
         let message = recordQuesIndex()
 //        let warningCard = PopupDialog(title: message, message: message, buttonAlignment: .horizontal, transitionStyle: .zoomIn)
 //        self.present(warningCard, animated: true)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadPage"), object: nil)
         return true
     }
     deinit {
@@ -124,7 +125,7 @@ class ExerciseCollectionViewController: UIViewController {
     }
 }
 
-extension ExerciseCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension PTExerciseCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -137,7 +138,7 @@ extension ExerciseCollectionViewController: UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var selected: Bool = false
         let ques = questionArray[indexPath.item]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! ExerciseCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! PTExerciseCell
         //如果之前查看了答案要把answerView加上去
         if mode == .memorize {
             selected = true
@@ -169,11 +170,11 @@ extension ExerciseCollectionViewController: UICollectionViewDataSource, UICollec
 }
 
 //网络请求
-extension ExerciseCollectionViewController {
+extension PTExerciseCollectionViewController {
     private func getIdList(courseId: Int, quesType: Int) {
         //这里会先运行 PracticeNetwork.getIdList
         var idList: [Int?] = []
-        ExerciseNetwork.getIdList(courseId: courseId, quesType: quesType, success: { (idArray) in
+        PTExerciseNetwork.getIdList(courseId: courseId, quesType: quesType, success: { (idArray) in
             idList = idArray
             self.indexArray = [idList.count - 1, 0, 1]
             for _ in 0..<idList.count {
@@ -189,17 +190,17 @@ extension ExerciseCollectionViewController {
     }
     
     private func getQues(id: Int) {
-        ExerciseNetwork.getQues(courseId: courseId, quesType: quesType, id: id, success: { (ques) in
+        PTExerciseNetwork.getQues(courseId: courseId, quesType: quesType, id: id, success: { (ques) in
             self.count = self.count + 1
             
-            if self.count == 3 && ExerciseCollectionViewController.questions.count == 3{
+            if self.count == 3 && PTExerciseCollectionViewController.questions.count == 3{
                 self.count = 0
-                var qs: [Question] = []
+                var qs: [PTQuestion] = []
                 
                 // 调整题目顺序，因为返回题目的顺序和网速有关，不是先请求的题目就一定先返回。所以返回的数组大部分为乱序。
                 for i in 0..<3 {
                     for j in 0..<3 {
-                        let ques = ExerciseCollectionViewController.questions[j]
+                        let ques = PTExerciseCollectionViewController.questions[j]
                         if ques.quesDetail!.id == self.idList[self.indexArray[i]] {
                             qs.append(ques)
                         }
@@ -265,23 +266,23 @@ extension ExerciseCollectionViewController {
     }
     
     private func getQuesArray() {
-        ExerciseCollectionViewController.questions = []
+        PTExerciseCollectionViewController.questions = []
         if idList.count == 0 { return }
         for index in indexArray {
             if let id = idList[index] {
                 getQues(id: id)
             }else {
-                let questionDetail = QuestionDetails(id: nil, classId: nil, courseId: nil, type: nil, content: nil, option: nil, correctAnswer: nil, isCollected: nil, isMistake: nil)
+                let questionDetail = PTQuestionDetails(id: nil, classId: nil, courseId: nil, type: nil, content: nil, option: nil, correctAnswer: nil, isCollected: nil, isMistake: nil)
                 
-                let question = Question(status: nil, quesDetail: questionDetail)
-                ExerciseCollectionViewController.questions.append(question)
+                let question = PTQuestion(status: nil, quesDetail: questionDetail)
+                PTExerciseCollectionViewController.questions.append(question)
             }
         }
     }
 }
 
 // MARK: 页面切换
-extension ExerciseCollectionViewController {
+extension PTExerciseCollectionViewController {
     private func updateData() {
         // 页面记录更新
         let lastIndex = (currentIndex - 1) == -1 ? idList.count - 1 : (currentIndex - 1)
@@ -354,7 +355,7 @@ extension ExerciseCollectionViewController {
 }
 
 //界面初始化、基本控件加载、点击事件
-extension ExerciseCollectionViewController {
+extension PTExerciseCollectionViewController {
     
     /// <#Description#>
     ///
@@ -365,7 +366,7 @@ extension ExerciseCollectionViewController {
         guard let quesId = questionArray[1].quesDetail?.id else { return message }
         guard let quesType = questionArray[1].quesDetail?.type else { return message }
 
-        ExerciseNetwork.recordQuesIndex(courseId: courseId, quesId: quesId, quesType: quesType, index: currentIndex, success: { (errorCode, response) in
+        PTExerciseNetwork.recordQuesIndex(courseId: courseId, quesId: quesId, quesType: quesType, index: currentIndex, success: { (errorCode, response) in
             message = response
         }) { (err) in
             log(err)
@@ -389,7 +390,7 @@ extension ExerciseCollectionViewController {
         collectionView.backgroundColor = .white
         collectionView.contentSize = CGSize(width: deviceWidth * 3, height: deviceHeight)
         collectionView.isPagingEnabled = true
-        collectionView.register(ExerciseCell.self, forCellWithReuseIdentifier: "collectionCell")
+        collectionView.register(PTExerciseCell.self, forCellWithReuseIdentifier: "collectionCell")
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         
@@ -514,11 +515,11 @@ extension ExerciseCollectionViewController {
     //MARK: MODEL职能
     @objc private func updateAnswer() {
         var isWrite = "0"
-        guard let usrAns = QuestionTableView.selectedAnswer else { return }
+        guard let usrAns = PTQuestionTableView.selectedAnswer else { return }
         guard let quesID = questionArray[1].quesDetail?.id else { return }
         guard let quesType = questionArray[1].quesDetail?.type else { return }
         guards[currentIndex].selected = true
-        guards[currentIndex].answer = QuestionTableView.selectedAnswer
+        guards[currentIndex].answer = PTQuestionTableView.selectedAnswer
         usrMultipleAnser[currentIndex] = usrAns
 
         if usrAns == questionArray[1].quesDetail!.correctAnswer {
@@ -531,17 +532,17 @@ extension ExerciseCollectionViewController {
         }
         let message = recordQuesIndex()
         log(message)
-        ExerciseNetwork.postWritingQues(courseId: String(courseId), quesType: String(quesType), index: String(currentIndex), isWrite: isWrite, errorOption: usrAns, success: { (message) in
+        PTExerciseNetwork.postWritingQues(courseId: String(courseId), quesType: String(quesType), index: String(currentIndex), isWrite: isWrite, errorOption: usrAns, success: { (message) in
             log(message)
         }) { (err) in
             log(err)
         }
         self.check()
-        QuestionTableView.selectedAnswer = nil
+        PTQuestionTableView.selectedAnswer = nil
     }
     
     @objc private func changeQues() {
-        currentPage = QLCollectionView.chosenPage
+        currentPage = PTQuesListCollectionView.chosenPage
         currentIndex = currentPage - 1
         updateData()
     }
@@ -574,13 +575,14 @@ extension ExerciseCollectionViewController {
         var answerString = ""
         var isWrite = "0"
 
-        for i in 0..<QuestionTableView.selectedAnswerArray.count where QuestionTableView.selectedAnswerArray[i] {
+        for i in 0..<PTQuestionTableView.selectedAnswerArray.count where PTQuestionTableView.selectedAnswerArray[i] {
             let string = String(UnicodeScalar(i + startValue)!)
             answerString = answerString + string
         }
 
         if answerString == questionArray[1].quesDetail?.correctAnswer {
             guards[currentIndex].iscorrect = .right
+            
             isWrite = "1"
         } else {
             guards[currentIndex].iscorrect = .wrong
@@ -592,7 +594,7 @@ extension ExerciseCollectionViewController {
         
         let message = recordQuesIndex()
         log(message)
-        ExerciseNetwork.postWritingQues(courseId: String(courseId), quesType: "1", index: String(currentIndex), isWrite: isWrite, errorOption: answerString, success: { (message) in
+        PTExerciseNetwork.postWritingQues(courseId: String(courseId), quesType: "1", index: String(currentIndex), isWrite: isWrite, errorOption: answerString, success: { (message) in
             log(message)
         }) { (err) in
             log(err)

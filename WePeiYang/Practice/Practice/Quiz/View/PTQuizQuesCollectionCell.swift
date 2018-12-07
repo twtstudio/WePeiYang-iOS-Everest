@@ -8,15 +8,15 @@
 
 import Foundation
 
-class QuizQuesCollectionCell: UICollectionViewCell {
-    let questionViewParameters = QuestionViewParameters()
+class PTQuizQuesCollectionCell: UICollectionViewCell {
+    let questionViewParameters = PTQuestionViewParameters()
     let scrollHintView: UIImageView = {
         let imgView = UIImageView()
         imgView.image = #imageLiteral(resourceName: "error")
         return imgView
     }()
     
-    var questionView = QuizQuesView(frame: .zero, style: .plain)
+    var questionView = PTQuizQuesView(frame: .zero, style: .plain)
     //    var answerView = AnswerScrollView(frame: .zero)
     
     override init(frame: CGRect) {

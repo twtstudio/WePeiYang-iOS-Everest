@@ -1,5 +1,5 @@
 //
-//  QuizQuesView.swift
+//  PTQuizQuesView.swift
 //  WePeiYang
 //
 //  Created by yuting jiang on 2018/9/17.
@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class QuizQuesView: QuestionTableView {
+class PTQuizQuesView: PTQuestionTableView {
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
     }
@@ -23,12 +23,12 @@ class QuizQuesView: QuestionTableView {
         selected = false
         quesType = questionType
         usrAnswer = usrAns
-        QuestionTableView.selectedAnswerArray = practiceModel.ansToArray(ans: usrAns)
+        PTQuestionTableView.selectedAnswerArray = practiceModel.ansToArray(ans: usrAns)
     }
 }
 
 
-extension QuizQuesView: UITableViewDataSource {
+extension PTQuizQuesView: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -40,17 +40,17 @@ extension QuizQuesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.item {
         case 0:
-            let questionCell = QuestionCell()
+            let questionCell = PTQuestionCell()
             
             questionCell.initQCell(question: content, questionType: quesType)
             
             return questionCell
         case 1:
-            return QuizOptionCell()
+            return PTOptionsCell()
         default:
-            let optionCell = QuizOptionCell()
+            let optionCell = PTQuizOptionCell()
             let optionIndex = indexPath.item - 2
-            let array = QuestionTableView.selectedAnswerArray
+            let array = PTQuestionTableView.selectedAnswerArray
             
             optionCell.initUI(optionsContent: options[optionIndex], order: optionIndex, isSelected: array[optionIndex], isFinished: selected)
             return optionCell
@@ -59,7 +59,7 @@ extension QuizQuesView: UITableViewDataSource {
 }
 
 
-extension QuizQuesView {
+extension PTQuizQuesView {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        if selected { return }
         if indexPath.item <= 1 { return }
@@ -67,16 +67,16 @@ extension QuizQuesView {
         
         if quesType == 1 {
             //多选题响应
-            QuestionTableView.selectedAnswerArray[index] = !QuestionTableView.selectedAnswerArray[index]
+            PTQuestionTableView.selectedAnswerArray[index] = !PTQuestionTableView.selectedAnswerArray[index]
         } else {
             //单选或判断题响应
-            if QuestionTableView.selectedAnswerArray[index] {
-                QuestionTableView.selectedAnswerArray[index] = false
+            if PTQuestionTableView.selectedAnswerArray[index] {
+                PTQuestionTableView.selectedAnswerArray[index] = false
             } else {
-                QuestionTableView.selectedAnswerArray = QuestionTableView.selectedAnswerArray.map { (z) -> Bool in
+                PTQuestionTableView.selectedAnswerArray = PTQuestionTableView.selectedAnswerArray.map { (z) -> Bool in
                     return false
                 }
-                QuestionTableView.selectedAnswerArray[index] = true
+                PTQuestionTableView.selectedAnswerArray[index] = true
             }
         }
         

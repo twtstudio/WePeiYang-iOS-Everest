@@ -21,7 +21,7 @@ struct PracticeHistoryHelper {
         }
     }
     
-    static func getResultInfo(of time: String, success: @escaping (PQuizResult) -> ()) {
+    static func getResultInfo(of time: String, success: @escaping (PTQuizResult) -> ()) {
         SolaSessionManager.solaSession(baseURL: PracticeAPI.root, url: "/student/exercise_result", parameters: ["time": time], success: { (dict) in
             let data = dict["data"] as? [String: Any] ?? [:]
             let score = data["score"] as? Int ?? 2
@@ -30,7 +30,7 @@ struct PracticeHistoryHelper {
             let errorNum = data["error_num"] as? Int ?? 0
             let notDoneNum = data["not_done_num"] as? Int ?? 0
             guard let results = data["result"] as? [[String: Any]] else { return }
-            var pQuizResultData: [PQuizResultData] = []
+            var pQuizResultData: [PTQuizResultData] = []
             for result in results {
                 let quesId = result["ques_id"] as? String ?? ""
                 let quesType = result["ques_type"] as? String ?? ""
@@ -42,10 +42,10 @@ struct PracticeHistoryHelper {
                 let trueAns = result["true_answer"] as? String ?? ""
                 let isCollect = result["is_collected"] as? Int ?? 2
                 
-                let qdata = PQuizResultData(quesID: quesId, quesType: quesType, content: content, option: option, answer: trueAns, isCollected: isCollect, errorOption: answer, isDone: isDone, isTrue: isTrue)
+                let qdata = PTQuizResultData(quesID: quesId, quesType: quesType, content: content, option: option, answer: trueAns, isCollected: isCollect, errorOption: answer, isDone: isDone, isTrue: isTrue)
                 pQuizResultData.append(qdata)
             }
-            let pQuizResult = PQuizResult.init(score: score, timestamp: timestamp, correctNum: correctNum, errNum: errorNum, notDoneNum: notDoneNum, practiceTime: "", results: pQuizResultData)
+            let pQuizResult = PTQuizResult.init(score: score, timestamp: timestamp, correctNum: correctNum, errNum: errorNum, notDoneNum: notDoneNum, practiceTime: "", results: pQuizResultData)
             success(pQuizResult)
         }) { (err) in
             log(err)

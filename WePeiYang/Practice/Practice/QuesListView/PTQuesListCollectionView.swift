@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 /// Question List UICollectionView
-class QLCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class PTQuesListCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     static var chosenPage: Int = 0
     
     var pageNum: Int = 0
@@ -36,7 +36,7 @@ class QLCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, UI
         self.showsVerticalScrollIndicator = true
         self.showsHorizontalScrollIndicator = false
         self.bounces = true
-        self.register(QLCollectionViewCell.self, forCellWithReuseIdentifier: "quesCollection cell")
+        self.register(PTQuesListCollectionViewCell.self, forCellWithReuseIdentifier: "quesCollection cell")
 
         self.delegate = self
         self.dataSource = self
@@ -59,7 +59,7 @@ class QLCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let selectedBlue = UIColor(red: 228/255, green: 243/255, blue: 1, alpha: 1)
         let selectedRed = UIColor(red: 1, green: 228/255, blue: 243/255, alpha: 1)
-        let cell = self.dequeueReusableCell(withReuseIdentifier: "quesCollection cell", for: indexPath) as! QLCollectionViewCell
+        let cell = self.dequeueReusableCell(withReuseIdentifier: "quesCollection cell", for: indexPath) as! PTQuesListCollectionViewCell
         cell.label.text = "\(indexPath.item + 1)"
         cell.layer.cornerRadius = cellW * 0.5
         
@@ -98,7 +98,7 @@ class QLCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        QLCollectionView.chosenPage = indexPath.item + 1
+        PTQuesListCollectionView.chosenPage = indexPath.item + 1
         SolaSessionManager.cancelAllTask()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "changeQues"), object: nil)
     }

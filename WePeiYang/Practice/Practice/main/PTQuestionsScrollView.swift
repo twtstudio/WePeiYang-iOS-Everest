@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class QuestionsScrollView: UIScrollView {
+class PTQuestionsScrollView: UIScrollView {
     /// 生成左右滑动切换界面
     ///
     /// - Parameters:

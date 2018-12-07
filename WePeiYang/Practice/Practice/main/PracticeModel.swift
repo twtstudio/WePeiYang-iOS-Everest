@@ -13,7 +13,7 @@ enum PracticeMode {
     case quiz
 }
 
-struct QuestionDetails {
+struct PTQuestionDetails {
     var id: Int?
     var classId: Int?
     var courseId: Int?
@@ -25,20 +25,20 @@ struct QuestionDetails {
     var isMistake: Int?
 }
 
-struct Question {
+struct PTQuestion {
     var status: Int?
-    var quesDetail: QuestionDetails?
+    var quesDetail: PTQuestionDetails?
 }
 
 
 
-struct Answer {
+struct PTAnswer {
     var ques_id: Int?
     var answer: String?
     var type: Int?
 }
 
-struct Result {
+struct PTResult {
     var ques_id: Int?
     var ques_type: Int?
     var is_true: Int?
@@ -46,9 +46,9 @@ struct Result {
     var true_answer: String?
 }
 
-struct Results {
+struct PTResults {
     var score: Int?
-    var data: [Result]?
+    var data: [PTResult]?
 }
 
 struct PracticeModel {

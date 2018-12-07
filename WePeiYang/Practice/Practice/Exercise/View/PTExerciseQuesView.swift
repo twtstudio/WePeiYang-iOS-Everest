@@ -9,7 +9,7 @@
 import Foundation
 
 /// 是QuestionTableView的子类 是练习模式界面下的QuestionTableView
-class ExerciseQuesView: QuestionTableView {
+class PTExerciseQuesView: PTQuestionTableView {
     var optionIndex: Int?
     var checked: Bool = {
         return false
@@ -45,11 +45,11 @@ class ExerciseQuesView: QuestionTableView {
         rightAns = rightAnswer
         usrAnswer = usrAns
         rightAnswers = practiceModel.ansToArray(ans: rightAns!)
-        QuestionTableView.selectedAnswerArray = practiceModel.ansToArray(ans: usrAnswer!)
+        PTQuestionTableView.selectedAnswerArray = practiceModel.ansToArray(ans: usrAnswer!)
     }
 }
 
-extension ExerciseQuesView: UITableViewDataSource {
+extension PTExerciseQuesView: UITableViewDataSource {
     func numberOfRowsInSectionrOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -61,11 +61,11 @@ extension ExerciseQuesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.item {
         case 0:
-            let questionCell = QuestionCell()
+            let questionCell = PTQuestionCell()
             questionCell.initQCell(question: content, questionType: quesType)
             return questionCell
         case 1:
-            return ExOptionCell()
+            return PTExOptionCell()
         default:
             optionIndex = indexPath.item - 2
             if quesType == 1 {
@@ -77,18 +77,18 @@ extension ExerciseQuesView: UITableViewDataSource {
     }
 }
 
-extension ExerciseQuesView {
+extension PTExerciseQuesView {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         optionIndex = indexPath.item - 2
         if selected == true { return }
 
         if quesType == 1 {
             //记录答案的[Bool]
-            QuestionTableView.selectedAnswerArray[optionIndex!] = !QuestionTableView.selectedAnswerArray[optionIndex!]
+            PTQuestionTableView.selectedAnswerArray[optionIndex!] = !PTQuestionTableView.selectedAnswerArray[optionIndex!]
 //            let indexpath = IndexPath(row: indexPath.item, section: 0)
             updateData()
         } else {
-            QuestionTableView.selectedAnswer = practiceModel.optionDics[indexPath.item]
+            PTQuestionTableView.selectedAnswer = practiceModel.optionDics[indexPath.item]
             updateData()
         }
     }
@@ -110,9 +110,9 @@ extension ExerciseQuesView {
     /// 确定单选题cell的UI显示
     /// 题号icon一次性只能选择 一 个
     /// - Returns: 单选cell
-    private func singleTypeCell() -> ExOptionCell {
-        let optionCell = ExOptionCell()
-        let exerciseModel = ExerciseModel()
+    private func singleTypeCell() -> PTExOptionCell {
+        let optionCell = PTExOptionCell()
+        let exerciseModel = PTExerciseModel()
         
         var cellIsselected: Bool = false
         answerResult = exerciseModel.ansResult(order:rightAns:)
@@ -130,26 +130,26 @@ extension ExerciseQuesView {
     /// 确定多选题cell的UI显示
     /// 题号icon可以一次性显示选择多个
     /// - Returns: 多选cell
-    private func multipleTypeCell() -> ExOptionCell {
-        let optionCell = ExOptionCell()
+    private func multipleTypeCell() -> PTExOptionCell {
+        let optionCell = PTExOptionCell()
         var type: Int = 3
 
         if checked == true {
-            QuestionTableView.selectedAnswerArray = practiceModel.ansToArray(ans: usrAnswer!)
+            PTQuestionTableView.selectedAnswerArray = practiceModel.ansToArray(ans: usrAnswer!)
         }
 
         if checked == true || selected == true {
-            if rightAnswers[optionIndex!] && QuestionTableView.selectedAnswerArray[optionIndex!] {
+            if rightAnswers[optionIndex!] && PTQuestionTableView.selectedAnswerArray[optionIndex!] {
                 type = 0
             } else if rightAnswers[optionIndex!] {
                 type = 1
-            } else if QuestionTableView.selectedAnswerArray[optionIndex!] {
+            } else if PTQuestionTableView.selectedAnswerArray[optionIndex!] {
                 type = 2
             } else {
                 type = 3
             }
         } else {
-            if QuestionTableView.selectedAnswerArray[optionIndex!] {
+            if PTQuestionTableView.selectedAnswerArray[optionIndex!] {
                 type = 1
             }
         }

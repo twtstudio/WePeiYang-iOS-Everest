@@ -15,10 +15,10 @@ class PracticeResultViewController: UIViewController {
     static var ishistory: Bool = true   //true: 历史    false: 当前
     
     /* 错题模型 */
-    static var pQuizResult: PQuizResult = PQuizResult()
+    static var pQuizResult: PTQuizResult = PTQuizResult()
     
     /* 顶部结果视图 */
-    let resultHeadView = PQResultHeadView()
+    let resultHeadView = PTQuizResultHeadView()
     
     /* 结果列表视图 */
     let practiceResultTableView = UITableView(frame: CGRect(), style: .grouped)
@@ -55,12 +55,16 @@ class PracticeResultViewController: UIViewController {
     }
     
     override func navigationShouldPopMethod() -> Bool {
-        guard let vcpopto = self.navigationController?.viewControllers[2] else { return false }
-        if PracticeResultViewController.ishistory {
-            self.navigationController?.popViewController(animated: true)
-        } else {
-            self.navigationController?.popToViewController(vcpopto, animated: true)
+        // 在controller队列里删掉quiz界面，直接返回刷题首页。
+        guard let vcArr = self.navigationController?.viewControllers else { return false }
+        var vcs = vcArr
+        for i in 0..<vcArr.count {
+            if vcArr[i].isKind(of: PTQuizCollectionViewController.self) {
+                vcs.remove(at: i)
+                break
+            }
         }
+        self.navigationController?.viewControllers = vcs
         return true
     }
 }
@@ -75,7 +79,7 @@ extension PracticeResultViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let resultViewCell = PQResultViewCell(byModel: PracticeResultViewController.pQuizResult.results, withIndex: indexPath.row)
+        let resultViewCell = PTQuizResultViewCell(byModel: PracticeResultViewController.pQuizResult.results, withIndex: indexPath.row)
         
         resultViewCell.selectionStyle = .none
         resultViewCell.isCollectedIcon.addTarget(self, action: #selector(switchFromCollection), for: .touchUpInside)
@@ -84,7 +88,7 @@ extension PracticeResultViewController: UITableViewDataSource {
     }
     
     @objc func switchFromCollection(button: UIButton) {
-        let indexPath = self.practiceResultTableView.indexPath(for: button.superview?.superview as! PQResultViewCell)
+        let indexPath = self.practiceResultTableView.indexPath(for: button.superview?.superview as! PTQuizResultViewCell)
         
         if button.image(for: .normal) == #imageLiteral(resourceName: "practiceIsCollected") {
             PracticeCollectionHelper.deleteCollection(quesType: (PracticeResultViewController.pQuizResult.results[(indexPath?.row)!].quesType), quesID: String((PracticeResultViewController.pQuizResult.results[(indexPath?.row)!].quesID))) // 删除云端数据
@@ -103,12 +107,12 @@ extension PracticeResultViewController: UITableViewDataSource {
 extension PracticeResultViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return PQResultViewCell(byModel: PracticeResultViewController.pQuizResult.results, withIndex: indexPath.row).cellHeight
+        return PTQuizResultViewCell(byModel: PracticeResultViewController.pQuizResult.results, withIndex: indexPath.row).cellHeight
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section != 0 { return UIView() }
-        resultHeadView.initHeader(score: PracticeResultViewController.pQuizResult.score, practiceTime: PQuizCollectionViewController.usedTime, errorNum: PracticeResultViewController.pQuizResult.errNum)
+        resultHeadView.initHeader(score: PracticeResultViewController.pQuizResult.score, practiceTime: PTQuizCollectionViewController.usedTime, errorNum: PracticeResultViewController.pQuizResult.errNum)
         return resultHeadView
     }
     
@@ -124,6 +128,5 @@ extension PracticeResultViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
     }
-    
 }
 

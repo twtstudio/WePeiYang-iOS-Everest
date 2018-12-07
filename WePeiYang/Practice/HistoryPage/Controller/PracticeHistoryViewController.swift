@@ -141,7 +141,7 @@ extension PracticeHistoryViewController: UITableViewDelegate {
         case "0":
             PracticeFigure.questionType = historyData.quesType!
             PracticeFigure.currentCourseIndex = historyData.doneIndex
-            self.navigationController?.pushViewController(ExerciseCollectionViewController(), animated: true)
+            self.navigationController?.pushViewController(PTExerciseCollectionViewController(), animated: true)
         case "1":
             // TODO: 进入当前模拟考试具体信息页面
             guard let time = historyData.time else { return }
