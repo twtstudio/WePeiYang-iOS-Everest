@@ -27,7 +27,7 @@ struct TWTKeychain {
     private static var keychains = [String: Keychain]()
     private static var keychain: Keychain? {
         guard TwTUser.shared.token != nil,
-            let username = TwTUser.shared.username,
+        let username = TwTUser.shared.username,
             !username.isEmpty else {
                 return nil
         }
@@ -35,7 +35,10 @@ struct TWTKeychain {
         if let keychain = keychains[username] {
             return keychain
         } else {
-            let keychain = Keychain(service: "cn.edu.twt.mobile-\(username)", accessGroup: "group.WePeiYang").synchronizable(true)
+//            let appIdentifierPrefix =
+//                Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String
+//            let groupKey = appIdentifierPrefix + "group.WePeiYang"
+            let keychain = Keychain(service: "cn.edu.twt.mobile-\(username)").synchronizable(true)
             keychains[username] = keychain
             return keychain
         }

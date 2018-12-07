@@ -22,7 +22,7 @@ class YellowPageSearchViewController: UIViewController {
         history = (UserDefaults.standard.object(forKey: "YellowPageHistory") as? [String]) ?? []
         self.navigationController?.navigationBar.barStyle = .black
     }
-        
+
     override func viewDidLoad() {
         super.viewDidLoad()
         //改变 statusBar 颜色

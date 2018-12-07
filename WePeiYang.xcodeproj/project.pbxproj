@@ -18,7 +18,6 @@
 		3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */; };
 		3613DA222056F740000867AE /* UniversalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA212056F740000867AE /* UniversalExtension.swift */; };
 		3613DA232056F745000867AE /* UniversalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA212056F740000867AE /* UniversalExtension.swift */; };
-		3613DA25205702E0000867AE /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364F1FB8837D00413CF2 /* KeyChain.swift */; };
 		3615A9C521AC80FC001D1522 /* ECardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3615A9C421AC80FC001D1522 /* ECardView.swift */; };
 		3615A9C721AC825E001D1522 /* ECardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3615A9C621AC825E001D1522 /* ECardModel.swift */; };
 		3615A9CA21ACEBDC001D1522 /* CardTransectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3615A9C921ACEBDC001D1522 /* CardTransectionViewController.swift */; };
@@ -95,7 +94,6 @@
 		3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */; };
 		365A46462035E35500738963 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A46452035E35500738963 /* Storage.swift */; };
 		365A46482036956700738963 /* CacheFilenameKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A46472036956700738963 /* CacheFilenameKey.swift */; };
-		365A464F2036EFB800738963 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 365A464E2036EFB800738963 /* NotificationCenter.framework */; };
 		365A46522036EFB800738963 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A46512036EFB800738963 /* TodayViewController.swift */; };
 		365A46592036EFB800738963 /* WePeiYangWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 365A464D2036EFB700738963 /* WePeiYangWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A1A1FB9BA8500B15443 /* ArrangeModel.swift */; };
@@ -104,10 +102,13 @@
 		365B5399216E5F4000A808EE /* ClassTableSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365B5398216E5F4000A808EE /* ClassTableSettingViewController.swift */; };
 		3667E1D0201CB98800E82241 /* DetailSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667E1CF201CB98800E82241 /* DetailSettingViewController.swift */; };
 		3668CE552159E121002673BE /* WPYTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3668CE542159E121002673BE /* WPYTextField.swift */; };
+		3670567F21BA5B4300B5BE1A /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 365A464E2036EFB800738963 /* NotificationCenter.framework */; };
 		36758FDD1FDA851C0023A99C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36758FDC1FDA851C0023A99C /* CardView.swift */; };
 		3685D9EF204D255700BA6C3D /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3685D9EE204D255700BA6C3D /* NewsDetailViewController.swift */; };
 		3685D9F1204D276100BA6C3D /* NewsDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3685D9F0204D276100BA6C3D /* NewsDetailModel.swift */; };
 		3685D9F2204D97A200BA6C3D /* DateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369B2D4920151542009352A8 /* DateTool.swift */; };
+		3687C39621B98AF400288557 /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C39521B98AF400288557 /* TwTKeychain.swift */; };
+		3687C39721B98AF400288557 /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C39521B98AF400288557 /* TwTKeychain.swift */; };
 		368C3C8A204DAB4F00C1E6B6 /* WPYCustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C3C89204DAB4F00C1E6B6 /* WPYCustomError.swift */; };
 		369140AF2020CBA30022BA3F /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369140AE2020CBA30022BA3F /* NotificationName.swift */; };
 		369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369306941F2B976C008E90DC /* ModuleCollectionViewCell.swift */; };
@@ -147,7 +148,6 @@
 		A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51C456B1FD122F700652435 /* Assets.xcassets */; };
 		A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */; };
 		A50F364C1FB5D81C00413CF2 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */; };
-		A50F36501FB8837D00413CF2 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50F364F1FB8837D00413CF2 /* KeyChain.swift */; };
 		A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51497F91FC80D5E00622A7B /* BindingAPIs.swift */; };
 		A5159FE21FB0750800B466F2 /* WLANLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */; };
 		A5197A3D1FDA8F99008C445A /* LibraryAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5197A3C1FDA8F99008C445A /* LibraryAPIs.swift */; };
@@ -232,8 +232,6 @@
 		DD41A83D21A5341100886BB4 /* AuditSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD41A83C21A5341100886BB4 /* AuditSearchViewController.swift */; };
 		DD6A663421A59D260070C4B2 /* AuditCollegeCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6A663321A59D260070C4B2 /* AuditCollegeCourseViewController.swift */; };
 		DD6A663621ABCEB10070C4B2 /* AuditPersonalCourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6A663521ABCEB10070C4B2 /* AuditPersonalCourseModel.swift */; };
-		DD71097A21B1AEC900828812 /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD71097921B1AEC900828812 /* TwTKeychain.swift */; };
-		DD71097B21B1B4C100828812 /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD71097921B1AEC900828812 /* TwTKeychain.swift */; };
 		DDC7891E21B1302C00ABA33F /* CourseNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7891D21B1302C00ABA33F /* CourseNode.swift */; };
 		DDC7892021B132A700ABA33F /* CourseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7891F21B132A700ABA33F /* CourseList.swift */; };
 /* End PBXBuildFile section */
@@ -373,6 +371,7 @@
 		36758FDC1FDA851C0023A99C /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		3685D9EE204D255700BA6C3D /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
 		3685D9F0204D276100BA6C3D /* NewsDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailModel.swift; sourceTree = "<group>"; };
+		3687C39521B98AF400288557 /* TwTKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTKeychain.swift; sourceTree = "<group>"; };
 		368C3C89204DAB4F00C1E6B6 /* WPYCustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPYCustomError.swift; sourceTree = "<group>"; };
 		369140AE2020CBA30022BA3F /* NotificationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		369306941F2B976C008E90DC /* ModuleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -404,7 +403,6 @@
 		9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.debug.xcconfig"; sourceTree = "<group>"; };
 		A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANLoginAPIs.swift; sourceTree = "<group>"; };
 		A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
-		A50F364F1FB8837D00413CF2 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		A51497F91FC80D5E00622A7B /* BindingAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingAPIs.swift; sourceTree = "<group>"; };
 		A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANLoginViewController.swift; sourceTree = "<group>"; };
 		A5197A3C1FDA8F99008C445A /* LibraryAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAPIs.swift; sourceTree = "<group>"; };
@@ -509,7 +507,6 @@
 		DD41A83C21A5341100886BB4 /* AuditSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditSearchViewController.swift; sourceTree = "<group>"; };
 		DD6A663321A59D260070C4B2 /* AuditCollegeCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditCollegeCourseViewController.swift; sourceTree = "<group>"; };
 		DD6A663521ABCEB10070C4B2 /* AuditPersonalCourseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditPersonalCourseModel.swift; sourceTree = "<group>"; };
-		DD71097921B1AEC900828812 /* TwTKeychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwTKeychain.swift; sourceTree = "<group>"; };
 		DDC7891D21B1302C00ABA33F /* CourseNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNode.swift; sourceTree = "<group>"; };
 		DDC7891F21B132A700ABA33F /* CourseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -519,7 +516,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				365A464F2036EFB800738963 /* NotificationCenter.framework in Frameworks */,
+				3670567F21BA5B4300B5BE1A /* NotificationCenter.framework in Frameworks */,
 				1B20B1FF52E995B4AC3D3EDE /* Pods_WePeiYangWidget.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -863,7 +860,6 @@
 			children = (
 				A50F36491FB1C0D600413CF2 /* WLANLoginAPIs.swift */,
 				A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */,
-				A50F364F1FB8837D00413CF2 /* KeyChain.swift */,
 				A586543620514E860069CF53 /* WLANHelper.swift */,
 			);
 			path = Model;
@@ -1005,7 +1001,6 @@
 				B10254101EC8547E0064373A /* UI_Fundamentals */,
 				B10253DF1EC84ED90064373A /* Network */,
 				B10253ED1EC84ED90064373A /* Utilities */,
-				DD71097921B1AEC900828812 /* TwTKeychain.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1016,6 +1011,7 @@
 				B10253E01EC84ED90064373A /* AccountManager.swift */,
 				B10253E11EC84ED90064373A /* CacheManager.swift */,
 				B10253E21EC84ED90064373A /* SolaSessionManager.swift */,
+				3687C39521B98AF400288557 /* TwTKeychain.swift */,
 				3631D5091F1903D70078816D /* TwTUser.swift */,
 			);
 			path = Network;
@@ -1624,7 +1620,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD71097B21B1B4C100828812 /* TwTKeychain.swift in Sources */,
 				36B2C899203DB8DB00AD2E3F /* ClassWidgetCell.swift in Sources */,
 				36B2C89B203DE86700AD2E3F /* TwTUser.swift in Sources */,
 				3613DA182056F56A000867AE /* WLANLoginAPIs.swift in Sources */,
@@ -1632,6 +1627,7 @@
 				36B2C894203A80D100AD2E3F /* ClassModel.swift in Sources */,
 				3613DA1B2056F664000867AE /* DeviceStatus.swift in Sources */,
 				36B2C892203A806C00AD2E3F /* CacheManager.swift in Sources */,
+				3687C39721B98AF400288557 /* TwTKeychain.swift in Sources */,
 				36B2C895203A80D600AD2E3F /* ArrangeModel.swift in Sources */,
 				3685D9F2204D97A200BA6C3D /* DateTool.swift in Sources */,
 				363C754D215A724000D3E2B1 /* WPYCustomError.swift in Sources */,
@@ -1641,7 +1637,6 @@
 				365A46522036EFB800738963 /* TodayViewController.swift in Sources */,
 				36B2C89120388DF200AD2E3F /* LibraryModel.swift in Sources */,
 				36B2C8902038898400AD2E3F /* Storage.swift in Sources */,
-				3613DA25205702E0000867AE /* KeyChain.swift in Sources */,
 				36B2C896203A80F700AD2E3F /* log.swift in Sources */,
 				36B2C893203A80CB00AD2E3F /* ClassTableModel.swift in Sources */,
 			);
@@ -1710,6 +1705,7 @@
 				365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */,
 				C40BDE1021A93CCE0046BFA5 /* LibraryPageTitleView.swift in Sources */,
 				C40BDE1C21A93E040046BFA5 /* BookDetailTableViewCell.swift in Sources */,
+				3687C39621B98AF400288557 /* TwTKeychain.swift in Sources */,
 				3615A9C521AC80FC001D1522 /* ECardView.swift in Sources */,
 				365A46482036956700738963 /* CacheFilenameKey.swift in Sources */,
 				361F885C204AF92D00BCFA19 /* BannerPageControl.swift in Sources */,
@@ -1751,7 +1747,6 @@
 				36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */,
 				DD0B762A2158CBA6009A392C /* GPAStatModel.swift in Sources */,
 				36449E841FA4BAD10036766B /* TwentyCourseScoreViewController.swift in Sources */,
-				DD71097A21B1AEC900828812 /* TwTKeychain.swift in Sources */,
 				36449E6D1FA4BABA0036766B /* FinalView.swift in Sources */,
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
 				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
@@ -1834,7 +1829,6 @@
 				DD0B75F32158C6ED009A392C /* YellowPageSearchViewController.swift in Sources */,
 				A53602691FC6EC0500E3D1AF /* TJUBindingViewController.swift in Sources */,
 				C40BDE0B21A93C5E0046BFA5 /* ListBook.swift in Sources */,
-				A50F36501FB8837D00413CF2 /* KeyChain.swift in Sources */,
 				C40BDE1621A93D500046BFA5 /* BookCard.swift in Sources */,
 				DD0B762B2158CBA6009A392C /* StarView.swift in Sources */,
 				361F885F204AF92D00BCFA19 /* BannerProxy.swift in Sources */,

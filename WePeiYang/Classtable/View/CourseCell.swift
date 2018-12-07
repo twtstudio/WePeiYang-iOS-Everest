@@ -72,7 +72,7 @@ class CourseCell: UITableViewCell {
     }
 
     func load(course: ClassModel) {
-        if course.courseID == "" {
+        if course.classID == "" && course.courseID == "" {
             self.alpha = 0
         } else {
             self.alpha = 1

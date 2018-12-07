@@ -139,36 +139,37 @@ extension BookCard {
 extension LibraryBook {
     static func getImage(id: String, success: ((String) -> Void)? = nil, failure: @escaping () -> Void) {
         SolaSessionManager.solaSession(url: "/library/book/" + id, success: { dict in
-            let data = dict["data"] as? [String: Any]
-            if let isbn = data!["isbn"] as? String {
-                self.sendIsbn(parameters: ["isbns": isbn], success: {
-                    imageDict in
-                    if let result = imageDict["result"] as? [[String: Any]] {
-                        if !(result.isEmpty) {
-                            if let link = result[0]["coverlink"] {
-                                success?(link as! String)
-                                return
-                            }
-                        }
-                    }
+            guard let data = dict["data"] as? [String: Any],
+                let isbn = data["isbn"] as? String else {
                     failure()
-                }, failure: {
-                    _ in
-                    failure()
-                })
+                    return
             }
+            self.sendIsbn(parameters: ["isbns": isbn], success: {
+                imageDict in
+                guard let result = imageDict["result"] as? [[String: Any]],
+                    !result.isEmpty,
+                    let link = result[0]["coverlink"] as? String else {
+                    failure()
+                    return
+                }
+                
+                success?(link)
+            }, failure: { _ in
+                failure()
+            })
         }, failure: { _ in
             failure()
         })
     }
     
-    static func sendIsbn(parameters: [String: String]? = nil, success: @escaping ([String: Any]) -> Void, failure: @escaping (Error) -> Void) {
-        let isbn = parameters!["isbns"] ?? ""
+    static func sendIsbn(parameters: [String: String], success: @escaping ([String: Any]) -> Void, failure: @escaping (Error) -> Void) {
+        let isbn = parameters["isbns"] ?? ""
         Alamofire.request("https://vote.twtstudio.com/getImgs.php?isbns=" + "\(isbn)", method: .post, parameters: parameters, headers: nil).responseJSON { response in
             switch response.result {
             case .success:
                 if let data = response.result.value {
-                    if let dict = data as? [[String: Any]] {
+                    if let dict = data as? [[String: Any]],
+                    !dict.isEmpty {
                         success(dict[0])
                         return
                     }
@@ -176,12 +177,11 @@ extension LibraryBook {
                 let error = response.error ?? WPYCustomError.errorCode(-2, "数据解析错误")
                 failure(error)
             case .failure(let error):
-                if let data = response.result.value {
-                    if let dict = data as? [String: Any],
-                        let errmsg = dict["message"] as? String {
-                        failure(WPYCustomError.custom(errmsg))
-                        return
-                    }
+                if let data = response.result.value,
+                    let dict = data as? [String: Any],
+                    let errmsg = dict["message"] as? String {
+                    failure(WPYCustomError.custom(errmsg))
+                    return
                 }
                 failure(error)
             }

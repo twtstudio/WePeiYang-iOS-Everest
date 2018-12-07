@@ -106,6 +106,7 @@ class BicycleBindingViewController: UIViewController {
     }
 
     @objc func dismissBinding() {
+        TWTKeychain.erase(.bicycle)
         self.dismiss(animated: true, completion: nil)
     }
 

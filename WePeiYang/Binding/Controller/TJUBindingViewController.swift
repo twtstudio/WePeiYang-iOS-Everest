@@ -160,6 +160,7 @@ class TJUBindingViewController: UIViewController {
     }
 
     @objc func dismissBinding() {
+        TWTKeychain.erase(.tju)
         self.dismiss(animated: true, completion: {
             self.completion?(false)
         })

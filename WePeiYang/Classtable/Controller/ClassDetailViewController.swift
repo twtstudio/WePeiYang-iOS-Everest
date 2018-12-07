@@ -63,35 +63,22 @@ class ClassDetailViewController: UIViewController {
         let detailLabel = UILabel()
         detailLabel.numberOfLines = 0
 
-        let teachers = Set<String>(courses.map { $0.teacher })
-        var teacherString = ""
-        for (idx, teacher) in teachers.enumerated() {
-            if idx == 0 {
-                teacherString = teacher
-            } else {
-                teacherString += "，" + teacher
-            }
-        }
+        let teacherString = Set<String>(courses.map { $0.teacher }).joined(separator: ", ")
 
-        var detailString: String = ""
-        if !course.courseID.isEmpty, course.courseID.hasPrefix("-") {
-            detailString = "课程类型: 蹭课"
-            detailString += "\n授课教师: " + teacherString
-            detailString += "\n开课学院: " + course.college
-        } else {
-            detailString = "逻辑班号: " + course.classID
-            detailString += "\n课程编号: " + course.courseID
-            detailString += "\n课程类型: " + course.courseType
-            detailString += "\n课程性质: " + course.courseNature
-            detailString += "\n学分: " + course.credit
-            detailString += "\n授课教师: " + teacherString
-            detailString += "\n开课学院: " + course.college
-            detailString += "\n校区: " + course.campus
-        }
-        if course.ext != "" {
-            detailString += "\n备注: " + course.ext
-        }
+        let pairs = [("逻辑班号: ", course.classID),
+                     ("课程编号: ", course.courseID),
+                     ("课程类型: ", course.courseType),
+                     ("课程性质: ", course.courseNature),
+                     ("学分: ", course.credit),
+                     ("授课教师: ", teacherString),
+                     ("开课学院: ", course.college),
+                     ("校区: ", course.campus),
+                     ("备注: ", course.ext)
+            ].reduce("", { (prev: String, item: (String, String)) -> String in
+                return prev + (item.1 == "" ? "" : item.0 + item.1 + "\n")
+            })
 
+        let detailString = pairs
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 10
         let attributedString = NSAttributedString(string: detailString, attributes: [NSAttributedStringKey.paragraphStyle: paragraphStyle])

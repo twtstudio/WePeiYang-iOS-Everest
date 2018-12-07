@@ -145,6 +145,7 @@ class WLANBindingViewController: UIViewController {
     }
 
     @objc func dismissBinding() {
+//        TWTKeychain.erase(.network)
         self.dismiss(animated: true, completion: nil)
     }
 
