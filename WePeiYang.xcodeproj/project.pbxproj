@@ -107,6 +107,7 @@
 		365A8A251FB9BA8500B15443 /* ClasstableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A1C1FB9BA8500B15443 /* ClasstableDataManager.swift */; };
 		365A8A281FB9CA1700B15443 /* ClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A8A271FB9CA1700B15443 /* ClassModel.swift */; };
 		365B5399216E5F4000A808EE /* ClassTableSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365B5398216E5F4000A808EE /* ClassTableSettingViewController.swift */; };
+		366767FA21BBD4A700EB2F2B /* ModuleStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366767F921BBD4A700EB2F2B /* ModuleStateManager.swift */; };
 		3667E1D0201CB98800E82241 /* DetailSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667E1CF201CB98800E82241 /* DetailSettingViewController.swift */; };
 		3668CE552159E121002673BE /* WPYTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3668CE542159E121002673BE /* WPYTextField.swift */; };
 		3670567F21BA5B4300B5BE1A /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 365A464E2036EFB800738963 /* NotificationCenter.framework */; };
@@ -381,6 +382,7 @@
 		365A8A1C1FB9BA8500B15443 /* ClasstableDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClasstableDataManager.swift; sourceTree = "<group>"; };
 		365A8A271FB9CA1700B15443 /* ClassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassModel.swift; sourceTree = "<group>"; };
 		365B5398216E5F4000A808EE /* ClassTableSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableSettingViewController.swift; sourceTree = "<group>"; };
+		366767F921BBD4A700EB2F2B /* ModuleStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleStateManager.swift; sourceTree = "<group>"; };
 		3667E1CF201CB98800E82241 /* DetailSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingViewController.swift; sourceTree = "<group>"; };
 		3668CE542159E121002673BE /* WPYTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYTextField.swift; sourceTree = "<group>"; };
 		36758FDC1FDA851C0023A99C /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -1075,6 +1077,7 @@
 			children = (
 				B10253EE1EC84ED90064373A /* DeviceStatus.swift */,
 				B10253EF1EC84ED90064373A /* log.swift */,
+				366767F921BBD4A700EB2F2B /* ModuleStateManager.swift */,
 				365A46472036956700738963 /* CacheFilenameKey.swift */,
 				369140AE2020CBA30022BA3F /* NotificationName.swift */,
 				365A46452035E35500738963 /* Storage.swift */,
@@ -1741,6 +1744,7 @@
 				36449E491FA4BA9B0036766B /* Applicant.swift in Sources */,
 				36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */,
 				A5E117B91F99DCAE00C86CA2 /* Card.swift in Sources */,
+				366767FA21BBD4A700EB2F2B /* ModuleStateManager.swift in Sources */,
 				DD0B75F92158C6ED009A392C /* CommonUsedView.swift in Sources */,
 				DD0B75F62158C6ED009A392C /* ClientItem.swift in Sources */,
 				A53602671FC6E36100E3D1AF /* LibraryBindingViewController.swift in Sources */,
