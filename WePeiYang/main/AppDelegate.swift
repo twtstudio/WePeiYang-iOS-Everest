@@ -17,13 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var mainTabVC: WPYTabBarController!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        // 注册通知
         window = UIWindow(frame: UIScreen.main.bounds)
+
         UIApplication.shared.applicationIconBadgeNumber = 0
 
 //        TwTUser.shared.load() // load token and so on
         TwTUser.shared.load(success: {
+            
+            // 迁移旧缓存
+            CacheManager.migrate()
+
             NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
 
             BicycleUser.sharedInstance.auth(success: {
@@ -40,9 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let uid = TwTUser.shared.twtid,
                     let uuid = UIDevice.current.identifierForVendor?.uuidString {
                     let para = ["utoken": deviceToken, "uid": uid, "udid": uuid, "ua": DeviceStatus.userAgent]
-                    SolaSessionManager.solaSession(type: .post, url: "/push/token/ENcJ1ZYDBaCvC8aM76RnnrT25FPqQg", token: nil, parameters: para, success: { _ in
-                    }, failure: { _ in
-                    })
+                    SolaSessionManager.solaSession(type: .post, url: "/push/token/ENcJ1ZYDBaCvC8aM76RnnrT25FPqQg", token: nil, parameters: para, success: nil, failure: nil)
                 }
             }, failure: {
 
@@ -55,23 +56,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let favoriteVC = FavViewController()
         favoriteVC.tabBarItem.image = #imageLiteral(resourceName: "Favored")
-        favoriteVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         let favoriteNavigationController = UINavigationController(rootViewController: favoriteVC)
 
         let newsVC = NewsViewController()
         newsVC.tabBarItem.image = #imageLiteral(resourceName: "News")
-        newsVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         let infoNavigationController = UINavigationController(rootViewController: newsVC)
 
         let allModulesVC = AllModulesViewController()
         allModulesVC.tabBarItem.image = #imageLiteral(resourceName: "AllModules")
-        allModulesVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         let allModulesNavigationController = UINavigationController(rootViewController: allModulesVC)
 
         let settingsVC = SettingsViewController()
         settingsVC.tabBarItem.image = #imageLiteral(resourceName: "Settings")
-        settingsVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         let settingsNavigationController = UINavigationController(rootViewController: settingsVC)
+
+        if !isiPad {
+            allModulesVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+            favoriteVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+            newsVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+            settingsVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        }
 
         mainTabVC.setViewControllers([favoriteNavigationController, infoNavigationController, allModulesNavigationController, settingsNavigationController], animated: true)
 
@@ -100,15 +104,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func showNewFeature() {
         let NewFeatureVersionKey = "NewFeatureVersionKey"
         // plus one next version
-        let currentVersion = 1
+        let currentVersion = 2
+
         let version = UserDefaults.standard.integer(forKey: NewFeatureVersionKey)
         if currentVersion > version {
-            let popup = PopupDialog(title: "新功能提醒", message: "微北洋支持课程提醒啦！快去看看吧~", buttonAlignment: .vertical)
+            let popup = PopupDialog(title: "新功能提醒", message: "微北洋支持校园卡查询啦！\n如果使用中发现有问题，请加入「设置」中的QQ群反馈问题，我们会积极解决的!", buttonAlignment: .vertical)
 //            let cancelButton = CancelButton(title: "取消", action: nil)
             let goButton = DefaultButton(title: "好哒！", action: {
                 UserDefaults.standard.set(currentVersion, forKey: NewFeatureVersionKey)
-                let alertVC = ClassTableSettingViewController()
-                self.window?.rootViewController?.present(UINavigationController(rootViewController: alertVC), animated: true, completion: nil)
             })
             popup.addButton(goButton)
             window?.rootViewController?.present(popup, animated: true, completion: nil)

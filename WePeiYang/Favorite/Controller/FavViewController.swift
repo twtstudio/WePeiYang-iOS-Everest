@@ -78,7 +78,6 @@ class FavViewController: UIViewController {
         cardTableView.separatorStyle = .none
         cardTableView.allowsSelection = false
         cardTableView.backgroundColor = .white
-        registerForPreviewing(with: self, sourceView: cardTableView)
 
         // init headerView
         headerView = UIView()
@@ -200,6 +199,8 @@ class FavViewController: UIViewController {
                 initGPACard()
             case .library:
                 initLibraryCard()
+            case .ecard:
+                initEcard()
             }
         }
         cardTableView.reloadData()
@@ -240,9 +241,19 @@ extension FavViewController {
 
     func initLibraryCard() {
         let card = LibraryCard()
+        card.delegate = self
 
         card.refresh()
+        card.shouldPresent(LibraryMainViewController.self, from: self)
         cardDict[Module.library] = card
+    }
+
+    func initEcard() {
+        let card = ECardView()
+        card.delegate = self
+        card.refresh()
+        card.shouldPresent(CardTransactionViewController.self, from: self)
+        cardDict[Module.ecard] = card
     }
 }
 
@@ -303,23 +314,6 @@ extension FavViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return headerView.systemLayoutSizeFitting(.init(width: CGFloat.infinity, height: CGFloat.infinity)).height
-    }
-}
-
-extension FavViewController: UIViewControllerPreviewingDelegate {
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-//        if let indexPath = cardTableView.indexPathForRow(at: location),
-//            let card = cardDict[modules[indexPath.row].0],
-//            let superview = card.superview {
-//            let frame = card.convert(card.bounds, to: nil)
-//            previewingContext.sourceRect = superview.convert(card.frame, to: nil)
-//            return card.detailVC
-//        }
-        return nil
-    }
-
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        show(viewControllerToCommit, sender: self)
     }
 }
 

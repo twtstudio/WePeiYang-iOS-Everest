@@ -33,6 +33,7 @@ class BicycleBindingViewController: UIViewController {
 
         let textFieldWidth: CGFloat = 250
         IDCardNumberTextField = UITextField()
+        IDCardNumberTextField.text = TWTKeychain.username(for: .bicycle)
         IDCardNumberTextField.frame = CGRect(center: CGPoint(x: self.view.center.x, y: self.view.frame.size.height*2.0/5.0), size: CGSize(width: textFieldWidth, height: 40))
         IDCardNumberTextField.placeholder = "请输入身份证号"
         IDCardNumberTextField.keyboardType = .namePhonePad
@@ -78,6 +79,7 @@ class BicycleBindingViewController: UIViewController {
             SwiftMessages.showWarningMessage(body: "不能为空哦")
             return
         }
+        TWTKeychain.set(username: IDCardNumber, of: .bicycle)
 
         BicycleUser.sharedInstance.auth(success: {
             BicycleUser.sharedInstance.getCardlist(idnum: IDCardNumber, doSomething: {
@@ -97,10 +99,6 @@ class BicycleBindingViewController: UIViewController {
             SwiftMessages.showErrorMessage(body: errMsg)
         })
 
-//        BicycleUser.sharedInstance.getCardlist(idnum: IDCardNumber, doSomething: {
-//            SwiftMessages.showSuccessMessage(body: "绑定成功👏🏻")
-//        })
-
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -108,6 +106,7 @@ class BicycleBindingViewController: UIViewController {
     }
 
     @objc func dismissBinding() {
+        TWTKeychain.erase(.bicycle)
         self.dismiss(animated: true, completion: nil)
     }
 

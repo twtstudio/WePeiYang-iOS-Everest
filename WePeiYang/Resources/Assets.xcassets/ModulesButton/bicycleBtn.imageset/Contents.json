@@ -1,6 +1,20 @@
 {
   "images" : [
     {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "bottom" : 256,
+          "top" : 255,
+          "right" : 256,
+          "left" : 255
+        }
+      },
       "idiom" : "universal",
       "filename" : "bicycleBtn.png",
       "scale" : "1x"

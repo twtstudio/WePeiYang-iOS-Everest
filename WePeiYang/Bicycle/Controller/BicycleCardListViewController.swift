@@ -73,7 +73,6 @@ class BicycleCardListViewController: UITableViewController, UIAlertViewDelegate 
         let confirmAction = UIAlertAction(title: "确定", style: .default, handler: { _ in
             BicycleUser.sharedInstance.bindCard(id: choosenCard.id!, sign: choosenCard.sign!, doSomething: {
                 BicycleUser.sharedInstance.status = 1;//坑：毕竟这样不太稳妥
-//                UserDefaults.standard.setValue(1, forKey: "BicycleStatus")
                 TwTUser.shared.bicycleBindingState = true
                 TwTUser.shared.save()
             }, failure: { _ in

@@ -12,20 +12,19 @@ import PopupDialog
 
 class ClassTableViewController: UIViewController {
 
-    var listView: CourseListView!
-    var weekSelectView: WeekSelectView!
-    var table: ClassTableModel? {
+    private var listView: CourseListView!
+    private var weekSelectView: WeekSelectView!
+    private var weekCourseDict: [Int: [[ClassModel]]] = [:] {
         didSet {
-            updateWeekItem()
+            self.updateWeekItem()
         }
     }
-    var weekCourseDict: [Int: [[ClassModel]]] = [:]
 
-    var backButton: UIButton!
+    private var backButton: UIButton!
     // 当前的周
-    var currentWeek: Int = 1
+    private var currentWeek: Int = 1
     // 当前显示的周
-    var currentDisplayWeek: Int = 1 {
+    private var currentDisplayWeek: Int = 1 {
         willSet {
             if let cells = weekSelectView.subviews.filter({ $0 is WeekItemCell }) as? [WeekItemCell] {
                 cells.forEach { cell in
@@ -60,7 +59,7 @@ class ClassTableViewController: UIViewController {
             }
         }
     }
-    var isSelecting = false {
+    private var isSelecting = false {
         didSet {
             for v in self.navigationItem.titleView?.subviews ?? [] where v.tag == 2 {
                 if isSelecting {
@@ -134,6 +133,18 @@ class ClassTableViewController: UIViewController {
         if TwTUser.shared.tjuBindingState {
             perform(#selector(load), with: nil, afterDelay: 1)
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshClassTable(_:)), name: NotificationName.NotificationClassTableWillRefresh.name, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func refreshClassTable(_ notification: Notification) {
+        if TwTUser.shared.tjuBindingState {
+            self.load()
+        }
     }
 
     private func checkBindingState() {
@@ -141,7 +152,7 @@ class ClassTableViewController: UIViewController {
         if !TwTUser.shared.tjuBindingState {
             let popup = PopupDialog(title: "未绑定办公网", message: "微北洋的服务依赖于选课网，若要使用课程表查询功能，请先绑定办公网。", buttonAlignment: .horizontal)
             let cancelButton = CancelButton(title: "取消", action: {
-                if let table = self.table {
+                if let table = AuditUser.shared.mergedTable {
                     let message = "未绑定办公网，已加载缓存\n缓存时间: " + table.updatedAt
                     SwiftMessages.showWarningMessage(body: message)
                 } else {
@@ -197,30 +208,23 @@ class ClassTableViewController: UIViewController {
         self.navigationItem.titleView = titleView
         backButton.addTarget(self, action: #selector(toggleWeekSelect), for: .touchUpInside)
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(load))
+        // navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(load))
+        let refreshBarButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(load))
+        let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(audit))
+        navigationItem.rightBarButtonItems = [refreshBarButton, addBarButton]
     }
 
     @objc func weekCellTapped(sender: UITapGestureRecognizer) {
-//        guard let cell = sender.view,
-////        cell.tag - 1 < cells.count,
-//        cell.tag > 0,
-        guard let table = table else {
-                return
-        }
         let point = sender.location(in: weekSelectView)
         let week = Int(point.x / 50) + 1
 
-//        let week = cell.tag
-        let courses = self.getCourse(table: table, week: week)
-        listView.load(courses: courses, weeks: week - currentWeek)
-        currentDisplayWeek = week
+        if let courses = self.weekCourseDict[week] {
+            listView.load(courses: courses, weeks: week - self.currentWeek)
+        }
+        self.currentDisplayWeek = week
     }
 
     @objc func toggleWeekSelect(sender: UIButton) {
-        guard let table = table else {
-            return
-        }
-
         if !isSelecting {
             // 收起状态 -> 展开状态
             self.weekSelectView.snp.updateConstraints { make in
@@ -236,9 +240,10 @@ class ClassTableViewController: UIViewController {
             // 展开状态 -> 收起状态
             if currentDisplayWeek != currentWeek {
                 currentDisplayWeek = currentWeek
-                let courses = self.getCourse(table: table, week: currentWeek)
                 // 跳回当前周
-                listView.load(courses: courses, weeks: 0)
+                if let course = self.weekCourseDict[currentWeek] {
+                    self.listView.load(courses: course, weeks: 0)
+                }
             }
             self.view.setNeedsUpdateConstraints()
             self.view.layoutIfNeeded()
@@ -260,8 +265,6 @@ class ClassTableViewController: UIViewController {
     func loadCache() {
         CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
             if let table = Mapper<ClassTableModel>().map(JSONString: string) {
-                self.table = table
-                self.weekCourseDict = [:]
                 let now = Date()
                 let termStart = Date(timeIntervalSince1970: Double(table.termStart))
                 var week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
@@ -270,8 +273,17 @@ class ClassTableViewController: UIViewController {
                 }
                 self.currentWeek = Int(week)
                 self.currentDisplayWeek = Int(week)
-                let courses = self.getCourse(table: table, week: self.currentWeek)
-                self.listView.load(courses: courses, weeks: 0)
+
+                AuditUser.shared.updateCourses(originTable: table, isStore: false)
+                var weekDic = [Int: [[ClassModel]]]()
+                for week in 1...22 {
+                    weekDic[week] = AuditUser.shared.getCourseListModel(week: week)
+                }
+                self.weekCourseDict = weekDic
+
+                if let courses = self.weekCourseDict[self.currentWeek] {
+                    self.listView.load(courses: courses, weeks: self.currentWeek)
+                }
             }
         }, failure: {
             SwiftMessages.showLoading()
@@ -284,47 +296,83 @@ class ClassTableViewController: UIViewController {
         }
         isRefreshing = true
         startRotating()
+        
+        var originTable: ClassTableModel?
+        var auditItems: [AuditDetailCourseItem]?
+        
+        let group = DispatchGroup()
+        group.enter()
         ClasstableDataManager.getClassTable(success: { table in
-            self.isRefreshing = false
-            self.stopRotating()
-            SwiftMessages.hideLoading()
-            if let oldTable = self.table,
+            if let oldTable = AuditUser.shared.mergedTable,
                 oldTable.updatedAt > table.updatedAt,
                 table.updatedAt.contains("2017-04-01") {
                 // 如果新的还不如旧的
                 // 那就不刷新
                 SwiftMessages.showWarningMessage(body: "服务器故障\n缓存时间: \(oldTable.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
+                group.leave()
                 return
             }
-
-            if UserDefaults.standard.bool(forKey: ClassTableNotificationEnabled) {
-                ClassTableNotificationHelper.addNotification(table: table)
+            originTable = table
+            group.leave()
+        }, failure: { errorMessage in
+            SwiftMessages.showErrorMessage(body: errorMessage)
+            group.leave()
+        })
+        
+        group.enter()
+        ClasstableDataManager.getPersonalAuditList(success: { model in
+            auditItems = []
+            model.data.forEach { list in
+                let college = list.college
+                list.infos.forEach { item in
+                    var item = item
+                    item.courseCollege = college
+                    auditItems!.append(item)
+                }
             }
-            let string = table.toJSONString() ?? ""
-            CacheManager.store(object: string, in: .group, as: "classtable/classtable.json")
-            self.table = table
+            AuditCacheManager.load(model: model)
+            group.leave()
+        }, failure: { errStr in
+            SwiftMessages.showErrorMessage(body: errStr)
+            group.leave()
+        })
+        
+        group.notify(queue: DispatchQueue.main) {
+            self.isRefreshing = false
+            self.stopRotating()
+            
+            guard let table = originTable, let auditItems = auditItems else {
+                return
+            }
+            
+            AuditUser.shared.updateCourses(originTable: table, auditCourses: auditItems, isStore: true)
+            
             let now = Date()
             let termStart = Date(timeIntervalSince1970: Double(table.termStart))
-            CacheManager.saveGroupCache(with: termStart, key: "TermStart")
-
             var week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
             if week < 1 {
                 week = 1
             }
             self.currentWeek = Int(week)
             self.currentDisplayWeek = Int(week)
-            self.weekCourseDict = [:]
-            let courses = self.getCourse(table: table, week: self.currentWeek)
+
+            var weekDic = [Int: [[ClassModel]]]()
+            for week in 1...22 {
+                weekDic[week] = AuditUser.shared.getCourseListModel(week: week)
+            }
+            self.weekCourseDict = weekDic
+
+            if let courses = self.weekCourseDict[self.currentWeek] {
+                self.listView.load(courses: courses, weeks: self.currentWeek)
+            }
             // 和本周的差距
             SwiftMessages.showSuccessMessage(body: "刷新成功\n更新时间: \(table.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
-
-            self.listView.load(courses: courses, weeks: 0)
-        }, failure: { errorMessage in
-            self.isRefreshing = false
-            self.stopRotating()
-            SwiftMessages.hideLoading()
-            SwiftMessages.showErrorMessage(body: errorMessage)
-        })
+        }
+        
+    }
+    
+    @objc func audit() {
+        navigationController?.pushViewController(AuditHomeViewController(), animated: true)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -341,6 +389,8 @@ class ClassTableViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+
+        self.listView.cancelEmptyView()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -350,95 +400,9 @@ class ClassTableViewController: UIViewController {
 }
 
 extension ClassTableViewController {
-    func getCourse(table: ClassTableModel, week: Int) -> [[ClassModel]] {
-        if let dict = weekCourseDict[week] {
-            return dict
-        }
-        // TODO: optimize
-
-        var coursesForDay: [[ClassModel]] = [[], [], [], [], [], [], []]
-        var classes = [] as [ClassModel]
-        //        var coursesForDay: [[ClassModel]] = []
-        for course in table.classes {
-            // 对 week 进行判定
-            // 起止周
-            if week < Int(course.weekStart)! || week > Int(course.weekEnd)! {
-                // TODO: turn gray
-                continue
-            }
-
-            // 每个 arrange 变成一个
-            for arrange in course.arrange {
-                let day = arrange.day-1
-                // 如果是实习什么的课
-                if day < 0 || day > 6 {
-                    continue
-                }
-                // 对 week 进行判定
-                // 单双周
-                if (week % 2 == 0 && arrange.week == "单周")
-                    || (week % 2 == 1 && arrange.week == "双周") {
-                    // TODO: turn gray
-                    continue
-                }
-
-                var newCourse = course
-                newCourse.arrange = [arrange]
-                // TODO: 这个是啥来着?
-                classes.append(newCourse)
-                coursesForDay[day].append(newCourse)
-            }
-        }
-
-        for day in 0..<7 {
-            var array = coursesForDay[day]
-            // 按课程开始时间排序
-            array.sort(by: { a, b in
-                return a.arrange[0].start < b.arrange[0].start
-            })
-
-            var lastEnd = 0
-            for course in array {
-                // 如果两节课之前有空格，加入长度为一的占位符
-                if (course.arrange[0].start-1) - (lastEnd+1) >= 0 {
-                    // 从上节课的结束到下节课的开始填满
-                    for i in (lastEnd+1)...(course.arrange[0].start-1) {
-                        // 构造一个假的 model
-                        let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}]}")!
-                        // placeholders[i].append(placeholder)
-                        array.append(placeholder)
-                    }
-                    //                    for i in (lastEnd+1)..<(course.arrange[0].start-1) {
-                    //                        // 构造一个假的 model
-                    //                        let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(course.arrange[0].day)\", \"start\":\"\(i)\", \"end\":\"\(i+1)\"}]}")!
-                    //                        // placeholders[i].append(placeholder)
-                    //                        array.append(placeholder)
-                    //                    }
-                }
-                lastEnd = course.arrange[0].end
-            }
-            // 补下剩余的空白
-            if lastEnd < 12 {
-                for i in (lastEnd+1)...12 {
-                    // 构造一个假的 model
-                    let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(day)\", \"start\":\"\(i)\", \"end\":\"\(i)\"}]}")!
-                    // placeholders[i].append(placeholder)
-                    array.append(placeholder)
-                }
-            }
-            // 按开始时间进行排序
-            array.sort(by: { $0.arrange[0].start < $1.arrange[0].start })
-            coursesForDay[day] = array
-        }
-        weekCourseDict[week] = coursesForDay
-        return coursesForDay
-    }
-
     // 刷新缩略图
     func updateWeekItem() {
-        guard let table = table,
-            var cells = weekSelectView.subviews.filter({ $0 is WeekItemCell }) as? [WeekItemCell],
-        cells.count == 22 else {
+        guard var cells = weekSelectView.subviews.filter({ $0 is WeekItemCell }) as? [WeekItemCell], cells.count == 22 else {
             return
         }
         cells.sort(by: { a, b in
@@ -446,32 +410,29 @@ extension ClassTableViewController {
         })
 
         for i in 1...22 {
-            let courses = getCourse(table: table, week: i)
+            guard let courses = self.weekCourseDict[i] else {
+                return
+            }
             var matrix: [[Bool]] = [[], [], [], [], []]
-            for i in 0..<5 {
-                matrix[i] = [false, false, false, false, false]
+            for index in 0..<5 {
+                matrix[index] = [false, false, false, false, false]
             }
 
-            let items = [1, 3, 5, 7, 9]
             let classes = courses.flatMap { $0 }
 
             // day, index
-            var coordinates: [(Int, Int, Bool)] = []
             for course in classes {
-                if course.arrange.first!.day > 5 || course.arrange.first!.day <= 0 {
+                if course.courseName == "" || course.arrange.first!.day > 5 || course.arrange.first!.day <= 0 {
                     continue
                 }
-                for i in course.arrange.first!.start...course.arrange.first!.end {
-                    if i > 9 {
-                        continue
+
+                for num in course.arrange.first!.start...course.arrange.first!.end {
+                    if num > 9 || num < 0 {
+                        break
                     }
-                    if !items.contains(i) {
-                        continue
-                    }
-                    let isReal = course.courseName != "" ? true : false
-                    coordinates.append((course.arrange.first!.day-1, i, isReal))
-                    let orig = matrix[i/2][course.arrange.first!.day-1]
-                    matrix[i/2][course.arrange.first!.day-1] = isReal || orig
+
+                    let start = (num - 1) / 2
+                    matrix[start][course.arrange.first!.day-1] = true
                 }
             }
 
@@ -483,17 +444,11 @@ extension ClassTableViewController {
 
 extension ClassTableViewController: CourseListViewDelegate {
     func listView(_ listView: CourseListView, didSelectCourse course: ClassModel) {
-        guard let table = table else {
-            return
-        }
-        if course.courseName == "" {
-            // TODO: 手动添加课程
+        guard let table = AuditUser.shared.mergedTable else {
             return
         }
 
-        // 相似课程
-//        let similiarCourses = table.classes.filter { $0.courseID == course.courseID }
-        let similiarCourses = table.classes.filter { $0.courseName == course.courseName }
+        let similiarCourses = table.classes.filter { $0.courseID == course.courseID }
         var singleArrangeCourses = [ClassModel]()
         // 每个 arrange 作为一个 class
         for course in similiarCourses {
@@ -503,6 +458,27 @@ extension ClassTableViewController: CourseListViewDelegate {
                 singleArrangeCourses.append(newCourse)
             }
         }
+        
+        let detailVC = ClassDetailViewController(courses: singleArrangeCourses)
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+
+    func collectionView(_ listView: CourseCollectionView, didSelectCourse course: ClassModel) {
+        guard let table = AuditUser.shared.mergedTable else {
+            return
+        }
+
+        let similiarCourses = table.classes.filter { $0.courseID == course.courseID }
+        var singleArrangeCourses = [ClassModel]()
+        // 每个 arrange 作为一个 class
+        for course in similiarCourses {
+            for arrange in course.arrange {
+                var newCourse = course
+                newCourse.arrange = [arrange]
+                singleArrangeCourses.append(newCourse)
+            }
+        }
+
         let detailVC = ClassDetailViewController(courses: singleArrangeCourses)
         self.navigationController?.pushViewController(detailVC, animated: true)
     }

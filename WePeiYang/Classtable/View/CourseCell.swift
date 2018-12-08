@@ -72,7 +72,7 @@ class CourseCell: UITableViewCell {
     }
 
     func load(course: ClassModel) {
-        if course.classID == "" {
+        if course.classID == "" && course.courseID == "" {
             self.alpha = 0
         } else {
             self.alpha = 1
@@ -80,8 +80,14 @@ class CourseCell: UITableViewCell {
 
             // 确保安全
             let index = course.colorIndex % colors.count
-            contentView.backgroundColor = colors[index]
-            contentView.alpha = 0.7
+
+            if course.isDisplay == false {
+                titleLabel.textColor = UIColor.gray.withAlphaComponent(0.7)
+                contentView.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
+            } else {
+                titleLabel.textColor = .white
+                contentView.backgroundColor = colors[index].withAlphaComponent(0.7)
+            }
 
             var name = course.courseName
             let maxLength = 4*course.arrange.first!.length

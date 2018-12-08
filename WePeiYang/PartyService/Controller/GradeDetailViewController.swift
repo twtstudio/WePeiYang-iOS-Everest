@@ -74,7 +74,7 @@ class GradeDetailViewController: UIViewController, UITableViewDataSource, UITabl
         let dict = Applicant.sharedInstance.applicantGrade[index!]
 
         if indexPath.row == 0 {
-            cell?.textLabel?.text = "姓名：\(Applicant.sharedInstance.realName!)"
+            cell?.textLabel?.text = "姓名：\(TwTUser.shared.realname ?? "")"
         } else if indexPath.row == 1 {
             cell?.textLabel?.text = "学号：\(dict["sno"] as! String)"
         } else if indexPath.row == 2 {

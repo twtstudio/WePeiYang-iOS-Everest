@@ -16,7 +16,6 @@ enum SessionType {
 }
 
 let TWT_ROOT_URL = "https://open.twtstudio.com/api/v1"
-let DEV_RECORD_SESSION_INFO = "DEV_RECORD_SESSION_INFO"
 
 struct SolaSessionManager {
 
@@ -48,9 +47,9 @@ struct SolaSessionManager {
             tmpSign += (key + fooPara[key]!)
         }
 
-        let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1.uppercased()
+        let sign = (TWTKeychain.appKey + tmpSign + TWTKeychain.appSecret).sha1.uppercased()
         para["sign"] = sign
-        para["app_key"] = TwTKeychain.shared.appKey
+        para["app_key"] = TWTKeychain.appKey
 
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent
@@ -200,7 +199,6 @@ struct SolaSessionManager {
                 task.cancel()
             })
         }
-        print("CANCEL ALL TASKS")
     }
 
     static func cancelTask(withUrl urlstring: String) {
@@ -240,9 +238,9 @@ struct SolaSessionManager {
             tmpSign += (key + fooPara[key]!)
         }
 
-        let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1.uppercased()
+        let sign = (TWTKeychain.appKey + tmpSign + TWTKeychain.appSecret).sha1.uppercased()
         paraDict["sign"] = sign
-        paraDict["app_key"] = TwTKeychain.shared.appKey
+        paraDict["app_key"] = TWTKeychain.appKey
 
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent
@@ -262,12 +260,12 @@ struct SolaSessionManager {
                 for item in paraDict {
                     formdata.append(item.value.data(using: .utf8)!, withName: item.key)
                 }
-            }, to: fullURL, method: .post, headers: headers, encodingCompletion: { response in
+            }, to: fullURL, method: method, headers: headers, encodingCompletion: { response in
                 switch response {
                 case .success(let upload, _, _):
                     upload.responseJSON { response in
                         if let data = response.result.value {
-                            if let dict = data as? [String: Any], dict["error_code"] as? Int == 0 {
+                            if let dict = data as? [String: Any], dict["error_code"] as? Int == -1 {
                                 success?(dict)
                             } else {
                             }
@@ -280,6 +278,23 @@ struct SolaSessionManager {
                     failure?(error)
                 }
             })
+            return
+        }
+        
+        if method == .delete {
+            Alamofire.request(fullURL, method: .delete, parameters: paraDict, headers: headers).responseJSON { response in
+                switch response.result {
+                case .success(let data):
+                    if let dict = data as? [String: Any], dict["error_code"] as? Int == -1 {
+                        success?(dict)
+                    } else {
+                        
+                    }
+                case .failure(let error):
+                    failure?(error)
+                }
+            }
+            return
         }
     }
 }

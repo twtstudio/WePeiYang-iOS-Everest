@@ -28,6 +28,7 @@ protocol CourseListViewDelegate: class {
     ///   - listView: 所在的 listView
     ///   - course: 被选中的课程
     func listView(_ listView: CourseListView, didSelectCourse course: ClassModel)
+    func collectionView(_ listView: CourseCollectionView, didSelectCourse course: ClassModel)
 }
 
 //Hiererachy
@@ -40,6 +41,8 @@ protocol CourseListViewDelegate: class {
 //                        +-- Subview 3 UIView
 class CourseListView: UIView {
     // C stands for Constant
+
+    private var emptyView = UIView(frame: UIScreen.main.bounds)
 
     var classNumberView: UIView!
     var dayNumberView: UIView!
@@ -214,6 +217,19 @@ class CourseListView: UIView {
         // 因为 tableView 在 scrollView 上，所以手势被屏蔽了 需要手动添加
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(tableViewTouch(sender:)))
         updownContentView.addGestureRecognizer(recognizer)
+
+        self.emptyView.backgroundColor = UIColor.white.withAlphaComponent(0.7)
+        let cancelTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(cancelEmptyView))
+        cancelTapRecognizer.delegate = self
+        self.emptyView.isUserInteractionEnabled = true
+        self.emptyView.addGestureRecognizer(cancelTapRecognizer)
+    }
+
+    @objc func cancelEmptyView() {
+        self.emptyView.removeFromSuperview()
+        for view in self.emptyView.subviews {
+            view.removeFromSuperview()
+        }
     }
 
     @objc func tableViewTouch(sender: UITapGestureRecognizer) {
@@ -226,7 +242,22 @@ class CourseListView: UIView {
         if let indexPath = indexPath {
             // 代理事件
             let model = coursesForDay[index][indexPath.row]
-            self.delegate?.listView(self, didSelectCourse: model)
+            if model.displayCourses.count + model.undispalyCourses.count > 1 {
+                if let rootView = UIApplication.shared.keyWindow {
+                    let models = AuditUser.shared.getCollectionCourses(model: model)[0] + AuditUser.shared.getCollectionCourses(model: model)[1]
+                    let colletionView = CourseCollectionView(classModels: models, frame: CGRect.zero)
+                    self.emptyView.addSubview(colletionView)
+                    colletionView.showsVerticalScrollIndicator = false
+                    colletionView.alwaysBounceVertical = true
+                    colletionView.courseDelegate = self.delegate
+                    colletionView.snp.makeConstraints { make in
+                        make.edges.equalToSuperview()
+                    }
+                    rootView.addSubview(self.emptyView)
+                }
+            } else if model.isPlaceholder == false {
+                self.delegate?.listView(self, didSelectCourse: model)
+            }
         }
     }
 
@@ -258,7 +289,7 @@ extension CourseListView: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 构造 cell
-        let model = coursesForDay[tableView.tag][indexPath.row]
+        var model = coursesForDay[tableView.tag][indexPath.row]
         let cell = CourseCell(style: .default, reuseIdentifier: "reuse[\(tableView.tag)]\(indexPath)")
         cell.load(course: model)
         return cell
@@ -271,3 +302,18 @@ extension CourseListView: UITableViewDelegate {
         return CGFloat(model.arrange[0].length) * C.cellHeight
     }
 }
+
+extension CourseListView: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let view = touch.view {
+            if view.tag == 10086 {
+                return false
+            } else {
+                return true
+            }
+        } else {
+            return true
+        }
+    }
+}
+
