@@ -3,6 +3,8 @@ Pods/
 WePeiYang.xcworkspace/xcuserdata/
 WePeiYang.xcodeproj/xcuserdata/
 WePeiYang.xcodeproj/project.xcworkspace/xcuserdata/
+.env.tf
+.env.app
 
 # Xcode
 #

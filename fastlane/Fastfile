@@ -1,0 +1,91 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+
+  desc "Push a new beta build to TestFlight"
+  lane :beta do    
+    # dependencies
+    cocoapods
+
+    # Increment build number to current date
+    build_number = Time.new.strftime("%Y%m%d%H%M")
+    increment_build_number build_number: build_number
+
+    # Set version number to the one at the top of the CHANGELOG
+    changelog = File.read("../docs/CHANGELOG_BETA.md")
+    latest_version = changelog.split("\n## ").first
+    first_line = latest_version.split("\n").first
+    version_number = first_line.split(" ")[1]
+    increment_version_number(
+      version_number: version_number
+    )
+
+    # Generate release notes from CHANGELOG
+    release_notes = latest_version.split("\n")[1..-1].join("\n")
+
+    # build app
+    build_app(
+      workspace: "WePeiYang.xcworkspace",
+      scheme: "WePeiYang",
+      output_directory: "build"
+    )
+
+    # upload
+    groups = ENV["PILOT_GROUPS"].split(",")
+    upload_to_testflight(
+      changelog: release_notes,
+      beta_app_description: release_notes,
+      distribute_external: true,
+      groups: groups
+    )
+  end
+
+  desc "Push a new beta build to TestFlight"
+  lane :upload do
+    groups = ENV["PILOT_GROUPS"].split(",")
+    changelog = File.read("../docs/CHANGELOG_BETA.md")
+    latest_version = changelog.split("\n## ").first
+
+    # Generate release notes from CHANGELOG
+    release_notes = latest_version.split("\n")[1..-1].join("\n")
+
+    upload_to_testflight(
+      changelog: release_notes,
+      beta_app_description: release_notes,
+      distribute_external: true,
+      ipa: "./build/WePeiYang.ipa",
+      groups: groups
+    )
+  end
+
+  after_all do |lane|
+    slack(
+      message: "Successfully deployed new TestFlight Update.",
+      default_payloads: [:git_branch, :last_git_commit_message]
+    )
+  end
+
+  error do |lane, exception|
+    slack(
+      message: exception.to_s,
+      success: false,
+      payload: { "Output" => exception.error_info.to_s }
+    )
+  end
+
+end
