@@ -22,9 +22,9 @@ class PTQuizNetWork {
             tmpSign += (key + fooPara[key]!)
         }
         
-        let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1.uppercased()
+        let sign = (TWTKeychain.appKey + tmpSign + TWTKeychain.appSecret).sha1.uppercased()
         para["sign"] = sign
-        para["app_key"] = TwTKeychain.shared.appKey
+        para["app_key"] = TWTKeychain.appKey
         
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent

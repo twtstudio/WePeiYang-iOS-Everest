@@ -90,11 +90,11 @@ class PTExerciseNetwork {
 
     static func deleteCollection(data: Dictionary<String, Any>, failure: @escaping (Error) -> (), success: @escaping (String) -> ()) {
         var message = ""
-        SolaSessionManager.upload(dictionay: data, baseURL: "https://exam.twtstudio.com", url: "/api/collect/deleteCollection", method: .post, progressBlock: nil, failure: { (err) in
-            log(err)
-        }, success: { (dic) in
+        SolaSessionManager.upload(dictionay: data, baseURL: "https://exam.twtstudio.com", url: "/api/collect/deleteCollection", method: .post, progressBlock: nil, success: { (dic) in
             message = dic["message"] as? String ?? ""
             print(message)
+        }, failure: { (err) in
+            log(err)
         })
         success(message)
     }

@@ -118,9 +118,9 @@ struct SolaSessionManager {
             tmpSign += (key + fooPara[key]!)
         }
         
-        let sign = (TwTKeychain.shared.appKey + tmpSign + TwTKeychain.shared.appSecret).sha1.uppercased()
+        let sign = (TWTKeychain.appKey + tmpSign + TWTKeychain.appSecret).sha1.uppercased()
         paraDict["sign"] = sign
-        paraDict["app_key"] = TwTKeychain.shared.appKey
+        paraDict["app_key"] = TWTKeychain.appKey
         
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent
@@ -214,7 +214,7 @@ struct SolaSessionManager {
         }
     }
 
-    static func upload(dictionay: [String : Any], baseURL: String = TWT_ROOT_URL, url: String, method: HTTPMethod = .post, progressBlock: ((Progress)->())? = nil, failure: ((Error)->())? = nil, success: (([String : Any])->())?) {
+    static func upload(dictionay: [String : Any], baseURL: String = TWT_ROOT_URL, url: String, method: HTTPMethod = .post, progressBlock: ((Progress)->())? = nil, success: (([String : Any])->())?, failure: ((Error)->())? = nil) {
         
         var dataDict = [String: Data]()
         var paraDict = [String: String]()

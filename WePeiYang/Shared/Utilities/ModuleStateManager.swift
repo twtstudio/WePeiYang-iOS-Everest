@@ -12,6 +12,7 @@ enum Module: String, CaseIterable {
     case classtable = "课程表"
     case gpa = "GPA"
     case library = "图书馆"
+    case ecard = "校园卡"
 }
 
 let ModuleArrangementKey = "ModuleArrangementKey"
