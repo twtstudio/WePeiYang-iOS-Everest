@@ -48,7 +48,8 @@ extension PTQuizQuesView: UITableViewDataSource {
         case 1:
             return PTOptionsCell()
         default:
-            let optionCell = PTQuizOptionCell()
+            let optionCell = (tableView.dequeueReusableCell(withIdentifier: "optionCell") as? PTQuizOptionCell) ?? PTQuizOptionCell()
+//            let optionCell = PTQuizOptionCell()
             let optionIndex = indexPath.item - 2
             let array = PTQuestionTableView.selectedAnswerArray
             
@@ -67,7 +68,7 @@ extension PTQuizQuesView {
         
         if quesType == 1 {
             //多选题响应
-            PTQuestionTableView.selectedAnswerArray[index] = !PTQuestionTableView.selectedAnswerArray[index]
+            PTQuestionTableView.selectedAnswerArray[index].toggle()
         } else {
             //单选或判断题响应
             if PTQuestionTableView.selectedAnswerArray[index] {
@@ -82,11 +83,6 @@ extension PTQuizQuesView {
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "QuizOptionSelected"), object: nil)
         
-        var array: [IndexPath] = []
-        for i in 0..<options.count {
-            let indexPath = IndexPath(row: i + 2, section: 0)
-            array.append(indexPath)
-        }
-        self.reloadRows(at: array, with: .none)
+        self.reloadData()
     }
 }
