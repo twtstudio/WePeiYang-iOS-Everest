@@ -8,26 +8,15 @@
 
 import UIKit
 
-enum Module: String {
-    case gpa = "GPA"
-    case library = "图书馆"
-    case classtable = "课程表"
-}
-
-let ModuleArrangementKey = "ModuleArrangementKey"
 class ModulesSettingsViewController: UIViewController {
 
-    var tableView: UITableView!
-    var modules: [(Module, Bool)] = []
-    var dataChanged: Bool = false
+    private var tableView: UITableView!
+    private var modules: [(Module, Int)] = []
+    private var dataChanged: Bool = false
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-//        self.navigationController?.navigationBar.isHidden = false
-//        self.navigationController?.navigationBar.isHidden = false
-//        self.navigationController?.navigationBar.isTranslucent = true
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -39,11 +28,12 @@ class ModulesSettingsViewController: UIViewController {
         super.viewDidDisappear(animated)
 
         if dataChanged {
-            var dict: [String: [String: String]] = [:]
-            for (index, module) in modules.enumerated() {
-                dict[module.0.rawValue] = ["isOn": module.1.description, "order": index.description]
+            updateStatus()
+            var dict: [String: Int] = [:]
+            for item in modules {
+                dict[item.0.rawValue] = item.1
             }
-            UserDefaults.standard.set(dict, forKey: ModuleArrangementKey)
+            ModuleStateManager.setModules(dict: dict)
             NotificationCenter.default.post(name: NotificationName.NotificationCardOrderChanged.name, object: nil)
         }
     }
@@ -59,16 +49,9 @@ class ModulesSettingsViewController: UIViewController {
         self.title = "模块管理"
 //        tableView.allowsSelection = false
 
-        modules = [(.classtable, true), (.gpa, true), (.library, true)]
-        if let dict = UserDefaults.standard.dictionary(forKey: ModuleArrangementKey) as? [String: [String: String]] {
-            var array: [(Module, Bool, Int)] = []
-            for item in dict {
-                array.append((Module(rawValue: item.key)!, Bool(item.value["isOn"]!)!, Int(item.value["order"]!)!))
-            }
-            modules = array.sorted(by: { $0.2 < $1.2 }).map({ ($0.0, $0.1) })
+        modules = Array(ModuleStateManager.getAllModule()).sorted { a, b in
+            return abs(a.value) < abs(b.value)
         }
-
-//        modules = array
 
         self.view.addSubview(tableView)
     }
@@ -76,7 +59,8 @@ class ModulesSettingsViewController: UIViewController {
     @objc func switchValueChanged(sender: UISwitch) {
         if let cell = sender.superview as? UITableViewCell,
             let indexPath = tableView.indexPath(for: cell) {
-            modules[indexPath.row].1 = sender.isOn
+            let index = abs(modules[indexPath.row].1)
+            modules[indexPath.row].1 = sender.isOn ? index : -index
             dataChanged = true
         }
     }
@@ -92,7 +76,7 @@ extension ModulesSettingsViewController: UITableViewDataSource {
         let module = modules[indexPath.row]
         cell.textLabel?.text = module.0.rawValue
         let stateSwitch = UISwitch()
-        stateSwitch.isOn = module.1
+        stateSwitch.isOn = module.1 > 0
         stateSwitch.addTarget(self, action: #selector(switchValueChanged(sender:)), for: .valueChanged)
 
         cell.accessoryView = stateSwitch
@@ -131,6 +115,19 @@ extension ModulesSettingsViewController: UITableViewDelegate {
 
         dataChanged = true
         modules.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        updateStatus()
     }
 
+    func updateStatus() {
+        for (idx, _) in modules.enumerated() {
+            let isOn = modules[idx].1 > 0
+            let row = idx + 1
+            modules[idx].1 = isOn ? row : -row
+//            let indexPath = IndexPath(row: idx, section: 0)
+//            if let stateSwitch = tableView.cellForRow(at: indexPath)?.accessoryView as? UISwitch {
+//                let row = idx + 1
+//                modules[idx].1 = stateSwitch.isOn ? row : -row
+//            }
+        }
+    }
 }

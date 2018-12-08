@@ -23,7 +23,7 @@ class FavViewController: UIViewController {
     var cardDict: [Module: CardView] = [:]
     var cellHeights: [CGFloat] = []
 
-    var modules: [(Module, Bool)] = []
+    var modules: [Module] = []
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -111,7 +111,7 @@ class FavViewController: UIViewController {
                 let name = Module(rawValue: nameString),
                 let height = info["height"] as? CGFloat,
                 let card = self.cardDict[name],
-                let row = self.modules.index(where: { $0.0 == name }) {
+                let row = self.modules.index(where: { $0 == name }) {
                 let indexPath = IndexPath(row: row, section: 0)
                 let cell = self.cardTableView.cellForRow(at: indexPath)
 
@@ -164,33 +164,20 @@ class FavViewController: UIViewController {
 
     // 重新加载顺序
     @objc func reloadOrder() {
-        modules = [(.classtable, true), (.gpa, true), (.library, true)]
-        if let dict = UserDefaults.standard.dictionary(forKey: ModuleArrangementKey) as? [String: [String: String]] {
-            var array: [(Module, Bool, Int)] = []
-            for item in dict {
-                array.append((Module(rawValue: item.key)!, Bool(item.value["isOn"]!)!, Int(item.value["order"]!)!))
-            }
-            modules = array.sorted(by: { $0.2 < $1.2 }).map({ ($0.0, $0.1) }).filter({ $0.1 })
-        }
+        modules = ModuleStateManager.getModules()
         initCards()
-//        cardTableView.reloadData()
     }
 
     // 重新加载数据
     @objc func refreshCards(info: Notification) {
-        let showCount = modules.map({ $0.1 })
-            .reduce(0, { (lastResult, show) in
-                return show ? lastResult + 1 : lastResult
-            })
-        if showCount == 0 {
+        if modules.isEmpty {
             view.sendSubview(toBack: cardTableView)
         } else {
             view.bringSubview(toFront: cardTableView)
         }
 
-        for item in modules where item.1 {
-            // 如果 show == true
-            cardDict[item.0]?.refresh()
+        for item in modules {
+            cardDict[item]?.refresh()
         }
 
         switch info.name {
@@ -205,16 +192,8 @@ class FavViewController: UIViewController {
 
     // 初始化卡片
     func initCards() {
-        for module in modules {
-            if !module.1 {
-                continue
-            }
-
-            if cardDict[module.0] != nil {
-                continue
-            }
-
-            switch module.0 {
+        for module in modules where cardDict[module] == nil {
+            switch module {
             case .classtable:
                 initClassTableCard()
             case .gpa:
@@ -280,7 +259,7 @@ extension FavViewController: UITableViewDataSource {
         let module = modules[indexPath.row]
 
 //        let key = Array(cardDict.keys)[indexPath.row]
-        let card = cardDict[module.0]!
+        let card = cardDict[module]!
         var cell = tableView.dequeueReusableCell(withIdentifier: "card\(module)")
 
         if cell == nil {
