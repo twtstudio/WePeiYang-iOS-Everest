@@ -422,7 +422,7 @@ extension ClassTableViewController {
 
             // day, index
             for course in classes {
-                if course.courseName == "" || course.arrange.first!.day > 5 || course.arrange.first!.day <= 0 {
+                if course.courseName == "" || course.arrange.first!.day > 5 || course.arrange.first!.day <= 0 || i < Int(course.weekStart)! || i > Int(course.weekEnd)! {
                     continue
                 }
 
