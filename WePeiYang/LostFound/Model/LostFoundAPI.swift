@@ -19,6 +19,8 @@ struct LostFoundAPI {
     
     static let search = "/search"
     
+    static let user = "/user"
+    
 }
 
 // MARK: - Network
@@ -73,6 +75,28 @@ struct LostFoundHelper {
             failure(error)
             log("ERROR -- LostFoundHelper.postLost")
         }, success: success)
+    }
+    
+    static func getMyLost(page: Int = 1, success: @escaping (LostModel) -> Void, failure: @escaping (Error) -> Void) {
+        SolaSessionManager.solaSession(baseURL: LostFoundAPI.root, url: LostFoundAPI.user + LostFoundAPI.lost, parameters: ["page": String(page)], success: { dic in
+            if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let myLost = try? LostModel(data: data) {
+                success(myLost)
+            } else { log("WARNING -- LostFoundHelper.getMyLost") }
+        }) { error in
+            failure(error)
+            log("ERROR -- LostFoundHelper.getMyLost")
+        }
+    }
+    
+    static func getMyFound(page: Int = 1, success: @escaping (FoundModel) -> Void, failure: @escaping (Error) -> Void) {
+        SolaSessionManager.solaSession(baseURL: LostFoundAPI.root, url: LostFoundAPI.user + LostFoundAPI.found, parameters: ["page": String(page)], success: { dic in
+            if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let myFound = try? FoundModel(data: data) {
+                success(myFound)
+            } else { log("WARNING -- LostFoundHelper.getMyFound") }
+        }) { error in
+            failure(error)
+            log("ERROR -- LostFoundHelper.getMyFound")
+        }
     }
     
 }

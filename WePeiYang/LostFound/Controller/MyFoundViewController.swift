@@ -12,7 +12,8 @@ import MJRefresh
 class MyFoundViewController: UIViewController {
     
     var tableView: UITableView!
-    var myFound: [MyLostFoundModel] = []
+    // var myFound: [MyLostFoundModel] = []
+    var myFound = [FoundData]()
     let footer = MJRefreshAutoNormalFooter()
     let header = MJRefreshNormalHeader()
     var curPage: Int = 0
@@ -41,8 +42,13 @@ class MyFoundViewController: UIViewController {
     
     func refresh() {
         
-        GetMyFoundAPI.getMyFound(page: curPage, success: { myFounds in
-            self.myFound = myFounds
+//        GetMyFoundAPI.getMyFound(page: curPage, success: { myFounds in
+//            self.myFound = myFounds
+//            self.tableView.reloadData()
+//        }, failure: { _ in
+//        })
+        LostFoundHelper.getMyFound(page: curPage, success: { myFound in
+            self.myFound = myFound.data
             self.tableView.reloadData()
         }, failure: { _ in
         })
@@ -52,9 +58,22 @@ class MyFoundViewController: UIViewController {
     // 底部上拉加载
     @objc func footerLoad() {
         self.curPage += 1
-        GetMyFoundAPI.getMyFound(page: curPage, success: { myFounds in
-            self.myFound += myFounds
-            if myFounds.isEmpty {
+//        GetMyFoundAPI.getMyFound(page: curPage, success: { myFounds in
+//            self.myFound += myFounds
+//            if myFounds.isEmpty {
+//                self.tableView.mj_footer.endRefreshingWithNoMoreData()
+//                self.curPage -= 1
+//            } else {
+//                self.tableView.mj_footer.endRefreshing()
+//            }
+//            self.tableView.reloadData()
+//
+//        }, failure: { _ in
+//            self.curPage -= 1
+//        })
+        LostFoundHelper.getMyFound(page: curPage, success: { myFound in
+            self.myFound += myFound.data
+            if myFound.data.isEmpty {
                 self.tableView.mj_footer.endRefreshingWithNoMoreData()
                 self.curPage -= 1
             } else {
@@ -70,8 +89,17 @@ class MyFoundViewController: UIViewController {
     
     // 顶部下拉刷新
     @objc func headerRefresh() {
-        GetMyFoundAPI.getMyFound(page: 1, success: { myFounds in
-            self.myFound = myFounds
+//        GetMyFoundAPI.getMyFound(page: 1, success: { myFounds in
+//            self.myFound = myFounds
+//            self.curPage = 1
+//            //结束刷新
+//            self.tableView.mj_header.endRefreshing()
+//            self.tableView.mj_footer.resetNoMoreData()
+//            self.tableView.reloadData()
+//        }, failure: { _ in
+//        })
+        LostFoundHelper.getMyFound(success: { myFound in
+            self.myFound = myFound.data
             self.curPage = 1
             //结束刷新
             self.tableView.mj_header.endRefreshing()
@@ -120,17 +148,17 @@ extension MyFoundViewController: UITableViewDataSource {
             cell.editButton.addTarget(self, action: #selector(editButtonTapped(sender: )), for: .touchUpInside)
             cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(sender: )), for: .touchUpInside)
             
-            let pic = myFound[indexPath.row].picture
+            let pic = myFound[indexPath.row].picture ?? [""]
             
-            cell.initMyUI(pic: pic, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detailType, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
+            cell.initMyUI(pic: pic[0], title: myFound[indexPath.row].title, isBack: String(myFound[indexPath.row].isback), mark: myFound[indexPath.row].detailType, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
             return cell
         }
         
         let cell = MyLostFoundTableViewCell()
         cell.editButton.addTarget(self, action: #selector(editButtonTapped(sender: )), for: .touchUpInside)
         cell.inverseButton.addTarget(self, action: #selector(inverseButtonTapped(sender: )), for: .touchUpInside)
-        let pic = myFound[indexPath.row].picture
-        cell.initMyUI(pic: pic, title: myFound[indexPath.row].title, isBack: myFound[indexPath.row].isBack, mark: myFound[indexPath.row].detailType, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
+        let pic = myFound[indexPath.row].picture ?? [""]
+        cell.initMyUI(pic: pic[0], title: myFound[indexPath.row].title, isBack: String(myFound[indexPath.row].isback), mark: myFound[indexPath.row].detailType, time: myFound[indexPath.row].time, place: myFound[indexPath.row].place)
         
         return cell
     }
