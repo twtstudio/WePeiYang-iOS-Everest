@@ -160,7 +160,7 @@ class LostFoundPageViewController: WMPageController {
     }
     
     @objc func mineButton(item: UIBarButtonItem) {
-        let vc = MyLostFoundPageViewController()
+        let vc = MyLostFoundPageViewController(viewControllerClasses: [MyLostViewController.self, MyFoundViewController.self], andTheirTitles: ["我的丢失", "我的发布"])
         self.navigationController?.pushViewController(vc, animated: true)
         //        if self.menu.isShow! == false {
         //

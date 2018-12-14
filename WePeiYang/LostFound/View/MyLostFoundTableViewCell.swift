@@ -101,7 +101,7 @@ class MyLostFoundTableViewCell: UITableViewCell {
             make.width.height.equalTo(contentView.bounds.width*(100/2024))
         }
         
-        markLabel.text = markArray[mark]
+        markLabel.text = markArray[mark-1]
         //        markLabel.text = mark
         markLabel.font = UIFont.italicSystemFont(ofSize: 14)
         markLabel.textColor = UIColor(hex6: 0x999999)

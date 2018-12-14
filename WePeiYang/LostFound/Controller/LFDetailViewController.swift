@@ -41,7 +41,7 @@ class LFDetailViewController: UIViewController {
         let btn = ButtonGroups()
         btn.setButtonColor(_textColor: .white, _btnColor: .blue)
         let cvc = btn.addButtonGroupsToCell(buttonArr: markArray, mainAction: (name: "发布丢失信息", function: {
-            let vc = MyLostFoundPageViewController()
+            let vc = MyLostFoundPageViewController(viewControllerClasses: [MyLostViewController.self, MyFoundViewController.self], andTheirTitles: ["我的丢失", "我的发布"])
             self.navigationController?.pushViewController(vc, animated: true)
         }))
         self.view.addSubview(cvc!)
