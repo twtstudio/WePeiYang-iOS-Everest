@@ -147,7 +147,7 @@ struct SolaSessionManager {
                 case .success(let upload, _, _):
                     upload.responseJSON { response in
                         if let data = response.result.value {
-                            if let dict = data as? [String: Any], dict["error_code"] as? Int == 0 {
+                            if let dict = data as? [String: Any], (dict["error_code"] as? Int == 0 || dict["error_code"] as? Int == -1) {
                                 success?(dict)
                             } else {
                             }

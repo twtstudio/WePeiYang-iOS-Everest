@@ -38,13 +38,13 @@ class LFDetailViewController: UIViewController {
         initUI()
         refresh()
         
-        let btn = ButtonGroups()
-        btn.setButtonColor(_textColor: .white, _btnColor: .blue)
-        let cvc = btn.addButtonGroupsToCell(buttonArr: markArray, mainAction: (name: "发布丢失信息", function: {
-            let vc = MyLostFoundPageViewController(viewControllerClasses: [MyLostViewController.self, MyFoundViewController.self], andTheirTitles: ["我的丢失", "我的发布"])
-            self.navigationController?.pushViewController(vc, animated: true)
-        }))
-        self.view.addSubview(cvc!)
+//        let btn = ButtonGroups()
+//        btn.setButtonColor(_textColor: .white, _btnColor: .blue)
+//        let cvc = btn.addButtonGroupsToCell(buttonArr: markArray, mainAction: (name: "发布丢失信息", function: {
+//            let vc = MyLostFoundPageViewController(viewControllerClasses: [MyLostViewController.self, MyFoundViewController.self], andTheirTitles: ["我的丢失", "我的发布"])
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }))
+//        self.view.addSubview(cvc!)
     }
     
     func initUI() {
@@ -149,7 +149,7 @@ class LFDetailViewController: UIViewController {
                 label.numberOfLines = 0
                 self.view.addSubview(label)
                 if index == 2, let mark = Int(name) {
-                    label.text = self.markArray[mark]
+                    label.text = self.markArray[mark-1]
                 }
                 label.textColor = .lightGray
                 label.text = name

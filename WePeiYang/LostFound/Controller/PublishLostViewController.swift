@@ -21,7 +21,7 @@ class PublishLostViewController: UIViewController, UITextFieldDelegate {
     
     var function = [
         ["添加图片"],
-        ["标题 *", "时间", "地点"],
+        ["标题 *", "时间", "校区 *", "地点"],
         [],
         ["姓名 *", "联系电话 *"],
         ["物品描述"],
@@ -31,7 +31,7 @@ class PublishLostViewController: UIViewController, UITextFieldDelegate {
     
     var text = [
         0: [""],
-        1: ["(不超过11个字)", "请填写详细时间", "请填写校区及详细地点"],
+        1: ["(不超过11个字)", "请填写详细时间", "请填写校区 (北洋园 / 卫津路)", "请填写详细地点"],
         2: ["", ""],
         3: ["", ""],
         4: ["请认真填写物品信息"],
@@ -50,7 +50,7 @@ class PublishLostViewController: UIViewController, UITextFieldDelegate {
     
     var returnKeys = [
         0: ["pic[]"],
-        1: ["title", "time", "place"],
+        1: ["title", "time", "campus", "place"],
         2: ["card_number", "card_name"],
         3: ["name", "phone"],
         4: ["item_description"],
@@ -97,24 +97,26 @@ class PublishLostViewController: UIViewController, UITextFieldDelegate {
     // 确定按钮的回调
     @objc func tapped() {
         
-        PostLostAPI.postLost(markDic: markDict, tag: pushTag, success: { _ in
-            let successVC = PublishSuccessViewController()
-            self.navigationController?.pushViewController(successVC, animated: true)
-        }, failure: { _ in
-        })
-//        if String(describing: markDict["地点"]).contains("北洋") {
-//            self.markDict["campus"] = "1"
-//        } else {
-//            self.markDict["campus"] = "2"
-//        }
-//        markDict["detail_type"] = "1"
-//        log(markDict)
-//        LostFoundHelper.postLost(dic: markDict, success: { _ in
-//            log("SUCCESS")
-//            self.navigationController?.pushViewController(PublishSuccessViewController(), animated: true)
+//        PostLostAPI.postLost(markDic: markDict, tag: pushTag, success: { _ in
+//            let successVC = PublishSuccessViewController()
+//            self.navigationController?.pushViewController(successVC, animated: true)
 //        }, failure: { _ in
-//            log("FAILURE")
 //        })
+        if String(describing: markDict["地点"]).contains("北洋") {
+            self.markDict["campus"] = "1"
+        } else {
+            self.markDict["campus"] = "2"
+        }
+        markDict["detail_type"] = "12"
+        markDict["recapture_place"]  = ""
+        markDict["recapture_entrance"] = "0"
+        log(markDict)
+        LostFoundHelper.postLost(dic: markDict, success: { _ in
+            log("SUCCESS")
+            self.navigationController?.pushViewController(PublishSuccessViewController(), animated: true)
+        }, failure: { _ in
+            log("FAILURE")
+        })
     }
     
     func comfirmButtonTapped() {
@@ -130,7 +132,7 @@ class PublishLostViewController: UIViewController, UITextFieldDelegate {
 extension PublishLostViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 7
+        return header.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
