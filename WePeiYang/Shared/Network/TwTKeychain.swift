@@ -35,10 +35,12 @@ struct TWTKeychain {
         if let keychain = keychains[username] {
             return keychain
         } else {
-            let appIdentifierPrefix =
-                Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String
-            let groupKey = appIdentifierPrefix + "group.WePeiYang"
-            let keychain = Keychain(service: "cn.edu.twt.mobile-\(username)", accessGroup: groupKey).synchronizable(true)
+//            let appIdentifierPrefix =
+//                Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String
+//            let groupKey = appIdentifierPrefix + "group.WePeiYang"
+//            let keychain = Keychain(service: "cn.edu.twt.mobile-\(username)", accessGroup: groupKey).synchronizable(true)
+//            keychains[username] = keychain
+            let keychain = Keychain(service: "cn.edu.twt.mobile-\(username)").synchronizable(true)
             keychains[username] = keychain
             return keychain
         }

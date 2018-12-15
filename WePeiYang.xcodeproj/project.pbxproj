@@ -232,8 +232,6 @@
 		DD41A83D21A5341100886BB4 /* AuditSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD41A83C21A5341100886BB4 /* AuditSearchViewController.swift */; };
 		DD6A663421A59D260070C4B2 /* AuditCollegeCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6A663321A59D260070C4B2 /* AuditCollegeCourseViewController.swift */; };
 		DD6A663621ABCEB10070C4B2 /* AuditPersonalCourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6A663521ABCEB10070C4B2 /* AuditPersonalCourseModel.swift */; };
-		DD71097A21B1AEC900828812 /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD71097921B1AEC900828812 /* TwTKeychain.swift */; };
-		DD71097B21B1B4C100828812 /* TwTKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD71097921B1AEC900828812 /* TwTKeychain.swift */; };
 		DDC7891E21B1302C00ABA33F /* CourseNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7891D21B1302C00ABA33F /* CourseNode.swift */; };
 		DDC7892021B132A700ABA33F /* CourseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7891F21B132A700ABA33F /* CourseList.swift */; };
 /* End PBXBuildFile section */
@@ -509,7 +507,6 @@
 		DD41A83C21A5341100886BB4 /* AuditSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditSearchViewController.swift; sourceTree = "<group>"; };
 		DD6A663321A59D260070C4B2 /* AuditCollegeCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditCollegeCourseViewController.swift; sourceTree = "<group>"; };
 		DD6A663521ABCEB10070C4B2 /* AuditPersonalCourseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditPersonalCourseModel.swift; sourceTree = "<group>"; };
-		DD71097921B1AEC900828812 /* TwTKeychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwTKeychain.swift; sourceTree = "<group>"; };
 		DDC7891D21B1302C00ABA33F /* CourseNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNode.swift; sourceTree = "<group>"; };
 		DDC7891F21B132A700ABA33F /* CourseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1004,7 +1001,6 @@
 				B10254101EC8547E0064373A /* UI_Fundamentals */,
 				B10253DF1EC84ED90064373A /* Network */,
 				B10253ED1EC84ED90064373A /* Utilities */,
-				DD71097921B1AEC900828812 /* TwTKeychain.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1624,7 +1620,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD71097B21B1B4C100828812 /* TwTKeychain.swift in Sources */,
 				36B2C899203DB8DB00AD2E3F /* ClassWidgetCell.swift in Sources */,
 				36B2C89B203DE86700AD2E3F /* TwTUser.swift in Sources */,
 				3613DA182056F56A000867AE /* WLANLoginAPIs.swift in Sources */,
@@ -1752,7 +1747,6 @@
 				36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */,
 				DD0B762A2158CBA6009A392C /* GPAStatModel.swift in Sources */,
 				36449E841FA4BAD10036766B /* TwentyCourseScoreViewController.swift in Sources */,
-				DD71097A21B1AEC900828812 /* TwTKeychain.swift in Sources */,
 				36449E6D1FA4BABA0036766B /* FinalView.swift in Sources */,
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
 				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
