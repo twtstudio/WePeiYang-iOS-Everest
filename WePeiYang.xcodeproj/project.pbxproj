@@ -127,7 +127,6 @@
 		36B2C89B203DE86700AD2E3F /* TwTUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5091F1903D70078816D /* TwTUser.swift */; };
 		36B8F2EA205110A60080083C /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B8F2E9205110A60080083C /* NotificationSettingViewController.swift */; };
 		36B9F75D216BCBA000253C4A /* ClassTableNotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B9F75C216BCBA000253C4A /* ClassTableNotificationHelper.swift */; };
-		36CAD44A201B8EAA006F85E3 /* ClassTableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CAD449201B8EAA006F85E3 /* ClassTableHelper.swift */; };
 		36CAD44C201B9194006F85E3 /* ClassTableCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CAD44B201B9194006F85E3 /* ClassTableCard.swift */; };
 		36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0FE73201861BD0014E667 /* ClassDetailViewController.swift */; };
 		36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0FE75201867CF0014E667 /* ArrangeCell.swift */; };
@@ -220,6 +219,7 @@
 		DD2A2ABD21B2DC5100EA6F8F /* CourseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A2ABC21B2DC5100EA6F8F /* CourseCollectionView.swift */; };
 		DD2A2ABF21B2DEBB00EA6F8F /* CourseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A2ABE21B2DEBB00EA6F8F /* CourseCollectionViewCell.swift */; };
 		DD2A2AC321B773B600EA6F8F /* AuditCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A2AC221B773B600EA6F8F /* AuditCacheManager.swift */; };
+		DD2E301E21C24EF3007767C3 /* ClassTableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CAD449201B8EAA006F85E3 /* ClassTableHelper.swift */; };
 		DD41A82F21A3265800886BB4 /* PopularListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD41A82E21A3265800886BB4 /* PopularListModel.swift */; };
 		DD41A83121A3B00300886BB4 /* AuditDetailCourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD41A83021A3B00300886BB4 /* AuditDetailCourseTableViewCell.swift */; };
 		DD41A83321A4704000886BB4 /* AuditDetailCourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD41A83221A4704000886BB4 /* AuditDetailCourseModel.swift */; };
@@ -1646,6 +1646,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD2E301E21C24EF3007767C3 /* ClassTableHelper.swift in Sources */,
 				36449E891FA4BAD10036766B /* PartyScoreViewController.m in Sources */,
 				36FCC2D920545967003379AE /* LoginView.swift in Sources */,
 				C40BDE0721A93C260046BFA5 /* BookConstant.swift in Sources */,
@@ -1662,7 +1663,6 @@
 				36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */,
 				A5197A3D1FDA8F99008C445A /* LibraryAPIs.swift in Sources */,
 				36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */,
-				36CAD44A201B8EAA006F85E3 /* ClassTableHelper.swift in Sources */,
 				36449E481FA4BA9B0036766B /* ApplicantTest.swift in Sources */,
 				361F8863204AF94200BCFA19 /* NewsTableViewCell.swift in Sources */,
 				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,

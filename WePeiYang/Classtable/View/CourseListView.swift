@@ -301,6 +301,11 @@ extension CourseListView: UITableViewDelegate {
         let model = coursesForDay[tableView.tag][indexPath.row]
         return CGFloat(model.arrange[0].length) * C.cellHeight
     }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let courseCell = cell as? CourseCell {
+            courseCell.contentView.layer.masksToBounds = true
+        }
+    }
 }
 
 extension CourseListView: UIGestureRecognizerDelegate {

@@ -78,7 +78,17 @@ class ClassDetailViewController: UIViewController {
                 return prev + (item.1 == "" ? "" : item.0 + item.1 + "\n")
             })
 
-        let detailString = pairs
+        var detailString = pairs
+
+        if course.classID.hasPrefix("-") {
+            detailString = [("课程类型: ", "蹭课"),
+                            ("授课教师: ", teacherString),
+                            ("开课学院: ", course.college)
+                ].reduce("", { (prev: String, item: (String, String)) -> String in
+                    return prev + (item.1 == "" ? "" : item.0 + item.1 + "\n")
+                })
+        }
+
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 10
         let attributedString = NSAttributedString(string: detailString, attributes: [NSAttributedStringKey.paragraphStyle: paragraphStyle])
