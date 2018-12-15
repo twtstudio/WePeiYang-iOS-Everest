@@ -55,6 +55,9 @@ class ClassTableCard: CardView {
                 cell.frame = CGRect(x: padding+(cellWidth+offset)*CGFloat(i), y: 95, width: cellWidth, height: cellHeight)
                 cell.tag = i
                 cells.append(cell)
+                cell.titleLabel.snp.updateConstraints { make in
+                    make.top.bottom.equalToSuperview().inset(1)
+                }
                 self.addSubview(cell)
             }
         } else {
@@ -101,7 +104,12 @@ class ClassTableCard: CardView {
                 offset = 1
             }
 
-            var courses = ClassTableHelper.getTodayCourse(table: table, offset: offset).filter { course in
+
+//            var courses = ClassTableHelper.getTodayCourse(table: table, offset: offset).filter { course in
+//                return course.courseName != ""
+//            }
+
+            var courses = AuditUser.shared.getTodayCourse(table: table, offset: offset).filter { course in
                 return course.courseName != ""
             }
 

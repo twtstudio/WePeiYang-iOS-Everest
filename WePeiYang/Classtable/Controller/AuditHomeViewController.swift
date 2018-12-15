@@ -253,168 +253,168 @@ extension AuditHomeViewController: UITableViewDataSource {
         }
     }
 }
-
-extension AuditHomeViewController {
-    @objc func search(_ sender: UIBarButtonItem) {
-        let searchVC = AuditSearchViewController()
-        self.navigationController?.pushViewController(searchVC, animated: true)
-    }
-    
-    @objc func refreshAuditList(_ notification: Notification) {
-        ClasstableDataManager.getPersonalAuditList(success: { model in
-            self.personalCourseList = []
-            model.data.forEach { list in
-                list.infos.forEach { item in
-                    self.personalCourseList.append(item)
-                }
-                
-            }
-            self.tableView.reloadSections(IndexSet(integer: 1), with: .none)
-        }, failure: { errStr in
-            
-        })
-    }
-}
-
-extension AuditHomeViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 45
-        } else {
-            return 130
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "热门课程"
-        } else {
-            return "我的蹭课"
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 40
-        } else {
-            return 30
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-       return nil
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 60
-        } else {
-            return 120
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        if isFold == true, indexPath.section == 0, indexPath.row == 3 {
-            self.isFold = false
-            self.tableView.reloadData()
-            return
-        }
-        
-        if indexPath.section == 0 {
-            let courseID = String(self.popularList[indexPath.row].courseID)
-            let detailVC = AuditDetailViewController(courseID: courseID)
-            self.navigationController?.pushViewController(detailVC, animated: true)
-        } else {
-            let item = self.personalCourseList[indexPath.row]
-            let popupVC = PopupDialog(title: "确定要取消蹭课吗？亲～", message: "取消蹭课：" + item.courseName, buttonAlignment: .horizontal, transitionStyle: .zoomIn)
-            let cancelButton = CancelButton(title: "我再想想", action: nil)
-            let deleteButton = DestructiveButton(title: "不想蹭了") {
-                AuditUser.shared.deleteCourse(infoIDs: [item.courseID], success: { items in
-                    SwiftMessages.showSuccessMessage(body: "删除成功")
-                    
-                    self.personalCourseList = items
-                    self.tableView.reloadData()
-                    NotificationCenter.default.post(name: NotificationName.NotificationClassTableWillRefresh.name, object: nil)
-                }, failure: { _ in
-                    
-                })
-            }
-            popupVC.addButtons([cancelButton, deleteButton])
-            self.present(popupVC, animated: true)
-        }
-    }
-}
-
-extension AuditHomeViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            if self.isFold == true {
-                return self.popularList.isEmpty ? 0 : 3 + 1
-            } else {
-                return self.popularList.count
-            }
-        } else {
-            return self.personalCourseList.count
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            if isFold == true {
-                if indexPath.row < 3 {
-                    let cell = UITableViewCell(style: .default, reuseIdentifier: PopularCourseCellIdentifier)
-                    cell.textLabel?.text = self.popularList[indexPath.row].course.name
-                    cell.imageView?.image = AuditCourseIcon
-                    return cell
-                } else {
-                    let cell = UITableViewCell(style: .default, reuseIdentifier: "CELL_default")
-                    cell.textLabel?.text = "展开热门课程"
-                    cell.textLabel?.textColor = .red
-                    return cell
-                }
-            } else {
-                let cell = UITableViewCell(style: .default, reuseIdentifier: PopularCourseCellIdentifier)
-                cell.textLabel?.text = self.popularList[indexPath.row].course.name
-                cell.imageView?.image = AuditCourseIcon
-                return cell
-            }
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AuditDetailCourseTableViewCell") as! AuditDetailCourseTableViewCell
-            let item = self.personalCourseList[indexPath.row]
-            cell.flagLabel.isHidden = true
-            
-            cell.nameLabel.text = item.courseName
-            cell.teacherLabel.text = item.teacher + " " + item.teacherType
-            let startWeek = item.startWeek
-            let endWeek = item.endWeek
-            var weekType = ""
-            
-            if item.weekType == 1 {
-                weekType = "单周"
-            } else if item.weekType == 2 {
-                weekType = "双周"
-            } else if item.weekType == 3 {
-                weekType = "单双周"
-            }
-            
-            cell.weekTimeLabel.text = "第 " + String(startWeek) + "-" + String(endWeek) + " 周  " + weekType
-            let dayTime = self.dayTitles[item.weekDay - 1]
-            let startTime = item.startTime
-            let endTime = item.startTime + item.courseLength - 1
-            cell.dayTimeLabel.text = dayTime + " " + String(startTime) + "-" + String(endTime) + " 节"
-            cell.locationLabel.text = item.building + "楼" + item.room
-            cell.collegeLabel.text = item.courseCollege
-            
-            return cell
-        }
-    }
-}
+//
+//extension AuditHomeViewController {
+//    @objc func search(_ sender: UIBarButtonItem) {
+//        let searchVC = AuditSearchViewController()
+//        self.navigationController?.pushViewController(searchVC, animated: true)
+//    }
+//
+//    @objc func refreshAuditList(_ notification: Notification) {
+//        ClasstableDataManager.getPersonalAuditList(success: { model in
+//            self.personalCourseList = []
+//            model.data.forEach { list in
+//                list.infos.forEach { item in
+//                    self.personalCourseList.append(item)
+//                }
+//
+//            }
+//            self.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+//        }, failure: { errStr in
+//
+//        })
+//    }
+//}
+//
+//extension AuditHomeViewController: UITableViewDelegate {
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        if indexPath.section == 0 {
+//            return 45
+//        } else {
+//            return 130
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        if section == 0 {
+//            return "热门课程"
+//        } else {
+//            return "我的蹭课"
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        if section == 0 {
+//            return 40
+//        } else {
+//            return 30
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//       return nil
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        if section == 0 {
+//            return 60
+//        } else {
+//            return 120
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        return UIView()
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        if isFold == true, indexPath.section == 0, indexPath.row == 3 {
+//            self.isFold = false
+//            self.tableView.reloadData()
+//            return
+//        }
+//
+//        if indexPath.section == 0 {
+//            let courseID = String(self.popularList[indexPath.row].courseID)
+//            let detailVC = AuditDetailViewController(courseID: courseID)
+//            self.navigationController?.pushViewController(detailVC, animated: true)
+//        } else {
+//            let item = self.personalCourseList[indexPath.row]
+//            let popupVC = PopupDialog(title: "确定要取消蹭课吗？亲～", message: "取消蹭课：" + item.courseName, buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+//            let cancelButton = CancelButton(title: "我再想想", action: nil)
+//            let deleteButton = DestructiveButton(title: "不想蹭了") {
+//                AuditUser.shared.deleteCourse(infoIDs: [item.courseID], success: { items in
+//                    SwiftMessages.showSuccessMessage(body: "删除成功")
+//
+//                    self.personalCourseList = items
+//                    self.tableView.reloadData()
+//                    NotificationCenter.default.post(name: NotificationName.NotificationClassTableWillRefresh.name, object: nil)
+//                }, failure: { _ in
+//
+//                })
+//            }
+//            popupVC.addButtons([cancelButton, deleteButton])
+//            self.present(popupVC, animated: true)
+//        }
+//    }
+//}
+//
+//extension AuditHomeViewController: UITableViewDataSource {
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 2
+//    }
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        if section == 0 {
+//            if self.isFold == true {
+//                return self.popularList.isEmpty ? 0 : 3 + 1
+//            } else {
+//                return self.popularList.count
+//            }
+//        } else {
+//            return self.personalCourseList.count
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        if indexPath.section == 0 {
+//            if isFold == true {
+//                if indexPath.row < 3 {
+//                    let cell = UITableViewCell(style: .default, reuseIdentifier: PopularCourseCellIdentifier)
+//                    cell.textLabel?.text = self.popularList[indexPath.row].course.name
+//                    cell.imageView?.image = AuditCourseIcon
+//                    return cell
+//                } else {
+//                    let cell = UITableViewCell(style: .default, reuseIdentifier: "CELL_default")
+//                    cell.textLabel?.text = "展开热门课程"
+//                    cell.textLabel?.textColor = .red
+//                    return cell
+//                }
+//            } else {
+//                let cell = UITableViewCell(style: .default, reuseIdentifier: PopularCourseCellIdentifier)
+//                cell.textLabel?.text = self.popularList[indexPath.row].course.name
+//                cell.imageView?.image = AuditCourseIcon
+//                return cell
+//            }
+//        } else {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "AuditDetailCourseTableViewCell") as! AuditDetailCourseTableViewCell
+//            let item = self.personalCourseList[indexPath.row]
+//            cell.flagLabel.isHidden = true
+//
+//            cell.nameLabel.text = item.courseName
+//            cell.teacherLabel.text = item.teacher + " " + item.teacherType
+//            let startWeek = item.startWeek
+//            let endWeek = item.endWeek
+//            var weekType = ""
+//
+//            if item.weekType == 1 {
+//                weekType = "单周"
+//            } else if item.weekType == 2 {
+//                weekType = "双周"
+//            } else if item.weekType == 3 {
+//                weekType = "单双周"
+//            }
+//
+//            cell.weekTimeLabel.text = "第 " + String(startWeek) + "-" + String(endWeek) + " 周  " + weekType
+//            let dayTime = self.dayTitles[item.weekDay - 1]
+//            let startTime = item.startTime
+//            let endTime = item.startTime + item.courseLength - 1
+//            cell.dayTimeLabel.text = dayTime + " " + String(startTime) + "-" + String(endTime) + " 节"
+//            cell.locationLabel.text = item.building + "楼" + item.room
+//            cell.collegeLabel.text = item.courseCollege
+//
+//            return cell
+//        }
+//    }
+//}

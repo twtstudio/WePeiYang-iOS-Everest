@@ -81,7 +81,7 @@ class AuditUser {
             }
             auditCourse.arrange[0].day = item.weekDay
             auditCourse.arrange[0].room = item.building + "楼" + item.room
-            auditCourse.courseName = "[蹭课] " + item.courseName
+            auditCourse.courseName = "蹭∙" + item.courseName
             auditCourse.weekStart = String(item.startWeek)
             auditCourse.weekEnd = String(item.endWeek)
 //            auditCourse.teacher = item.teacher + "  " + item.teacherType
@@ -242,21 +242,55 @@ class AuditUser {
                         var model = self.courseMappingDic[courseList.undisplayCourses[week].first!]!
                         model.courseName = "[非本周]" + model.courseName
                         model.isDisplay = false
+                        let courseEnd = model.arrange.first!.end
                         //
                         model.undispalyCourses = courseList.undisplayCourses[week]
+
+                        for i in (index + 1)...model.arrange.first!.end {
+                            let currentCourseList = self.courseTable[day + 1][i]
+                            model.displayCourses += currentCourseList.displayCourses[week]
+                            model.undispalyCourses += currentCourseList.undisplayCourses[week]
+                        }
+
+                        if model.displayCourses.count != 0 {
+                            var currentModel = self.courseMappingDic[model.displayCourses.first!]!
+                            currentModel.displayCourses = model.displayCourses
+                            currentModel.undispalyCourses = model.undispalyCourses
+                            model = currentModel
+
+                            for _ in index...(model.arrange.first!.start - 1) {
+                                let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(day)\", \"start\":\"\(index)\", \"end\":\"\(index)\"}], \"isPlaceholder\": \"\(true)\"}")!
+                                classModels[day].append(placeholder)
+                            }
+                        }
+
                         classModels[day].append(model)
-                        index = model.arrange.first!.end + 1
+                        if model.arrange.first!.end < courseEnd {
+                            for _ in (model.arrange.first!.end + 1)...courseEnd {
+                                let placeholder = ClassModel(JSONString: "{\"arrange\": [{\"day\": \"\(day)\", \"start\":\"\(index)\", \"end\":\"\(index)\"}], \"isPlaceholder\": \"\(true)\"}")!
+                                classModels[day].append(placeholder)
+                            }
+                        }
+                        index = max(model.arrange.first!.end, courseEnd) + 1
                     }
                 } else {
                     var model = self.courseMappingDic[courseList.displayCourses[week].first!]!
                     //
                     model.displayCourses = courseList.displayCourses[week]
                     model.undispalyCourses = courseList.undisplayCourses[week]
+
+                    for i in (index + 1)...model.arrange.first!.end {
+                        let currentCourseList = self.courseTable[day + 1][i]
+                        model.displayCourses += currentCourseList.displayCourses[week]
+                        model.undispalyCourses += currentCourseList.undisplayCourses[week]
+                    }
+
                     classModels[day].append(model)
                     index = model.arrange.first!.end + 1
                 }
             }
         }
+
         return classModels
     }
 
@@ -275,6 +309,34 @@ class AuditUser {
             }
         }
         return classList
+    }
+
+    func getTodayCourse(table: ClassTableModel, offset: Int = 0) -> [ClassModel] {
+        let now = Date()
+        let termStart = Date(timeIntervalSince1970: Double(table.termStart))
+        let week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
+        let currentWeek = Int(week)
+        let cal = Calendar.current
+        var weekday = cal.component(.weekday, from: now)
+
+        // offset天以后
+        weekday += offset
+        weekday = (weekday - 1) % 7 + 1
+
+        // 周日
+        if weekday == 1 {
+            weekday = 6
+        } else {
+            weekday -= 2
+        }
+
+        self.updateCourseTable(table: table)
+        let courseForDay = self.getCourseListModel(week: currentWeek)
+        let courses = courseForDay[weekday]
+        return courses
+//        let courseForDay = getCourse(table: table, week: currentWeek)
+//        let courses = courseForDay[weekday]
+//        return courses
     }
 
 }
