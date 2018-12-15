@@ -19,7 +19,7 @@ class LFDetailViewController: UIViewController {
     var id = 0
     var Y = 30
 
-    let detailImageArray = ["详情 时间", "详情 地点", "详情 分类", "详情 姓名", "详情 联系方式", "附言"]
+    let detailImageArray = [#imageLiteral(resourceName: "LFTime"), #imageLiteral(resourceName: "LFLocation"), #imageLiteral(resourceName: "LFObject"), #imageLiteral(resourceName: "LFLook"), #imageLiteral(resourceName: "LFPencil"), #imageLiteral(resourceName: "LFBlueCategory")] //"详情 时间", "详情 地点", "详情 分类", "详情 姓名", "详情 联系方式", "附言"]
     var markArray = ["身份证", "饭卡", "手机", "钥匙", "书包", "手表&饰品", "U盘&硬盘", "水杯", "钱包", "银行卡", "书", "伞", "其他"]
     
 //    var detailArray: [LostFoundDetailModel] = []
@@ -178,9 +178,9 @@ class LFDetailViewController: UIViewController {
                 make.bottom.equalToSuperview().offset(-40)
             }
             
-            for (index, name) in self.detailImageArray.enumerated() {
-                let imageView = UIImageView(image: UIImage(named: name))
-                
+            for (index, image) in self.detailImageArray.enumerated() {
+                let imageView = UIImageView(image: image)
+                imageView.contentMode = .scaleAspectFill
                 self.view.addSubview(imageView)
                 imageView.snp.makeConstraints { make in
                     make.left.equalToSuperview().offset(50)
