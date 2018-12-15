@@ -426,7 +426,7 @@ extension ClassTableViewController {
 
             // day, index
             for course in classes {
-                if course.courseName == "" || course.arrange.first!.day > 5 || course.arrange.first!.day <= 0 || i < Int(course.weekStart)! || i > Int(course.weekEnd)! {
+                if course.courseName == "" || course.arrange.first!.day > 5 || course.arrange.first!.day <= 0 || i < Int(course.weekStart)! || i > Int(course.weekEnd)! || course.courseName.hasPrefix("[非本周]") {
                     continue
                 }
 
