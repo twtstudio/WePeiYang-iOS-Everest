@@ -70,10 +70,6 @@ class PublishLostViewController: UIViewController, UITextFieldDelegate {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.view.addSubview(tableView)
         
-        let tableVC = UITableViewController(style: .grouped)
-        tableVC.tableView = self.tableView
-        self.addChildViewController(tableVC)
-        
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = UIColor(hex6: 0x00a1e9)
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).font = UIFont.systemFont(ofSize: 15)
         
