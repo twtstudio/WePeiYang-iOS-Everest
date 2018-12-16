@@ -180,7 +180,7 @@ class LFDetailViewController: UIViewController {
             
             for (index, image) in self.detailImageArray.enumerated() {
                 let imageView = UIImageView(image: image)
-                imageView.contentMode = .scaleAspectFill
+                imageView.contentMode = .scaleToFill
                 self.view.addSubview(imageView)
                 imageView.snp.makeConstraints { make in
                     make.left.equalToSuperview().offset(50)
