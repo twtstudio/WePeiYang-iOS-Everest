@@ -190,14 +190,17 @@ class LFDetailViewController: UIViewController {
             }
             
             if let picture = detailData.picture {
-                if picture[0] == "" {
-                    self.detailImageView.image = #imageLiteral(resourceName: "LFNoImage")
-                } else {
-                    self.imageURL = picture[0]
-                    // let TWT_URL = "http://open.twtstudio.com/"
-                    self.detailImageView.sd_setImage(with: URL(string: TWT_URL + self.imageURL))
-                    self.image = TWT_URL + self.imageURL
-                }
+//                if picture[0] == "" {
+//                    self.detailImageView.image = #imageLiteral(resourceName: "LFNoImage")
+//                } else {
+//                    self.imageURL = picture[0]
+//                    // let TWT_URL = "http://open.twtstudio.com/"
+//                    self.detailImageView.sd_setImage(with: URL(string: TWT_URL + self.imageURL))
+//                    self.image = TWT_URL + self.imageURL
+//                }
+                self.detailImageView.sd_setImage(with: URL(string: TWT_URL + picture[0]), placeholderImage: #imageLiteral(resourceName: "LFNoImage"))
+            } else {
+                self.detailImageView.image = #imageLiteral(resourceName: "LFNoImage")
             }
             
             self.detailTitleLabel.text = detailData.title!
