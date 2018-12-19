@@ -50,8 +50,6 @@ struct WPYAnalyticsAOP {
 
 
     static let collectionClickArr: [String] = ["collection 界面点击 GPA 模块", "collection 界面点击课程表模块", "collection 界面点击自行车模块", "collection 界面点击党建模块", "collection 界面点击商城模块", "collection 界面点击黄页模块", "collection 界面点击上网模块", "collection 界面点击图书馆模块"]
-
-
 }
 
 extension UIApplication {
@@ -73,10 +71,11 @@ extension UIApplication {
         if let targetVC = target as? UIViewController {
             let pageName = String(describing: type(of: targetVC.self))
             if let pageDic = WPYAnalyticsAOP.clickEventDic[pageName], let actionName = pageDic[NSStringFromSelector(action)] {
-                log(actionName)
+                //log(actionName)
+                MTA.trackCustomKeyValueEvent("click", props: ["name": actionName])
             }
         }
-
+        return self.swizzled_sendAction(action, to: target, from: sender, for: event)
 //        var count: UInt32 = 0
 //        let list = class_copyIvarList(object_getClass(sender), &count)
 //        for i in 0..<Int(count) {
@@ -86,7 +85,6 @@ extension UIApplication {
 //            log("\n\(String.init(cString: name!))" + "--------------------" + "\(String.init(cString: type!))\n")
 //
 //        }
-        return self.swizzled_sendAction(action, to: target, from: sender, for: event)
     }
 }
 
@@ -133,19 +131,25 @@ extension UITableView {
             switch VC {
             case is SettingsViewController:
                 if indexPath.section == 1 {
-                    log("【设置】点击设置")
+                    //log("【设置】点击设置")
+                    MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击设置"])
                 } else {
                     let row = indexPath.row
                     if row == 0 {
-                        log("【设置】点击图书馆")
+                        //log("【设置】点击图书馆")
+                        MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击图书馆"])
                     } else if row == 1 {
-                        log("【设置】点击自行车")
+                        //log("【设置】点击自行车")
+                        MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击自行车"])
                     } else if row == 2 {
-                        log("【设置】点击办公网")
+                        //log("【设置】点击办公网")
+                        MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击办公网"])
                     } else if row == 3 {
-                        log("【设置】点击校园网")
+                        //log("【设置】点击校园网")
+                        MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击校园网"])
                     } else if row == 4 {
-                        log("【设置】点击校园卡")
+                        //log("【设置】点击校园卡")
+                        MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击校园卡"])
                     }
                 }
             case is DetailSettingViewController:
@@ -153,29 +157,39 @@ extension UITableView {
                 switch indexPath.section {
                 case 0:
                     if row == 0 {
-                        log("【设置】点击课表提醒设置")
+                        //log("【设置】点击课表提醒设置")
+                        MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击课表提醒设置"])
                     } else if row == 1 {
-                        log("【设置】点击摇一摇登录校园网")
+                        //log("【设置】点击摇一摇登录校园网")
+                        MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击摇一摇登录校园网"])
                     } else if row == 2 {
-                        log("【设置】点击模块设置")
+                        //log("【设置】点击模块设置")
+                        MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击模块设置"])
                     }
                 case 1:
                     if row == 0 {
-                        log("【设置】点击加入我们")
+                        //log("【设置】点击加入我们")
+                        MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击加入我们"])
                     } else if row == 1 {
-                        log("【设置】点击用户协议")
+                        //log("【设置】点击用户协议")
+                        MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击用户协议"])
                     } else if row == 2 {
-                        log("【设置】点击建议与反馈")
+                        //log("【设置】点击建议与反馈")
+                        MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击建议与反馈"])
                     } else if row == 3 {
-                        log("【设置】点击加入 QQ 反馈群")
+                        //log("【设置】点击加入 QQ 反馈群")
+                        MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击加入 QQ 反馈群"])
                     }
                 case 2:
                     if row == 0 {
-                        log("【设置】点击推荐给朋友")
+                        //log("【设置】点击推荐给朋友")
+                        MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击推荐给朋友"])
                     } else if row == 1 {
-                        log("【设置】点击给微北洋评分")
+                        //log("【设置】点击给微北洋评分")
+                        MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击给微北洋评分"])
                     } else if row == 2 {
-                        log("【设置】点击po退出登录")
+                        //log("【设置】点击退出登录")
+                        MTA.trackCustomKeyValueEvent("click", props: ["name": "【设置】点击退出登录"])
                     }
                 default :
                     break;
@@ -227,11 +241,13 @@ extension UICollectionView {
     @objc private func swizzled_collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.swizzled_collectionView(collectionView, didSelectItemAt: indexPath)
 
-        let row = indexPath.row
-        if row < WPYAnalyticsAOP.collectionClickArr.count {
-            log(WPYAnalyticsAOP.collectionClickArr[row])
+        if let VC = WPYAnalyticsAOP.findViewController(source: collectionView), VC is AllModulesViewController {
+            let row = indexPath.row
+            if row < WPYAnalyticsAOP.collectionClickArr.count {
+                //log(WPYAnalyticsAOP.collectionClickArr[row])
+                MTA.trackCustomKeyValueEvent("click", props: ["name": WPYAnalyticsAOP.collectionClickArr[row]])
+            }
         }
-
     }
 }
 
@@ -295,7 +311,7 @@ extension UIViewController {
 
         let pageName = String(describing: self.classForCoder)
         if WPYAnalyticsAOP.pageTimeSet.contains(pageName) {
-            log(pageName)
+            //log(pageName)
             MTA.trackPageViewBegin(pageName)
         }
     }
@@ -305,7 +321,7 @@ extension UIViewController {
 
         let pageName = String(describing: self.classForCoder)
         if WPYAnalyticsAOP.pageTimeSet.contains(pageName) {
-            log(pageName)
+            //log(pageName)
             MTA.trackPageViewEnd(pageName)
         }
 
@@ -316,40 +332,40 @@ extension UIViewController {
 
         switch self {
         case is FavViewController:
-            log("进入首页的卡片页面")
+            //log("进入首页的卡片页面")
             MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入首页的卡片页面"])
         case is AllModulesViewController:
-            log("进入首页的collection页面")
+            //log("进入首页的collection页面")
             MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入首页的 collection 页面"])
         case is NewsViewController:
-            log("进入首页的新闻页面")
+            //log("进入首页的新闻页面")
             MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入首页的新闻页面"])
         case is SettingsViewController:
-            log("进入首页的设置页面")
+            //log("进入首页的设置页面")
             MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入首页的设置页面"])
         case is NewsDetailViewController:
-            log("进入新闻的详情页面")
+            //log("进入新闻的详情页面")
             MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入新闻的详情页面"])
         case is MallViewController:
-            log("进入天外天商城页面")
+            //log("进入天外天商城页面")
             MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入天外天商城页面"])
         case is BicycleServiceViewController:
-            log("进入自行车页面")
+            //log("进入自行车页面")
             MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入自行车页面"])
         case is WLANLoginViewController:
-            log("进入上网页面")
+            //log("进入上网页面")
             MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入上网页面"])
         case is LibraryBorrowViewController:
-            log("进入图书馆已借阅页面")
+            //log("进入图书馆已借阅页面")
             MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入图书馆已借阅页面"])
         case is LibraryListViewController:
-            log("进入图书馆借阅统计页面")
+            //log("进入图书馆借阅统计页面")
             MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入图书馆借阅统计页面"])
         case is LibraryReadViewController:
-            log("进入图书馆阅读板块页面")
+            //log("进入图书馆阅读板块页面")
             MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入图书馆阅读板块页面"])
         case is BookDetailViewController:
-            log("进入图书详情页面")
+            //log("进入图书详情页面")
             MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入图书详情页面"])
         case is LibraryMainViewController:
             if self.navigationController?.viewControllers.first is LibraryMainViewController {
@@ -377,14 +393,14 @@ extension UIViewController {
                 MTA.trackCustomKeyValueEvent("expose", props: ["name": "从 collection 页面进入校园卡"])
             }
         case is YellowPageMainViewController:
-            log("进入黄页主页面")
+            //log("进入黄页主页面")
             MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入黄页主页面"])
         case is YellowPageSearchViewController:
-            log("进入黄页搜索页面")
+            //log("进入黄页搜索页面")
             MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入黄页搜索页面"])
         case is YellowPageDetailViewController:
             if let title = self.navigationItem.title {
-                log("进入黄页\(title)页面")
+                //log("进入黄页\(title)页面")
                 MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入黄页\(title)页面"])
             }
         default:
