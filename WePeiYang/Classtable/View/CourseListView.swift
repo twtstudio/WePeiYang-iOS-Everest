@@ -248,7 +248,9 @@ class CourseListView: UIView {
                     let colletionView = CourseCollectionView(classModels: models, frame: CGRect.zero)
                     self.emptyView.addSubview(colletionView)
                     colletionView.showsVerticalScrollIndicator = false
-                    colletionView.alwaysBounceVertical = true
+                    if models.count > 2 {
+                        colletionView.alwaysBounceVertical = true
+                    }
                     colletionView.courseDelegate = self.delegate
                     colletionView.snp.makeConstraints { make in
                         make.edges.equalToSuperview()

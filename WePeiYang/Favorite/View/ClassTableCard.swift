@@ -130,8 +130,8 @@ class ClassTableCard: CardView {
                 if let course = course {
                     let index = courses.index { m in
                         return m.classID == course.classID &&
-                            m.arrange.first?.start ==  course.arrange.first?.start &&
-                            m.arrange.first?.end ==  course.arrange.first?.end
+                            m.arrange.first?.start == course.arrange.first?.start &&
+                            m.arrange.first?.end == course.arrange.first?.end
                     }
                     courses.remove(at: index!)
                     self.cells[idx].dismissIdle()
