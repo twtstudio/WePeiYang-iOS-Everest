@@ -67,7 +67,6 @@ extension AuditDetailViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-
         let cell = tableView.cellForRow(at: indexPath) as! AuditDetailCourseTableViewCell
         if cell.isConflict == true {
             //let courseName = self.detailCourseList[indexPath.row].courseName

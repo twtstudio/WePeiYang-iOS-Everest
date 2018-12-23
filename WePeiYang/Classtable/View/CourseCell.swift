@@ -10,6 +10,15 @@ import UIKit
 
 class CourseCell: UITableViewCell {
     var titleLabel = UILabel()
+    var flagLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13.0, weight: UIFont.Weight.regular)
+        label.text = "多节"
+        label.textColor = .black
+        label.backgroundColor = UIColor(hex6: 0xBDBDBD)
+        label.textAlignment = .center
+        return label
+    }()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -27,22 +36,42 @@ class CourseCell: UITableViewCell {
         titleLabel.numberOfLines = 0
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
+
 //        titleLabel.adjustsFontSizeToFitWidth = true
 
         contentView.layer.cornerRadius = 4
         contentView.layer.masksToBounds = true
 
+
+        //titleLabel.layer.masksToBounds = true
+
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(3)
-            make.left.equalToSuperview().offset(3)
-            make.right.equalToSuperview().offset(-3)
-            make.bottom.equalToSuperview().offset(-3)
+            make.left.right.equalToSuperview().inset(2)
+//            make.bottom.top.equalToSuperview().inset(20)
+            make.bottom.top.equalToSuperview().inset(1)
         }
 
         contentView.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().offset(1)
-            make.bottom.right.equalToSuperview().offset(-1)
+            make.left.right.equalToSuperview().inset(2)
+            make.bottom.top.equalToSuperview().inset(3)
         }
+
+        let fitSize = flagLabel.systemLayoutSizeFitting(CGSize(width: 100, height: 10), withHorizontalFittingPriority: UILayoutPriority.fittingSizeLevel, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
+
+        let centerXY: CGFloat = (fitSize.width + fitSize.height) / (2 * sqrt(2))
+        flagLabel.frame = CGRect(x: 0, y: fitSize.width / 1.41, width: fitSize.width + 40, height: fitSize.height)
+        flagLabel.center = CGPoint(x: centerXY, y: centerXY)
+        self.contentView.addSubview(flagLabel)
+//        let oldFrame = flagLabel.frame
+//        flagLabel.layer.anchorPoint = CGPoint(x: 0, y: 0)
+//        flagLabel.layer.frame = oldFrame
+        flagLabel.transform = CGAffineTransform(rotationAngle: -CGFloat(Float.pi / 4))
+        flagLabel.isHidden = true
+
+    }
+
+    override func draw(_ rect: CGRect) {
+
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -74,19 +103,35 @@ class CourseCell: UITableViewCell {
     func load(course: ClassModel) {
         if course.classID == "" && course.courseID == "" {
             self.alpha = 0
+            self.flagLabel.isHidden = true
         } else {
             self.alpha = 1
             let colors = Metadata.Color.fluentColors
 
+            if course.displayCourses.count + course.undispalyCourses.count < 2 {
+                self.flagLabel.isHidden = true
+//                if course.displayCourses.count == 0 {
+//                    self.flagLabel.alpha = 0.7
+//                } else {
+//                    self.flagLabel.alpha = 1
+//                }
+            } else {
+                self.flagLabel.isHidden = false
+            }
+
             // 确保安全
             let index = course.colorIndex % colors.count
-
+            contentView.backgroundColor = colors[index]
             if course.isDisplay == false {
-                titleLabel.textColor = UIColor.gray.withAlphaComponent(0.7)
+                titleLabel.textColor = .lightGray
                 contentView.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
+                flagLabel.textColor = .gray
+                flagLabel.backgroundColor = UIColor.white.withAlphaComponent(0.6)
             } else {
                 titleLabel.textColor = .white
-                contentView.backgroundColor = colors[index].withAlphaComponent(0.7)
+                contentView.backgroundColor = colors[index].withAlphaComponent(0.8)
+                flagLabel.textColor = UIColor.black.withAlphaComponent(0.2)
+                flagLabel.backgroundColor = UIColor.white.withAlphaComponent(0.2)
             }
 
             var name = course.courseName

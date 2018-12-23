@@ -51,6 +51,7 @@ class LibraryListViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         for i in 0...2 {
             buttons[i].addCorner(roundingCorners: [.topRight, .topLeft], cornerSize: CGSize(width: 10, height: 10))
         }

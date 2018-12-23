@@ -248,7 +248,9 @@ class CourseListView: UIView {
                     let colletionView = CourseCollectionView(classModels: models, frame: CGRect.zero)
                     self.emptyView.addSubview(colletionView)
                     colletionView.showsVerticalScrollIndicator = false
-                    colletionView.alwaysBounceVertical = true
+                    if models.count > 2 {
+                        colletionView.alwaysBounceVertical = true
+                    }
                     colletionView.courseDelegate = self.delegate
                     colletionView.snp.makeConstraints { make in
                         make.edges.equalToSuperview()
@@ -300,6 +302,11 @@ extension CourseListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let model = coursesForDay[tableView.tag][indexPath.row]
         return CGFloat(model.arrange[0].length) * C.cellHeight
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let courseCell = cell as? CourseCell {
+            courseCell.contentView.layer.masksToBounds = true
+        }
     }
 }
 

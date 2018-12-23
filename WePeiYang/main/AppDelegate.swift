@@ -18,6 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var arWindow: UIWindow!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        MTA.start(withAppkey: "IUY2I5P1Y3VI")
+        UIApplication.beginSwizzling()
+        UIViewController.beginSwizzling()
+        UITableView.beginSwizzling()
+        UICollectionView.beginSwizzling()
+
+        MTA.trackCustomKeyValueEvent("expose", props: ["name": "一条测试哦"])
+
         window = UIWindow(frame: UIScreen.main.bounds)
 
         UIApplication.shared.applicationIconBadgeNumber = 0
