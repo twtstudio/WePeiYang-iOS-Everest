@@ -24,13 +24,13 @@ DEPENDENCIES:
   - Charts (= 3.1)
   - IGIdenticon (= 0.5.0)
   - JBChartView (= 3.0.13)
-  - KeychainAccess
+  - KeychainAccess (= 3.1.2)
   - MJRefresh (= 3.1.15.7)
   - ObjectMapper (= 3.3.0)
   - PopupDialog (= 0.7.1)
   - SDWebImage (= 4.4.2)
   - SnapKit (= 4.0.1)
-  - SwiftLint
+  - SwiftLint (= 0.27.0)
   - SwiftMessages (= 4.1.0)
   - WMPageController (= 2.3.0)
 
@@ -50,6 +50,6 @@ SPEC CHECKSUMS:
   SwiftMessages: 1bacc783c8f10bdfdc57c14860cae8a1f1fa6591
   WMPageController: 9f219bb8912a1a1f51af11fde61e2682a7b7e7f2
 
-PODFILE CHECKSUM: 50476c92a294715b1bedd013a6c2b58597253fe3
+PODFILE CHECKSUM: 16decd39612f53878530f2a50c9e5c483dc30634
 
 COCOAPODS: 1.4.0
