@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var mainTabVC: WPYTabBarController!
+    var arWindow: UIWindow!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -91,8 +92,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 //        window?.backgroundColor = .white
         window?.rootViewController = mainTabVC
-        //UINavigationController(rootViewController: mainTabVC)
         window?.makeKeyAndVisible()
+
+        if #available(iOS 11.0, *) {
+            let ARModeEnabledKey = "ARModeEnabledKey"
+            if UserDefaults.standard.bool(forKey: ARModeEnabledKey) {
+                arWindow = ARKeyWindow()
+                arWindow.makeKeyAndVisible()
+            }
+        }
 
         registerAppNotification(launchOptions: launchOptions)
         registerShortcutItems()

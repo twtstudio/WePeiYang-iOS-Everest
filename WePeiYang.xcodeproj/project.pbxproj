@@ -33,6 +33,7 @@
 		361F8862204AF94200BCFA19 /* NewsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F8860204AF94200BCFA19 /* NewsHeaderView.swift */; };
 		361F8863204AF94200BCFA19 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F8861204AF94200BCFA19 /* NewsTableViewCell.swift */; };
 		361F8867204AF9AA00BCFA19 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F8866204AF9AA00BCFA19 /* NewsViewController.swift */; };
+		362B055221CD52A000B370E7 /* ARKeyWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362B055121CD52A000B370E7 /* ARKeyWindow.swift */; };
 		3631D50A1F1903D70078816D /* TwTUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3631D5091F1903D70078816D /* TwTUser.swift */; };
 		36366B2E1FAB86B0001F72A0 /* BicycleServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36366B2D1FAB86B0001F72A0 /* BicycleServiceViewController.swift */; };
 		36366B2F1FAB8A84001F72A0 /* BicycleServiceInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5D6952E1F8A21AD00022B9A /* BicycleServiceInfoController.xib */; };
@@ -297,6 +298,7 @@
 		361F8860204AF94200BCFA19 /* NewsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsHeaderView.swift; sourceTree = "<group>"; };
 		361F8861204AF94200BCFA19 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		361F8866204AF9AA00BCFA19 /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		362B055121CD52A000B370E7 /* ARKeyWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARKeyWindow.swift; sourceTree = "<group>"; };
 		3631D5091F1903D70078816D /* TwTUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwTUser.swift; sourceTree = "<group>"; };
 		36366B2D1FAB86B0001F72A0 /* BicycleServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BicycleServiceViewController.swift; sourceTree = "<group>"; };
 		36366B351FAC61B6001F72A0 /* WePeiYang.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WePeiYang.entitlements; sourceTree = "<group>"; };
@@ -1038,6 +1040,7 @@
 				B102540B1EC8520A0064373A /* ClassExtensions.swift */,
 				3613DA212056F740000867AE /* UniversalExtension.swift */,
 				B102540C1EC8520A0064373A /* Info.plist */,
+				362B055121CD52A000B370E7 /* ARKeyWindow.swift */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -1802,6 +1805,7 @@
 				364922A120260CDC00DFDC35 /* LibraryModel.swift in Sources */,
 				363D0A701FE006990095DA57 /* LibraryCardDataProvider.swift in Sources */,
 				A5E117B71F99DC9400C86CA2 /* NotificationList.swift in Sources */,
+				362B055221CD52A000B370E7 /* ARKeyWindow.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
 				36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */,
 				DD41A82F21A3265800886BB4 /* PopularListModel.swift in Sources */,
