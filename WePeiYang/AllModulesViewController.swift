@@ -20,7 +20,9 @@ class AllModulesViewController: UIViewController {
 //        (title: "阅读", image: UIImage(named: "readBtn")!, class: ReadViewController.self, needLogin: true),
         (title: "黄页", image: UIImage(named: "yellowPageBtn")!, class: YellowPageMainViewController.self, needLogin: false),
         (title: "上网", image: UIImage(named: "networkBtn")!, class: WLANLoginViewController.self, needLogin: true),
-        (title: "图书馆", image: UIImage(named: "libBtn")!, class: LibraryMainViewController.self, needLogin: true)]
+        (title: "图书馆", image: UIImage(named: "libBtn")!, class: LibraryMainViewController.self, needLogin: true),
+        (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self, needLogin: true)]
+
     var collectionView: UICollectionView!
 
     override func viewDidLoad() {
