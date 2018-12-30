@@ -262,10 +262,10 @@ extension FavViewController {
         let card = ExamCard()
         card.delegate = self
         card.refresh()
-        card.shouldPresent(CardTransactionViewController.self, from: self)
+        card.shouldPresent(ExamtableController.self, from: self)
         cardDict[Module.exam] = card
     }
-}Module.
+}
 
 extension FavViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {

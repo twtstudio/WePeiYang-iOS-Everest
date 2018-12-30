@@ -11,7 +11,7 @@ import Foundation
 struct BaseResponse<T>: Codable where T: Codable {
     let errorCode: Int
     let message: String
-    let data: [T]
+    let data: T
 
     enum CodingKeys: String, CodingKey {
         case errorCode = "error_code"

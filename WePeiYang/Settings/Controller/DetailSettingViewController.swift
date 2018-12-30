@@ -34,7 +34,7 @@ class DetailSettingViewController: UIViewController {
     var tableView: UITableView!
     var titles: [(String, [SettingTitle])] = [
         //        ("设置", [.notification, .modules, .accounts]),
-        ("设置", [.classtable, .shakeWiFi, .modules, .armode]),
+        ("设置", [.classtable, .shakeWiFi, .modules]),
         ("关于", [.join, .EULA, .feedback, .qqGroup]),
         ("其他", [.share, .rate, .quit])]
 

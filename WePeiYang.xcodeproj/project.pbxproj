@@ -18,6 +18,11 @@
 		3613DA1E2056F696000867AE /* SwiftMessagesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */; };
 		3613DA222056F740000867AE /* UniversalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA212056F740000867AE /* UniversalExtension.swift */; };
 		3613DA232056F745000867AE /* UniversalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613DA212056F740000867AE /* UniversalExtension.swift */; };
+		3614D54721D9251A0007B886 /* ExamtableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3614D54021D9251A0007B886 /* ExamtableController.swift */; };
+		3614D54821D9251A0007B886 /* ExamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3614D54221D9251A0007B886 /* ExamModel.swift */; };
+		3614D54921D9251A0007B886 /* ExamAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3614D54321D9251A0007B886 /* ExamAssistant.swift */; };
+		3614D54A21D9251A0007B886 /* ExamTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3614D54521D9251A0007B886 /* ExamTableViewCell.swift */; };
+		3614D54B21D9251A0007B886 /* ExamTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3614D54621D9251A0007B886 /* ExamTableViewCell.xib */; };
 		3615A9C521AC80FC001D1522 /* ECardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3615A9C421AC80FC001D1522 /* ECardView.swift */; };
 		3615A9C721AC825E001D1522 /* ECardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3615A9C621AC825E001D1522 /* ECardModel.swift */; };
 		3615A9CA21ACEBDC001D1522 /* CardTransectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3615A9C921ACEBDC001D1522 /* CardTransectionViewController.swift */; };
@@ -85,11 +90,7 @@
 		36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E811FA4BAD00036766B /* GradeCheckViewController.swift */; };
 		36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E821FA4BAD00036766B /* AllQuizViewController.swift */; };
 		3644E1FC21D8DB09001F13F9 /* ExamCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644E1FB21D8DB09001F13F9 /* ExamCard.swift */; };
-		3644E1FE21D8DE0A001F13F9 /* ExamAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644E1FD21D8DE0A001F13F9 /* ExamAssistant.swift */; };
-		3644E20021D8DE87001F13F9 /* ExamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644E1FF21D8DE87001F13F9 /* ExamModel.swift */; };
 		3644E20221D8E0E9001F13F9 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644E20121D8E0E9001F13F9 /* BaseResponse.swift */; };
-		3644E20721D8E736001F13F9 /* ExamTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644E20521D8E736001F13F9 /* ExamTableViewCell.swift */; };
-		3644E20821D8E736001F13F9 /* ExamTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3644E20621D8E736001F13F9 /* ExamTableViewCell.xib */; };
 		364922A120260CDC00DFDC35 /* LibraryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364922A020260CDC00DFDC35 /* LibraryModel.swift */; };
 		364922A3202620CC00DFDC35 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364922A2202620CC00DFDC35 /* CardButton.swift */; };
 		364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */; };
@@ -291,6 +292,11 @@
 		3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMessagesExtension.swift; sourceTree = "<group>"; };
 		3613DA212056F740000867AE /* UniversalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalExtension.swift; sourceTree = "<group>"; };
 		3613DA242056F877000867AE /* WidgetBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WidgetBridgingHeader.h; sourceTree = "<group>"; };
+		3614D54021D9251A0007B886 /* ExamtableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamtableController.swift; sourceTree = "<group>"; };
+		3614D54221D9251A0007B886 /* ExamModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamModel.swift; sourceTree = "<group>"; };
+		3614D54321D9251A0007B886 /* ExamAssistant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamAssistant.swift; sourceTree = "<group>"; };
+		3614D54521D9251A0007B886 /* ExamTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamTableViewCell.swift; sourceTree = "<group>"; };
+		3614D54621D9251A0007B886 /* ExamTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExamTableViewCell.xib; sourceTree = "<group>"; };
 		3615A9C421AC80FC001D1522 /* ECardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECardView.swift; sourceTree = "<group>"; };
 		3615A9C621AC825E001D1522 /* ECardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECardModel.swift; sourceTree = "<group>"; };
 		3615A9C921ACEBDC001D1522 /* CardTransectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTransectionViewController.swift; sourceTree = "<group>"; };
@@ -356,11 +362,7 @@
 		36449E811FA4BAD00036766B /* GradeCheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GradeCheckViewController.swift; path = PartyService/Controller/GradeCheckViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		36449E821FA4BAD00036766B /* AllQuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AllQuizViewController.swift; path = PartyService/Controller/AllQuizViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		3644E1FB21D8DB09001F13F9 /* ExamCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamCard.swift; sourceTree = "<group>"; };
-		3644E1FD21D8DE0A001F13F9 /* ExamAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamAssistant.swift; sourceTree = "<group>"; };
-		3644E1FF21D8DE87001F13F9 /* ExamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamModel.swift; sourceTree = "<group>"; };
 		3644E20121D8E0E9001F13F9 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
-		3644E20521D8E736001F13F9 /* ExamTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamTableViewCell.swift; sourceTree = "<group>"; };
-		3644E20621D8E736001F13F9 /* ExamTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExamTableViewCell.xib; sourceTree = "<group>"; };
 		364922A020260CDC00DFDC35 /* LibraryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryModel.swift; sourceTree = "<group>"; };
 		364922A2202620CC00DFDC35 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewTransitionAnimator.swift; sourceTree = "<group>"; };
@@ -564,6 +566,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3614D53E21D9251A0007B886 /* Examtable */ = {
+			isa = PBXGroup;
+			children = (
+				3614D53F21D9251A0007B886 /* Controller */,
+				3614D54121D9251A0007B886 /* Model */,
+				3614D54421D9251A0007B886 /* View */,
+			);
+			path = Examtable;
+			sourceTree = "<group>";
+		};
+		3614D53F21D9251A0007B886 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3614D54021D9251A0007B886 /* ExamtableController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3614D54121D9251A0007B886 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3614D54221D9251A0007B886 /* ExamModel.swift */,
+				3614D54321D9251A0007B886 /* ExamAssistant.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3614D54421D9251A0007B886 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3614D54521D9251A0007B886 /* ExamTableViewCell.swift */,
+				3614D54621D9251A0007B886 /* ExamTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		3615A9C121AC80BD001D1522 /* ECard */ = {
 			isa = PBXGroup;
 			children = (
@@ -714,42 +752,6 @@
 				36449E431FA4BA9B0036766B /* Applicant.swift */,
 			);
 			name = Model;
-			sourceTree = "<group>";
-		};
-		3644E1F721D8DAB1001F13F9 /* Examtable */ = {
-			isa = PBXGroup;
-			children = (
-				3644E1FA21D8DACA001F13F9 /* Controller */,
-				3644E1F921D8DAC6001F13F9 /* Model */,
-				3644E1F821D8DAC1001F13F9 /* View */,
-			);
-			name = Examtable;
-			path = "New Group";
-			sourceTree = "<group>";
-		};
-		3644E1F821D8DAC1001F13F9 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				3644E20521D8E736001F13F9 /* ExamTableViewCell.swift */,
-				3644E20621D8E736001F13F9 /* ExamTableViewCell.xib */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		3644E1F921D8DAC6001F13F9 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				3644E1FD21D8DE0A001F13F9 /* ExamAssistant.swift */,
-				3644E1FF21D8DE87001F13F9 /* ExamModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		3644E1FA21D8DACA001F13F9 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		365A46502036EFB800738963 /* WePeiYangWidget */ = {
@@ -1207,8 +1209,8 @@
 				3641470820471CC500F6DFD5 /* News */,
 				A53602621FC6E23C00E3D1AF /* Binding */,
 				A5197A381FDA850A008C445A /* Library */,
+				3614D53E21D9251A0007B886 /* Examtable */,
 				3615A9C121AC80BD001D1522 /* ECard */,
-				3644E1F721D8DAB1001F13F9 /* Examtable */,
 				B181B9551EC5C21700B8198E /* Favorite */,
 				A5159FDB1FB0731B00B466F2 /* WLANLogin */,
 				365A8A131FB9BA8500B15443 /* ClassTable */,
@@ -1530,11 +1532,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3614D54B21D9251A0007B886 /* ExamTableViewCell.xib in Resources */,
 				36366B2F1FAB8A84001F72A0 /* BicycleServiceInfoController.xib in Resources */,
 				36366B301FAB8A84001F72A0 /* BicycleNotificationDetailViewController.xib in Resources */,
 				36366B311FAB8A84001F72A0 /* BicycleServiceNotificationController.xib in Resources */,
 				36366B321FAB8A84001F72A0 /* BicycleRecordViewController.xib in Resources */,
-				3644E20821D8E736001F13F9 /* ExamTableViewCell.xib in Resources */,
 				A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */,
 				36366B331FAB8A84001F72A0 /* BicycleUserBindViewController.xib in Resources */,
 				A554C4BE1F99F84900022A01 /* ParkingSpotsLocs.json in Resources */,
@@ -1719,13 +1721,13 @@
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
 				36042DB81FC7BB270016E859 /* CourseCell.swift in Sources */,
 				3685D9EF204D255700BA6C3D /* NewsDetailViewController.swift in Sources */,
+				3614D54821D9251A0007B886 /* ExamModel.swift in Sources */,
 				365261561FB9F83400025B8A /* ClassTableModel.swift in Sources */,
 				DD2A2AC321B773B600EA6F8F /* AuditCacheManager.swift in Sources */,
 				36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */,
 				A5197A3D1FDA8F99008C445A /* LibraryAPIs.swift in Sources */,
 				36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */,
 				36449E481FA4BA9B0036766B /* ApplicantTest.swift in Sources */,
-				3644E1FE21D8DE0A001F13F9 /* ExamAssistant.swift in Sources */,
 				361F8863204AF94200BCFA19 /* NewsTableViewCell.swift in Sources */,
 				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,
 				361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */,
@@ -1761,10 +1763,10 @@
 				DD0B762D2158CBA6009A392C /* CourseAppraiseCell.swift in Sources */,
 				DD0B76242158CBA6009A392C /* CourseAppraiseViewController.swift in Sources */,
 				A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */,
+				3614D54921D9251A0007B886 /* ExamAssistant.swift in Sources */,
 				C40BDE0E21A93CA00046BFA5 /* LibraryPageContentView.swift in Sources */,
 				DD0B76292158CBA6009A392C /* GPAClassModel.swift in Sources */,
 				DD41A83B21A52F7100886BB4 /* AuditSearchModel.swift in Sources */,
-				3644E20721D8E736001F13F9 /* ExamTableViewCell.swift in Sources */,
 				365A46462035E35500738963 /* Storage.swift in Sources */,
 				A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */,
 				365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */,
@@ -1812,7 +1814,6 @@
 				36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */,
 				DD0B762A2158CBA6009A392C /* GPAStatModel.swift in Sources */,
 				36449E841FA4BAD10036766B /* TwentyCourseScoreViewController.swift in Sources */,
-				3644E20021D8DE87001F13F9 /* ExamModel.swift in Sources */,
 				36449E6D1FA4BABA0036766B /* FinalView.swift in Sources */,
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
 				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
@@ -1824,6 +1825,7 @@
 				B102541C1EC8547E0064373A /* Metadata.swift in Sources */,
 				36D526E220415A3C0074EB2B /* MallViewController.swift in Sources */,
 				36449E651FA4BABA0036766B /* QuizCell.swift in Sources */,
+				3614D54721D9251A0007B886 /* ExamtableController.swift in Sources */,
 				36449E461FA4BA9B0036766B /* Courses.swift in Sources */,
 				36366B2E1FAB86B0001F72A0 /* BicycleServiceViewController.swift in Sources */,
 				C40BDE2921A93EF20046BFA5 /* BookDetailViewController.swift in Sources */,
@@ -1871,6 +1873,7 @@
 				363D0A701FE006990095DA57 /* LibraryCardDataProvider.swift in Sources */,
 				A5E117B71F99DC9400C86CA2 /* NotificationList.swift in Sources */,
 				362B055221CD52A000B370E7 /* ARKeyWindow.swift in Sources */,
+				3614D54A21D9251A0007B886 /* ExamTableViewCell.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
 				36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */,
 				DD41A82F21A3265800886BB4 /* PopularListModel.swift in Sources */,

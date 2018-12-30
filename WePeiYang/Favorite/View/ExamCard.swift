@@ -14,13 +14,14 @@ class ExamCard: CardView {
 
     override func initialize() {
         super.initialize()
+
         let padding: CGFloat = 20
         titleLabel.text = "最近的考试"
         titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight.semibold)
         titleLabel.textColor = .black
         titleLabel.sizeToFit()
-        self.addSubview(titleLabel)
 
+        self.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.left.top.equalToSuperview().offset(padding)
             make.width.equalTo(200)
@@ -28,12 +29,16 @@ class ExamCard: CardView {
         }
 
         self.addSubview(tableView)
+        tableView.register(UINib(nibName: "ExamTableViewCell", bundle: nil), forCellReuseIdentifier: "ExamTableViewCell")
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.isUserInteractionEnabled = false
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(padding)
             make.left.equalToSuperview().offset(padding)
-            make.right.equalToSuperview().offset(padding)
+            make.right.equalToSuperview().offset(-padding)
+            make.top.equalTo(titleLabel.snp.bottom).offset(padding)
+            make.width.equalToSuperview().offset(-2 * padding)
             make.bottom.equalToSuperview().offset(-padding)
         }
     }
@@ -50,7 +55,12 @@ class ExamCard: CardView {
     }
 
     func load() {
-        tableView.reloadData()
+        if (ExamAssistant.exams.count > 0) {
+            self.setState(.data)
+            tableView.reloadData()
+        } else {
+            self.setState(.empty("竟然没有考试！？", .lightGray))
+        }
     }
 
     override func refresh() {
@@ -61,18 +71,12 @@ class ExamCard: CardView {
             return
         }
 
-        guard TwTUser.shared.tjuBindingState else {
-            self.setState(.failed("请绑定办公网", .gray))
-            return
-        }
-
         setState(.loading("加载中...", .gray))
 
-        ExamAssistant.getTable(success: {
-            self.setState(.data)
-            load()
+        ExamAssistant.loadCache(success: {
+            self.load()
         }, failure: { err in
-            self.setState(.failed(err.localizedDescription, .gray))
+            self.setState(.failed(err, .gray))
         })
     }
 }
@@ -87,20 +91,21 @@ extension ExamCard: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? ExamAssistant.exams.count : 1
+        return section == 0 ? min(ExamAssistant.exams.count, 1) : 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 1 {
             let cell = UITableViewCell()
-            cell.textLabel?.text = "查看更多"
-            cell.textLabel?.textColor = UIColor.readRed
+            cell.textLabel?.text = "More"
+            cell.textLabel?.textColor = UIColor.darkGray
             return cell
         }
 
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ExamTableViewCell", for: indexPath) as! ExamTableViewCell
+
         let data = ExamAssistant.exams[indexPath.row]
-        let cell = ExamTableViewCell(style: .default, reuseIdentifier: "ExamTableViewCell")
-        cell.setData(data)
+        cell.setData(data, displayDate: true)
         return cell
     }
 

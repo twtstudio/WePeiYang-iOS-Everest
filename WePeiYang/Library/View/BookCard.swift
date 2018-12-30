@@ -22,12 +22,13 @@ class BookCard: CardView {
                 for i in 0...2 {
                     labels[i].attributedText = makeupLabelText(label: labels[i], img: labelImages[i], str: labelTexts[i])
                 }
-                
-                if calculateDay(returnTime: book.returnTime) >= 0 {
-                    labelTexts[3] = "  剩余天数  " + "\(calculateDay(returnTime: book.returnTime) + 1)" + "天"
+
+                let day = BookCard.calculateDay(returnTime: book.returnTime)
+                if day >= 0 {
+                    labelTexts[3] = "  剩余天数  " + "\(day + 1)" + "天"
                     labels[3].attributedText = makeupLabelText(label: labels[3], img: labelImages[3], str: labelTexts[3])
                 } else {
-                    labelTexts[3] = "  剩余天数  超出" + "\(-calculateDay(returnTime: book.returnTime))" + "天"
+                    labelTexts[3] = "  剩余天数  超出" + "\(-day)" + "天"
                     let range = NSRange(location: 7, length: labelTexts[3].count - 6)
                     let str = makeupLabelText(label: labels[3], img: labelImages[3], str: labelTexts[3])
                     str.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(r: 245, g: 45, b: 74), range: range)
@@ -127,7 +128,7 @@ class BookCard: CardView {
 }
 
 extension BookCard {
-    func calculateDay(returnTime: String) -> Int {
+    static func calculateDay(returnTime: String) -> Int {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let returnDate = dateFormatter.date(from: returnTime)
