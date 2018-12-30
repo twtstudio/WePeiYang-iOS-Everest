@@ -13,6 +13,7 @@ enum Module: String {
     case library = "图书馆"
     case classtable = "课程表"
     case ecard = "校园卡"
+    case exam = "考表"
 }
 
 let ModuleArrangementKey = "ModuleArrangementKey"

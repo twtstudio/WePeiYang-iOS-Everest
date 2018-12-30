@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Charts
-import ObjectMapper
 
 class ECardView: CardView {
     private let titleLabel = UILabel()
@@ -131,17 +129,5 @@ class ECardView: CardView {
         }, failure: { err in
             self.setState(.failed(err.localizedDescription, .gray))
         })
-//        CacheManager.retreive("gpa/gpa.json", from: .group, as: String.self, success: { string in
-//            if let model = Mapper<GPAModel>().map(JSONString: string) {
-//                if model.terms.count > 1 {
-//                    self.setState(.data)
-//                    self.load(model: model)
-//                } else {
-//                    self.setState(.empty("◉", .white))
-//                }
-//            } else {
-//                self.setState(.failed("加载失败", .white))
-//            }
-//        })
     }
 }

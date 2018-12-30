@@ -84,6 +84,12 @@
 		36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E801FA4BAD00036766B /* GradeDetailViewController.swift */; };
 		36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E811FA4BAD00036766B /* GradeCheckViewController.swift */; };
 		36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36449E821FA4BAD00036766B /* AllQuizViewController.swift */; };
+		3644E1FC21D8DB09001F13F9 /* ExamCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644E1FB21D8DB09001F13F9 /* ExamCard.swift */; };
+		3644E1FE21D8DE0A001F13F9 /* ExamAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644E1FD21D8DE0A001F13F9 /* ExamAssistant.swift */; };
+		3644E20021D8DE87001F13F9 /* ExamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644E1FF21D8DE87001F13F9 /* ExamModel.swift */; };
+		3644E20221D8E0E9001F13F9 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644E20121D8E0E9001F13F9 /* BaseResponse.swift */; };
+		3644E20721D8E736001F13F9 /* ExamTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644E20521D8E736001F13F9 /* ExamTableViewCell.swift */; };
+		3644E20821D8E736001F13F9 /* ExamTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3644E20621D8E736001F13F9 /* ExamTableViewCell.xib */; };
 		364922A120260CDC00DFDC35 /* LibraryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364922A020260CDC00DFDC35 /* LibraryModel.swift */; };
 		364922A3202620CC00DFDC35 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364922A2202620CC00DFDC35 /* CardButton.swift */; };
 		364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */; };
@@ -348,6 +354,12 @@
 		36449E801FA4BAD00036766B /* GradeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GradeDetailViewController.swift; path = PartyService/Controller/GradeDetailViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		36449E811FA4BAD00036766B /* GradeCheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GradeCheckViewController.swift; path = PartyService/Controller/GradeCheckViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		36449E821FA4BAD00036766B /* AllQuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AllQuizViewController.swift; path = PartyService/Controller/AllQuizViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		3644E1FB21D8DB09001F13F9 /* ExamCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamCard.swift; sourceTree = "<group>"; };
+		3644E1FD21D8DE0A001F13F9 /* ExamAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamAssistant.swift; sourceTree = "<group>"; };
+		3644E1FF21D8DE87001F13F9 /* ExamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamModel.swift; sourceTree = "<group>"; };
+		3644E20121D8E0E9001F13F9 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		3644E20521D8E736001F13F9 /* ExamTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamTableViewCell.swift; sourceTree = "<group>"; };
+		3644E20621D8E736001F13F9 /* ExamTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExamTableViewCell.xib; sourceTree = "<group>"; };
 		364922A020260CDC00DFDC35 /* LibraryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryModel.swift; sourceTree = "<group>"; };
 		364922A2202620CC00DFDC35 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		364BDF6B1FDAD41100E61B65 /* CardViewTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewTransitionAnimator.swift; sourceTree = "<group>"; };
@@ -702,6 +714,42 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		3644E1F721D8DAB1001F13F9 /* Examtable */ = {
+			isa = PBXGroup;
+			children = (
+				3644E1FA21D8DACA001F13F9 /* Controller */,
+				3644E1F921D8DAC6001F13F9 /* Model */,
+				3644E1F821D8DAC1001F13F9 /* View */,
+			);
+			name = Examtable;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		3644E1F821D8DAC1001F13F9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3644E20521D8E736001F13F9 /* ExamTableViewCell.swift */,
+				3644E20621D8E736001F13F9 /* ExamTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3644E1F921D8DAC6001F13F9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3644E1FD21D8DE0A001F13F9 /* ExamAssistant.swift */,
+				3644E1FF21D8DE87001F13F9 /* ExamModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3644E1FA21D8DACA001F13F9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		365A46502036EFB800738963 /* WePeiYangWidget */ = {
 			isa = PBXGroup;
 			children = (
@@ -1017,6 +1065,7 @@
 				B10253E21EC84ED90064373A /* SolaSessionManager.swift */,
 				3687C39521B98AF400288557 /* TwTKeychain.swift */,
 				3631D5091F1903D70078816D /* TwTUser.swift */,
+				3644E20121D8E0E9001F13F9 /* BaseResponse.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1108,6 +1157,7 @@
 			isa = PBXGroup;
 			children = (
 				360339E820247B9C0006A083 /* LibraryCard.swift */,
+				3644E1FB21D8DB09001F13F9 /* ExamCard.swift */,
 				3615A9C421AC80FC001D1522 /* ECardView.swift */,
 				364BDF711FDAE1EF00E61B65 /* GPACard.swift */,
 				36CAD44B201B9194006F85E3 /* ClassTableCard.swift */,
@@ -1155,6 +1205,7 @@
 				A53602621FC6E23C00E3D1AF /* Binding */,
 				A5197A381FDA850A008C445A /* Library */,
 				3615A9C121AC80BD001D1522 /* ECard */,
+				3644E1F721D8DAB1001F13F9 /* Examtable */,
 				B181B9551EC5C21700B8198E /* Favorite */,
 				A5159FDB1FB0731B00B466F2 /* WLANLogin */,
 				365A8A131FB9BA8500B15443 /* ClassTable */,
@@ -1480,6 +1531,7 @@
 				36366B301FAB8A84001F72A0 /* BicycleNotificationDetailViewController.xib in Resources */,
 				36366B311FAB8A84001F72A0 /* BicycleServiceNotificationController.xib in Resources */,
 				36366B321FAB8A84001F72A0 /* BicycleRecordViewController.xib in Resources */,
+				3644E20821D8E736001F13F9 /* ExamTableViewCell.xib in Resources */,
 				A50718C31FD1368A00A2870C /* Assets.xcassets in Resources */,
 				36366B331FAB8A84001F72A0 /* BicycleUserBindViewController.xib in Resources */,
 				A554C4BE1F99F84900022A01 /* ParkingSpotsLocs.json in Resources */,
@@ -1670,6 +1722,7 @@
 				A5197A3D1FDA8F99008C445A /* LibraryAPIs.swift in Sources */,
 				36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */,
 				36449E481FA4BA9B0036766B /* ApplicantTest.swift in Sources */,
+				3644E1FE21D8DE0A001F13F9 /* ExamAssistant.swift in Sources */,
 				361F8863204AF94200BCFA19 /* NewsTableViewCell.swift in Sources */,
 				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,
 				361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */,
@@ -1678,6 +1731,7 @@
 				36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */,
 				36449E641FA4BABA0036766B /* QuizView.swift in Sources */,
 				C40BDE2721A93EDA0046BFA5 /* LibraryReadViewController.swift in Sources */,
+				3644E20221D8E0E9001F13F9 /* BaseResponse.swift in Sources */,
 				DD0B75F72158C6ED009A392C /* PhoneBook.swift in Sources */,
 				365A8A281FB9CA1700B15443 /* ClassModel.swift in Sources */,
 				DD0B76262158CBA6009A392C /* GPAModel.swift in Sources */,
@@ -1706,6 +1760,7 @@
 				C40BDE0E21A93CA00046BFA5 /* LibraryPageContentView.swift in Sources */,
 				DD0B76292158CBA6009A392C /* GPAClassModel.swift in Sources */,
 				DD41A83B21A52F7100886BB4 /* AuditSearchModel.swift in Sources */,
+				3644E20721D8E736001F13F9 /* ExamTableViewCell.swift in Sources */,
 				365A46462035E35500738963 /* Storage.swift in Sources */,
 				A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */,
 				365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */,
@@ -1753,6 +1808,7 @@
 				36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */,
 				DD0B762A2158CBA6009A392C /* GPAStatModel.swift in Sources */,
 				36449E841FA4BAD10036766B /* TwentyCourseScoreViewController.swift in Sources */,
+				3644E20021D8DE87001F13F9 /* ExamModel.swift in Sources */,
 				36449E6D1FA4BABA0036766B /* FinalView.swift in Sources */,
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
 				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
@@ -1776,6 +1832,7 @@
 				DD41A83D21A5341100886BB4 /* AuditSearchViewController.swift in Sources */,
 				A50F364A1FB1C0D600413CF2 /* WLANLoginAPIs.swift in Sources */,
 				364922A3202620CC00DFDC35 /* CardButton.swift in Sources */,
+				3644E1FC21D8DB09001F13F9 /* ExamCard.swift in Sources */,
 				DD0B76232158CBA6009A392C /* GPAViewController.swift in Sources */,
 				36449E631FA4BABA0036766B /* ScoreTableViewCell.swift in Sources */,
 				DDC7892021B132A700ABA33F /* CourseList.swift in Sources */,
@@ -1908,7 +1965,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "WePeiYangWidget/WidgetBridgingHeader.h";
+				SWIFT_OBJC_BRIDGING_HEADER = WePeiYangWidget/WidgetBridgingHeader.h;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1943,7 +2000,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "WePeiYangWidget/WidgetBridgingHeader.h";
+				SWIFT_OBJC_BRIDGING_HEADER = WePeiYangWidget/WidgetBridgingHeader.h;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -2072,7 +2129,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 201812081129;
 				DEVELOPMENT_TEAM = TYRRVX7RWJ;
-				INFOPLIST_FILE = "WePeiYang/main/Info.plist";
+				INFOPLIST_FILE = WePeiYang/main/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang;
@@ -2100,7 +2157,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 201812081129;
 				DEVELOPMENT_TEAM = TYRRVX7RWJ;
-				INFOPLIST_FILE = "WePeiYang/main/Info.plist";
+				INFOPLIST_FILE = WePeiYang/main/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WeiPeiYang;

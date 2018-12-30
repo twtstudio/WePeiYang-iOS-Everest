@@ -222,6 +222,8 @@ class FavViewController: UIViewController {
                 initLibraryCard()
             case .ecard:
                 initEcard()
+            case .exam:
+                initExamCard()
             }
         }
         cardTableView.reloadData()
@@ -276,7 +278,15 @@ extension FavViewController {
         card.shouldPresent(CardTransactionViewController.self, from: self)
         cardDict[Module.ecard] = card
     }
-}
+
+    func initExamCard() {
+        let card = ExamCard()
+        card.delegate = self
+        card.refresh()
+        card.shouldPresent(CardTransactionViewController.self, from: self)
+        cardDict[Module.exam] = card
+    }
+}Module.
 
 extension FavViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
