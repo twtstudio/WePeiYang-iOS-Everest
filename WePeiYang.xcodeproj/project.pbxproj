@@ -194,7 +194,6 @@
 		78FB9E87217AEE16001DE39A /* LFImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E86217AEE16001DE39A /* LFImagePreviewViewController.swift */; };
 		78FB9E89217AEE32001DE39A /* LFSearchedResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E88217AEE31001DE39A /* LFSearchedResultViewController.swift */; };
 		78FB9E8B217AEE4C001DE39A /* LFWaterFlowViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E8A217AEE4C001DE39A /* LFWaterFlowViewLayout.swift */; };
-		78FB9E8D217AEE62001DE39A /* LostFoundCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E8C217AEE62001DE39A /* LostFoundCollectionViewCell.swift */; };
 		78FB9E8F217AEE92001DE39A /* LostFoundPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E8E217AEE92001DE39A /* LostFoundPageViewController.swift */; };
 		78FB9E91217AEEAA001DE39A /* LostFoundSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E90217AEEAA001DE39A /* LostFoundSearchViewController.swift */; };
 		78FB9E93217AEEC5001DE39A /* LostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E92217AEEC5001DE39A /* LostViewController.swift */; };
@@ -1967,7 +1966,6 @@
 				36D526E220415A3C0074EB2B /* MallViewController.swift in Sources */,
 				36449E651FA4BABA0036766B /* QuizCell.swift in Sources */,
 				3614D54721D9251A0007B886 /* ExamtableController.swift in Sources */,
-				78FB9E8D217AEE62001DE39A /* LostFoundCollectionViewCell.swift in Sources */,
 				36449E461FA4BA9B0036766B /* Courses.swift in Sources */,
 				36366B2E1FAB86B0001F72A0 /* BicycleServiceViewController.swift in Sources */,
 				36449E611FA4BABA0036766B /* TextTableViewCell.swift in Sources */,
