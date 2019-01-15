@@ -35,12 +35,13 @@ class ExamTableViewCell: UITableViewCell {
 //        let offset = day > 0 ? "\(BookCard.calculateDay(returnTime: exam.date))天" : ""
 //        dayLabel.text = offset
         if displayDate {
-            nameLabel.text = exam.name + " " + exam.location + "#" + exam.seat
+            let shortName = exam.name.prefix(6)
+            nameLabel.text = shortName + " " + exam.location + "#SEAT " + exam.seat
             locationLabel.text = exam.date
             arrangeLabel.text = exam.arrange
         } else {
             nameLabel.text = exam.name
-            locationLabel.text = exam.location + "#" + exam.seat
+            locationLabel.text = exam.location + "#SEAT " + exam.seat
             arrangeLabel.text = exam.arrange
         }
 

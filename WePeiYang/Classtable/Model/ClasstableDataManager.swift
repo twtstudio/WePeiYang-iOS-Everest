@@ -10,12 +10,12 @@ import ObjectMapper
 
 struct ClasstableDataManager {
 
-    static func getClassTable(success: @escaping (ClassTableModel) -> Void, failure: @escaping (String) -> Void) {
+    static func getClassTable(success: @escaping (ClassTableModel) -> Void, failure: @escaping (Error) -> Void) {
         SolaSessionManager.solaSession(type: .get, url: "/classtable", parameters: nil, success: { dic in
             if let error_code = dic["error_code"] as? Int,
                 error_code != -1,
                 let message = dic["message"] as? String {
-                    failure(message)
+                    failure(WPYCustomError.errorCode(error_code, message))
                 return
             }
 
@@ -29,6 +29,10 @@ struct ClasstableDataManager {
                         var index = 0
                         repeat {
                             index = Int(arc4random()) % Metadata.Color.fluentColors.count
+                            // 如果全都被选了，那也没办法
+                            if colorConfig.values.count >= Metadata.Color.fluentColors.count {
+                                break
+                            }
                         } while colorConfig.values.contains(index)
                         course.setColorIndex(index: index)
                         colorConfig[course.courseName] = index
@@ -38,11 +42,11 @@ struct ClasstableDataManager {
 
                 success(model)
             } else {
-                failure("解析失败")
+                failure(WPYCustomError.custom("解析失败"))
             }
 
         }, failure: { error in
-            failure(error.localizedDescription)
+            failure(error)
         })
     }
     

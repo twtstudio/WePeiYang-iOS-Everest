@@ -126,39 +126,6 @@ class TJUBindingViewController: UIViewController {
         })
     }
 
-    func cancelLogin() {
-
-        // unbind tju account
-        var loginInfo: [String: String] = [String: String]()
-        loginInfo["tjuuname"] = usernameTextField.text
-        loginInfo["tjupasswd"] = passwordTextField.text
-
-        SolaSessionManager.solaSession(type: .get, url: "/auth/unbind/tju", token: TwTUser.shared.token, parameters: loginInfo, success: { dictionary in
-
-            guard let errorCode: Int = dictionary["error_code"] as? Int else {
-                SwiftMessages.showErrorMessage(body: "解绑错误")
-                return
-            }
-
-            if errorCode == -1 {
-                TwTUser.shared.tjuBindingState = false
-                TwTUser.shared.save()
-                self.dismiss(animated: true, completion: {
-                    self.completion?(true)
-                })
-            } else {
-                let message = dictionary["message"] as? String
-                SwiftMessages.showErrorMessage(body: message ?? "解析错误")
-            }
-        }, failure: { error in
-            SwiftMessages.showErrorMessage(body: error.localizedDescription)
-            self.dismiss(animated: true, completion: {
-                self.completion?(false)
-            })
-
-        })
-    }
-
     @objc func dismissBinding() {
         TWTKeychain.erase(.tju)
         self.dismiss(animated: true, completion: {

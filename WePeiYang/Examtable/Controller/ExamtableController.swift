@@ -20,6 +20,7 @@ class ExamtableController: UIViewController {
         title = "考表"
         tableView.frame = self.view.bounds
         tableView.separatorStyle = .none
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
         self.view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
@@ -58,7 +59,7 @@ class ExamtableController: UIViewController {
 
     private func load() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        formatter.dateFormat = "yyyy-MM-ddHH:mm"
         currentTime = formatter.string(from: Date())
 
         data.removeAll()
@@ -84,21 +85,26 @@ class ExamtableController: UIViewController {
         var cell: UITableViewCell
         if let title = item.0 {
             cell = tableView.dequeueReusableCell(withIdentifier: "TITLE_CELL", for: indexPath)
-            let label = UILabel()
-            label.text = title
-            label.font = UIFont.systemFont(ofSize: 14)
-            label.textColor = .lightGray
-            label.sizeToFit()
-            cell.contentView.addSubview(label)
-            label.snp.makeConstraints { make in
-                make.center.equalToSuperview()
+            if let label = cell.contentView.viewWithTag(-2) as? UILabel {
+                label.text = title
+            } else {
+                let label = UILabel()
+                label.tag = -2
+                label.text = title
+                label.font = UIFont.systemFont(ofSize: 14)
+                label.textColor = .lightGray
+                label.sizeToFit()
+                cell.contentView.addSubview(label)
+                label.snp.makeConstraints { make in
+                    make.center.equalToSuperview()
+                }
             }
         } else if let model = item.1 {
             cell = tableView.dequeueReusableCell(withIdentifier: "ExamTableViewCell", for: indexPath)
             (cell as? ExamTableViewCell)?.setData(model, displayDate: false)
 
             if currentTime > model.date + model.arrange {
-                cell.alpha = 0.5
+                cell.contentView.alpha = 0.5
             }
         } else {
             cell = UITableViewCell()

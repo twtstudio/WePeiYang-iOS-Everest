@@ -21,6 +21,7 @@ struct GPASessionManager {
                 return
             }
 
+
             if let data = dic["data"] as? [String: Any], let model = Mapper<GPAModel>().map(JSON: data) {
                 success(model)
             } else {

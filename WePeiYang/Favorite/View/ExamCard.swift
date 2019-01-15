@@ -11,6 +11,17 @@ import UIKit
 class ExamCard: CardView {
     private let titleLabel = UILabel()
     private let tableView = UITableView()
+    private var exams: [ExamModel] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-ddHH:mm"
+        let currentTime = formatter.string(from: Date())
+
+        let exams = ExamAssistant.exams.filter { exam in
+            return (exam.date + exam.arrange) > currentTime
+        }
+
+        return exams
+    }
 
     override func initialize() {
         super.initialize()
@@ -55,7 +66,7 @@ class ExamCard: CardView {
     }
 
     func load() {
-        if (ExamAssistant.exams.count > 0) {
+        if (exams.count > 0) {
             self.setState(.data)
             tableView.reloadData()
         } else {
@@ -91,7 +102,7 @@ extension ExamCard: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? min(ExamAssistant.exams.count, 1) : 1
+        return section == 0 ? min(exams.count, 1) : 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -104,7 +115,7 @@ extension ExamCard: UITableViewDataSource {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExamTableViewCell", for: indexPath) as! ExamTableViewCell
 
-        let data = ExamAssistant.exams[indexPath.row]
+        let data = exams[indexPath.row]
         cell.setData(data, displayDate: true)
         return cell
     }

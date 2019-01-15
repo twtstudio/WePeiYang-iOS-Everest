@@ -149,6 +149,7 @@ class SettingsViewController: UIViewController {
             unbindURL = BindingAPIs.unbindLIBAccount
         case 1:
             BicycleUser.sharedInstance.unbind(success: {
+                TWTKeychain.erase(.bicycle)
                 SwiftMessages.showSuccessMessage(body: "解绑成功")
                 TwTUser.shared.save()
                 self.tableView.reloadData()
@@ -174,37 +175,30 @@ class SettingsViewController: UIViewController {
             return
         }
 
-        SolaSessionManager.solaSession(type: .get, url: unbindURL, token: TwTUser.shared.token, success: { dictionary in
-            guard let errorCode: Int = dictionary["error_code"] as? Int, let message = dictionary["message"] as? String else {
-                return
+        AccountManager.unbind(url: unbindURL, success: {
+            switch indexPathAtRow {
+            case 0:
+                TWTKeychain.erase(.library)
+                TwTUser.shared.libBindingState = false
+            case 1:
+                TWTKeychain.erase(.bicycle)
+                TwTUser.shared.bicycleBindingState = false
+            case 2:
+                TWTKeychain.erase(.tju)
+                TwTUser.shared.tjuBindingState = false
+            case 3:
+                TWTKeychain.erase(.network)
+                TwTUser.shared.WLANBindingState = false
+            default:
+                break
             }
 
-            if errorCode == -1 {
-                SwiftMessages.showSuccessMessage(body: "解绑成功")
-
-                switch indexPathAtRow {
-                case 0:
-                    TwTUser.shared.libBindingState = false
-                case 1:
-                    TwTUser.shared.bicycleBindingState = false
-                case 2:
-                    TwTUser.shared.tjuBindingState = false
-                case 3:
-                    TwTUser.shared.WLANBindingState = false
-                default:
-                    break
-                }
-
-                TwTUser.shared.save()
-                // services[].status can't get renewed data each time user unbinds
-                // self.services[indexPathAtRow].status = false
-                self.tableView.reloadData()
-            } else {
-                SwiftMessages.showErrorMessage(body: message)
-            }
+            TwTUser.shared.save()
+            // services[].status can't get renewed data each time user unbinds
+            // self.services[indexPathAtRow].status = false
+            self.tableView.reloadData()
         }, failure: { error in
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
-            self.dismiss(animated: true, completion: nil)
         })
     }
 
