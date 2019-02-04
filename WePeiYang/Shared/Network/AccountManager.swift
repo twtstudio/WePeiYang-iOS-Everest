@@ -88,6 +88,23 @@ struct AccountManager {
         })
     }
 
+    static func unbind(url: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+        SolaSessionManager.solaSession(type: .get, url: url, token: TwTUser.shared.token, success: { dictionary in
+            guard let errorCode: Int = dictionary["error_code"] as? Int, let message = dictionary["message"] as? String else {
+                failure(WPYCustomError.custom("解析错误"))
+                return
+            }
+
+            if errorCode == -1 {
+                SwiftMessages.showSuccessMessage(body: "解绑成功")
+                success()
+            } else {
+                SwiftMessages.showErrorMessage(body: message)
+            }
+        })
+
+    }
+
     static func getSelf(success: (() -> Void)?, failure: (() -> Void)?) {
         SolaSessionManager.solaSession(type: .get, baseURL: "https://open.twtstudio.com", url: "/api/v2/auth/self", parameters: nil, success: { dict in
             if let errorno = dict["error_code"] as? Int,

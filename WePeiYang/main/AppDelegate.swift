@@ -111,9 +111,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         registerAppNotification(launchOptions: launchOptions)
         registerShortcutItems()
+        showMessage()
         showNewFeature()
 
         return true
+    }
+
+    func showMessage() {
+        SolaSessionManager.solaSession(type: .get, url: "/app/message", token: nil, parameters: nil, success: { dict in
+            if let data = dict["data"] as? [String: Any],
+                let version = data["version"] as? Int,
+                let title = data["title"] as? String,
+                let message = data["message"] as? String {
+                let prev = UserDefaults.standard.integer(forKey: MessageKey)
+                if version > prev {
+                    // new message
+                    SwiftMessages.showNotification(title: title, message: message, handler: { _ in
+                        UserDefaults.standard.set(version, forKey: MessageKey)
+                        SwiftMessages.hideAll()
+                    })
+                }
+            }
+        })
     }
 
     func showNewFeature() {
