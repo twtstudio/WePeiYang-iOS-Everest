@@ -9,7 +9,7 @@
 import Foundation
 
 class CourseList {
-    // 1-22 周映射
+    // 1-30 周映射
     var displayCourses: [[Int]]
     var undisplayCourses: [[Int]]
 
@@ -22,8 +22,8 @@ class CourseList {
     }
 
     init() {
-        self.displayCourses = Array(repeating: [], count: 23)
-        self.undisplayCourses = Array(repeating: [], count: 23)
+        self.displayCourses = Array(repeating: [], count: 31)
+        self.undisplayCourses = Array(repeating: [], count: 31)
     }
 
 }

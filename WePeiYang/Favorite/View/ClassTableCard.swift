@@ -110,8 +110,19 @@ class ClassTableCard: CardView {
 //            }
 
             var courses = AuditUser.shared.getTodayCourse(table: table, offset: offset).filter { course in
-                return course.courseName != ""
+                return course.courseName != "" && course.isDisplay == true
             }
+
+//            var isFree: Bool = true
+//            courses.forEach { model in
+//                if model.isDisplay == true {
+//                    isFree = false
+//                    return
+//                }
+//            }
+//            if isFree == true {
+//                courses = []
+//            }
 
             if courses.isEmpty {
                 self.setState(.empty(self.day + "没有课，做点有趣的事情吧！", .darkGray))

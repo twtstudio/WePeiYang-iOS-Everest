@@ -194,7 +194,6 @@
 		78FB9E87217AEE16001DE39A /* LFImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E86217AEE16001DE39A /* LFImagePreviewViewController.swift */; };
 		78FB9E89217AEE32001DE39A /* LFSearchedResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E88217AEE31001DE39A /* LFSearchedResultViewController.swift */; };
 		78FB9E8B217AEE4C001DE39A /* LFWaterFlowViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E8A217AEE4C001DE39A /* LFWaterFlowViewLayout.swift */; };
-		78FB9E8D217AEE62001DE39A /* LostFoundCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E8C217AEE62001DE39A /* LostFoundCollectionViewCell.swift */; };
 		78FB9E8F217AEE92001DE39A /* LostFoundPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E8E217AEE92001DE39A /* LostFoundPageViewController.swift */; };
 		78FB9E91217AEEAA001DE39A /* LostFoundSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E90217AEEAA001DE39A /* LostFoundSearchViewController.swift */; };
 		78FB9E93217AEEC5001DE39A /* LostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E92217AEEC5001DE39A /* LostViewController.swift */; };
@@ -486,7 +485,6 @@
 		78FB9E86217AEE16001DE39A /* LFImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFImagePreviewViewController.swift; sourceTree = "<group>"; };
 		78FB9E88217AEE31001DE39A /* LFSearchedResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSearchedResultViewController.swift; sourceTree = "<group>"; };
 		78FB9E8A217AEE4C001DE39A /* LFWaterFlowViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFWaterFlowViewLayout.swift; sourceTree = "<group>"; };
-		78FB9E8C217AEE62001DE39A /* LostFoundCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostFoundCollectionViewCell.swift; sourceTree = "<group>"; };
 		78FB9E8E217AEE92001DE39A /* LostFoundPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostFoundPageViewController.swift; sourceTree = "<group>"; };
 		78FB9E90217AEEAA001DE39A /* LostFoundSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostFoundSearchViewController.swift; sourceTree = "<group>"; };
 		78FB9E92217AEEC5001DE39A /* LostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostViewController.swift; sourceTree = "<group>"; };
@@ -500,7 +498,6 @@
 		8405C859FC95C5E72E0F9BD7 /* Pods-WePeiYang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.release.xcconfig"; sourceTree = "<group>"; };
 		9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.debug.xcconfig"; sourceTree = "<group>"; };
-		A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
 		A51497F91FC80D5E00622A7B /* BindingAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingAPIs.swift; sourceTree = "<group>"; };
 		A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANLoginViewController.swift; sourceTree = "<group>"; };
 		A51C45671FD0227800652435 /* WLANBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANBindingViewController.swift; sourceTree = "<group>"; };
@@ -512,7 +509,6 @@
 		A554C4B81F99E57700022A01 /* SpotDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailsView.swift; sourceTree = "<group>"; };
 		A554C4BA1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleFitnessTrackerViewCell.swift; sourceTree = "<group>"; };
 		A554C4BC1F99EFE300022A01 /* ParkingSpotsLocs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ParkingSpotsLocs.json; sourceTree = "<group>"; };
-		A586543620514E860069CF53 /* WLANHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANHelper.swift; sourceTree = "<group>"; };
 		A5D695191F8A21AD00022B9A /* WMScrollView+gesture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMScrollView+gesture.m"; sourceTree = "<group>"; };
 		A5D695201F8A21AD00022B9A /* WMScrollView+gesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMScrollView+gesture.h"; sourceTree = "<group>"; };
 		A5D6952E1F8A21AD00022B9A /* BicycleServiceInfoController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BicycleServiceInfoController.xib; sourceTree = "<group>"; };
@@ -1056,8 +1052,6 @@
 		78FB9E76217AEBC1001DE39A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A50F364B1FB5D81C00413CF2 /* NetworkReachability.swift */,
-				A586543620514E860069CF53 /* WLANHelper.swift */,
 				78FB9E77217AEBE2001DE39A /* LFSearchCellOfHeight.swift */,
 				78FB9E79217AEC0B001DE39A /* LostFoundAPI.swift */,
 				78FB9E7B217AEC36001DE39A /* LostFoundDetailModel.swift */,
@@ -1075,7 +1069,6 @@
 				78FB9E86217AEE16001DE39A /* LFImagePreviewViewController.swift */,
 				78FB9E88217AEE31001DE39A /* LFSearchedResultViewController.swift */,
 				78FB9E8A217AEE4C001DE39A /* LFWaterFlowViewLayout.swift */,
-				78FB9E8C217AEE62001DE39A /* LostFoundCollectionViewCell.swift */,
 				78FB9E8E217AEE92001DE39A /* LostFoundPageViewController.swift */,
 				78FB9E90217AEEAA001DE39A /* LostFoundSearchViewController.swift */,
 				78FB9E92217AEEC5001DE39A /* LostViewController.swift */,
@@ -1498,7 +1491,6 @@
 				365A46492036EFB700738963 /* Sources */,
 				365A464A2036EFB700738963 /* Frameworks */,
 				365A464B2036EFB700738963 /* Resources */,
-				340E36388809D9DBE4B8BBBD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1519,7 +1511,6 @@
 				B19DAB841E6EF5C2004A50B5 /* Resources */,
 				9425E5E6C1FDC2E7D9F81A80 /* [CP] Embed Pods Frameworks */,
 				365A465D2036EFB800738963 /* Embed App Extensions */,
-				E0A27293B4F57E68F680B95E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1711,21 +1702,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		340E36388809D9DBE4B8BBBD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9425E5E6C1FDC2E7D9F81A80 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1766,21 +1742,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E0A27293B4F57E68F680B95E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F8D142B23E26238DDC2405BB /* [CP] Check Pods Manifest.lock */ = {
@@ -1967,7 +1928,6 @@
 				36D526E220415A3C0074EB2B /* MallViewController.swift in Sources */,
 				36449E651FA4BABA0036766B /* QuizCell.swift in Sources */,
 				3614D54721D9251A0007B886 /* ExamtableController.swift in Sources */,
-				78FB9E8D217AEE62001DE39A /* LostFoundCollectionViewCell.swift in Sources */,
 				36449E461FA4BA9B0036766B /* Courses.swift in Sources */,
 				36366B2E1FAB86B0001F72A0 /* BicycleServiceViewController.swift in Sources */,
 				36449E611FA4BABA0036766B /* TextTableViewCell.swift in Sources */,

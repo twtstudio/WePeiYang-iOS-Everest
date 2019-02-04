@@ -38,6 +38,24 @@ DEPENDENCIES:
   - SwiftMessages (= 4.1.0)
   - WMPageController (= 2.3.0)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Charts
+    - DynamicBlurView
+    - IGIdenticon
+    - JBChartView
+    - KeychainAccess
+    - MJRefresh
+    - ObjectMapper
+    - PopupDialog
+    - QQ_MTA
+    - SDWebImage
+    - SnapKit
+    - SwiftLint
+    - SwiftMessages
+    - WMPageController
+
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   Charts: 0b0c96f6118b6ce63f11adbcaa3b31045ee4d772
@@ -57,4 +75,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 14858cfd63d29c3e53e600628e51f7f35fe79de6
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

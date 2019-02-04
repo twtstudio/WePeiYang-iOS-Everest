@@ -233,7 +233,8 @@ class ClassTableViewController: UIViewController {
             isSelecting = true
             // 点开居中
             // TODO: 确定多少比较合适
-            if currentDisplayWeek <= 22 && currentDisplayWeek >= 4 {
+//            if currentDisplayWeek <= 22 && currentDisplayWeek >= 4 {
+            if currentDisplayWeek <= 30 && currentDisplayWeek >= 4 {
                 weekSelectView.contentOffset = CGPoint(x: (CGFloat(currentDisplayWeek)-3.5)*50-25, y: 0)
             }
         } else {
@@ -276,7 +277,8 @@ class ClassTableViewController: UIViewController {
 
                 AuditUser.shared.updateCourses(originTable: table, isStore: false)
                 var weekDic = [Int: [[ClassModel]]]()
-                for week in 1...22 {
+//                for week in 1...22 {
+                for week in 1...30 {
                     weekDic[week] = AuditUser.shared.getCourseListModel(week: week)
                 }
                 self.weekCourseDict = weekDic
@@ -357,7 +359,8 @@ class ClassTableViewController: UIViewController {
             self.currentDisplayWeek = Int(week)
 
             var weekDic = [Int: [[ClassModel]]]()
-            for week in 1...22 {
+//            for week in 1...22 {
+            for week in 1...30 {
                 weekDic[week] = AuditUser.shared.getCourseListModel(week: week)
             }
             self.weekCourseDict = weekDic
@@ -406,14 +409,15 @@ class ClassTableViewController: UIViewController {
 extension ClassTableViewController {
     // 刷新缩略图
     func updateWeekItem() {
-        guard var cells = weekSelectView.subviews.filter({ $0 is WeekItemCell }) as? [WeekItemCell], cells.count == 22 else {
+        guard var cells = weekSelectView.subviews.filter({ $0 is WeekItemCell }) as? [WeekItemCell], cells.count == 30 else {
             return
         }
         cells.sort(by: { a, b in
             a.tag < b.tag
         })
 
-        for i in 1...22 {
+//        for i in 1...22 {
+        for i in 1...30 {
             guard let courses = self.weekCourseDict[i] else {
                 return
             }

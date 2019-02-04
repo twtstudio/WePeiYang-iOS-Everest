@@ -189,7 +189,7 @@ class AuditUser {
             }
         }
         self.courseMappingDic = [:]
-        self.conflictHashTable = Array(repeating: false, count: 1850)
+        self.conflictHashTable = Array(repeating: false, count: 2700)
 
         for course in table.classes {
             for arrange in course.arrange {
@@ -205,7 +205,8 @@ class AuditUser {
                 self.courseMappingDic[index] = newCourse
                 let courseList = self.courseTable[newCourse.arrange.first!.day][newCourse.arrange.first!.start]
                 
-                for week in 1...22 {
+//                for week in 1...22 {
+                for week in 1...30 {
                     if (week < Int(newCourse.weekStart)!) || (week > Int(newCourse.weekEnd)!) {
                         courseList.undisplayCourses[week].append(index)
                     } else if (week % 2 == 0 && arrange.week == "单周") || (week % 2 == 1 && arrange.week == "双周") {
@@ -330,6 +331,9 @@ class AuditUser {
         }
 
         self.updateCourseTable(table: table)
+//        if currentWeek == 23 {
+//            currentWeek = 22
+//        }
         let courseForDay = self.getCourseListModel(week: currentWeek)
         let courses = courseForDay[weekday]
         return courses

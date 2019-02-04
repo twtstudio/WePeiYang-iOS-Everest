@@ -25,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITableView.beginSwizzling()
         UICollectionView.beginSwizzling()
 
-        MTA.trackCustomKeyValueEvent("expose", props: ["name": "一条测试哦"])
-
         window = UIWindow(frame: UIScreen.main.bounds)
 
         UIApplication.shared.applicationIconBadgeNumber = 0

@@ -11,7 +11,7 @@ import PopupDialog
 import SwiftMessages
 
 struct WPYAnalyticsAOP {
-    static let pageTimeSet = Set(["FavViewController", "NewsViewController", "AllModulesViewController", "SettingsViewController", "NewsDetailViewController", "GPAViewController", "ClassTableViewController", "AuditHomeViewController", "AuditDetailViewController", "AuditSearchViewController", "BicycleServiceViewController", "MallViewController", "YellowPageMainViewController", "YellowPageDetailViewController", "YellowPageSearchViewController", "WLANLoginViewController", "LibraryMainViewController", "BookDetailViewController", "LibraryBindingViewController", "BicycleBindingViewController", "ECardBindingViewController", "TJUBindingViewController", "WLANBindingViewController", "DetailSettingViewController", "ClassTableSettingViewController", "ModulesSettingsViewController", "SupportWebViewController"])
+    static let pageTimeSet = Set(["FavViewController", "NewsViewController", "AllModulesViewController", "SettingsViewController", "NewsDetailViewController", "GPAViewController", "ClassTableViewController", "AuditHomeViewController", "AuditDetailViewController", "AuditSearchViewController", "BicycleServiceViewController", "MallViewController", "YellowPageMainViewController", "YellowPageDetailViewController", "YellowPageSearchViewController", "WLANLoginViewController", "LibraryMainViewController", "BookDetailViewController", "LibraryBindingViewController", "BicycleBindingViewController", "ECardBindingViewController", "TJUBindingViewController", "WLANBindingViewController", "DetailSettingViewController", "ClassTableSettingViewController", "ModulesSettingsViewController", "SupportWebViewController", "ExamtableController"])
     
     // "LibraryBorrowViewController", "LibraryReadViewController", "LibraryListViewController"
     // "BicycleServiceMapController", "BicycleServiceInfoController", "BicycleServiceNotificationController"
@@ -331,6 +331,8 @@ extension UIViewController {
         self.swizzled_viewDidLoad()
 
         switch self {
+        case is ExamtableController:
+            MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入考表页面"])
         case is FavViewController:
             //log("进入首页的卡片页面")
             MTA.trackCustomKeyValueEvent("expose", props: ["name": "进入首页的卡片页面"])

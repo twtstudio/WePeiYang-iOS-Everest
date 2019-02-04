@@ -39,6 +39,8 @@ class CourseCell: UITableViewCell {
 
 //        titleLabel.adjustsFontSizeToFitWidth = true
 
+        self.backgroundColor = .clear
+
         contentView.layer.cornerRadius = 4
         contentView.layer.masksToBounds = true
 

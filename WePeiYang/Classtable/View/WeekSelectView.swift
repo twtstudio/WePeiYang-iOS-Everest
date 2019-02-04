@@ -24,9 +24,11 @@ class WeekSelectView: UIScrollView {
 
         let width = 50 as CGFloat
         let height = 60 as CGFloat
-        self.contentSize = CGSize(width: width*22, height: height)
+//        self.contentSize = CGSize(width: width*22, height: height)
+        self.contentSize = CGSize(width: width*30, height: height)
 
-        for i in 0..<22 {
+//        for i in 0..<22 {
+        for i in 0..<30 {
             let cell = WeekItemCell(frame: CGRect(x: width*CGFloat(i), y: 0, width: width, height: height))
             cell.isUserInteractionEnabled = true
             cell.tag = i + 1
