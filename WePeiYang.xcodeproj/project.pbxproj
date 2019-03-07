@@ -175,6 +175,23 @@
 		36FCC2D520544E35003379AE /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36FCC2D420544E35003379AE /* LoadingView.xib */; };
 		36FCC2D920545967003379AE /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FCC2D820545967003379AE /* LoginView.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
+		784A207622314C4E00C4CAF1 /* AnnouncementDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A206322314C4E00C4CAF1 /* AnnouncementDetailController.swift */; };
+		784A207722314C4E00C4CAF1 /* AnnouncementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A206422314C4E00C4CAF1 /* AnnouncementViewController.swift */; };
+		784A207822314C4E00C4CAF1 /* FilePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A206522314C4E00C4CAF1 /* FilePreviewController.swift */; };
+		784A207922314C4E00C4CAF1 /* GetJobPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A206622314C4E00C4CAF1 /* GetJobPageViewController.swift */; };
+		784A207A22314C4E00C4CAF1 /* GetJobSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A206722314C4E00C4CAF1 /* GetJobSearchViewController.swift */; };
+		784A207B22314C4E00C4CAF1 /* JobFairViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A206822314C4E00C4CAF1 /* JobFairViewController.swift */; };
+		784A207C22314C4E00C4CAF1 /* JobFireDetaileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A206922314C4E00C4CAF1 /* JobFireDetaileController.swift */; };
+		784A207D22314C4E00C4CAF1 /* RecruitmentInfoDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A206A22314C4E00C4CAF1 /* RecruitmentInfoDetailController.swift */; };
+		784A207E22314C4E00C4CAF1 /* RecruitmentInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A206B22314C4E00C4CAF1 /* RecruitmentInfoViewController.swift */; };
+		784A207F22314C4E00C4CAF1 /* TrendsDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A206C22314C4E00C4CAF1 /* TrendsDetailController.swift */; };
+		784A208022314C4E00C4CAF1 /* TrendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A206D22314C4E00C4CAF1 /* TrendsViewController.swift */; };
+		784A208122314C4E00C4CAF1 /* Recruitnfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A206F22314C4E00C4CAF1 /* Recruitnfo.swift */; };
+		784A208222314C4E00C4CAF1 /* AnnouncementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A207122314C4E00C4CAF1 /* AnnouncementTableViewCell.swift */; };
+		784A208322314C4E00C4CAF1 /* JobFairTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A207222314C4E00C4CAF1 /* JobFairTableViewCell.swift */; };
+		784A208422314C4E00C4CAF1 /* RecruitmentInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A207322314C4E00C4CAF1 /* RecruitmentInfoTableViewCell.swift */; };
+		784A208522314C4E00C4CAF1 /* SerchHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A207422314C4E00C4CAF1 /* SerchHistoryTableViewCell.swift */; };
+		784A208622314C4E00C4CAF1 /* TrendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A207522314C4E00C4CAF1 /* TrendsTableViewCell.swift */; };
 		78B400E7219C6366006A8A45 /* AuditHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B400E6219C6366006A8A45 /* AuditHomeViewController.swift */; };
 		78FB9E65217AE69D001DE39A /* LFCollectionReusableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E64217AE69D001DE39A /* LFCollectionReusableHeaderView.swift */; };
 		78FB9E67217AEA3F001DE39A /* LFMarkCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E66217AEA3F001DE39A /* LFMarkCustomCell.swift */; };
@@ -466,6 +483,23 @@
 		3E2AFF1235C9C87488CB407A /* Pods-WePeiYangWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.release.xcconfig"; sourceTree = "<group>"; };
 		6E48DF45006ADE8419C6CF0C /* Pods_WePeiYangWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F6749BFC82CF9191336C6C5 /* Pods_WePeiYangTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		784A206322314C4E00C4CAF1 /* AnnouncementDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementDetailController.swift; sourceTree = "<group>"; };
+		784A206422314C4E00C4CAF1 /* AnnouncementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementViewController.swift; sourceTree = "<group>"; };
+		784A206522314C4E00C4CAF1 /* FilePreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilePreviewController.swift; sourceTree = "<group>"; };
+		784A206622314C4E00C4CAF1 /* GetJobPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetJobPageViewController.swift; sourceTree = "<group>"; };
+		784A206722314C4E00C4CAF1 /* GetJobSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetJobSearchViewController.swift; sourceTree = "<group>"; };
+		784A206822314C4E00C4CAF1 /* JobFairViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobFairViewController.swift; sourceTree = "<group>"; };
+		784A206922314C4E00C4CAF1 /* JobFireDetaileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobFireDetaileController.swift; sourceTree = "<group>"; };
+		784A206A22314C4E00C4CAF1 /* RecruitmentInfoDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecruitmentInfoDetailController.swift; sourceTree = "<group>"; };
+		784A206B22314C4E00C4CAF1 /* RecruitmentInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecruitmentInfoViewController.swift; sourceTree = "<group>"; };
+		784A206C22314C4E00C4CAF1 /* TrendsDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendsDetailController.swift; sourceTree = "<group>"; };
+		784A206D22314C4E00C4CAF1 /* TrendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendsViewController.swift; sourceTree = "<group>"; };
+		784A206F22314C4E00C4CAF1 /* Recruitnfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recruitnfo.swift; sourceTree = "<group>"; };
+		784A207122314C4E00C4CAF1 /* AnnouncementTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementTableViewCell.swift; sourceTree = "<group>"; };
+		784A207222314C4E00C4CAF1 /* JobFairTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobFairTableViewCell.swift; sourceTree = "<group>"; };
+		784A207322314C4E00C4CAF1 /* RecruitmentInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecruitmentInfoTableViewCell.swift; sourceTree = "<group>"; };
+		784A207422314C4E00C4CAF1 /* SerchHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerchHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		784A207522314C4E00C4CAF1 /* TrendsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendsTableViewCell.swift; sourceTree = "<group>"; };
 		78B400E6219C6366006A8A45 /* AuditHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditHomeViewController.swift; sourceTree = "<group>"; };
 		78FB9E64217AE69D001DE39A /* LFCollectionReusableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFCollectionReusableHeaderView.swift; sourceTree = "<group>"; };
 		78FB9E66217AEA3F001DE39A /* LFMarkCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFMarkCustomCell.swift; sourceTree = "<group>"; };
@@ -1021,6 +1055,54 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		784A206122314C4E00C4CAF1 /* GetJob */ = {
+			isa = PBXGroup;
+			children = (
+				784A206222314C4E00C4CAF1 /* Controller */,
+				784A206E22314C4E00C4CAF1 /* Model */,
+				784A207022314C4E00C4CAF1 /* View */,
+			);
+			path = GetJob;
+			sourceTree = "<group>";
+		};
+		784A206222314C4E00C4CAF1 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				784A206322314C4E00C4CAF1 /* AnnouncementDetailController.swift */,
+				784A206422314C4E00C4CAF1 /* AnnouncementViewController.swift */,
+				784A206522314C4E00C4CAF1 /* FilePreviewController.swift */,
+				784A206622314C4E00C4CAF1 /* GetJobPageViewController.swift */,
+				784A206722314C4E00C4CAF1 /* GetJobSearchViewController.swift */,
+				784A206822314C4E00C4CAF1 /* JobFairViewController.swift */,
+				784A206922314C4E00C4CAF1 /* JobFireDetaileController.swift */,
+				784A206A22314C4E00C4CAF1 /* RecruitmentInfoDetailController.swift */,
+				784A206B22314C4E00C4CAF1 /* RecruitmentInfoViewController.swift */,
+				784A206C22314C4E00C4CAF1 /* TrendsDetailController.swift */,
+				784A206D22314C4E00C4CAF1 /* TrendsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		784A206E22314C4E00C4CAF1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				784A206F22314C4E00C4CAF1 /* Recruitnfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		784A207022314C4E00C4CAF1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				784A207122314C4E00C4CAF1 /* AnnouncementTableViewCell.swift */,
+				784A207222314C4E00C4CAF1 /* JobFairTableViewCell.swift */,
+				784A207322314C4E00C4CAF1 /* RecruitmentInfoTableViewCell.swift */,
+				784A207422314C4E00C4CAF1 /* SerchHistoryTableViewCell.swift */,
+				784A207522314C4E00C4CAF1 /* TrendsTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		78FB9E62217AE66A001DE39A /* LostFound */ = {
 			isa = PBXGroup;
 			children = (
@@ -1343,6 +1425,7 @@
 		B19DAB881E6EF5C2004A50B5 /* WePeiYang */ = {
 			isa = PBXGroup;
 			children = (
+				784A206122314C4E00C4CAF1 /* GetJob */,
 				78FB9E62217AE66A001DE39A /* LostFound */,
 				DD0B76142158CBA5009A392C /* GPA */,
 				DD0B75CC2158C6ED009A392C /* YellowPage */,
@@ -1804,6 +1887,7 @@
 				360339E920247B9D0006A083 /* LibraryCard.swift in Sources */,
 				DD0B75F52158C6ED009A392C /* YellowPageMainViewController.swift in Sources */,
 				3614D57B21D929FE0007B886 /* BookCollectionCell.swift in Sources */,
+				784A208322314C4E00C4CAF1 /* JobFairTableViewCell.swift in Sources */,
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
 				78FB9E9D217AEF54001DE39A /* PublishSuccessViewController.swift in Sources */,
 				3614D57821D929FE0007B886 /* BookListTableViewCell.swift in Sources */,
@@ -1811,13 +1895,17 @@
 				3685D9EF204D255700BA6C3D /* NewsDetailViewController.swift in Sources */,
 				3614D54821D9251A0007B886 /* ExamModel.swift in Sources */,
 				365261561FB9F83400025B8A /* ClassTableModel.swift in Sources */,
+				784A208122314C4E00C4CAF1 /* Recruitnfo.swift in Sources */,
 				DD2A2AC321B773B600EA6F8F /* AuditCacheManager.swift in Sources */,
 				36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */,
 				78FB9E7A217AEC0B001DE39A /* LostFoundAPI.swift in Sources */,
 				36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */,
+				784A207822314C4E00C4CAF1 /* FilePreviewController.swift in Sources */,
+				784A207D22314C4E00C4CAF1 /* RecruitmentInfoDetailController.swift in Sources */,
 				36449E481FA4BA9B0036766B /* ApplicantTest.swift in Sources */,
 				361F8863204AF94200BCFA19 /* NewsTableViewCell.swift in Sources */,
 				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,
+				784A207922314C4E00C4CAF1 /* GetJobPageViewController.swift in Sources */,
 				361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */,
 				368C3C8A204DAB4F00C1E6B6 /* WPYCustomError.swift in Sources */,
 				361FB17A21843AFC00BD5A1E /* UploadingPicCell.swift in Sources */,
@@ -1829,6 +1917,7 @@
 				DD0B75F72158C6ED009A392C /* PhoneBook.swift in Sources */,
 				365A8A281FB9CA1700B15443 /* ClassModel.swift in Sources */,
 				78FB9E97217AEEF4001DE39A /* MyLostFoundPageViewController.swift in Sources */,
+				784A207722314C4E00C4CAF1 /* AnnouncementViewController.swift in Sources */,
 				DD0B76262158CBA6009A392C /* GPAModel.swift in Sources */,
 				364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */,
 				DD0B762C2158CBA6009A392C /* ScoreHeaderView.swift in Sources */,
@@ -1859,6 +1948,7 @@
 				A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */,
 				3614D54921D9251A0007B886 /* ExamAssistant.swift in Sources */,
 				DD0B76292158CBA6009A392C /* GPAClassModel.swift in Sources */,
+				784A207C22314C4E00C4CAF1 /* JobFireDetaileController.swift in Sources */,
 				DD41A83B21A52F7100886BB4 /* AuditSearchModel.swift in Sources */,
 				78FB9E93217AEEC5001DE39A /* LostViewController.swift in Sources */,
 				365A46462035E35500738963 /* Storage.swift in Sources */,
@@ -1888,6 +1978,7 @@
 				36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */,
 				36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */,
 				36E56BC61FC512230009BD6F /* CourseListView.swift in Sources */,
+				784A207E22314C4E00C4CAF1 /* RecruitmentInfoViewController.swift in Sources */,
 				DD2A2ABD21B2DC5100EA6F8F /* CourseCollectionView.swift in Sources */,
 				3613DA222056F740000867AE /* UniversalExtension.swift in Sources */,
 				364BDF721FDAE1EF00E61B65 /* GPACard.swift in Sources */,
@@ -1901,10 +1992,12 @@
 				3685D9F1204D276100BA6C3D /* NewsDetailModel.swift in Sources */,
 				A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */,
 				3614D55321D928BB0007B886 /* WLANLoginViewController.swift in Sources */,
+				784A208222314C4E00C4CAF1 /* AnnouncementTableViewCell.swift in Sources */,
 				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
 				36449E8A1FA4BAD10036766B /* PartyPersonalStatusViewController.swift in Sources */,
 				DD0B75FA2158C6ED009A392C /* SearchView.swift in Sources */,
 				78FB9E8B217AEE4C001DE39A /* LFWaterFlowViewLayout.swift in Sources */,
+				784A207A22314C4E00C4CAF1 /* GetJobSearchViewController.swift in Sources */,
 				36449E621FA4BABA0036766B /* SignUpTableViewCell.swift in Sources */,
 				369D92092015D97A004BA1D0 /* WeekItemCell.swift in Sources */,
 				36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */,
@@ -1913,10 +2006,13 @@
 				36449E6D1FA4BABA0036766B /* FinalView.swift in Sources */,
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
 				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
+				784A207B22314C4E00C4CAF1 /* JobFairViewController.swift in Sources */,
 				3614D57A21D929FE0007B886 /* BookDetailTableHeaderView.swift in Sources */,
 				3667E1D0201CB98800E82241 /* DetailSettingViewController.swift in Sources */,
 				3614D56E21D929FE0007B886 /* LibraryMainViewController.swift in Sources */,
 				3614D57021D929FE0007B886 /* LibraryReadViewController.swift in Sources */,
+				784A208422314C4E00C4CAF1 /* RecruitmentInfoTableViewCell.swift in Sources */,
+				784A207F22314C4E00C4CAF1 /* TrendsDetailController.swift in Sources */,
 				78FB9E99217AEF09001DE39A /* MyLostViewController.swift in Sources */,
 				B102540D1EC8520A0064373A /* AppDelegate.swift in Sources */,
 				361F8855204AF92100BCFA19 /* GalleryModel.swift in Sources */,
@@ -1941,11 +2037,13 @@
 				3644E1FC21D8DB09001F13F9 /* ExamCard.swift in Sources */,
 				DD0B76232158CBA6009A392C /* GPAViewController.swift in Sources */,
 				36449E631FA4BABA0036766B /* ScoreTableViewCell.swift in Sources */,
+				784A208622314C4E00C4CAF1 /* TrendsTableViewCell.swift in Sources */,
 				DDC7892021B132A700ABA33F /* CourseList.swift in Sources */,
 				78FB9E8F217AEE92001DE39A /* LostFoundPageViewController.swift in Sources */,
 				36449E8E1FA4BAD10036766B /* PartyComplainViewController.swift in Sources */,
 				361F8867204AF9AA00BCFA19 /* NewsViewController.swift in Sources */,
 				36449E911FA4BAD10036766B /* GradeCheckViewController.swift in Sources */,
+				784A208522314C4E00C4CAF1 /* SerchHistoryTableViewCell.swift in Sources */,
 				3653DD911FBAD0B600501C3B /* ClassTableViewController.swift in Sources */,
 				78FB9E85217AEDB8001DE39A /* LFDetailViewController.swift in Sources */,
 				3614D57221D929FE0007B886 /* BookDetailViewController.swift in Sources */,
@@ -1984,10 +2082,12 @@
 				DD41A82F21A3265800886BB4 /* PopularListModel.swift in Sources */,
 				DD6A663421A59D260070C4B2 /* AuditCollegeCourseViewController.swift in Sources */,
 				A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */,
+				784A207622314C4E00C4CAF1 /* AnnouncementDetailController.swift in Sources */,
 				36449E8F1FA4BAD10036766B /* HandInDetailViewController.swift in Sources */,
 				3668CE552159E121002673BE /* WPYTextField.swift in Sources */,
 				3614D57721D929FE0007B886 /* BookDetailCard.swift in Sources */,
 				78FB9E67217AEA3F001DE39A /* LFMarkCustomCell.swift in Sources */,
+				784A208022314C4E00C4CAF1 /* TrendsViewController.swift in Sources */,
 				DD0B76272158CBA6009A392C /* CourseAppraiseManager.swift in Sources */,
 				3614D57421D929FE0007B886 /* DetailBook.swift in Sources */,
 				361F8862204AF94200BCFA19 /* NewsHeaderView.swift in Sources */,
