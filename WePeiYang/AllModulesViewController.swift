@@ -21,8 +21,9 @@ class AllModulesViewController: UIViewController {
         (title: "黄页", image: UIImage(named: "yellowPageBtn")!, class: YellowPageMainViewController.self, needLogin: false),
         (title: "上网", image: UIImage(named: "networkBtn")!, class: WLANLoginViewController.self, needLogin: true),
         (title: "图书馆", image: UIImage(named: "libBtn")!, class: LibraryMainViewController.self, needLogin: true),
-        (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self, needLogin: true)]
-
+        (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self, needLogin: true),
+        (title: "就业", image: UIImage(named: "lfBtn")!, class: GetJobPageViewController.self, needLogin: true)
+    ]
     var collectionView: UICollectionView!
 
     override func viewDidLoad() {
