@@ -19,14 +19,16 @@ class SerchHistoryTableViewCell: UITableViewCell {
     private var tableView: UITableView!
     private var index: Int!
     private var historyData: [String]!
+    private var indexPath: IndexPath!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
-    convenience init(historyData: [String], index: Int, tableView: UITableView) {
+    convenience init(historyData: [String], indexPath: IndexPath, tableView: UITableView) {
         self.init(style: .default, reuseIdentifier: "SerchHistoryTableViewCell")
         self.tableView = tableView
-        self.index = index
+        self.index = indexPath.row
+        self.indexPath = indexPath
         self.historyData = historyData
         let padding: CGFloat = 10
         
@@ -60,6 +62,7 @@ class SerchHistoryTableViewCell: UITableViewCell {
         self.historyData.remove(at: index)
         SearchHistory.historyData = self.historyData
         SearchHistory.userDefaults.set(SearchHistory.historyData, forKey: "GetJobSearchHistory")
+        //self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.none)
         self.tableView.reloadData()
     }
     @objc func deleteAll() {

@@ -20,11 +20,12 @@ class TrendsDetailController: UIViewController {
     var scrollView = UIScrollView()
     var lineLable = UILabel()
     var fileImageView1 = UIImageView()
-    var fileLable1 = UILabel()
+    var fileBtn1 = UIButton(type: UIButtonType.system)
     var fileImageView2 = UIImageView()
-    var fileLable2 = UILabel()
+    var fileBtn2 = UIButton(type: UIButtonType.system)
     var fileImageView3 = UIImageView()
-    var fileLable3 = UILabel()
+    var fileBtn3 = UIButton(type: UIButtonType.system)
+    var attachArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,41 +96,53 @@ class TrendsDetailController: UIViewController {
                     self.setScrollView(byLastView: self.lineLable)
                     
                     if json["data"]["attach1"].string != nil {
+                        self.attachArray.append(json["data"]["attach1"].string!)
                         self.fileImageView1.image = UIImage(named: "文件")
                         self.fileImageView1.frame = CGRect(x: padding, y: self.lineLable.y+padding*2, width: 40, height: 40)
                         self.scrollView.addSubview(self.fileImageView1)
                         
-                        self.fileLable1.frame = CGRect(x: self.fileImageView1.x+40, y: self.fileImageView1.y+5, width: Device.width-padding*2-self.fileImageView1.width, height: 40)
-                        self.fileLable1.text = json["data"]["attach1_name"].string!
-                        self.fileLable1.numberOfLines = 0
-                        self.fileLable1.font = UIFont.systemFont(ofSize: 15)
-                        self.scrollView.addSubview(self.fileLable1)
+                        self.fileBtn1.frame = CGRect(x: self.fileImageView1.x+40, y: self.fileImageView1.y+5, width: Device.width-padding*2-self.fileImageView1.width, height: 40)
+                        self.fileBtn1.setTitle(json["data"]["attach1_name"].string!, for: .normal)
+                        self.fileBtn1.titleLabel?.numberOfLines = 0
+                        self.fileBtn1.titleLabel!.font = UIFont.systemFont(ofSize: 15)
+                        self.fileBtn1.tag = 1
+                        self.fileBtn1.addTarget(self, action: #selector(self.clickFile(button:)), for: .touchUpInside)
+                        self.fileBtn1.contentHorizontalAlignment = .left
+                        self.scrollView.addSubview(self.fileBtn1)
                         self.setScrollView(byLastView: self.fileImageView1)
                     }
                     
                     if json["data"]["attach2"].string != nil {
+                        self.attachArray.append(json["data"]["attach1"].string!)
                         self.fileImageView2.image = UIImage(named: "文件")
                         self.fileImageView2.frame = CGRect(x: padding, y: self.fileImageView1.y+40+padding, width: 40, height: 40)
                         self.scrollView.addSubview(self.fileImageView2)
                         
-                        self.fileLable2.frame = CGRect(x: self.fileImageView2.x+40, y: self.fileImageView2.y+5, width: Device.width-padding*2-self.fileImageView2.width, height: 40)
-                        self.fileLable2.text = json["data"]["attach2_name"].string!
-                        self.fileLable2.numberOfLines = 0
-                        self.fileLable2.font = UIFont.systemFont(ofSize: 15)
-                        self.scrollView.addSubview(self.fileLable2)
+                        self.fileBtn2.frame = CGRect(x: self.fileImageView2.x+40, y: self.fileImageView2.y+5, width: Device.width-padding*2-self.fileImageView2.width, height: 40)
+                        self.fileBtn2.setTitle(json["data"]["attach2_name"].string!, for: .normal)
+                        self.fileBtn2.titleLabel?.numberOfLines = 0
+                        self.fileBtn2.titleLabel!.font = UIFont.systemFont(ofSize: 15)
+                        self.fileBtn2.tag = 2
+                        self.fileBtn2.addTarget(self, action: #selector(self.clickFile(button:)), for: .touchUpInside)
+                        self.scrollView.addSubview(self.fileBtn2)
+                        self.fileBtn2.contentHorizontalAlignment = .left
                         self.setScrollView(byLastView: self.fileImageView2)
                     }
                     
                     if json["data"]["attach3"].string != nil {
+                        self.attachArray.append(json["data"]["attach1"].string!)
                         self.fileImageView3.image = UIImage(named: "文件")
                         self.fileImageView3.frame = CGRect(x: padding, y: self.fileImageView2.y+40+padding, width: 40, height: 40)
                         self.scrollView.addSubview(self.fileImageView3)
                         
-                        self.fileLable3.frame = CGRect(x: self.fileImageView3.x+40, y: self.fileImageView3.y+5, width: Device.width-padding*2-self.fileImageView3.width, height: 40)
-                        self.fileLable3.text = json["data"]["attach3_name"].string!
-                        self.fileLable3.numberOfLines = 0
-                        self.fileLable3.font = UIFont.systemFont(ofSize: 15)
-                        self.scrollView.addSubview(self.fileLable3)
+                        self.fileBtn3.frame = CGRect(x: self.fileImageView3.x+40, y: self.fileImageView3.y+5, width: Device.width-padding*2-self.fileImageView3.width, height: 40)
+                        self.fileBtn3.setTitle(json["data"]["attach3_name"].string!, for: .normal)
+                        self.fileBtn3.titleLabel?.numberOfLines = 0
+                        self.fileBtn3.titleLabel!.font = UIFont.systemFont(ofSize: 15)
+                        self.fileBtn3.tag = 3
+                        self.fileBtn3.addTarget(self, action: #selector(self.clickFile(button:)), for: .touchUpInside)
+                        self.scrollView.addSubview(self.fileBtn3)
+                        self.fileBtn3.contentHorizontalAlignment = .left
                         self.setScrollView(byLastView: self.fileImageView3)
                     }
                 }
@@ -160,5 +173,9 @@ class TrendsDetailController: UIViewController {
         var newContentSize = self.scrollView.contentSize
         newContentSize.height = byLastView.y + 100
         self.scrollView.contentSize = newContentSize
+    }
+    @objc func clickFile(button: UIButton) {
+        AttachHttp.http = attachArray[button.tag-1]
+        self.navigationController?.pushViewController(FilePreviewController(), animated: true)
     }
 }

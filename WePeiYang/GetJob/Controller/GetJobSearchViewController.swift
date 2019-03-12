@@ -117,7 +117,7 @@ extension GetJobSearchViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if didSearch == false {
-            return SerchHistoryTableViewCell(historyData: SearchHistory.historyData!.reversed(), index: indexPath.row, tableView: tableView)
+            return SerchHistoryTableViewCell(historyData: SearchHistory.historyData!.reversed(), indexPath: indexPath, tableView: tableView)
         }else {
             if indexPath.row < 7 {
                 return RecruitmentInfoTableViewCell(recruitmentInfo: resultInfo, index: indexPath.row, isSearch: true)
@@ -139,13 +139,20 @@ extension GetJobSearchViewController: UITableViewDelegate, UITableViewDataSource
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row < 7 {
-            didSelectCell.id = resultInfo.imporant[indexPath.row].id
-            self.navigationController?.pushViewController(RecruitmentInfoDetailController(), animated: true)
+        if didSearch == true {
+            if indexPath.row < 7 {
+                didSelectCell.id = resultInfo.imporant[indexPath.row].id
+                self.navigationController?.pushViewController(RecruitmentInfoDetailController(), animated: true)
+            }else {
+                didSelectCell.id = resultInfo.common[indexPath.row-7].id
+                self.navigationController?.pushViewController(JobFireDetaileController(), animated: true)
+            }
         }else {
-            didSelectCell.id = resultInfo.common[indexPath.row-7].id
-            self.navigationController?.pushViewController(JobFireDetaileController(), animated: true)
+            let historyCount = SearchHistory.historyData!.count
+            let historySelected: String = SearchHistory.historyData![historyCount-1-indexPath.row]
+            self.searchBar.text = historySelected
         }
+        
     }
 }
 extension GetJobSearchViewController: UISearchBarDelegate {
@@ -156,6 +163,7 @@ extension GetJobSearchViewController: UISearchBarDelegate {
             }else {
                 SearchHistory.historyData?.append("\(searchBar.text!)")
             }
+            searchBar.resignFirstResponder()
             SearchHistory.userDefaults.set(SearchHistory.historyData, forKey: "GetJobSearchHistory")
             SearchHistory.userDefaults.synchronize()
             // 搜索后对 searchResultTableView 的操作
@@ -170,7 +178,14 @@ extension GetJobSearchViewController: UISearchBarDelegate {
                     //把得到的JSON数据转为数组
                     if let value = response.result.value {
                         let json = JSON(value)
-                        if json["data"]["info"].count < 6 || json["data"]["meeting"].count < 6 {
+                        if json["data"]["info"].count <= 6 || json["data"]["meeting"].count <= 6 {
+                            if self.searchResultTableView != nil {
+                                self.searchResultTableView.isHidden = true
+                            }
+                            if self.noResultImageView != nil {
+                                self.noResultImageView.isHidden = false
+                                self.noResultLable.isHidden = false
+                            }
                             self.noResultImageView.image = UIImage(named: "搜索无结果")
                             self.noResultImageView.frame = CGRect(x: (Device.width - 200)/2, y: 200, width: 200, height: 200)
                             self.view.addSubview(self.noResultImageView)
@@ -181,6 +196,13 @@ extension GetJobSearchViewController: UISearchBarDelegate {
                             self.noResultLable.text = "没有找到关于 ”\(searchBar.text!)“ 的就业信息"
                             self.view.addSubview(self.noResultLable)
                         }else {
+                            if self.searchResultTableView != nil {
+                                self.searchResultTableView.isHidden = false
+                            }
+                            if self.noResultImageView != nil {
+                                self.noResultImageView.isHidden = true
+                                self.noResultLable.isHidden = true
+                            }
                             for i in 0..<7 {
                                 self.resultInfo.imporant.append(Imporant())
                                 self.resultInfo.imporant[i].id = json["data"]["info"][i]["id"].string!

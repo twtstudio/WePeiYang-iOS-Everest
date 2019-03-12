@@ -90,7 +90,7 @@ class TrendsViewController: UIViewController {
         Alamofire.request(RecruitmentUrl).responseJSON { response in
             switch response.result.isSuccess {
             case true:
-                //把得到的JSON数据转为数组
+                // 把得到的JSON数据转为数组
                 if let value = response.result.value {
                     let json = JSON(value)
                     for i in 0..<10 {
@@ -124,8 +124,10 @@ extension TrendsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row < importantNum {
             didSelectCell.id = recruitmentInfo.imporant[indexPath.row].id
-        }else {
-            didSelectCell.id = recruitmentInfo.common[indexPath.row-importantNum].id
+        }else if indexPath.row >= importantNum && indexPath.row < importantNum + rotationNum {
+            didSelectCell.id = recruitmentInfo.rotation[indexPath.row-importantNum].id
+        } else {
+            didSelectCell.id = recruitmentInfo.common[indexPath.row-importantNum-rotationNum].id
         }
         self.navigationController?.pushViewController(TrendsDetailController(), animated: true)
     }
