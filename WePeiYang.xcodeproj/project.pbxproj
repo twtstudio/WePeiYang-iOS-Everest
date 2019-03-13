@@ -1491,6 +1491,7 @@
 				365A46492036EFB700738963 /* Sources */,
 				365A464A2036EFB700738963 /* Frameworks */,
 				365A464B2036EFB700738963 /* Resources */,
+				A4B5EA88C3576E2C7F669516 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1511,6 +1512,7 @@
 				B19DAB841E6EF5C2004A50B5 /* Resources */,
 				9425E5E6C1FDC2E7D9F81A80 /* [CP] Embed Pods Frameworks */,
 				365A465D2036EFB800738963 /* Embed App Extensions */,
+				E03FBFFB049975E4CEA8D742 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1742,6 +1744,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A4B5EA88C3576E2C7F669516 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E03FBFFB049975E4CEA8D742 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F8D142B23E26238DDC2405BB /* [CP] Check Pods Manifest.lock */ = {
