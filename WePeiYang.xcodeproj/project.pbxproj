@@ -176,6 +176,7 @@
 		36FCC2D920545967003379AE /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FCC2D820545967003379AE /* LoginView.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
 		78609F82223942BB00C8A9F3 /* ECardHomeViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78609F81223942BB00C8A9F3 /* ECardHomeViewContoller.swift */; };
+		78609F8522394AE300C8A9F3 /* NewECardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78609F8422394AE300C8A9F3 /* NewECardModel.swift */; };
 		78B400E7219C6366006A8A45 /* AuditHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B400E6219C6366006A8A45 /* AuditHomeViewController.swift */; };
 		78FB9E65217AE69D001DE39A /* LFCollectionReusableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E64217AE69D001DE39A /* LFCollectionReusableHeaderView.swift */; };
 		78FB9E67217AEA3F001DE39A /* LFMarkCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E66217AEA3F001DE39A /* LFMarkCustomCell.swift */; };
@@ -468,6 +469,7 @@
 		6E48DF45006ADE8419C6CF0C /* Pods_WePeiYangWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F6749BFC82CF9191336C6C5 /* Pods_WePeiYangTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78609F81223942BB00C8A9F3 /* ECardHomeViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECardHomeViewContoller.swift; sourceTree = "<group>"; };
+		78609F8422394AE300C8A9F3 /* NewECardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewECardModel.swift; sourceTree = "<group>"; };
 		78B400E6219C6366006A8A45 /* AuditHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditHomeViewController.swift; sourceTree = "<group>"; };
 		78FB9E64217AE69D001DE39A /* LFCollectionReusableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFCollectionReusableHeaderView.swift; sourceTree = "<group>"; };
 		78FB9E66217AEA3F001DE39A /* LFMarkCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFMarkCustomCell.swift; sourceTree = "<group>"; };
@@ -739,7 +741,7 @@
 			isa = PBXGroup;
 			children = (
 				3615A9C821ACEB94001D1522 /* Controller */,
-				3615A9C321AC80D8001D1522 /* Model */,
+				78609F8322394A3D00C8A9F3 /* Model */,
 				3615A9C221AC80CF001D1522 /* View */,
 			);
 			path = ECard;
@@ -750,13 +752,6 @@
 			children = (
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		3615A9C321AC80D8001D1522 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		3615A9C821ACEB94001D1522 /* Controller */ = {
@@ -1022,6 +1017,14 @@
 				369306941F2B976C008E90DC /* ModuleCollectionViewCell.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		78609F8322394A3D00C8A9F3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				78609F8422394AE300C8A9F3 /* NewECardModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		78FB9E62217AE66A001DE39A /* LostFound */ = {
@@ -1877,6 +1880,7 @@
 				78FB9E71217AEAFC001DE39A /* MyLostFoundTableViewCell.swift in Sources */,
 				DD0B75F62158C6ED009A392C /* ClientItem.swift in Sources */,
 				78609F82223942BB00C8A9F3 /* ECardHomeViewContoller.swift in Sources */,
+				78609F8522394AE300C8A9F3 /* NewECardModel.swift in Sources */,
 				3614D57D21D929FE0007B886 /* BookCard.swift in Sources */,
 				A53602671FC6E36100E3D1AF /* LibraryBindingViewController.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
