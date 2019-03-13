@@ -37,7 +37,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         let configuration = ARWorldTrackingConfiguration()
         
         if #available(iOS 11.3, *) {
-            configuration.planeDetection = .vertical
+            // configuration.planeDetection = .vertical
         } else {
             configuration.planeDetection = .horizontal
         }

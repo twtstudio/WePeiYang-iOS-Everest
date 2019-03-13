@@ -8,7 +8,8 @@
 
 import Foundation
 
-enum Module: String, CaseIterable {
+// enum Module: String, CaseIterable {
+enum Module: String {
     case classtable = "课程表"
     case gpa = "GPA"
     case library = "图书馆"
@@ -21,10 +22,10 @@ struct ModuleStateManager {
     static func getAllModule() -> [Module: Int] {
         var index = 0
         var modules: [Module: Int] = [:]
-        Module.allCases.forEach { module in
-            index += 1
-            modules[module] = index
-        }
+//        Module.allCases.forEach { module in
+//            index += 1
+//            modules[module] = index
+//        }
 
         if let dict = UserDefaults.standard.dictionary(forKey: ModuleArrangementKey) as? [String: Int] {
             for item in dict {

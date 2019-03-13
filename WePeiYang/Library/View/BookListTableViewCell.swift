@@ -44,7 +44,7 @@ class BookListTableViewCell: UITableViewCell {
         listCard.addSubview(number)
         
         switch reuseIdentifier {
-        case "listTopTableViewCellID":
+        case "listTopTableViewCellID"?:
             listCard.addSubview(listImage)
             remakeConstraints(listImage: listImage)
         default:
