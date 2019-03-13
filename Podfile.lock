@@ -20,6 +20,7 @@ PODS:
   - SnapKit (4.0.1)
   - SwiftLint (0.27.0)
   - SwiftMessages (4.1.0)
+  - SwiftyJSON (4.2.0)
   - WMPageController (2.3.0)
 
 DEPENDENCIES:
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - SnapKit (= 4.0.1)
   - SwiftLint (= 0.27.0)
   - SwiftMessages (= 4.1.0)
+  - SwiftyJSON
   - WMPageController (= 2.3.0)
 
 SPEC REPOS:
@@ -54,6 +56,7 @@ SPEC REPOS:
     - SnapKit
     - SwiftLint
     - SwiftMessages
+    - SwiftyJSON
     - WMPageController
 
 SPEC CHECKSUMS:
@@ -71,8 +74,9 @@ SPEC CHECKSUMS:
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
   SwiftMessages: 1bacc783c8f10bdfdc57c14860cae8a1f1fa6591
+  SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   WMPageController: 9f219bb8912a1a1f51af11fde61e2682a7b7e7f2
 
-PODFILE CHECKSUM: 14858cfd63d29c3e53e600628e51f7f35fe79de6
+PODFILE CHECKSUM: 540da3dbeecefb742b77965d898174af50aac7a6
 
 COCOAPODS: 1.5.3

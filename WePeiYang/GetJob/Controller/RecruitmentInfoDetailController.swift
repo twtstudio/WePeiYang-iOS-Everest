@@ -12,7 +12,7 @@ import SwiftyJSON
 import MJRefresh
 
 class RecruitmentInfoDetailController: UIViewController {
-    
+
     var titleLable = UILabel()
     var timeLable = UILabel()
     var visitsImageView = UIImageView()
@@ -24,43 +24,43 @@ class RecruitmentInfoDetailController: UIViewController {
     var fileLable1 = UILabel()
     var fileBtn1 = UIButton(type: UIButtonType.system)
     var fileImageView2 = UIImageView()
-    var fileLable2 = UILabel()
+    var fileBtn2 = UIButton(type: UIButtonType.system)
     var fileImageView3 = UIImageView()
-    var fileLable3 = UILabel()
+    var fileBtn3 = UIButton(type: UIButtonType.system)
     var attachArray = [String]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "详情"
         self.view.backgroundColor = .white
-        
+
         self.setUIKit()
     }
     func setUIKit() {
         let padding: CGFloat = 20
-        
+
         scrollView.frame = self.view.bounds
         scrollView.contentSize = CGSize(width: Device.width, height: Device.height*4)
         self.view.addSubview(scrollView)
-        
-        
+
+
         titleLable.frame = CGRect(x: padding, y: padding, width: Device.width-(padding*2), height: 60)
         titleLable.numberOfLines = 2
         titleLable.font = UIFont.systemFont(ofSize: 25)
         self.scrollView.addSubview(titleLable)
-        
+
         timeLable.frame = CGRect(x: padding, y: titleLable.y + padding + titleLable.height, width: Device.width/4, height: 20)
         timeLable.textColor = .gray
         self.scrollView.addSubview(timeLable)
-        
+
         visitsImageView.frame = CGRect(x: Device.width-padding-Device.width/9-30, y: timeLable.y-5, width: 30, height: 30)
         visitsImageView.image = UIImage(named: "浏览量")
         self.scrollView.addSubview(visitsImageView)
-        
+
         visitsLable.frame = CGRect(x: Device.width-padding-Device.width/9, y: timeLable.y, width: Device.width/9, height: 20)
         visitsLable.textColor = .gray
         self.scrollView.addSubview(visitsLable)
-        
+
         // 使用Alamofire 加载 DetailMusic
         let RecruitmentUrl = "http://job.api.twtstudio.com/api/recruit/detail?type=0&id=\(didSelectCell.id)"
         Alamofire.request(RecruitmentUrl).responseJSON { response in
@@ -69,12 +69,12 @@ class RecruitmentInfoDetailController: UIViewController {
                 //把得到的JSON数据转为数组
                 if let value = response.result.value {
                     let json = JSON(value)
-                    
+
                     self.titleLable.text = json["data"]["title"].string!
                     self.visitsLable.text = String(json["data"]["click"].int!)
                     self.timeLable.text = json["data"]["date"].string!
-                    
-                    
+
+
                     var content = json["data"]["content"].string!
                     self.mainLable.frame = CGRect(x: padding, y: self.timeLable.y + padding + self.timeLable.height, width: Device.width-(padding*2), height: self.heightForView(text: content, font: UIFont.systemFont(ofSize: 13.7), width: Device.width-(padding*2)))
                     //self.mainLable.text = content
@@ -89,27 +89,21 @@ class RecruitmentInfoDetailController: UIViewController {
                     newFrame.size.height = size.height
                     self.mainLable.frame = newFrame
 
-                    
+
                     self.lineLable.frame = CGRect(x: padding, y: self.mainLable.y+self.mainLable.height+padding, width: Device.width-padding*2, height: 1)
                     self.lineLable.textColor = .black
                     self.lineLable.text = "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
                     self.lineLable.font = UIFont.systemFont(ofSize: 10)
                     self.scrollView.addSubview(self.lineLable)
                     self.setScrollView(byLastView: self.lineLable)
-                    
+
                     if json["data"]["attach1"].string != nil {
                         self.attachArray.append(json["data"]["attach1"].string!)
                         self.fileImageView1.image = UIImage(named: "文件")
                         self.fileImageView1.frame = CGRect(x: padding, y: self.lineLable.y+padding*2, width: 40, height: 40)
                         self.scrollView.addSubview(self.fileImageView1)
-                        
-//                        self.fileLable1.frame = CGRect(x: self.fileImageView1.x+40, y: self.fileImageView1.y+5, width: Device.width-padding*2-self.fileImageView1.width, height: 40)
-//                        self.fileLable1.text = json["data"]["attach1_name"].string!
-//                        self.fileLable1.numberOfLines = 0
-//                        self.fileLable1.font = UIFont.systemFont(ofSize: 15)
-//                        self.scrollView.addSubview(self.fileLable1)
-//                        self.setScrollView(byLastView: self.fileImageView1)
-                        
+
+
                         self.fileBtn1.frame = CGRect(x: self.fileImageView1.x+40, y: self.fileImageView1.y+5, width: Device.width-padding*2-self.fileImageView1.width, height: 40)
                         self.fileBtn1.setTitle(json["data"]["attach1_name"].string!, for: .normal)
                         self.fileBtn1.titleLabel?.numberOfLines = 0
@@ -117,35 +111,42 @@ class RecruitmentInfoDetailController: UIViewController {
                         self.fileBtn1.tag = 1
                         self.fileBtn1.addTarget(self, action: #selector(self.clickFile(button:)), for: .touchUpInside)
                         self.scrollView.addSubview(self.fileBtn1)
+                        self.fileBtn1.contentHorizontalAlignment = .left
                         self.setScrollView(byLastView: self.fileImageView1)
-                        
+
                     }
-                    
+
                     if json["data"]["attach2"].string != nil {
                         self.attachArray.append(json["data"]["attach2"].string!)
                         self.fileImageView2.image = UIImage(named: "文件")
                         self.fileImageView2.frame = CGRect(x: padding, y: self.fileImageView1.y+40+padding, width: 40, height: 40)
                         self.scrollView.addSubview(self.fileImageView2)
-                        
-                        self.fileLable2.frame = CGRect(x: self.fileImageView2.x+40, y: self.fileImageView2.y+5, width: Device.width-padding*2-self.fileImageView2.width, height: 40)
-                        self.fileLable2.text = json["data"]["attach2_name"].string!
-                        self.fileLable2.numberOfLines = 0
-                        self.fileLable2.font = UIFont.systemFont(ofSize: 15)
-                        self.scrollView.addSubview(self.fileLable2)
+
+                        self.fileBtn2.frame = CGRect(x: self.fileImageView2.x+40, y: self.fileImageView2.y+5, width: Device.width-padding*2-self.fileImageView2.width, height: 40)
+                        self.fileBtn2.setTitle(json["data"]["attach2_name"].string!, for: .normal)
+                        self.fileBtn2.titleLabel?.numberOfLines = 0
+                        self.fileBtn2.titleLabel!.font = UIFont.systemFont(ofSize: 15)
+                        self.fileBtn2.tag = 2
+                        self.fileBtn2.addTarget(self, action: #selector(self.clickFile(button:)), for: .touchUpInside)
+                        self.scrollView.addSubview(self.fileBtn2)
+                        self.fileBtn2.contentHorizontalAlignment = .left
                         self.setScrollView(byLastView: self.fileImageView2)
                     }
-                    
+
                     if json["data"]["attach3"].string != nil {
                         self.attachArray.append(json["data"]["attach3"].string!)
                         self.fileImageView3.image = UIImage(named: "文件")
                         self.fileImageView3.frame = CGRect(x: padding, y: self.fileImageView2.y+40+padding, width: 40, height: 40)
                         self.scrollView.addSubview(self.fileImageView3)
-                        
-                        self.fileLable3.frame = CGRect(x: self.fileImageView3.x+40, y: self.fileImageView3.y+5, width: Device.width-padding*2-self.fileImageView3.width, height: 40)
-                        self.fileLable3.text = json["data"]["attach3_name"].string!
-                        self.fileLable3.numberOfLines = 0
-                        self.fileLable3.font = UIFont.systemFont(ofSize: 15)
-                        self.scrollView.addSubview(self.fileLable3)
+
+                        self.fileBtn3.frame = CGRect(x: self.fileImageView3.x+40, y: self.fileImageView3.y+5, width: Device.width-padding*2-self.fileImageView3.width, height: 40)
+                        self.fileBtn3.setTitle(json["data"]["attach3_name"].string!, for: .normal)
+                        self.fileBtn3.titleLabel?.numberOfLines = 0
+                        self.fileBtn3.titleLabel!.font = UIFont.systemFont(ofSize: 15)
+                        self.fileBtn3.tag = 3
+                        self.fileBtn3.addTarget(self, action: #selector(self.clickFile(button:)), for: .touchUpInside)
+                        self.scrollView.addSubview(self.fileBtn3)
+                        self.fileBtn3.contentHorizontalAlignment = .left
                         self.setScrollView(byLastView: self.fileImageView3)
                     }
                 }
@@ -153,24 +154,24 @@ class RecruitmentInfoDetailController: UIViewController {
                 print(response.result.error)
             }
         }
-        
+
     }
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
-        
+
         let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = font
         label.text = text
         label.sizeToFit()
-        
+
         return label.frame.height
     }
     func getAttriFrom(str: String) -> NSMutableAttributedString {
         let htmlStr = "<head><style>img{max-width:\(Device.width-30)px !important; height:auto}</style></head>" + "<div style='font-size:13.7px'>" + str + "</div>"
         let attStr = try? NSMutableAttributedString.init(data: htmlStr.data(using: String.Encoding.utf16)!, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
         return attStr ?? NSMutableAttributedString()
-        
+
     }
     func setScrollView(byLastView: UIView) {
         var newContentSize = self.scrollView.contentSize
@@ -178,28 +179,28 @@ class RecruitmentInfoDetailController: UIViewController {
         self.scrollView.contentSize = newContentSize
     }
     @objc func clickFile(button: UIButton) {
-//        let attachHttp: String = attachArray[button.tag-1]
+        //        let attachHttp: String = attachArray[button.tag-1]
         AttachHttp.http = attachArray[button.tag-1]
         self.navigationController?.pushViewController(FilePreviewController(), animated: true)
         // 指定下载路径（文件名不变）
-//        let destination: DownloadRequest.DownloadFileDestination = { _, response in
-//            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-//            let fileURL = documentsURL.appendingPathComponent(response.suggestedFilename!)
-//            // 两个参数表示如果有同名文件则会覆盖，如果路径中文件夹不存在则会自动创建
-//            return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
-//        }
+        //        let destination: DownloadRequest.DownloadFileDestination = { _, response in
+        //            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        //            let fileURL = documentsURL.appendingPathComponent(response.suggestedFilename!)
+        //            // 两个参数表示如果有同名文件则会覆盖，如果路径中文件夹不存在则会自动创建
+        //            return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+        //        }
         //开始下载
-//        Alamofire.download(attachHttp, to: destination)
-//            .response { response in
-//                print(response)
-//
-//                if let filePath = response.destinationURL?.path {
-//                    let url = URL(fileURLWithPath: filePath)
-//                    var webView = UIWebView(frame: CGRect(x: 0, y: 0, width: Device.width, height: Device.height))
-//                    self.view.addSubview(webView)
-//                    webView.loadRequest(URLRequest(url: url))
-//                }
-//        }
+        //        Alamofire.download(attachHttp, to: destination)
+        //            .response { response in
+        //                print(response)
+        //
+        //                if let filePath = response.destinationURL?.path {
+        //                    let url = URL(fileURLWithPath: filePath)
+        //                    var webView = UIWebView(frame: CGRect(x: 0, y: 0, width: Device.width, height: Device.height))
+        //                    self.view.addSubview(webView)
+        //                    webView.loadRequest(URLRequest(url: url))
+        //                }
+        //        }
     }
 }
 

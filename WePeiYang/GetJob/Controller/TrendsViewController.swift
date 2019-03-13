@@ -19,14 +19,14 @@ class TrendsViewController: UIViewController {
     var rotationNum: Int = 3
     var commenNum: Int = 10
     var currentPage: Int = 1
-    
+
     override func loadView() {
         super.loadView()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let RecruitmentUrl = "http://job.api.twtstudio.com/api/notice/index?type=1&page=1"
         Alamofire.request(RecruitmentUrl).responseJSON { response in
             switch response.result.isSuccess {
@@ -41,7 +41,7 @@ class TrendsViewController: UIViewController {
                     self.commenNum = json["data"]["common"].count
                     self.rotationNum = json["data"]["rotation"].count
                     for i in 0..<self.importantNum {
-                       
+
                         self.recruitmentInfo.imporant.append(Imporant())
                         self.recruitmentInfo.imporant[i].id = String(json["data"]["important"][i]["id"].int!)
                         self.recruitmentInfo.imporant[i].date = json["data"]["important"][i]["date"].string!
@@ -68,7 +68,7 @@ class TrendsViewController: UIViewController {
                 print(response.result.error)
             }
         }
-        
+
     }
     func setTableView() {
         trendsTableView = UITableView(frame: view.bounds, style: .plain)
@@ -85,12 +85,12 @@ class TrendsViewController: UIViewController {
     @objc func footerLoad() {
         print("上拉加载")
         currentPage += 1
-        
+
         let RecruitmentUrl = "http://job.api.twtstudio.com/api/notice/index?type=1&page=\(currentPage)"
         Alamofire.request(RecruitmentUrl).responseJSON { response in
             switch response.result.isSuccess {
             case true:
-                //把得到的JSON数据转为数组
+                // 把得到的JSON数据转为数组
                 if let value = response.result.value {
                     let json = JSON(value)
                     for i in 0..<10 {
@@ -114,7 +114,7 @@ extension TrendsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return importantNum + rotationNum + commenNum
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return TrendsTableViewCell(recruitmentInfo: recruitmentInfo, index: indexPath.row)
     }
@@ -124,8 +124,10 @@ extension TrendsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row < importantNum {
             didSelectCell.id = recruitmentInfo.imporant[indexPath.row].id
-        }else {
-            didSelectCell.id = recruitmentInfo.common[indexPath.row-importantNum].id
+        }else if indexPath.row >= importantNum && indexPath.row < importantNum + rotationNum {
+            didSelectCell.id = recruitmentInfo.rotation[indexPath.row-importantNum].id
+        } else {
+            didSelectCell.id = recruitmentInfo.common[indexPath.row-importantNum-rotationNum].id
         }
         self.navigationController?.pushViewController(TrendsDetailController(), animated: true)
     }
