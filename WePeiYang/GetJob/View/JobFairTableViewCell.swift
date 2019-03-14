@@ -40,8 +40,9 @@ class JobFairTableViewCell: UITableViewCell {
         timeImageView.image = UIImage(named: "时间")
         contentView.addSubview(timeImageView)
         
-        timeLable.frame = CGRect(x: padding*7/2, y: timeImageView.y+5, width: Device.width/2 - padding, height: 30)
+        timeLable.frame = CGRect(x: padding*7/2, y: timeImageView.y+5, width: Device.width/2 , height: 30)
         timeLable.font = UIFont.systemFont(ofSize: 15)
+        timeLable.textAlignment = .left
         contentView.addSubview(timeLable)
         
         locationImageView.frame = CGRect(x: padding*3/2, y: timeImageView.y+timeImageView.height, width: 40, height: 40)
@@ -60,13 +61,14 @@ class JobFairTableViewCell: UITableViewCell {
         visitsLable.font = UIFont.systemFont(ofSize: 15)
         contentView.addSubview(visitsLable)
         
-        currentDataLable.frame = CGRect(x: Device.width-padding-(Device.width-padding*2)/4, y: visitsImageView.y+30, width: (Device.width-padding*2)/4, height: 30)
+        currentDataLable.frame = CGRect(x: Device.width-padding-(Device.width-padding*2)/4-10, y: visitsImageView.y+30, width: (Device.width-padding*2)/4 + 10, height: 30)
         currentDataLable.textColor = UIColor.gray
         contentView.addSubview(currentDataLable)
         
-        lineLable.frame = CGRect(x: padding, y: 209, width: Device.width-padding*2, height: 1)
+        lineLable.frame = CGRect(x: padding, y: 208, width: Device.width-padding*2, height: 2)
         lineLable.textColor = .black
         lineLable.text = "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+       // lineLable.backgroundColor = .red
         lineLable.font = UIFont.systemFont(ofSize: 10)
         contentView.addSubview(lineLable)
         

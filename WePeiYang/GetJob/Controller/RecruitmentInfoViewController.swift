@@ -70,12 +70,14 @@ class RecruitmentInfoViewController: UIViewController {
         view.addSubview(recruitmentTableView)
         recruitmentTableView.delegate = self
         recruitmentTableView.dataSource = self
+        
         // MARK: - 上拉加载相关设置
         footer.setRefreshingTarget(self, refreshingAction: #selector(RecruitmentInfoViewController.footerLoad))
         // 是否自动加载（默认为true，即表格滑到底部就自动加载）
         footer.isAutomaticallyRefresh = false
         self.recruitmentTableView.mj_footer = footer
     }
+    
     @objc func footerLoad() {
         print("上拉加载")
         currentPage += 1

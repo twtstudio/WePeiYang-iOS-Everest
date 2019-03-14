@@ -83,14 +83,14 @@ class RecruitmentInfoDetailController: UIViewController {
                     self.mainLable.attributedText = self.getAttriFrom(str: content)
                     //self.mainLable.font = UIFont.systemFont(ofSize: 17)
                     self.scrollView.addSubview(self.mainLable)
-                    //计算高度
+                    // 计算高度
                     let size:CGRect = self.mainLable.attributedText!.boundingRect(with:  CGSize(width: Device.width-32, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions(rawValue: NSStringDrawingOptions.usesLineFragmentOrigin.rawValue), context: nil)
                     var newFrame = self.mainLable.frame
                     newFrame.size.height = size.height
                     self.mainLable.frame = newFrame
 
 
-                    self.lineLable.frame = CGRect(x: padding, y: self.mainLable.y+self.mainLable.height+padding, width: Device.width-padding*2, height: 1)
+                    self.lineLable.frame = CGRect(x: padding, y: self.mainLable.y+self.mainLable.height+padding, width: Device.width-padding*2, height: 2)
                     self.lineLable.textColor = .black
                     self.lineLable.text = "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
                     self.lineLable.font = UIFont.systemFont(ofSize: 10)

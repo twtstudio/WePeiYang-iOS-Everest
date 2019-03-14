@@ -54,7 +54,7 @@ class TrendsTableViewCell: UITableViewCell {
         mainLable.numberOfLines = 2
         contentView.addSubview(mainLable)
 
-        lineLable.frame = CGRect(x: padding, y: 129, width: Device.width-padding*2, height: 1)
+        lineLable.frame = CGRect(x: padding, y: 128, width: Device.width-padding*2, height: 2)
         lineLable.textColor = .black
         lineLable.text = "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
         lineLable.font = UIFont.systemFont(ofSize: 10)

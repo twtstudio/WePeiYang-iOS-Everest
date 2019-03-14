@@ -88,7 +88,7 @@ class TrendsDetailController: UIViewController {
                     self.mainLable.frame = newFrame
 
 
-                    self.lineLable.frame = CGRect(x: padding, y: self.mainLable.y+self.mainLable.height+padding, width: Device.width-padding*2, height: 1)
+                    self.lineLable.frame = CGRect(x: padding, y: self.mainLable.y+self.mainLable.height+padding, width: Device.width-padding*2, height: 2)
                     self.lineLable.textColor = .black
                     self.lineLable.text = "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
                     self.lineLable.font = UIFont.systemFont(ofSize: 10)

@@ -14,7 +14,7 @@ struct Device {
     static let height = UIScreen.main.bounds.height
 }
 class GetJobPageViewController: WMPageController {
-    // MARK: -导航栏设置
+    // MARK: - 导航栏设置
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -25,6 +25,7 @@ class GetJobPageViewController: WMPageController {
         self.reloadData()
 
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -33,13 +34,14 @@ class GetJobPageViewController: WMPageController {
         self.viewControllerClasses = [RecruitmentInfoViewController.self, JobFairViewController.self, AnnouncementViewController.self, TrendsViewController.self]
         self.titles = ["招聘信息", "招聘会", "公告", "动态"]
     }
+    
     func setPageView() {
         self.title = "就业"
         navigationController?.navigationBar.barStyle = .black
 
-        menuItemWidth = Device.width/6   //每个 MenuItem 的宽度
-        menuHeight = 50    //导航栏高度
-        postNotification = true  //
+        menuItemWidth = Device.width/6   // 每个 MenuItem 的宽度
+        menuHeight = 50            // 导航栏高度
+        postNotification = true
         bounces = true
         titleSizeSelected = 15    // 选中时的标题尺寸
         titleSizeNormal = 14      // 非选中时的标题尺寸

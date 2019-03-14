@@ -54,6 +54,7 @@ class SerchHistoryTableViewCell: UITableViewCell {
             deleteAllBtn.setImage(iconImage, for: .normal)
             deleteAllBtn.addTarget(self, action: #selector(deleteAll), for: .touchUpInside)
             contentView.addSubview(deleteAllBtn)
+
         }
 
 
@@ -62,7 +63,9 @@ class SerchHistoryTableViewCell: UITableViewCell {
         self.historyData.remove(at: index)
         SearchHistory.historyData = self.historyData
         SearchHistory.userDefaults.set(SearchHistory.historyData, forKey: "GetJobSearchHistory")
-        //self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.none)
+//        self.tableView.beginUpdates()
+//        self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+//        self.tableView.endUpdates()
         self.tableView.reloadData()
     }
     @objc func deleteAll() {

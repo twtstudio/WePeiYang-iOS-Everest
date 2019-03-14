@@ -99,9 +99,10 @@ class GetJobSearchViewController: UIViewController {
     }
 }
 extension GetJobSearchViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if didSearch == false {
             if SearchHistory.historyData == nil || SearchHistory.historyData?.count == 0 {
@@ -157,11 +158,11 @@ extension GetJobSearchViewController: UITableViewDelegate, UITableViewDataSource
 }
 extension GetJobSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if searchBar.text != nil {
+        if let searchBarText = searchBar.text {
             if SearchHistory.historyData == nil {
-                SearchHistory.historyData = ["\(searchBar.text!)"]
+                SearchHistory.historyData = [searchBarText]
             }else {
-                SearchHistory.historyData?.append("\(searchBar.text!)")
+                SearchHistory.historyData?.append(searchBarText)
             }
             searchBar.resignFirstResponder()
             SearchHistory.userDefaults.set(SearchHistory.historyData, forKey: "GetJobSearchHistory")
@@ -221,6 +222,7 @@ extension GetJobSearchViewController: UISearchBarDelegate {
                                 self.resultInfo.common[i].heldTime = json["data"]["meeting"][i]["held_time"].string!
                             }
                             self.setSearchResultTableView()
+                        
                         }
 
                     }else {
