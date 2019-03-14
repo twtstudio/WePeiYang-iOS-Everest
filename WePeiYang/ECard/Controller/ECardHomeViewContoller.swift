@@ -26,11 +26,11 @@ class ECardHomeViewContoller: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(color: .eCardStandardYellow), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.tintColor = .eCardStandardDark
+        navigationController?.navigationBar.tintColor = .eCardDark
         
         /* 标题 */
         let titleLabel = UILabel(text: "校园卡")
-        titleLabel.textColor = .eCardStandardDark
+        titleLabel.textColor = .eCardDark
         titleLabel.sizeToFit()
         navigationItem.titleView = titleLabel
         
@@ -51,9 +51,21 @@ class ECardHomeViewContoller: UIViewController {
 }
 
 extension UIColor {
-    // 校园卡标准黄 //
-    static var eCardStandardDark: UIColor {
+    // 校园卡标准深黑 //
+    static var eCardBlack: UIColor {
+        return UIColor(hex6: 0x222222)
+    }
+    // 校园卡标准黑 //
+    static var eCardDark: UIColor {
         return UIColor(hex6: 0x444444)
+    }
+    // 校园卡标准灰 //
+    static var eCardGray: UIColor {
+        return UIColor(hex6: 0x666666)
+    }
+    // 校园卡标准浅灰 //
+    static var eCardLightGray: UIColor {
+        return UIColor(hex6: 0x7a7a7a)
     }
     // 校园卡标准黄 //
     static var eCardStandardYellow: UIColor {
