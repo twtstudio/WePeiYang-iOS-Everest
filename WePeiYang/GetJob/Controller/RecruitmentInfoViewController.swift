@@ -4,11 +4,10 @@
 //
 //  Created by 王春杉 on 2019/2/13.
 //  Copyright © 2019 twtstudio. All rights reserved.
-//
+//  ok
 
 import UIKit
 import Alamofire
-import SwiftyJSON
 import MJRefresh
 
 class RecruitmentInfoViewController: UIViewController {
@@ -29,38 +28,35 @@ class RecruitmentInfoViewController: UIViewController {
         
         // 使用Alamofire 加载 DetailMusic
         let RecruitmentUrl = "http://job.api.twtstudio.com/api/recruit/index?type=0&page=1"
-        Alamofire.request(RecruitmentUrl).responseJSON { response in
-            switch response.result.isSuccess {
-            case true:
-                //把得到的JSON数据转为数组
-                if let value = response.result.value {
-                    let json = JSON(value)
-                    self.importantNum = json["data"]["important"].count
-                    self.commenNum = json["data"]["common"].count
-                    RecruitInfo.pageCountOfType0 = json["data"]["page_count"].int!
-                    self.recruitmentInfo.page = Int(json["data"]["page"].string!)!
-                    self.recruitmentInfo.type = json["data"]["type"].string!
-                    for i in 0..<self.importantNum {
-                     
-                        self.recruitmentInfo.imporant.append(Imporant())
-                        self.recruitmentInfo.imporant[i].id = json["data"]["important"][i]["id"].string!
-                        self.recruitmentInfo.imporant[i].date = json["data"]["important"][i]["date"].string!
-                        self.recruitmentInfo.imporant[i].title = json["data"]["important"][i]["title"].string!
-                        self.recruitmentInfo.imporant[i].click = json["data"]["important"][i]["click"].string!
-                    }
-                    for i in 0..<self.commenNum {
-                        self.recruitmentInfo.common.append(Common())
-                        self.recruitmentInfo.common[i].id = json["data"]["common"][i]["id"].string!
-                        self.recruitmentInfo.common[i].date = json["data"]["common"][i]["date"].string!
-                        self.recruitmentInfo.common[i].title = json["data"]["common"][i]["title"].string!
-                        self.recruitmentInfo.common[i].click = json["data"]["common"][i]["click"].string!
-                    }
-                    self.setTableView()
-                }
-            case false:
-                print(response.result.error)
+        JobFireUrl.url = RecruitmentUrl
+        Page.url = RecruitmentUrl
+        JobFireHelper.getJobFire(success: { announcement in
+            self.importantNum = (announcement.data?.important?.count)!
+            self.commenNum = (announcement.data?.common?.count)!
+            RecruitInfo.pageCountOfType0 = (announcement.data?.pageCount)!
+            self.recruitmentInfo.page = Int(announcement.data!.page!)!
+            self.recruitmentInfo.type = (announcement.data?.type)!
+            for i in 0..<self.importantNum {
+                
+                self.recruitmentInfo.imporant.append(Imporant())
+                self.recruitmentInfo.imporant[i].id = String((announcement.data?.important![i].id)!)
+                self.recruitmentInfo.imporant[i].date = (announcement.data?.important![i].date)!
+                self.recruitmentInfo.imporant[i].title = (announcement.data?.important![i].title)!
+                self.recruitmentInfo.imporant[i].click = (announcement.data?.important![i].click)!
             }
+            for i in 0..<self.commenNum {
+                self.recruitmentInfo.commons.append(Commons())
+                self.recruitmentInfo.commons[i].id = String((announcement.data?.common![i].id)!)
+                self.recruitmentInfo.commons[i].date = (announcement.data?.common![i].date)!
+                self.recruitmentInfo.commons[i].title = (announcement.data?.common![i].title)!
+                self.recruitmentInfo.commons[i].click = (announcement.data?.common![i].click)!
+            }
+            self.setTableView()
+        }) { _ in
+            
         }
+        
+
         
         
     }
@@ -83,27 +79,22 @@ class RecruitmentInfoViewController: UIViewController {
         currentPage += 1
         
         let RecruitmentUrl = "http://job.api.twtstudio.com/api/recruit/index?type=0&page=\(currentPage)"
-        Alamofire.request(RecruitmentUrl).responseJSON { response in
-            switch response.result.isSuccess {
-            case true:
-                //把得到的JSON数据转为数组
-                if let value = response.result.value {
-                    let json = JSON(value)
-                    for i in 0..<10 {
-                        self.recruitmentInfo.common.append(Common())
-                        self.recruitmentInfo.common[i+self.commenNum].id = json["data"]["common"][i]["id"].string!
-                        self.recruitmentInfo.common[i+self.commenNum].date = json["data"]["common"][i]["date"].string!
-                        self.recruitmentInfo.common[i+self.commenNum].title = json["data"]["common"][i]["title"].string!
-                        self.recruitmentInfo.common[i+self.commenNum].click = json["data"]["common"][i]["click"].string!
-                    }
-                    self.commenNum += 10
-                    self.recruitmentTableView.reloadData()
-                    self.recruitmentTableView.mj_footer.endRefreshing()
-                }
-            case false:
-                print(response.result.error)
+        JobFireUrl.url = RecruitmentUrl
+        JobFireHelper.getJobFire(success: { announcement in
+            for i in 0..<10 {
+                self.recruitmentInfo.commons.append(Commons())
+                self.recruitmentInfo.commons[i+self.commenNum].id = String((announcement.data?.common![i].id)!)
+                self.recruitmentInfo.commons[i+self.commenNum].date = (announcement.data?.common![i].date)!
+                self.recruitmentInfo.commons[i+self.commenNum].title = (announcement.data?.common![i].title)!
+                self.recruitmentInfo.commons[i+self.commenNum].click = (announcement.data?.common![i].click)!
             }
+            self.commenNum += 10
+            self.recruitmentTableView.reloadData()
+            self.recruitmentTableView.mj_footer.endRefreshing()
+        }) { _ in
+            
         }
+
     }
 }
 extension RecruitmentInfoViewController: UITableViewDelegate, UITableViewDataSource {
@@ -121,7 +112,7 @@ extension RecruitmentInfoViewController: UITableViewDelegate, UITableViewDataSou
         if indexPath.row < importantNum {
             didSelectCell.id = recruitmentInfo.imporant[indexPath.row].id
         }else {
-            didSelectCell.id = recruitmentInfo.common[indexPath.row-importantNum].id
+            didSelectCell.id = recruitmentInfo.commons[indexPath.row-importantNum].id
         }
         self.navigationController?.pushViewController(RecruitmentInfoDetailController(), animated: true)
     }

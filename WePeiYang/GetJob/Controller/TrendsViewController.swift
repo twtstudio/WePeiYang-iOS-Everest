@@ -4,11 +4,10 @@
 //
 //  Created by 王春杉 on 2019/2/14.
 //  Copyright © 2019 twtstudio. All rights reserved.
-//
+//  ok
 // 动态
 import UIKit
 import Alamofire
-import SwiftyJSON
 import MJRefresh
 
 class TrendsViewController: UIViewController {
@@ -28,45 +27,40 @@ class TrendsViewController: UIViewController {
         super.viewDidLoad()
 
         let RecruitmentUrl = "http://job.api.twtstudio.com/api/notice/index?type=1&page=1"
-        Alamofire.request(RecruitmentUrl).responseJSON { response in
-            switch response.result.isSuccess {
-            case true:
-                //把得到的JSON数据转为数组
-                if let value = response.result.value {
-                    let json = JSON(value)
-                    RecruitInfo.pageCountOfType0 = json["data"]["page_count"].int!
-                    self.recruitmentInfo.page = Int(json["data"]["current_page"].string!)!
-                    self.recruitmentInfo.type = json["data"]["type"].string!
-                    self.importantNum = json["data"]["important"].count
-                    self.commenNum = json["data"]["common"].count
-                    self.rotationNum = json["data"]["rotation"].count
-                    for i in 0..<self.importantNum {
-
-                        self.recruitmentInfo.imporant.append(Imporant())
-                        self.recruitmentInfo.imporant[i].id = String(json["data"]["important"][i]["id"].int!)
-                        self.recruitmentInfo.imporant[i].date = json["data"]["important"][i]["date"].string!
-                        self.recruitmentInfo.imporant[i].title = json["data"]["important"][i]["title"].string!
-                        self.recruitmentInfo.imporant[i].click = json["data"]["important"][i]["click"].string!
-                    }
-                    for i in 0..<self.rotationNum {
-                        self.recruitmentInfo.rotation.append(Rotation())
-                        self.recruitmentInfo.rotation[i].id = String(json["data"]["rotation"][i]["id"].int!)
-                        self.recruitmentInfo.rotation[i].date = json["data"]["rotation"][i]["date"].string!
-                        self.recruitmentInfo.rotation[i].title = json["data"]["rotation"][i]["title"].string!
-                        self.recruitmentInfo.rotation[i].click = json["data"]["rotation"][i]["click"].string!
-                    }
-                    for i in 0..<self.commenNum {
-                        self.recruitmentInfo.common.append(Common())
-                        self.recruitmentInfo.common[i].id = String(json["data"]["common"][i]["id"].int!)
-                        self.recruitmentInfo.common[i].date = json["data"]["common"][i]["date"].string!
-                        self.recruitmentInfo.common[i].title = json["data"]["common"][i]["title"].string!
-                        self.recruitmentInfo.common[i].click = json["data"]["common"][i]["click"].string!
-                    }
-                    self.setTableView()
-                }
-            case false:
-                print(response.result.error)
+        Page.url = RecruitmentUrl
+        TrendHelper.getTrend(success: { announcement in
+            RecruitInfo.pageCountOfType0 = (announcement.data?.pageCount)!
+            self.recruitmentInfo.page = Int((announcement.data?.currentPage)!)!
+            self.recruitmentInfo.type = (announcement.data?.type)!
+            self.importantNum = (announcement.data?.important?.count)!
+            self.commenNum = (announcement.data?.common?.count)!
+            self.rotationNum = (announcement.data?.rotation?.count)!
+            for i in 0..<self.importantNum {
+                
+                self.recruitmentInfo.imporant.append(Imporant())
+                self.recruitmentInfo.imporant[i].id = String((announcement.data?.important![i].id)!)
+                self.recruitmentInfo.imporant[i].date = (announcement.data?.important![i].date)!
+                self.recruitmentInfo.imporant[i].title = (announcement.data?.important![i].title)!
+                self.recruitmentInfo.imporant[i].click = (announcement.data?.important![i].click)!
             }
+            for i in 0..<self.rotationNum {
+                self.recruitmentInfo.rotation.append(Rotation())
+                self.recruitmentInfo.rotation[i].id = String((announcement.data?.rotation![i].id)!)
+                self.recruitmentInfo.rotation[i].date = (announcement.data?.rotation![i].date)!
+                self.recruitmentInfo.rotation[i].title = (announcement.data?.rotation![i].title)!
+                self.recruitmentInfo.rotation[i].click = (announcement.data?.rotation![i].click)!
+            }
+            for i in 0..<self.commenNum {
+                self.recruitmentInfo.commons.append(Commons())
+                self.recruitmentInfo.commons[i].id = String((announcement.data?.common![i].id)!)
+                self.recruitmentInfo.commons[i].date = (announcement.data?.common![i].date)!
+                self.recruitmentInfo.commons[i].title = (announcement.data?.common![i].title)!
+                self.recruitmentInfo.commons[i].click = (announcement.data?.common![i].click)!
+            }
+            self.setTableView()
+            
+        }) { _ in
+            
         }
 
     }
@@ -87,27 +81,22 @@ class TrendsViewController: UIViewController {
         currentPage += 1
 
         let RecruitmentUrl = "http://job.api.twtstudio.com/api/notice/index?type=1&page=\(currentPage)"
-        Alamofire.request(RecruitmentUrl).responseJSON { response in
-            switch response.result.isSuccess {
-            case true:
-                // 把得到的JSON数据转为数组
-                if let value = response.result.value {
-                    let json = JSON(value)
-                    for i in 0..<10 {
-                        self.recruitmentInfo.common.append(Common())
-                        self.recruitmentInfo.common[i+self.commenNum].id = String(json["data"]["common"][i]["id"].int!)
-                        self.recruitmentInfo.common[i+self.commenNum].date = json["data"]["common"][i]["date"].string!
-                        self.recruitmentInfo.common[i+self.commenNum].title = json["data"]["common"][i]["title"].string!
-                        self.recruitmentInfo.common[i+self.commenNum].click = json["data"]["common"][i]["click"].string!
-                    }
-                    self.commenNum += 10
-                    self.trendsTableView.reloadData()
-                    self.trendsTableView.mj_footer.endRefreshing()
-                }
-            case false:
-                print(response.result.error)
+        Page.url = RecruitmentUrl
+        TrendHelper.getTrend(success: { announcement in
+            for i in 0..<10 {
+                self.recruitmentInfo.commons.append(Commons())
+                self.recruitmentInfo.commons[i+self.commenNum].id = String((announcement.data?.common![i].id)!)
+                self.recruitmentInfo.commons[i+self.commenNum].date = (announcement.data?.common![i].date)!
+                self.recruitmentInfo.commons[i+self.commenNum].title = (announcement.data?.common![i].title)!
+                self.recruitmentInfo.commons[i+self.commenNum].click = (announcement.data?.common![i].click)!
             }
+            self.commenNum += 10
+            self.trendsTableView.reloadData()
+            self.trendsTableView.mj_footer.endRefreshing()
+        }) { _ in
+            
         }
+
     }
 }
 extension TrendsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -127,7 +116,7 @@ extension TrendsViewController: UITableViewDelegate, UITableViewDataSource {
         }else if indexPath.row >= importantNum && indexPath.row < importantNum + rotationNum {
             didSelectCell.id = recruitmentInfo.rotation[indexPath.row-importantNum].id
         } else {
-            didSelectCell.id = recruitmentInfo.common[indexPath.row-importantNum-rotationNum].id
+            didSelectCell.id = recruitmentInfo.commons[indexPath.row-importantNum-rotationNum].id
         }
         self.navigationController?.pushViewController(TrendsDetailController(), animated: true)
     }

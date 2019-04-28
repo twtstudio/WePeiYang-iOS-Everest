@@ -175,6 +175,13 @@
 		36FCC2D520544E35003379AE /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36FCC2D420544E35003379AE /* LoadingView.xib */; };
 		36FCC2D920545967003379AE /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FCC2D820545967003379AE /* LoginView.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
+		74420FDA2275559000F4ED57 /* TrendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74420FD92275559000F4ED57 /* TrendView.swift */; };
+		74420FDC2275592000F4ED57 /* TrendsViewDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74420FDB2275592000F4ED57 /* TrendsViewDetail.swift */; };
+		74555819226C5CBD00E0D372 /* AnnouncementDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74555818226C5CBD00E0D372 /* AnnouncementDetail.swift */; };
+		7455581B226C66C300E0D372 /* Announcement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7455581A226C66C300E0D372 /* Announcement.swift */; };
+		74AEF64A22747950001DCA37 /* SearchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AEF64922747950001DCA37 /* SearchInfo.swift */; };
+		74AEF64C22748232001DCA37 /* JobFire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AEF64B22748232001DCA37 /* JobFire.swift */; };
+		74AEF64E227496EC001DCA37 /* JobFireDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AEF64D227496EC001DCA37 /* JobFireDetail.swift */; };
 		784A207622314C4E00C4CAF1 /* AnnouncementDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A206322314C4E00C4CAF1 /* AnnouncementDetailController.swift */; };
 		784A207722314C4E00C4CAF1 /* AnnouncementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A206422314C4E00C4CAF1 /* AnnouncementViewController.swift */; };
 		784A207822314C4E00C4CAF1 /* FilePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A206522314C4E00C4CAF1 /* FilePreviewController.swift */; };
@@ -483,6 +490,13 @@
 		3E2AFF1235C9C87488CB407A /* Pods-WePeiYangWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.release.xcconfig"; sourceTree = "<group>"; };
 		6E48DF45006ADE8419C6CF0C /* Pods_WePeiYangWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F6749BFC82CF9191336C6C5 /* Pods_WePeiYangTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		74420FD92275559000F4ED57 /* TrendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendView.swift; sourceTree = "<group>"; };
+		74420FDB2275592000F4ED57 /* TrendsViewDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsViewDetail.swift; sourceTree = "<group>"; };
+		74555818226C5CBD00E0D372 /* AnnouncementDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementDetail.swift; sourceTree = "<group>"; };
+		7455581A226C66C300E0D372 /* Announcement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Announcement.swift; sourceTree = "<group>"; };
+		74AEF64922747950001DCA37 /* SearchInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInfo.swift; sourceTree = "<group>"; };
+		74AEF64B22748232001DCA37 /* JobFire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobFire.swift; sourceTree = "<group>"; };
+		74AEF64D227496EC001DCA37 /* JobFireDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobFireDetail.swift; sourceTree = "<group>"; };
 		784A206322314C4E00C4CAF1 /* AnnouncementDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementDetailController.swift; sourceTree = "<group>"; };
 		784A206422314C4E00C4CAF1 /* AnnouncementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementViewController.swift; sourceTree = "<group>"; };
 		784A206522314C4E00C4CAF1 /* FilePreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilePreviewController.swift; sourceTree = "<group>"; };
@@ -1087,6 +1101,13 @@
 			isa = PBXGroup;
 			children = (
 				784A206F22314C4E00C4CAF1 /* Recruitnfo.swift */,
+				74555818226C5CBD00E0D372 /* AnnouncementDetail.swift */,
+				7455581A226C66C300E0D372 /* Announcement.swift */,
+				74AEF64922747950001DCA37 /* SearchInfo.swift */,
+				74AEF64B22748232001DCA37 /* JobFire.swift */,
+				74AEF64D227496EC001DCA37 /* JobFireDetail.swift */,
+				74420FD92275559000F4ED57 /* TrendView.swift */,
+				74420FDB2275592000F4ED57 /* TrendsViewDetail.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1804,7 +1825,6 @@
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/WMPageController/WMPageController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1821,7 +1841,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WMPageController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1880,6 +1899,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74420FDA2275559000F4ED57 /* TrendView.swift in Sources */,
 				DD2E301E21C24EF3007767C3 /* ClassTableHelper.swift in Sources */,
 				36449E891FA4BAD10036766B /* PartyScoreViewController.m in Sources */,
 				36FCC2D920545967003379AE /* LoginView.swift in Sources */,
@@ -1935,6 +1955,7 @@
 				3614D57D21D929FE0007B886 /* BookCard.swift in Sources */,
 				A53602671FC6E36100E3D1AF /* LibraryBindingViewController.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
+				74AEF64C22748232001DCA37 /* JobFire.swift in Sources */,
 				36449E6C1FA4BABA0036766B /* FunctionListTableViewCell.swift in Sources */,
 				36449E701FA4BABA0036766B /* CourseDetailReadingView.swift in Sources */,
 				36A9C320204C56CD0018B6B3 /* ProgressWebViewController.swift in Sources */,
@@ -2067,11 +2088,13 @@
 				36449E601FA4BABA0036766B /* TheoryCourseArticleReadingView.swift in Sources */,
 				369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */,
 				A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */,
+				74AEF64E227496EC001DCA37 /* JobFireDetail.swift in Sources */,
 				A5E117AF1F99DB8E00C86CA2 /* BicycleUser.swift in Sources */,
 				DD6A663621ABCEB10070C4B2 /* AuditPersonalCourseModel.swift in Sources */,
 				369140AF2020CBA30022BA3F /* NotificationName.swift in Sources */,
 				B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */,
 				36449E851FA4BAD10036766B /* TwentyCourseDetailViewController.swift in Sources */,
+				7455581B226C66C300E0D372 /* Announcement.swift in Sources */,
 				36449E6E1FA4BABA0036766B /* CourseTableViewCell.swift in Sources */,
 				364922A120260CDC00DFDC35 /* LibraryModel.swift in Sources */,
 				363D0A701FE006990095DA57 /* LibraryCardDataProvider.swift in Sources */,
@@ -2083,10 +2106,13 @@
 				36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */,
 				DD41A82F21A3265800886BB4 /* PopularListModel.swift in Sources */,
 				DD6A663421A59D260070C4B2 /* AuditCollegeCourseViewController.swift in Sources */,
+				74420FDC2275592000F4ED57 /* TrendsViewDetail.swift in Sources */,
+				74555819226C5CBD00E0D372 /* AnnouncementDetail.swift in Sources */,
 				A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */,
 				784A207622314C4E00C4CAF1 /* AnnouncementDetailController.swift in Sources */,
 				36449E8F1FA4BAD10036766B /* HandInDetailViewController.swift in Sources */,
 				3668CE552159E121002673BE /* WPYTextField.swift in Sources */,
+				74AEF64A22747950001DCA37 /* SearchInfo.swift in Sources */,
 				3614D57721D929FE0007B886 /* BookDetailCard.swift in Sources */,
 				78FB9E67217AEA3F001DE39A /* LFMarkCustomCell.swift in Sources */,
 				784A208022314C4E00C4CAF1 /* TrendsViewController.swift in Sources */,

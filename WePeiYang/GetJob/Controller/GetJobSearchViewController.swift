@@ -4,11 +4,10 @@
 //
 //  Created by 王春杉 on 2019/2/12.
 //  Copyright © 2019 twtstudio. All rights reserved.
-//
+//  ok
 
 import UIKit
 import Alamofire
-import SwiftyJSON
 import MJRefresh
 
 struct SearchHistory {
@@ -94,8 +93,6 @@ class GetJobSearchViewController: UIViewController {
         }else {
             searchResultTableView.reloadData()
         }
-
-        print(didSearch)
     }
 }
 extension GetJobSearchViewController: UITableViewDelegate, UITableViewDataSource {
@@ -145,7 +142,7 @@ extension GetJobSearchViewController: UITableViewDelegate, UITableViewDataSource
                 didSelectCell.id = resultInfo.imporant[indexPath.row].id
                 self.navigationController?.pushViewController(RecruitmentInfoDetailController(), animated: true)
             }else {
-                didSelectCell.id = resultInfo.common[indexPath.row-7].id
+                didSelectCell.id = resultInfo.commons[indexPath.row-7].id
                 self.navigationController?.pushViewController(JobFireDetaileController(), animated: true)
             }
         }else {
@@ -172,66 +169,60 @@ extension GetJobSearchViewController: UISearchBarDelegate {
             self.didSearch = true
             // 使用Alamofire 加载 DetailMusic
             let searchUrl = "http://job.api.twtstudio.com/api/recruit/search?title=\(searchBar.text!)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            SearchUrl.url = searchUrl!
             self.resultInfo = RecruitInfo()
-            Alamofire.request(searchUrl!).responseJSON { response in
-                switch response.result.isSuccess {
-                case true:
-                    //把得到的JSON数据转为数组
-                    if let value = response.result.value {
-                        let json = JSON(value)
-                        if json["data"]["info"].count <= 6 || json["data"]["meeting"].count <= 6 {
-                            if self.searchResultTableView != nil {
-                                self.searchResultTableView.isHidden = true
-                            }
-                            if self.noResultImageView != nil {
-                                self.noResultImageView.isHidden = false
-                                self.noResultLable.isHidden = false
-                            }
-                            self.noResultImageView.image = UIImage(named: "搜索无结果")
-                            self.noResultImageView.frame = CGRect(x: (Device.width - 200)/2, y: 200, width: 200, height: 200)
-                            self.view.addSubview(self.noResultImageView)
-
-                            self.noResultLable.frame = CGRect(center: CGPoint(x: self.noResultImageView.center.x, y: self.noResultImageView.y+self.noResultImageView.height+20), size: CGSize(width: 300, height: 30))
-                            self.noResultLable.textAlignment = .center
-                            self.noResultLable.textColor = UIColor(hex6: 0x48b28a)
-                            self.noResultLable.text = "没有找到关于 ”\(searchBar.text!)“ 的就业信息"
-                            self.view.addSubview(self.noResultLable)
-                        }else {
-                            if self.searchResultTableView != nil {
-                                self.searchResultTableView.isHidden = false
-                            }
-                            if self.noResultImageView != nil {
-                                self.noResultImageView.isHidden = true
-                                self.noResultLable.isHidden = true
-                            }
-                            for i in 0..<7 {
-                                self.resultInfo.imporant.append(Imporant())
-                                self.resultInfo.imporant[i].id = json["data"]["info"][i]["id"].string!
-                                self.resultInfo.imporant[i].date = json["data"]["info"][i]["date"].string!
-                                self.resultInfo.imporant[i].title = json["data"]["info"][i]["title"].string!
-                                self.resultInfo.imporant[i].click = json["data"]["info"][i]["click"].string!
-                            }
-                            for i in 0..<7 {
-                                self.resultInfo.common.append(Common())
-                                self.resultInfo.common[i].id = json["data"]["meeting"][i]["id"].string!
-                                self.resultInfo.common[i].date = json["data"]["meeting"][i]["date"].string!
-                                self.resultInfo.common[i].title = json["data"]["meeting"][i]["title"].string!
-                                self.resultInfo.common[i].click = json["data"]["meeting"][i]["click"].string!
-                                self.resultInfo.common[i].place = json["data"]["meeting"][i]["place"].string!
-                                self.resultInfo.common[i].heldDate = json["data"]["meeting"][i]["held_date"].string!
-                                self.resultInfo.common[i].heldTime = json["data"]["meeting"][i]["held_time"].string!
-                            }
-                            self.setSearchResultTableView()
-                        
-                        }
-
-                    }else {
-                        print("else------")
+            SearchResultHelper.getSearchResult(success: { searchResult in
+                if (searchResult.data?.info?.count)! <= 6 || (searchResult.data?.meeting?.count)! <= 6 {
+                    if self.searchResultTableView != nil {
+                        self.searchResultTableView.isHidden = true
                     }
-                case false:
-                    print(response.result.error)
+                    if self.noResultImageView != nil {
+                        self.noResultImageView.isHidden = false
+                        self.noResultLable.isHidden = false
+                    }
+                    self.noResultImageView.image = UIImage(named: "搜索无结果")
+                    self.noResultImageView.frame = CGRect(x: (Device.width - 200)/2, y: 200, width: 200, height: 200)
+                    self.view.addSubview(self.noResultImageView)
+                    
+                    self.noResultLable.frame = CGRect(center: CGPoint(x: self.noResultImageView.center.x, y: self.noResultImageView.y+self.noResultImageView.height+20), size: CGSize(width: 300, height: 30))
+                    self.noResultLable.textAlignment = .center
+                    self.noResultLable.textColor = UIColor(hex6: 0x48b28a)
+                    self.noResultLable.text = "没有找到关于 ”\(searchBar.text!)“ 的就业信息"
+                    self.view.addSubview(self.noResultLable)
+                }else {
+                    if self.searchResultTableView != nil {
+                        self.searchResultTableView.isHidden = false
+                    }
+                    if self.noResultImageView != nil {
+                        self.noResultImageView.isHidden = true
+                        self.noResultLable.isHidden = true
+                    }
+                    for i in 0..<7 {
+                        self.resultInfo.imporant.append(Imporant())
+                        self.resultInfo.imporant[i].id = (searchResult.data?.info![i].id)!
+                        self.resultInfo.imporant[i].date = (searchResult.data?.info![i].date)!
+                        self.resultInfo.imporant[i].title = (searchResult.data?.info![i].title)!
+                        self.resultInfo.imporant[i].click = (searchResult.data?.info![i].click)!
+                    }
+                    for i in 0..<7 {
+                        self.resultInfo.commons.append(Commons())
+                        self.resultInfo.commons[i].id = (searchResult.data?.meeting![i].id)!
+                        self.resultInfo.commons[i].date = (searchResult.data?.meeting![i].date)!
+                        self.resultInfo.commons[i].title = (searchResult.data?.meeting![i].title)!
+                        self.resultInfo.commons[i].click = (searchResult.data?.meeting![i].click)!
+                        self.resultInfo.commons[i].place = (searchResult.data?.meeting![i].place)!
+                        self.resultInfo.commons[i].heldDate = (searchResult.data?.meeting![i].heldDate)!
+                        self.resultInfo.commons[i].heldTime = (searchResult.data?.meeting![i].heldTime)!
+                    }
+                    self.setSearchResultTableView()
+                    
                 }
+                
+            }) { _ in
+                
             }
+            
+
         }
 
     }

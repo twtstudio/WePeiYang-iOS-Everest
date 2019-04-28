@@ -29,7 +29,7 @@ class TrendsTableViewCell: UITableViewCell {
 
         let padding: CGFloat = 20
         importantNum = recruitmentInfo.imporant.count
-        commenNum = recruitmentInfo.common.count
+        commenNum = recruitmentInfo.commons.count
         rotationNum = recruitmentInfo.rotation.count
 
         timeLable.frame = CGRect(x: padding, y: padding, width: Device.width/4, height: 20)
@@ -80,9 +80,9 @@ class TrendsTableViewCell: UITableViewCell {
             visitsLable.text = recruitmentInfo.rotation[index-importantNum].click
             mainLable.text = recruitmentInfo.rotation[index-importantNum].title
         }else {
-            timeLable.text = recruitmentInfo.common[index-(importantNum + rotationNum)].date.changeTimeType()
-            visitsLable.text = recruitmentInfo.common[index-(importantNum + rotationNum)].click
-            mainLable.text = recruitmentInfo.common[index-(importantNum + rotationNum)].title
+            timeLable.text = recruitmentInfo.commons[index-(importantNum + rotationNum)].date.changeTimeType()
+            visitsLable.text = recruitmentInfo.commons[index-(importantNum + rotationNum)].click
+            mainLable.text = recruitmentInfo.commons[index-(importantNum + rotationNum)].title
         }
     }
 

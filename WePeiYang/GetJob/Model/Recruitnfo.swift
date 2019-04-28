@@ -7,11 +7,10 @@
 //
 
 import Foundation
-import SwiftyJSON
 
-struct didSelectCell {
-    static var id: String = ""
-}
+//struct didSelectCell {
+//    static var id: String = ""
+//}
 
 struct RecruitInfo {
     var type: String
@@ -19,13 +18,13 @@ struct RecruitInfo {
     static var pageCountOfType1: Int = 0
     var page: Int
     var imporant: [Imporant]
-    var common: [Common]
+    var commons: [Commons]
     var rotation: [Rotation]
     init() {
         self.type = ""
         self.page = 0
         self.imporant = [Imporant]()
-        self.common = [Common]()
+        self.commons = [Commons]()
         self.rotation = [Rotation]()
     }
 }
@@ -38,7 +37,7 @@ struct Imporant {
     var heldDate: String
     var heldTime: String
     var place: String
-    
+
     init() {
         self.id = ""
         self.title = ""
@@ -50,7 +49,7 @@ struct Imporant {
     }
 }
 
-struct Common {
+struct Commons {
     var id: String
     var title: String
     var date: String
@@ -58,7 +57,7 @@ struct Common {
     var heldDate: String
     var heldTime: String
     var place: String
-    
+
     init() {
         self.id = ""
         self.title = ""
@@ -75,7 +74,7 @@ struct Rotation {
     var title: String
     var date: String
     var click: String
-    
+
     init() {
         self.id = ""
         self.title = ""

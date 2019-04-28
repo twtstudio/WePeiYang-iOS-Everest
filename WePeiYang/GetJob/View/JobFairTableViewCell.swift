@@ -81,18 +81,18 @@ class JobFairTableViewCell: UITableViewCell {
                 visitsLable.text = recruitmentInfo.imporant[index].click
                 currentDataLable.text = recruitmentInfo.imporant[index].date.changeTimeType()
             }else {
-                titleLable.text = recruitmentInfo.common[index-importantNum].title
-                timeLable.text = "\(recruitmentInfo.common[index-importantNum].heldDate) \(recruitmentInfo.common[index-importantNum].heldTime)"
-                locationLable.text = recruitmentInfo.common[index-importantNum].place
-                visitsLable.text = recruitmentInfo.common[index-importantNum].click
-                currentDataLable.text = recruitmentInfo.common[index-importantNum].date.changeTimeType()
+                titleLable.text = recruitmentInfo.commons[index-importantNum].title
+                timeLable.text = "\(recruitmentInfo.commons[index-importantNum].heldDate) \(recruitmentInfo.commons[index-importantNum].heldTime)"
+                locationLable.text = recruitmentInfo.commons[index-importantNum].place
+                visitsLable.text = recruitmentInfo.commons[index-importantNum].click
+                currentDataLable.text = recruitmentInfo.commons[index-importantNum].date.changeTimeType()
             }
         }else {
-            titleLable.text = recruitmentInfo.common[index-7].title
-            timeLable.text = "\(recruitmentInfo.common[index-7].heldDate) \(recruitmentInfo.common[index-7].heldTime)"
-            locationLable.text = recruitmentInfo.common[index-7].place
-            visitsLable.text = recruitmentInfo.common[index-7].click
-            currentDataLable.text = recruitmentInfo.common[index-7].date.changeTimeType()
+            titleLable.text = recruitmentInfo.commons[index-7].title
+            timeLable.text = "\(recruitmentInfo.commons[index-7].heldDate) \(recruitmentInfo.commons[index-7].heldTime)"
+            locationLable.text = recruitmentInfo.commons[index-7].place
+            visitsLable.text = recruitmentInfo.commons[index-7].click
+            currentDataLable.text = recruitmentInfo.commons[index-7].date.changeTimeType()
         }
         
     }

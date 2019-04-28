@@ -73,9 +73,9 @@ class RecruitmentInfoTableViewCell: UITableViewCell {
                 contentView.addSubview(topLable)
 
             }else {
-                timeLable.text = recruitmentInfo.common[index-importantNum].date.changeTimeType()
-                visitsLable.text = recruitmentInfo.common[index-importantNum].click
-                mainLable.text = recruitmentInfo.common[index-importantNum].title
+                timeLable.text = recruitmentInfo.commons[index-importantNum].date.changeTimeType()
+                visitsLable.text = recruitmentInfo.commons[index-importantNum].click
+                mainLable.text = recruitmentInfo.commons[index-importantNum].title
             }
         }else {
             timeLable.text = recruitmentInfo.imporant[index].date.changeTimeType()

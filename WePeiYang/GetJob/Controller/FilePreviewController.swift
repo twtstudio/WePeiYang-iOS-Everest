@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import SwiftyJSON
 import MJRefresh
 struct AttachHttp {
     static var http = ""
@@ -31,7 +30,6 @@ class FilePreviewController: UIViewController {
         //开始下载
         Alamofire.download(attachHttp, to: destination)
             .response { response in
-                print(response)
                 
                 if let filePath = response.destinationURL?.path {
                     let url = URL(fileURLWithPath: filePath)
