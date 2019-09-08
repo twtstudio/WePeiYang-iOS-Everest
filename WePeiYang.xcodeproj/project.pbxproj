@@ -234,7 +234,6 @@
 		B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10254181EC8547E0064373A /* WPYTabBarController.swift */; };
 		B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B9571EC5C21700B8198E /* FavViewController.swift */; };
 		B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */; };
-		B19DABAA1E6EF5C2004A50B5 /* WePeiYangUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */; };
 		DD0B75F32158C6ED009A392C /* YellowPageSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B75DD2158C6ED009A392C /* YellowPageSearchViewController.swift */; };
 		DD0B75F42158C6ED009A392C /* YellowPageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B75DE2158C6ED009A392C /* YellowPageDetailViewController.swift */; };
 		DD0B75F52158C6ED009A392C /* YellowPageMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B75DF2158C6ED009A392C /* YellowPageMainViewController.swift */; };
@@ -281,20 +280,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 365A464C2036EFB700738963;
 			remoteInfo = WePeiYangWidget;
-		};
-		B19DAB9B1E6EF5C2004A50B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B19DAB7E1E6EF5C1004A50B5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B19DAB851E6EF5C2004A50B5;
-			remoteInfo = WePeiYang;
-		};
-		B19DABA61E6EF5C2004A50B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B19DAB7E1E6EF5C1004A50B5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B19DAB851E6EF5C2004A50B5;
-			remoteInfo = WePeiYang;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -499,7 +484,6 @@
 		9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.debug.xcconfig"; sourceTree = "<group>"; };
 		A51497F91FC80D5E00622A7B /* BindingAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingAPIs.swift; sourceTree = "<group>"; };
-		A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANLoginViewController.swift; sourceTree = "<group>"; };
 		A51C45671FD0227800652435 /* WLANBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANBindingViewController.swift; sourceTree = "<group>"; };
 		A51C45691FD0477700652435 /* BicycleBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleBindingViewController.swift; sourceTree = "<group>"; };
 		A51C456B1FD122F700652435 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -543,12 +527,6 @@
 		B181B9571EC5C21700B8198E /* FavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavViewController.swift; sourceTree = "<group>"; };
 		B181B95D1EC5C24000B8198E /* AllModulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllModulesViewController.swift; sourceTree = "<group>"; };
 		B19DAB861E6EF5C2004A50B5 /* WePeiYang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WePeiYang.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B19DAB9A1E6EF5C2004A50B5 /* WePeiYangTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WePeiYangTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B19DAB9E1E6EF5C2004A50B5 /* WePeiYangTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WePeiYangTests.swift; sourceTree = "<group>"; };
-		B19DABA01E6EF5C2004A50B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B19DABA51E6EF5C2004A50B5 /* WePeiYangUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WePeiYangUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WePeiYangUITests.swift; sourceTree = "<group>"; };
-		B19DABAB1E6EF5C2004A50B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D77E7BD11F959EB50A5A0DED /* Pods-WePeiYangWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.debug.xcconfig"; sourceTree = "<group>"; };
 		DD0B75DD2158C6ED009A392C /* YellowPageSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageSearchViewController.swift; sourceTree = "<group>"; };
 		DD0B75DE2158C6ED009A392C /* YellowPageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageDetailViewController.swift; sourceTree = "<group>"; };
@@ -606,20 +584,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B19DAB971E6EF5C2004A50B5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B19DABA21E6EF5C2004A50B5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -657,14 +621,6 @@
 				3614D54621D9251A0007B886 /* ExamTableViewCell.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		3614D54C21D9282C0007B886 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				A5159FE11FB0750800B466F2 /* WLANLoginViewController.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		3614D54D21D928BB0007B886 /* Controller */ = {
@@ -1320,12 +1276,9 @@
 				B19DAB881E6EF5C2004A50B5 /* WePeiYang */,
 				365A46502036EFB800738963 /* WePeiYangWidget */,
 				B156B7891E7A857F00A4C500 /* Resources */,
-				B19DAB9D1E6EF5C2004A50B5 /* WePeiYangTests */,
-				B19DABA81E6EF5C2004A50B5 /* WePeiYangUITests */,
 				B19DAB871E6EF5C2004A50B5 /* Products */,
 				80B33C5178ED19C33022F16B /* Pods */,
 				D33D5F603943FDFD415D167A /* Frameworks */,
-				3614D54C21D9282C0007B886 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1333,8 +1286,6 @@
 			isa = PBXGroup;
 			children = (
 				B19DAB861E6EF5C2004A50B5 /* WePeiYang.app */,
-				B19DAB9A1E6EF5C2004A50B5 /* WePeiYangTests.xctest */,
-				B19DABA51E6EF5C2004A50B5 /* WePeiYangUITests.xctest */,
 				365A464D2036EFB700738963 /* WePeiYangWidget.appex */,
 			);
 			name = Products;
@@ -1365,24 +1316,6 @@
 				3667E1CB201CB3B400E82241 /* Settings */,
 			);
 			path = WePeiYang;
-			sourceTree = "<group>";
-		};
-		B19DAB9D1E6EF5C2004A50B5 /* WePeiYangTests */ = {
-			isa = PBXGroup;
-			children = (
-				B19DAB9E1E6EF5C2004A50B5 /* WePeiYangTests.swift */,
-				B19DABA01E6EF5C2004A50B5 /* Info.plist */,
-			);
-			path = WePeiYangTests;
-			sourceTree = "<group>";
-		};
-		B19DABA81E6EF5C2004A50B5 /* WePeiYangUITests */ = {
-			isa = PBXGroup;
-			children = (
-				B19DABA91E6EF5C2004A50B5 /* WePeiYangUITests.swift */,
-				B19DABAB1E6EF5C2004A50B5 /* Info.plist */,
-			);
-			path = WePeiYangUITests;
 			sourceTree = "<group>";
 		};
 		D33D5F603943FDFD415D167A /* Frameworks */ = {
@@ -1522,42 +1455,6 @@
 			productReference = B19DAB861E6EF5C2004A50B5 /* WePeiYang.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B19DAB991E6EF5C2004A50B5 /* WePeiYangTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B19DABB11E6EF5C2004A50B5 /* Build configuration list for PBXNativeTarget "WePeiYangTests" */;
-			buildPhases = (
-				B19DAB961E6EF5C2004A50B5 /* Sources */,
-				B19DAB971E6EF5C2004A50B5 /* Frameworks */,
-				B19DAB981E6EF5C2004A50B5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B19DAB9C1E6EF5C2004A50B5 /* PBXTargetDependency */,
-			);
-			name = WePeiYangTests;
-			productName = WePeiYangTests;
-			productReference = B19DAB9A1E6EF5C2004A50B5 /* WePeiYangTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		B19DABA41E6EF5C2004A50B5 /* WePeiYangUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B19DABB41E6EF5C2004A50B5 /* Build configuration list for PBXNativeTarget "WePeiYangUITests" */;
-			buildPhases = (
-				B19DABA11E6EF5C2004A50B5 /* Sources */,
-				B19DABA21E6EF5C2004A50B5 /* Frameworks */,
-				B19DABA31E6EF5C2004A50B5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B19DABA71E6EF5C2004A50B5 /* PBXTargetDependency */,
-			);
-			name = WePeiYangUITests;
-			productName = WePeiYangUITests;
-			productReference = B19DABA51E6EF5C2004A50B5 /* WePeiYangUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1599,19 +1496,6 @@
 							};
 						};
 					};
-					B19DAB991E6EF5C2004A50B5 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = TYRRVX7RWJ;
-						ProvisioningStyle = Automatic;
-						TestTargetID = B19DAB851E6EF5C2004A50B5;
-					};
-					B19DABA41E6EF5C2004A50B5 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = TYRRVX7RWJ;
-						LastSwiftMigration = 1000;
-						ProvisioningStyle = Automatic;
-						TestTargetID = B19DAB851E6EF5C2004A50B5;
-					};
 				};
 			};
 			buildConfigurationList = B19DAB811E6EF5C1004A50B5 /* Build configuration list for PBXProject "WePeiYang" */;
@@ -1619,6 +1503,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1629,8 +1514,6 @@
 			targets = (
 				B19DAB851E6EF5C2004A50B5 /* WePeiYang */,
 				365A464C2036EFB700738963 /* WePeiYangWidget */,
-				B19DAB991E6EF5C2004A50B5 /* WePeiYangTests */,
-				B19DABA41E6EF5C2004A50B5 /* WePeiYangUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1667,20 +1550,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B19DAB981E6EF5C2004A50B5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B19DABA31E6EF5C2004A50B5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1708,7 +1577,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
@@ -1741,7 +1610,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F8D142B23E26238DDC2405BB /* [CP] Check Pods Manifest.lock */ = {
@@ -2022,21 +1891,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B19DAB961E6EF5C2004A50B5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B19DABA11E6EF5C2004A50B5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B19DABAA1E6EF5C2004A50B5 /* WePeiYangUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2044,16 +1898,6 @@
 			isa = PBXTargetDependency;
 			target = 365A464C2036EFB700738963 /* WePeiYangWidget */;
 			targetProxy = 365A46572036EFB800738963 /* PBXContainerItemProxy */;
-		};
-		B19DAB9C1E6EF5C2004A50B5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B19DAB851E6EF5C2004A50B5 /* WePeiYang */;
-			targetProxy = B19DAB9B1E6EF5C2004A50B5 /* PBXContainerItemProxy */;
-		};
-		B19DABA71E6EF5C2004A50B5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B19DAB851E6EF5C2004A50B5 /* WePeiYang */;
-			targetProxy = B19DABA61E6EF5C2004A50B5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2292,64 +2136,6 @@
 			};
 			name = Release;
 		};
-		B19DABB21E6EF5C2004A50B5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
-				INFOPLIST_FILE = WePeiYangTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WePeiYangTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WePeiYang.app/WePeiYang";
-			};
-			name = Debug;
-		};
-		B19DABB31E6EF5C2004A50B5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
-				INFOPLIST_FILE = WePeiYangTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WePeiYangTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WePeiYang.app/WePeiYang";
-			};
-			name = Release;
-		};
-		B19DABB51E6EF5C2004A50B5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
-				INFOPLIST_FILE = WePeiYangUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WePeiYangUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = WePeiYang;
-			};
-			name = Debug;
-		};
-		B19DABB61E6EF5C2004A50B5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = TYRRVX7RWJ;
-				INFOPLIST_FILE = WePeiYangUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.twt.WePeiYangUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = WePeiYang;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2376,24 +2162,6 @@
 			buildConfigurations = (
 				B19DABAF1E6EF5C2004A50B5 /* Debug */,
 				B19DABB01E6EF5C2004A50B5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B19DABB11E6EF5C2004A50B5 /* Build configuration list for PBXNativeTarget "WePeiYangTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B19DABB21E6EF5C2004A50B5 /* Debug */,
-				B19DABB31E6EF5C2004A50B5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B19DABB41E6EF5C2004A50B5 /* Build configuration list for PBXNativeTarget "WePeiYangUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B19DABB51E6EF5C2004A50B5 /* Debug */,
-				B19DABB61E6EF5C2004A50B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
