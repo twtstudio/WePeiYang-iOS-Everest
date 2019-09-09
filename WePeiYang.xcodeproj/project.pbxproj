@@ -204,6 +204,7 @@
 		78FB9E9D217AEF54001DE39A /* PublishSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E9C217AEF54001DE39A /* PublishSuccessViewController.swift */; };
 		78FB9E9F217AEF79001DE39A /* ButtonGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E9E217AEF79001DE39A /* ButtonGroups.swift */; };
 		78FB9EA1217AEF9A001DE39A /* DropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9EA0217AEF9A001DE39A /* DropDownMenu.swift */; };
+		9EC28E78232609D30004EBA4 /* WPYUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC28E77232609D30004EBA4 /* WPYUIColor.swift */; };
 		A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51497F91FC80D5E00622A7B /* BindingAPIs.swift */; };
 		A51C45681FD0227800652435 /* WLANBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51C45671FD0227800652435 /* WLANBindingViewController.swift */; };
 		A51C456A1FD0477700652435 /* BicycleBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51C45691FD0477700652435 /* BicycleBindingViewController.swift */; };
@@ -483,6 +484,7 @@
 		8405C859FC95C5E72E0F9BD7 /* Pods-WePeiYang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.release.xcconfig"; sourceTree = "<group>"; };
 		9C1A32CD4A3F1FB596836095 /* Pods_WePeiYangUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D661247CA756470CC4007D7 /* Pods-WePeiYang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang.debug.xcconfig"; sourceTree = "<group>"; };
+		9EC28E77232609D30004EBA4 /* WPYUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPYUIColor.swift; sourceTree = "<group>"; };
 		A51497F91FC80D5E00622A7B /* BindingAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingAPIs.swift; sourceTree = "<group>"; };
 		A51C45671FD0227800652435 /* WLANBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLANBindingViewController.swift; sourceTree = "<group>"; };
 		A51C45691FD0477700652435 /* BicycleBindingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BicycleBindingViewController.swift; sourceTree = "<group>"; };
@@ -1217,6 +1219,7 @@
 				3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */,
 				36758FDC1FDA851C0023A99C /* CardView.swift */,
 				36A9C31F204C56CD0018B6B3 /* ProgressWebViewController.swift */,
+				9EC28E77232609D30004EBA4 /* WPYUIColor.swift */,
 			);
 			path = UI_Fundamentals;
 			sourceTree = "<group>";
@@ -1842,6 +1845,7 @@
 				B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */,
 				36449E851FA4BAD10036766B /* TwentyCourseDetailViewController.swift in Sources */,
 				36449E6E1FA4BABA0036766B /* CourseTableViewCell.swift in Sources */,
+				9EC28E78232609D30004EBA4 /* WPYUIColor.swift in Sources */,
 				364922A120260CDC00DFDC35 /* LibraryModel.swift in Sources */,
 				363D0A701FE006990095DA57 /* LibraryCardDataProvider.swift in Sources */,
 				78FB9E9F217AEF79001DE39A /* ButtonGroups.swift in Sources */,
