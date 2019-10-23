@@ -104,7 +104,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 11.0, *) {
             let ARModeEnabledKey = "ARModeEnabledKey"
             if UserDefaults.standard.bool(forKey: ARModeEnabledKey) {
-                arWindow = ARKeyWindow()
+//                arWindow = ARKeyWindow()
+                arWindow = ARKeyWindow.init(frame: CGRect.zero)
                 arWindow.makeKeyAndVisible()
             }
         }

@@ -184,7 +184,8 @@ extension DetailSettingViewController: UITableViewDelegate {
                 UserDefaults.standard.set(!status, forKey: ARModeEnabledKey)
                 if (!status) {
                     if #available(iOS 11.0, *) {
-                        let arWindow = ARKeyWindow()
+//                        let arWindow = ARKeyWindow()
+                        let arWindow = ARKeyWindow.init(frame: CGRect.zero)
                         (UIApplication.shared.delegate as? AppDelegate)?.arWindow = arWindow
                         arWindow.makeKeyAndVisible()
                     }
