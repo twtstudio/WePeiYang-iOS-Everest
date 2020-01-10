@@ -106,7 +106,7 @@ struct AccountManager {
     }
 
     static func getSelf(success: (() -> Void)?, failure: (() -> Void)?) {
-        SolaSessionManager.solaSession(type: .get, baseURL: "https://open.twtstudio.com", url: "/api/v2/auth/self", parameters: nil, success: { dict in
+        SolaSessionManager.solaSession(type: .get, baseURL: "https://open.twt.edu.cn", url: "/api/v2/auth/self", parameters: nil, success: { dict in
             if let errorno = dict["error_code"] as? Int,
                 let message = dict["message"] as? String,
             message == "token expired" || errorno == 10003 || errorno == 10000 {

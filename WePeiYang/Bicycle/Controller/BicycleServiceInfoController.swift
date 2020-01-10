@@ -299,17 +299,17 @@ class BicycleServiceInfoController: UIViewController, UITableViewDelegate, UITab
     }
 
     //delegate of tableView
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 3 {
-            if #available(iOS 9.3, *) {
-                let fitnessVC = BicycleFitnessTrackerViewController()
-                self.navigationController?.pushViewController(fitnessVC, animated: true)
-                tableView.deselectRow(at: indexPath as IndexPath, animated: true)
-            } else {
-                // Fallback on earlier versions
-            }
-
-        }
-        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if indexPath.section == 3 {
+//            if #available(iOS 9.3, *) {
+//                let fitnessVC = BicycleFitnessTrackerViewController()
+//                self.navigationController?.pushViewController(fitnessVC, animated: true)
+//                tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+//            } else {
+//                // Fallback on earlier versions
+//            }
+//
+//        }
+//        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+//    }
 }

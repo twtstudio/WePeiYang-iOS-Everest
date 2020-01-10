@@ -15,7 +15,7 @@ enum SessionType {
     case duo
 }
 
-let TWT_ROOT_URL = "https://open.twtstudio.com/api/v1"
+let TWT_ROOT_URL = "https://open.twt.edu.cn/api/v1"
 
 struct SolaSessionManager {
 

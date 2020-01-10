@@ -165,38 +165,38 @@ extension DetailSettingViewController: UITableViewDelegate {
             }
             self.present(popup, animated: true, completion: nil)
             return
-        case (0, .armode):
-            guard let version = Double(UIDevice.current.systemVersion.split(separator: ".")[0]),
-            version > 11 else {
-                SwiftMessages.showErrorMessage(body: "由于版本限制，暂不支持iOS 11以下x的系统")
-                return
-            }
-
-            let ARModeEnabledKey = "ARModeEnabledKey"
-            let status = UserDefaults.standard.bool(forKey: ARModeEnabledKey)
-            let action = status ? "关闭" : "开启"
-            let message = "要" + action + "AR模式吗？"
-            let popup: PopupDialog = PopupDialog(title: "ARMode", message: message, buttonAlignment: .horizontal, transitionStyle: .zoomIn)
-
-            let cancelButton = DefaultButton(title: "取消", action: nil)
-
-            let defaultButton = DestructiveButton(title: action, dismissOnTap: true) {
-                UserDefaults.standard.set(!status, forKey: ARModeEnabledKey)
-                if (!status) {
-                    if #available(iOS 11.0, *) {
-                        let arWindow = ARKeyWindow()
-                        (UIApplication.shared.delegate as? AppDelegate)?.arWindow = arWindow
-                        arWindow.makeKeyAndVisible()
-                    }
-                } else {
-                    SwiftMessages.showSuccessMessage(body: action + "成功，请手动重启应用")
-                    return
-                }
-                SwiftMessages.showSuccessMessage(body: action + "成功")
-            }
-            popup.addButtons([cancelButton, defaultButton])
-            self.present(popup, animated: true, completion: nil)
-            return
+//        case (0, .armode):
+//            guard let version = Double(UIDevice.current.systemVersion.split(separator: ".")[0]),
+//            version > 11 else {
+//                SwiftMessages.showErrorMessage(body: "由于版本限制，暂不支持iOS 11以下x的系统")
+//                return
+//            }
+//
+//            let ARModeEnabledKey = "ARModeEnabledKey"
+//            let status = UserDefaults.standard.bool(forKey: ARModeEnabledKey)
+//            let action = status ? "关闭" : "开启"
+//            let message = "要" + action + "AR模式吗？"
+//            let popup: PopupDialog = PopupDialog(title: "ARMode", message: message, buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+//
+//            let cancelButton = DefaultButton(title: "取消", action: nil)
+//
+//            let defaultButton = DestructiveButton(title: action, dismissOnTap: true) {
+//                UserDefaults.standard.set(!status, forKey: ARModeEnabledKey)
+//                if (!status) {
+//                    if #available(iOS 11.0, *) {
+//                        let arWindow = ARKeyWindow()
+//                        (UIApplication.shared.delegate as? AppDelegate)?.arWindow = arWindow
+//                        arWindow.makeKeyAndVisible()
+//                    }
+//                } else {
+//                    SwiftMessages.showSuccessMessage(body: action + "成功，请手动重启应用")
+//                    return
+//                }
+//                SwiftMessages.showSuccessMessage(body: action + "成功")
+//            }
+//            popup.addButtons([cancelButton, defaultButton])
+//            self.present(popup, animated: true, completion: nil)
+//            return
         case (0, .modules):
             let settingsVC = ModulesSettingsViewController()
             self.navigationController?.pushViewController(settingsVC, animated: true)

@@ -214,7 +214,7 @@ class LFDetailViewController: UIViewController {
     }
     
     @objc func share() {
-        let vc = UIActivityViewController(activityItems: [#imageLiteral(resourceName: "LFNoImage"), "[失物招领]\(self.detail.data!.title!)", URL(string: "http://open.twtstudio.com/lostfound/detail.html#\(id)")!], applicationActivities: [])
+        let vc = UIActivityViewController(activityItems: [#imageLiteral(resourceName: "LFNoImage"), "[失物招领]\(self.detail.data!.title!)", URL(string: "http://open.twt.edu.cn/lostfound/detail.html#\(id)")!], applicationActivities: [])
         present(vc, animated: true, completion: nil)
     }
     

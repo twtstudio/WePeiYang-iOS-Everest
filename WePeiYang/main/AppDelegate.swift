@@ -101,13 +101,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = mainTabVC
         window?.makeKeyAndVisible()
 
-        if #available(iOS 11.0, *) {
-            let ARModeEnabledKey = "ARModeEnabledKey"
-            if UserDefaults.standard.bool(forKey: ARModeEnabledKey) {
-                arWindow = ARKeyWindow()
-                arWindow.makeKeyAndVisible()
-            }
-        }
+//        if #available(iOS 11.0, *) {
+//            let ARModeEnabledKey = "ARModeEnabledKey"
+//            if UserDefaults.standard.bool(forKey: ARModeEnabledKey) {
+//                arWindow = ARKeyWindow()
+//                arWindow.makeKeyAndVisible()
+//            }
+//        }
 
         registerAppNotification(launchOptions: launchOptions)
         registerShortcutItems()
@@ -138,13 +138,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func showNewFeature() {
         let NewFeatureVersionKey = "NewFeatureVersionKey"
         // plus one next version
-        let currentVersion = 2
+        let currentVersion = 4
 
         let version = UserDefaults.standard.integer(forKey: NewFeatureVersionKey)
         if currentVersion > version {
-            let popup = PopupDialog(title: "新功能提醒", message: "微北洋支持校园卡查询啦！\n如果使用中发现有问题，请加入「设置」中的QQ群反馈问题，我们会积极解决的!", buttonAlignment: .vertical)
+            let popup = PopupDialog(title: "公告", message: "由于天外天账号系统升级，天外天账号更改为学号，密码更改为身份证号后 6 位（若身份证的最后一位为 X 请大写），请在校园网环境使用。您可以在 i.twt.edu.cn 更新密码、绑定邮箱。\n最近的服务出现了许多问题，我们有着不可推卸的责任，我们正在全力修复包括微北洋在内的天外天服务，给您带来的不便还请多多包涵，若存在其他疑问和建议请加 QQ 群 738064793。", buttonAlignment: .vertical)
 //            let cancelButton = CancelButton(title: "取消", action: nil)
-            let goButton = DefaultButton(title: "好哒！", action: {
+            let goButton = DefaultButton(title: "确认", action: {
                 UserDefaults.standard.set(currentVersion, forKey: NewFeatureVersionKey)
             })
             popup.addButton(goButton)

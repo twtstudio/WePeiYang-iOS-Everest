@@ -188,6 +188,7 @@ extension CardView {
             if shouldPresentDetail {
                 let detailVC = UINavigationController(rootViewController: detailVC.init())
                 detailVC.transitioningDelegate = self
+                detailVC.modalPresentationStyle = .fullScreen
                 superVC.present(detailVC, animated: true, completion: nil)
             } else if shouldPushDetail {
                 let detailVC = detailVC.init()
