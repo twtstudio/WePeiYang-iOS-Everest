@@ -23,6 +23,7 @@ class TwTUser: Codable {
     var libBindingState: Bool = false
     var bicycleBindingState: Bool = false
     var WLANBindingState: Bool = false
+    var QRcodeBindingState: Bool = false
 
     required init(from decoder: Decoder) {
         do {

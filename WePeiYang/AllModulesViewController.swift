@@ -21,7 +21,9 @@ class AllModulesViewController: UIViewController {
         (title: "黄页", image: UIImage(named: "yellowPageBtn")!, class: YellowPageMainViewController.self, needLogin: false),
         (title: "上网", image: UIImage(named: "networkBtn")!, class: WLANLoginViewController.self, needLogin: true),
         (title: "图书馆", image: UIImage(named: "libBtn")!, class: LibraryMainViewController.self, needLogin: true),
-        (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self, needLogin: true)]
+        (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self, needLogin: true),
+        (title: "自习室查询", image: UIImage(named: "lfBtn")!, class: ClassroomCheckViewController.self, needLogin: true),
+        (title: "活动签到", image: UIImage(named: "6")!, class: CLibraryMainViewController.self, needLogin: true)]
 
     var collectionView: UICollectionView!
 

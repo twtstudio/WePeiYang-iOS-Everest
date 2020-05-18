@@ -174,6 +174,53 @@
 		36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F631ED1FAB31C500E3261F /* BicycleServiceMapController.swift */; };
 		36FCC2D520544E35003379AE /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36FCC2D420544E35003379AE /* LoadingView.xib */; };
 		36FCC2D920545967003379AE /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FCC2D820545967003379AE /* LoginView.swift */; };
+		4B622514245D751F005EFA6A /* QrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622513245D751F005EFA6A /* QrCodeViewController.swift */; };
+		4B622516245D753A005EFA6A /* FirstPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622515245D753A005EFA6A /* FirstPageVC.swift */; };
+		4B622518245D7577005EFA6A /* IDLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622517245D7577005EFA6A /* IDLogin.swift */; };
+		4B62251A245D758B005EFA6A /* ManagementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622519245D758B005EFA6A /* ManagementController.swift */; };
+		4B62251C245D75A2005EFA6A /* ScrollerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B62251B245D75A2005EFA6A /* ScrollerView.swift */; };
+		4B62251E245D75C2005EFA6A /* SaoMiaoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B62251D245D75C2005EFA6A /* SaoMiaoViewController.swift */; };
+		4B622520245D75D8005EFA6A /* ActivitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B62251F245D75D8005EFA6A /* ActivitiesViewController.swift */; };
+		4B622522245D75F4005EFA6A /* tmpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622521245D75F4005EFA6A /* tmpVC.swift */; };
+		4B622524245D762A005EFA6A /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622523245D762A005EFA6A /* ActivityView.swift */; };
+		4B622526245D766C005EFA6A /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622525245D766C005EFA6A /* AlertView.swift */; };
+		4B622528245D7685005EFA6A /* PrivateCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622527245D7685005EFA6A /* PrivateCode.swift */; };
+		4B62252A245D769A005EFA6A /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622529245D769A005EFA6A /* ActivityCell.swift */; };
+		4B62252C245D76C1005EFA6A /* ChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B62252B245D76C1005EFA6A /* ChangeView.swift */; };
+		4B62252E245D76D5005EFA6A /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B62252D245D76D5005EFA6A /* QRCodeView.swift */; };
+		4B622530245D76EC005EFA6A /* ActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B62252F245D76EC005EFA6A /* ActivitiesView.swift */; };
+		4B622532245D7716005EFA6A /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622531245D7716005EFA6A /* DetailView.swift */; };
+		4B622534245D772E005EFA6A /* CodeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622533245D772E005EFA6A /* CodeTitleView.swift */; };
+		4B622536245D775C005EFA6A /* MyColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622535245D775C005EFA6A /* MyColor.swift */; };
+		4B622538245D7777005EFA6A /* CodeAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622537245D7777005EFA6A /* CodeAPIHelper.swift */; };
+		4B62253A245D778A005EFA6A /* NameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622539245D778A005EFA6A /* NameModel.swift */; };
+		4B62253C245D77D3005EFA6A /* AuotherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B62253B245D77D3005EFA6A /* AuotherModel.swift */; };
+		4B62253E245D77FF005EFA6A /* ActivityDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B62253D245D77FF005EFA6A /* ActivityDetailModel.swift */; };
+		4B622540245D7816005EFA6A /* ScanQrCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B62253F245D7816005EFA6A /* ScanQrCodeModel.swift */; };
+		4B622542245D782D005EFA6A /* GetQrCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622541245D782D005EFA6A /* GetQrCodeModel.swift */; };
+		4B622544245D783F005EFA6A /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B622543245D783F005EFA6A /* LoginModel.swift */; };
+		4BA155D2246FFC5F00210B44 /* UIDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA155D1246FFC5F00210B44 /* UIDModel.swift */; };
+		4BAB596E2428393F00155AD0 /* EnshrineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB596D2428393F00155AD0 /* EnshrineView.swift */; };
+		4BAB59702428395C00155AD0 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB596F2428395C00155AD0 /* TitleView.swift */; };
+		4BAB59722428399200155AD0 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB59712428399200155AD0 /* CollectionViewCell.swift */; };
+		4BAB5974242839AF00155AD0 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB5973242839AF00155AD0 /* CalendarView.swift */; };
+		4BAB5976242839E800155AD0 /* ClassroomPageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB5975242839E800155AD0 /* ClassroomPageContentView.swift */; };
+		4BAB5978242839FE00155AD0 /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB5977242839FE00155AD0 /* NoticeView.swift */; };
+		4BAB597A24283A1800155AD0 /* SlienceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB597924283A1800155AD0 /* SlienceView.swift */; };
+		4BAB597C24283A3D00155AD0 /* ClassropmHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB597B24283A3D00155AD0 /* ClassropmHeaderView.swift */; };
+		4BAB597E24283A4C00155AD0 /* SecondCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB597D24283A4C00155AD0 /* SecondCell.swift */; };
+		4BAB598024283A6300155AD0 /* EnshrineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB597F24283A6300155AD0 /* EnshrineTableViewCell.swift */; };
+		4BAB598224283AD200155AD0 /* APIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB598124283AD200155AD0 /* APIHelper.swift */; };
+		4BAB598424283B0000155AD0 /* BuildingListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB598324283B0000155AD0 /* BuildingListModel.swift */; };
+		4BAB598624283B2900155AD0 /* DayAvailableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB598524283B2900155AD0 /* DayAvailableData.swift */; };
+		4BAB598824283B4F00155AD0 /* ClassroomWeekInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB598724283B4F00155AD0 /* ClassroomWeekInfoModel.swift */; };
+		4BAB598A24283B7000155AD0 /* AddCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB598924283B7000155AD0 /* AddCollectionModel.swift */; };
+		4BAB598C24283B9C00155AD0 /* CancelCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB598B24283B9C00155AD0 /* CancelCollectionModel.swift */; };
+		4BAB598E24283BBA00155AD0 /* CollectionListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB598D24283BBA00155AD0 /* CollectionListModel.swift */; };
+		4BAB599024283C3900155AD0 /* DetailRoomCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB598F24283C3900155AD0 /* DetailRoomCheckViewController.swift */; };
+		4BAB599224283C5700155AD0 /* CourseInqueryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB599124283C5700155AD0 /* CourseInqueryViewController.swift */; };
+		4BAB599424283C8600155AD0 /* ClassroomCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB599324283C8600155AD0 /* ClassroomCheckViewController.swift */; };
+		4BAB599624283CB000155AD0 /* RoomCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB599524283CB000155AD0 /* RoomCheckViewController.swift */; };
 		52F72000615E6A46CCDF7B8C /* Pods_WePeiYang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */; };
 		78B400E7219C6366006A8A45 /* AuditHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B400E6219C6366006A8A45 /* AuditHomeViewController.swift */; };
 		78FB9E65217AE69D001DE39A /* LFCollectionReusableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FB9E64217AE69D001DE39A /* LFCollectionReusableHeaderView.swift */; };
@@ -464,6 +511,53 @@
 		36FCC2D420544E35003379AE /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		36FCC2D820545967003379AE /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3E2AFF1235C9C87488CB407A /* Pods-WePeiYangWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.release.xcconfig"; sourceTree = "<group>"; };
+		4B622513245D751F005EFA6A /* QrCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeViewController.swift; sourceTree = "<group>"; };
+		4B622515245D753A005EFA6A /* FirstPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageVC.swift; sourceTree = "<group>"; };
+		4B622517245D7577005EFA6A /* IDLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDLogin.swift; sourceTree = "<group>"; };
+		4B622519245D758B005EFA6A /* ManagementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementController.swift; sourceTree = "<group>"; };
+		4B62251B245D75A2005EFA6A /* ScrollerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollerView.swift; sourceTree = "<group>"; };
+		4B62251D245D75C2005EFA6A /* SaoMiaoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaoMiaoViewController.swift; sourceTree = "<group>"; };
+		4B62251F245D75D8005EFA6A /* ActivitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesViewController.swift; sourceTree = "<group>"; };
+		4B622521245D75F4005EFA6A /* tmpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tmpVC.swift; sourceTree = "<group>"; };
+		4B622523245D762A005EFA6A /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		4B622525245D766C005EFA6A /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		4B622527245D7685005EFA6A /* PrivateCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateCode.swift; sourceTree = "<group>"; };
+		4B622529245D769A005EFA6A /* ActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
+		4B62252B245D76C1005EFA6A /* ChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeView.swift; sourceTree = "<group>"; };
+		4B62252D245D76D5005EFA6A /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
+		4B62252F245D76EC005EFA6A /* ActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesView.swift; sourceTree = "<group>"; };
+		4B622531245D7716005EFA6A /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		4B622533245D772E005EFA6A /* CodeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeTitleView.swift; sourceTree = "<group>"; };
+		4B622535245D775C005EFA6A /* MyColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyColor.swift; sourceTree = "<group>"; };
+		4B622537245D7777005EFA6A /* CodeAPIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeAPIHelper.swift; sourceTree = "<group>"; };
+		4B622539245D778A005EFA6A /* NameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameModel.swift; sourceTree = "<group>"; };
+		4B62253B245D77D3005EFA6A /* AuotherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuotherModel.swift; sourceTree = "<group>"; };
+		4B62253D245D77FF005EFA6A /* ActivityDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailModel.swift; sourceTree = "<group>"; };
+		4B62253F245D7816005EFA6A /* ScanQrCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQrCodeModel.swift; sourceTree = "<group>"; };
+		4B622541245D782D005EFA6A /* GetQrCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetQrCodeModel.swift; sourceTree = "<group>"; };
+		4B622543245D783F005EFA6A /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		4BA155D1246FFC5F00210B44 /* UIDModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDModel.swift; sourceTree = "<group>"; };
+		4BAB596D2428393F00155AD0 /* EnshrineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnshrineView.swift; sourceTree = "<group>"; };
+		4BAB596F2428395C00155AD0 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		4BAB59712428399200155AD0 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		4BAB5973242839AF00155AD0 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		4BAB5975242839E800155AD0 /* ClassroomPageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassroomPageContentView.swift; sourceTree = "<group>"; };
+		4BAB5977242839FE00155AD0 /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
+		4BAB597924283A1800155AD0 /* SlienceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlienceView.swift; sourceTree = "<group>"; };
+		4BAB597B24283A3D00155AD0 /* ClassropmHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassropmHeaderView.swift; sourceTree = "<group>"; };
+		4BAB597D24283A4C00155AD0 /* SecondCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCell.swift; sourceTree = "<group>"; };
+		4BAB597F24283A6300155AD0 /* EnshrineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnshrineTableViewCell.swift; sourceTree = "<group>"; };
+		4BAB598124283AD200155AD0 /* APIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHelper.swift; sourceTree = "<group>"; };
+		4BAB598324283B0000155AD0 /* BuildingListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingListModel.swift; sourceTree = "<group>"; };
+		4BAB598524283B2900155AD0 /* DayAvailableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayAvailableData.swift; sourceTree = "<group>"; };
+		4BAB598724283B4F00155AD0 /* ClassroomWeekInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassroomWeekInfoModel.swift; sourceTree = "<group>"; };
+		4BAB598924283B7000155AD0 /* AddCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCollectionModel.swift; sourceTree = "<group>"; };
+		4BAB598B24283B9C00155AD0 /* CancelCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelCollectionModel.swift; sourceTree = "<group>"; };
+		4BAB598D24283BBA00155AD0 /* CollectionListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListModel.swift; sourceTree = "<group>"; };
+		4BAB598F24283C3900155AD0 /* DetailRoomCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRoomCheckViewController.swift; sourceTree = "<group>"; };
+		4BAB599124283C5700155AD0 /* CourseInqueryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInqueryViewController.swift; sourceTree = "<group>"; };
+		4BAB599324283C8600155AD0 /* ClassroomCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassroomCheckViewController.swift; sourceTree = "<group>"; };
+		4BAB599524283CB000155AD0 /* RoomCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCheckViewController.swift; sourceTree = "<group>"; };
 		6E48DF45006ADE8419C6CF0C /* Pods_WePeiYangWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F6749BFC82CF9191336C6C5 /* Pods_WePeiYangTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYangTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78B400E6219C6366006A8A45 /* AuditHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditHomeViewController.swift; sourceTree = "<group>"; };
@@ -1005,6 +1099,115 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		4B62250F245D73F3005EFA6A /* CodeScan */ = {
+			isa = PBXGroup;
+			children = (
+				4B622512245D7442005EFA6A /* Controller */,
+				4B622511245D743A005EFA6A /* View */,
+				4B622510245D7425005EFA6A /* Model */,
+			);
+			path = CodeScan;
+			sourceTree = "<group>";
+		};
+		4B622510245D7425005EFA6A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4B622535245D775C005EFA6A /* MyColor.swift */,
+				4B622537245D7777005EFA6A /* CodeAPIHelper.swift */,
+				4B622539245D778A005EFA6A /* NameModel.swift */,
+				4B62253B245D77D3005EFA6A /* AuotherModel.swift */,
+				4B62253D245D77FF005EFA6A /* ActivityDetailModel.swift */,
+				4B62253F245D7816005EFA6A /* ScanQrCodeModel.swift */,
+				4BA155D1246FFC5F00210B44 /* UIDModel.swift */,
+				4B622541245D782D005EFA6A /* GetQrCodeModel.swift */,
+				4B622543245D783F005EFA6A /* LoginModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4B622511245D743A005EFA6A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4B622523245D762A005EFA6A /* ActivityView.swift */,
+				4B622525245D766C005EFA6A /* AlertView.swift */,
+				4B622527245D7685005EFA6A /* PrivateCode.swift */,
+				4B622529245D769A005EFA6A /* ActivityCell.swift */,
+				4B62252B245D76C1005EFA6A /* ChangeView.swift */,
+				4B62252D245D76D5005EFA6A /* QRCodeView.swift */,
+				4B62252F245D76EC005EFA6A /* ActivitiesView.swift */,
+				4B622531245D7716005EFA6A /* DetailView.swift */,
+				4B622533245D772E005EFA6A /* CodeTitleView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4B622512245D7442005EFA6A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4B622513245D751F005EFA6A /* QrCodeViewController.swift */,
+				4B622515245D753A005EFA6A /* FirstPageVC.swift */,
+				4B622517245D7577005EFA6A /* IDLogin.swift */,
+				4B622519245D758B005EFA6A /* ManagementController.swift */,
+				4B62251B245D75A2005EFA6A /* ScrollerView.swift */,
+				4B62251D245D75C2005EFA6A /* SaoMiaoViewController.swift */,
+				4B62251F245D75D8005EFA6A /* ActivitiesViewController.swift */,
+				4B622521245D75F4005EFA6A /* tmpVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4BAB5959242836BC00155AD0 /* ClassroomCheck */ = {
+			isa = PBXGroup;
+			children = (
+				4BAB596C242837AB00155AD0 /* View */,
+				4BAB595D242836FB00155AD0 /* Model */,
+				4BAB595A242836CC00155AD0 /* Controller */,
+			);
+			path = ClassroomCheck;
+			sourceTree = "<group>";
+		};
+		4BAB595A242836CC00155AD0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4BAB598F24283C3900155AD0 /* DetailRoomCheckViewController.swift */,
+				4BAB599124283C5700155AD0 /* CourseInqueryViewController.swift */,
+				4BAB599324283C8600155AD0 /* ClassroomCheckViewController.swift */,
+				4BAB599524283CB000155AD0 /* RoomCheckViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4BAB595D242836FB00155AD0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4BAB598124283AD200155AD0 /* APIHelper.swift */,
+				4BAB598324283B0000155AD0 /* BuildingListModel.swift */,
+				4BAB598524283B2900155AD0 /* DayAvailableData.swift */,
+				4BAB598724283B4F00155AD0 /* ClassroomWeekInfoModel.swift */,
+				4BAB598924283B7000155AD0 /* AddCollectionModel.swift */,
+				4BAB598B24283B9C00155AD0 /* CancelCollectionModel.swift */,
+				4BAB598D24283BBA00155AD0 /* CollectionListModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4BAB596C242837AB00155AD0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4BAB596D2428393F00155AD0 /* EnshrineView.swift */,
+				4BAB596F2428395C00155AD0 /* TitleView.swift */,
+				4BAB59712428399200155AD0 /* CollectionViewCell.swift */,
+				4BAB5973242839AF00155AD0 /* CalendarView.swift */,
+				4BAB5975242839E800155AD0 /* ClassroomPageContentView.swift */,
+				4BAB597B24283A3D00155AD0 /* ClassropmHeaderView.swift */,
+				4BAB597D24283A4C00155AD0 /* SecondCell.swift */,
+				4BAB597F24283A6300155AD0 /* EnshrineTableViewCell.swift */,
+				4BAB5977242839FE00155AD0 /* NoticeView.swift */,
+				4BAB597924283A1800155AD0 /* SlienceView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		78FB9E62217AE66A001DE39A /* LostFound */ = {
 			isa = PBXGroup;
 			children = (
@@ -1327,6 +1530,8 @@
 		B19DAB881E6EF5C2004A50B5 /* WePeiYang */ = {
 			isa = PBXGroup;
 			children = (
+				4B62250F245D73F3005EFA6A /* CodeScan */,
+				4BAB5959242836BC00155AD0 /* ClassroomCheck */,
 				78FB9E62217AE66A001DE39A /* LostFound */,
 				DD0B76142158CBA5009A392C /* GPA */,
 				DD0B75CC2158C6ED009A392C /* YellowPage */,
@@ -1475,7 +1680,6 @@
 				365A46492036EFB700738963 /* Sources */,
 				365A464A2036EFB700738963 /* Frameworks */,
 				365A464B2036EFB700738963 /* Resources */,
-				A4B5EA88C3576E2C7F669516 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1496,7 +1700,6 @@
 				B19DAB841E6EF5C2004A50B5 /* Resources */,
 				9425E5E6C1FDC2E7D9F81A80 /* [CP] Embed Pods Frameworks */,
 				365A465D2036EFB800738963 /* Embed App Extensions */,
-				E03FBFFB049975E4CEA8D742 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1695,7 +1898,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
@@ -1728,37 +1931,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A4B5EA88C3576E2C7F669516 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E03FBFFB049975E4CEA8D742 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WePeiYang/Pods-WePeiYang-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F8D142B23E26238DDC2405BB /* [CP] Check Pods Manifest.lock */ = {
@@ -1816,22 +1989,30 @@
 				36449E891FA4BAD10036766B /* PartyScoreViewController.m in Sources */,
 				36FCC2D920545967003379AE /* LoginView.swift in Sources */,
 				36449E661FA4BABA0036766B /* PersonalStatusLabel.swift in Sources */,
+				4BAB597C24283A3D00155AD0 /* ClassropmHeaderView.swift in Sources */,
+				4B62251E245D75C2005EFA6A /* SaoMiaoViewController.swift in Sources */,
 				36449E5E1FA4BABA0036766B /* WXWaveView.m in Sources */,
 				DD0B75F42158C6ED009A392C /* YellowPageDetailViewController.swift in Sources */,
 				360339E920247B9D0006A083 /* LibraryCard.swift in Sources */,
+				4BAB599224283C5700155AD0 /* CourseInqueryViewController.swift in Sources */,
 				DD0B75F52158C6ED009A392C /* YellowPageMainViewController.swift in Sources */,
 				3614D57B21D929FE0007B886 /* BookCollectionCell.swift in Sources */,
 				B102540E1EC8520A0064373A /* ClassExtensions.swift in Sources */,
 				78FB9E9D217AEF54001DE39A /* PublishSuccessViewController.swift in Sources */,
 				3614D57821D929FE0007B886 /* BookListTableViewCell.swift in Sources */,
+				4B622534245D772E005EFA6A /* CodeTitleView.swift in Sources */,
 				36042DB81FC7BB270016E859 /* CourseCell.swift in Sources */,
 				3685D9EF204D255700BA6C3D /* NewsDetailViewController.swift in Sources */,
 				3614D54821D9251A0007B886 /* ExamModel.swift in Sources */,
 				365261561FB9F83400025B8A /* ClassTableModel.swift in Sources */,
+				4B622540245D7816005EFA6A /* ScanQrCodeModel.swift in Sources */,
+				4B622530245D76EC005EFA6A /* ActivitiesView.swift in Sources */,
 				DD2A2AC321B773B600EA6F8F /* AuditCacheManager.swift in Sources */,
 				36449E901FA4BAD10036766B /* GradeDetailViewController.swift in Sources */,
+				4BAB598624283B2900155AD0 /* DayAvailableData.swift in Sources */,
 				78FB9E7A217AEC0B001DE39A /* LostFoundAPI.swift in Sources */,
 				36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */,
+				4B62252E245D76D5005EFA6A /* QRCodeView.swift in Sources */,
 				36449E481FA4BA9B0036766B /* ApplicantTest.swift in Sources */,
 				361F8863204AF94200BCFA19 /* NewsTableViewCell.swift in Sources */,
 				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,
@@ -1844,22 +2025,28 @@
 				36449E641FA4BABA0036766B /* QuizView.swift in Sources */,
 				3644E20221D8E0E9001F13F9 /* BaseResponse.swift in Sources */,
 				DD0B75F72158C6ED009A392C /* PhoneBook.swift in Sources */,
+				4B62253E245D77FF005EFA6A /* ActivityDetailModel.swift in Sources */,
 				365A8A281FB9CA1700B15443 /* ClassModel.swift in Sources */,
 				78FB9E97217AEEF4001DE39A /* MyLostFoundPageViewController.swift in Sources */,
 				DD0B76262158CBA6009A392C /* GPAModel.swift in Sources */,
+				4BAB59702428395C00155AD0 /* TitleView.swift in Sources */,
 				364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */,
 				DD0B762C2158CBA6009A392C /* ScoreHeaderView.swift in Sources */,
+				4BAB598024283A6300155AD0 /* EnshrineTableViewCell.swift in Sources */,
 				78FB9E9B217AEF3C001DE39A /* PublishLostViewController.swift in Sources */,
 				36449E491FA4BA9B0036766B /* Applicant.swift in Sources */,
 				3614D57121D929FE0007B886 /* LibraryBorrowViewController.swift in Sources */,
 				36449E441FA4BA9B0036766B /* TwentyCourseQuiz.swift in Sources */,
 				A5E117B91F99DCAE00C86CA2 /* Card.swift in Sources */,
+				4BAB596E2428393F00155AD0 /* EnshrineView.swift in Sources */,
 				366767FA21BBD4A700EB2F2B /* ModuleStateManager.swift in Sources */,
+				4B622526245D766C005EFA6A /* AlertView.swift in Sources */,
 				DD0B75F92158C6ED009A392C /* CommonUsedView.swift in Sources */,
 				78FB9E71217AEAFC001DE39A /* MyLostFoundTableViewCell.swift in Sources */,
 				DD0B75F62158C6ED009A392C /* ClientItem.swift in Sources */,
 				3614D57D21D929FE0007B886 /* BookCard.swift in Sources */,
 				A53602671FC6E36100E3D1AF /* LibraryBindingViewController.swift in Sources */,
+				4BAB5974242839AF00155AD0 /* CalendarView.swift in Sources */,
 				B181B95A1EC5C21700B8198E /* FavViewController.swift in Sources */,
 				36449E6C1FA4BABA0036766B /* FunctionListTableViewCell.swift in Sources */,
 				36449E701FA4BABA0036766B /* CourseDetailReadingView.swift in Sources */,
@@ -1867,14 +2054,20 @@
 				3614D57921D929FE0007B886 /* LibraryPageControl.swift in Sources */,
 				36449E831FA4BAD00036766B /* TwentyCourseViewController.swift in Sources */,
 				36449E8D1FA4BAD10036766B /* PartyCoursesViewController.m in Sources */,
+				4B622538245D7777005EFA6A /* CodeAPIHelper.swift in Sources */,
 				3614D55521D928BB0007B886 /* NetworkReachability.swift in Sources */,
 				3631D50A1F1903D70078816D /* TwTUser.swift in Sources */,
 				A5E117C51F99E05200C86CA2 /* BicycleServiceInfoController.swift in Sources */,
 				DD0B762D2158CBA6009A392C /* CourseAppraiseCell.swift in Sources */,
+				4B62251A245D758B005EFA6A /* ManagementController.swift in Sources */,
+				4B622516245D753A005EFA6A /* FirstPageVC.swift in Sources */,
 				DD0B76242158CBA6009A392C /* CourseAppraiseViewController.swift in Sources */,
+				4B622532245D7716005EFA6A /* DetailView.swift in Sources */,
+				4BAB598A24283B7000155AD0 /* AddCollectionModel.swift in Sources */,
 				78FB9E83217AED89001DE39A /* FoundViewController.swift in Sources */,
 				A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */,
 				3614D54921D9251A0007B886 /* ExamAssistant.swift in Sources */,
+				4BAB598E24283BBA00155AD0 /* CollectionListModel.swift in Sources */,
 				DD0B76292158CBA6009A392C /* GPAClassModel.swift in Sources */,
 				DD41A83B21A52F7100886BB4 /* AuditSearchModel.swift in Sources */,
 				78FB9E93217AEEC5001DE39A /* LostViewController.swift in Sources */,
@@ -1887,6 +2080,7 @@
 				365A46482036956700738963 /* CacheFilenameKey.swift in Sources */,
 				78FB9E80217AEC71001DE39A /* MyLostFoundModel.swift in Sources */,
 				361F885C204AF92D00BCFA19 /* BannerPageControl.swift in Sources */,
+				4B62251C245D75A2005EFA6A /* ScrollerView.swift in Sources */,
 				B181B95F1EC5C24000B8198E /* AllModulesViewController.swift in Sources */,
 				A51C456A1FD0477700652435 /* BicycleBindingViewController.swift in Sources */,
 				36758FDD1FDA851C0023A99C /* CardView.swift in Sources */,
@@ -1903,12 +2097,15 @@
 				78B400E7219C6366006A8A45 /* AuditHomeViewController.swift in Sources */,
 				361F885E204AF92D00BCFA19 /* BannerCell.swift in Sources */,
 				36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */,
+				4B622536245D775C005EFA6A /* MyColor.swift in Sources */,
 				36DA7A5C1FA8A35C000DAF2B /* FAB.swift in Sources */,
+				4BAB598424283B0000155AD0 /* BuildingListModel.swift in Sources */,
 				36E56BC61FC512230009BD6F /* CourseListView.swift in Sources */,
 				DD2A2ABD21B2DC5100EA6F8F /* CourseCollectionView.swift in Sources */,
 				3613DA222056F740000867AE /* UniversalExtension.swift in Sources */,
 				364BDF721FDAE1EF00E61B65 /* GPACard.swift in Sources */,
 				36DA7A5F1FA8A35C000DAF2B /* DeviceStatus.swift in Sources */,
+				4B62252C245D76C1005EFA6A /* ChangeView.swift in Sources */,
 				364EBDE621AD11D600CA88FD /* ECardBindingViewController.swift in Sources */,
 				361F885D204AF92D00BCFA19 /* BannerScrollView.swift in Sources */,
 				3615A9CA21ACEBDC001D1522 /* CardTransectionViewController.swift in Sources */,
@@ -1920,6 +2117,7 @@
 				3614D55321D928BB0007B886 /* WLANLoginViewController.swift in Sources */,
 				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
 				36449E8A1FA4BAD10036766B /* PartyPersonalStatusViewController.swift in Sources */,
+				4BAB597E24283A4C00155AD0 /* SecondCell.swift in Sources */,
 				DD0B75FA2158C6ED009A392C /* SearchView.swift in Sources */,
 				78FB9E8B217AEE4C001DE39A /* LFWaterFlowViewLayout.swift in Sources */,
 				36449E621FA4BABA0036766B /* SignUpTableViewCell.swift in Sources */,
@@ -1931,6 +2129,7 @@
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
 				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
 				3614D57A21D929FE0007B886 /* BookDetailTableHeaderView.swift in Sources */,
+				4B62253C245D77D3005EFA6A /* AuotherModel.swift in Sources */,
 				3667E1D0201CB98800E82241 /* DetailSettingViewController.swift in Sources */,
 				3614D56E21D929FE0007B886 /* LibraryMainViewController.swift in Sources */,
 				3614D57021D929FE0007B886 /* LibraryReadViewController.swift in Sources */,
@@ -1939,6 +2138,7 @@
 				361F8855204AF92100BCFA19 /* GalleryModel.swift in Sources */,
 				DD41A83721A4FCD400886BB4 /* AuditUser.swift in Sources */,
 				78FB9E69217AEA79001DE39A /* LFPickerCell.swift in Sources */,
+				4B62252A245D769A005EFA6A /* ActivityCell.swift in Sources */,
 				36D0FE74201861BD0014E667 /* ClassDetailViewController.swift in Sources */,
 				B102541C1EC8547E0064373A /* Metadata.swift in Sources */,
 				3614D57621D929FE0007B886 /* LibraryPageTitleView.swift in Sources */,
@@ -1946,6 +2146,7 @@
 				36449E651FA4BABA0036766B /* QuizCell.swift in Sources */,
 				3614D54721D9251A0007B886 /* ExamtableController.swift in Sources */,
 				36449E461FA4BA9B0036766B /* Courses.swift in Sources */,
+				4BAB5976242839E800155AD0 /* ClassroomPageContentView.swift in Sources */,
 				36366B2E1FAB86B0001F72A0 /* BicycleServiceViewController.swift in Sources */,
 				36449E611FA4BABA0036766B /* TextTableViewCell.swift in Sources */,
 				78FB9E95217AEEDE001DE39A /* MyFoundViewController.swift in Sources */,
@@ -1953,11 +2154,13 @@
 				365B5399216E5F4000A808EE /* ClassTableSettingViewController.swift in Sources */,
 				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
 				DD41A83D21A5341100886BB4 /* AuditSearchViewController.swift in Sources */,
+				4B622520245D75D8005EFA6A /* ActivitiesViewController.swift in Sources */,
 				78FB9E78217AEBE2001DE39A /* LFSearchCellOfHeight.swift in Sources */,
 				364922A3202620CC00DFDC35 /* CardButton.swift in Sources */,
 				3644E1FC21D8DB09001F13F9 /* ExamCard.swift in Sources */,
 				DD0B76232158CBA6009A392C /* GPAViewController.swift in Sources */,
 				36449E631FA4BABA0036766B /* ScoreTableViewCell.swift in Sources */,
+				4B622524245D762A005EFA6A /* ActivityView.swift in Sources */,
 				DDC7892021B132A700ABA33F /* CourseList.swift in Sources */,
 				78FB9E8F217AEE92001DE39A /* LostFoundPageViewController.swift in Sources */,
 				36449E8E1FA4BAD10036766B /* PartyComplainViewController.swift in Sources */,
@@ -1973,28 +2176,35 @@
 				A51C45681FD0227800652435 /* WLANBindingViewController.swift in Sources */,
 				36B8F2EA205110A60080083C /* NotificationSettingViewController.swift in Sources */,
 				36449E861FA4BAD10036766B /* TheoryClassicsTableViewController.swift in Sources */,
+				4B622518245D7577005EFA6A /* IDLogin.swift in Sources */,
 				3614D55421D928BB0007B886 /* WLANLoginAPIs.swift in Sources */,
+				4BAB598824283B4F00155AD0 /* ClassroomWeekInfoModel.swift in Sources */,
 				36449E451FA4BA9B0036766B /* PartyAPI.swift in Sources */,
 				A554C4B91F99E57700022A01 /* SpotDetailsView.swift in Sources */,
 				36B9F75D216BCBA000253C4A /* ClassTableNotificationHelper.swift in Sources */,
 				78FB9E7E217AEC5A001DE39A /* LostFoundModel.swift in Sources */,
 				361F8856204AF92100BCFA19 /* HomePageModel.swift in Sources */,
 				3614D57321D929FE0007B886 /* BookConstant.swift in Sources */,
+				4BAB599424283C8600155AD0 /* ClassroomCheckViewController.swift in Sources */,
 				36449E881FA4BAD10036766B /* PartySignUpViewController.swift in Sources */,
 				36449E601FA4BABA0036766B /* TheoryCourseArticleReadingView.swift in Sources */,
 				369306951F2B976C008E90DC /* ModuleCollectionViewCell.swift in Sources */,
 				A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */,
+				4B622528245D7685005EFA6A /* PrivateCode.swift in Sources */,
 				A5E117AF1F99DB8E00C86CA2 /* BicycleUser.swift in Sources */,
 				DD6A663621ABCEB10070C4B2 /* AuditPersonalCourseModel.swift in Sources */,
 				369140AF2020CBA30022BA3F /* NotificationName.swift in Sources */,
 				B10253F21EC84ED90064373A /* SolaSessionManager.swift in Sources */,
 				36449E851FA4BAD10036766B /* TwentyCourseDetailViewController.swift in Sources */,
+				4BA155D2246FFC5F00210B44 /* UIDModel.swift in Sources */,
 				36449E6E1FA4BABA0036766B /* CourseTableViewCell.swift in Sources */,
 				364922A120260CDC00DFDC35 /* LibraryModel.swift in Sources */,
 				363D0A701FE006990095DA57 /* LibraryCardDataProvider.swift in Sources */,
 				78FB9E9F217AEF79001DE39A /* ButtonGroups.swift in Sources */,
 				A5E117B71F99DC9400C86CA2 /* NotificationList.swift in Sources */,
+				4BAB59722428399200155AD0 /* CollectionViewCell.swift in Sources */,
 				362B055221CD52A000B370E7 /* ARKeyWindow.swift in Sources */,
+				4B622522245D75F4005EFA6A /* tmpVC.swift in Sources */,
 				3614D54A21D9251A0007B886 /* ExamTableViewCell.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
 				36D0FE76201867CF0014E667 /* ArrangeCell.swift in Sources */,
@@ -2003,6 +2213,7 @@
 				A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */,
 				36449E8F1FA4BAD10036766B /* HandInDetailViewController.swift in Sources */,
 				3668CE552159E121002673BE /* WPYTextField.swift in Sources */,
+				4B622542245D782D005EFA6A /* GetQrCodeModel.swift in Sources */,
 				3614D57721D929FE0007B886 /* BookDetailCard.swift in Sources */,
 				78FB9E67217AEA3F001DE39A /* LFMarkCustomCell.swift in Sources */,
 				DD0B76272158CBA6009A392C /* CourseAppraiseManager.swift in Sources */,
@@ -2011,6 +2222,7 @@
 				369D92072015D914004BA1D0 /* WeekSelectView.swift in Sources */,
 				B10254221EC8547E0064373A /* WPYTabBarController.swift in Sources */,
 				369B2D4A20151542009352A8 /* DateTool.swift in Sources */,
+				4B622514245D751F005EFA6A /* QrCodeViewController.swift in Sources */,
 				A5E117C71F99E08600C86CA2 /* BicycleNotificationDetailViewController.swift in Sources */,
 				78FB9E87217AEE16001DE39A /* LFImagePreviewViewController.swift in Sources */,
 				DD0B75F82158C6ED009A392C /* YellowPageSearchHistoryCell.swift in Sources */,
@@ -2019,23 +2231,31 @@
 				DD41A83121A3B00300886BB4 /* AuditDetailCourseTableViewCell.swift in Sources */,
 				361F8853204AF92100BCFA19 /* HomePageHelper.swift in Sources */,
 				365A8A251FB9BA8500B15443 /* ClasstableDataManager.swift in Sources */,
+				4B62253A245D778A005EFA6A /* NameModel.swift in Sources */,
 				3659366B1F1E2ECF003CE578 /* ExtendedButton.swift in Sources */,
 				3614D57521D929FE0007B886 /* ListBook.swift in Sources */,
 				36CAD44C201B9194006F85E3 /* ClassTableCard.swift in Sources */,
 				DD41A83321A4704000886BB4 /* AuditDetailCourseModel.swift in Sources */,
 				B10253F01EC84ED90064373A /* AccountManager.swift in Sources */,
 				78FB9E91217AEEAA001DE39A /* LostFoundSearchViewController.swift in Sources */,
+				4BAB5978242839FE00155AD0 /* NoticeView.swift in Sources */,
+				4BAB599024283C3900155AD0 /* DetailRoomCheckViewController.swift in Sources */,
 				78FB9E89217AEE32001DE39A /* LFSearchedResultViewController.swift in Sources */,
+				4BAB598224283AD200155AD0 /* APIHelper.swift in Sources */,
 				78FB9EA1217AEF9A001DE39A /* DropDownMenu.swift in Sources */,
+				4BAB599624283CB000155AD0 /* RoomCheckViewController.swift in Sources */,
 				DD0B75F32158C6ED009A392C /* YellowPageSearchViewController.swift in Sources */,
 				A53602691FC6EC0500E3D1AF /* TJUBindingViewController.swift in Sources */,
 				78FB9E65217AE69D001DE39A /* LFCollectionReusableHeaderView.swift in Sources */,
 				78FB9E6B217AEA9D001DE39A /* LFSearchCustomCell.swift in Sources */,
+				4BAB598C24283B9C00155AD0 /* CancelCollectionModel.swift in Sources */,
 				78FB9E7C217AEC36001DE39A /* LostFoundDetailModel.swift in Sources */,
 				78FB9E6F217AEAE1001DE39A /* LostFoundCollectionViewCell.swift in Sources */,
+				4B622544245D783F005EFA6A /* LoginModel.swift in Sources */,
 				DD0B762B2158CBA6009A392C /* StarView.swift in Sources */,
 				361F885F204AF92D00BCFA19 /* BannerProxy.swift in Sources */,
 				3615A9C721AC825E001D1522 /* ECardModel.swift in Sources */,
+				4BAB597A24283A1800155AD0 /* SlienceView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

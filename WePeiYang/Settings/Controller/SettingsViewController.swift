@@ -41,7 +41,10 @@ class SettingsViewController: UIViewController {
         ("校园网", WLANBindingViewController.self, "", {
             return TwTUser.shared.WLANBindingState}),
         ("校园卡", ECardBindingViewController.self, "", {
-            return TwTUser.shared.ecardBindingState})
+            return TwTUser.shared.ecardBindingState}),
+        ("二维码", QrCodeViewController.self, "", {
+            return TwTUser.shared.QRcodeBindingState
+        })
     ]
     fileprivate let settingTitles: [(title: String, iconName: String)] = [("设置", "")]
 
@@ -254,6 +257,10 @@ extension SettingsViewController: UITableViewDataSource {
                 cell.detailTextLabel?.text = "已绑定"
             } else {
                 cell.detailTextLabel?.text = "未绑定"
+            }
+            //            MARK:后来加的
+            if indexPath.row == 5 {
+                cell.detailTextLabel?.text = ""
             }
             return cell
         } else {

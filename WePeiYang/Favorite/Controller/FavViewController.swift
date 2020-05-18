@@ -203,6 +203,9 @@ class FavViewController: UIViewController {
                 initEcard()
             case .exam:
                 initExamCard()
+            case .code:
+                initQRCode()
+            
             }
         }
         cardTableView.reloadData()
@@ -264,6 +267,15 @@ extension FavViewController {
         card.refresh()
         card.shouldPresent(ExamtableController.self, from: self)
         cardDict[Module.exam] = card
+    }
+//    MARK: 后来加的
+    func initQRCode() {
+        let card = ActivitiesView()
+        card.delegate = self
+        card.refresh()
+//        MARK: 一定要改下面这个
+        card.shouldPresent(ActivitiesViewController.self, from: self)
+        cardDict[Module.code] = card
     }
 }
 
