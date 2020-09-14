@@ -139,7 +139,7 @@ class ClassTableCard: CardView {
                     return range.contains(time)
                 }
                 if let course = course {
-                    let index = courses.index { m in
+                    let index = courses.firstIndex { m in
                         return m.classID == course.classID &&
                             m.arrange.first?.start == course.arrange.first?.start &&
                             m.arrange.first?.end == course.arrange.first?.end

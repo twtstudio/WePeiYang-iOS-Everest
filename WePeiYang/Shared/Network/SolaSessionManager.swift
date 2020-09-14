@@ -101,7 +101,7 @@ struct SolaSessionManager {
         var paraDict = [String: String]()
         for item in dictionay {
             if let value = item.value as? UIImage {
-                let data = UIImageJPEGRepresentation(value, 1.0)!
+                let data = value.jpegData(compressionQuality: 1.0)
                 dataDict[item.key] = data
             } else if let value = item.value as? String {
                 paraDict[item.key] = value
@@ -110,7 +110,7 @@ struct SolaSessionManager {
 
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
         paraDict["t"] = timeStamp
-        var fooPara = paraDict
+        let fooPara = paraDict
 
         let keys = fooPara.keys.sorted()
         // encrypt with sha1

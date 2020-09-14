@@ -141,7 +141,7 @@ class CourseViewController: UIViewController {
 //        collectionView.heder
         collectionView.register(Test2CollectionViewCell.self, forCellWithReuseIdentifier: id)
 //        头部
-        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: idd)
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: idd)
         collectionView.allowsMultipleSelection = true
         self.view.addSubview(collectionView)
     }
@@ -219,8 +219,8 @@ extension CourseViewController: UICollectionViewDelegate {
 //        理论上应该可以吧
 //        var re = BuildingList.init(errorCode: 0, message: "success", data: nil)
         var result = [Building]()
-        var t1 = fir.data
-        var t2 = sec.data
+        let t1 = fir.data
+        let t2 = sec.data
         for i in 0..<t1.count {
             for j in 0..<t2.count {
                 if t1[i].buildingID == t2[j].buildingID {
@@ -233,7 +233,7 @@ extension CourseViewController: UICollectionViewDelegate {
                             }
                         }
                     }
-                    var tempBuilding = Building.init(buildingID: t1[i].buildingID, building: t1[i].building, campusID: t1[i].campusID, areaID: t1[i].areaID, classrooms: tempClassroom)
+                    let tempBuilding = Building.init(buildingID: t1[i].buildingID, building: t1[i].building, campusID: t1[i].campusID, areaID: t1[i].areaID, classrooms: tempClassroom)
                     if tempClassroom.count != 0 {
                         result.append(tempBuilding)
                     }
@@ -241,7 +241,7 @@ extension CourseViewController: UICollectionViewDelegate {
                 }
             }
         }
-        var re = BuildingList.init(errorCode: 0, message: "success", data: result)
+        let re = BuildingList.init(errorCode: 0, message: "success", data: result)
         return re
     }
 }
@@ -274,7 +274,7 @@ extension CourseViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         if let header = collectionView.dequeueReusableSupplementaryView(ofKind:
-            UICollectionElementKindSectionHeader, withReuseIdentifier: idd,
+                                                                            UICollectionView.elementKindSectionHeader, withReuseIdentifier: idd,
                                                   for: indexPath) as? UICollectionReusableView {
             //设置分组标题
             let titleLabel = UILabel()

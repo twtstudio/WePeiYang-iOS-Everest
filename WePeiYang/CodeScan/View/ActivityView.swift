@@ -39,17 +39,17 @@ class ActivityView: UIView {
     var codeLogin: UIButton = {
         let button = UIButton()
 //        设置按钮左端对齐
-        button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.left
         return button
     }()
     var idLogin: UIButton = {
         let button = UIButton()
-        button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.left
         return button
     }()
     var arrow: UIButton = {
         let button = UIButton()
-        button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.left
         return button
     }()
     
@@ -116,7 +116,7 @@ class ActivityView: UIView {
     func addInformation() {
         
         //        图文混排
-        let dictAttr = [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .regular)]
+        let dictAttr = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .regular)]
         var attrStr1 = NSAttributedString(string: "  扫码录入", attributes: dictAttr)
         let attacment1 = NSTextAttachment()
         let image = UIImage(named: "2")

@@ -257,7 +257,7 @@ extension UIControl {
     typealias Function = () -> Void
     typealias Action = (name: String, function: Function)
 
-    func add (for controlEvents: UIControlEvents, _ closure: @escaping Function) {
+    func add (for controlEvents: UIControl.Event, _ closure: @escaping Function) {
         let doer = ClosureDoer(closure)
         addTarget(doer, action: #selector(ClosureDoer.invoke), for: controlEvents)
         objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), doer, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)

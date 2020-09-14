@@ -19,7 +19,7 @@ class NewsTableViewCell: UITableViewCell {
     let imgView = UIImageView()
     var imageStyle: ImageStyle
 
-    init(style: UITableViewCellStyle, reuseIdentifier: String?, imageStyle: ImageStyle) {
+    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, imageStyle: ImageStyle) {
         self.imageStyle = imageStyle
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layout()

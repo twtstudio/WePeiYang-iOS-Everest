@@ -38,7 +38,7 @@ class BannerCell: UICollectionViewCell {
         }
     }
 
-    var imageContentModel: UIViewContentMode = .scaleAspectFill {
+    var imageContentModel: UIView.ContentMode = .scaleAspectFill {
         didSet {
             imgView.contentMode = imageContentModel
         }
@@ -108,7 +108,7 @@ class BannerCell: UICollectionViewCell {
             let labelY = bounds.height - bottomViewHeight + 20
             descLabel.frame = CGRect(x: margin, y: labelY, width: labelWidth, height: labelHeight)
             bottomView.frame = CGRect(x: 0, y: bottomViewY, width: imgView.bounds.width, height: bottomViewlHeight)
-            bringSubview(toFront: descLabel)
+            bringSubviewToFront(descLabel)
         }
     }
 }

@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var mainTabVC: WPYTabBarController!
     var arWindow: UIWindow!
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         MTA.start(withAppkey: "IUY2I5P1Y3VI")
         UIApplication.beginSwizzling()
@@ -62,6 +62,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         mainTabVC = WPYTabBarController()
 
+        // FIXME: 20200905 只启用课程表GPA和考表
+        UserDefaults.standard.set(["活动": -6, "GPA": 2, "课程表": 1,
+                                   "图书馆": -3, "校园卡": -4, "考表": 5], forKey: ModuleArrangementKey)
+        
         let favoriteVC = FavViewController()
         favoriteVC.tabBarItem.image = #imageLiteral(resourceName: "Favored")
         let favoriteNavigationController = UINavigationController(rootViewController: favoriteVC)
@@ -101,13 +105,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = mainTabVC
         window?.makeKeyAndVisible()
 
-//        if #available(iOS 11.0, *) {
-//            let ARModeEnabledKey = "ARModeEnabledKey"
-//            if UserDefaults.standard.bool(forKey: ARModeEnabledKey) {
-//                arWindow = ARKeyWindow()
-//                arWindow.makeKeyAndVisible()
-//            }
-//        }
 
         registerAppNotification(launchOptions: launchOptions)
         registerShortcutItems()
@@ -239,7 +236,7 @@ extension AppDelegate {
 // MARK: User Notification
 extension AppDelegate: UNUserNotificationCenterDelegate {
 
-    func registerAppNotification(launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+    func registerAppNotification(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         // 注册通知
         if #available(iOS 10.0, *) {
             let center = UNUserNotificationCenter.current()

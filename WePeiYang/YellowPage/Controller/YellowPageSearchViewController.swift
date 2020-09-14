@@ -37,7 +37,7 @@ class YellowPageSearchViewController: UIViewController {
         tableView.dataSource = self
         
         tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         
         //        view.backgroundColor = UIColor(red:0.16, green:0.64, blue:0.89, alpha:1.00)
         view.backgroundColor = YellowPageMainViewController.mainColor

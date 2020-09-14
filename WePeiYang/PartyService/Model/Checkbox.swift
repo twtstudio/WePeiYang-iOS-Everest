@@ -25,20 +25,20 @@ class Checkbox: UIButton {
     var wasChosen = false
     var belongsToMany = false
 
-    override func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControlEvents) {
+    override func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event) {
         super.addTarget(target, action: action, for: controlEvents)
         let tapOnLabel = UITapGestureRecognizer(target: target, action: action)
         self.nameLabel.addGestureRecognizer(tapOnLabel)
     }
 
     static func initOnlyChoiceBtns(with quizOptions: [Quiz.Option]) -> [Checkbox] {
-            return quizOptions.flatMap({ (option: Quiz.Option) -> Checkbox? in
+        return quizOptions.compactMap({ (option: Quiz.Option) -> Checkbox? in
                 return Checkbox(withSingleChoiceBtn: option)
             })
     }
 
     static func initMultiChoicesBtns(with quizOptions: [Quiz.Option]) -> [Checkbox] {
-        return quizOptions.flatMap({ (option: Quiz.Option) -> Checkbox? in
+        return quizOptions.compactMap({ (option: Quiz.Option) -> Checkbox? in
             return Checkbox(withMultiChoicesBtn: option)
         })
     }

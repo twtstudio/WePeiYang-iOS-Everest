@@ -41,7 +41,7 @@ class PublishCustomCell: UITableViewCell, UITextFieldDelegate {
             textField.minimumFontSize = 14
             
             textField.textAlignment = NSTextAlignment.right
-            textField.clearButtonMode = UITextFieldViewMode.unlessEditing
+            textField.clearButtonMode = UITextField.ViewMode.unlessEditing
             
             self.addSubview(textField)
             

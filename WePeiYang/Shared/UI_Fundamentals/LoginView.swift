@@ -121,7 +121,7 @@ class LoginView: MessageView {
         let blankView = UIView()
         blankView.backgroundColor = .white
         contentView.addSubview(blankView)
-        contentView.sendSubview(toBack: blankView)
+        contentView.sendSubviewToBack(blankView)
         blankView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalTo(usernameField.snp.top).offset(-15)
@@ -144,8 +144,8 @@ class LoginView: MessageView {
         backgroundView.backgroundColor = UIColor.init(white: 0.97, alpha: 1)
         backgroundView.layer.cornerRadius = 10
 
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 
         usernameField.text = TwTUser.shared.username
         passwordField.text = TWTKeychain.password(for: .root)

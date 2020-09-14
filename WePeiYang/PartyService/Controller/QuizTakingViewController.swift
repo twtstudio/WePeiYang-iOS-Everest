@@ -43,7 +43,7 @@ class QuizTakingViewController: UIViewController {
 //        UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
         navigationController?.navigationBar.barStyle = .black
 
-        let quizSubmitBtn = UIBarButtonItem(title: "交卷", style: UIBarButtonItemStyle.plain, target: self, action: #selector(QuizTakingViewController.submitAnswer))
+        let quizSubmitBtn = UIBarButtonItem(title: "交卷", style: UIBarButtonItem.Style.plain, target: self, action: #selector(QuizTakingViewController.submitAnswer))
 
         self.navigationItem.setRightBarButton(quizSubmitBtn, animated: true)
     }
@@ -174,7 +174,7 @@ extension QuizTakingViewController {
         }
 
         Courses.Study20.submitAnswer(of: self.courseID!, originalAnswer: originalAnswer, userAnswer: userAnswer) {
-            let finishBtn = UIBarButtonItem(title: "完成", style: UIBarButtonItemStyle.plain, target: self, action: #selector(QuizTakingViewController.finishQuizTaking))
+            let finishBtn = UIBarButtonItem(title: "完成", style: UIBarButtonItem.Style.plain, target: self, action: #selector(QuizTakingViewController.finishQuizTaking))
             self.navigationItem.setRightBarButton(finishBtn, animated: true)
 
             let finishView = FinalView(status: Courses.Study20.finalStatusAfterSubmitting!, msg: Courses.Study20.finalMsgAfterSubmitting!)

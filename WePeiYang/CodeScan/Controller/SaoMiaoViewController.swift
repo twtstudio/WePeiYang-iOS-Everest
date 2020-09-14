@@ -49,7 +49,7 @@ class SaoMiaoViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
 //        navigationController?.navigationBar.barTintColor = MyColor.ColorHex("#54B9F1")
         navigationController?.setNavigationBarHidden(false, animated: true)
         
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.isTranslucent = true
         
         let leftButton = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(pop))
@@ -275,7 +275,7 @@ class SaoMiaoViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
         session?.stopRunning()
         if let metadataObject = metadataObjects.first {
             let readableObject = metadataObject as! AVMetadataMachineReadableCodeObject
-            let str = readableObject.stringValue!
+            _ = readableObject.stringValue!
             //            let url = URL(string: str)
             //
             //            //用网页打开扫描的信息

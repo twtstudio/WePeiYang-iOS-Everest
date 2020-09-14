@@ -62,7 +62,7 @@ class CalendarView: UIView {
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
         collectionView.register(Test2CollectionViewCell.self, forCellWithReuseIdentifier: "id")
-        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerViewId)
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerViewId)
         self.addSubview(collectionView)
     
         return collectionView
@@ -212,7 +212,7 @@ extension CalendarView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 
             if let header = collectionView.dequeueReusableSupplementaryView(ofKind:
-                UICollectionElementKindSectionHeader, withReuseIdentifier: headerViewId,
+                                                                                UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerViewId,
                                                       for: indexPath) as? UICollectionReusableView {
                 
                 //设置分组标题

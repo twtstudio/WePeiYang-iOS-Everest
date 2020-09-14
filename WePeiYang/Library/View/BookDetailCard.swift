@@ -49,7 +49,7 @@ class BookDetailCard: CardView {
         tableView.backgroundColor = UIColor.white
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.showsVerticalScrollIndicator = false
         tableView.register(BookDetailTableViewCell.self, forCellReuseIdentifier: detailCellID)
         tableView.register(BookDetailTableHeaderView.self, forHeaderFooterViewReuseIdentifier: detailHeaderID)

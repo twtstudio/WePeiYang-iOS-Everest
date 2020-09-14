@@ -147,7 +147,7 @@ class DetailRoomCheckViewController: UIViewController {
     //        collectionView.heder
         collectionView.register(Test2CollectionViewCell.self, forCellWithReuseIdentifier: cellId)
     //        头部
-        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId)
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         bgView.addSubview(collectionView)
         
         

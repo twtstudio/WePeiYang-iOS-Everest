@@ -58,7 +58,7 @@ class LFPickerCell: UITableViewCell {
         textField.resignFirstResponder()
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpUI()

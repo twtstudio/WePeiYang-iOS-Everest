@@ -103,7 +103,7 @@ class DropDownMenu: UIView, UITableViewDelegate, UITableViewDataSource {
         self.frame.origin = originPonit
         self.menuArr = arr
         self.menuTableView?.reloadData()
-        self.superview?.bringSubview(toFront: self)
+        self.superview?.bringSubviewToFront(self)
         self.menuTableView?.frame.size.height = 0.0
         
         // 动画

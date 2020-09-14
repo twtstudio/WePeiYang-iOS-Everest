@@ -20,7 +20,7 @@ class IdLoginViewController: UIViewController {
         navigationItem.title = "学号录入"
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.tintColor = .white
         
         navigationController?.navigationBar.barTintColor = MyColor.ColorHex("#54B9F1")
@@ -39,7 +39,7 @@ class IdLoginViewController: UIViewController {
         navigationItem.title = "学号录入"
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.tintColor = .white
         
         navigationController?.navigationBar.barTintColor = MyColor.ColorHex("#54B9F1")

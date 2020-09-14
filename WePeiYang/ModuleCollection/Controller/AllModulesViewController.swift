@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PopupDialog
 
 class AllModulesViewController: UIViewController {
     typealias ModuleData = (title: String, image: UIImage, class: AnyClass, needLogin: Bool)
@@ -54,7 +55,7 @@ class AllModulesViewController: UIViewController {
         collectionView.register(ModuleCollectionViewCell.self, forCellWithReuseIdentifier: "ModuleCollectionViewCell")
 
         // register header view
-        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UICollectionElementKindSectionHeader")
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "UICollectionElementKindSectionHeader")
         collectionView.delegate = self
         collectionView.dataSource = self
         self.view.addSubview(collectionView)
@@ -102,7 +103,7 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if indexPath.section == 0 {
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UICollectionElementKindSectionHeader", for: indexPath)
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "UICollectionElementKindSectionHeader", for: indexPath)
             let label = UILabel(text: "更多功能")
             label.font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight.heavy)
             label.x = 15
@@ -115,6 +116,24 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // FIXME: 2020 9 5 some function need to be fixed
+        let faultIndexs = [2, 3, 5, 6, 7, 8]
+        guard !faultIndexs.contains(indexPath.row) else {
+            let title = "错误"
+            let message = "功能正在维护中"
+            
+            let popup = PopupDialog(title: title, message: message, image: nil, buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+            
+            let button = CancelButton(title: "明白了"){
+                
+            }
+            popup.addButton(button)
+            
+            self.present(popup, animated: true, completion: nil)
+            
+            return
+        }
+        
         if modules[indexPath.row].needLogin && TwTUser.shared.token == nil {
             showLoginView(success: {
 //                if let vc = (self.modules[indexPath.row].class as? UIViewController.Type)?.init() {
@@ -130,4 +149,6 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    
 }

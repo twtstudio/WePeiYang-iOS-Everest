@@ -51,7 +51,7 @@ class LostFoundPageViewController: WMPageController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(hex6: 0x00a1e9)), for: UIBarMetrics.default)
         //        self.navigationController?.navigationBar.barTintColor = UIColor(hex6: 0x00a1e9)
         self.navigationController?.navigationBar.titleTextAttributes =
-            [NSAttributedStringKey.foregroundColor: UIColor.white]
+            [NSAttributedString.Key.foregroundColor: UIColor.white]
         self.navigationController?.navigationBar.tintColor = UIColor.white
         UIApplication.shared.keyWindow?.addSubview(fab)
         fab.showUp()

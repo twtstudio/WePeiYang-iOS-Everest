@@ -32,12 +32,12 @@ class SettingsViewController: UIViewController {
 
     // FIXME: image name
     public var services: [ItemData] = [
+        ("办公网", TJUBindingViewController.self, "", {
+            return TwTUser.shared.tjuBindingState}),
         ("图书馆", LibraryBindingViewController.self, "", {
             return TwTUser.shared.libBindingState}),
         ("自行车", BicycleBindingViewController.self, "", {
             return TwTUser.shared.bicycleBindingState}),
-        ("办公网", TJUBindingViewController.self, "", {
-            return TwTUser.shared.tjuBindingState}),
         ("校园网", WLANBindingViewController.self, "", {
             return TwTUser.shared.WLANBindingState}),
         ("校园卡", ECardBindingViewController.self, "", {
@@ -69,7 +69,7 @@ class SettingsViewController: UIViewController {
 //        navigationController?.navigationBar.barStyle = .black
 //        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
         //Changing NavigationBar Title color
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Metadata.Color.naviTextColor]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Metadata.Color.naviTextColor]
         // This is for removing the dark shadows when transitioning
 //        navigationController?.navigationBar.isTranslucent = false
 
@@ -337,10 +337,19 @@ extension SettingsViewController: UITableViewDelegate {
         }
 
         if !services[indexPath.row].status() {
-            if let vc = (services[indexPath.row].class as? UIViewController.Type)?.init() {
+            
+            // TODO: only classNet works
+            if  indexPath.row == 0, let vc = (services[indexPath.row].class as? UIViewController.Type)?.init() {
                 vc.hidesBottomBarWhenPushed = true
                 self.present(vc, animated: true)
+            } else {
+                let popup = PopupDialog(title: "暂时不可用", message: "本模块当前正在维护中", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+
+                let defaultButton = CancelButton(title: "好", action: nil)
+                popup.addButton(defaultButton)
+                self.present(popup, animated: true, completion: nil)
             }
+            
         } else {
             let popup = PopupDialog(title: "绑定状态", message: "要解绑吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
 
@@ -363,6 +372,6 @@ func showLoginView(success: (() -> Void)? = nil) {
     config.presentationStyle = .center
     config.duration = .forever
     config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
-    config.presentationContext  = .window(windowLevel: UIWindowLevelNormal)
+    config.presentationContext  = .window(windowLevel: UIWindow.Level.normal.rawValue)
     SwiftMessages.show(config: config, view: loginView)
 }

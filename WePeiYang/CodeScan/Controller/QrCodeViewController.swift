@@ -23,7 +23,7 @@ class QrCodeViewController: UIViewController {
         //        MARK:导航栏颜色
         
         navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationController?.setNavigationBarHidden(false, animated: true)
         let leftButton = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(pop))
         let image = UIImage(named:"1")!

@@ -31,7 +31,7 @@ class BookCard: CardView {
                     labelTexts[3] = "  剩余天数  超出" + "\(-day)" + "天"
                     let range = NSRange(location: 7, length: labelTexts[3].count - 6)
                     let str = makeupLabelText(label: labels[3], img: labelImages[3], str: labelTexts[3])
-                    str.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(r: 245, g: 45, b: 74), range: range)
+                    str.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(r: 245, g: 45, b: 74), range: range)
                     labels[3].attributedText = str
                 }
                 
@@ -100,7 +100,7 @@ class BookCard: CardView {
         image.image = img
         image.bounds = CGRect(x: 0, y: -2, width: (label.font.lineHeight), height: (label.font.lineHeight))
         let imageStr = NSAttributedString(attachment: image)
-        let string = NSAttributedString(string: str, attributes: [NSAttributedStringKey.foregroundColor: UIColor.darkGray])
+        let string = NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray])
         let allStr = NSMutableAttributedString()
         allStr.append(imageStr)
         allStr.append(string)

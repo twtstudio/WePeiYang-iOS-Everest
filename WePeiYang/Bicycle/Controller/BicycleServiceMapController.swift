@@ -28,8 +28,8 @@ class BicycleServiceMapController: UIViewController {
 
     @objc func whereAmI(sender: UIButton!) {
         // 迷醉？
-        if let userLoc: MKUserLocation? = newMapView.userLocation {
-            let cl = CLLocation(latitude: userLoc!.coordinate.latitude, longitude: userLoc!.coordinate.longitude)
+        if let userLoc: MKUserLocation = newMapView.userLocation {
+            let cl = CLLocation(latitude: userLoc.coordinate.latitude, longitude: userLoc.coordinate.longitude)
             centerMapOnLocation(location: cl)
         } else {
             checkLocationAuthorizationStatus()
@@ -55,7 +55,7 @@ class BicycleServiceMapController: UIViewController {
     }
 
     func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2, regionRadius * 2)
+        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius * 2, longitudinalMeters: regionRadius * 2)
         newMapView.setRegion(coordinateRegion, animated: true)
     }
 

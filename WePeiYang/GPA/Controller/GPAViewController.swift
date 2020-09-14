@@ -640,7 +640,7 @@ extension GPAViewController: UIScrollViewDelegate {
             self.navigationController?.navigationBar.isTranslucent = true
             self.navigationController?.navigationBar.alpha = min(offset * 0.02, 1)
             let image = UIImage(color: UIColor.gpaPink, size: CGSize(width: self.view.width, height: 64))
-            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
             self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
 //            self.navigationController?.navigationBar.isTranslucent = true
         } else {
@@ -701,7 +701,7 @@ extension GPAViewController: ChartViewDelegate {
         var upsidedownOffset: CGFloat = 0
 
         if bubbleView.y + bubbleView.height > 200 {
-            let revertedImage = UIImage(cgImage: image.cgImage!, scale: 1, orientation: UIImageOrientation.downMirrored)
+            let revertedImage = UIImage(cgImage: image.cgImage!, scale: 1, orientation: UIImage.Orientation.downMirrored)
             bubbleView.image = revertedImage
             bubbleView.y -= bubbleView.height + 10 + 10
             upsidedownOffset = -10

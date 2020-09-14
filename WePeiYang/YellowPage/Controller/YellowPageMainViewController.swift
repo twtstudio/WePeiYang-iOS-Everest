@@ -43,10 +43,10 @@ class YellowPageMainViewController: UIViewController {
         tableView.estimatedSectionHeaderHeight = 0
         tableView.estimatedSectionFooterHeight = 0
         tableView.estimatedRowHeight = 200.5
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         
         tableView.backgroundColor = YellowPageMainViewController.lightGray
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
         tableView.separatorColor = YellowPageMainViewController.lightGray
         tableView.showsVerticalScrollIndicator = false
         

@@ -48,7 +48,7 @@ extension CourseCollectionView: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 1)
-        UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.2, options: UIView.AnimationOptions.curveEaseInOut, animations: {
             cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
         }, completion: nil)
     }

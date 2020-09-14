@@ -35,7 +35,7 @@ class TmpViewController: UIViewController {
         //        MARK:导航栏颜色
         navigationController?.navigationBar.barTintColor = MyColor.ColorHex("#54B9F1")
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         let leftButton = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(pop))
         let image = UIImage(named:"3")!
         leftButton.image = UIImage.resizedImage(image: image, scaledToSize: CGSize(width: 10, height: 20))

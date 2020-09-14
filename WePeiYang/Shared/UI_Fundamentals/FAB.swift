@@ -87,7 +87,7 @@ open class FAB: UIButton {
         if _plusSignLayer == nil {
             _plusSignLayer = CAShapeLayer()
             _plusSignLayer.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: buttonHeight)
-            _plusSignLayer.lineCap = kCALineCapRound
+            _plusSignLayer.lineCap = CAShapeLayerLineCap.round
             _plusSignLayer.strokeColor = UIColor.white.cgColor
             _plusSignLayer.lineWidth = 2.0
             _plusSignLayer.path = plusSignBezierPath().cgPath
@@ -116,7 +116,7 @@ open class FAB: UIButton {
         layer.addSublayer(plusSignLayer())
         backgroundColor = .red
 
-        if UIDeviceOrientationIsPortrait(.portrait) {
+        if UIDevice.current.orientation == UIDeviceOrientation.portrait {
             layer.cornerRadius = cornerRadius
             layer.shadowOpacity = 0.5
             layer.shadowRadius = 6
@@ -336,7 +336,7 @@ extension FAB {
     }
 
     override open func willMove(toSuperview newSuperview: UIView?) {
-        if UIDeviceOrientationIsPortrait(.portrait) {
+        if UIDevice.current.orientation == UIDeviceOrientation.portrait {
             frame = CGRect(x: screenWidth-buttonWidth-edgePaddingX, y: screenHeight-buttonHeight-edgePaddingY, width: buttonWidth, height: buttonHeight)
             let bottomLineAt = frame.origin.y
             // FIXME: fix this rotating animation

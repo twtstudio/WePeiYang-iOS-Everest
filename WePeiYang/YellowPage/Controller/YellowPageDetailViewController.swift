@@ -34,12 +34,12 @@ class YellowPageDetailViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
         tableView.separatorColor = YellowPageMainViewController.seperateColor
         tableView.showsVerticalScrollIndicator = false
         
         tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { make in

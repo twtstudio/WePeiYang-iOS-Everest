@@ -69,5 +69,6 @@ struct ModuleStateManager {
 //        }
 
         UserDefaults.standard.set(dict, forKey: ModuleArrangementKey)
+        print(UserDefaults.standard.dictionary(forKey: ModuleArrangementKey))
     }
 }

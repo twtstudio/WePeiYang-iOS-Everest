@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.WePeiYang</string>
+		<string>group.com.twtstudio.PeiYang-Lite</string>
 	</array>
 	<key>keychain-access-groups</key>
 	<array>

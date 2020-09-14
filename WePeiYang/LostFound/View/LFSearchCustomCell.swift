@@ -24,7 +24,7 @@ class LFSearchCustomCell: UITableViewCell {
     var button = UIButton()
     var buttonName = ""
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.contentView.addSubview(deleteButton)

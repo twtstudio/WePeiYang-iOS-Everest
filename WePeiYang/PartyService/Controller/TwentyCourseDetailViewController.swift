@@ -26,7 +26,7 @@ class TwentyCourseDetailViewController: UITableViewController {
         //let bgView = UIView(color: partyRed)
         bgView.backgroundColor = .partyRed
 
-        let quizTakingBtn = UIBarButtonItem(title: "开始答题", style: UIBarButtonItemStyle.plain, target: self, action: #selector(TwentyCourseDetailViewController.startQuiz))
+        let quizTakingBtn = UIBarButtonItem(title: "开始答题", style: UIBarButtonItem.Style.plain, target: self, action: #selector(TwentyCourseDetailViewController.startQuiz))
 
         self.navigationItem.setRightBarButton(quizTakingBtn, animated: true)
 

@@ -149,7 +149,7 @@ class RoomCheckViewController: UIViewController {
         self.collectionView.showsVerticalScrollIndicator = false
         self.collectionView.register(Test2CollectionViewCell.self, forCellWithReuseIdentifier: id)
     //        头部
-        self.collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerViewId)
+        self.collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerViewId)
         self.view.addSubview(self.collectionView)
         
         BuildingListHelper.getBuildingList(success: { buildingListData in
@@ -366,7 +366,7 @@ extension RoomCheckViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
                 
         if let header = collectionView.dequeueReusableSupplementaryView(ofKind:
-                    UICollectionElementKindSectionHeader, withReuseIdentifier: headerViewId,
+                                                                            UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerViewId,
                                                           for: indexPath) as? UICollectionReusableView {
             header.subviews.map {
                 $0.removeFromSuperview()

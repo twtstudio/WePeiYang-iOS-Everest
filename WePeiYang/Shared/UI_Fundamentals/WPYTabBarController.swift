@@ -69,7 +69,7 @@ class WPYTabBarController: UITabBarController {
         }
     }
 
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         super.motionEnded(motion, with: event)
 
         if let event = event, event.subtype == .motionShake {

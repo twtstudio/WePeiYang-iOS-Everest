@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import WebKit
 
-class CourseDetailReadingView: UIView, UIWebViewDelegate {
+class CourseDetailReadingView: UIView, WKNavigationDelegate, WKUIDelegate {
 
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -77,8 +78,9 @@ extension CourseDetailReadingView {
             nameLabel.numberOfLines = 0
 
             //let contentView = UIWebView(htmlString: "<p><object classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0\" height=\"600\" width=\"800\"><param name=\"quality\" value=\"high\" /><param name=\"movie\" value=\"http://www.tudou.com/a/Rcd1Bo1-qqw/&iid=132528954&rpid=849459437&resourceId=849459437_04_0_99/v.swf\" /><embed height=\"600\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" quality=\"high\" src=\"http://www.tudou.com/a/Rcd1Bo1-qqw/&iid=132528954&rpid=849459437&resourceId=849459437_04_0_99/v.swf\" type=\"application/x-shockwave-flash\" width=\"800\"></embed></object></p>")
-            let contentView = UIWebView(htmlString: detail.articleContent!)
-            contentView.delegate = self
+            let contentView = WKWebView(htmlString: detail.articleContent!)
+            contentView.uiDelegate = self
+            contentView.navigationDelegate = self
 
             let timeLabel = UILabel(text: detail.courseInsertTime!, fontSize: 13)
             timeLabel.textColor = .gray
@@ -122,7 +124,7 @@ private extension CourseDetailReadingView {
 
 }
 
-private extension UIWebView {
+private extension WKWebView {
     convenience init(htmlString: String) {
         self.init()
         backgroundColor = .clear

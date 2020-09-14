@@ -46,7 +46,7 @@ class FavViewController: UIViewController {
         navigationController?.navigationBar.barStyle = .black
 //        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
         // Changing NavigationBar Title color
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Metadata.Color.naviTextColor]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Metadata.Color.naviTextColor]
         // This is for removing the dark shadows when transitioning
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.isNavigationBarHidden = true
@@ -74,7 +74,7 @@ class FavViewController: UIViewController {
         cardTableView.delegate = self
         cardTableView.dataSource = self
         cardTableView.estimatedRowHeight = 300
-        cardTableView.rowHeight = UITableViewAutomaticDimension
+        cardTableView.rowHeight = UITableView.automaticDimension
         cardTableView.separatorStyle = .none
         cardTableView.allowsSelection = false
         cardTableView.backgroundColor = .white
@@ -110,7 +110,7 @@ class FavViewController: UIViewController {
                 let name = Module(rawValue: nameString),
                 let height = info["height"] as? CGFloat,
                 let card = self.cardDict[name],
-                let row = self.modules.index(where: { $0 == name }) {
+                let row = self.modules.firstIndex(where: { $0 == name }) {
                 let indexPath = IndexPath(row: row, section: 0)
                 let cell = self.cardTableView.cellForRow(at: indexPath)
 
@@ -131,7 +131,7 @@ class FavViewController: UIViewController {
 
                 //                self.cardTableView.endUpdates()
                 self.cardTableView.reloadData()
-                self.cardTableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.middle, animated: true)
+                self.cardTableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.middle, animated: true)
                 //                self.cardTableView.reloadRows(at: [indexPath], with: .automatic)
             } else {
                 self.refreshCards(info: notification)
@@ -170,9 +170,9 @@ class FavViewController: UIViewController {
     // 重新加载数据
     @objc func refreshCards(info: Notification) {
         if modules.isEmpty {
-            view.sendSubview(toBack: cardTableView)
+            view.sendSubviewToBack(cardTableView)
         } else {
-            view.bringSubview(toFront: cardTableView)
+            view.bringSubviewToFront(cardTableView)
         }
 
         for item in modules {
@@ -236,7 +236,7 @@ extension FavViewController {
 
         card.delegate = self
 
-        defer {
+        do {
             card.shouldPresent(ClassTableViewController.self, from: self)
             cardDict[Module.classtable] = card
         }

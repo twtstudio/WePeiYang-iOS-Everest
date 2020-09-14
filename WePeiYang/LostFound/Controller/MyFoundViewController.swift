@@ -36,7 +36,7 @@ class MyFoundViewController: UIViewController {
         self.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         self.tableView.estimatedRowHeight = 100
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         self.view.addSubview(tableView!)
     }
     

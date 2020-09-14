@@ -229,7 +229,7 @@ extension CardView: UIViewControllerTransitioningDelegate {
 
 extension CardView: UINavigationControllerDelegate {
 
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let isPresenting = operation == .push ? true : false
 //        fromVC.tabBarController?.tabBar.isHidden = true
         let animator = CardViewTransitionAnimator(isPresenting: isPresenting, originalFrame: originalFrame, card: self)
@@ -249,13 +249,13 @@ extension CardView {
         switch state {
         case .data:
             blankView.isHidden = true
-            self.sendSubview(toBack: blankView)
-            self.sendSubview(toBack: msgLabel)
+            self.sendSubviewToBack(blankView)
+            self.sendSubviewToBack(msgLabel)
             return
         case .loading(let msg, let textColor):
             blankView.isHidden = false
-            self.bringSubview(toFront: blankView)
-            self.bringSubview(toFront: msgLabel)
+            self.bringSubviewToFront(blankView)
+            self.bringSubviewToFront(msgLabel)
             msgLabel.text = msg
             msgLabel.textColor = textColor
             msgLabel.sizeToFit()
@@ -268,8 +268,8 @@ extension CardView {
             return
         case .empty(let msg, let textColor):
             blankView.isHidden = false
-            self.bringSubview(toFront: blankView)
-            self.bringSubview(toFront: msgLabel)
+            self.bringSubviewToFront(blankView)
+            self.bringSubviewToFront(msgLabel)
             msgLabel.text = msg
             msgLabel.textColor = textColor
             msgLabel.sizeToFit()
@@ -277,8 +277,8 @@ extension CardView {
             return
         case .failed(let msg, let textColor):
             blankView.isHidden = false
-            self.bringSubview(toFront: blankView)
-            self.bringSubview(toFront: msgLabel)
+            self.bringSubviewToFront(blankView)
+            self.bringSubviewToFront(msgLabel)
             msgLabel.text = msg
             msgLabel.textColor = textColor
             msgLabel.sizeToFit()

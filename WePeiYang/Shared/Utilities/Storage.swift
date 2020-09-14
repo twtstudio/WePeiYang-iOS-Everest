@@ -49,7 +49,7 @@ struct Storage {
     ///   - filename: the name of file
     static func store<T: Encodable>(_ object: T, in directory: Directory, as filename: String, success: (() -> Void)? = nil, failure: (() -> Void)? = nil) {
         var url = getURL(for: directory)
-        var dirs = filename.split(separator: "/")
+        let dirs = filename.split(separator: "/")
 
         let encoder = JSONEncoder()
         do {

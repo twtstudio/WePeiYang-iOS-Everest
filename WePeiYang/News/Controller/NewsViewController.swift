@@ -18,11 +18,12 @@ class NewsViewController: UIViewController {
             }
         }
     }
-    var galleryList: [GalleryModel] = [] {
-        didSet {
-            self.galleryView.reloadData()
-        }
-    }
+    // TODO: By zrzz "不知道做啥用的"
+//    var galleryList: [GalleryModel] = [] {
+//        didSet {
+//            self.galleryView.reloadData()
+//        }
+//    }
     var newsList: [NewsModel] = [] {
         didSet {
             self.tableView.reloadData()
@@ -64,13 +65,13 @@ class NewsViewController: UIViewController {
         return bannerView
     }()
 
-    private lazy var galleryView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 130, height: 200)
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 20
-        return UICollectionView(frame: CGRect(x: 0, y: 55, width: view.width, height: 200), collectionViewLayout: layout)
-    }()
+//    private lazy var galleryView: UICollectionView = {
+//        let layout = UICollectionViewFlowLayout()
+//        layout.itemSize = CGSize(width: 130, height: 200)
+//        layout.scrollDirection = .horizontal
+//        layout.minimumLineSpacing = 20
+//        return UICollectionView(frame: CGRect(x: 0, y: 55, width: view.width, height: 200), collectionViewLayout: layout)
+//    }()
 
     private lazy var infoCell: UITableViewCell = {
         let cell = UITableViewCell()
@@ -148,9 +149,9 @@ class NewsViewController: UIViewController {
             self.homepage = homepage
         })
 
-        CacheManager.retreive("news/galleries.json", from: .caches, as: [GalleryModel].self, success: {  galleries in
-            self.galleryList = galleries
-        })
+//        CacheManager.retreive("news/galleries.json", from: .caches, as: [GalleryModel].self, success: {  galleries in
+//            self.galleryList = galleries
+//        })
 
         CacheManager.retreive("news/news.json", from: .caches, as: NewsTopModel.self, success: {  newsList in
             self.newsList = newsList.data
@@ -176,7 +177,7 @@ class NewsViewController: UIViewController {
         tableView.separatorStyle = .none
 
         tableView.estimatedRowHeight = 500
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.showsVerticalScrollIndicator = false
 
         tableView.backgroundColor = .white
@@ -200,9 +201,9 @@ class NewsViewController: UIViewController {
             self.homepage = homepage
         })
 
-        CacheManager.retreive("news/galleries.json", from: .caches, as: [GalleryModel].self, success: {  galleries in
-            self.galleryList = galleries
-        })
+//        CacheManager.retreive("news/galleries.json", from: .caches, as: [GalleryModel].self, success: {  galleries in
+//            self.galleryList = galleries
+//        })
 
         CacheManager.retreive("news/news.json", from: .caches, as: NewsTopModel.self, success: {  newsList in
             self.newsList = newsList.data
@@ -222,15 +223,15 @@ class NewsViewController: UIViewController {
             SwiftMessages.showErrorMessage(body: error.localizedDescription)
         })
 
-        group.enter()
-        HomePageHelper.getGallery(success: { galleries in
-            CacheManager.store(object: galleries, in: .caches, as: "news/galleries.json")
-            self.galleryList = galleries
-            group.leave()
-        }, failure: { error in
-            group.leave()
-            SwiftMessages.showErrorMessage(body: error.localizedDescription)
-        })
+//        group.enter()
+//        HomePageHelper.getGallery(success: { galleries in
+//            CacheManager.store(object: galleries, in: .caches, as: "news/galleries.json")
+//            self.galleryList = galleries
+//            group.leave()
+//        }, failure: { error in
+//            group.leave()
+//            SwiftMessages.showErrorMessage(body: error.localizedDescription)
+//        })
 
         group.enter()
         HomePageHelper.getNews(page: page, category: category, success: { newsList in

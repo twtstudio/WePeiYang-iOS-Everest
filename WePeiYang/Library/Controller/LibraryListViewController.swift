@@ -32,7 +32,7 @@ class LibraryListViewController: UIViewController {
         tableView.backgroundColor = LibraryMainViewController.bgColor
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.showsVerticalScrollIndicator = false
         tableView.register(BookListTableViewCell.self, forCellReuseIdentifier: listTableViewCellID)
         tableView.register(BookListTableViewCell.self, forCellReuseIdentifier: listTopTableViewCellID)
