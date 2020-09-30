@@ -152,6 +152,8 @@ extension YellowPageMainViewController: UICollectionViewDataSource, UICollection
 }
 
 // MARK: UITableViewDataSource
+
+//cell in
 extension YellowPageMainViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2 + sections.count

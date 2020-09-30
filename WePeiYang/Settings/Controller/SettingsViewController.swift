@@ -372,6 +372,6 @@ func showLoginView(success: (() -> Void)? = nil) {
     config.presentationStyle = .center
     config.duration = .forever
     config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
-    config.presentationContext  = .window(windowLevel: UIWindow.Level.normal.rawValue)
+     config.presentationContext  = .window(windowLevel: .normal)
     SwiftMessages.show(config: config, view: loginView)
 }

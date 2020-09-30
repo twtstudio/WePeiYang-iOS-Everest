@@ -269,7 +269,7 @@ extension LibraryCard {
         }
 
         getBooks(success: {
-            SwiftMessages.showSuccessMessage(body: "借阅列表刷新成功", context: SwiftMessages.PresentationContext.window(windowLevel: UIWindow.Level.statusBar.rawValue), layout: MessageView.Layout.statusLine)
+          SwiftMessages.showSuccessMessage(body: "借阅列表刷新成功", context: SwiftMessages.PresentationContext.window(windowLevel: .normal), layout: MessageView.Layout.statusLine)
         })
     }
     private enum LibCardState: Int {

@@ -28,6 +28,7 @@ class NewsTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+     
 
     func layout() {
         var screenWidth = UIScreen.main.bounds.width

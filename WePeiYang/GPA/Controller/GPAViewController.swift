@@ -435,7 +435,7 @@ class GPAViewController: UIViewController {
                 entrys.insert(fakeFirstEntry, at: 0)
         }
 
-        let dataSet = LineChartDataSet(values: entrys, label: nil)
+     let dataSet = LineChartDataSet(entries: entrys, label: nil)
         dataSet.mode = .cubicBezier
         dataSet.drawCirclesEnabled = true
         dataSet.circleRadius = 8
@@ -464,7 +464,7 @@ class GPAViewController: UIViewController {
             labels.append(`class`.name)
         }
 
-        let dataSet = RadarChartDataSet(values: entrys, label: nil)
+     let dataSet = RadarChartDataSet(entries: entrys, label: nil)
         radarChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: labels)
         dataSet.drawValuesEnabled = false
 //        dataSet.fillColor = UIColor(red:1.00, green:0.81, blue:0.78, alpha:1.00)
@@ -674,7 +674,7 @@ extension GPAViewController: ChartViewDelegate {
             _ = dataSets[1].addEntry(entry)
         } else {
             // add another dataSet for the only selected entry
-            let dataSetSelected = LineChartDataSet(values: [entry], label: nil)
+          let dataSetSelected = LineChartDataSet(entries: [entry], label: nil)
             dataSetSelected.circleRadius = 11
             dataSetSelected.setCircleColor(.white)
             dataSetSelected.circleHoleRadius = 8

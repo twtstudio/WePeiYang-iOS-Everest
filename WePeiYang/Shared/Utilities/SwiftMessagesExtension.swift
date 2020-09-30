@@ -57,7 +57,7 @@ extension SwiftMessages {
         view.configureTheme(backgroundColor: UIColor(red: 0.90, green: 0.30, blue: 0.26, alpha: 1.00), foregroundColor: .white)
         var config = SwiftMessages.Config()
         config.duration = .forever
-        config.presentationContext = .window(windowLevel: UIWindow.Level.statusBar.rawValue)
+     config.presentationContext = .window(windowLevel: .normal)
         config.dimMode = .gray(interactive: true)
         SwiftMessages.show(config: config, view: view)
     }
@@ -69,7 +69,7 @@ extension SwiftMessages {
         let nib = UINib(nibName: "LoadingView", bundle: nil)
         let view = nib.instantiate(withOwner: nil, options: nil).first as! UIView
         var config = SwiftMessages.Config()
-        config.presentationContext = .window(windowLevel: UIWindow.Level.alert.rawValue)
+     config.presentationContext = .window(windowLevel: .normal)
         config.interactiveHide = false
         config.presentationStyle = .center
         config.dimMode = .gray(interactive: true)

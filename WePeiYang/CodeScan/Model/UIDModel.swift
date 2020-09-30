@@ -12,7 +12,7 @@ import Foundation
 struct Uid: Codable {
     let message: String
     let errorCode: Int
-    let data: DataClass
+    let data: UidData
 
     enum CodingKeys: String, CodingKey {
         case message
@@ -42,7 +42,7 @@ extension Uid {
     func with(
         message: String? = nil,
         errorCode: Int? = nil,
-        data: DataClass? = nil
+        data: UidData? = nil
     ) -> Uid {
         return Uid(
             message: message ?? self.message,
@@ -60,8 +60,8 @@ extension Uid {
     }
 }
 
-// MARK: - DataClass
-struct DataClass: Codable {
+// MARK: - UidData
+struct UidData: Codable {
     let userID: Int
     let token: [String]
     let permission: Int
@@ -72,11 +72,11 @@ struct DataClass: Codable {
     }
 }
 
-// MARK: DataClass convenience initializers and mutators
+// MARK: UidData convenience initializers and mutators
 
-extension DataClass {
+extension UidData {
     init(data: Data) throws {
-        self = try newJSONDecoder().decode(DataClass.self, from: data)
+        self = try newJSONDecoder().decode(UidData.self, from: data)
     }
 
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -94,8 +94,8 @@ extension DataClass {
         userID: Int? = nil,
         token: [String]? = nil,
         permission: Int? = nil
-    ) -> DataClass {
-        return DataClass(
+    ) -> UidData {
+        return UidData(
             userID: userID ?? self.userID,
             token: token ?? self.token,
             permission: permission ?? self.permission

@@ -150,7 +150,7 @@ extension QuizView {
 private extension UILabel {
     typealias Quiz = Courses.Study20.Quiz
     static func initWithQuiz(_ quiz: Quiz) -> [UILabel] {
-        return quiz.options.flatMap({ (option: Quiz.Option) -> UILabel? in
+     return quiz.options.compactMap({ (option: Quiz.Option) -> UILabel? in
             let foo = UILabel(text: option.name, color: .black)
             foo.numberOfLines = 0
             foo.isUserInteractionEnabled = true
