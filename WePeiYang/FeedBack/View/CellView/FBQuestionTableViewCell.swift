@@ -25,7 +25,7 @@ class FBQuestionTableViewCell: UITableViewCell {
      var imgView: UIImageView! // 图片
      
      let collectionViewCellId = "feedBackCollectionViewCellID"
-     var tags = [String]()
+     var tags = [TagModel]()
      
      override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
           super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -184,16 +184,6 @@ class FBQuestionTableViewCell: UITableViewCell {
           
           titleLabel.text = question.name
           titleLabel.sizeToFit()
-          // calc height
-          let lineCnt = ceilf(Float(question.tags!.reduce(0, { $0 + 3 + $1.count }) / 18))
-          if lineCnt > 1 {
-               tagView.snp.updateConstraints { (make) in
-                    make.height.equalTo(lineCnt * 20)
-               }
-          }
-          tags = question.tags ?? []
-          tagView.addDelegate(delegate: self, dataSource: self, isSelectedOnly: true)
-          tagView.sizeToFit()
           usernameLabel.text = question.username
           usernameLabel.sizeToFit()
           timeLabel.text = question.createdAt?.components(separatedBy: "T")[0]
@@ -217,7 +207,7 @@ class FBQuestionTableViewCell: UITableViewCell {
                     make.centerY.equalTo(self).priority(100)
                }
           }
-          
+          var lineCnt: Float = 0
           if question.urlList?.count == 0 {
                contentLabel.snp.updateConstraints { (make) in
                     make.width.equalTo(SCREEN.width * 0.8)
@@ -225,6 +215,8 @@ class FBQuestionTableViewCell: UITableViewCell {
                imgView.snp.updateConstraints { (make) in
                     make.width.equalTo(0)
                }
+               // calc height
+               lineCnt = ceilf(Float(question.tags!.reduce(0, { $0 + 3 + $1.name!.count })) / 30)
           } else {
                contentLabel.snp.updateConstraints { (make) in
                     make.width.equalTo(SCREEN.width * 0.55)
@@ -233,7 +225,14 @@ class FBQuestionTableViewCell: UITableViewCell {
                     make.width.equalTo(SCREEN.width * 0.25)
                }
                imgView.sd_setImage(with: URL(string: question.thumbImg ?? ""), completed: nil)
+               lineCnt = ceilf(Float(question.tags!.reduce(0, { $0 + 3 + $1.name!.count })) / 18)
           }
+          tagView.snp.updateConstraints { (make) in
+               make.height.equalTo(lineCnt * 20)
+          }
+          tags = (question.tags ?? []).sorted(by: { $0.id! < $1.id! })
+          tagView.addDelegate(delegate: self, dataSource: self, isSelectedOnly: true)
+          tagView.sizeToFit()
      }
 }
 

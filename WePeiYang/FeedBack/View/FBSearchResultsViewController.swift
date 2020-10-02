@@ -21,6 +21,8 @@ class FBSearchResultsViewController: UITableViewController, UISearchBarDelegate 
      override func viewDidLoad() {
           super.viewDidLoad()
           tableView.register(FBQuestionTableViewCell.self, forCellReuseIdentifier: tableViewCellId)
+          tableView.separatorStyle = .none
+          view.backgroundColor = UIColor(hex6: 0xf6f6f6)
           tableView.keyboardDismissMode = .onDrag
      }
 }
@@ -68,7 +70,7 @@ extension FBSearchResultsViewController {
      
      
      override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-          return 105 + (questions[indexPath.row].datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 3)
+          return 145 + (questions[indexPath.row].datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 2)
      }         
      
      override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

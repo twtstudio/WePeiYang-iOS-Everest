@@ -192,7 +192,7 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
           }
           view.addSubview(floaty)
           
-          view.bringSubviewToFront(tagCollectionView)
+          view.bringSubviewToFront(tagCollectionView) // 不然阴影会被遮住
           
      }
 }
@@ -213,7 +213,10 @@ extension FeedBackMainViewController: UITableViewDataSource, UITableViewDelegate
      
      
      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-          return 145 + (questions[indexPath.row].datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 2)
+          let lineCnt = ceilf(Float(questions[indexPath.row].tags!.reduce(0, { $0 + 3 + $1.name!.count })) / 18)
+          return 125
+               + 20 * CGFloat(lineCnt)
+               + (questions[indexPath.row].datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 2)
      }
      
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

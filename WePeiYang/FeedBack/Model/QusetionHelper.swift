@@ -70,7 +70,7 @@ struct QuestionModel: Codable {
      var msgCount: Int?
      var urlList: [String]?
      var thumbImg: String?
-     var tags: [String]?
+     var tags: [TagModel]?
      var thumbUrlList: [String]?
      var isLiked: Bool?
      
