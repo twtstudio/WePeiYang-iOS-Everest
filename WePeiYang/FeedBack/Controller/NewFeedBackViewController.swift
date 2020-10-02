@@ -63,13 +63,13 @@ extension NewFeedBackViewController {
      func setUp() {
           view.backgroundColor = .white
           
-          tagCollectionView = FBTagCollectionView()
+          tagCollectionView = FBTagCollectionView(frame: .zero, itemSize: CGSize(width: 200, height: 25))
           view.addSubview(tagCollectionView!)
           tagCollectionView!.snp.makeConstraints { (make) in
                make.right.equalTo(-SCREEN.width / 15)
                make.width.equalTo(SCREEN.width * 0.7)
                make.top.equalTo(view).offset(20)
-               make.height.equalTo(100)
+               make.height.equalTo(65)
           }
           
           classLabel = UILabel()

@@ -305,6 +305,7 @@
 		D3F591312524728D00B7BA90 /* FBQuestionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F591302524728D00B7BA90 /* FBQuestionTableViewController.swift */; };
 		D3F59137252472D700B7BA90 /* feedback_add_question_load_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = D3F59136252472D700B7BA90 /* feedback_add_question_load_animation.json */; };
 		D3F5913D252474D900B7BA90 /* FBReplyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5913C252474D900B7BA90 /* FBReplyDetailView.swift */; };
+		D3F5914C2527025E00B7BA90 /* FBUserStatusCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5914B2527025E00B7BA90 /* FBUserStatusCollectionViewCell.swift */; };
 		DD0B75F32158C6ED009A392C /* YellowPageSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B75DD2158C6ED009A392C /* YellowPageSearchViewController.swift */; };
 		DD0B75F42158C6ED009A392C /* YellowPageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B75DE2158C6ED009A392C /* YellowPageDetailViewController.swift */; };
 		DD0B75F52158C6ED009A392C /* YellowPageMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B75DF2158C6ED009A392C /* YellowPageMainViewController.swift */; };
@@ -689,6 +690,7 @@
 		D3F591302524728D00B7BA90 /* FBQuestionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBQuestionTableViewController.swift; sourceTree = "<group>"; };
 		D3F59136252472D700B7BA90 /* feedback_add_question_load_animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = feedback_add_question_load_animation.json; sourceTree = "<group>"; };
 		D3F5913C252474D900B7BA90 /* FBReplyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBReplyDetailView.swift; sourceTree = "<group>"; };
+		D3F5914B2527025E00B7BA90 /* FBUserStatusCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBUserStatusCollectionViewCell.swift; sourceTree = "<group>"; };
 		D77E7BD11F959EB50A5A0DED /* Pods-WePeiYangWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.debug.xcconfig"; sourceTree = "<group>"; };
 		DD0B75DD2158C6ED009A392C /* YellowPageSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageSearchViewController.swift; sourceTree = "<group>"; };
 		DD0B75DE2158C6ED009A392C /* YellowPageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageDetailViewController.swift; sourceTree = "<group>"; };
@@ -807,9 +809,9 @@
 			isa = PBXGroup;
 			children = (
 				2B6022EA250F0245003CDE94 /* FeedBackMainViewController.swift */,
+				2B602311250FE650003CDE94 /* FeedBackDetailVIewController.swift */,
 				D3F591302524728D00B7BA90 /* FBQuestionTableViewController.swift */,
 				D31D395225224ABD0001137E /* FBUserViewController.swift */,
-				2B602311250FE650003CDE94 /* FeedBackDetailVIewController.swift */,
 				2B60230C250F53A4003CDE94 /* NewFeedBackViewController.swift */,
 			);
 			path = Controller;
@@ -1665,6 +1667,7 @@
 			isa = PBXGroup;
 			children = (
 				D3849B34251B8B4E00B49D6C /* FBQuestionTableViewCell.swift */,
+				D3F5914B2527025E00B7BA90 /* FBUserStatusCollectionViewCell.swift */,
 				D31D3844251FEC350001137E /* FBPhotoCollectionViewCell.swift */,
 				D3849B3E251BA84300B49D6C /* FBCommentTableViewCell.swift */,
 				D3849B2E251B6ABE00B49D6C /* FBTagCollectionViewCell.swift */,
@@ -2322,6 +2325,7 @@
 				3614D57321D929FE0007B886 /* BookConstant.swift in Sources */,
 				4BAB599424283C8600155AD0 /* ClassroomCheckViewController.swift in Sources */,
 				36449E881FA4BAD10036766B /* PartySignUpViewController.swift in Sources */,
+				D3F5914C2527025E00B7BA90 /* FBUserStatusCollectionViewCell.swift in Sources */,
 				36449E601FA4BABA0036766B /* TheoryCourseArticleReadingView.swift in Sources */,
 				A554C4B11F99E43F00022A01 /* BicycleServiceNotificationController.swift in Sources */,
 				4B622528245D7685005EFA6A /* PrivateCode.swift in Sources */,

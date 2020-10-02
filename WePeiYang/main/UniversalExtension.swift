@@ -115,4 +115,18 @@ extension UIView {
           self.layer.shadowPath = path.cgPath
           self.layer.masksToBounds = false
      }
+     // Make a Line
+     func addLine(color: UIColor = .black, lineWidth: CGFloat = 1, points: CGPoint...){
+          let linePath = UIBezierPath()
+          linePath.move(to: points.first!)
+          for point in points.dropFirst() {
+               linePath.addLine(to: point)
+          }
+          let line = CAShapeLayer()
+          line.path = linePath.cgPath
+          line.strokeColor = color.cgColor
+          line.lineWidth = lineWidth
+          
+          self.layer.addSublayer(line)
+     }
 }

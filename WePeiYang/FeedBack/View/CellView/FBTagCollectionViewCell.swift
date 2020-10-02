@@ -9,7 +9,7 @@
 import UIKit
 
 class FBTagCollectionViewCell: UICollectionViewCell {
-
+     
      lazy var label: UILabel = {
           let label = UILabel(frame: CGRect.zero)
           label.textColor = .white
@@ -43,14 +43,19 @@ class FBTagCollectionViewCell: UICollectionViewCell {
           tagSelected = selected
      }
      
+     func update(by tag: String, selected: Bool) {
+          label.text = tag
+          tagSelected = selected
+     }
+     
      override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
           let layout = super.preferredLayoutAttributesFitting(layoutAttributes)
           if !label.text!.isEmpty {
                label.sizeToFit()
           }
-//          print(layout.frame.width)
+          //          print(layout.frame.width)
           layout.frame = CGRect(x: layout.frame.minX, y: layout.frame.minY, width: label.width + 20, height: layout.frame.height)
-//          print(layout.frame.width, label.text)
+          //          print(layout.frame.width, label.text)
           return layout
      }
      

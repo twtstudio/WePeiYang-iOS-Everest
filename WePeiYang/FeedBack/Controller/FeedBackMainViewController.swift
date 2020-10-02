@@ -135,12 +135,12 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
           navigationItem.rightBarButtonItem = UIBarButtonItem(title: "   ", style: .plain, target: nil, action: nil)
           
           let naviHeight = navigationController?.navigationBar.frame.maxY ?? 0
-          tagCollectionView = FBTagCollectionView()
+          tagCollectionView = FBTagCollectionView(frame: .zero, itemSize: CGSize(width: 200, height: 25))
           view.addSubview(tagCollectionView)
           tagCollectionView.snp.makeConstraints { (make) in
-               make.height.equalTo(100)
+               make.height.equalTo(65)
                make.width.equalTo(SCREEN.width)
-               make.top.equalTo(view).offset(naviHeight + 5)
+               make.top.equalTo(view).offset(naviHeight + 10)
           }
           
           tableView = UITableView()
@@ -213,14 +213,14 @@ extension FeedBackMainViewController: UITableViewDataSource, UITableViewDelegate
      
      
      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-          return 105 + (questions[indexPath.row].datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 2)
+          return 145 + (questions[indexPath.row].datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 2)
      }
      
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
           tableView.deselectRow(at: indexPath, animated: true)
-          let VC = FeedBackDetailViewController()
-          VC.questionOfthisPage = questions[indexPath.row]
-          navigationController?.pushViewController(VC, animated: true)
+          let vc = FeedBackDetailViewController()
+          vc.questionOfthisPage = questions[indexPath.row]
+          navigationController?.pushViewController(vc, animated: true)
      }
      
 //     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

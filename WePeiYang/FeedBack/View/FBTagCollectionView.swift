@@ -18,20 +18,20 @@ class FBTagCollectionView: UIView {
      
      let collectionViewCellId = "feedBackCollectionViewCellID"
      
-     override init(frame: CGRect) {
+     init(frame: CGRect, itemSize: CGSize, isSelectedOnly: Bool = false) {
           super.init(frame: frame)
           
           backgroundColor = .white
           
           let tsLayout = UICollectionViewFlowLayout()
           
-          tsLayout.estimatedItemSize = CGSize(width: 200, height: 30)
+          tsLayout.estimatedItemSize = itemSize
           tsLayout.minimumInteritemSpacing = 10
           tsLayout.scrollDirection = .horizontal
           
           let twLayout = UICollectionViewFlowLayout()
           
-          twLayout.estimatedItemSize = CGSize(width: 200, height: 30)
+          twLayout.estimatedItemSize = itemSize
           twLayout.minimumInteritemSpacing = 10
           twLayout.scrollDirection = .horizontal
           
@@ -43,34 +43,44 @@ class FBTagCollectionView: UIView {
           tagSelectedCollectionView.showsHorizontalScrollIndicator = false
           addSubview(tagSelectedCollectionView)
           tagSelectedCollectionView.snp.makeConstraints { (make) in
-               make.left.equalTo(self).offset(10)
-               make.right.equalTo(self).offset(-10)
-               make.bottom.equalTo(self.snp.centerY)
                make.top.equalTo(self)
+               if isSelectedOnly {
+                    make.left.equalTo(self)
+                    make.right.equalTo(self)
+                    make.bottom.equalTo(self)
+               } else {
+                    make.left.equalTo(self).offset(10)
+                    make.right.equalTo(self).offset(-10)
+                    make.bottom.equalTo(self.snp.centerY)
+               }
           }
           
-          tagWillSeletedCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: twLayout)
-          tagWillSeletedCollectionView.tag = 1
-          tagWillSeletedCollectionView.register(FBTagCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellId)
-          
-          tagWillSeletedCollectionView.backgroundColor = .white
-          tagWillSeletedCollectionView.showsHorizontalScrollIndicator = false
-          addSubview(tagWillSeletedCollectionView)
-          tagWillSeletedCollectionView.snp.makeConstraints { (make) in
-               make.left.equalTo(self).offset(10)
-               make.right.equalTo(self).offset(-10)
-               make.top.equalTo(self.snp.centerY)
-               make.bottom.equalTo(self)
+          if !isSelectedOnly {
+               tagWillSeletedCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: twLayout)
+               tagWillSeletedCollectionView.tag = 1
+               tagWillSeletedCollectionView.register(FBTagCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellId)
+               
+               tagWillSeletedCollectionView.backgroundColor = .white
+               tagWillSeletedCollectionView.showsHorizontalScrollIndicator = false
+               addSubview(tagWillSeletedCollectionView)
+               tagWillSeletedCollectionView.snp.makeConstraints { (make) in
+                    make.left.equalTo(self).offset(10)
+                    make.right.equalTo(self).offset(-10)
+                    make.top.equalTo(self.snp.centerY)
+                    make.bottom.equalTo(self)
+               }
           }
      }
      
-     func addDelegate(delegate: UICollectionViewDelegate, dataSource: UICollectionViewDataSource) {
+     func addDelegate(delegate: UICollectionViewDelegate, dataSource: UICollectionViewDataSource, isSelectedOnly: Bool = false) {
           tagSelectedCollectionView.delegate = delegate
           tagSelectedCollectionView.dataSource = dataSource
-          tagWillSeletedCollectionView.delegate = delegate
-          tagWillSeletedCollectionView.dataSource = dataSource
           tagSelectedCollectionView.reloadData()
-          tagWillSeletedCollectionView.reloadData()
+          if !isSelectedOnly {
+               tagWillSeletedCollectionView.delegate = delegate
+               tagWillSeletedCollectionView.dataSource = dataSource
+               tagWillSeletedCollectionView.reloadData()
+          }
      }
      
      required init?(coder: NSCoder) {

@@ -70,6 +70,7 @@ struct QuestionModel: Codable {
      var msgCount: Int?
      var urlList: [String]?
      var thumbImg: String?
+     var tags: [String]?
      var thumbUrlList: [String]?
      var isLiked: Bool?
      
@@ -79,7 +80,7 @@ struct QuestionModel: Codable {
           case userID = "user_id"
           case solved
           case noCommit = "no_commit"
-          case likes
+          case likes, tags
           case createdAt = "created_at"
           case updatedAt = "updated_at"
           case username, msgCount

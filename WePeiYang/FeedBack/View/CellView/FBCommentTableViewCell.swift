@@ -11,6 +11,7 @@ import WebKit
 
 class FBCommentTableViewCell: UITableViewCell {
      
+     var bgView: UIView!
      var userImgView: UIImageView! // user头像
      var userNameLabel: UILabel! // user名称
      var officialLabel: UILabel!
@@ -37,19 +38,33 @@ class FBCommentTableViewCell: UITableViewCell {
      override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
           super.init(style: style, reuseIdentifier: reuseIdentifier)
           
+          backgroundColor = UIColor(hex6: 0xf6f6f6)
           selectionStyle = .none
+          
+          bgView = UIView()
+          contentView.addSubview(bgView)
+          bgView.backgroundColor = .white
+          bgView.addCornerRadius(15)
+          bgView.snp.makeConstraints { (make) in
+               make.top.equalTo(contentView).offset(5)
+               make.bottom.equalTo(contentView).offset(-5)
+               make.left.equalTo(contentView).offset(10)
+               make.right.equalTo(contentView).offset(-10)
+          }
           
           userImgView = UIImageView()
           userImgView.image = UIImage(named: "feedback_user")
-          contentView.addSubview(userImgView)
+          userImgView.backgroundColor = .white
+          bgView.addSubview(userImgView)
           userImgView.snp.makeConstraints { (make) in
-               make.left.top.equalTo(contentView).offset(5)
+               make.left.top.equalTo(bgView).offset(5)
                make.width.height.equalTo(20)
           }
           
           userNameLabel = UILabel()
           userNameLabel.font = .boldSystemFont(ofSize: 14)
-          contentView.addSubview(userNameLabel)
+          userNameLabel.backgroundColor = .white
+          bgView.addSubview(userNameLabel)
           userNameLabel.snp.makeConstraints { (make) in
                make.left.equalTo(userImgView.snp.right).offset(5)
                make.centerY.equalTo(userImgView)
@@ -58,7 +73,7 @@ class FBCommentTableViewCell: UITableViewCell {
           
           officialLabel = UILabel()
           officialLabel.font = .systemFont(ofSize: 12)
-          contentView.addSubview(officialLabel)
+          bgView.addSubview(officialLabel)
           officialLabel.backgroundColor = UIColor(hex6: 0x00a1e9)
           officialLabel.layer.cornerRadius = 10
           officialLabel.layer.masksToBounds = true
@@ -73,7 +88,8 @@ class FBCommentTableViewCell: UITableViewCell {
 
           contentLabel = UILabel()
           contentLabel.font = .systemFont(ofSize: 14)
-          contentView.addSubview(contentLabel)
+          contentLabel.backgroundColor = .white
+          bgView.addSubview(contentLabel)
           contentLabel.numberOfLines = 0
           contentLabel.snp.makeConstraints { (make) in
                make.left.equalTo(userNameLabel.snp.left)
@@ -83,8 +99,9 @@ class FBCommentTableViewCell: UITableViewCell {
           
           timeLabel = UILabel()
           timeLabel.font = .systemFont(ofSize: 12)
+          timeLabel.backgroundColor = .white
           timeLabel.textColor = .gray
-          contentView.addSubview(timeLabel)
+          bgView.addSubview(timeLabel)
           timeLabel.snp.makeConstraints { (make) in
                make.left.equalTo(contentLabel.snp.left)
                make.bottom.equalTo(self).offset(-5)
@@ -92,20 +109,26 @@ class FBCommentTableViewCell: UITableViewCell {
           
           likesBtn = UIButton()
           likesBtn.tag = 0
-          contentView.addSubview(likesBtn)
+          bgView.addSubview(likesBtn)
           likesBtn.snp.makeConstraints { (make) in
                make.centerY.equalTo(timeLabel)
                make.left.equalTo(timeLabel.snp.right).offset(5)
-               make.width.height.equalTo(20)
+               make.width.height.equalTo(15)
           }
           
           likesLabel = UILabel()
           likesLabel.font = .systemFont(ofSize: 12)
-          contentView.addSubview(likesLabel)
+          likesLabel.backgroundColor = .white
+          bgView.addSubview(likesLabel)
           likesLabel.snp.makeConstraints { (make) in
                make.centerY.equalTo(timeLabel)
                make.left.equalTo(likesBtn.snp.right).offset(5)
           }
+     }
+     
+     override func layoutIfNeeded() {
+          super.layoutIfNeeded()
+          bgView.addShadow(.black, sRadius: 3, sOpacity: 0.2, offset: (1, 1))
      }
      
      required init?(coder: NSCoder) {
@@ -124,7 +147,7 @@ class FBCommentTableViewCell: UITableViewCell {
           if solved {
                if (comment.contain ?? "").findFirst("src") != -1 {
                     contentLabel.text = "点击查看详情"
-                    contentLabel.textColor = UIColor(hex6: 0x00a1e9)
+                    contentLabel.textColor = .systemBlue
                } else {
                     contentLabel.attributedText = comment.contain?.htmlToAttributedString
                     contentLabel.textColor = .black

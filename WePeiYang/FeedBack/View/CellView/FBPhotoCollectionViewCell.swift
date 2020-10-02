@@ -15,6 +15,7 @@ class FBPhotoCollectionViewCell: UICollectionViewCell {
           super.init(frame: frame)
           imgView = UIImageView()
           contentView.addSubview(imgView)
+          imgView.backgroundColor = .white
           imgView.contentMode = .scaleToFill
           imgView.snp.makeConstraints { (make) in
                make.width.height.equalTo(self)

@@ -37,8 +37,10 @@ class FBQuestionTableViewController: UITableViewController {
      
      override func viewDidLoad() {
           super.viewDidLoad()
+          tableView.backgroundColor = UIColor(hex6: 0xf6f6f6)
           tableView.register(FBQuestionTableViewCell.self, forCellReuseIdentifier: tableViewCellId)
           tableView.keyboardDismissMode = .onDrag
+          tableView.separatorStyle = .none
      }
 }
 
@@ -56,7 +58,7 @@ extension FBQuestionTableViewController {
      
      
      override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-          return 105 + (questions[indexPath.row].datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 3)
+          return 145 + (questions[indexPath.row].datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 2)
      }
      
      override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -95,7 +97,9 @@ extension FBQuestionTableViewController {
                self.present(alert, animated: true)
           } else {
                let VC = FeedBackDetailViewController()
-               VC.questionOfthisPage = questions[indexPath.row]
+               var question = questions[indexPath.row]
+               question.isLiked = true // 这里接口没有处理
+               VC.questionOfthisPage = question
                navigationController?.pushViewController(VC, animated: true)
           }
      }

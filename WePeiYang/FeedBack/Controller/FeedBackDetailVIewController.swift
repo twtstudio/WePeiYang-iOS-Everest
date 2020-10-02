@@ -22,6 +22,7 @@ class FeedBackDetailViewController: UIViewController {
      //MARK: - Data
      var comments = [CommentModel]()
      var questionOfthisPage: QuestionModel?
+     var tags = [TagModel]()
      var isLiked: Bool? {
           didSet {
                tabBarView.likeBtn.setImage(UIImage(named: isLiked ?? false ? "feedback_thumb_up_fill" : "feedback_thumb_up"), for: .normal)
@@ -46,10 +47,11 @@ class FeedBackDetailViewController: UIViewController {
 extension FeedBackDetailViewController {
      private func setUp() {
           navigationItem.title = "问题详情"
-          view.backgroundColor = .white
+          view.backgroundColor = UIColor(hex6: 0xf6f6f6)
           
           let naviHeight = navigationController?.navigationBar.frame.maxY ?? 0
-          tableView = UITableView(frame: CGRect(x: 0, y: naviHeight, width: SCREEN.width, height: SCREEN.height - naviHeight - 70))
+          tableView = UITableView(frame: CGRect(x: 0, y: naviHeight - 12, width: SCREEN.width, height: SCREEN.height - naviHeight - 70))
+          tableView.backgroundColor = UIColor(hex6: 0xf6f6f6)
           tableView.dataSource = self
           tableView.delegate = self
           tableView.register(FBCommentTableViewCell.self, forCellReuseIdentifier: commentCellID)

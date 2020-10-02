@@ -12,6 +12,7 @@ class FBQuestionTableViewCell: UITableViewCell {
      
      var bgView: UIView!
      var titleLabel: UILabel! // 标题
+     var tagView: FBTagCollectionView!
      var userImgView: UIImageView! // user的图标
      var usernameLabel: UILabel! // user名字
      var timeLabel: UILabel! // 时间
@@ -23,6 +24,8 @@ class FBQuestionTableViewCell: UITableViewCell {
      var stLabel: UILabel! // 状态 校方未回复 校方已解决
      var imgView: UIImageView! // 图片
      
+     let collectionViewCellId = "feedBackCollectionViewCellID"
+     var tags = [String]()
      
      override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
           super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,62 +45,52 @@ class FBQuestionTableViewCell: UITableViewCell {
           }
           
           titleLabel = UILabel()
+          titleLabel.backgroundColor = .white
           titleLabel.font = .boldSystemFont(ofSize: 16)
           bgView.addSubview(titleLabel)
           titleLabel.snp.makeConstraints { (make) in
                make.top.equalTo(bgView).offset(5)
                make.left.equalTo(bgView).offset(SCREEN.width / 20)
-               make.width.equalTo(SCREEN.width * 0.9)
+               make.width.equalTo(SCREEN.width * 0.8)
                make.height.equalTo(30)
           }
           
-          userImgView = UIImageView()
-          userImgView.image = UIImage(named: "feedback_user")
-          bgView.addSubview(userImgView)
-          userImgView.snp.makeConstraints { (make) in
+          tagView = FBTagCollectionView(frame: .zero, itemSize: CGSize(width: 100, height: 15), isSelectedOnly: true)
+          tagView.backgroundColor = .white
+          tagView.cvDelegate = self
+          tagView.cvDataSource = self
+          bgView.addSubview(tagView)
+          tagView.snp.makeConstraints { (make) in
                make.left.equalTo(titleLabel)
-               make.width.height.equalTo(15)
-               make.top.equalTo(titleLabel.snp.bottom).offset(5)
-          }
-          
-          usernameLabel = UILabel()
-          bgView.addSubview(usernameLabel)
-          usernameLabel.font = .systemFont(ofSize: 12)
-          usernameLabel.snp.makeConstraints { (make) in
-               make.left.equalTo(userImgView.snp.right).offset(2)
-               make.centerY.equalTo(userImgView)
-          }
-          
-          timeLabel = UILabel()
-          bgView.addSubview(timeLabel)
-          timeLabel.font = .systemFont(ofSize: 12)
-          timeLabel.snp.makeConstraints { (make) in
-               make.left.equalTo(usernameLabel.snp.right).offset(5)
-               make.centerY.equalTo(usernameLabel)
+               make.top.equalTo(titleLabel.snp.bottom)
+               make.height.equalTo(20)
+               make.width.equalTo(SCREEN.width * 0.8)
           }
           
           contentLabel = UILabel()
+          contentLabel.backgroundColor = .white
           contentLabel.numberOfLines = 2
           bgView.addSubview(contentLabel)
           contentLabel.font = .systemFont(ofSize: 14)
           contentLabel.snp.makeConstraints { (make) in
                make.left.equalTo(titleLabel)
-               make.width.equalTo(SCREEN.width * 0.9)
-               make.top.equalTo(userImgView.snp.bottom).offset(10)
+               make.width.equalTo(SCREEN.width * 0.8)
+               make.top.equalTo(tagView.snp.bottom).offset(10)
                
           }
           
           msgImgView = UIImageView()
+          msgImgView.backgroundColor = .white
           msgImgView.image = UIImage(named: "feedback_message")
           bgView.addSubview(msgImgView)
           msgImgView.snp.makeConstraints { (make) in
                make.left.equalTo(titleLabel)
                make.width.height.equalTo(20)
-               //               make.bottom.equalTo(bgView.snp.bottom).offset(-5)
-               make.top.equalTo(contentLabel.snp.bottom).offset(5)
+               make.top.equalTo(contentLabel.snp.bottom).offset(45)
           }
           
           msgCntLabel = UILabel()
+          msgCntLabel.backgroundColor = .white
           bgView.addSubview(msgCntLabel)
           msgCntLabel.font = .systemFont(ofSize: 12)
           msgCntLabel.snp.makeConstraints { (make) in
@@ -106,6 +99,7 @@ class FBQuestionTableViewCell: UITableViewCell {
           }
           
           likesImgView = UIImageView()
+          likesImgView.backgroundColor = .white
           likesImgView.image = UIImage(named: "feedback_thumb_up")
           bgView.addSubview(likesImgView)
           likesImgView.snp.makeConstraints { (make) in
@@ -115,6 +109,7 @@ class FBQuestionTableViewCell: UITableViewCell {
           }
           
           likesLabel = UILabel()
+          likesLabel.backgroundColor = .white
           bgView.addSubview(likesLabel)
           likesLabel.font = .systemFont(ofSize: 12)
           likesLabel.snp.makeConstraints { (make) in
@@ -123,6 +118,7 @@ class FBQuestionTableViewCell: UITableViewCell {
           }
           
           stLabel = UILabel()
+          stLabel.backgroundColor = .white
           bgView.addSubview(stLabel)
           stLabel.font = .systemFont(ofSize: 12)
           stLabel.snp.makeConstraints { (make) in
@@ -130,7 +126,36 @@ class FBQuestionTableViewCell: UITableViewCell {
                make.centerY.equalTo(msgImgView)
           }
           
+          timeLabel = UILabel()
+          timeLabel.backgroundColor = .white
+          bgView.addSubview(timeLabel)
+          timeLabel.font = .systemFont(ofSize: 12)
+          timeLabel.snp.makeConstraints { (make) in
+               make.right.equalTo(bgView).offset(-SCREEN.width / 20)
+               make.centerY.equalTo(stLabel)
+          }
+          
+          usernameLabel = UILabel()
+          usernameLabel.backgroundColor = .white
+          bgView.addSubview(usernameLabel)
+          usernameLabel.font = .systemFont(ofSize: 12)
+          usernameLabel.snp.makeConstraints { (make) in
+               make.right.equalTo(bgView).offset(-SCREEN.width / 20)
+               make.bottom.equalTo(timeLabel.snp.top).offset(-5)
+          }
+          
+          userImgView = UIImageView()
+          userImgView.backgroundColor = .white
+          userImgView.image = UIImage(named: "feedback_user")
+          bgView.addSubview(userImgView)
+          userImgView.snp.makeConstraints { (make) in
+               make.width.height.equalTo(15)
+               make.centerY.equalTo(usernameLabel)
+               make.right.equalTo(usernameLabel.snp.left).offset(-5)
+          }
+     
           imgView = UIImageView()
+          imgView.backgroundColor = .white
           bgView.addSubview(imgView)
           imgView.contentMode = .scaleToFill
           imgView.image = UIImage(named: "aaaaaa")
@@ -141,12 +166,14 @@ class FBQuestionTableViewCell: UITableViewCell {
                make.right.equalTo(-SCREEN.width / 20)
                make.width.equalTo(0)
                //               make.top.equalTo(titleLabel.snp.bottom).offset(5)
+               make.bottom.lessThanOrEqualTo(usernameLabel.snp.top).offset(-3)
                make.centerY.equalTo(self).priority(50)
                make.height.equalTo(80)
           }
-          
-          
-          
+     }
+     override func layoutIfNeeded() {
+          super.layoutIfNeeded()
+          bgView.addShadow(.black, sRadius: 3, sOpacity: 0.2, offset: (1, 1))
      }
      
      required init?(coder: NSCoder) {
@@ -157,6 +184,16 @@ class FBQuestionTableViewCell: UITableViewCell {
           
           titleLabel.text = question.name
           titleLabel.sizeToFit()
+          // calc height
+          let lineCnt = ceilf(Float(question.tags!.reduce(0, { $0 + 3 + $1.count }) / 18))
+          if lineCnt > 1 {
+               tagView.snp.updateConstraints { (make) in
+                    make.height.equalTo(lineCnt * 20)
+               }
+          }
+          tags = question.tags ?? []
+          tagView.addDelegate(delegate: self, dataSource: self, isSelectedOnly: true)
+          tagView.sizeToFit()
           usernameLabel.text = question.username
           usernameLabel.sizeToFit()
           timeLabel.text = question.createdAt?.components(separatedBy: "T")[0]
@@ -171,20 +208,26 @@ class FBQuestionTableViewCell: UITableViewCell {
           
           if question.name!.count >= 14 {
                imgView.snp.makeConstraints { (make) in
+                    make.centerY.equalTo(self).priority(50)
                     make.top.equalTo(titleLabel.snp.bottom).priority(100)
+               }
+          } else {
+               imgView.snp.makeConstraints { (make) in
+                    make.top.equalTo(titleLabel.snp.bottom).priority(50)
+                    make.centerY.equalTo(self).priority(100)
                }
           }
           
           if question.urlList?.count == 0 {
                contentLabel.snp.updateConstraints { (make) in
-                    make.width.equalTo(SCREEN.width * 0.9)
+                    make.width.equalTo(SCREEN.width * 0.8)
                }
                imgView.snp.updateConstraints { (make) in
                     make.width.equalTo(0)
                }
           } else {
                contentLabel.snp.updateConstraints { (make) in
-                    make.width.equalTo(SCREEN.width * 0.6)
+                    make.width.equalTo(SCREEN.width * 0.55)
                }
                imgView.snp.updateConstraints { (make) in
                     make.width.equalTo(SCREEN.width * 0.25)
@@ -192,5 +235,18 @@ class FBQuestionTableViewCell: UITableViewCell {
                imgView.sd_setImage(with: URL(string: question.thumbImg ?? ""), completed: nil)
           }
      }
-     
 }
+
+//MARK: - Delegate
+extension FBQuestionTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
+     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+          return tags.count
+     }
+     
+     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+          let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionViewCellId, for: indexPath) as! FBTagCollectionViewCell
+          cell.update(by: tags[indexPath.row], selected: true)
+          return cell
+     }
+}
+

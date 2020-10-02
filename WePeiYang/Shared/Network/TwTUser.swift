@@ -12,12 +12,12 @@ class TwTUser: Codable {
      static let shared = TwTUser()
      private init() {}
      var token: String?
-     var username: String?
-     var schoolID: String?
-     var avatarURL: String?
-     var twtid: String?
-     var realname: String?
-     var feedbackID: Int?
+     var username: String? // 天外天username
+     var schoolID: String? // 学号
+     var avatarURL: String? // 头像url
+     var twtid: String? // 天外天id
+     var realname: String? // 真实姓名
+     var feedbackID: Int? // 校务id
      
      
      var tjuBindingState: Bool = false

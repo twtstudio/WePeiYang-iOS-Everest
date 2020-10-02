@@ -16,26 +16,13 @@ struct TagsGet: Codable {
     var data: [TagModel]?
 }
 
-// MARK: - Datum
+// MARK: - TagModel
 struct TagModel: Codable {
     var id: Int?
     var name: String?
     var children: [TagModel]?
 }
 
-
-//struct Transaction: Codable { 
-//    let amount: Int
-//    let recipient: String
-//    let sender: String
-//}
-
-
-//var tags = [String]()
-//var contentArray  = [[], ["教室","宿舍","食堂"]]
-
-
-//escaping closure
 class TagsHelper {
     
     static func tagGet(completion: @escaping (Result<[TagModel]>) -> Void) {
