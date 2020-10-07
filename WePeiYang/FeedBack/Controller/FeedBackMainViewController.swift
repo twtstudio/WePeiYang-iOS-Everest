@@ -185,7 +185,7 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
                self.navigationController?.pushViewController(vc, animated: true)
           }
           floaty.addItem("添加问题", icon: UIImage(named: "feedback_add_question")) { (_) in
-               let addVC = NewFeedBackViewController()
+               let addVC = FBNewQuestionViewController()
                addVC.selectedTags = self.selectedTags
                addVC.willSelectedTags = self.willSelectedTags
                self.present(addVC, animated: true, completion: nil)
@@ -303,7 +303,7 @@ extension FeedBackMainViewController {
 // MARK: - Button Methods
 extension FeedBackMainViewController {
      @objc func addToggle() {
-          let addVC = NewFeedBackViewController()
+          let addVC = FBNewQuestionViewController()
           addVC.selectedTags = self.selectedTags
           addVC.willSelectedTags = self.willSelectedTags
           self.present(addVC, animated: true, completion: nil)

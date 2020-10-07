@@ -114,9 +114,10 @@ extension FBUserViewController {
      
      override func viewDidLayoutSubviews() {
           super.viewDidLayoutSubviews()
-          collectionView.addShadow(.black, sRadius: 5, sOpacity: 0.2, offset: (1, 1))
-          myQBtn.addShadow(.black, sRadius: 5, sOpacity: 0.2, offset: (1, 1))
-          myTQBtn.addShadow(.black, sRadius: 5, sOpacity: 0.2, offset: (1, 1))
+          userImg.addShadow(.black, sRadius: 5, sOpacity: 0.2, offset: (0, 0))
+          collectionView.addShadow(.black, sRadius: 5, sOpacity: 0.2, offset: (0, 0))
+          myQBtn.addShadow(.black, sRadius: 5, sOpacity: 0.2, offset: (0, 0))
+          myTQBtn.addShadow(.black, sRadius: 5, sOpacity: 0.2, offset: (0, 0))
      }
      
      func loadData() {

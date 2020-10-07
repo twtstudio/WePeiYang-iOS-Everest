@@ -1,5 +1,5 @@
 //
-//  NewFeedBackViewController.swift
+//  FBNewQuestionViewController.swift
 //  WePeiYang
 //
 //  Created by 于隆祎 on 2020/9/14.
@@ -12,7 +12,7 @@ import Alamofire
 import DynamicBlurView
 import Lottie
 
-class NewFeedBackViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class FBNewQuestionViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
      
      var titleField: UITextField!
      var confirmButton: UIButton!
@@ -59,7 +59,7 @@ class NewFeedBackViewController: UIViewController, UITextFieldDelegate, UITextVi
 }
 
 //MARK: - UI
-extension NewFeedBackViewController {
+extension FBNewQuestionViewController {
      func setUp() {
           view.backgroundColor = .white
           
@@ -115,7 +115,7 @@ extension NewFeedBackViewController {
           contentField.layer.masksToBounds = true
           contentField.delegate = self
           contentField.text = "不超过200字"
-          contentField.textColor = UIColor(hex6: 0xdbdbdb)
+          contentField.textColor = UIColor(hex6: 0xd3d3d3)
           contentField.layer.borderColor = UIColor(hex6: 0xf4f4f4).cgColor
           contentField.textContainerInset = UIEdgeInsets(top: 5, left: 7, bottom: 5, right: 5)
           contentField.font = .systemFont(ofSize: 14)
@@ -175,7 +175,7 @@ extension NewFeedBackViewController {
 }
 
 //MARK: - Data
-extension NewFeedBackViewController {
+extension FBNewQuestionViewController {
      private func loadData() {
           tagCollectionView?.tagSelectedCollectionView.reloadData()
           tagCollectionView?.tagWillSeletedCollectionView.reloadData()
@@ -251,8 +251,12 @@ extension NewFeedBackViewController {
 }
 
 //MARK: - Delegate
-extension NewFeedBackViewController {
+extension FBNewQuestionViewController {
      override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+          self.view.endEditing(true)
+     }
+     
+     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
           self.view.endEditing(true)
      }
      
@@ -265,6 +269,14 @@ extension NewFeedBackViewController {
           let currentString: NSString = textField.text! as NSString
           let newString: NSString =
                currentString.replacingCharacters(in: range, with: string) as NSString
+          return newString.length <= maxLength
+     }
+     
+     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+          let maxLength = 200
+          let currentString: NSString = textView.text! as NSString
+          let newString: NSString =
+               currentString.replacingCharacters(in: range, with: text) as NSString
           return newString.length <= maxLength
      }
      
@@ -281,12 +293,12 @@ extension NewFeedBackViewController {
                textView.text = "不超过200字"
                textView.textColor = UIColor(hex6: 0xdbdbdb)
           }
-          return false
+          return true
      }
 }
 
 
-extension NewFeedBackViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension FBNewQuestionViewController: UICollectionViewDataSource, UICollectionViewDelegate {
      func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
           return collectionView.tag == 0 ? selectedTags.count : willSelectedTags.count
      }

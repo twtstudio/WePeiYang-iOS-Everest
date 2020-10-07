@@ -150,6 +150,7 @@ class FBCommentTableViewCell: UITableViewCell {
                     contentLabel.textColor = .systemBlue
                } else {
                     contentLabel.attributedText = comment.contain?.htmlToAttributedString
+                    contentLabel.font = .systemFont(ofSize: 14)
                     contentLabel.textColor = .black
                }
           } else {

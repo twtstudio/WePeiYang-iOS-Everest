@@ -10,7 +10,7 @@
 		0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */; };
 		1B20B1FF52E995B4AC3D3EDE /* Pods_WePeiYangWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E48DF45006ADE8419C6CF0C /* Pods_WePeiYangWidget.framework */; };
 		2B6022EB250F0245003CDE94 /* FeedBackMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6022EA250F0245003CDE94 /* FeedBackMainViewController.swift */; };
-		2B60230D250F53A4003CDE94 /* NewFeedBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B60230C250F53A4003CDE94 /* NewFeedBackViewController.swift */; };
+		2B60230D250F53A4003CDE94 /* FBNewQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B60230C250F53A4003CDE94 /* FBNewQuestionController.swift */; };
 		2B602312250FE650003CDE94 /* FeedBackDetailVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B602311250FE650003CDE94 /* FeedBackDetailVIewController.swift */; };
 		2BAB12922517293600FF6EEF /* FBSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB12912517293600FF6EEF /* FBSearchResultsViewController.swift */; };
 		2BAB129E251729A700FF6EEF /* QusetionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB129D251729A700FF6EEF /* QusetionHelper.swift */; };
@@ -387,7 +387,7 @@
 		0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6022EA250F0245003CDE94 /* FeedBackMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackMainViewController.swift; sourceTree = "<group>"; };
-		2B60230C250F53A4003CDE94 /* NewFeedBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeedBackViewController.swift; sourceTree = "<group>"; };
+		2B60230C250F53A4003CDE94 /* FBNewQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBNewQuestionController.swift; sourceTree = "<group>"; };
 		2B602311250FE650003CDE94 /* FeedBackDetailVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackDetailVIewController.swift; sourceTree = "<group>"; };
 		2BAB12912517293600FF6EEF /* FBSearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBSearchResultsViewController.swift; sourceTree = "<group>"; };
 		2BAB129D251729A700FF6EEF /* QusetionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QusetionHelper.swift; sourceTree = "<group>"; };
@@ -812,7 +812,7 @@
 				2B602311250FE650003CDE94 /* FeedBackDetailVIewController.swift */,
 				D3F591302524728D00B7BA90 /* FBQuestionTableViewController.swift */,
 				D31D395225224ABD0001137E /* FBUserViewController.swift */,
-				2B60230C250F53A4003CDE94 /* NewFeedBackViewController.swift */,
+				2B60230C250F53A4003CDE94 /* FBNewQuestionController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2201,7 +2201,7 @@
 				2BAB12CC25172AB800FF6EEF /* FeedBackTagTest.swift in Sources */,
 				78FB9E93217AEEC5001DE39A /* LostViewController.swift in Sources */,
 				365A46462035E35500738963 /* Storage.swift in Sources */,
-				2B60230D250F53A4003CDE94 /* NewFeedBackViewController.swift in Sources */,
+				2B60230D250F53A4003CDE94 /* FBNewQuestionController.swift in Sources */,
 				A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */,
 				365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */,
 				3687C39621B98AF400288557 /* TwTKeychain.swift in Sources */,

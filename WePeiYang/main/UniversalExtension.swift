@@ -21,8 +21,9 @@ extension String {
      func getSuitableHeight(font: UIFont, setWidth: CGFloat, numbersOfLines: Int) -> CGFloat {
           let label = UILabel(frame: CGRect(x: 0, y: 0, width: setWidth, height: CGFloat.greatestFiniteMagnitude))
           label.numberOfLines = numbersOfLines
-          label.font = font
           label.text = self
+          label.font = font
+          
           
           label.sizeToFit()
           return label.bounds.height
@@ -128,5 +129,18 @@ extension UIView {
           line.lineWidth = lineWidth
           
           self.layer.addSublayer(line)
+     }
+}
+
+extension NSAttributedString {
+     func getSuitableHeight(font: UIFont, setWidth: CGFloat, numbersOfLines: Int) -> CGFloat {
+          let label = UILabel(frame: CGRect(x: 0, y: 0, width: setWidth, height: CGFloat.greatestFiniteMagnitude))
+          label.numberOfLines = numbersOfLines
+          label.attributedText = self
+          label.font = font
+          
+          
+          label.sizeToFit()
+          return label.bounds.height
      }
 }

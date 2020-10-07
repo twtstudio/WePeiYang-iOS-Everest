@@ -10,6 +10,6 @@ import Foundation
 
 import Foundation
 // MARK: - 用户端基础URL
-let FB_BASE_USER_URL = "http://47.93.253.240:10805/api/user/"
+let FB_BASE_USER_URL = "https://areas.twt.edu.cn/api/user/"
 let FB_USER_ID = TwTUser.shared.feedbackID ?? 0
 

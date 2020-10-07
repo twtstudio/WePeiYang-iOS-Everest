@@ -39,7 +39,7 @@ class FBUserStatusCollectionViewCell: UICollectionViewCell {
           cntLabel.text = cnt
           if addSeparator {
                let lx = contentView.frame.maxX + (SCREEN.width * 0.8 - 240) / 4
-               contentView.addLine(points: CGPoint(x: lx, y: contentView.frame.minY + 5),
+               contentView.addLine(color: .gray, points: CGPoint(x: lx, y: contentView.frame.minY + 5),
                                    CGPoint(x: lx, y: contentView.frame.maxY - 5))
           }
      }

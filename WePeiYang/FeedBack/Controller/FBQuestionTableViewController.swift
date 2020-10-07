@@ -47,22 +47,39 @@ class FBQuestionTableViewController: UITableViewController {
 //MARK: - Delegate
 extension FBQuestionTableViewController {
      override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-          return questions.count
+          return questions.isEmpty ? 1 : questions.count
      }
      
      override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-          let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellId) as! FBQuestionTableViewCell
-          cell.update(by: questions[indexPath.row])
-          return cell
+          if questions.isEmpty {
+               let cell = UITableViewCell()
+               cell.textLabel?.text = type == .thumbed ? "你还没有点赞过问题哦" : "你还没有发布过问题哦"
+               cell.textLabel?.textAlignment = .center
+               cell.backgroundColor = UIColor(hex6: 0xf6f6f6)
+               return cell
+          } else {
+               let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellId) as! FBQuestionTableViewCell
+               cell.update(by: questions[indexPath.row])
+               return cell
+          }
      }
      
      
      override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-          return 145 + (questions[indexPath.row].datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 2)
+          if questions.isEmpty {
+               return 60
+          } else {
+               let lineCnt = ceilf(Float(questions[indexPath.row].tags!.reduce(0, { $0 + 3 + $1.name!.count })) / 18)
+               return 125
+                    + 20 * CGFloat(lineCnt)
+                    + (questions[indexPath.row].datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 2)
+          }
      }
      
      override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
           tableView.deselectRow(at: indexPath, animated: true)
+          guard !questions.isEmpty else { return }
+          
           if type == .posted {
                let alert = UIAlertController()
                let action1 = UIAlertAction(title: "取消", style: .cancel, handler: nil)

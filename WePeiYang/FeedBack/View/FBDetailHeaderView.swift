@@ -148,7 +148,7 @@ class FBDetailHeaderView: UIView {
           msgImgView.image = UIImage(named: "feedback_message")
           bgView.addSubview(msgImgView)
           msgImgView.snp.makeConstraints { (make) in
-               make.width.height.equalTo(20)
+               make.width.height.equalTo(15)
                make.right.equalTo(msgCntLabel.snp.left).offset(-5)
                make.centerY.equalTo(likesLabel)
           }

@@ -50,7 +50,7 @@ extension FeedBackDetailViewController {
           view.backgroundColor = UIColor(hex6: 0xf6f6f6)
           
           let naviHeight = navigationController?.navigationBar.frame.maxY ?? 0
-          tableView = UITableView(frame: CGRect(x: 0, y: naviHeight - 12, width: SCREEN.width, height: SCREEN.height - naviHeight - 70))
+          tableView = UITableView(frame: CGRect(x: 0, y: naviHeight - 12, width: SCREEN.width, height: SCREEN.height - naviHeight - 70 + 12))
           tableView.backgroundColor = UIColor(hex6: 0xf6f6f6)
           tableView.dataSource = self
           tableView.delegate = self
@@ -195,11 +195,13 @@ extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelega
      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
           let comment = comments[indexPath.row]
           var str = comment.contain ?? ""
+          var aStr: NSAttributedString?
           if comment.adminID != nil {
                if comment.contain?.findFirst("src") != -1 {
                     str = "点击查看详情"
                } else {
-                    str = comment.contain?.htmlToString ?? ""
+                    aStr = comment.contain?.htmlToAttributedString
+                    return 60 + aStr!.getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 0)
                }
           }
           return 60 + str.getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 0)
@@ -241,6 +243,7 @@ extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelega
                CommentHelper.addComment(questionId: (questionOfthisPage?.id)!, contain: textView.text) { (string) in
                     SwiftMessages.showSuccessMessage(body: "评论发布成功!")
                     self.loadData()
+                    textView.text = ""
                }
           }
           return true

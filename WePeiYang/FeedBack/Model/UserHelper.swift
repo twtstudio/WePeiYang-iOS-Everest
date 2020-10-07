@@ -38,7 +38,6 @@ struct FBUserModel: Codable {
     }
 }
 
-
 class UserHelper {
      static func getDetail(completion: @escaping (Result<FBUserModel>) -> Void) {
           Alamofire.request(FB_BASE_USER_URL + "userData?user_id=\(TwTUser.shared.feedbackID ?? 1)")
@@ -57,22 +56,23 @@ class UserHelper {
      }
      
      static func userIdGet(completion: @escaping (Result<Int>) -> Void) {
-          Alamofire.request(FB_BASE_USER_URL + "userId?student_id=\(TwTUser.shared.schoolID ?? "")&name=\(TwTUser.shared.realname ?? "")")
+          let url = (FB_BASE_USER_URL + "userId?student_id=\(TwTUser.shared.schoolID ?? "")&name=\(TwTUser.shared.realname ?? "")").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+          Alamofire.request(url)
                .validate().responseJSON() {response in
-               if let data = response.data {
-                    do {
-                         let jsonData = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as AnyObject
-                         let data: AnyObject = jsonData["data"] as AnyObject
-                         if let incurData = try? JSONSerialization.data(withJSONObject: data, options: []) {
-                              let data = try JSONSerialization.jsonObject(with: incurData, options: .mutableContainers) as AnyObject
-                              completion(.success((data["user_id"]! as! Int?) ?? 0))
+                    if let data = response.data {
+                         do {
+                              let jsonData = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as AnyObject
+                              let data: AnyObject = jsonData["data"] as AnyObject
+                              if let incurData = try? JSONSerialization.data(withJSONObject: data, options: []) {
+                                   let data = try JSONSerialization.jsonObject(with: incurData, options: .mutableContainers) as AnyObject
+                                   completion(.success((data["user_id"]! as! Int?) ?? 0))
+                              }
+                         } catch {
+                              completion(.failure(error))
                          }
-                    } catch {
-                         completion(.failure(error))
+                    } else {
+                         print("userid get error")
                     }
-               } else {
-                    print("userid get error")
                }
-          }
      }
 }
