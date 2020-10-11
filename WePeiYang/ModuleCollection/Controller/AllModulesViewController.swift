@@ -124,7 +124,7 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
      
      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
           // FIXME: 2020 9 5 some function need to be fixed
-          let faultIndexs:[Int] = []//7
+          let faultIndexs:[Int] = [] // [2, 3, 6]
           guard !faultIndexs.contains(indexPath.row) else {
                let title = "错误"
                let message = "功能正在维护中"

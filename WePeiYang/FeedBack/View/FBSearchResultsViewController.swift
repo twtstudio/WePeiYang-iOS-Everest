@@ -46,13 +46,6 @@ extension FBSearchResultsViewController: UISearchResultsUpdating {
                }
           }
      }
-     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-          print(text)
-          return true
-     }
-     
-     
-     
 }
 
 
@@ -70,7 +63,7 @@ extension FBSearchResultsViewController {
      
      override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
           let lineCnt = ceilf(Float(questions[indexPath.row].tags!.reduce(0, { $0 + 3 + $1.name!.count })) / 18)
-          return 125
+          return 150
                + 20 * CGFloat(lineCnt)
                + (questions[indexPath.row].datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 2)
      }

@@ -48,8 +48,8 @@ class FBDetailHeaderView: UIView {
           bgView.addSubview(titleLabel)
           titleLabel.snp.makeConstraints { (make) in
                make.centerX.equalTo(bgView)
-               make.width.equalTo(SCREEN.width * 0.9)
-               make.top.equalTo(bgView).offset(5)
+               make.width.equalTo(SCREEN.width * 0.85)
+               make.top.equalTo(bgView).offset(10)
           }
           
           tagView = FBTagCollectionView(frame: .zero, itemSize: CGSize(width: 200, height: 25), isSelectedOnly: true)
@@ -61,7 +61,7 @@ class FBDetailHeaderView: UIView {
                make.left.equalTo(titleLabel)
                make.top.equalTo(titleLabel.snp.bottom).offset(5)
                make.height.equalTo(25)
-               make.width.equalTo(SCREEN.width * 0.9)
+               make.width.equalTo(SCREEN.width * 0.85)
           }
           
           contentLabel = UILabel()
@@ -72,7 +72,7 @@ class FBDetailHeaderView: UIView {
           contentLabel.snp.makeConstraints { (make) in
                make.centerX.equalTo(bgView)
                make.top.equalTo(tagView.snp.bottom).offset(5)
-               make.width.equalTo(SCREEN.width * 0.9)
+               make.width.equalTo(SCREEN.width * 0.85)
           }
           
           let images = question.urlList ?? []
@@ -158,7 +158,7 @@ class FBDetailHeaderView: UIView {
           stLabel.backgroundColor = .white
           bgView.addSubview(stLabel)
           stLabel.snp.makeConstraints { (make) in
-               make.left.equalTo(bgView).offset(10)
+               make.left.equalTo(self).offset(SCREEN.width * 0.15 / 2)
                make.centerY.equalTo(likesLabel)
           }
           
@@ -177,10 +177,10 @@ class FBDetailHeaderView: UIView {
           stLabel.text = question.solved ?? 0 == 1 ? "校方已回复" : "校方未回复"
           stLabel.textColor = question.solved ?? 0 == 1 ? UIColor(hex6: 0x387a47) : .red
           
-          frame = CGRect(x: 0, y: 0, width: SCREEN.width, height: 125 +
-                            (question.name ?? "").getSuitableHeight(font: .boldSystemFont(ofSize: 20), setWidth: SCREEN.width * 0.9, numbersOfLines: 0)
+          frame = CGRect(x: 0, y: 0, width: SCREEN.width, height: 140 +
+                            (question.name ?? "").getSuitableHeight(font: .boldSystemFont(ofSize: 20), setWidth: SCREEN.width * 0.85, numbersOfLines: 0)
                             + photoCVHeight +
-                            (question.datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.9, numbersOfLines: 0))
+                            (question.datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.85, numbersOfLines: 0))
      }
      
      override func layoutSubviews() {

@@ -57,7 +57,7 @@ class FBCommentTableViewCell: UITableViewCell {
           userImgView.backgroundColor = .white
           bgView.addSubview(userImgView)
           userImgView.snp.makeConstraints { (make) in
-               make.left.top.equalTo(bgView).offset(5)
+               make.left.top.equalTo(bgView).offset(10)
                make.width.height.equalTo(20)
           }
           
@@ -104,7 +104,7 @@ class FBCommentTableViewCell: UITableViewCell {
           bgView.addSubview(timeLabel)
           timeLabel.snp.makeConstraints { (make) in
                make.left.equalTo(contentLabel.snp.left)
-               make.bottom.equalTo(self).offset(-5)
+               make.bottom.equalTo(self).offset(-10)
           }
           
           likesBtn = UIButton()

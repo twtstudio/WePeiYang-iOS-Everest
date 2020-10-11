@@ -140,7 +140,7 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
           tagCollectionView.snp.makeConstraints { (make) in
                make.height.equalTo(65)
                make.width.equalTo(SCREEN.width)
-               make.top.equalTo(view).offset(naviHeight + 10)
+               make.top.equalTo(view).offset(naviHeight + 15)
           }
           
           tableView = UITableView()
@@ -214,7 +214,7 @@ extension FeedBackMainViewController: UITableViewDataSource, UITableViewDelegate
      
      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
           let lineCnt = ceilf(Float(questions[indexPath.row].tags!.reduce(0, { $0 + 3 + $1.name!.count })) / 18)
-          return 125
+          return 150
                + 20 * CGFloat(lineCnt)
                + (questions[indexPath.row].datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 2)
      }

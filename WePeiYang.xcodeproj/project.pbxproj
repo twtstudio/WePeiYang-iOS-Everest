@@ -17,9 +17,7 @@
 		2BAB12A4251729C500FF6EEF /* CommentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB12A3251729C500FF6EEF /* CommentHelper.swift */; };
 		2BAB12AA251729E300FF6EEF /* TagHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB12A9251729E300FF6EEF /* TagHelper.swift */; };
 		2BAB12B0251729FD00FF6EEF /* UserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB12AF251729FD00FF6EEF /* UserHelper.swift */; };
-		2BAB12BC25172A3B00FF6EEF /* QuestionPostHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB12BB25172A3B00FF6EEF /* QuestionPostHelper.swift */; };
 		2BAB12C625172A5900FF6EEF /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB12C525172A5900FF6EEF /* Consts.swift */; };
-		2BAB12CC25172AB800FF6EEF /* FeedBackTagTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB12CB25172AB800FF6EEF /* FeedBackTagTest.swift */; };
 		360339E920247B9D0006A083 /* LibraryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360339E820247B9C0006A083 /* LibraryCard.swift */; };
 		36042DB81FC7BB270016E859 /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36042DB71FC7BB270016E859 /* CourseCell.swift */; };
 		3613DA192056F571000867AE /* SolaSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10253E21EC84ED90064373A /* SolaSessionManager.swift */; };
@@ -394,9 +392,7 @@
 		2BAB12A3251729C500FF6EEF /* CommentHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHelper.swift; sourceTree = "<group>"; };
 		2BAB12A9251729E300FF6EEF /* TagHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagHelper.swift; sourceTree = "<group>"; };
 		2BAB12AF251729FD00FF6EEF /* UserHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHelper.swift; sourceTree = "<group>"; };
-		2BAB12BB25172A3B00FF6EEF /* QuestionPostHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPostHelper.swift; sourceTree = "<group>"; };
 		2BAB12C525172A5900FF6EEF /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
-		2BAB12CB25172AB800FF6EEF /* FeedBackTagTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackTagTest.swift; sourceTree = "<group>"; };
 		360339E820247B9C0006A083 /* LibraryCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCard.swift; sourceTree = "<group>"; };
 		36042DB71FC7BB270016E859 /* CourseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCell.swift; sourceTree = "<group>"; };
 		3613DA1D2056F696000867AE /* SwiftMessagesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMessagesExtension.swift; sourceTree = "<group>"; };
@@ -783,8 +779,6 @@
 				2BAB12A3251729C500FF6EEF /* CommentHelper.swift */,
 				2BAB12A9251729E300FF6EEF /* TagHelper.swift */,
 				2BAB12AF251729FD00FF6EEF /* UserHelper.swift */,
-				2BAB12CB25172AB800FF6EEF /* FeedBackTagTest.swift */,
-				2BAB12BB25172A3B00FF6EEF /* QuestionPostHelper.swift */,
 				2BAB12C525172A5900FF6EEF /* Consts.swift */,
 			);
 			path = Model;
@@ -2198,7 +2192,6 @@
 				4BAB598E24283BBA00155AD0 /* CollectionListModel.swift in Sources */,
 				DD0B76292158CBA6009A392C /* GPAClassModel.swift in Sources */,
 				DD41A83B21A52F7100886BB4 /* AuditSearchModel.swift in Sources */,
-				2BAB12CC25172AB800FF6EEF /* FeedBackTagTest.swift in Sources */,
 				78FB9E93217AEEC5001DE39A /* LostViewController.swift in Sources */,
 				365A46462035E35500738963 /* Storage.swift in Sources */,
 				2B60230D250F53A4003CDE94 /* FBNewQuestionController.swift in Sources */,
@@ -2296,7 +2289,6 @@
 				DD0B76232158CBA6009A392C /* GPAViewController.swift in Sources */,
 				36449E631FA4BABA0036766B /* ScoreTableViewCell.swift in Sources */,
 				4B622524245D762A005EFA6A /* ActivityView.swift in Sources */,
-				2BAB12BC25172A3B00FF6EEF /* QuestionPostHelper.swift in Sources */,
 				DDC7892021B132A700ABA33F /* CourseList.swift in Sources */,
 				78FB9E8F217AEE92001DE39A /* LostFoundPageViewController.swift in Sources */,
 				36449E8E1FA4BAD10036766B /* PartyComplainViewController.swift in Sources */,
@@ -2456,13 +2448,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202009100900;
+				CURRENT_PROJECT_VERSION = 202010101800;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 3.6.1;
+				MARKETING_VERSION = 3.6.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.twt.WePeiYang.WePeiYangWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2492,13 +2484,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202009100900;
+				CURRENT_PROJECT_VERSION = 202010101800;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 3.6.1;
+				MARKETING_VERSION = 3.6.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.twt.WePeiYang.WePeiYangWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2631,12 +2623,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202009100900;
+				CURRENT_PROJECT_VERSION = 202010101800;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				INFOPLIST_FILE = WePeiYang/main/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.6.1;
+				MARKETING_VERSION = 3.6.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.twt.WePeiYang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2660,12 +2652,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202009100900;
+				CURRENT_PROJECT_VERSION = 202010101800;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				INFOPLIST_FILE = WePeiYang/main/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.6.1;
+				MARKETING_VERSION = 3.6.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.twt.WePeiYang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

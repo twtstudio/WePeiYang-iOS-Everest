@@ -82,10 +82,12 @@ extension FeedBackDetailViewController {
           
           textView = UITextView()
           commentView.addSubview(textView)
-          textView.layer.borderColor = UIColor.black.cgColor
-          textView.layer.borderWidth = 1
-          textView.layer.cornerRadius = 20
-          textView.layer.masksToBounds = true
+//          textView.layer.borderColor = UIColor.black.cgColor
+//          textView.layer.borderWidth = 1
+//          textView.layer.cornerRadius = 20
+//          textView.layer.masksToBounds = true
+          textView.text = "输入你的看法"
+          textView.textColor = UIColor(hex6: 0xdbdbdb)
           textView.returnKeyType = .send
           // 防止圆角遮挡
           textView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 5, right: 10)
@@ -177,7 +179,7 @@ extension FeedBackDetailViewController {
      }
 }
 
-// MARK: - TableViewDelegate & TextViewDelegate
+// MARK: - Delegate
 
 extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
      
@@ -204,7 +206,7 @@ extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelega
                     return 60 + aStr!.getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 0)
                }
           }
-          return 60 + str.getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 0)
+          return 80 + str.getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 0)
      }
      
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -234,6 +236,10 @@ extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelega
      }
      
      func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+          if textView.text == "输入你的看法" {
+               textView.text = ""
+               textView.textColor = .black
+          }
           if (text ==  "\n") {
                textView.resignFirstResponder()
                guard textView.text! != "" else {
@@ -243,11 +249,11 @@ extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelega
                CommentHelper.addComment(questionId: (questionOfthisPage?.id)!, contain: textView.text) { (string) in
                     SwiftMessages.showSuccessMessage(body: "评论发布成功!")
                     self.loadData()
-                    textView.text = ""
+                    textView.text = "输入你的看法"
+                    textView.textColor = UIColor(hex6: 0xdbdbdb)
                }
           }
           return true
      }
-     
 }
 

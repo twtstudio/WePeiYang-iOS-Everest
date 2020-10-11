@@ -49,7 +49,7 @@ class FBQuestionTableViewCell: UITableViewCell {
           titleLabel.font = .boldSystemFont(ofSize: 16)
           bgView.addSubview(titleLabel)
           titleLabel.snp.makeConstraints { (make) in
-               make.top.equalTo(bgView).offset(5)
+               make.top.equalTo(bgView).offset(10)
                make.left.equalTo(bgView).offset(SCREEN.width / 20)
                make.width.equalTo(SCREEN.width * 0.8)
                make.height.equalTo(30)
@@ -85,8 +85,8 @@ class FBQuestionTableViewCell: UITableViewCell {
           bgView.addSubview(msgImgView)
           msgImgView.snp.makeConstraints { (make) in
                make.left.equalTo(titleLabel)
-               make.width.height.equalTo(20)
-               make.top.equalTo(contentLabel.snp.bottom).offset(45)
+               make.width.height.equalTo(15)
+               make.top.equalTo(contentLabel.snp.bottom).offset(60)
           }
           
           msgCntLabel = UILabel()
