@@ -15,6 +15,13 @@ struct ClassTableModel: Mappable {
     var term = ""
     var classes: [ClassModel] = []
 
+    init(week: String, updatedAt: String, termStart: Int, term: String, classes: [ClassModel]) {
+        self.week = week
+        self.updatedAt = updatedAt
+        self.termStart = termStart
+        self.term = term
+        self.classes = classes
+    }
     init?(map: Map) {}
 
     mutating func mapping(map: Map) {
