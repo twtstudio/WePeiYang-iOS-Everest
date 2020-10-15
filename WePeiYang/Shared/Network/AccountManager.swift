@@ -22,7 +22,7 @@ struct AccountManager {
                          completion(.failure(.urlError))
                          return
                     }
-                    if html.contains("登录成功") {
+                    if html.contains("登录成功") || html.contains("Log In Successful") {
                          completion(.failure(WPYNetwork.Failure.alreadyLogin))
                          return
                     }
@@ -61,6 +61,15 @@ struct AccountManager {
                               switch response.statusCode {
                               case 200:
                                    let message = html.find("<h2>([^<>]+)</h2>")
+                                   self.getDetail { (result) in
+                                        switch result {
+                                        case .success(let realname):
+                                             TwTUser.shared.realname = realname
+                                             TwTUser.shared.save()
+                                        case .failure(let error):
+                                             completion(.failure(error))
+                                        }
+                                   }
                                    completion(.success(message))
                               case 401:
                                    completion(.failure(.loginFailed))
@@ -70,6 +79,63 @@ struct AccountManager {
                          case .failure(let error):
                               completion(.failure(error))
                          }
+                    }
+               case .failure(let error):
+                    self.getDetail { (result) in
+                         switch result {
+                         case .success(let realname):
+                              TwTUser.shared.realname = realname
+                              TwTUser.shared.save()
+                         case .failure(let error):
+                              completion(.failure(error))
+                         }
+                    }
+                    completion(.failure(error))
+               }
+          }
+     }
+     
+     static func getDetail(completion: @escaping (Result<String, WPYNetwork.Failure>) -> Void) {
+          WPYNetwork.fetch("http://classes.tju.edu.cn/eams/security/my.action") { (result) in
+               switch result {
+               case .success(let (data, response)):
+                    guard let html = String(data: data, encoding: .utf8) else {
+                         completion(.failure(.requestFailed))
+                         return
+                    }
+                    
+                    switch response.statusCode {
+                    case 200:
+                         let infoTable = html.find("<table class=\"infoTable\">(.+?)</table>")
+                         let realname = infoTable.find("<td class=\"title\" width=\"20%\" >&nbsp;姓名:</td>\n     <td class=\"content\" width=\"30%\">(\\w*)  </td>\n")
+                         completion(.success(realname))
+                    case 401:
+                         completion(.failure(.loginFailed))
+                    default:
+                         completion(.failure(.unknownError))
+                    }
+               case .failure(let error):
+                    completion(.failure(error))
+               }
+          }
+     }
+     
+     static func logoutAccount(completion: @escaping (Result<String, WPYNetwork.Failure>) -> Void) {
+          WPYNetwork.fetch("http://classes.tju.edu.cn/eams/logoutExt.action") { (result) in
+               switch result {
+               case .success(let (data, response)):
+//                    guard let html = String(data: data, encoding: .utf8) else {
+//                         completion(.failure(.requestFailed))
+//                         return
+//                    }
+                    
+                    switch response.statusCode {
+                    case 200:
+                         completion(.success("退出成功"))
+                    case 401:
+                         completion(.failure(.loginFailed))
+                    default:
+                         completion(.failure(.unknownError))
                     }
                case .failure(let error):
                     completion(.failure(error))

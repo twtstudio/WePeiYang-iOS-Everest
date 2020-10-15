@@ -13,6 +13,10 @@ struct WPYStorage {
 //     static let courseTable = Store<CourseTable>("courseTable")
 //     static let gpa = Store<GPA>("gpa")
 //     static let ecard = Store<ECard>("ecard")
+     static func removeAll() {
+          defaults.removeObject(forKey: AccountManager.usernameKey)
+          defaults.removeObject(forKey: AccountManager.passwordKey)
+     }
 }
 
 protocol Storable {

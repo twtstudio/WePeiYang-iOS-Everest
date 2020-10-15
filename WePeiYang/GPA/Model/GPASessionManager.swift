@@ -63,11 +63,10 @@ struct GPASessionManager {
           var currentTermGpa = 0.0
           var currentTermTotalCredits = 0.0
           currentTermTotalCredits = courseList.reduce(0, { $0 + $1.credit })
-          currentTermGpa = courseList.reduce(0, { $0 + $1.gpa })
+          currentTermGpa = courseList.reduce(0, { $0 + $1.credit * $1.gpa })
           currentTermGpa /= currentTermTotalCredits
-          currentTermScore = courseList.reduce(0, { $0 + $1.score })
+          currentTermScore = courseList.reduce(0, { $0 + $1.credit * $1.score })
           currentTermScore /= currentTermTotalCredits
-          
           
           let currentTermStat = GPAStatModel(year: "", score: currentTermScore, gpa: currentTermGpa, credit: currentTermTotalCredits)
           

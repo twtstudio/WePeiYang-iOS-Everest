@@ -46,16 +46,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                }, failure: { _ in
                     
                })
-               AccountManager.getSelf(success: {
-                    if let deviceToken = UserDefaults.standard.string(forKey: "deviceToken"),
-                       let uid = TwTUser.shared.twtid,
-                       let uuid = UIDevice.current.identifierForVendor?.uuidString {
-                         let para = ["utoken": deviceToken, "uid": uid, "udid": uuid, "ua": DeviceStatus.userAgent]
-                         SolaSessionManager.solaSession(type: .post, url: "/push/token/ENcJ1ZYDBaCvC8aM76RnnrT25FPqQg", token: nil, parameters: para, success: nil, failure: nil)
-                    }
-               }, failure: {
-                    
-               })
+               // FIXME: 暂用爬虫
+//               AccountManager.getSelf(success: {
+//                    if let deviceToken = UserDefaults.standard.string(forKey: "deviceToken"),
+//                       let uid = TwTUser.shared.twtid,
+//                       let uuid = UIDevice.current.identifierForVendor?.uuidString {
+//                         let para = ["utoken": deviceToken, "uid": uid, "udid": uuid, "ua": DeviceStatus.userAgent]
+//                         SolaSessionManager.solaSession(type: .post, url: "/push/token/ENcJ1ZYDBaCvC8aM76RnnrT25FPqQg", token: nil, parameters: para, success: nil, failure: nil)
+//                    }
+//               }, failure: {
+//
+//               })
           }, failure: {
                // 让他重新登录
           })

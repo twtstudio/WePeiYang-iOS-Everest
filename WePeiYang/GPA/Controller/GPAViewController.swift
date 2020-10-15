@@ -707,11 +707,11 @@ extension GPAViewController: ChartViewDelegate {
             upsidedownOffset = -10
         }
 
-        let scoreLabel = UILabel(text: "加权: \(term.stat.score)", color: .black, fontSize: 12)
+        let scoreLabel = UILabel(text: "加权: " + String(format: "%.2f", term.stat.score), color: .black, fontSize: 12)
         scoreLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
-        let GPALabel = UILabel(text: "绩点: \(term.stat.gpa)", color: .black, fontSize: 12)
+        let GPALabel = UILabel(text: "绩点: " + String(format: "%.2f", term.stat.gpa), color: .black, fontSize: 12)
         GPALabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
-        let creditsLabel = UILabel(text: "总学分: \(term.stat.credit)", color: .black, fontSize: 12)
+        let creditsLabel = UILabel(text: "总学分: " + String(format: "%.1f", term.stat.credit), color: .black, fontSize: 12)
         creditsLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         scoreLabel.frame = CGRect(x: 21.5, y: 22.5 + upsidedownOffset, width: 125, height: 20)
         GPALabel.frame = CGRect(x: 21.5, y: 52.5 + upsidedownOffset, width: 125, height: 20)

@@ -135,33 +135,42 @@ struct ClasstableDataManager {
           for tr in trs {
                // 一节课
                let tds = tr.findArray("<td>(.+?)</td>")
-               let weeks = tds[6].split(separator: "-")
-               let classID = tds[1].find("id=([\\d]*)")
+               let weeks = tds[6].split(separator: "-").map { $0.description }
+               let weekStart = weeks[0]
+               let weekEnd = weeks[1]
+               let classID = tds[1].find(">([\\d]*)</a>")
                let campus: String = {
                     if tds[9].contains("校区") {
-                         return tds[9].find("([\\s]*)校区") + "校区"
+                         return tds[9].find("(.+?)校区") + "校区"
                     } else {
                          return ""
                     }
                }()
-               let credit = tds[4].contains(".") ? tds[4] : tds[4]+"."
+               let name: String = {
+                    if !tds[3].contains("style") {
+                         return tds[3]
+                    } else {
+                         return tds[3].find("(.+?)<sup") + tds[3].find("\">(.+?)</s")
+                    }
+               }()
+               let credit = tds[4].contains(".") ? tds[4] : tds[4]+".0"
                
                let course = ClassModel(classID: classID,
                                        courseID: tds[2],
-                                       courseName: tds[4],
+                                       courseName: name,
                                        courseType: "", // 暂无
                                        courseNature: "", // 暂无
                                        credit: credit,
                                        teacher: tds[5],
                                        arrange: [],
-                                       weekStart: "",
-                                       weekEnd: "",
+                                       weekStart: weekStart,
+                                       weekEnd: weekEnd,
                                        college: "",
                                        campus: campus,
                                        ext: "", // 暂无
                                        colorIndex: 0,
                                        isPlaceholder: false,
-                                       isDisplay: false,
+                                       isDisplay: true,
                                        displayCourses: [],
                                        undispalyCourses: [])
                courseDict[classID] = course
@@ -219,12 +228,15 @@ struct ClasstableDataManager {
                //            let weekStart = weekList.firstIndex(of: "1")
                //            let weekEnd = weekList.lastIndex(of: "1")
                // 课时间
-               let day = Int(lineList[15].find("=(\\d)\\*unit")) ?? 0
-               let start = Int(lineList[15].find("Count\\+(\\d)$")) ?? 0
+               // 课表很神奇 下标从1开始,所以我们从1开始
+               let day = (Int(lineList[15].find("=(\\d)\\*unit")) ?? 0) + 1
+               let start = (Int(lineList[15].find("Count\\+(\\d)$")) ?? 0) + 1
                var end = start
                for i in stride(from: lineList.count-1, through: 15, by: -1) {
                     if lineList[i].contains("unitCount") {
-                         end = Int(lineList[i].find("Count\\+(\\d)$")) ?? 0
+                         if (Int(lineList[i].find("Count\\+(\\d*)$")) ?? 0) + 1 >= start {
+                              end = (Int(lineList[i].find("Count\\+(\\d*)$")) ?? 0) + 1
+                         }
                          break
                     }
                }
@@ -398,22 +410,23 @@ struct ClasstableDataManager {
      }
      
      static func getPersonalAuditList(success: @escaping (AuditPersonalCourseModel) -> Void, failure: @escaping (String) -> Void) {
-          SolaSessionManager.solaSession(type: .get, url: "/auditClass/audit", parameters: ["user_number": TwTUser.shared.schoolID ?? ""], success: { dic in
-               if let error_code = dic["error_code"] as? Int,
-                  error_code != -1,
-                  let message = dic["message"] as? String {
-                    failure(message)
-                    return
-               }
-               
-               if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let model = try? AuditPersonalCourseModel(data: data) {
-                    success(model)
-               } else {
-                    failure("解析失败")
-               }
-          }, failure: { err in
-               failure(err.localizedDescription)
-          })
+//          SolaSessionManager.solaSession(type: .get, url: "/auditClass/audit", parameters: ["user_number": TwTUser.shared.schoolID ?? ""], success: { dic in
+//               if let error_code = dic["error_code"] as? Int,
+//                  error_code != -1,
+//                  let message = dic["message"] as? String {
+//                    failure(message)
+//                    return
+//               }
+//
+//               if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let model = try? AuditPersonalCourseModel(data: data) {
+//                    success(model)
+//               } else {
+//                    failure("解析失败")
+//               }
+//          }, failure: { err in
+//               failure(err.localizedDescription)
+//          })
+          success(AuditPersonalCourseModel(errorCode: 0, message: "", data: []))
      }
      
 }

@@ -351,14 +351,15 @@ extension SettingsViewController: UITableViewDelegate {
                }
                
           } else {
-               let popup = PopupDialog(title: "绑定状态", message: "要解绑吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
-               
-               let cancelButton = CancelButton(title: "不了", action: nil)
-               
-               let defaultButton = DestructiveButton(title: "确认", dismissOnTap: true) {
-                    self.unbind(indexPathAtRow: indexPath.row)
-               }
-               popup.addButtons([cancelButton, defaultButton])
+//               let popup = PopupDialog(title: "绑定状态", message: "要解绑吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+               let popup = PopupDialog(title: "绑定状态", message: "微北洋办公网服务现已采用自动绑定方式, \n无需手动绑定办公网", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+//               let cancelButton = CancelButton(title: "不了", action: nil)
+               let defaultButton = CancelButton (title: "知道了", dismissOnTap: true, action: nil)
+//               let defaultButton = DestructiveButton(title: "确认", dismissOnTap: true) {
+//                    self.unbind(indexPathAtRow: indexPath.row)
+//               }
+//               popup.addButtons([cancelButton, defaultButton])
+               popup.addButtons([defaultButton])
                self.present(popup, animated: true, completion: nil)
           }
      }

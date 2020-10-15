@@ -265,7 +265,7 @@ class CourseListView: UIView {
 
     func load(courses: [[ClassModel]], weeks: Int) {
         let dayInMonth = DateTool.getWeekDayAfter(weeks: weeks)
-        var dayTitles = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+        let dayTitles = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
         for i in 0..<C.dayCount {
             dayNumberLabels[i].text = dayTitles[i] + "\n" + dayInMonth[i+1]
         }
@@ -291,7 +291,7 @@ extension CourseListView: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 构造 cell
-        var model = coursesForDay[tableView.tag][indexPath.row]
+        let model = coursesForDay[tableView.tag][indexPath.row]
         let cell = CourseCell(style: .default, reuseIdentifier: "reuse[\(tableView.tag)]\(indexPath)")
         cell.load(course: model)
         return cell

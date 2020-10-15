@@ -235,6 +235,9 @@ extension SpiderLoginView {
                     //               self.extraProcedures()
                     TwTUser.shared.username = username
                     TWTKeychain.set(username: username, password: password, of: .root)
+                    // tmp solution
+                    TwTUser.shared.token = "xixiCrawl"
+                    TwTUser.shared.tjuBindingState = true
                     TwTUser.shared.save()
                     self.extraProcedures()
                     
@@ -248,6 +251,9 @@ extension SpiderLoginView {
 //                         self.isLogin = true
                          TwTUser.shared.username = username
                          TWTKeychain.set(username: username, password: password, of: .root)
+                         // tmp solution
+                         TwTUser.shared.token = "xixiCrawl"
+                         TwTUser.shared.tjuBindingState = true
                          TwTUser.shared.save()
                          self.extraProcedures()
                          
@@ -271,10 +277,10 @@ extension SpiderLoginView {
      
      func extraProcedures() {
           NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogin.name, object: nil)
-          AccountManager.getSelf(success: {
-               NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
-               
-          }, failure: nil)
+//          AccountManager.getSelf(success: {
+//               NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
+//
+//          }, failure: nil)
           
           GPASessionManager.getGPA(success: { model in
                if let string = model.toJSONString() {
