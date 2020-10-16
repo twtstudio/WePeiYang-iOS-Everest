@@ -56,7 +56,7 @@ class UserHelper {
      }
      
      static func userIdGet(completion: @escaping (Result<Int>) -> Void) {
-          let url = (FB_BASE_USER_URL + "userId?student_id=\(TwTUser.shared.schoolID ?? "")&name=\(TwTUser.shared.realname ?? "")").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+          let url = (FB_BASE_USER_URL + "userId?student_id=\(TwTUser.shared.username ?? "")&name=\(TwTUser.shared.realname ?? "")").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
           Alamofire.request(url)
                .validate().responseJSON() {response in
                     if let data = response.data {

@@ -81,7 +81,7 @@ class SpiderLoginView: MessageView {
           usernameField.autocapitalizationType = .none
           usernameField.keyboardType = .asciiCapable
           usernameField.returnKeyType = .next
-          usernameField.placeholder = "天外天用户名"
+          usernameField.placeholder = "办公网账号"
           let usernameIconView = UIImageView(image: UIImage(named: "ic_account_circle")!.withRenderingMode(.alwaysTemplate))
           usernameIconView.frame = CGRect(x: 0, y: 0, width: 34, height: 22)
           usernameIconView.tintColor = Metadata.Color.WPYAccentColor

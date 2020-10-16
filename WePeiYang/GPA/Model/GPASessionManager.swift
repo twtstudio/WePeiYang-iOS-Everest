@@ -87,9 +87,9 @@ struct GPASessionManager {
                                         }
                                      }(),
                                      type: tds[4] == ">必修" ? 1 : 0,
-                                     credit: Double(tds[5].find("([\\d]+)")) ?? 0,
+                                     credit: Double(tds[5].find("([0-9]*\\.?[0-9]+)")) ?? 0,
                                      score: {
-                                        let score = tds[6].find("([\\d]+)")
+                                        let score = tds[6].find("([0-9]*\\.?[0-9]+)")
                                         //                                print(score)
                                         switch score {
                                         case "P":
@@ -100,7 +100,7 @@ struct GPASessionManager {
                                              return Double(score) ?? 0
                                         }
                                      }(),
-                                     gpa: Double(tds[8].find("([\\d]+)")) ?? 0,
+                                     gpa: Double(tds[8].find("([0-9]*\\.?[0-9]+)")) ?? 0,
                                      reset: 0,
                                      lessonID: "",
                                      unionID: "",
