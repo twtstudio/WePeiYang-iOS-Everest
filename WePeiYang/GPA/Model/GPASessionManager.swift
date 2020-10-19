@@ -77,6 +77,10 @@ struct GPASessionManager {
      }
      
      static func parseCourses(_ tds: [String], courseList: inout [GPAClassModel]) {
+//          String(tds[0][3..<5]) + " " + String(tds[0][8..<10]) + " " + String(tds[0][11..<12]))
+          let termStart = String(tds[0])[3..<5] ?? ""
+          let termEnd = String(tds[0])[8..<10] ?? ""
+          let termIdx = String(tds[0])[11..<12] ?? ""
           let course = GPAClassModel(no: Int(tds[1]) ?? 0,
                                      name: {
                                         let ret = tds[2].trimmingCharacters(in: CharacterSet(["\r", "\n", "\t", ">"]))
@@ -89,7 +93,8 @@ struct GPASessionManager {
                                      type: tds[4] == ">必修" ? 1 : 0,
                                      credit: Double(tds[5].find("([0-9]*\\.?[0-9]+)")) ?? 0,
                                      score: {
-                                        let score = tds[6].find("([0-9]*\\.?[0-9]+)")
+//                                        let score = tds[6].find("([0-9]*\\.?[0-9]+)")
+                                        let score = tds[6].find("\t\t\t(.+?)\n")
                                         //                                print(score)
                                         switch score {
                                         case "P":
@@ -105,7 +110,7 @@ struct GPASessionManager {
                                      lessonID: "",
                                      unionID: "",
                                      courseID: "",
-                                     term: tds[0])// term sub
+                                     term: termStart + " " + termEnd + " " + termIdx)// term sub
           if course.score != 999 {
                courseList.append(course)
           }

@@ -34,14 +34,14 @@ class SettingsViewController: UIViewController {
      public var services: [ItemData] = [
           ("办公网", TJUBindingViewController.self, "", {
             return TwTUser.shared.tjuBindingState}),
-          ("图书馆", LibraryBindingViewController.self, "", {
-            return TwTUser.shared.libBindingState}),
-          ("自行车", BicycleBindingViewController.self, "", {
-            return TwTUser.shared.bicycleBindingState}),
-          ("校园网", WLANBindingViewController.self, "", {
-            return TwTUser.shared.WLANBindingState}),
-          ("校园卡", ECardBindingViewController.self, "", {
-            return TwTUser.shared.ecardBindingState}),
+//          ("图书馆", LibraryBindingViewController.self, "", {
+//            return TwTUser.shared.libBindingState}),
+//          ("自行车", BicycleBindingViewController.self, "", {
+//            return TwTUser.shared.bicycleBindingState}),
+//          ("校园网", WLANBindingViewController.self, "", {
+//            return TwTUser.shared.WLANBindingState}),
+//          ("校园卡", ECardBindingViewController.self, "", {
+//            return TwTUser.shared.ecardBindingState}),
           ("二维码", QrCodeViewController.self, "", {
                return TwTUser.shared.QRcodeBindingState
           })
@@ -149,31 +149,39 @@ class SettingsViewController: UIViewController {
           
           switch indexPathAtRow {
           case 0:
-               unbindURL = BindingAPIs.unbindLIBAccount
-          case 1:
-               BicycleUser.sharedInstance.unbind(success: {
-                    TWTKeychain.erase(.bicycle)
-                    SwiftMessages.showSuccessMessage(body: "解绑成功")
-                    TwTUser.shared.save()
-                    self.tableView.reloadData()
-               }, failure: { errmsg in
-                    SwiftMessages.showErrorMessage(body: errmsg)
-               })
-               return
-          case 2:
                unbindURL = BindingAPIs.unbindTJUAccount
-          case 3:
-               TWTKeychain.erase(.network)
-               TwTUser.shared.WLANBindingState = false
-               SwiftMessages.showSuccessMessage(body: "解绑成功")
-               TwTUser.shared.save()
-               self.tableView.reloadData()
-               return
-          case 4:
-               ECardBindingViewController.unbind()
-               self.tableView.reloadData()
-               SwiftMessages.showSuccessMessage(body: "解绑成功")
-               return
+               AccountManager.logoutAccount { (result) in
+                    switch result {
+                    case .success(_): break
+                    case .failure(_):
+                         SwiftMessages.showErrorMessage(body: "解绑失败.")
+                         return
+                    }
+               }
+//          case 1:
+//               unbindURL = BindingAPIs.unbindLIBAccount
+//          case 2:
+//               BicycleUser.sharedInstance.unbind(success: {
+//                    TWTKeychain.erase(.bicycle)
+//                    SwiftMessages.showSuccessMessage(body: "解绑成功")
+//                    TwTUser.shared.save()
+//                    self.tableView.reloadData()
+//               }, failure: { errmsg in
+//                    SwiftMessages.showErrorMessage(body: errmsg)
+//               })
+//               return
+//          case 3:
+//               TWTKeychain.erase(.network)
+//               TwTUser.shared.WLANBindingState = false
+//               SwiftMessages.showSuccessMessage(body: "解绑成功")
+//               TwTUser.shared.save()
+//               self.tableView.reloadData()
+//               return
+//          case 4:
+//               ECardBindingViewController.unbind()
+//               self.tableView.reloadData()
+//               SwiftMessages.showSuccessMessage(body: "解绑成功")
+//               return
           default:
                return
           }
@@ -181,17 +189,17 @@ class SettingsViewController: UIViewController {
           AccountManager.unbind(url: unbindURL, success: {
                switch indexPathAtRow {
                case 0:
-                    TWTKeychain.erase(.library)
-                    TwTUser.shared.libBindingState = false
-               case 1:
-                    TWTKeychain.erase(.bicycle)
-                    TwTUser.shared.bicycleBindingState = false
-               case 2:
                     TWTKeychain.erase(.tju)
                     TwTUser.shared.tjuBindingState = false
-               case 3:
-                    TWTKeychain.erase(.network)
-                    TwTUser.shared.WLANBindingState = false
+//               case 1:
+//                    TWTKeychain.erase(.library)
+//                    TwTUser.shared.libBindingState = false
+//               case 2:
+//                    TWTKeychain.erase(.bicycle)
+//                    TwTUser.shared.bicycleBindingState = false
+//               case 3:
+//                    TWTKeychain.erase(.network)
+//                    TwTUser.shared.WLANBindingState = false
                default:
                     break
                }
@@ -259,7 +267,7 @@ extension SettingsViewController: UITableViewDataSource {
                     cell.detailTextLabel?.text = "未绑定"
                }
                //            MARK:后来加的
-               if indexPath.row == 5 {
+               if indexPath.row == 1 {
                     cell.detailTextLabel?.text = ""
                }
                return cell
@@ -351,15 +359,15 @@ extension SettingsViewController: UITableViewDelegate {
                }
                
           } else {
-//               let popup = PopupDialog(title: "绑定状态", message: "要解绑吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
-               let popup = PopupDialog(title: "绑定状态", message: "微北洋办公网服务现已采用自动绑定方式, \n无需手动绑定办公网", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
-//               let cancelButton = CancelButton(title: "不了", action: nil)
-               let defaultButton = CancelButton (title: "知道了", dismissOnTap: true, action: nil)
-//               let defaultButton = DestructiveButton(title: "确认", dismissOnTap: true) {
-//                    self.unbind(indexPathAtRow: indexPath.row)
-//               }
-//               popup.addButtons([cancelButton, defaultButton])
-               popup.addButtons([defaultButton])
+               let popup = PopupDialog(title: "绑定状态", message: "要解绑吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+//               let popup = PopupDialog(title: "绑定状态", message: "微北洋办公网服务现已采用自动绑定方式, \n无需手动绑定办公网", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+               let cancelButton = CancelButton(title: "不了", action: nil)
+//               let defaultButton = CancelButton (title: "知道了", dismissOnTap: true, action: nil)
+               let defaultButton = DestructiveButton(title: "确认", dismissOnTap: true) {
+                    self.unbind(indexPathAtRow: indexPath.row)
+               }
+               popup.addButtons([cancelButton, defaultButton])
+//               popup.addButtons([defaultButton])
                self.present(popup, animated: true, completion: nil)
           }
      }
@@ -367,8 +375,8 @@ extension SettingsViewController: UITableViewDelegate {
 
 func showLoginView(success: (() -> Void)? = nil) {
      SwiftMessages.hideAll()
-     let loginView = SpiderLoginView()
-     //     let loginView = LoginView()
+//     let loginView = SpiderLoginView()
+          let loginView = LoginView()
      loginView.successHandler = success
      var config = SwiftMessages.defaultConfig
      config.presentationStyle = .center

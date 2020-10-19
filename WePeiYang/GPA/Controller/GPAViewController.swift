@@ -12,728 +12,728 @@ import ObjectMapper
 import PopupDialog
 
 private enum GPASortMethod {
-    case scoreFirst
-    case creditFirst
+     case scoreFirst
+     case creditFirst
 }
 
 let GPAKey = "GPAKey"
 
 class GPAViewController: UIViewController {
-    private var tableView: UITableView!
-    private var terms: [GPATermModel] = []
-    private var currentTerm: GPATermModel?
-    private var stat: GPAStatModel?
-    private var session: String!
-    private var lastSelect: Int = 0
-    private var sortMethod: GPASortMethod = .scoreFirst {
-        didSet {
-            if sortMethod == .scoreFirst {
-                currentTerm?.classes.sort(by: { (a, b) -> Bool in
-                    a.score > b.score
-                })
-                tableView.reloadData()
-            } else {
-                currentTerm?.classes.sort(by: { $0.credit > $1.credit })
-                tableView.reloadData()
-            }
-        }
-    }
-    private let summaryView = ScoreHeaderView()
-    private let termLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(red: 0.22, green: 0.22, blue: 0.22, alpha: 1.00)
-        label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
-        label.textAlignment = .center
-        label.width = 100
-        label.height = 20
-        return label
-    }()
-    private let leftButton = UIButton()
-    private let rightButton = UIButton()
-    private let termSwitchView: UIView = {
-        let contentView = UIView()
-        contentView.backgroundColor = .white
-        return contentView
-    }()
-
-    private let lineChartView: LineChartView = {
-        let lineChartView = LineChartView()
-        lineChartView.dragEnabled = false
-        for gesture in lineChartView.gestureRecognizers ?? [] where gesture is UIPinchGestureRecognizer {
-            lineChartView.removeGestureRecognizer(gesture)
-        }
-        lineChartView.pinchZoomEnabled = false
-        lineChartView.doubleTapToZoomEnabled = false
-        lineChartView.drawGridBackgroundEnabled = false
-        lineChartView.leftAxis.drawGridLinesEnabled = false
-        lineChartView.xAxis.drawLabelsEnabled = false
-        lineChartView.leftAxis.drawLabelsEnabled = false
-        lineChartView.rightAxis.enabled = false
-        lineChartView.xAxis.drawGridLinesEnabled = false
-        // -1 for the fucking top border
-        lineChartView.setViewPortOffsets(left: 0, top: -1, right: 0, bottom: 0)
-        lineChartView.setExtraOffsets(left: 0, top: -1, right: 0, bottom: 0)
-        lineChartView.chartDescription = nil
-        lineChartView.drawBordersEnabled = false
-        lineChartView.borderLineWidth = 0
-        lineChartView.isUserInteractionEnabled = true
-        lineChartView.borderColor = .white
-        lineChartView.legend.enabled = false
-        lineChartView.noDataTextColor = .white
-        lineChartView.noDataText = "暂无数据"
-        lineChartView.noDataFont = NSUIFont.boldSystemFont(ofSize: 16)
-        return lineChartView
-    }()
-
-    private let paddingView = UIView()
-
-    private let radarChartView: RadarChartView = {
-        let radarChartView = RadarChartView()
-        radarChartView.yAxis.drawLabelsEnabled = false
-        radarChartView.yAxis.axisMinimum = 0
-        radarChartView.yAxis.axisMaximum = 100
-        radarChartView.yAxis.granularity = 20
-//        radarChartView.yAxis.setLabelCount(5, force: true)
-        radarChartView.yAxis.setLabelCount(1, force: true)
-        radarChartView.yAxis.gridColor = .white
-        radarChartView.setExtraOffsets(left: 0, top: 0, right: 0, bottom: 0)
-        radarChartView.backgroundColor = UIColor.gpaPink
-        radarChartView.webColor = .white
-        radarChartView.innerWebColor = .white
-        radarChartView.innerWebLineWidth = 2
-        radarChartView.webLineWidth = 2
-        radarChartView.webAlpha = 1
-        radarChartView.chartDescription = nil
-        radarChartView.xAxis.labelTextColor = .white
-        radarChartView.xAxis.drawLabelsEnabled = true
-        radarChartView.yAxis.drawLabelsEnabled = false
-        radarChartView.legend.enabled = false
-        return radarChartView
-    }()
-
-    private let segmentView: UISegmentedControl = {
-        let segmentView = UISegmentedControl(items: ["成绩降序", "学分降序"])
-        segmentView.tintColor = .white
-        segmentView.layer.borderWidth = 2
-        segmentView.layer.borderColor = UIColor.white.cgColor
-        segmentView.layer.cornerRadius = 6
-        segmentView.layer.masksToBounds = true
-        segmentView.selectedSegmentIndex = 0
-        return segmentView
-    }()
-
-    private let segmentContentView: UIView = {
-        let contentView = UIView()
-        contentView.backgroundColor = UIColor.gpaPink
-        return contentView
-    }()
-
-    private var refreshButton: UIView? {
-        let button = navigationItem.rightBarButtonItem?.value(forKey: "view") as? UIView
-        button?.layer.anchorPoint = CGPoint(x: 0.54, y: 0.54)
-        return button
-    }
-
-    private var isRefreshing: Bool = false
-
-    private func startRotating() {
-        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotationAnimation.toValue = CGFloat.pi
-        rotationAnimation.duration = 0.5
-        rotationAnimation.isCumulative = true
-        rotationAnimation.repeatCount = 1000
-        refreshButton?.layer.add(rotationAnimation, forKey: "rotationAnimation")
-    }
-
-    private func stopRotating() {
-        refreshButton?.layer.removeAllAnimations()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        scrollViewDidScroll(tableView)
-
-        checkBindingState()
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        self.navigationController?.navigationBar.tintColor = UIColor.gpaPink
-
-        // set termSwitchView
-        termSwitchView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: 60)
-        termLabel.center = termSwitchView.center
-        termLabel.text = "未知学期"
-        termSwitchView.addSubview(termLabel)
-        leftButton.frame = CGRect(x: UIScreen.main.bounds.width/4, y: termLabel.y, width: 20, height: 20)
-        leftButton.adjustsImageWhenHighlighted = true
-        rightButton.frame = CGRect(x: UIScreen.main.bounds.width*3/4-20, y: termLabel.y, width: 20, height: 20)
-        rightButton.adjustsImageWhenHighlighted = true
-        leftButton.add(for: .touchUpInside, {
-            if let index = self.terms.index(where: { $0.name == self.currentTerm!.name }) {
-                guard index > 0 && index < self.terms.count else {
-                    return
-                }
-                self.rightButton.isHidden = false
-                if index-1 == 0 {
-                    self.leftButton.isHidden = true
-                }
-                self.lineChartView.highlightValue(x: Double(index-1), dataSetIndex: 0, callDelegate: true)
-
-            }
-        })
-        rightButton.add(for: .touchUpInside, {
-            if let index = self.terms.index(where: { $0.name == self.currentTerm!.name }) {
-                guard index >= 0 && index < self.terms.count-1 else {
-                    return
-                }
-                self.leftButton.isHidden = false
-                if index+1 == self.terms.count-1 {
-                    self.rightButton.isHidden = true
-                }
-                self.lineChartView.highlightValue(x: Double(index+1), dataSetIndex: 0, callDelegate: true)
-            }
-        })
-        leftButton.setImage(UIImage(named: "leftArrow"), for: .normal)
-        rightButton.setImage(UIImage(named: "rightArrow"), for: .normal)
-        termSwitchView.addSubview(leftButton)
-        termSwitchView.addSubview(rightButton)
-        // set lineChartView
-        lineChartView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: isiPad ? 460 : 200)
-        lineChartView.delegate = self
-        // set radarChartView
-        radarChartView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: isiPad ? self.view.width/2 : self.view.width)
-        // set segmentView
-        segmentContentView.frame =  CGRect(x: 0, y: 0, width: self.view.width, height: 50)
-        segmentContentView.layer.masksToBounds = false
-        segmentContentView.layer.shadowOpacity = 0.5
-        segmentContentView.layer.shadowRadius = 2
-        segmentContentView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        segmentContentView.layer.shadowColor = UIColor.black.cgColor
-        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: segmentContentView.height, width: segmentContentView.width, height: 2)).cgPath
-        segmentContentView.layer.shadowPath = shadowPath
-
-        segmentView.center = segmentContentView.center
-        segmentContentView.addSubview(segmentView)
-        segmentView.addTarget(self, action: #selector(self.segmentValueChanged(sender:)), for: .valueChanged)
-        // set paddingView
-        paddingView.backgroundColor = UIColor.gpaPink
-
-        tableView = UITableView(frame: self.view.bounds, style: .plain)
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
-
-        tableView.delegate = self
-        tableView.dataSource = self
-        self.view.backgroundColor = .white
-        tableView.backgroundColor = .white
-        tableView.rowHeight = 100
-        self.view.addSubview(tableView)
-
-         let refreshItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(self.refresh))
-        refreshItem.tintColor = .white
-        self.navigationItem.rightBarButtonItem = refreshItem
-
-        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: NotificationName.NotificationAppraiseDidSucceed.name, object: nil)
-
-        hidesBottomBarWhenPushed = true
-
-        if isModal {
-            let image = UIImage(named: "ic_back")!
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
-        }
-
-        loadCache()
-        if TwTUser.shared.tjuBindingState {
-            perform(#selector(refresh), with: nil, afterDelay: 1)
-        }
-    }
-
-    @objc private func close() {
-        self.dismiss(animated: true, completion: nil)
-    }
-
-    // TODO: update the only evaluated item
-    private func evaluateDone() {
-
-    }
-
-    private func checkBindingState() {
-        // not bind
-        if !TwTUser.shared.tjuBindingState {
-            let popup = PopupDialog(title: "未绑定办公网", message: "微北洋的服务依赖于办公网，若要使用GPA 查询功能，请先绑定办公网。", buttonAlignment: .horizontal)
-            let cancelButton = CancelButton(title: "取消", action: {
-                SwiftMessages.showWarningMessage(body: "未绑定办公网，已加载缓存")
-            })
-            let bindButton = DefaultButton(title: "绑定", action: {
-                let vc = TJUBindingViewController()
-                vc.hidesBottomBarWhenPushed = true
-                vc.completion = { success in
-                    if success {
-                        self.refresh()
-                    }
-                }
-                self.present(vc, animated: true)
-            })
-            popup.addButtons([cancelButton, bindButton])
-            self.present(popup, animated: true, completion: nil)
-        }
-    }
-
-    // 加载缓存
-    private func loadCache() {
-        CacheManager.retreive("gpa/gpa.json", from: .group, as: String.self, success: { string in
-            if let model = Mapper<GPAModel>().map(JSONString: string) {
-                self.loadModel(model: model)
-            }
-        }, failure: {
-            SwiftMessages.showLoading()
-        })
-    }
-
-    // 刷新数据
-    @objc private func refresh() {
-        guard isRefreshing == false else {
-            return
-        }
-
-        isRefreshing = true
-        startRotating()
-        GPASessionManager.getGPA(success: { model in
-            self.isRefreshing = false
-            self.stopRotating()
-            SwiftMessages.hideLoading()
-            self.loadModel(model: model)
-            // 数据有效 存起来
-            if !model.terms.isEmpty {
-                if let string = model.toJSONString() {
-                    CacheManager.store(object: string, in: .group, as: "gpa/gpa.json")
-                }
-                SwiftMessages.showSuccessMessage(body: "刷新成功")
-            } else {
-                SwiftMessages.showSuccessMessage(body: "别着急，会有成绩的~")
-            }
-        }, failure: { error in
-            self.isRefreshing = false
-            self.stopRotating()
-            SwiftMessages.hideLoading()
-            let msg = error.localizedDescription
-            guard let error = error as? WPYCustomError else {
-                SwiftMessages.showErrorMessage(body: msg)
-                return
-            }
-
-            switch error {
-            case .custom(let msg):
-                SwiftMessages.showErrorMessage(body: msg)
-            case .errorCode(let code, _):
-                if code == 40010 {
-                    SwiftMessages.showErrorMessage(body: "办公网密码错误，请重新绑定办公网")
-                    AccountManager.unbind(url: BindingAPIs.unbindTJUAccount, success: {
-                        TWTKeychain.erase(.tju)
-                        TwTUser.shared.tjuBindingState = false
-
-                        let bindVC = TJUBindingViewController()
-                        bindVC.hidesBottomBarWhenPushed = true
-                        bindVC.completion = { success in
-                            if success {
-                                self.refresh()
-                            }
-                        }
-                        UIViewController.top?.present(bindVC, animated: true, completion: nil)
-                    }, failure: { err in
-                        SwiftMessages.showErrorMessage(body: err.localizedDescription)
+     private var tableView: UITableView!
+     private var terms: [GPATermModel] = []
+     private var currentTerm: GPATermModel?
+     private var stat: GPAStatModel?
+     private var session: String!
+     private var lastSelect: Int = 0
+     private var sortMethod: GPASortMethod = .scoreFirst {
+          didSet {
+               if sortMethod == .scoreFirst {
+                    currentTerm?.classes.sort(by: { (a, b) -> Bool in
+                         a.score > b.score
                     })
-                }
-            }
-        })
-    }
-
-    // 根据 GPAModel 显示数据
-    private func loadModel(model: GPAModel) {
-        // TODO: 数据过滤
-//        if self.stat?.credit == model.stat.credit {
-//            return
-//        }
-
-        self.terms = model.terms
-        self.stat = model.stat
-        self.session = model.session
-        if !self.terms.isEmpty {
-            self.currentTerm = self.terms[0]
-        } else {
-            // FIXME: 没有成绩的界面
-            return
-        }
-        DispatchQueue.main.async {
-            self.load()
-            self.lineChartView.highlightValue(x: Double(self.lastSelect), dataSetIndex: 0, callDelegate: true)
-        }
-    }
-
-    private func load() {
-        termLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
-        UIView.animate(withDuration: 0.2, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
-            self.termLabel.text = self.currentTerm?.name ?? ""
-            self.termLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
-        }, completion: nil)
-
-        // 第一个
-        if currentTerm!.name == terms[0].name {
-            leftButton.isHidden = true
-        } else {
-            leftButton.isHidden = false
-        }
-        // 最后一个
-        if currentTerm!.name == terms[terms.count-1].name {
-            rightButton.isHidden = true
-        } else {
-            rightButton.isHidden = false
-        }
-
-        summaryView.totalScoreLabel.text = "\(stat?.score ?? 0)"
-        summaryView.totalGPALabel.text = "\(stat?.gpa ?? 0)"
-        summaryView.totalCreditLabel.text = "\(stat?.credit ?? 0)"
-        setupLineChartView()
-        setupRadarChartView()
-
-        // keep the sorting method, and refresh the tableView
-        segmentValueChanged(sender: segmentView)
-//        tableView.reloadData()
-//        lineChartView.highlightValue(x: 0, dataSetIndex: 0)
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-
-    @objc private func segmentValueChanged(sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            sortMethod = .scoreFirst
-        } else if sender.selectedSegmentIndex == 1 {
-            sortMethod = .creditFirst
-        }
-    }
-
-    private func setupLineChartView() {
-        // 这里为了曲线上点不出现在屏幕边缘做了一些处理
-        // 向最前和最后插入一个元素
-        // 即第一个和最后一个变成了第二个和倒数第二个
-
-        var entrys = [ChartDataEntry]()
-        for (index, term) in terms.enumerated() {
-            let entry = ChartDataEntry(x: Double(index), y: term.stat.score)
-            entrys.append(entry)
-        }
-
-        if !entrys.isEmpty {
-                let fakeLastEntry = ChartDataEntry(x: Double(entrys.count+1), y: entrys[entrys.count-1].y)
-                entrys.append(fakeLastEntry)
-                let fakeFirstEntry = ChartDataEntry(x: -2, y: entrys[0].y)
-                entrys.insert(fakeFirstEntry, at: 0)
-        }
-
-     let dataSet = LineChartDataSet(entries: entrys, label: nil)
-        dataSet.mode = .cubicBezier
-        dataSet.drawCirclesEnabled = true
-        dataSet.circleRadius = 8
-        dataSet.setCircleColor(UIColor(red: 0.98, green: 0.44, blue: 0.35, alpha: 1.00))
-
-        dataSet.drawValuesEnabled = false
-        dataSet.drawCircleHoleEnabled = false
-        dataSet.drawFilledEnabled = true
-        dataSet.setDrawHighlightIndicators(false)
-        dataSet.fillColor = UIColor.gpaPink
-        dataSet.fillAlpha = 1
-        dataSet.lineWidth = 2
-        dataSet.setColor(UIColor(red: 0.98, green: 0.49, blue: 0.41, alpha: 1.00))
-        lineChartView.data = LineChartData(dataSet: dataSet)
-        lineChartView.zoomOut()
-        lineChartView.zoomToCenter(scaleX: 1.2, scaleY: 1)
-    }
-
-    private func setupRadarChartView() {
-        var entrys = [RadarChartDataEntry]()
-        var labels = [String]()
-        let classes = currentTerm?.classes ?? []
-        for `class` in classes {
-            let entry = RadarChartDataEntry(value: `class`.score)
-            entrys.append(entry)
-            labels.append(`class`.name)
-        }
-
-     let dataSet = RadarChartDataSet(entries: entrys, label: nil)
-        radarChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: labels)
-        dataSet.drawValuesEnabled = false
-//        dataSet.fillColor = UIColor(red:1.00, green:0.81, blue:0.78, alpha:1.00)
-        dataSet.fillColor = .white
-//        dataSet.fillAlpha = 1
-        dataSet.fillAlpha = 0.5
-        //
-//        dataSet.valueFont = UIFont.flexibleSystemFont(ofSize: 18)
-        dataSet.drawFilledEnabled = true
-        dataSet.setDrawHighlightIndicators(false)
-        dataSet.setColor(.white)
-        let data = RadarChartData(dataSet: dataSet)
-        radarChartView.data = data
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-//        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-//        self.navigationController?.navigationBar.isTranslucent = true
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+                    tableView.reloadData()
+               } else {
+                    currentTerm?.classes.sort(by: { $0.credit > $1.credit })
+                    tableView.reloadData()
+               }
+          }
+     }
+     private let summaryView = ScoreHeaderView()
+     private let termLabel: UILabel = {
+          let label = UILabel()
+          label.textColor = UIColor(red: 0.22, green: 0.22, blue: 0.22, alpha: 1.00)
+          label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
+          label.textAlignment = .center
+          label.width = 100
+          label.height = 20
+          return label
+     }()
+     private let leftButton = UIButton()
+     private let rightButton = UIButton()
+     private let termSwitchView: UIView = {
+          let contentView = UIView()
+          contentView.backgroundColor = .white
+          return contentView
+     }()
+     
+     private let lineChartView: LineChartView = {
+          let lineChartView = LineChartView()
+          lineChartView.dragEnabled = false
+          for gesture in lineChartView.gestureRecognizers ?? [] where gesture is UIPinchGestureRecognizer {
+               lineChartView.removeGestureRecognizer(gesture)
+          }
+          lineChartView.pinchZoomEnabled = false
+          lineChartView.doubleTapToZoomEnabled = false
+          lineChartView.drawGridBackgroundEnabled = false
+          lineChartView.leftAxis.drawGridLinesEnabled = false
+          lineChartView.xAxis.drawLabelsEnabled = false
+          lineChartView.leftAxis.drawLabelsEnabled = false
+          lineChartView.rightAxis.enabled = false
+          lineChartView.xAxis.drawGridLinesEnabled = false
+          // -1 for the fucking top border
+          lineChartView.setViewPortOffsets(left: 0, top: -1, right: 0, bottom: 0)
+          lineChartView.setExtraOffsets(left: 0, top: -1, right: 0, bottom: 0)
+          lineChartView.chartDescription = nil
+          lineChartView.drawBordersEnabled = false
+          lineChartView.borderLineWidth = 0
+          lineChartView.isUserInteractionEnabled = true
+          lineChartView.borderColor = .white
+          lineChartView.legend.enabled = false
+          lineChartView.noDataTextColor = .white
+          lineChartView.noDataText = "暂无数据"
+          lineChartView.noDataFont = NSUIFont.boldSystemFont(ofSize: 16)
+          return lineChartView
+     }()
+     
+     private let paddingView = UIView()
+     
+     private let radarChartView: RadarChartView = {
+          let radarChartView = RadarChartView()
+          radarChartView.yAxis.drawLabelsEnabled = false
+          radarChartView.yAxis.axisMinimum = 0
+          radarChartView.yAxis.axisMaximum = 100
+          radarChartView.yAxis.granularity = 20
+          //        radarChartView.yAxis.setLabelCount(5, force: true)
+          radarChartView.yAxis.setLabelCount(1, force: true)
+          radarChartView.yAxis.gridColor = .white
+          radarChartView.setExtraOffsets(left: 0, top: 0, right: 0, bottom: 0)
+          radarChartView.backgroundColor = UIColor.gpaPink
+          radarChartView.webColor = .white
+          radarChartView.innerWebColor = .white
+          radarChartView.innerWebLineWidth = 2
+          radarChartView.webLineWidth = 2
+          radarChartView.webAlpha = 1
+          radarChartView.chartDescription = nil
+          radarChartView.xAxis.labelTextColor = .white
+          radarChartView.xAxis.drawLabelsEnabled = true
+          radarChartView.yAxis.drawLabelsEnabled = false
+          radarChartView.legend.enabled = false
+          return radarChartView
+     }()
+     
+     private let segmentView: UISegmentedControl = {
+          let segmentView = UISegmentedControl(items: ["成绩降序", "学分降序"])
+          segmentView.tintColor = .white
+          segmentView.layer.borderWidth = 2
+          segmentView.layer.borderColor = UIColor.white.cgColor
+          segmentView.layer.cornerRadius = 6
+          segmentView.layer.masksToBounds = true
+          segmentView.selectedSegmentIndex = 0
+          return segmentView
+     }()
+     
+     private let segmentContentView: UIView = {
+          let contentView = UIView()
+          contentView.backgroundColor = UIColor.gpaPink
+          return contentView
+     }()
+     
+     private var refreshButton: UIView? {
+          let button = navigationItem.rightBarButtonItem?.value(forKey: "view") as? UIView
+          button?.layer.anchorPoint = CGPoint(x: 0.54, y: 0.54)
+          return button
+     }
+     
+     private var isRefreshing: Bool = false
+     
+     private func startRotating() {
+          let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+          rotationAnimation.toValue = CGFloat.pi
+          rotationAnimation.duration = 0.5
+          rotationAnimation.isCumulative = true
+          rotationAnimation.repeatCount = 1000
+          refreshButton?.layer.add(rotationAnimation, forKey: "rotationAnimation")
+     }
+     
+     private func stopRotating() {
+          refreshButton?.layer.removeAllAnimations()
+     }
+     
+     override func viewWillAppear(_ animated: Bool) {
+          super.viewWillAppear(animated)
+          self.navigationController?.setNavigationBarHidden(false, animated: animated)
+          self.navigationController?.navigationBar.tintColor = .white
+          self.navigationController?.navigationBar.shadowImage = UIImage()
+          scrollViewDidScroll(tableView)
+          
+          checkBindingState()
+     }
+     
+     override func viewDidLoad() {
+          super.viewDidLoad()
+          //        self.navigationController?.navigationBar.tintColor = UIColor.gpaPink
+          
+          // set termSwitchView
+          termSwitchView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: 60)
+          termLabel.center = termSwitchView.center
+          termLabel.text = "未知学期"
+          termSwitchView.addSubview(termLabel)
+          leftButton.frame = CGRect(x: UIScreen.main.bounds.width/4, y: termLabel.y, width: 20, height: 20)
+          leftButton.adjustsImageWhenHighlighted = true
+          rightButton.frame = CGRect(x: UIScreen.main.bounds.width*3/4-20, y: termLabel.y, width: 20, height: 20)
+          rightButton.adjustsImageWhenHighlighted = true
+          leftButton.add(for: .touchUpInside, {
+               if let index = self.terms.firstIndex(where: { $0.name == self.currentTerm!.name }) {
+                    guard index > 0 && index < self.terms.count else {
+                         return
+                    }
+                    self.rightButton.isHidden = false
+                    if index-1 == 0 {
+                         self.leftButton.isHidden = true
+                    }
+                    self.lineChartView.highlightValue(x: Double(index-1), dataSetIndex: 0, callDelegate: true)
+                    
+               }
+          })
+          rightButton.add(for: .touchUpInside, {
+               if let index = self.terms.firstIndex(where: { $0.name == self.currentTerm!.name }) {
+                    guard index >= 0 && index < self.terms.count-1 else {
+                         return
+                    }
+                    self.leftButton.isHidden = false
+                    if index+1 == self.terms.count-1 {
+                         self.rightButton.isHidden = true
+                    }
+                    self.lineChartView.highlightValue(x: Double(index+1), dataSetIndex: 0, callDelegate: true)
+               }
+          })
+          leftButton.setImage(UIImage(named: "leftArrow"), for: .normal)
+          rightButton.setImage(UIImage(named: "rightArrow"), for: .normal)
+          termSwitchView.addSubview(leftButton)
+          termSwitchView.addSubview(rightButton)
+          // set lineChartView
+          lineChartView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: isiPad ? 460 : 200)
+          lineChartView.delegate = self
+          // set radarChartView
+          radarChartView.frame = CGRect(x: 0, y: 0, width: self.view.width, height: isiPad ? self.view.width/2 : self.view.width)
+          // set segmentView
+          segmentContentView.frame =  CGRect(x: 0, y: 0, width: self.view.width, height: 50)
+          segmentContentView.layer.masksToBounds = false
+          segmentContentView.layer.shadowOpacity = 0.5
+          segmentContentView.layer.shadowRadius = 2
+          segmentContentView.layer.shadowOffset = CGSize(width: 0, height: 2)
+          segmentContentView.layer.shadowColor = UIColor.black.cgColor
+          let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: segmentContentView.height, width: segmentContentView.width, height: 2)).cgPath
+          segmentContentView.layer.shadowPath = shadowPath
+          
+          segmentView.center = segmentContentView.center
+          segmentContentView.addSubview(segmentView)
+          segmentView.addTarget(self, action: #selector(self.segmentValueChanged(sender:)), for: .valueChanged)
+          // set paddingView
+          paddingView.backgroundColor = UIColor.gpaPink
+          
+          tableView = UITableView(frame: self.view.bounds, style: .plain)
+          tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
+          
+          tableView.delegate = self
+          tableView.dataSource = self
+          self.view.backgroundColor = .white
+          tableView.backgroundColor = .white
+          tableView.rowHeight = 100
+          self.view.addSubview(tableView)
+          
+          let refreshItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(self.refresh))
+          refreshItem.tintColor = .white
+          self.navigationItem.rightBarButtonItem = refreshItem
+          
+          NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: NotificationName.NotificationAppraiseDidSucceed.name, object: nil)
+          
+          hidesBottomBarWhenPushed = true
+          
+          if isModal {
+               let image = UIImage(named: "ic_back")!
+               self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
+          }
+          
+          loadCache()
+          if TwTUser.shared.tjuBindingState {
+               perform(#selector(refresh), with: nil, afterDelay: 1)
+          }
+     }
+     
+     @objc private func close() {
+          self.dismiss(animated: true, completion: nil)
+     }
+     
+     // TODO: update the only evaluated item
+     private func evaluateDone() {
+          
+     }
+     
+     private func checkBindingState() {
+          // not bind
+          if !TwTUser.shared.tjuBindingState {
+               let popup = PopupDialog(title: "未绑定办公网", message: "微北洋的服务依赖于办公网，若要使用GPA 查询功能，请先绑定办公网。", buttonAlignment: .horizontal)
+               let cancelButton = CancelButton(title: "取消", action: {
+                    SwiftMessages.showWarningMessage(body: "未绑定办公网，已加载缓存")
+               })
+               let bindButton = DefaultButton(title: "绑定", action: {
+                    let vc = TJUBindingViewController()
+                    vc.hidesBottomBarWhenPushed = true
+                    vc.completion = { success in
+                         if success {
+                              self.refresh()
+                         }
+                    }
+                    self.present(vc, animated: true)
+               })
+               popup.addButtons([cancelButton, bindButton])
+               self.present(popup, animated: true, completion: nil)
+          }
+     }
+     
+     // 加载缓存
+     private func loadCache() {
+          CacheManager.retreive("gpa/gpa.json", from: .group, as: String.self, success: { string in
+               if let model = Mapper<GPAModel>().map(JSONString: string) {
+                    self.loadModel(model: model)
+               }
+          }, failure: {
+               SwiftMessages.showLoading()
+          })
+     }
+     
+     // 刷新数据
+     @objc private func refresh() {
+          guard isRefreshing == false else {
+               return
+          }
+          
+          isRefreshing = true
+          startRotating()
+          GPASessionManager.getGPA(success: { model in
+               self.isRefreshing = false
+               self.stopRotating()
+               SwiftMessages.hideLoading()
+               self.loadModel(model: model)
+               // 数据有效 存起来
+               if !model.terms.isEmpty {
+                    if let string = model.toJSONString() {
+                         CacheManager.store(object: string, in: .group, as: "gpa/gpa.json")
+                    }
+                    SwiftMessages.showSuccessMessage(body: "刷新成功")
+               } else {
+                    SwiftMessages.showSuccessMessage(body: "别着急，会有成绩的~")
+               }
+          }, failure: { error in
+               self.isRefreshing = false
+               self.stopRotating()
+               SwiftMessages.hideLoading()
+               let msg = error.localizedDescription
+               guard let error = error as? WPYCustomError else {
+                    SwiftMessages.showErrorMessage(body: msg)
+                    return
+               }
+               
+               switch error {
+               case .custom(let msg):
+                    SwiftMessages.showErrorMessage(body: msg)
+               case .errorCode(let code, _):
+                    if code == 40010 {
+                         SwiftMessages.showErrorMessage(body: "办公网密码错误，请重新绑定办公网")
+                         AccountManager.unbind(url: BindingAPIs.unbindTJUAccount, success: {
+                              TWTKeychain.erase(.tju)
+                              TwTUser.shared.tjuBindingState = false
+                              
+                              let bindVC = TJUBindingViewController()
+                              bindVC.hidesBottomBarWhenPushed = true
+                              bindVC.completion = { success in
+                                   if success {
+                                        self.refresh()
+                                   }
+                              }
+                              UIViewController.top?.present(bindVC, animated: true, completion: nil)
+                         }, failure: { err in
+                              SwiftMessages.showErrorMessage(body: err.localizedDescription)
+                         })
+                    }
+               }
+          })
+     }
+     
+     // 根据 GPAModel 显示数据
+     private func loadModel(model: GPAModel) {
+          // TODO: 数据过滤
+          //        if self.stat?.credit == model.stat.credit {
+          //            return
+          //        }
+          
+          self.terms = model.terms
+          self.stat = model.stat
+          self.session = model.session
+          if !self.terms.isEmpty {
+               self.currentTerm = self.terms[0]
+          } else {
+               // FIXME: 没有成绩的界面
+               return
+          }
+          DispatchQueue.main.async {
+               self.load()
+               self.lineChartView.highlightValue(x: Double(self.lastSelect), dataSetIndex: 0, callDelegate: true)
+          }
+     }
+     
+     private func load() {
+          termLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+          UIView.animate(withDuration: 0.2, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
+               self.termLabel.text = self.currentTerm?.name ?? ""
+               self.termLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
+          }, completion: nil)
+          
+          // 第一个
+          if currentTerm!.name == terms[0].name {
+               leftButton.isHidden = true
+          } else {
+               leftButton.isHidden = false
+          }
+          // 最后一个
+          if currentTerm!.name == terms[terms.count-1].name {
+               rightButton.isHidden = true
+          } else {
+               rightButton.isHidden = false
+          }
+          
+          summaryView.totalScoreLabel.text = "\(stat?.score ?? 0)"
+          summaryView.totalGPALabel.text = "\(stat?.gpa ?? 0)"
+          summaryView.totalCreditLabel.text = "\(stat?.credit ?? 0)"
+          setupLineChartView()
+          setupRadarChartView()
+          
+          // keep the sorting method, and refresh the tableView
+          segmentValueChanged(sender: segmentView)
+          //        tableView.reloadData()
+          //        lineChartView.highlightValue(x: 0, dataSetIndex: 0)
+     }
+     
+     deinit {
+          NotificationCenter.default.removeObserver(self)
+     }
+     
+     @objc private func segmentValueChanged(sender: UISegmentedControl) {
+          if sender.selectedSegmentIndex == 0 {
+               sortMethod = .scoreFirst
+          } else if sender.selectedSegmentIndex == 1 {
+               sortMethod = .creditFirst
+          }
+     }
+     
+     private func setupLineChartView() {
+          // 这里为了曲线上点不出现在屏幕边缘做了一些处理
+          // 向最前和最后插入一个元素
+          // 即第一个和最后一个变成了第二个和倒数第二个
+          
+          var entrys = [ChartDataEntry]()
+          for (index, term) in terms.enumerated() {
+               let entry = ChartDataEntry(x: Double(index), y: term.stat.score)
+               entrys.append(entry)
+          }
+          
+          if !entrys.isEmpty {
+               let fakeLastEntry = ChartDataEntry(x: Double(entrys.count+1), y: entrys[entrys.count-1].y)
+               entrys.append(fakeLastEntry)
+               let fakeFirstEntry = ChartDataEntry(x: -2, y: entrys[0].y)
+               entrys.insert(fakeFirstEntry, at: 0)
+          }
+          
+          let dataSet = LineChartDataSet(entries: entrys, label: nil)
+          dataSet.mode = .cubicBezier
+          dataSet.drawCirclesEnabled = true
+          dataSet.circleRadius = 8
+          dataSet.setCircleColor(UIColor(red: 0.98, green: 0.44, blue: 0.35, alpha: 1.00))
+          
+          dataSet.drawValuesEnabled = false
+          dataSet.drawCircleHoleEnabled = false
+          dataSet.drawFilledEnabled = true
+          dataSet.setDrawHighlightIndicators(false)
+          dataSet.fillColor = UIColor.gpaPink
+          dataSet.fillAlpha = 1
+          dataSet.lineWidth = 2
+          dataSet.setColor(UIColor(red: 0.98, green: 0.49, blue: 0.41, alpha: 1.00))
+          lineChartView.data = LineChartData(dataSet: dataSet)
+          lineChartView.zoomOut()
+          lineChartView.zoomToCenter(scaleX: 1.2, scaleY: 1)
+     }
+     
+     private func setupRadarChartView() {
+          var entrys = [RadarChartDataEntry]()
+          var labels = [String]()
+          let classes = currentTerm?.classes ?? []
+          for `class` in classes {
+               let entry = RadarChartDataEntry(value: `class`.score)
+               entrys.append(entry)
+               labels.append(`class`.name)
+          }
+          
+          let dataSet = RadarChartDataSet(entries: entrys, label: nil)
+          radarChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: labels)
+          dataSet.drawValuesEnabled = false
+          //        dataSet.fillColor = UIColor(red:1.00, green:0.81, blue:0.78, alpha:1.00)
+          dataSet.fillColor = .white
+          //        dataSet.fillAlpha = 1
+          dataSet.fillAlpha = 0.5
+          //
+          //        dataSet.valueFont = UIFont.flexibleSystemFont(ofSize: 18)
+          dataSet.drawFilledEnabled = true
+          dataSet.setDrawHighlightIndicators(false)
+          dataSet.setColor(.white)
+          let data = RadarChartData(dataSet: dataSet)
+          radarChartView.data = data
+     }
+     
+     override func viewWillDisappear(_ animated: Bool) {
+          super.viewWillDisappear(animated)
+          
+          //        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+          //        self.navigationController?.navigationBar.isTranslucent = true
+     }
+     
+     override func didReceiveMemoryWarning() {
+          super.didReceiveMemoryWarning()
+          // Dispose of any resources that can be recreated.
+     }
 }
 
 private enum GPASectionType: Int {
-    case summary
-//    case termSwitch
-    case lineChart
-    case padding
-    case radarChart
-    case subject
+     case summary
+     //    case termSwitch
+     case lineChart
+     case padding
+     case radarChart
+     case subject
 }
 
 extension GPAViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let type = GPASectionType(rawValue: section) {
-            switch type {
-            case .summary:
-                return 0
-//            case .termSwitch:
-//                return 0
-            case .lineChart:
-                return 0
-            case .padding:
-                return 0
-            case .radarChart:
-                return 0
-            case .subject:
-                return currentTerm?.classes.count ?? 0
-            }
-        }
-        return 0
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 100))
-        cell.backgroundColor = .white
-        let `class` = currentTerm!.classes[indexPath.row]
-        let classNameLabel = UILabel(text: `class`.name, color: UIColor(red: 0.32, green: 0.32, blue: 0.32, alpha: 1.00), fontSize: 14)
-        let creditLabel = UILabel(text: "学分: \(`class`.credit)", color: UIColor(red: 0.32, green: 0.32, blue: 0.32, alpha: 1.00), fontSize: 14)
-        let scoreLabel = UILabel(text: "成绩: \(`class`.score)", color: UIColor(red: 0.32, green: 0.32, blue: 0.32, alpha: 1.00), fontSize: 14)
-        classNameLabel.frame = CGRect(x: 20, y: 20, width: 200, height: 20)
-        creditLabel.frame = CGRect(x: 20, y: 60, width: 100, height: 20)
-        scoreLabel.frame = CGRect(x: 120, y: 60, width: 200, height: 20)
-        cell.contentView.addSubview(classNameLabel)
-        cell.contentView.addSubview(creditLabel)
-        cell.contentView.addSubview(scoreLabel)
-        // stands for normal state
-        cell.tag = 0
-        if `class`.score == -1 {
-            scoreLabel.text = "点这里去评价"
-            cell.tag = -1
-        }
-
-        return cell
-    }
+     func numberOfSections(in tableView: UITableView) -> Int {
+          return 5
+     }
+     
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+          if let type = GPASectionType(rawValue: section) {
+               switch type {
+               case .summary:
+                    return 0
+               //            case .termSwitch:
+               //                return 0
+               case .lineChart:
+                    return 0
+               case .padding:
+                    return 0
+               case .radarChart:
+                    return 0
+               case .subject:
+                    return currentTerm?.classes.count ?? 0
+               }
+          }
+          return 0
+     }
+     
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+          let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 100))
+          cell.backgroundColor = .white
+          let `class` = currentTerm!.classes[indexPath.row]
+          let classNameLabel = UILabel(text: `class`.name, color: UIColor(red: 0.32, green: 0.32, blue: 0.32, alpha: 1.00), fontSize: 14)
+          let creditLabel = UILabel(text: "学分: \(`class`.credit)", color: UIColor(red: 0.32, green: 0.32, blue: 0.32, alpha: 1.00), fontSize: 14)
+          let scoreLabel = UILabel(text: "成绩: \(`class`.score)", color: UIColor(red: 0.32, green: 0.32, blue: 0.32, alpha: 1.00), fontSize: 14)
+          classNameLabel.frame = CGRect(x: 20, y: 20, width: 200, height: 20)
+          creditLabel.frame = CGRect(x: 20, y: 60, width: 100, height: 20)
+          scoreLabel.frame = CGRect(x: 120, y: 60, width: 200, height: 20)
+          cell.contentView.addSubview(classNameLabel)
+          cell.contentView.addSubview(creditLabel)
+          cell.contentView.addSubview(scoreLabel)
+          // stands for normal state
+          cell.tag = 0
+          if `class`.score == -1 {
+               scoreLabel.text = "点这里去评价"
+               cell.tag = -1
+          }
+          
+          return cell
+     }
 }
 
 extension GPAViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        if let cell = tableView.cellForRow(at: indexPath), cell.tag == -1 {
-            let `class` = currentTerm!.classes[indexPath.row]
-            let appraiseVC = CourseAppraiseViewController()
-            appraiseVC.data = `class`
-            appraiseVC.GPASession = session
-            self.navigationController?.pushViewController(appraiseVC, animated: true)
-        }
-    }
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let type = GPASectionType(rawValue: section) {
-            switch type {
-            case .summary:
-                return summaryView
-            case .lineChart:
-                let contentView = UIView()
-                contentView.width = self.view.width
-                contentView.height = 260
-                termSwitchView.y = 0
-                lineChartView.y = 60
-                contentView.addSubview(termSwitchView)
-                contentView.addSubview(lineChartView)
-                return contentView
-            case .padding:
-                return paddingView
-            case .radarChart:
-                return radarChartView
-            case .subject:
-                return segmentContentView
-            }
-        } else {
-            return nil
-        }
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if let type = GPASectionType(rawValue: section) {
-            switch type {
-            case .summary:
-                return isiPad ? 222 : 111
-            case .lineChart:
-                return isiPad ? 520 : 260
-            case .padding:
-                return 50
-            case .radarChart:
-                return isiPad ? self.view.width/2 : self.view.width
-            case .subject:
-                return 52
-            }
-        } else {
-            return 0.01
-        }
-    }
-
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.01
-    }
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+          tableView.deselectRow(at: indexPath, animated: true)
+          if let cell = tableView.cellForRow(at: indexPath), cell.tag == -1 {
+               let `class` = currentTerm!.classes[indexPath.row]
+               let appraiseVC = CourseAppraiseViewController()
+               appraiseVC.data = `class`
+               appraiseVC.GPASession = session
+               self.navigationController?.pushViewController(appraiseVC, animated: true)
+          }
+     }
+     
+     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+          if let type = GPASectionType(rawValue: section) {
+               switch type {
+               case .summary:
+                    return summaryView
+               case .lineChart:
+                    let contentView = UIView()
+                    contentView.width = self.view.width
+                    contentView.height = 260
+                    termSwitchView.y = 0
+                    lineChartView.y = 60
+                    contentView.addSubview(termSwitchView)
+                    contentView.addSubview(lineChartView)
+                    return contentView
+               case .padding:
+                    return paddingView
+               case .radarChart:
+                    return radarChartView
+               case .subject:
+                    return segmentContentView
+               }
+          } else {
+               return nil
+          }
+     }
+     
+     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+          if let type = GPASectionType(rawValue: section) {
+               switch type {
+               case .summary:
+                    return isiPad ? 222 : 111
+               case .lineChart:
+                    return isiPad ? 520 : 260
+               case .padding:
+                    return 50
+               case .radarChart:
+                    return isiPad ? self.view.width/2 : self.view.width
+               case .subject:
+                    return 52
+               }
+          } else {
+               return 0.01
+          }
+     }
+     
+     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+          return 0.01
+     }
 }
 
 extension GPAViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset.y - 80
-
-//        if scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < 720 {
-//            let scrollOffsetY = scrollView.contentOffset.y - lastScrollOffset.y
-//            radarChartView.rotationAngle = (scrollOffsetY * 360.0 / 720.0  + radarChartView.rotationAngle).truncatingRemainder(dividingBy: 360)
-////            radarChartView.rotationAngle = ((radarChartView.rotationAngle + offset) / (530.0 + radarChartView.rotationAngle) )*360.0
-//            lastScrollOffset = scrollView.contentOffset
-//        }
-
-        if offset > 0 {
-            self.navigationItem.rightBarButtonItem?.tintColor = .white
-            self.navigationController?.navigationBar.tintColor = .white
-            self.navigationController?.navigationBar.barStyle = .black
-            self.title = currentTerm?.name
-            if offset > 520 {
-                self.navigationController?.navigationBar.alpha = 1
-                segmentContentView.alpha = self.navigationController!.navigationBar.alpha
-//                self.navigationController?.navigationBar.isTranslucent = false
-//                self.navigationController?.navigationBar.isOpaque = true
-                return
-            }
-//            self.navigationController?.navigationBar.isOpaque = false
-            self.navigationController?.navigationBar.isTranslucent = true
-            self.navigationController?.navigationBar.alpha = min(offset * 0.02, 1)
-            let image = UIImage(color: UIColor.gpaPink, size: CGSize(width: self.view.width, height: 64))
-            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-            self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
-//            self.navigationController?.navigationBar.isTranslucent = true
-        } else {
-            self.title = ""
-//            self.navigationController?.navigationBar.isOpaque = false
-            self.navigationController?.navigationBar.isTranslucent = true
-            self.navigationController?.navigationBar.alpha = 1
-            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.gpaPink
-            self.navigationController?.navigationBar.tintColor = UIColor.gpaPink
-            self.navigationController?.navigationBar.barStyle = .default
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//            self.navigationController?.navigationBar.isTranslucent = true
-        }
-    }
+     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+          let offset = scrollView.contentOffset.y - 80
+          
+          //        if scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < 720 {
+          //            let scrollOffsetY = scrollView.contentOffset.y - lastScrollOffset.y
+          //            radarChartView.rotationAngle = (scrollOffsetY * 360.0 / 720.0  + radarChartView.rotationAngle).truncatingRemainder(dividingBy: 360)
+          ////            radarChartView.rotationAngle = ((radarChartView.rotationAngle + offset) / (530.0 + radarChartView.rotationAngle) )*360.0
+          //            lastScrollOffset = scrollView.contentOffset
+          //        }
+          
+          if offset > 0 {
+               self.navigationItem.rightBarButtonItem?.tintColor = .white
+               self.navigationController?.navigationBar.tintColor = .white
+               self.navigationController?.navigationBar.barStyle = .black
+               self.title = currentTerm?.name
+               if offset > 520 {
+                    self.navigationController?.navigationBar.alpha = 1
+                    segmentContentView.alpha = self.navigationController!.navigationBar.alpha
+                    //                self.navigationController?.navigationBar.isTranslucent = false
+                    //                self.navigationController?.navigationBar.isOpaque = true
+                    return
+               }
+               //            self.navigationController?.navigationBar.isOpaque = false
+               self.navigationController?.navigationBar.isTranslucent = true
+               self.navigationController?.navigationBar.alpha = min(offset * 0.02, 1)
+               let image = UIImage(color: UIColor.gpaPink, size: CGSize(width: self.view.width, height: 64))
+               self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+               self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+               //            self.navigationController?.navigationBar.isTranslucent = true
+          } else {
+               self.title = ""
+               //            self.navigationController?.navigationBar.isOpaque = false
+               self.navigationController?.navigationBar.isTranslucent = true
+               self.navigationController?.navigationBar.alpha = 1
+               self.navigationItem.rightBarButtonItem?.tintColor = UIColor.gpaPink
+               self.navigationController?.navigationBar.tintColor = UIColor.gpaPink
+               self.navigationController?.navigationBar.barStyle = .default
+               self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+               //            self.navigationController?.navigationBar.isTranslucent = true
+          }
+     }
 }
 
 extension GPAViewController: ChartViewDelegate {
-    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        guard entry.x > -1 && entry.x < Double(terms.count) else {
-            return
-        }
-
-        lastSelect = Int(entry.x)
-
-        let term = terms[Int(entry.x)]
-        self.currentTerm = term
-        load()
-
-        if let dataSets = chartView.data?.dataSets, dataSets.count > 1 {
-            _ = dataSets[1].removeFirst()
-            _ = dataSets[1].addEntry(entry)
-        } else {
-            // add another dataSet for the only selected entry
-          let dataSetSelected = LineChartDataSet(entries: [entry], label: nil)
-            dataSetSelected.circleRadius = 11
-            dataSetSelected.setCircleColor(.white)
-            dataSetSelected.circleHoleRadius = 8
-            dataSetSelected.drawValuesEnabled = false
-            dataSetSelected.circleHoleColor = UIColor(red: 0.98, green: 0.44, blue: 0.35, alpha: 1.00)
-            dataSetSelected.drawCircleHoleEnabled = true
-            chartView.data?.dataSets.append(dataSetSelected)
-        }
-
-        for view in chartView.subviews {
-            view.removeFromSuperview()
-        }
-
-        let point = lineChartView.getTransformer(forAxis: lineChartView.data!.dataSets[0].axisDependency).pixelForValues(x: entry.x, y: entry.y)
-
-        let image = UIImage(named: "bubble")!
-        let bubbleView = UIImageView(image: image)
-        bubbleView.width = 115
-        bubbleView.height = 115
-        bubbleView.y = point.y + 10
-        bubbleView.center.x = point.x
-        bubbleView.contentMode = .scaleToFill
-
-        var upsidedownOffset: CGFloat = 0
-
-        if bubbleView.y + bubbleView.height > 200 {
-            let revertedImage = UIImage(cgImage: image.cgImage!, scale: 1, orientation: UIImage.Orientation.downMirrored)
-            bubbleView.image = revertedImage
-            bubbleView.y -= bubbleView.height + 10 + 10
-            upsidedownOffset = -10
-        }
-
-        let scoreLabel = UILabel(text: "加权: " + String(format: "%.2f", term.stat.score), color: .black, fontSize: 12)
-        scoreLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
-        let GPALabel = UILabel(text: "绩点: " + String(format: "%.2f", term.stat.gpa), color: .black, fontSize: 12)
-        GPALabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
-        let creditsLabel = UILabel(text: "总学分: " + String(format: "%.1f", term.stat.credit), color: .black, fontSize: 12)
-        creditsLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
-        scoreLabel.frame = CGRect(x: 21.5, y: 22.5 + upsidedownOffset, width: 125, height: 20)
-        GPALabel.frame = CGRect(x: 21.5, y: 52.5 + upsidedownOffset, width: 125, height: 20)
-        creditsLabel.frame = CGRect(x: 21.5, y: 82.5 + upsidedownOffset, width: 125, height: 20)
-        bubbleView.addSubview(scoreLabel)
-        bubbleView.addSubview(GPALabel)
-        bubbleView.addSubview(creditsLabel)
-
-        bubbleView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
-        UIView.animate(withDuration: 0.2, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
-            bubbleView.transform = CGAffineTransform(scaleX: 1, y: 1)
-            chartView.addSubview(bubbleView)
-        }, completion: nil)
-    }
-
-    func chartValueNothingSelected(_ chartView: ChartViewBase) {
-
-    }
+     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+          guard entry.x > -1 && entry.x < Double(terms.count) else {
+               return
+          }
+          
+          lastSelect = Int(entry.x)
+          
+          let term = terms[Int(entry.x)]
+          self.currentTerm = term
+          load()
+          
+          if let dataSets = chartView.data?.dataSets, dataSets.count > 1 {
+               _ = dataSets[1].removeFirst()
+               _ = dataSets[1].addEntry(entry)
+          } else {
+               // add another dataSet for the only selected entry
+               let dataSetSelected = LineChartDataSet(entries: [entry], label: nil)
+               dataSetSelected.circleRadius = 11
+               dataSetSelected.setCircleColor(.white)
+               dataSetSelected.circleHoleRadius = 8
+               dataSetSelected.drawValuesEnabled = false
+               dataSetSelected.circleHoleColor = UIColor(red: 0.98, green: 0.44, blue: 0.35, alpha: 1.00)
+               dataSetSelected.drawCircleHoleEnabled = true
+               chartView.data?.dataSets.append(dataSetSelected)
+          }
+          
+          for view in chartView.subviews {
+               view.removeFromSuperview()
+          }
+          
+          let point = lineChartView.getTransformer(forAxis: lineChartView.data!.dataSets[0].axisDependency).pixelForValues(x: entry.x, y: entry.y)
+          
+          let image = UIImage(named: "bubble")!
+          let bubbleView = UIImageView(image: image)
+          bubbleView.width = 115
+          bubbleView.height = 115
+          bubbleView.y = point.y + 10
+          bubbleView.center.x = point.x
+          bubbleView.contentMode = .scaleToFill
+          
+          var upsidedownOffset: CGFloat = 0
+          
+          if bubbleView.y + bubbleView.height > 200 {
+               let revertedImage = UIImage(cgImage: image.cgImage!, scale: 1, orientation: UIImage.Orientation.downMirrored)
+               bubbleView.image = revertedImage
+               bubbleView.y -= bubbleView.height + 10 + 10
+               upsidedownOffset = -10
+          }
+          
+          let scoreLabel = UILabel(text: "加权: " + String(format: "%.2f", term.stat.score), color: .black, fontSize: 12)
+          scoreLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
+          let GPALabel = UILabel(text: "绩点: " + String(format: "%.2f", term.stat.gpa), color: .black, fontSize: 12)
+          GPALabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
+          let creditsLabel = UILabel(text: "总学分: " + String(format: "%.1f", term.stat.credit), color: .black, fontSize: 12)
+          creditsLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
+          scoreLabel.frame = CGRect(x: 21.5, y: 22.5 + upsidedownOffset, width: 125, height: 20)
+          GPALabel.frame = CGRect(x: 21.5, y: 52.5 + upsidedownOffset, width: 125, height: 20)
+          creditsLabel.frame = CGRect(x: 21.5, y: 82.5 + upsidedownOffset, width: 125, height: 20)
+          bubbleView.addSubview(scoreLabel)
+          bubbleView.addSubview(GPALabel)
+          bubbleView.addSubview(creditsLabel)
+          
+          bubbleView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+          UIView.animate(withDuration: 0.2, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
+               bubbleView.transform = CGAffineTransform(scaleX: 1, y: 1)
+               chartView.addSubview(bubbleView)
+          }, completion: nil)
+     }
+     
+     func chartValueNothingSelected(_ chartView: ChartViewBase) {
+          
+     }
 }
 
 extension UIColor {
-    static var gpaPink: UIColor {
-        return UIColor(red: 0.99, green: 0.66, blue: 0.60, alpha: 1.00)
-    }
+     static var gpaPink: UIColor {
+          return UIColor(red: 0.99, green: 0.66, blue: 0.60, alpha: 1.00)
+     }
 }

@@ -133,6 +133,7 @@ struct ClasstableDataManager {
           var courses: [ClassModel] = []
           
           for tr in trs {
+               guard tr.count > 1 else { break }
                // 一节课
                let tds = tr.findArray("<td>(.+?)</td>")
                let weeks = tds[6].split(separator: "-").map { $0.description }

@@ -129,9 +129,9 @@ class ClassTableViewController: UIViewController {
                self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
           }
           
-          loadCache()
           if TwTUser.shared.tjuBindingState {
-               perform(#selector(load), with: nil, afterDelay: 1)
+               sleep(UInt32(1))
+               load(auto: true)
           }
           
           NotificationCenter.default.addObserver(self, selector: #selector(refreshClassTable(_:)), name: NotificationName.NotificationClassTableWillRefresh.name, object: nil)
@@ -143,7 +143,7 @@ class ClassTableViewController: UIViewController {
      
      @objc func refreshClassTable(_ notification: Notification) {
           if TwTUser.shared.tjuBindingState {
-               self.load()
+               self.load(auto: true)
           }
      }
      
@@ -263,7 +263,7 @@ class ClassTableViewController: UIViewController {
           })
      }
      
-     func loadCache() {
+     func loadCache(completion: @escaping (Result<String, Error>) -> Void) {
           CacheManager.retreive("classtable/classtable.json", from: .group, as: String.self, success: { string in
                if let table = Mapper<ClassTableModel>().map(JSONString: string) {
                     let now = Date()
@@ -286,17 +286,31 @@ class ClassTableViewController: UIViewController {
                     if let courses = self.weekCourseDict[self.currentWeek] {
                          self.listView.load(courses: courses, weeks: self.currentWeek)
                     }
+                    
+                    completion(.success("缓存读取成功"))
                }
           }, failure: {
                SwiftMessages.showLoading()
+               completion(.failure(WPYCustomError.custom("缓存读取失败")))
           })
      }
-     @objc func load() {
+     @objc func load(auto: Bool = false) {
           guard isRefreshing == false else {
                return
           }
           isRefreshing = true
           startRotating()
+          
+          // 不是手动刷新
+          if auto {
+               loadCache { (result) in
+                    switch result {
+                    case .success(_):
+                         return
+                    case .failure(_):break
+                    }
+               }
+          }
           
           var originTable: ClassTableModel?
           var auditItems: [AuditDetailCourseItem]?
@@ -322,30 +336,43 @@ class ClassTableViewController: UIViewController {
                     return
                }
                
-               switch error {
-               case .custom(let msg):
-                    SwiftMessages.showErrorMessage(body: msg)
-               case .errorCode(let code, _):
-                    if code == 40010 {
-                         SwiftMessages.showErrorMessage(body: "办公网密码错误，请重新绑定办公网")
-                         AccountManager.unbind(url: BindingAPIs.unbindTJUAccount, success: {
-                              TWTKeychain.erase(.tju)
-                              TwTUser.shared.tjuBindingState = false
-                              
-                              let bindVC = TJUBindingViewController()
-                              bindVC.hidesBottomBarWhenPushed = true
-                              bindVC.completion = { success in
-                                   if success {
-                                        self.load()
-                                   }
-                              }
-                              UIViewController.top?.present(bindVC, animated: true, completion: nil)
-                         }, failure: { err in
-                              SwiftMessages.showErrorMessage(body: err.localizedDescription)
-                         })
-                    }
-               }
+               SwiftMessages.showErrorMessage(body: "办公网状态过期")
+               sleep(UInt32(0.5))
+               SwiftMessages.hideAll()
+               //     let loginView = SpiderLoginView()
+               let loginView = LoginView()
+               var config = SwiftMessages.defaultConfig
+               config.presentationStyle = .center
+               config.duration = .forever
+               config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+               config.presentationContext  = .window(windowLevel: .normal)
+               SwiftMessages.show(config: config, view: loginView)
                group.leave()
+              
+//               switch error {
+//               case .custom(let msg):
+//                    SwiftMessages.showErrorMessage(body: msg)
+//               case .errorCode(let code, _):
+//                    if code == 40010 {
+//                         SwiftMessages.showErrorMessage(body: "办公网密码错误，请重新绑定办公网")
+//                         AccountManager.unbind(url: BindingAPIs.unbindTJUAccount, success: {
+//                              TWTKeychain.erase(.tju)
+//                              TwTUser.shared.tjuBindingState = false
+//
+//                              let bindVC = TJUBindingViewController()
+//                              bindVC.hidesBottomBarWhenPushed = true
+//                              bindVC.completion = { success in
+//                                   if success {
+//                                        self.load()
+//                                   }
+//                              }
+//                              UIViewController.top?.present(bindVC, animated: true, completion: nil)
+//                         }, failure: { err in
+//                              SwiftMessages.showErrorMessage(body: err.localizedDescription)
+//                         })
+//                    }
+//               }
+//               group.leave()
           })
           
           group.enter()
