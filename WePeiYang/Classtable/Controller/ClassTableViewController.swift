@@ -307,7 +307,8 @@ class ClassTableViewController: UIViewController {
                     switch result {
                     case .success(_):
                          return
-                    case .failure(_):break
+                    case .failure(_):
+                         SwiftMessages.hideLoading()
                     }
                }
           }
@@ -331,7 +332,7 @@ class ClassTableViewController: UIViewController {
                group.leave()
           }, failure: { error in
                let msg = error.localizedDescription
-               guard let error = error as? WPYCustomError else {
+               guard error is WPYCustomError else {
                     SwiftMessages.showErrorMessage(body: msg)
                     return
                }

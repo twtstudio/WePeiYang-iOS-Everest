@@ -245,7 +245,7 @@ extension DetailSettingViewController: UITableViewDelegate {
                     switch result {
                     case .success(_):
                          WPYStorage.removeAll()
-                         UserDefaults.standard.set(true, forKey: "shakeWiFiEnabled")
+                         UserDefaults.standard.set(false, forKey: "shakeWiFiEnabled")
                          UserDefaults.standard.set(false, forKey: "isOnline")
                          TwTUser.shared.delete()
                          tableView.reloadData()

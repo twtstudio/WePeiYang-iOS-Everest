@@ -89,7 +89,7 @@ struct ClasstableDataManager {
                case .success(let semesterArray):
                     let currentSemester = semesterArray.last ?? Semester()
                     
-                    fetch(urlString: "http://classes.tju.edu.cn/eams/courseTableForStd.action") { result in
+                    fetch(urlString: "http://classes.tju.edu.cn/eams/courseTableForStd!innerIndex.action") { result in
                          switch result {
                          case .success(let html):
                               let ids = html.find("\"ids\",\"([^\"]+)\"")

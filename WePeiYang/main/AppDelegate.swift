@@ -64,6 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           mainTabVC = WPYTabBarController()
           
           // FIXME: 20200905 只启用课程表GPA和考表
+          UserDefaults.standard.set(false, forKey: "shakeWiFiEnabled")
           UserDefaults.standard.set(["活动": -6, "GPA": 2, "课程表": 1,
                                      "图书馆": -3, "校园卡": -4, "考表": 5], forKey: ModuleArrangementKey)
           
