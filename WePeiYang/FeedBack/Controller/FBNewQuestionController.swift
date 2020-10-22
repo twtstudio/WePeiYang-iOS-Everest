@@ -191,7 +191,7 @@ extension FBNewQuestionViewController {
                     self.present(alert, animated: true)
                     return
                }
-               guard selectedTags.count >= 3 else {
+               guard selectedTags.count >= 3 || selectedTags[1].name == "其他" else {
                     let alert = UIAlertController(title: "提示", message: "请在“分类”中至少选择三个标签。如不确定问题归属，请选择“其他”。", preferredStyle: .alert)
                     let action1 = UIAlertAction(title: "好的", style: .cancel, handler: nil)
                     alert.addAction(action1)

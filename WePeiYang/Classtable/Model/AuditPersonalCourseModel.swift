@@ -8,8 +8,6 @@
 
 import Foundation
 
-import Foundation
-
 struct AuditPersonalCourseModel: Codable {
     let errorCode: Int
     let message: String
