@@ -76,7 +76,7 @@ class PhoneBook {
     }
     
     static func checkVersion(success: @escaping () -> Void, failure: @escaping () -> Void) {
-        SolaSessionManager.solaSession(url: PhoneBook.url, success: { dict in
+     SolaSessionManager.solaSession(url: PhoneBook.url, token: TwTUser.shared.token, success: { dict in
             let data = try? JSONSerialization.data(withJSONObject: dict, options: [])
             
             if let welcome = try? JSONDecoder().decode(Welcome.self, from: data!) {
@@ -160,6 +160,10 @@ extension PhoneBook {
                 let sections = Storage.retreive("yellowpage/sections.json", from: .documents, as: [String].self),
                 let favorite = Storage.retreive("yellowpage/favorite.json", from: .documents, as: [UnitItem].self),
                 let departments = Storage.retreive("yellowpage/departments.json", from: .documents, as: [String: Int].self) {
+               if items.isEmpty {
+                    failure()
+                    return
+               }
                 PhoneBook.shared.items = items
                 PhoneBook.shared.members = members
                 PhoneBook.shared.sections = sections

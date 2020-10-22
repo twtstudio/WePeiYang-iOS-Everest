@@ -36,7 +36,13 @@ struct ArrangeModel: Mappable {
     var endTime: String {
         return end > 0 && end <= timeArray.count ? timeArray[end-1].end : ""
     }
-
+    init(week: String, day: Int, start: Int, end: Int, room: String) {
+        self.week = week
+        self.day = day
+        self.start = start
+        self.end = end
+        self.room = room
+    }
     init?(map: Map) {}
 
     mutating func mapping(map: Map) {

@@ -59,6 +59,12 @@ extension String {
           let end = index(startIndex, offsetBy: r.upperBound)
           return String(self[start...end])
      }
+     func firstIndex(of element: Character) -> Int {
+          return self.distance(from: self.startIndex, to: self.firstIndex(of: element) ?? self.startIndex) - 1
+     }
+     func lastIndex(of element: Character) -> Int {
+          return self.distance(from: self.startIndex, to: self.lastIndex(of: element) ?? self.endIndex) - 1
+     }
      func findFirst(_ sub:String)->Int {
           var pos = -1
           if let range = range(of:sub, options: .literal ) {
@@ -68,7 +74,68 @@ extension String {
           }
           return pos
      }
+     func find(_ pattern: String, at group: Int = 1) -> String {
+          let regex: NSRegularExpression
+          do {
+               regex = try NSRegularExpression(pattern: pattern, options: .dotMatchesLineSeparators)
+          } catch {
+               print(error.localizedDescription)
+               return ""
+          }
+          
+          guard let match = regex.firstMatch(in: self, range: NSRange(location: 0, length: self.count)) else {
+               return ""
+          }
+          
+          guard let range = Range(match.range(at: group), in: self) else {
+               return ""
+          }
+          
+          return String(self[range])
+     }
      
+     func findArray(_ pattern: String, at group: Int = 1) -> [String] {
+          let regex: NSRegularExpression
+          do {
+               regex = try NSRegularExpression(pattern: pattern, options: .dotMatchesLineSeparators)
+          } catch {
+               print(error.localizedDescription)
+               return []
+          }
+          
+          let matches = regex.matches(in: self, options: .withoutAnchoringBounds, range: NSRange(location: 0, length: self.count))
+          
+          var array = [String]()
+          for match in matches {
+               guard let range = Range(match.range(at: group), in: self) else {
+                    return []
+               }
+               array.append(String(self[range]))
+          }
+          
+          return array
+     }
+     
+     // Good Alternative!
+     func findArrays(_ pattern: String) -> [[String]] {
+          do {
+               let regex = try NSRegularExpression(pattern: pattern, options: .dotMatchesLineSeparators)
+               let matches = regex.matches(in: self, range: NSRange(location: 0, length: self.count))
+               
+               return matches.map { match in
+                    return (0..<match.numberOfRanges).map {
+                         let rangeBounds = match.range(at: $0)
+                         guard let range = Range(rangeBounds, in: self) else {
+                              return ""
+                         }
+                         return String(self[range])
+                    }
+               }
+          } catch {
+               print(error.localizedDescription)
+               return []
+          }
+     }
 }
 
 extension UIFont {

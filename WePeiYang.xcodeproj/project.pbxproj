@@ -297,6 +297,11 @@
 		D3849B3F251BA84300B49D6C /* FBCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3849B3E251BA84300B49D6C /* FBCommentTableViewCell.swift */; };
 		D3849B45251BA97800B49D6C /* FBDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3849B44251BA97800B49D6C /* FBDetailHeaderView.swift */; };
 		D3849B5B251C5CDB00B49D6C /* FBDetailTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3849B5A251C5CDA00B49D6C /* FBDetailTabBarView.swift */; };
+		D39D3F6C2535FDA900D77173 /* GPAModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39D3F6B2535FDA900D77173 /* GPAModel.swift */; };
+		D3B785B62532DD7200BB54DB /* WPYNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B785AA2532DD7200BB54DB /* WPYNetwork.swift */; };
+		D3B785B82532DD7200BB54DB /* Semester.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B785AD2532DD7200BB54DB /* Semester.swift */; };
+		D3B785B92532DD7200BB54DB /* WPYStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B785AE2532DD7200BB54DB /* WPYStorage.swift */; };
+		D3B785BD2532DD7200BB54DB /* SpiderLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B785B52532DD7200BB54DB /* SpiderLoginView.swift */; };
 		D3E327662503CC760037B49F /* MallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E327622503CC760037B49F /* MallViewController.swift */; };
 		D3E327672503CC760037B49F /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E327632503CC760037B49F /* AllModulesViewController.swift */; };
 		D3E327682503CC760037B49F /* ModuleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E327652503CC760037B49F /* ModuleCollectionViewCell.swift */; };
@@ -315,12 +320,8 @@
 		DD0B75FB2158C6ED009A392C /* YellowPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B75E72158C6ED009A392C /* YellowPageCell.swift */; };
 		DD0B76232158CBA6009A392C /* GPAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B76162158CBA5009A392C /* GPAViewController.swift */; };
 		DD0B76242158CBA6009A392C /* CourseAppraiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B76172158CBA5009A392C /* CourseAppraiseViewController.swift */; };
-		DD0B76252158CBA6009A392C /* GPATermModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B76192158CBA5009A392C /* GPATermModel.swift */; };
-		DD0B76262158CBA6009A392C /* GPAModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B761A2158CBA5009A392C /* GPAModel.swift */; };
 		DD0B76272158CBA6009A392C /* CourseAppraiseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B761B2158CBA5009A392C /* CourseAppraiseManager.swift */; };
 		DD0B76282158CBA6009A392C /* GPASessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B761C2158CBA5009A392C /* GPASessionManager.swift */; };
-		DD0B76292158CBA6009A392C /* GPAClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B761D2158CBA5009A392C /* GPAClassModel.swift */; };
-		DD0B762A2158CBA6009A392C /* GPAStatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B761E2158CBA5009A392C /* GPAStatModel.swift */; };
 		DD0B762B2158CBA6009A392C /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B76202158CBA5009A392C /* StarView.swift */; };
 		DD0B762C2158CBA6009A392C /* ScoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B76212158CBA5009A392C /* ScoreHeaderView.swift */; };
 		DD0B762D2158CBA6009A392C /* CourseAppraiseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B76222158CBA5009A392C /* CourseAppraiseCell.swift */; };
@@ -680,6 +681,11 @@
 		D3849B3E251BA84300B49D6C /* FBCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBCommentTableViewCell.swift; sourceTree = "<group>"; };
 		D3849B44251BA97800B49D6C /* FBDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBDetailHeaderView.swift; sourceTree = "<group>"; };
 		D3849B5A251C5CDA00B49D6C /* FBDetailTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBDetailTabBarView.swift; sourceTree = "<group>"; };
+		D39D3F6B2535FDA900D77173 /* GPAModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAModel.swift; sourceTree = "<group>"; };
+		D3B785AA2532DD7200BB54DB /* WPYNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYNetwork.swift; sourceTree = "<group>"; };
+		D3B785AD2532DD7200BB54DB /* Semester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Semester.swift; sourceTree = "<group>"; };
+		D3B785AE2532DD7200BB54DB /* WPYStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYStorage.swift; sourceTree = "<group>"; };
+		D3B785B52532DD7200BB54DB /* SpiderLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpiderLoginView.swift; sourceTree = "<group>"; };
 		D3E327622503CC760037B49F /* MallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MallViewController.swift; sourceTree = "<group>"; };
 		D3E327632503CC760037B49F /* AllModulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllModulesViewController.swift; sourceTree = "<group>"; };
 		D3E327652503CC760037B49F /* ModuleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -699,12 +705,8 @@
 		DD0B75E72158C6ED009A392C /* YellowPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowPageCell.swift; sourceTree = "<group>"; };
 		DD0B76162158CBA5009A392C /* GPAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAViewController.swift; sourceTree = "<group>"; };
 		DD0B76172158CBA5009A392C /* CourseAppraiseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseViewController.swift; sourceTree = "<group>"; };
-		DD0B76192158CBA5009A392C /* GPATermModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPATermModel.swift; sourceTree = "<group>"; };
-		DD0B761A2158CBA5009A392C /* GPAModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAModel.swift; sourceTree = "<group>"; };
 		DD0B761B2158CBA5009A392C /* CourseAppraiseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseManager.swift; sourceTree = "<group>"; };
 		DD0B761C2158CBA5009A392C /* GPASessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPASessionManager.swift; sourceTree = "<group>"; };
-		DD0B761D2158CBA5009A392C /* GPAClassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAClassModel.swift; sourceTree = "<group>"; };
-		DD0B761E2158CBA5009A392C /* GPAStatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAStatModel.swift; sourceTree = "<group>"; };
 		DD0B76202158CBA5009A392C /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		DD0B76212158CBA5009A392C /* ScoreHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreHeaderView.swift; sourceTree = "<group>"; };
 		DD0B76222158CBA5009A392C /* CourseAppraiseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseAppraiseCell.swift; sourceTree = "<group>"; };
@@ -1096,6 +1098,7 @@
 		365A8A191FB9BA8500B15443 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D3B785AD2532DD7200BB54DB /* Semester.swift */,
 				365A8A1A1FB9BA8500B15443 /* ArrangeModel.swift */,
 				DD41A82E21A3265800886BB4 /* PopularListModel.swift */,
 				DD41A83821A4FE8100886BB4 /* AuditCollegeModel.swift */,
@@ -1463,6 +1466,8 @@
 		B10253DF1EC84ED90064373A /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				D3B785AA2532DD7200BB54DB /* WPYNetwork.swift */,
+				D3B785AE2532DD7200BB54DB /* WPYStorage.swift */,
 				B10253E01EC84ED90064373A /* AccountManager.swift */,
 				B10253E11EC84ED90064373A /* CacheManager.swift */,
 				B10253E21EC84ED90064373A /* SolaSessionManager.swift */,
@@ -1511,6 +1516,7 @@
 				B10254181EC8547E0064373A /* WPYTabBarController.swift */,
 				36FCC2D420544E35003379AE /* LoadingView.xib */,
 				3668CE542159E121002673BE /* WPYTextField.swift */,
+				D3B785B52532DD7200BB54DB /* SpiderLoginView.swift */,
 				36FCC2D820545967003379AE /* LoginView.swift */,
 				3659366A1F1E2ECF003CE578 /* ExtendedButton.swift */,
 				36758FDC1FDA851C0023A99C /* CardView.swift */,
@@ -1603,6 +1609,7 @@
 				4B62250F245D73F3005EFA6A /* CodeScan */,
 				4BAB5959242836BC00155AD0 /* ClassroomCheck */,
 				78FB9E62217AE66A001DE39A /* LostFound */,
+				365A8A131FB9BA8500B15443 /* ClassTable */,
 				DD0B76142158CBA5009A392C /* GPA */,
 				DD0B75CC2158C6ED009A392C /* YellowPage */,
 				36366B351FAC61B6001F72A0 /* WePeiYang.entitlements */,
@@ -1618,7 +1625,6 @@
 				3615A9C121AC80BD001D1522 /* ECard */,
 				B181B9551EC5C21700B8198E /* Favorite */,
 				A5159FDB1FB0731B00B466F2 /* WLANLogin */,
-				365A8A131FB9BA8500B15443 /* ClassTable */,
 				A5D695141F8A21AD00022B9A /* Bicycle */,
 				36449E3A1FA4BA660036766B /* PartyService */,
 				3667E1CB201CB3B400E82241 /* Settings */,
@@ -1757,12 +1763,9 @@
 		DD0B76182158CBA5009A392C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DD0B76192158CBA5009A392C /* GPATermModel.swift */,
-				DD0B761A2158CBA5009A392C /* GPAModel.swift */,
 				DD0B761B2158CBA5009A392C /* CourseAppraiseManager.swift */,
+				D39D3F6B2535FDA900D77173 /* GPAModel.swift */,
 				DD0B761C2158CBA5009A392C /* GPASessionManager.swift */,
-				DD0B761D2158CBA5009A392C /* GPAClassModel.swift */,
-				DD0B761E2158CBA5009A392C /* GPAStatModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2132,6 +2135,7 @@
 				78FB9E7A217AEC0B001DE39A /* LostFoundAPI.swift in Sources */,
 				36449E921FA4BAD10036766B /* AllQuizViewController.swift in Sources */,
 				4B62252E245D76D5005EFA6A /* QRCodeView.swift in Sources */,
+				D3B785B92532DD7200BB54DB /* WPYStorage.swift in Sources */,
 				36449E481FA4BA9B0036766B /* ApplicantTest.swift in Sources */,
 				361F8863204AF94200BCFA19 /* NewsTableViewCell.swift in Sources */,
 				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,
@@ -2149,7 +2153,6 @@
 				4B62253E245D77FF005EFA6A /* ActivityDetailModel.swift in Sources */,
 				365A8A281FB9CA1700B15443 /* ClassModel.swift in Sources */,
 				78FB9E97217AEEF4001DE39A /* MyLostFoundPageViewController.swift in Sources */,
-				DD0B76262158CBA6009A392C /* GPAModel.swift in Sources */,
 				4BAB59702428395C00155AD0 /* TitleView.swift in Sources */,
 				364BDF6C1FDAD41100E61B65 /* CardViewTransitionAnimator.swift in Sources */,
 				DD0B762C2158CBA6009A392C /* ScoreHeaderView.swift in Sources */,
@@ -2190,7 +2193,6 @@
 				A5E117B51F99DBFC00C86CA2 /* BicycleAPIs.swift in Sources */,
 				3614D54921D9251A0007B886 /* ExamAssistant.swift in Sources */,
 				4BAB598E24283BBA00155AD0 /* CollectionListModel.swift in Sources */,
-				DD0B76292158CBA6009A392C /* GPAClassModel.swift in Sources */,
 				DD41A83B21A52F7100886BB4 /* AuditSearchModel.swift in Sources */,
 				78FB9E93217AEEC5001DE39A /* LostViewController.swift in Sources */,
 				365A46462035E35500738963 /* Storage.swift in Sources */,
@@ -2213,11 +2215,11 @@
 				361F8857204AF92100BCFA19 /* NewsReporter.swift in Sources */,
 				78FB9E73217AEB1B001DE39A /* PublishCustomCell.swift in Sources */,
 				36F631EF1FAB31C500E3261F /* BicycleServiceMapController.swift in Sources */,
-				DD0B76252158CBA6009A392C /* GPATermModel.swift in Sources */,
 				3614D57E21D929FE0007B886 /* BookDetailTableViewCell.swift in Sources */,
 				DD2A2ABF21B2DEBB00EA6F8F /* CourseCollectionViewCell.swift in Sources */,
 				DD0B75FB2158C6ED009A392C /* YellowPageCell.swift in Sources */,
 				78B400E7219C6366006A8A45 /* AuditHomeViewController.swift in Sources */,
+				D3B785B62532DD7200BB54DB /* WPYNetwork.swift in Sources */,
 				361F885E204AF92D00BCFA19 /* BannerCell.swift in Sources */,
 				36DA7A5D1FA8A35C000DAF2B /* CacheManager.swift in Sources */,
 				4B622536245D775C005EFA6A /* MyColor.swift in Sources */,
@@ -2242,6 +2244,7 @@
 				3614D55321D928BB0007B886 /* WLANLoginViewController.swift in Sources */,
 				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
 				36449E8A1FA4BAD10036766B /* PartyPersonalStatusViewController.swift in Sources */,
+				D3B785B82532DD7200BB54DB /* Semester.swift in Sources */,
 				4BAB597E24283A4C00155AD0 /* SecondCell.swift in Sources */,
 				DD0B75FA2158C6ED009A392C /* SearchView.swift in Sources */,
 				78FB9E8B217AEE4C001DE39A /* LFWaterFlowViewLayout.swift in Sources */,
@@ -2249,11 +2252,11 @@
 				369D92092015D97A004BA1D0 /* WeekItemCell.swift in Sources */,
 				D3F5913D252474D900B7BA90 /* FBReplyDetailView.swift in Sources */,
 				36449E8B1FA4BAD10036766B /* PartyMainViewController.swift in Sources */,
-				DD0B762A2158CBA6009A392C /* GPAStatModel.swift in Sources */,
 				36449E841FA4BAD10036766B /* TwentyCourseScoreViewController.swift in Sources */,
 				2B6022EB250F0245003CDE94 /* FeedBackMainViewController.swift in Sources */,
 				36449E6D1FA4BABA0036766B /* FinalView.swift in Sources */,
 				36449E471FA4BA9B0036766B /* Checkbox.swift in Sources */,
+				D3B785BD2532DD7200BB54DB /* SpiderLoginView.swift in Sources */,
 				36449E871FA4BAD10036766B /* QuizTakingViewController.swift in Sources */,
 				3614D57A21D929FE0007B886 /* BookDetailTableHeaderView.swift in Sources */,
 				4B62253C245D77D3005EFA6A /* AuotherModel.swift in Sources */,
@@ -2382,6 +2385,7 @@
 				DD0B75F32158C6ED009A392C /* YellowPageSearchViewController.swift in Sources */,
 				A53602691FC6EC0500E3D1AF /* TJUBindingViewController.swift in Sources */,
 				78FB9E65217AE69D001DE39A /* LFCollectionReusableHeaderView.swift in Sources */,
+				D39D3F6C2535FDA900D77173 /* GPAModel.swift in Sources */,
 				78FB9E6B217AEA9D001DE39A /* LFSearchCustomCell.swift in Sources */,
 				4BAB598C24283B9C00155AD0 /* CancelCollectionModel.swift in Sources */,
 				78FB9E7C217AEC36001DE39A /* LostFoundDetailModel.swift in Sources */,
@@ -2448,13 +2452,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202010101800;
+				CURRENT_PROJECT_VERSION = 202010211800;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 3.6.3;
+				MARKETING_VERSION = 3.6.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.twt.WePeiYang.WePeiYangWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2484,13 +2488,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202010101800;
+				CURRENT_PROJECT_VERSION = 202010211800;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 3.6.3;
+				MARKETING_VERSION = 3.6.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.twt.WePeiYang.WePeiYangWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2623,12 +2627,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202010101800;
+				CURRENT_PROJECT_VERSION = 202010211800;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				INFOPLIST_FILE = WePeiYang/main/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.6.3;
+				MARKETING_VERSION = 3.6.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.twt.WePeiYang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2652,12 +2656,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202010101800;
+				CURRENT_PROJECT_VERSION = 202010211800;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				INFOPLIST_FILE = WePeiYang/main/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.6.3;
+				MARKETING_VERSION = 3.6.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.twt.WePeiYang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

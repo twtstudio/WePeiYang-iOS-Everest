@@ -241,13 +241,21 @@ extension DetailSettingViewController: UITableViewDelegate {
             let cancelButton = CancelButton(title: "不了", action: nil)
 
             let defaultButton = DestructiveButton(title: "退出", dismissOnTap: true) {
-                UserDefaults.standard.set(true, forKey: "shakeWiFiEnabled")
-                UserDefaults.standard.set(false, forKey: "isOnline")
-                TwTUser.shared.delete()
-                tableView.reloadData()
-                ClassTableNotificationHelper.removeNotification()
-                NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
-                self.navigationController?.popViewController(animated: true)
+               AccountManager.logoutAccount { (result) in
+                    switch result {
+                    case .success(_):
+                         WPYStorage.removeAll()
+                         UserDefaults.standard.set(false, forKey: "shakeWiFiEnabled")
+                         UserDefaults.standard.set(false, forKey: "isOnline")
+                         TwTUser.shared.delete()
+                         tableView.reloadData()
+                         ClassTableNotificationHelper.removeNotification()
+                         NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
+                         self.navigationController?.popViewController(animated: true)
+                    case .failure(let error):
+                         SwiftMessages.showErrorMessage(body: error.localizedDescription)
+                    }
+               }
             }
             popup.addButtons([cancelButton, defaultButton])
             self.present(popup, animated: true, completion: nil)

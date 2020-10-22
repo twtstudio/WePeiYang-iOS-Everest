@@ -46,16 +46,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                }, failure: { _ in
                     
                })
-               AccountManager.getSelf(success: {
-                    if let deviceToken = UserDefaults.standard.string(forKey: "deviceToken"),
-                       let uid = TwTUser.shared.twtid,
-                       let uuid = UIDevice.current.identifierForVendor?.uuidString {
-                         let para = ["utoken": deviceToken, "uid": uid, "udid": uuid, "ua": DeviceStatus.userAgent]
-                         SolaSessionManager.solaSession(type: .post, url: "/push/token/ENcJ1ZYDBaCvC8aM76RnnrT25FPqQg", token: nil, parameters: para, success: nil, failure: nil)
-                    }
-               }, failure: {
-                    
-               })
+               // FIXME: 暂用爬虫
+//               AccountManager.getSelf(success: {
+//                    if let deviceToken = UserDefaults.standard.string(forKey: "deviceToken"),
+//                       let uid = TwTUser.shared.twtid,
+//                       let uuid = UIDevice.current.identifierForVendor?.uuidString {
+//                         let para = ["utoken": deviceToken, "uid": uid, "udid": uuid, "ua": DeviceStatus.userAgent]
+//                         SolaSessionManager.solaSession(type: .post, url: "/push/token/ENcJ1ZYDBaCvC8aM76RnnrT25FPqQg", token: nil, parameters: para, success: nil, failure: nil)
+//                    }
+//               }, failure: {
+//
+//               })
           }, failure: {
                // 让他重新登录
           })
@@ -63,6 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           mainTabVC = WPYTabBarController()
           
           // FIXME: 20200905 只启用课程表GPA和考表
+          UserDefaults.standard.set(false, forKey: "shakeWiFiEnabled")
           UserDefaults.standard.set(["活动": -6, "GPA": 2, "课程表": 1,
                                      "图书馆": -3, "校园卡": -4, "考表": 5], forKey: ModuleArrangementKey)
           
@@ -95,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           UITabBar.appearance().tintColor = Metadata.Color.WPYAccentColor
           //        UITabBar.appearance().isOpaque = true
           
-          mainTabVC.selectedIndex = 2
+          mainTabVC.selectedIndex = 0
           if #available(iOS 10.0, *) {
                mainTabVC.tabBar.unselectedItemTintColor = Metadata.Color.grayIconColor
           } else {
@@ -135,11 +137,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      func showNewFeature() {
           let NewFeatureVersionKey = "NewFeatureVersionKey"
           // plus one next version
-          let currentVersion = 4
-          
+          let currentVersion = 5
+
           let version = UserDefaults.standard.integer(forKey: NewFeatureVersionKey)
           if currentVersion > version {
-               let popup = PopupDialog(title: "公告", message: "由于天外天账号系统升级，天外天账号更改为学号，密码更改为身份证号后 6 位（若身份证的最后一位为 X 请大写），请在校园网环境使用。您可以在 i.twt.edu.cn 更新密码、绑定邮箱。\n最近的服务出现了许多问题，我们有着不可推卸的责任，我们正在全力修复包括微北洋在内的天外天服务，给您带来的不便还请多多包涵，若存在其他疑问和建议请加 QQ 群 738064793。", buttonAlignment: .vertical)
+          // FIXME: Dynamic Popup
+               let popup = PopupDialog(title: "公告", message: "天外天用户社区的各位同学：\n近期由于办公网验证变化等多方面因素，微北洋出现登录异常、绑定办公网异常等多种问题，工作室的程序猿和程序猿们已经在热烈的修复中。修复期间，iOS系统的同学可以在更新iOS14后在App Store下载轻北洋作为替代，安卓系统的同学需要再稍加等候。我们在近期会对安卓和iOS平台发布新版本的微北洋，以修复上述问题，为大家提供优质服务。我代表天外天工作室，对近期的服务异常表示深刻的歉意。同时欢迎大家反馈或提出对微北洋的功能和页面建议，我们会努力进步的！感谢大家的理解和支持！", buttonAlignment: .vertical)
                //            let cancelButton = CancelButton(title: "取消", action: nil)
                let goButton = DefaultButton(title: "确认", action: {
                     UserDefaults.standard.set(currentVersion, forKey: NewFeatureVersionKey)

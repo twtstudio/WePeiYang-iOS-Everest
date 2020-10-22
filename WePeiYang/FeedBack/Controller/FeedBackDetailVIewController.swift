@@ -137,6 +137,11 @@ extension FeedBackDetailViewController {
           }
      }
      @objc func keyboardDisappear(note: Notification)  {
+          textView.endEditing(true)
+          if textView.text == "" {
+               textView.text = "输入你的看法"
+               textView.textColor = UIColor(hex6: 0xdbdbdb)
+          }
           self.commentView.isHidden = true
           UIView.animate(withDuration: 1) {
                self.commentView.transform = CGAffineTransform.identity
