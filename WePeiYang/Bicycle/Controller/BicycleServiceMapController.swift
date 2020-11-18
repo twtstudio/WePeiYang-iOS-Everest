@@ -28,12 +28,12 @@ class BicycleServiceMapController: UIViewController {
 
     @objc func whereAmI(sender: UIButton!) {
         // 迷醉？
-        if let userLoc: MKUserLocation = newMapView.userLocation {
-            let cl = CLLocation(latitude: userLoc.coordinate.latitude, longitude: userLoc.coordinate.longitude)
-            centerMapOnLocation(location: cl)
-        } else {
-            checkLocationAuthorizationStatus()
-        }
+     let userLoc: MKUserLocation = newMapView.userLocation
+     let cl = CLLocation(latitude: userLoc.coordinate.latitude, longitude: userLoc.coordinate.longitude)
+     centerMapOnLocation(location: cl)
+     //        } else {
+     //            checkLocationAuthorizationStatus()
+     //        }
     }
     var newMapView = MKMapView()
 
