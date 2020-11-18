@@ -10,7 +10,6 @@
 		0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */; };
 		1B20B1FF52E995B4AC3D3EDE /* Pods_WePeiYangWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E48DF45006ADE8419C6CF0C /* Pods_WePeiYangWidget.framework */; };
 		2B6022EB250F0245003CDE94 /* FeedBackMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6022EA250F0245003CDE94 /* FeedBackMainViewController.swift */; };
-		2B60230D250F53A4003CDE94 /* FBNewQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B60230C250F53A4003CDE94 /* FBNewQuestionController.swift */; };
 		2B602312250FE650003CDE94 /* FeedBackDetailVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B602311250FE650003CDE94 /* FeedBackDetailVIewController.swift */; };
 		2BAB12922517293600FF6EEF /* FBSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB12912517293600FF6EEF /* FBSearchResultsViewController.swift */; };
 		2BAB129E251729A700FF6EEF /* QusetionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB129D251729A700FF6EEF /* QusetionHelper.swift */; };
@@ -305,6 +304,7 @@
 		D3E327662503CC760037B49F /* MallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E327622503CC760037B49F /* MallViewController.swift */; };
 		D3E327672503CC760037B49F /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E327632503CC760037B49F /* AllModulesViewController.swift */; };
 		D3E327682503CC760037B49F /* ModuleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E327652503CC760037B49F /* ModuleCollectionViewCell.swift */; };
+		D3E575B725655C09002DA616 /* FBNewQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E575B625655C09002DA616 /* FBNewQuestionController.swift */; };
 		D3F591312524728D00B7BA90 /* FBQuestionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F591302524728D00B7BA90 /* FBQuestionTableViewController.swift */; };
 		D3F59137252472D700B7BA90 /* feedback_add_question_load_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = D3F59136252472D700B7BA90 /* feedback_add_question_load_animation.json */; };
 		D3F5913D252474D900B7BA90 /* FBReplyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5913C252474D900B7BA90 /* FBReplyDetailView.swift */; };
@@ -386,7 +386,6 @@
 		0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6022EA250F0245003CDE94 /* FeedBackMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackMainViewController.swift; sourceTree = "<group>"; };
-		2B60230C250F53A4003CDE94 /* FBNewQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBNewQuestionController.swift; sourceTree = "<group>"; };
 		2B602311250FE650003CDE94 /* FeedBackDetailVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackDetailVIewController.swift; sourceTree = "<group>"; };
 		2BAB12912517293600FF6EEF /* FBSearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBSearchResultsViewController.swift; sourceTree = "<group>"; };
 		2BAB129D251729A700FF6EEF /* QusetionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QusetionHelper.swift; sourceTree = "<group>"; };
@@ -689,6 +688,7 @@
 		D3E327622503CC760037B49F /* MallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MallViewController.swift; sourceTree = "<group>"; };
 		D3E327632503CC760037B49F /* AllModulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllModulesViewController.swift; sourceTree = "<group>"; };
 		D3E327652503CC760037B49F /* ModuleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleCollectionViewCell.swift; sourceTree = "<group>"; };
+		D3E575B625655C09002DA616 /* FBNewQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBNewQuestionController.swift; sourceTree = "<group>"; };
 		D3F591302524728D00B7BA90 /* FBQuestionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBQuestionTableViewController.swift; sourceTree = "<group>"; };
 		D3F59136252472D700B7BA90 /* feedback_add_question_load_animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = feedback_add_question_load_animation.json; sourceTree = "<group>"; };
 		D3F5913C252474D900B7BA90 /* FBReplyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBReplyDetailView.swift; sourceTree = "<group>"; };
@@ -808,7 +808,7 @@
 				2B602311250FE650003CDE94 /* FeedBackDetailVIewController.swift */,
 				D3F591302524728D00B7BA90 /* FBQuestionTableViewController.swift */,
 				D31D395225224ABD0001137E /* FBUserViewController.swift */,
-				2B60230C250F53A4003CDE94 /* FBNewQuestionController.swift */,
+				D3E575B625655C09002DA616 /* FBNewQuestionController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2026,7 +2026,6 @@
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 				"${BUILT_PRODUCTS_DIR}/WMPageController/WMPageController.framework",
-				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2045,7 +2044,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WMPageController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2196,7 +2194,6 @@
 				DD41A83B21A52F7100886BB4 /* AuditSearchModel.swift in Sources */,
 				78FB9E93217AEEC5001DE39A /* LostViewController.swift in Sources */,
 				365A46462035E35500738963 /* Storage.swift in Sources */,
-				2B60230D250F53A4003CDE94 /* FBNewQuestionController.swift in Sources */,
 				A5E117B31F99DBD700C86CA2 /* ParkingSpots.swift in Sources */,
 				365A8A231FB9BA8500B15443 /* ArrangeModel.swift in Sources */,
 				3687C39621B98AF400288557 /* TwTKeychain.swift in Sources */,
@@ -2236,6 +2233,7 @@
 				361F885D204AF92D00BCFA19 /* BannerScrollView.swift in Sources */,
 				3615A9CA21ACEBDC001D1522 /* CardTransectionViewController.swift in Sources */,
 				DD0B76282158CBA6009A392C /* GPASessionManager.swift in Sources */,
+				D3E575B725655C09002DA616 /* FBNewQuestionController.swift in Sources */,
 				DD41A83521A4748F00886BB4 /* AuditDetailViewController.swift in Sources */,
 				DDC7891E21B1302C00ABA33F /* CourseNode.swift in Sources */,
 				3685D9F1204D276100BA6C3D /* NewsDetailModel.swift in Sources */,

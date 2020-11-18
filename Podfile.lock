@@ -8,7 +8,6 @@ PODS:
   - IGIdenticon (0.7)
   - JBChartView (3.0.13)
   - KeychainAccess (3.1.2)
-  - lottie-ios (3.1.8)
   - MJRefresh (3.1.15.7)
   - ObjectMapper (3.3.0)
   - PopupDialog (1.1.1):
@@ -34,7 +33,6 @@ DEPENDENCIES:
   - IGIdenticon (= 0.7)
   - JBChartView (= 3.0.13)
   - KeychainAccess (= 3.1.2)
-  - lottie-ios
   - MJRefresh (= 3.1.15.7)
   - ObjectMapper (= 3.3.0)
   - PopupDialog (= 1.1.1)
@@ -55,7 +53,6 @@ SPEC REPOS:
     - IGIdenticon
     - JBChartView
     - KeychainAccess
-    - lottie-ios
     - MJRefresh
     - ObjectMapper
     - PopupDialog
@@ -75,7 +72,6 @@ SPEC CHECKSUMS:
   IGIdenticon: bf5e07ad687e45afda224ac273b950becec17852
   JBChartView: ea240dca7b83a92f47d4ae766beb3714753988a1
   KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b
-  lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
   PopupDialog: 720c92befd8bc23c13442254945213db5612f149
@@ -87,6 +83,6 @@ SPEC CHECKSUMS:
   SwiftMessages: 633304165351b8e3dcbb81a71f8efcd86f9c1669
   WMPageController: 9f219bb8912a1a1f51af11fde61e2682a7b7e7f2
 
-PODFILE CHECKSUM: 02bfc52c84f8afe04ce889d18868236d92eb00ca
+PODFILE CHECKSUM: 1d520428d1efb6ce0c7b1af45183110e40bb6819
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.0

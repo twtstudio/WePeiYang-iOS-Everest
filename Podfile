@@ -36,7 +36,7 @@ target 'WePeiYang' do
   pod 'PopupDialog', '1.1.1'
   pod 'Floaty', '4.2.0'
   pod 'SKPhotoBrowser', '6.1.0'
-  pod 'lottie-ios'
+ # pod 'lottie-ios'
 end
 
   

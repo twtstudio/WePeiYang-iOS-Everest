@@ -197,6 +197,36 @@ extension UIView {
           
           self.layer.addSublayer(line)
      }
+     /// 绘制虚线
+     /// - Parameters:
+     ///   - strokeColor: 虚线颜色
+     ///   - lineWidth: 虚线宽度
+     ///   - lineLength: 每段虚线的长度
+     ///   - lineSpacing: 每段虚线的间隔
+     private func drawDashLine(strokeColor: UIColor = .black,
+                               lineWidth: CGFloat = 0.5,
+                               lineLength: Int = 4,
+                               lineSpacing: Int = 4,
+                               points: CGPoint...) {
+          let linePath = UIBezierPath()
+          linePath.move(to: points.first!)
+          for point in points.dropFirst() {
+               linePath.addLine(to: point)
+          }
+          
+          let line = CAShapeLayer()
+          line.path = linePath.cgPath
+          line.fillColor = UIColor.blue.cgColor
+          line.strokeColor = strokeColor.cgColor
+          
+          line.lineWidth = lineWidth
+          line.lineJoin = CAShapeLayerLineJoin.round
+          line.lineDashPhase = 0
+          //每一段虚线长度 和 每两段虚线之间的间隔
+          line.lineDashPattern = [NSNumber(value: lineLength), NSNumber(value: lineSpacing)]
+          
+          self.layer.addSublayer(line)
+     }
 }
 
 extension NSAttributedString {

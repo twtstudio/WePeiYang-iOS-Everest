@@ -48,6 +48,10 @@ class FBTagCollectionViewCell: UICollectionViewCell {
           tagSelected = selected
      }
      
+     func toggle() {
+          tagSelected?.toggle()
+     }
+     
      override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
           let layout = super.preferredLayoutAttributesFitting(layoutAttributes)
           if !label.text!.isEmpty {
