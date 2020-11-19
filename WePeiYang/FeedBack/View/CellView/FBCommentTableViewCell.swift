@@ -34,6 +34,12 @@ class FBCommentTableViewCell: UITableViewCell {
      }
      var commentID: Int!
      
+     var starRateView: FBStarRateView?
+
+//     override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+//          print("touched \(touch.view.debugDescription)")
+//          return true
+//     }
      
      override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
           super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -134,6 +140,30 @@ class FBCommentTableViewCell: UITableViewCell {
      required init?(coder: NSCoder) {
           fatalError("init(coder:) has not been implemented")
      }
+     @objc func dwadawd() {
+          print("hawhah")
+     }
+
+     fileprivate func initRateView() {
+          if starRateView == nil {
+               starRateView = FBStarRateView(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 20)), progressImg: UIImage(named: "feedback_star_fill"), trackImg: UIImage(named: "feedback_star"))!
+               starRateView?.show(type: .half, isInteractable: true, leastStar: 0, completion: { (score) in
+                    print(score)
+               })
+               bgView.addSubview(starRateView!)
+
+               starRateView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dwadawd)))
+               starRateView?.snp.makeConstraints { (make) in
+                    make.left.equalTo(officialLabel.snp.right).offset(5)
+                    make.centerY.equalTo(officialLabel.snp.top) // strange
+               }
+          }
+          if starRateView!.isHidden {
+               starRateView!.isHidden = false
+          }
+          // 更新数据
+          starRateView?.setScore(f: 3)
+     }
      
      func update(comment: CommentModel) {
           self.solved = comment.adminID != nil
@@ -144,6 +174,7 @@ class FBCommentTableViewCell: UITableViewCell {
           officialLabel.snp.updateConstraints { (make) in
                make.height.equalTo(solved ? 20 : 0)
           }
+          // 如果问题已经有回复了
           if solved {
                if (comment.contain ?? "").findFirst("src") != -1 {
                     contentLabel.text = "点击查看详情"
@@ -153,7 +184,11 @@ class FBCommentTableViewCell: UITableViewCell {
                     contentLabel.font = .systemFont(ofSize: 14)
                     contentLabel.textColor = .black
                }
+               initRateView()
           } else {
+               if starRateView != nil {
+                    starRateView!.isHidden = true
+               }
                contentLabel.text = comment.contain
                contentLabel.textColor = .black
           }

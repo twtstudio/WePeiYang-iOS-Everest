@@ -31,7 +31,12 @@ class FeedBackMainViewController: UIViewController {
             tableView.mj_header.beginRefreshing()
         }
     }
-    var selectedTag: Int = -1 // means no tag is selected
+    // means no tag is selected
+     var selectedTag: Int = -1 {
+          didSet {
+               self.tableView.mj_header.beginRefreshing()
+          }
+     }
     
     var questions = [QuestionModel]() {
         didSet {

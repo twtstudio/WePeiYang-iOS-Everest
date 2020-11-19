@@ -86,7 +86,7 @@ extension FeedBackDetailViewController {
 //          textView.layer.borderWidth = 1
 //          textView.layer.cornerRadius = 20
 //          textView.layer.masksToBounds = true
-          textView.text = "输入你的看法"
+          textView.text = "发表你的看法"
           textView.textColor = UIColor(hex6: 0xdbdbdb)
           textView.returnKeyType = .send
           // 防止圆角遮挡
@@ -139,7 +139,7 @@ extension FeedBackDetailViewController {
      @objc func keyboardDisappear(note: Notification)  {
           textView.endEditing(true)
           if textView.text == "" {
-               textView.text = "输入你的看法"
+               textView.text = "发表你的看法"
                textView.textColor = UIColor(hex6: 0xdbdbdb)
           }
           self.commentView.isHidden = true
@@ -241,7 +241,7 @@ extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelega
      }
      
      func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-          if textView.text == "输入你的看法" {
+          if textView.text == "发表你的看法" {
                textView.text = ""
                textView.textColor = .black
           }
@@ -254,7 +254,7 @@ extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelega
                CommentHelper.addComment(questionId: (questionOfthisPage?.id)!, contain: textView.text) { (string) in
                     SwiftMessages.showSuccessMessage(body: "评论发布成功!")
                     self.loadData()
-                    textView.text = "输入你的看法"
+                    textView.text = "发表你的看法"
                     textView.textColor = UIColor(hex6: 0xdbdbdb)
                }
           }

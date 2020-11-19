@@ -12,7 +12,7 @@ class FBQuestionTableViewCell: UITableViewCell {
      
      var bgView: UIView!
      var titleLabel: UILabel! // 标题
-     var tagView: FBTagCollectionView!
+     var tagView: UICollectionView!
      var userImgView: UIImageView! // user的图标
      var usernameLabel: UILabel! // user名字
      var timeLabel: UILabel! // 时间
@@ -55,10 +55,17 @@ class FBQuestionTableViewCell: UITableViewCell {
                make.height.equalTo(30)
           }
           
-          tagView = FBTagCollectionView(frame: .zero, itemSize: CGSize(width: 100, height: 15), isSelectedOnly: true)
+          let layout = UICollectionViewFlowLayout()
+          
+          layout.estimatedItemSize = CGSize(width: 200, height: 20)
+          layout.minimumInteritemSpacing = 10
+          layout.scrollDirection = .horizontal
+          
+          tagView = UICollectionView(frame: .zero, collectionViewLayout: layout)
           tagView.backgroundColor = .white
-          tagView.cvDelegate = self
-          tagView.cvDataSource = self
+          tagView.delegate = self
+          tagView.dataSource = self
+          tagView.register(FBTagCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellId)
           bgView.addSubview(tagView)
           tagView.snp.makeConstraints { (make) in
                make.left.equalTo(titleLabel)
@@ -231,8 +238,6 @@ class FBQuestionTableViewCell: UITableViewCell {
                make.height.equalTo(lineCnt * 20)
           }
           tags = (question.tags ?? []).sorted(by: { $0.id! < $1.id! })
-          tagView.addDelegate(delegate: self, dataSource: self, isSelectedOnly: true)
-          tagView.sizeToFit()
      }
 }
 

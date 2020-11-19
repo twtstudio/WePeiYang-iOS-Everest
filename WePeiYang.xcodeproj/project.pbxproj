@@ -296,6 +296,7 @@
 		D3849B3F251BA84300B49D6C /* FBCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3849B3E251BA84300B49D6C /* FBCommentTableViewCell.swift */; };
 		D3849B45251BA97800B49D6C /* FBDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3849B44251BA97800B49D6C /* FBDetailHeaderView.swift */; };
 		D3849B5B251C5CDB00B49D6C /* FBDetailTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3849B5A251C5CDA00B49D6C /* FBDetailTabBarView.swift */; };
+		D39A291D25664A4F003EBAB3 /* FBStarRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A291C25664A4F003EBAB3 /* FBStarRateView.swift */; };
 		D39D3F6C2535FDA900D77173 /* GPAModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39D3F6B2535FDA900D77173 /* GPAModel.swift */; };
 		D3B785B62532DD7200BB54DB /* WPYNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B785AA2532DD7200BB54DB /* WPYNetwork.swift */; };
 		D3B785B82532DD7200BB54DB /* Semester.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B785AD2532DD7200BB54DB /* Semester.swift */; };
@@ -306,7 +307,6 @@
 		D3E327682503CC760037B49F /* ModuleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E327652503CC760037B49F /* ModuleCollectionViewCell.swift */; };
 		D3E575B725655C09002DA616 /* FBNewQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E575B625655C09002DA616 /* FBNewQuestionController.swift */; };
 		D3F591312524728D00B7BA90 /* FBQuestionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F591302524728D00B7BA90 /* FBQuestionTableViewController.swift */; };
-		D3F59137252472D700B7BA90 /* feedback_add_question_load_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = D3F59136252472D700B7BA90 /* feedback_add_question_load_animation.json */; };
 		D3F5913D252474D900B7BA90 /* FBReplyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5913C252474D900B7BA90 /* FBReplyDetailView.swift */; };
 		D3F5914C2527025E00B7BA90 /* FBUserStatusCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5914B2527025E00B7BA90 /* FBUserStatusCollectionViewCell.swift */; };
 		DD0B75F32158C6ED009A392C /* YellowPageSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B75DD2158C6ED009A392C /* YellowPageSearchViewController.swift */; };
@@ -680,6 +680,7 @@
 		D3849B3E251BA84300B49D6C /* FBCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBCommentTableViewCell.swift; sourceTree = "<group>"; };
 		D3849B44251BA97800B49D6C /* FBDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBDetailHeaderView.swift; sourceTree = "<group>"; };
 		D3849B5A251C5CDA00B49D6C /* FBDetailTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBDetailTabBarView.swift; sourceTree = "<group>"; };
+		D39A291C25664A4F003EBAB3 /* FBStarRateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBStarRateView.swift; sourceTree = "<group>"; };
 		D39D3F6B2535FDA900D77173 /* GPAModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAModel.swift; sourceTree = "<group>"; };
 		D3B785AA2532DD7200BB54DB /* WPYNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYNetwork.swift; sourceTree = "<group>"; };
 		D3B785AD2532DD7200BB54DB /* Semester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Semester.swift; sourceTree = "<group>"; };
@@ -690,7 +691,6 @@
 		D3E327652503CC760037B49F /* ModuleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleCollectionViewCell.swift; sourceTree = "<group>"; };
 		D3E575B625655C09002DA616 /* FBNewQuestionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBNewQuestionController.swift; sourceTree = "<group>"; };
 		D3F591302524728D00B7BA90 /* FBQuestionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBQuestionTableViewController.swift; sourceTree = "<group>"; };
-		D3F59136252472D700B7BA90 /* feedback_add_question_load_animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = feedback_add_question_load_animation.json; sourceTree = "<group>"; };
 		D3F5913C252474D900B7BA90 /* FBReplyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBReplyDetailView.swift; sourceTree = "<group>"; };
 		D3F5914B2527025E00B7BA90 /* FBUserStatusCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBUserStatusCollectionViewCell.swift; sourceTree = "<group>"; };
 		D77E7BD11F959EB50A5A0DED /* Pods-WePeiYangWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WePeiYangWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WePeiYangWidget/Pods-WePeiYangWidget.debug.xcconfig"; sourceTree = "<group>"; };
@@ -793,9 +793,9 @@
 				D31D3826251F60A80001137E /* FBTagCollectionView.swift */,
 				D3849B44251BA97800B49D6C /* FBDetailHeaderView.swift */,
 				D31D383E251FEAB90001137E /* FBPhotoCollectionView.swift */,
+				D39A291C25664A4F003EBAB3 /* FBStarRateView.swift */,
 				2BAB12912517293600FF6EEF /* FBSearchResultsViewController.swift */,
 				D3F5913C252474D900B7BA90 /* FBReplyDetailView.swift */,
-				D3F59136252472D700B7BA90 /* feedback_add_question_load_animation.json */,
 				D3849B74251CD54C00B49D6C /* CellView */,
 			);
 			path = View;
@@ -1953,7 +1953,6 @@
 				36366B2F1FAB8A84001F72A0 /* BicycleServiceInfoController.xib in Resources */,
 				36366B301FAB8A84001F72A0 /* BicycleNotificationDetailViewController.xib in Resources */,
 				36366B311FAB8A84001F72A0 /* BicycleServiceNotificationController.xib in Resources */,
-				D3F59137252472D700B7BA90 /* feedback_add_question_load_animation.json in Resources */,
 				36366B321FAB8A84001F72A0 /* BicycleRecordViewController.xib in Resources */,
 				361FB178218430F800BD5A1E /* Assets.xcassets in Resources */,
 				36366B331FAB8A84001F72A0 /* BicycleUserBindViewController.xib in Resources */,
@@ -2114,6 +2113,7 @@
 				36449E5E1FA4BABA0036766B /* WXWaveView.m in Sources */,
 				DD0B75F42158C6ED009A392C /* YellowPageDetailViewController.swift in Sources */,
 				360339E920247B9D0006A083 /* LibraryCard.swift in Sources */,
+				D39A291D25664A4F003EBAB3 /* FBStarRateView.swift in Sources */,
 				4BAB599224283C5700155AD0 /* CourseInqueryViewController.swift in Sources */,
 				DD0B75F52158C6ED009A392C /* YellowPageMainViewController.swift in Sources */,
 				3614D57B21D929FE0007B886 /* BookCollectionCell.swift in Sources */,
@@ -2450,13 +2450,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202010211800;
+				CURRENT_PROJECT_VERSION = 202011192252;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 3.6.4;
+				MARKETING_VERSION = 3.6.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.twt.WePeiYang.WePeiYangWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2486,13 +2486,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202010211800;
+				CURRENT_PROJECT_VERSION = 202011192252;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 3.6.4;
+				MARKETING_VERSION = 3.6.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.twt.WePeiYang.WePeiYangWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2625,12 +2625,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202010211800;
+				CURRENT_PROJECT_VERSION = 202011192252;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				INFOPLIST_FILE = WePeiYang/main/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.6.4;
+				MARKETING_VERSION = 3.6.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.twt.WePeiYang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2654,12 +2654,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202010211800;
+				CURRENT_PROJECT_VERSION = 202011192252;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				INFOPLIST_FILE = WePeiYang/main/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.6.4;
+				MARKETING_VERSION = 3.6.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.twt.WePeiYang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
