@@ -206,7 +206,7 @@ class QuestionHelper {
      }
 
      enum QuesGetType {
-          case liked, my
+          case liked, my, solved
      }
      
      static func getQuestions(type: QuesGetType, limits: Int = 0, completion: @escaping (Result<[QuestionModel]>) -> Void) {

@@ -1,19 +1,20 @@
 //
-//  FBCommentTableViewCell.swift
+//  FBReplyTableViewCell.swift
 //  WePeiYang
 //
-//  Created by phoenix Dai on 2020/9/22.
+//  Created by Zrzz on 2020/11/20.
 //  Copyright © 2020 twtstudio. All rights reserved.
 //
 
 import UIKit
 import WebKit
 
-class FBCommentTableViewCell: UITableViewCell {
+class FBReplyTableViewCell: UITableViewCell {
      
      var bgView: UIView!
      var userImgView: UIImageView! // user头像
      var userNameLabel: UILabel! // user名称
+     var officialLabel: UILabel! // 官方的标签
      var contentLabel: UILabel! // 内容
      var timeLabel: UILabel! // 时间
      var likesBtn: UIButton! // 点赞图标
@@ -30,7 +31,9 @@ class FBCommentTableViewCell: UITableViewCell {
           }
      }
      var commentID: Int!
-
+     
+     var starRateView: FBStarRateView!
+     
      override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
           super.init(style: style, reuseIdentifier: reuseIdentifier)
           
@@ -66,12 +69,38 @@ class FBCommentTableViewCell: UITableViewCell {
                make.centerY.equalTo(userImgView)
                make.height.equalTo(20)
           }
+          
+          officialLabel = UILabel()
+          officialLabel.font = .systemFont(ofSize: 12)
+          bgView.addSubview(officialLabel)
+          officialLabel.text = "官方"
+          officialLabel.backgroundColor = UIColor(hex6: 0x00a1e9)
+          officialLabel.layer.cornerRadius = 10
+          officialLabel.layer.masksToBounds = true
+          officialLabel.textColor = .white
+          officialLabel.textAlignment = .center
+          officialLabel.snp.makeConstraints { (make) in
+               make.left.equalTo(userNameLabel.snp.right).offset(10)
+               make.centerY.equalTo(userImgView)
+               make.width.equalTo(30)
+               make.height.equalTo(20)
+          }
+          
+          starRateView = FBStarRateView(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 18)), progressImg: UIImage(named: "feedback_star_fill"), trackImg: UIImage(named: "feedback_star"))!
+          starRateView.show(type: .half, isInteractable: true, leastStar: 0, completion: { (score) in
+//               print(score)
+          })
+          bgView.addSubview(starRateView)
+
+          starRateView.snp.makeConstraints { (make) in
+               make.left.equalTo(officialLabel.snp.right).offset(5)
+               make.centerY.equalTo(officialLabel.snp.top) // strange
+          }
 
           contentLabel = UILabel()
           contentLabel.font = .systemFont(ofSize: 14)
           contentLabel.backgroundColor = .white
           bgView.addSubview(contentLabel)
-          contentLabel.numberOfLines = 0
           contentLabel.snp.makeConstraints { (make) in
                make.left.equalTo(userNameLabel.snp.left)
                make.top.equalTo(userNameLabel.snp.bottom).offset(5)
@@ -115,13 +144,17 @@ class FBCommentTableViewCell: UITableViewCell {
      required init?(coder: NSCoder) {
           fatalError("init(coder:) has not been implemented")
      }
-     func update(comment: CommentModel) {
-          
-          userNameLabel.text = comment.username
+     
+     func update(comment: CommentModel, isFull: Bool = false) {
+          starRateView?.setScore(f: CGFloat(comment.score ?? 0))
+     
+          userNameLabel.text = comment.adminID?.description
           userNameLabel.sizeToFit()
-         
-          contentLabel.text = comment.contain
-          contentLabel.textColor = .black
+          
+          contentLabel.attributedText = comment.contain?.htmlToAttributedString
+          contentLabel.font = .systemFont(ofSize: 14)
+          contentLabel.numberOfLines = isFull ? 0 : 4
+          contentLabel.sizeToFit()
           
           timeLabel.text = (comment.createdAt?[0..<10] ?? "") + " " + (comment.createdAt?[11..<16] ?? "")
           timeLabel.sizeToFit()
@@ -136,7 +169,7 @@ class FBCommentTableViewCell: UITableViewCell {
      @objc func likeOrDislike() {
           if isLiked == false {
                likesBtn.setImage(UIImage(named: "feedback_thumb_up_fill"), for: .normal)
-               CommentHelper.likeComment(type: .comment, commentId: commentID) { (result) in
+               CommentHelper.likeComment(type: .answer, commentId: commentID) { (result) in
                     switch result {
                     case .success(let str):
                          SwiftMessages.showSuccessMessage(body: str)
@@ -149,7 +182,7 @@ class FBCommentTableViewCell: UITableViewCell {
                
           } else {
                likesBtn.setImage(UIImage(named: "feedback_thumb_up"), for: .normal)
-               CommentHelper.dislikeComment(type: .comment, commentId: commentID) { (result) in
+               CommentHelper.dislikeComment(type: .answer, commentId: commentID) { (result) in
                     switch result {
                     case .success(let str):
                          SwiftMessages.showSuccessMessage(body: str)

@@ -105,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           }
           //        window?.backgroundColor = .white
           window?.rootViewController = mainTabVC
-//          window?.rootViewController = TMPViewController()
+//          window?.rootViewController = FBNewQuestionViewController()
           window?.makeKeyAndVisible()
           
           

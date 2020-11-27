@@ -199,11 +199,11 @@ extension UIView {
      }
      /// 绘制虚线
      /// - Parameters:
-     ///   - strokeColor: 虚线颜色
+     ///   - color: 虚线颜色
      ///   - lineWidth: 虚线宽度
      ///   - lineLength: 每段虚线的长度
      ///   - lineSpacing: 每段虚线的间隔
-     private func drawDashLine(strokeColor: UIColor = .black,
+     func addDashLine(color: UIColor = .black,
                                lineWidth: CGFloat = 0.5,
                                lineLength: Int = 4,
                                lineSpacing: Int = 4,
@@ -216,8 +216,8 @@ extension UIView {
           
           let line = CAShapeLayer()
           line.path = linePath.cgPath
-          line.fillColor = UIColor.blue.cgColor
-          line.strokeColor = strokeColor.cgColor
+          line.fillColor = color.cgColor
+          line.strokeColor = color.cgColor
           
           line.lineWidth = lineWidth
           line.lineJoin = CAShapeLayerLineJoin.round

@@ -187,10 +187,9 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
             self.navigationController?.pushViewController(vc, animated: true)
         }
         floaty.addItem("添加问题", icon: UIImage(named: "feedback_add_question")) { (_) in
-            let addVC = FBNewQuestionViewController()
-            //               addVC.selectedTags = self.selectedTags
-            //               addVC.willSelectedTags = self.willSelectedTags
-            self.present(addVC, animated: true, completion: nil)
+          let addVC = FBNewQuestionViewController()
+          addVC.availableTags = self.availableTags
+          self.present(addVC, animated: true, completion: nil)
         }
         view.addSubview(floaty)
         
@@ -213,7 +212,6 @@ extension FeedBackMainViewController: UITableViewDataSource, UITableViewDelegate
         return cell
     }
     
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let lineCnt = ceilf(Float(questions[indexPath.row].tags!.reduce(0, { $0 + 3 + $1.name!.count })) / 18)
         return 150
@@ -227,28 +225,6 @@ extension FeedBackMainViewController: UITableViewDataSource, UITableViewDelegate
         vc.questionOfthisPage = questions[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    //     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-    //          tableViewOffset = scrollView.contentOffset.y
-    //     }
-    //
-    //     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    //          let dy = scrollView.contentOffset.y - tableViewOffset
-    //          if dy > 0 && dy < 100 && headerViewOffset > -100 {
-    //               headerViewOffset = 0 - dy
-    //          } else if dy > -150 && dy < -50 && headerViewOffset < 0 {
-    //               headerViewOffset = -(150 + dy)
-    //          }
-    //     }
-    //
-    //     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-    //          let dy = scrollView.contentOffset.y - tableViewOffset
-    //          if headerViewOffset > -100 {
-    //               headerViewOffset = dy >= 100 ? -100 : 0 - dy
-    //          } else if headerViewOffset < 0 {
-    //               headerViewOffset = dy <= -150 ? 0 : -(150 + dy)
-    //          }
-    //     }
 }
 
 

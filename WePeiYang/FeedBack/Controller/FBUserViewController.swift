@@ -14,6 +14,7 @@ class FBUserViewController: UIViewController {
      var userImg: UIImageView! // 头像
      var detialLabel: UILabel! // 信息
      
+     var stackView: UIStackView! // 信息列表
      private let cellID = "FBUSCVCell"
      var collectionView: UICollectionView!
      
@@ -21,7 +22,22 @@ class FBUserViewController: UIViewController {
      var myTQBtn: UIButton! // 我点赞过的问题
      
      var posted, thumbed, replied: Int!
-     var user: FBUserModel!
+     
+     var detailViews: [UIStackView] = []
+     var user: FBUserModel! {
+          didSet {
+               for i in stackView.arrangedSubviews {
+                    stackView.removeArrangedSubview(i)
+               }
+               detailViews.append(getDetailView(title: "发布", num: user.myQuestionNum))
+               detailViews.append(getDetailView(title: "点赞", num: user.myLikedQuestionNum))
+               detailViews.append(getDetailView(title: "已回复", num: user.mySolvedQuestionNum))
+
+               for i in detailViews {
+                    stackView.addArrangedSubview(i)
+               }
+          }
+     }
      
      
      override func viewDidLoad() {
@@ -59,19 +75,16 @@ extension FBUserViewController {
                make.top.equalTo(userImg.snp.bottom).offset(5)
           }
           
-          let layout = UICollectionViewFlowLayout()
-          layout.scrollDirection = .horizontal
-          layout.itemSize = CGSize(width: 80, height: 80)
-          layout.minimumLineSpacing = (SCREEN.width * 0.8 - 240) / 2
-          
-          collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-          collectionView.backgroundColor = .white
-          collectionView.delegate = self
-          collectionView.dataSource = self
-          view.addSubview(collectionView)
-          collectionView.register(FBUserStatusCollectionViewCell.self, forCellWithReuseIdentifier: cellID)
-          collectionView.addCornerRadius(15)
-          collectionView.snp.makeConstraints { (make) in
+          stackView = UIStackView()
+          stackView.distribution = .fillEqually
+          stackView.spacing = 1
+          stackView.backgroundColor = .black
+          stackView.addArrangedSubview(getDetailView(title: "发布", num: 0))
+          stackView.addArrangedSubview(getDetailView(title: "点赞", num: 0))
+          stackView.addArrangedSubview(getDetailView(title: "已回复", num: 0))
+          stackView.addCornerRadius(15)
+          view.addSubview(stackView)
+          stackView.snp.makeConstraints { (make) in
                make.top.equalTo(detialLabel.snp.bottom).offset(10)
                make.centerX.equalTo(view)
                make.width.equalTo(SCREEN.width * 0.8)
@@ -89,7 +102,7 @@ extension FBUserViewController {
           myQBtn.layer.masksToBounds = true
           myQBtn.snp.makeConstraints { (make) in
                make.centerX.equalTo(view)
-               make.top.equalTo(collectionView.snp.bottom).offset(30)
+               make.top.equalTo(stackView.snp.bottom).offset(30)
                make.width.equalTo(SCREEN.width * 0.7)
                make.height.equalTo(60)
           }
@@ -111,13 +124,41 @@ extension FBUserViewController {
           }
           
      }
+//
+//     override func viewWillLayoutSubviews() {
+//          stackView.addShadow(.black, sRadius: 10, sOpacity: 1, offset: (0, 0))
+//     }
      
      override func viewDidLayoutSubviews() {
           super.viewDidLayoutSubviews()
           userImg.addShadow(.black, sRadius: 5, sOpacity: 0.2, offset: (0, 0))
-          collectionView.addShadow(.black, sRadius: 5, sOpacity: 0.2, offset: (0, 0))
+//          stackView.addCornerRadius(15)
+//          stackView.addShadow(.black, sRadius: 10, sOpacity: 1, offset: (0, 0))
           myQBtn.addShadow(.black, sRadius: 5, sOpacity: 0.2, offset: (0, 0))
           myTQBtn.addShadow(.black, sRadius: 5, sOpacity: 0.2, offset: (0, 0))
+     }
+     
+     fileprivate func getDetailView(title: String, num: Int?) -> UIStackView {
+          let titleLabel = UILabel()
+          titleLabel.text = title
+          
+          let numLabel = UILabel()
+          numLabel.text = num?.description
+          
+          let stackView = UIStackView()
+          stackView.frame.size = CGSize(width: SCREEN.width / 5, height: 50)
+          stackView.axis = .vertical
+          stackView.alignment = .center
+          stackView.backgroundColor = UIColor(hex6: arc4random())
+          
+          stackView.addArrangedSubview(titleLabel)
+          stackView.addArrangedSubview(numLabel)
+          
+          NSLayoutConstraint.activate([
+               titleLabel.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 20),
+               numLabel.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: -20)
+          ])
+          return stackView
      }
      
      func loadData() {
@@ -125,11 +166,24 @@ extension FBUserViewController {
                switch result {
                case .success(let user):
                     self.user = user
-                    self.collectionView.reloadData()
+                    self.detailViews.last?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.pushVC)))
+//                    self.collectionView.reloadData()
                case .failure(let err):
                     print(err)
                }
           }
+     }
+     
+     @objc fileprivate func pushVC() {
+//          QuestionHelper.getQuestions(type: .solved) { (result) in
+//               switch result {
+//               case .success(let questions):
+//                    let vc = FBReplyDetailTVController(replys: questions.filter{ $0.solved == 1 })
+//                    navigationController?.pushViewController(vc, animated: true)
+//               case .failure(let err):
+//                    print(err)
+//               }
+//          }
      }
      
      @objc func loadData(btn: UIButton) {
@@ -137,30 +191,6 @@ extension FBUserViewController {
           qvc.title = btn.tag == 0 ? "我发布的问题" : "我点赞的问题"
           qvc.type = btn.tag == 0 ? .posted : .thumbed
           navigationController?.pushViewController(qvc, animated: true)
-     }
-}
-
-//MARK: - Delegate
-extension FBUserViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-     //    item个数
-     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-          return 3
-     }
-     
-     //    对象
-     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-          let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! FBUserStatusCollectionViewCell
-          if user != nil {
-               switch indexPath.row {
-               case 0:
-                    cell.update(title: "发布", cnt: (user.myQuestionNum ?? 0).description, addSeparator: true)
-               case 1:
-                    cell.update(title: "点赞", cnt: (user.myLikedQuestionNum ?? 0).description, addSeparator: true)
-               default:
-                    cell.update(title: "已回复", cnt: (user.mySolvedQuestionNum ?? 0).description)
-               }
-          }
-          return cell
      }
 }
 

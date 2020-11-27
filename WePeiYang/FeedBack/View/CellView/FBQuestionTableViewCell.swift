@@ -25,7 +25,11 @@ class FBQuestionTableViewCell: UITableViewCell {
      var imgView: UIImageView! // 图片
      
      let collectionViewCellId = "feedBackCollectionViewCellID"
-     var tags = [TagModel]()
+     var tags = [TagModel]() {
+          didSet {
+               tagView.reloadData()
+          }
+     }
      
      override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
           super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -234,10 +238,11 @@ class FBQuestionTableViewCell: UITableViewCell {
                imgView.sd_setImage(with: URL(string: question.thumbImg ?? ""), completed: nil)
                lineCnt = ceilf(Float(question.tags!.reduce(0, { $0 + 3 + $1.name!.count })) / 18)
           }
+          tags = (question.tags ?? []).filter({ $0.id != 3 }).sorted(by: { $0.id! < $1.id! })
           tagView.snp.updateConstraints { (make) in
                make.height.equalTo(lineCnt * 20)
           }
-          tags = (question.tags ?? []).sorted(by: { $0.id! < $1.id! })
+          
      }
 }
 

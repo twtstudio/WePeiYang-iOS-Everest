@@ -26,7 +26,7 @@ struct CommentModel: Codable {
      var id: Int?
      var contain: String?
      var adminID: Int?
-     var score: Int?
+     var score: Float?
      var commit: String?
      var userID, likes: Int?
      var createdAt, updatedAt, username: String?

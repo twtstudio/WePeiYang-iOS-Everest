@@ -11,42 +11,45 @@ import Alamofire
 
 class FBNewQuestionViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
      
-     var titleField: UITextField!
-     var confirmButton: UIButton!
-     var contentField: UITextView!
-     
+     // 标题
      var titleLabel: UILabel!
-     var classLabel: UILabel!
-     var classDesLabel: UILabel!
+     var titleField: UITextField!
+     // 校区
+     var campusLabel: UILabel!
+     var campusSelectionView: SelectionView!
+     // 标签
+     var tagLabel: UILabel!
+     var tagSelectionView: SelectionView!
+     var tagDesLabel: UILabel!
+     // 问题描述
      var contentsLabel: UILabel!
+     var contentField: UITextView!
+     // 插入图片
      var photoLabel: UILabel!
-     
-     var images = [UIImage]() {
-          didSet {
-               photoCollectionView.reload(images)
-          }
-     }
-     var imageViews = [UIImageView]()
-     
      var photoCollectionView: FBPhotoCollectionView!
-     var tagCollectionView: UICollectionView?
-     let collectionViewCellId = "feedBackCollectionViewCellID"
+     // 提交按钮
+     var confirmButton: UIButton!
      
+     // CONSTS
      let LABEL_FONT_SIZE: CGFloat = 16
      let LEFT_PADDING: CGFloat = SCREEN.width / 12
      
-     // MARK: - Data
+     // Data
      var availableTags: [TagModel] = [
           TagModel(id: 0, name: "后保部", children: nil),
           TagModel(id: 0, name: "后保部", children: nil),
           TagModel(id: 0, name: "后保部", children: nil),
           TagModel(id: 0, name: "后保部", children: nil),
-     ] {
+     ]
+     let campus: [String] = ["卫津路", "北洋园"]
+     
+     var selectedTag: Int = -1 // default no tag is selected
+     var imageViews = [UIImageView]()
+     var images = [UIImage]() {
           didSet {
-               tagCollectionView?.reloadData()
+               photoCollectionView.reload(images)
           }
      }
-     var selectedTag: Int = -1 // default no tag is selected
      
      override func viewDidLoad() {
           super.viewDidLoad()
@@ -61,8 +64,19 @@ class FBNewQuestionViewController: UIViewController, UITextFieldDelegate, UIText
 
 //MARK: - UI
 extension FBNewQuestionViewController {
+     
+     fileprivate func addSymmetryLine(x: CGFloat = SCREEN.width / 12, y: CGFloat, isDotted: Bool = false) {
+          if isDotted {
+               view.addDashLine(color: #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1), points: CGPoint(x: x, y: y), CGPoint(x: SCREEN.width - x, y: y))
+          } else {
+               view.addLine(color: #colorLiteral(red: 0.8823529412, green: 0.8823529412, blue: 0.8823529412, alpha: 1), points: CGPoint(x: x, y: y), CGPoint(x: SCREEN.width - x, y: y))
+          }
+     }
+     
      func setUp() {
           view.backgroundColor = .white
+          
+          addSymmetryLine(y: 15)
           
           titleField = UITextField()
           titleField.placeholder = "20字以内"
@@ -90,12 +104,15 @@ extension FBNewQuestionViewController {
                make.left.equalTo(LEFT_PADDING)
           }
           
-          classLabel = UILabel()
-          view.addSubview(classLabel)
-          classLabel.text = "选择标签: "
-          classLabel.font = .systemFont(ofSize: LABEL_FONT_SIZE)
-          classLabel.snp.makeConstraints { (make) in
-               make.top.equalTo(titleLabel.snp.bottom).offset(20)
+          addSymmetryLine(y: 55)
+          addSymmetryLine(y: 80, isDotted: true)
+          
+          campusLabel = UILabel()
+          view.addSubview(campusLabel)
+          campusLabel.text = "选择校区(可选): "
+          campusLabel.font = .systemFont(ofSize: LABEL_FONT_SIZE)
+          campusLabel.snp.makeConstraints { (make) in
+               make.top.equalTo(titleLabel.snp.bottom).offset(45)
                make.left.equalTo(LEFT_PADDING)
           }
           
@@ -104,36 +121,55 @@ extension FBNewQuestionViewController {
           layout.estimatedItemSize = CGSize(width: 200, height: 25)
           layout.minimumInteritemSpacing = 10
           layout.scrollDirection = .horizontal
-          tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-          tagCollectionView?.backgroundColor = .white
-          tagCollectionView?.delegate = self
-          tagCollectionView?.dataSource = self
-          tagCollectionView?.register(FBTagCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellId)
-          view.addSubview(tagCollectionView!)
-          tagCollectionView!.snp.makeConstraints { (make) in
+          campusSelectionView = SelectionView(data: campus, collectionViewLayout: layout)
+          campusSelectionView.selectionCanCancel = true
+          view.addSubview(campusSelectionView)
+          campusSelectionView.snp.makeConstraints { (make) in
                make.centerX.equalTo(view)
                make.width.equalTo(SCREEN.width * 0.8)
-               make.top.equalTo(classLabel.snp.bottom).offset(5)
+               make.top.equalTo(campusLabel.snp.bottom).offset(5)
                make.height.equalTo(30)
           }
           
-          classDesLabel = UILabel()
-          classDesLabel.text = "我是一个部门介绍"
-          classDesLabel.font = .systemFont(ofSize: LABEL_FONT_SIZE)
-          classDesLabel.textColor = .gray
-          view.addSubview(classDesLabel)
-          classDesLabel.snp.makeConstraints { (make) in
+          tagLabel = UILabel()
+          view.addSubview(tagLabel)
+          tagLabel.text = "选择部门:"
+          tagLabel.font = .systemFont(ofSize: LABEL_FONT_SIZE)
+          tagLabel.snp.makeConstraints { (make) in
+               make.top.equalTo(campusSelectionView.snp.bottom).offset(5)
                make.left.equalTo(LEFT_PADDING)
-               make.top.equalTo(tagCollectionView!.snp.bottom).offset(5)
+          }
+        
+          tagSelectionView = SelectionView(data: availableTags.map { $0.name! }, collectionViewLayout: layout, callBack: { (idx) in
+               self.selectedTag = idx
+          })
+          view.addSubview(tagSelectionView)
+          tagSelectionView.snp.makeConstraints { (make) in
+               make.centerX.equalTo(view)
+               make.width.equalTo(SCREEN.width * 0.8)
+               make.top.equalTo(tagLabel.snp.bottom).offset(5)
+               make.height.equalTo(30)
           }
           
+          tagDesLabel = UILabel()
+          tagDesLabel.text = "我是一个部门介绍"
+          tagDesLabel.font = .systemFont(ofSize: 12)
+          tagDesLabel.textColor = .gray
+          view.addSubview(tagDesLabel)
+          tagDesLabel.snp.makeConstraints { (make) in
+               make.left.equalTo(LEFT_PADDING)
+               make.top.equalTo(tagSelectionView.snp.bottom).offset(5)
+          }
+          
+          addSymmetryLine(y: 235, isDotted: true)
+          
           contentsLabel = UILabel()
-          contentsLabel.text = "问题描述: "
+          contentsLabel.text = "问题描述:"
           contentsLabel.textColor = UIColor.black
           contentsLabel.font = .systemFont(ofSize: LABEL_FONT_SIZE)
           view.addSubview(contentsLabel)
           contentsLabel.snp.makeConstraints { (make) in
-               make.top.equalTo(classDesLabel.snp.bottom).offset(20)
+               make.top.equalTo(tagDesLabel.snp.bottom).offset(20)
                make.left.equalTo(LEFT_PADDING)
           }
           
@@ -149,11 +185,13 @@ extension FBNewQuestionViewController {
           contentField.font = .systemFont(ofSize: 14)
           view.addSubview(contentField)
           contentField.snp.makeConstraints{ (make) in
-               make.top.equalTo(contentsLabel.snp.bottom).offset(5)
+               make.top.equalTo(contentsLabel.snp.bottom).offset(10)
                make.height.equalTo(100)
                make.left.equalTo(LEFT_PADDING)
                make.right.equalTo(-LEFT_PADDING)
           }
+          
+          addSymmetryLine(y: 390, isDotted: true)
           
           photoLabel = UILabel()
           photoLabel.text = "添加图片: "
@@ -161,7 +199,7 @@ extension FBNewQuestionViewController {
           photoLabel.font = .systemFont(ofSize: LABEL_FONT_SIZE)
           view.addSubview(photoLabel)
           photoLabel.snp.makeConstraints { (make) in
-               make.top.equalTo(contentField.snp.bottom).offset(20)
+               make.top.equalTo(contentField.snp.bottom).offset(25)
                make.left.equalTo(LEFT_PADDING)
           }
           
@@ -213,11 +251,12 @@ extension FBNewQuestionViewController {
                
                SwiftMessages.showLoading()
                
-               QuestionHelper.postQuestion(title: title, content: content, tagList: availableTags.map{ $0.id ?? 0 }.filter{ $0 != 0 }) { (result) in
+               QuestionHelper.postQuestion(title: title, content: content, tagList: [availableTags[selectedTag].id ?? 0]) { (result) in
                     switch result {
                     case .success(let questionId):
                          if let imgs = self.photoCollectionView.images {
                               guard imgs.count != 1 else {
+                                   SwiftMessages.hideLoading()
                                    self.dismiss(animated: true)
                                    return
                               }
@@ -239,7 +278,6 @@ extension FBNewQuestionViewController {
                                    }
                               }
                               group.notify(queue: .main) {
-                                   //                                   animationView.stop()
                                    SwiftMessages.hideLoading()
                                    self.dismiss(animated: true)
                               }
@@ -296,31 +334,5 @@ extension FBNewQuestionViewController {
                textView.textColor = UIColor(hex6: 0xdbdbdb)
           }
           return true
-     }
-}
-
-
-extension FBNewQuestionViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-          return availableTags.count
-     }
-     
-     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-          let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionViewCellId, for: indexPath) as! FBTagCollectionViewCell
-          cell.update(by: availableTags[indexPath.row], selected: indexPath.row == selectedTag)
-          return cell
-     }
-     
-     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-          if selectedTag == -1 {
-               selectedTag = indexPath.row
-               (collectionView.cellForItem(at: indexPath) as! FBTagCollectionViewCell).toggle()
-          } else if selectedTag == indexPath.row {
-               return
-          } else {
-               (collectionView.cellForItem(at: IndexPath(row: selectedTag, section: indexPath.section)) as! FBTagCollectionViewCell).toggle()
-               (collectionView.cellForItem(at: indexPath) as! FBTagCollectionViewCell).toggle()
-               selectedTag = indexPath.row
-          }
      }
 }

@@ -296,12 +296,16 @@
 		D3849B3F251BA84300B49D6C /* FBCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3849B3E251BA84300B49D6C /* FBCommentTableViewCell.swift */; };
 		D3849B45251BA97800B49D6C /* FBDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3849B44251BA97800B49D6C /* FBDetailHeaderView.swift */; };
 		D3849B5B251C5CDB00B49D6C /* FBDetailTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3849B5A251C5CDA00B49D6C /* FBDetailTabBarView.swift */; };
+		D3959CC12567A9F700AF9035 /* FBReplyDetailTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3959CC02567A9F700AF9035 /* FBReplyDetailTVController.swift */; };
+		D3959CC72567AB1600AF9035 /* FBReplyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3959CC62567AB1600AF9035 /* FBReplyTableViewCell.swift */; };
 		D39A291D25664A4F003EBAB3 /* FBStarRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A291C25664A4F003EBAB3 /* FBStarRateView.swift */; };
 		D39D3F6C2535FDA900D77173 /* GPAModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39D3F6B2535FDA900D77173 /* GPAModel.swift */; };
+		D3AF3C7E2569117000EC72F5 /* TMP.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AF3C7D2569117000EC72F5 /* TMP.swift */; };
 		D3B785B62532DD7200BB54DB /* WPYNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B785AA2532DD7200BB54DB /* WPYNetwork.swift */; };
 		D3B785B82532DD7200BB54DB /* Semester.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B785AD2532DD7200BB54DB /* Semester.swift */; };
 		D3B785B92532DD7200BB54DB /* WPYStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B785AE2532DD7200BB54DB /* WPYStorage.swift */; };
 		D3B785BD2532DD7200BB54DB /* SpiderLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B785B52532DD7200BB54DB /* SpiderLoginView.swift */; };
+		D3B930902570D75E00200CA8 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B9308F2570D75E00200CA8 /* SelectionView.swift */; };
 		D3E327662503CC760037B49F /* MallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E327622503CC760037B49F /* MallViewController.swift */; };
 		D3E327672503CC760037B49F /* AllModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E327632503CC760037B49F /* AllModulesViewController.swift */; };
 		D3E327682503CC760037B49F /* ModuleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E327652503CC760037B49F /* ModuleCollectionViewCell.swift */; };
@@ -680,12 +684,16 @@
 		D3849B3E251BA84300B49D6C /* FBCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBCommentTableViewCell.swift; sourceTree = "<group>"; };
 		D3849B44251BA97800B49D6C /* FBDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBDetailHeaderView.swift; sourceTree = "<group>"; };
 		D3849B5A251C5CDA00B49D6C /* FBDetailTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBDetailTabBarView.swift; sourceTree = "<group>"; };
+		D3959CC02567A9F700AF9035 /* FBReplyDetailTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBReplyDetailTVController.swift; sourceTree = "<group>"; };
+		D3959CC62567AB1600AF9035 /* FBReplyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBReplyTableViewCell.swift; sourceTree = "<group>"; };
 		D39A291C25664A4F003EBAB3 /* FBStarRateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBStarRateView.swift; sourceTree = "<group>"; };
 		D39D3F6B2535FDA900D77173 /* GPAModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAModel.swift; sourceTree = "<group>"; };
+		D3AF3C7D2569117000EC72F5 /* TMP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMP.swift; sourceTree = "<group>"; };
 		D3B785AA2532DD7200BB54DB /* WPYNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYNetwork.swift; sourceTree = "<group>"; };
 		D3B785AD2532DD7200BB54DB /* Semester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Semester.swift; sourceTree = "<group>"; };
 		D3B785AE2532DD7200BB54DB /* WPYStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYStorage.swift; sourceTree = "<group>"; };
 		D3B785B52532DD7200BB54DB /* SpiderLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpiderLoginView.swift; sourceTree = "<group>"; };
+		D3B9308F2570D75E00200CA8 /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
 		D3E327622503CC760037B49F /* MallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MallViewController.swift; sourceTree = "<group>"; };
 		D3E327632503CC760037B49F /* AllModulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllModulesViewController.swift; sourceTree = "<group>"; };
 		D3E327652503CC760037B49F /* ModuleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -796,6 +804,7 @@
 				D39A291C25664A4F003EBAB3 /* FBStarRateView.swift */,
 				2BAB12912517293600FF6EEF /* FBSearchResultsViewController.swift */,
 				D3F5913C252474D900B7BA90 /* FBReplyDetailView.swift */,
+				D3B9308F2570D75E00200CA8 /* SelectionView.swift */,
 				D3849B74251CD54C00B49D6C /* CellView */,
 			);
 			path = View;
@@ -807,6 +816,7 @@
 				2B6022EA250F0245003CDE94 /* FeedBackMainViewController.swift */,
 				2B602311250FE650003CDE94 /* FeedBackDetailVIewController.swift */,
 				D3F591302524728D00B7BA90 /* FBQuestionTableViewController.swift */,
+				D3959CC02567A9F700AF9035 /* FBReplyDetailTVController.swift */,
 				D31D395225224ABD0001137E /* FBUserViewController.swift */,
 				D3E575B625655C09002DA616 /* FBNewQuestionController.swift */,
 			);
@@ -1497,6 +1507,7 @@
 			isa = PBXGroup;
 			children = (
 				B102540A1EC8520A0064373A /* AppDelegate.swift */,
+				D3AF3C7D2569117000EC72F5 /* TMP.swift */,
 				B102540B1EC8520A0064373A /* ClassExtensions.swift */,
 				3613DA212056F740000867AE /* UniversalExtension.swift */,
 				B102540C1EC8520A0064373A /* Info.plist */,
@@ -1670,6 +1681,7 @@
 				D3F5914B2527025E00B7BA90 /* FBUserStatusCollectionViewCell.swift */,
 				D31D3844251FEC350001137E /* FBPhotoCollectionViewCell.swift */,
 				D3849B3E251BA84300B49D6C /* FBCommentTableViewCell.swift */,
+				D3959CC62567AB1600AF9035 /* FBReplyTableViewCell.swift */,
 				D3849B2E251B6ABE00B49D6C /* FBTagCollectionViewCell.swift */,
 			);
 			path = CellView;
@@ -2136,12 +2148,14 @@
 				D3B785B92532DD7200BB54DB /* WPYStorage.swift in Sources */,
 				36449E481FA4BA9B0036766B /* ApplicantTest.swift in Sources */,
 				361F8863204AF94200BCFA19 /* NewsTableViewCell.swift in Sources */,
+				D3959CC12567A9F700AF9035 /* FBReplyDetailTVController.swift in Sources */,
 				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,
 				361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */,
 				368C3C8A204DAB4F00C1E6B6 /* WPYCustomError.swift in Sources */,
 				2B602312250FE650003CDE94 /* FeedBackDetailVIewController.swift in Sources */,
 				361FB17A21843AFC00BD5A1E /* UploadingPicCell.swift in Sources */,
 				2BAB12C625172A5900FF6EEF /* Consts.swift in Sources */,
+				D3B930902570D75E00200CA8 /* SelectionView.swift in Sources */,
 				3614D55621D928BB0007B886 /* WLANHelper.swift in Sources */,
 				A5E117BB1F99DCBE00C86CA2 /* NotificationItem.swift in Sources */,
 				36F631EE1FAB31C500E3261F /* BicycleUserBindViewController.swift in Sources */,
@@ -2283,6 +2297,7 @@
 				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
 				DD41A83D21A5341100886BB4 /* AuditSearchViewController.swift in Sources */,
 				4B622520245D75D8005EFA6A /* ActivitiesViewController.swift in Sources */,
+				D3AF3C7E2569117000EC72F5 /* TMP.swift in Sources */,
 				78FB9E78217AEBE2001DE39A /* LFSearchCellOfHeight.swift in Sources */,
 				D3849B5B251C5CDB00B49D6C /* FBDetailTabBarView.swift in Sources */,
 				364922A3202620CC00DFDC35 /* CardButton.swift in Sources */,
@@ -2335,6 +2350,7 @@
 				78FB9E9F217AEF79001DE39A /* ButtonGroups.swift in Sources */,
 				A5E117B71F99DC9400C86CA2 /* NotificationList.swift in Sources */,
 				4BAB59722428399200155AD0 /* CollectionViewCell.swift in Sources */,
+				D3959CC72567AB1600AF9035 /* FBReplyTableViewCell.swift in Sources */,
 				4B622522245D75F4005EFA6A /* tmpVC.swift in Sources */,
 				3614D54A21D9251A0007B886 /* ExamTableViewCell.swift in Sources */,
 				B102541E1EC8547E0064373A /* TabVCTransitioningAnimator.swift in Sources */,
