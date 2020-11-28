@@ -44,6 +44,8 @@ class FBNewQuestionViewController: UIViewController, UITextFieldDelegate, UIText
      let campus: [String] = ["卫津路", "北洋园"]
      
      var selectedTag: Int = -1 // default no tag is selected
+     var selectedCampus: Int = 0 // default 0 which means both campus
+     
      var imageViews = [UIImageView]()
      var images = [UIImage]() {
           didSet {
@@ -54,6 +56,7 @@ class FBNewQuestionViewController: UIViewController, UITextFieldDelegate, UIText
      override func viewDidLoad() {
           super.viewDidLoad()
           setUp()
+          addCallBack()
      }
      
      override func viewDidLayoutSubviews() {
@@ -73,7 +76,7 @@ extension FBNewQuestionViewController {
           }
      }
      
-     func setUp() {
+     fileprivate func setUp() {
           view.backgroundColor = .white
           
           addSymmetryLine(y: 15)
@@ -140,9 +143,7 @@ extension FBNewQuestionViewController {
                make.left.equalTo(LEFT_PADDING)
           }
         
-          tagSelectionView = SelectionView(data: availableTags.map { $0.name! }, collectionViewLayout: layout, callBack: { (idx) in
-               self.selectedTag = idx
-          })
+          tagSelectionView = SelectionView(data: availableTags.map { $0.name! }, collectionViewLayout: layout)
           view.addSubview(tagSelectionView)
           tagSelectionView.snp.makeConstraints { (make) in
                make.centerX.equalTo(view)
@@ -227,6 +228,16 @@ extension FBNewQuestionViewController {
                make.width.equalTo(100)
           }
      }
+     
+     fileprivate func addCallBack() {
+          campusSelectionView.addCallBack { (idx) in
+               self.selectedCampus = self.selectedCampus == (idx + 1) ? 0 : (idx + 1)
+          }
+          
+          tagSelectionView.addCallBack { (idx) in
+               self.selectedTag = idx
+          }
+     }
 }
 
 //MARK: - Data
@@ -251,7 +262,7 @@ extension FBNewQuestionViewController {
                
                SwiftMessages.showLoading()
                
-               QuestionHelper.postQuestion(title: title, content: content, tagList: [availableTags[selectedTag].id ?? 0]) { (result) in
+               QuestionHelper.postQuestion(title: title, content: content, tagList: [availableTags[selectedTag].id ?? 0], campus: selectedCampus) { (result) in
                     switch result {
                     case .success(let questionId):
                          if let imgs = self.photoCollectionView.images {

@@ -108,8 +108,8 @@ class QuestionHelper {
           }
      }
      
-     static func postQuestion (title: String, content: String, tagList: [Int], completion: @escaping (Result<Int>) -> Void) {
-          let paras = ["user_id": FB_USER_ID, "name": title, "description": content, "tagList": tagList.description] as [String : Any]
+     static func postQuestion (title: String, content: String, tagList: [Int], campus: Int = 0, completion: @escaping (Result<Int>) -> Void) {
+          let paras = ["user_id": FB_USER_ID, "name": title, "description": content, "tagList": tagList.description, "campus": campus] as [String : Any]
           Alamofire.request(FB_BASE_USER_URL + "question/add" , method: .post, parameters: paras, encoding: JSONEncoding.default)
                .validate().responseJSON { (response) in
                     if let data = response.data {

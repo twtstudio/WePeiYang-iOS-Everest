@@ -164,7 +164,7 @@ class FBDetailHeaderView: UIView {
           
           
           titleLabel.text = question.name
-          self.tags = (question.tags ?? []).sorted(by: { $0.id! < $1.id! })
+          self.tags = (question.tags ?? []).filter({ $0.id! != 0 }).sorted(by: { $0.id! < $1.id! })
           tagView.addDelegate(delegate: self, dataSource: self, isSelectedOnly: true)
           tagView.sizeToFit()
           contentLabel.text = question.datumDescription

@@ -23,6 +23,8 @@ class FBUserViewController: UIViewController {
      
      var posted, thumbed, replied: Int!
      
+     let bgColors: [UIColor] = [#colorLiteral(red: 0.9960784314, green: 0.8745098039, blue: 0.8823529412, alpha: 1), #colorLiteral(red: 0.9058823529, green: 0.5803921569, blue: 0.3764705882, alpha: 1), #colorLiteral(red: 0.937254902, green: 0.7333333333, blue: 0.1411764706, alpha: 1), #colorLiteral(red: 0.3450980392, green: 0.6980392157, blue: 0.862745098, alpha: 1), #colorLiteral(red: 0.7411764706, green: 0.7529411765, blue: 0.7294117647, alpha: 1), #colorLiteral(red: 0.7058823529, green: 0.5058823529, blue: 0.7333333333, alpha: 1), #colorLiteral(red: 0.3647058824, green: 0.6745098039, blue: 0.5058823529, alpha: 1), #colorLiteral(red: 0.6039215686, green: 0.9803921569, blue: 0.6588235294, alpha: 1),]
+     
      var detailViews: [UIStackView] = []
      var user: FBUserModel! {
           didSet {
@@ -149,7 +151,7 @@ extension FBUserViewController {
           stackView.frame.size = CGSize(width: SCREEN.width / 5, height: 50)
           stackView.axis = .vertical
           stackView.alignment = .center
-          stackView.backgroundColor = UIColor(hex6: arc4random())
+          stackView.backgroundColor = bgColors[Int.random(in: 0..<bgColors.count)]
           
           stackView.addArrangedSubview(titleLabel)
           stackView.addArrangedSubview(numLabel)

@@ -290,10 +290,6 @@ extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelega
           if comment.adminID != nil {
                let detailVC = FBReplyDetailTVController(reply: comments[indexPath.row])
                navigationController?.pushViewController(detailVC, animated: true)
-//               let detailVC = FBReplyDetailView(html: comment.contain ?? "")
-//               UIView.transition(with: self.view, duration: 0.2, options: [.transitionCrossDissolve], animations: {
-//                    self.view.addSubview(detailVC)
-//               }, completion: nil)
           }
      }
      

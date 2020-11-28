@@ -25,7 +25,12 @@ class FeedBackMainViewController: UIViewController {
     var tagCollectionView: UICollectionView!
     
     // MARK: - Data
-    var availableTags = [TagModel]() {
+    var availableTags = [
+     TagModel(id: 0, name: "教务处", children: nil),
+     TagModel(id: 0, name: "后保部", children: nil),
+     TagModel(id: 0, name: "场馆中心", children: nil),
+     TagModel(id: 0, name: "其他", children: nil),
+    ] {
         didSet {
             tagCollectionView.reloadData()
             tableView.mj_header.beginRefreshing()
