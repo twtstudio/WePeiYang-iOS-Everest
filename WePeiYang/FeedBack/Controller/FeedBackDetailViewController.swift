@@ -288,7 +288,7 @@ extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelega
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
           let comment = comments[indexPath.row]
           if comment.adminID != -1 {
-               let detailVC = FBReplyDetailTVController(reply: comments[indexPath.row], isOwner: true)
+               let detailVC = FBReplyDetailTVController(reply: comments[indexPath.row], isOwner: questionOfthisPage?.isOwner ?? false)
                navigationController?.pushViewController(detailVC, animated: true)
           }
      }

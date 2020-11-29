@@ -49,24 +49,24 @@ class FBRateCommentView: MessageView {
           
           titleLabel = UILabel()
           titleLabel?.text = "评价回复"
+          titleLabel?.font = .boldSystemFont(ofSize: 16)
           titleLabel?.sizeToFit()
           contentView.addSubview(titleLabel!)
           titleLabel?.snp.makeConstraints({ (make) in
                make.top.centerX.equalToSuperview()
-               make.top.equalToSuperview().offset(40)
           })
           
-          starRateView = FBStarRateView(frame: CGRect(origin: .zero, size: CGSize(width: 120, height: 20)), progressImg: UIImage(named: "feedback_star_fill"), trackImg: UIImage(named: "feedback_star"))
+          starRateView = FBStarRateView(frame: CGRect(origin: .zero, size: CGSize(width: 170, height: 30)), progressImg: UIImage(named: "feedback_star_fill"), trackImg: UIImage(named: "feedback_star"))
           starRateView.show(type: .half, isInteractable: true, leastStar: 0) { (score) in
                self.score = Float(score)
                print(score)
           }
           contentView.addSubview(starRateView)
           starRateView.snp.makeConstraints { (make) in
-               make.top.equalTo(titleLabel!.snp.bottom).offset(5)
+               make.top.equalTo(titleLabel!.snp.bottom).offset(10)
                make.centerX.equalToSuperview()
-               make.width.equalTo(120)
-               make.height.equalTo(20)
+               make.width.equalTo(170)
+               make.height.equalTo(30)
           }
           
           commentTextView = UITextView()
@@ -78,7 +78,7 @@ class FBRateCommentView: MessageView {
           commentTextView.font = .systemFont(ofSize: 14)
           contentView.addSubview(commentTextView)
           commentTextView.snp.makeConstraints { (make) in
-               make.top.equalTo(starRateView).offset(20)
+               make.top.equalTo(starRateView.snp.bottom).offset(15)
                make.centerX.equalToSuperview()
                make.width.equalToSuperview().multipliedBy(0.8)
                make.height.equalToSuperview().multipliedBy(0.5)
@@ -100,10 +100,39 @@ class FBRateCommentView: MessageView {
           
           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+          
+          backgroundView.backgroundColor = UIColor.init(white: 0.97, alpha: 1)
+          backgroundView.layer.cornerRadius = 10
      }
      
      @objc private func rateComment() {
-          
+          if score == 0 || commentTextView.text.isEmpty {
+               let alert = UIAlertController(title: "提示", message: "信息未补充完整", preferredStyle: .alert)
+               let action1 = UIAlertAction(title: "好的", style: .default, handler: nil)
+               alert.addAction(action1)
+               
+               var topVC = UIApplication.shared.keyWindow?.rootViewController
+               while((topVC!.presentedViewController) != nil) {
+                    topVC = topVC!.presentedViewController
+               }
+               topVC?.present(alert, animated: true)
+          } else {
+               SwiftMessages.showLoading()
+               FBCommentHelper.commentAnswer(answerId: TwTUser.shared.feedbackID ?? 0, score: score, commit: commentTextView.text) { (result) in
+                    switch result {
+                    case .success(_):
+                         SwiftMessages.showSuccessMessage(body: "评价成功！")
+                    case .failure(let err):
+                         print("<FBRateCommentView>CommentAnswer ERROR!\n" + err.localizedDescription)
+                    }
+                    SwiftMessages.hideLoading()
+                    SwiftMessages.hideAll()
+               }
+          }
+     }
+     
+     deinit {
+          NotificationCenter.default.removeObserver(self)
      }
 }
 

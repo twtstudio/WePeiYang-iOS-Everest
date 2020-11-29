@@ -73,6 +73,7 @@ struct FBQuestionModel: Codable {
      var tags: [FBTagModel]?
      var thumbUrlList: [String]?
      var isLiked: Bool?
+     var isOwner: Bool?
      
      enum CodingKeys: String, CodingKey {
           case id, name
@@ -87,6 +88,7 @@ struct FBQuestionModel: Codable {
           case urlList = "url_list"
           case thumbImg, isLiked = "is_liked"
           case thumbUrlList = "thumb_url_list"
+          case isOwner = "is_owner"
      }
 }
 

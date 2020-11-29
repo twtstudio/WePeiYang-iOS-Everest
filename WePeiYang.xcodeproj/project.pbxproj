@@ -10,11 +10,11 @@
 		0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */; };
 		1B20B1FF52E995B4AC3D3EDE /* Pods_WePeiYangWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E48DF45006ADE8419C6CF0C /* Pods_WePeiYangWidget.framework */; };
 		2B6022EB250F0245003CDE94 /* FeedBackMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6022EA250F0245003CDE94 /* FeedBackMainViewController.swift */; };
-		2B602312250FE650003CDE94 /* FeedBackDetailVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B602311250FE650003CDE94 /* FeedBackDetailVIewController.swift */; };
+		2B602312250FE650003CDE94 /* FeedBackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B602311250FE650003CDE94 /* FeedBackDetailViewController.swift */; };
 		2BAB12922517293600FF6EEF /* FBSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB12912517293600FF6EEF /* FBSearchResultsViewController.swift */; };
-		2BAB129E251729A700FF6EEF /* QusetionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB129D251729A700FF6EEF /* QusetionHelper.swift */; };
+		2BAB129E251729A700FF6EEF /* FBQusetionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB129D251729A700FF6EEF /* FBQusetionHelper.swift */; };
 		2BAB12A4251729C500FF6EEF /* FBCommentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB12A3251729C500FF6EEF /* FBCommentHelper.swift */; };
-		2BAB12AA251729E300FF6EEF /* TagHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB12A9251729E300FF6EEF /* TagHelper.swift */; };
+		2BAB12AA251729E300FF6EEF /* FBTagsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB12A9251729E300FF6EEF /* FBTagsHelper.swift */; };
 		2BAB12B0251729FD00FF6EEF /* FBUserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB12AF251729FD00FF6EEF /* FBUserHelper.swift */; };
 		2BAB12C625172A5900FF6EEF /* FBConsts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB12C525172A5900FF6EEF /* FBConsts.swift */; };
 		360339E920247B9D0006A083 /* LibraryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360339E820247B9C0006A083 /* LibraryCard.swift */; };
@@ -391,11 +391,11 @@
 		0CB8164D1FA8877A001571A5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1891C813FFA3E343EC0ED374 /* Pods_WePeiYang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WePeiYang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6022EA250F0245003CDE94 /* FeedBackMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackMainViewController.swift; sourceTree = "<group>"; };
-		2B602311250FE650003CDE94 /* FeedBackDetailVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackDetailVIewController.swift; sourceTree = "<group>"; };
+		2B602311250FE650003CDE94 /* FeedBackDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackDetailViewController.swift; sourceTree = "<group>"; };
 		2BAB12912517293600FF6EEF /* FBSearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBSearchResultsViewController.swift; sourceTree = "<group>"; };
-		2BAB129D251729A700FF6EEF /* QusetionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QusetionHelper.swift; sourceTree = "<group>"; };
+		2BAB129D251729A700FF6EEF /* FBQusetionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBQusetionHelper.swift; sourceTree = "<group>"; };
 		2BAB12A3251729C500FF6EEF /* FBCommentHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBCommentHelper.swift; sourceTree = "<group>"; };
-		2BAB12A9251729E300FF6EEF /* TagHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagHelper.swift; sourceTree = "<group>"; };
+		2BAB12A9251729E300FF6EEF /* FBTagsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBTagsHelper.swift; sourceTree = "<group>"; };
 		2BAB12AF251729FD00FF6EEF /* FBUserHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBUserHelper.swift; sourceTree = "<group>"; };
 		2BAB12C525172A5900FF6EEF /* FBConsts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBConsts.swift; sourceTree = "<group>"; };
 		360339E820247B9C0006A083 /* LibraryCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCard.swift; sourceTree = "<group>"; };
@@ -786,9 +786,9 @@
 		2B6022E7250F0049003CDE94 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2BAB129D251729A700FF6EEF /* QusetionHelper.swift */,
+				2BAB129D251729A700FF6EEF /* FBQusetionHelper.swift */,
 				2BAB12A3251729C500FF6EEF /* FBCommentHelper.swift */,
-				2BAB12A9251729E300FF6EEF /* TagHelper.swift */,
+				2BAB12A9251729E300FF6EEF /* FBTagsHelper.swift */,
 				2BAB12AF251729FD00FF6EEF /* FBUserHelper.swift */,
 				2BAB12C525172A5900FF6EEF /* FBConsts.swift */,
 			);
@@ -816,7 +816,7 @@
 			isa = PBXGroup;
 			children = (
 				2B6022EA250F0245003CDE94 /* FeedBackMainViewController.swift */,
-				2B602311250FE650003CDE94 /* FeedBackDetailVIewController.swift */,
+				2B602311250FE650003CDE94 /* FeedBackDetailViewController.swift */,
 				D3F591302524728D00B7BA90 /* FBQuestionTableViewController.swift */,
 				D3959CC02567A9F700AF9035 /* FBReplyDetailTVController.swift */,
 				D31D395225224ABD0001137E /* FBUserViewController.swift */,
@@ -2156,7 +2156,7 @@
 				36449E6F1FA4BABA0036766B /* CourseDetailTableViewCell.swift in Sources */,
 				361F8854204AF92100BCFA19 /* NewsModel.swift in Sources */,
 				368C3C8A204DAB4F00C1E6B6 /* WPYCustomError.swift in Sources */,
-				2B602312250FE650003CDE94 /* FeedBackDetailVIewController.swift in Sources */,
+				2B602312250FE650003CDE94 /* FeedBackDetailViewController.swift in Sources */,
 				361FB17A21843AFC00BD5A1E /* UploadingPicCell.swift in Sources */,
 				2BAB12C625172A5900FF6EEF /* FBConsts.swift in Sources */,
 				D3B930902570D75E00200CA8 /* SelectionView.swift in Sources */,
@@ -2256,7 +2256,7 @@
 				DDC7891E21B1302C00ABA33F /* CourseNode.swift in Sources */,
 				3685D9F1204D276100BA6C3D /* NewsDetailModel.swift in Sources */,
 				A51497FA1FC80D5E00622A7B /* BindingAPIs.swift in Sources */,
-				2BAB129E251729A700FF6EEF /* QusetionHelper.swift in Sources */,
+				2BAB129E251729A700FF6EEF /* FBQusetionHelper.swift in Sources */,
 				3614D55321D928BB0007B886 /* WLANLoginViewController.swift in Sources */,
 				0CB8164E1FA8877A001571A5 /* SettingsViewController.swift in Sources */,
 				36449E8A1FA4BAD10036766B /* PartyPersonalStatusViewController.swift in Sources */,
@@ -2320,7 +2320,7 @@
 				36F285092049B7D50095A3D4 /* ModulesSettingsViewController.swift in Sources */,
 				DD2E302421C63600007767C3 /* WPYAnalyticsAOP.swift in Sources */,
 				A554C4BB1F99E64600022A01 /* BicycleFitnessTrackerViewCell.swift in Sources */,
-				2BAB12AA251729E300FF6EEF /* TagHelper.swift in Sources */,
+				2BAB12AA251729E300FF6EEF /* FBTagsHelper.swift in Sources */,
 				DD41A83921A4FE8100886BB4 /* AuditCollegeModel.swift in Sources */,
 				A51C45681FD0227800652435 /* WLANBindingViewController.swift in Sources */,
 				2BAB12922517293600FF6EEF /* FBSearchResultsViewController.swift in Sources */,

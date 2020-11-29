@@ -97,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           UITabBar.appearance().tintColor = Metadata.Color.WPYAccentColor
           //        UITabBar.appearance().isOpaque = true
           
-          mainTabVC.selectedIndex = 2
+          mainTabVC.selectedIndex = 0
           if #available(iOS 10.0, *) {
                mainTabVC.tabBar.unselectedItemTintColor = Metadata.Color.grayIconColor
           } else {
