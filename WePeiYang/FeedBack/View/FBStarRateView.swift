@@ -1,5 +1,3 @@
-
-'
 //
 //  StarRateView.swift
 //  StarRateView
