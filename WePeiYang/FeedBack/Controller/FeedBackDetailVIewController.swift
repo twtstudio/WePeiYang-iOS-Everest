@@ -20,16 +20,16 @@ class FeedBackDetailViewController: UIViewController {
      var textView: UITextView!
      
      //MARK: - Data
-     var comments = [CommentModel]()
-     var questionOfthisPage: QuestionModel?
-     var tags = [TagModel]()
+     var comments = [FBCommentModel]()
+     var questionOfthisPage: FBQuestionModel?
+     var tags = [FBTagModel]()
      var isLiked: Bool? {
           didSet {
                tabBarView.likeBtn.setImage(UIImage(named: isLiked ?? false ? "feedback_thumb_up_fill" : "feedback_thumb_up"), for: .normal)
           }
      }
      let commentCellID = "feedBackDVCCCell"
-     let replyCellID = "feedBackDVCRCell"
+     let replyCellID = "feedBackRDVCRCell"
      
      override func viewDidLoad() {
           super .viewDidLoad()
@@ -57,7 +57,7 @@ extension FeedBackDetailViewController {
           tableView.delegate = self
           tableView.register(FBCommentTableViewCell.self, forCellReuseIdentifier: commentCellID)
           tableView.register(FBReplyTableViewCell.self, forCellReuseIdentifier: replyCellID)
-          tableView.tableHeaderView = FBDetailHeaderView(question: questionOfthisPage ?? QuestionModel())
+          tableView.tableHeaderView = FBDetailHeaderView(question: questionOfthisPage ?? FBQuestionModel())
           tableView.keyboardDismissMode = .onDrag
           tableView.separatorStyle = .none
           view.addSubview(tableView)
@@ -109,7 +109,7 @@ extension FeedBackDetailViewController {
      
      @objc func likeOrDislike() {
           if self.isLiked ?? false {
-               QuestionHelper.dislikeQuestion(id: questionOfthisPage?.id ?? 0) { (result) in
+               FBQuestionHelper.dislikeQuestion(id: questionOfthisPage?.id ?? 0) { (result) in
                     switch result {
                     case .success(let str):
                          SwiftMessages.showSuccessMessage(body: str)
@@ -119,7 +119,7 @@ extension FeedBackDetailViewController {
                     }
                }
           } else {
-               QuestionHelper.likeQuestion(id: questionOfthisPage?.id ?? 0) { (result) in
+               FBQuestionHelper.likeQuestion(id: questionOfthisPage?.id ?? 0) { (result) in
                     switch result {
                     case .success(let str):
                          SwiftMessages.showSuccessMessage(body: str)
@@ -155,11 +155,11 @@ extension FeedBackDetailViewController {
 extension FeedBackDetailViewController {
      private func loadData() {
           if questionOfthisPage?.solved == 1 {
-               CommentHelper.commentGet(type: .answer, id: questionOfthisPage?.id ?? 0) { (result) in
+               FBCommentHelper.commentGet(type: .answer, id: questionOfthisPage?.id ?? 0) { (result) in
                     switch result {
                     case .success(let answers):
                          self.comments = answers
-                         CommentHelper.commentGet(id: self.questionOfthisPage?.id ?? 0) { (result) in
+                         FBCommentHelper.commentGet(id: self.questionOfthisPage?.id ?? 0) { (result) in
                               switch result {
                               case .success(let comments):
                                    self.comments += comments
@@ -173,11 +173,11 @@ extension FeedBackDetailViewController {
                     }
                }
           } else {
-               CommentHelper.commentGet(id: questionOfthisPage?.id ?? 0) { (result) in
+               FBCommentHelper.commentGet(id: questionOfthisPage?.id ?? 0) { (result) in
                     switch result {
                     case .success(let comments):
                          self.comments = comments
-//                         self.comments.insert(CommentModel(id: 123, contain: """
+//                         self.comments.insert(FBCommentModel(id: 123, contain: """
 //                                                <div id="mainpage-a" class="mainpage-container">
 //                                                <div class="mainpage-newsbox">
 //                                                <div class="mainpage-title">你好～欢迎来到萌娘百科！</div>
@@ -262,7 +262,7 @@ extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelega
      
      //MARK:- The content of the comment
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-          if comments[indexPath.row].adminID == nil {
+          if comments[indexPath.row].adminID == -1 {
                let cell = tableView.dequeueReusableCell(withIdentifier: commentCellID) as! FBCommentTableViewCell
                cell.update(comment: comments[indexPath.row])
                return cell
@@ -277,7 +277,7 @@ extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelega
           let comment = comments[indexPath.row]
           var str = comment.contain ?? ""
           var aStr: NSAttributedString?
-          if comment.adminID != nil {
+          if comment.adminID != -1 {
 //               return 150
                aStr = comment.contain?.htmlToAttributedString
                return 60 + aStr!.getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 4)
@@ -287,8 +287,8 @@ extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelega
      
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
           let comment = comments[indexPath.row]
-          if comment.adminID != nil {
-               let detailVC = FBReplyDetailTVController(reply: comments[indexPath.row])
+          if comment.adminID != -1 {
+               let detailVC = FBReplyDetailTVController(reply: comments[indexPath.row], isOwner: true)
                navigationController?.pushViewController(detailVC, animated: true)
           }
      }
@@ -320,7 +320,7 @@ extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelega
                     return true
                }
                textView.endEditing(true)
-               CommentHelper.addComment(questionId: (questionOfthisPage?.id)!, contain: textView.text) { (string) in
+               FBCommentHelper.addComment(questionId: (questionOfthisPage?.id)!, contain: textView.text) { (string) in
                     SwiftMessages.showSuccessMessage(body: "评论发布成功!")
                     self.loadData()
                     textView.text = "发表你的看法"

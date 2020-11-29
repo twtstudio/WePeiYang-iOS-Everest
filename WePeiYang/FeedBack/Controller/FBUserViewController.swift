@@ -164,7 +164,7 @@ extension FBUserViewController {
      }
      
      func loadData() {
-          UserHelper.getDetail { (result) in
+          FBUserHelper.getDetail { (result) in
                switch result {
                case .success(let user):
                     self.user = user
@@ -177,10 +177,10 @@ extension FBUserViewController {
      }
      
      @objc fileprivate func pushVC() {
-//          QuestionHelper.getQuestions(type: .solved) { (result) in
+//          FBQuestionHelper.getQuestions(type: .solved) { (result) in
 //               switch result {
 //               case .success(let questions):
-//                    let vc = FBReplyDetailTVController(replys: questions.filter{ $0.solved == 1 })
+//                    let vc = FBReplyDetailTVController(replies: questions.filter{ $0.solved == 1 })
 //                    navigationController?.pushViewController(vc, animated: true)
 //               case .failure(let err):
 //                    print(err)

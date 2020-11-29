@@ -1,35 +1,21 @@
 //
-//  FBReplyTableViewCell.swift
+//  FBReplyDetailTableViewCell.swift
 //  WePeiYang
 //
-//  Created by Zrzz on 2020/11/20.
+//  Created by Zrzz on 2020/11/29.
 //  Copyright © 2020 twtstudio. All rights reserved.
 //
 
 import UIKit
-import WebKit
 
-class FBReplyTableViewCell: UITableViewCell {
-     
+class FBReplyDetailTableViewCell: UITableViewCell {
      var bgView: UIView!
      var userImgView: UIImageView! // user头像
      var userNameLabel: UILabel! // user名称
      var officialLabel: UILabel! // 官方的标签
      var contentLabel: UILabel! // 内容
      var timeLabel: UILabel! // 时间
-     var likesBtn: UIButton! // 点赞图标
      
-     var likes: Int! {
-          didSet {
-               likesLabel.text = likes.description
-          }
-     }
-     var likesLabel: UILabel! // 点赞Label
-     var isLiked: Bool! {
-          didSet {
-               likesBtn.setImage(UIImage(named: isLiked ? "feedback_thumb_up_fill" : "feedback_thumb_up"), for: .normal)
-          }
-     }
      var commentID: Int!
      
      var starRateView: FBStarRateView!
@@ -99,6 +85,7 @@ class FBReplyTableViewCell: UITableViewCell {
 
           contentLabel = UILabel()
           contentLabel.font = .systemFont(ofSize: 14)
+          contentLabel.numberOfLines = 0
           contentLabel.backgroundColor = .white
           bgView.addSubview(contentLabel)
           contentLabel.snp.makeConstraints { (make) in
@@ -117,23 +104,6 @@ class FBReplyTableViewCell: UITableViewCell {
                make.bottom.equalTo(self).offset(-10)
           }
           
-          likesBtn = UIButton()
-          likesBtn.tag = 0
-          bgView.addSubview(likesBtn)
-          likesBtn.snp.makeConstraints { (make) in
-               make.centerY.equalTo(timeLabel)
-               make.left.equalTo(timeLabel.snp.right).offset(5)
-               make.width.height.equalTo(15)
-          }
-          
-          likesLabel = UILabel()
-          likesLabel.font = .systemFont(ofSize: 12)
-          likesLabel.backgroundColor = .white
-          bgView.addSubview(likesLabel)
-          likesLabel.snp.makeConstraints { (make) in
-               make.centerY.equalTo(timeLabel)
-               make.left.equalTo(likesBtn.snp.right).offset(5)
-          }
      }
      
      override func layoutIfNeeded() {
@@ -153,48 +123,12 @@ class FBReplyTableViewCell: UITableViewCell {
           
           contentLabel.attributedText = comment.contain?.htmlToAttributedString
           contentLabel.font = .systemFont(ofSize: 14)
-          contentLabel.numberOfLines = 4
           contentLabel.sizeToFit()
           
           timeLabel.text = (comment.createdAt?[0..<10] ?? "") + " " + (comment.createdAt?[11..<16] ?? "")
           timeLabel.sizeToFit()
           commentID = comment.id ?? 0
-          likesBtn.removeTarget(nil, action: nil, for: .allEvents)
-          likesBtn.addTarget(self, action: #selector(likeOrDislike), for: .touchUpInside)
-          isLiked = comment.isLiked
-          likes = comment.likes ?? 0
-          likesLabel.sizeToFit()
+          
      }
-     
-     @objc func likeOrDislike() {
-          if isLiked == false {
-               likesBtn.setImage(UIImage(named: "feedback_thumb_up_fill"), for: .normal)
-               FBCommentHelper.likeComment(type: .answer, commentId: commentID) { (result) in
-                    switch result {
-                    case .success(let str):
-                         SwiftMessages.showSuccessMessage(body: str)
-                    case .failure(let error):
-                         print(error)
-                    }
-               }
-               isLiked = true
-               likes += 1
-               
-          } else {
-               likesBtn.setImage(UIImage(named: "feedback_thumb_up"), for: .normal)
-               FBCommentHelper.dislikeComment(type: .answer, commentId: commentID) { (result) in
-                    switch result {
-                    case .success(let str):
-                         SwiftMessages.showSuccessMessage(body: str)
-                    case .failure(let error):
-                         print(error)
-                    }
-               }
-               isLiked = false
-               likes -= 1
-          }
-     }
-     
-     
-     
+
 }

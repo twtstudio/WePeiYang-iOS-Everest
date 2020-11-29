@@ -10,7 +10,7 @@ import UIKit
 
 class FBSearchResultsViewController: UITableViewController, UISearchBarDelegate {
      
-     var questions = [QuestionModel]() {
+     var questions = [FBQuestionModel]() {
           didSet {
                tableView.reloadData()
           }
@@ -31,7 +31,7 @@ class FBSearchResultsViewController: UITableViewController, UISearchBarDelegate 
 extension FBSearchResultsViewController: UISearchResultsUpdating {
      func updateSearchResults(for searchController: UISearchController) {
           if let text = searchController.searchBar.text {
-               QuestionHelper.searchQuestions(string: text, limits: 0) { (result) in
+               FBQuestionHelper.searchQuestions(string: text, limits: 0) { (result) in
                     switch result {
                     case .success(let questions):
                          self.questions = questions

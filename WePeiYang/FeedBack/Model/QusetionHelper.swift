@@ -24,10 +24,10 @@ struct FBPlainModel: Codable {
 }
 
 // MARK: - QuestionGet
-struct QuestionGet: Codable {
+struct FBQuestionGet: Codable {
      var errorCode: Int?
      var msg: String?
-     var questionData: QuestionData?
+     var questionData: FBQuestionData?
      
      enum CodingKeys: String, CodingKey {
           case errorCode = "ErrorCode"
@@ -36,9 +36,9 @@ struct QuestionGet: Codable {
 }
 
 // MARK: - DataClass
-struct QuestionData: Codable {
+struct FBQuestionData: Codable {
      var currentPage: Int?
-     var data: [QuestionModel]?
+     var data: [FBQuestionModel]?
      var firstPageURL: String?
      var from, lastPage: Int?
      var lastPageURL, nextPageURL, path: String?
@@ -62,7 +62,7 @@ struct QuestionData: Codable {
 }
 
 // MARK: - Datum
-struct QuestionModel: Codable {
+struct FBQuestionModel: Codable {
      var id: Int?
      var name, datumDescription: String?
      var userID, solved, noCommit, likes: Int?
@@ -70,7 +70,7 @@ struct QuestionModel: Codable {
      var msgCount: Int?
      var urlList: [String]?
      var thumbImg: String?
-     var tags: [TagModel]?
+     var tags: [FBTagModel]?
      var thumbUrlList: [String]?
      var isLiked: Bool?
      
@@ -93,13 +93,13 @@ struct QuestionModel: Codable {
 
 //  stupid quicktype QAQ
 
-class QuestionHelper {     
-     static func searchQuestions(tags: [Int] = [], string: String = "", limits: Int = 10, page: Int = 1, completion: @escaping (Result<[QuestionModel]>) -> Void) {
+class FBQuestionHelper {     
+     static func searchQuestions(tags: [Int] = [], string: String = "", limits: Int = 10, page: Int = 1, completion: @escaping (Result<[FBQuestionModel]>) -> Void) {
           let questionRequest: DataRequest = Alamofire.request(FB_BASE_USER_URL + "question/search?tagList=\(tags)&searchString=\(string)&limits=\(limits)&page=\(page)&user_id=\(FB_USER_ID)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
           questionRequest.responseJSON { response in
                do {
                     if let data = response.data {
-                         let questionGet = try JSONDecoder().decode(QuestionGet.self, from: data)
+                         let questionGet = try JSONDecoder().decode(FBQuestionGet.self, from: data)
                          completion(.success(questionGet.questionData?.data ?? []))
                     }
                } catch {
@@ -209,7 +209,7 @@ class QuestionHelper {
           case liked, my, solved
      }
      
-     static func getQuestions(type: QuesGetType, limits: Int = 0, completion: @escaping (Result<[QuestionModel]>) -> Void) {
+     static func getQuestions(type: QuesGetType, limits: Int = 0, completion: @escaping (Result<[FBQuestionModel]>) -> Void) {
           let url = FB_BASE_USER_URL + (type == .liked ? "likes/get/question?user_id=\(FB_USER_ID)" : "question/get/myQuestion?user_id=\(FB_USER_ID)&limits=\(limits)")
           Alamofire.request(url)
                .validate().responseJSON { (response) in
@@ -219,16 +219,16 @@ class QuestionHelper {
                                    let jsonData = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as AnyObject
                                    let data: AnyObject = jsonData["data"] as AnyObject
                                    if let incurData = try? JSONSerialization.data(withJSONObject: data, options: []) {
-                                        let questions = try JSONDecoder().decode([QuestionModel].self, from: incurData)
+                                        let questions = try JSONDecoder().decode([FBQuestionModel].self, from: incurData)
                                         completion(.success(questions))
                                    }
                               } else {
-//                                   let questionGet = try JSONDecoder().decode(QuestionGet.self, from: data)
+//                                   let questionGet = try JSONDecoder().decode(FBQuestionGet.self, from: data)
 //                                   completion(.success(questionGet.questionData?.data ?? []))
                                    let jsonData = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as AnyObject
                                    let data: AnyObject = jsonData["data"] as AnyObject
                                    if let incurData = try? JSONSerialization.data(withJSONObject: data, options: []) {
-                                        let questions = try JSONDecoder().decode([QuestionModel].self, from: incurData)
+                                        let questions = try JSONDecoder().decode([FBQuestionModel].self, from: incurData)
                                         completion(.success(questions))
                                    }
                               }

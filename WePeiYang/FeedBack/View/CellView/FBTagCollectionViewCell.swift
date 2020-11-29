@@ -38,7 +38,7 @@ class FBTagCollectionViewCell: UICollectionViewCell {
           fatalError("init(coder:) has not been implemented")
      }
      
-     func update(by tag: TagModel, selected: Bool) {
+     func update(by tag: FBTagModel, selected: Bool) {
           label.text = tag.name
           tagSelected = selected
      }

@@ -16,7 +16,7 @@ class FBQuestionTableViewController: UITableViewController {
      
      var type: QTType = .thumbed {
           didSet {
-               QuestionHelper.getQuestions(type: (type == .thumbed ? .liked : .my)) { (result) in
+               FBQuestionHelper.getQuestions(type: (type == .thumbed ? .liked : .my)) { (result) in
                     switch result {
                     case .success(let questions):
                          self.questions = questions
@@ -27,7 +27,7 @@ class FBQuestionTableViewController: UITableViewController {
           }
      }
 
-     var questions = [QuestionModel]() {
+     var questions = [FBQuestionModel]() {
           didSet {
                tableView.reloadData()
           }
@@ -92,7 +92,7 @@ extension FBQuestionTableViewController {
                     let alert = UIAlertController(title: "提示", message: "你正在删除这个提问\n是否真的删除?", preferredStyle: .alert)
                     let action1 = UIAlertAction(title: "取消", style: .cancel, handler: nil)
                     let action2 = UIAlertAction(title: "确定", style: .destructive) { (_) in
-                         QuestionHelper.deleteMyQuestion(questionId: self.questions[indexPath.row].id ?? 0) { (result) in
+                         FBQuestionHelper.deleteMyQuestion(questionId: self.questions[indexPath.row].id ?? 0) { (result) in
                               switch result {
                               case .success(let str):
                                    SwiftMessages.showSuccessMessage(body: str)

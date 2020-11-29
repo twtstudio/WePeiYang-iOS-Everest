@@ -25,9 +25,9 @@ class FBDetailHeaderView: UIView {
      var stLabel: UILabel! // 回复状态
      
      let collectionViewCellId = "feedBackCollectionViewCellID"
-     var tags = [TagModel]()
+     var tags = [FBTagModel]()
 
-     convenience init(question: QuestionModel) {
+     convenience init(question: FBQuestionModel) {
           self.init()
           
           bgView = UIView()
@@ -174,7 +174,7 @@ class FBDetailHeaderView: UIView {
           msgCntLabel.sizeToFit()
           likesLabel.text = question.likes?.description ?? ""
           likesLabel.sizeToFit()
-          stLabel.text = question.solved ?? 0 == 1 ? "校方已回复" : "校方未回复"
+          stLabel.text = question.solved ?? 0 == 1 ? "已反馈" : "未回复"
           stLabel.textColor = question.solved ?? 0 == 1 ? UIColor(hex6: 0x387a47) : .red
           
           frame = CGRect(x: 0, y: 0, width: SCREEN.width, height: 140 +

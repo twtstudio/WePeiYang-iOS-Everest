@@ -26,10 +26,10 @@ class FeedBackMainViewController: UIViewController {
     
     // MARK: - Data
     var availableTags = [
-     TagModel(id: 0, name: "教务处", children: nil),
-     TagModel(id: 0, name: "后保部", children: nil),
-     TagModel(id: 0, name: "场馆中心", children: nil),
-     TagModel(id: 0, name: "其他", children: nil),
+     FBTagModel(id: 0, name: "教务处", children: nil),
+     FBTagModel(id: 0, name: "后保部", children: nil),
+     FBTagModel(id: 0, name: "场馆中心", children: nil),
+     FBTagModel(id: 0, name: "其他", children: nil),
     ] {
         didSet {
             tagCollectionView.reloadData()
@@ -43,7 +43,7 @@ class FeedBackMainViewController: UIViewController {
           }
      }
     
-    var questions = [QuestionModel]() {
+    var questions = [FBQuestionModel]() {
         didSet {
             tableView.reloadData()
             if self.tableView.mj_footer.isRefreshing {
@@ -56,7 +56,7 @@ class FeedBackMainViewController: UIViewController {
         didSet {
             if curPage != 1 {
                 tableView.mj_footer.beginRefreshing()
-                QuestionHelper.searchQuestions(tags: availableTags.map{ $0.id ?? 0 }.filter{ $0 != 0 }, string: "", limits: 10, page: curPage) { (result) in
+                FBQuestionHelper.searchQuestions(tags: availableTags.map{ $0.id ?? 0 }.filter{ $0 != 0 }, string: "", limits: 10, page: curPage) { (result) in
                     switch result {
                     case .success(let questions):
                         if questions.count != 0 {
@@ -263,7 +263,7 @@ extension FeedBackMainViewController: UICollectionViewDataSource, UICollectionVi
 // MARK: - Data Control
 extension FeedBackMainViewController {
     private func loadData() {
-        TagsHelper.tagGet { (results) in
+        FBTagsHelper.tagGet { (results) in
             switch results {
             case .success(let tags):
                 if tags.count == 1 {
@@ -274,7 +274,7 @@ extension FeedBackMainViewController {
             }
         }
         
-        UserHelper.userIdGet { (result) in
+        FBUserHelper.userIdGet { (result) in
             switch result {
             case .success(let uid):
                 TwTUser.shared.feedbackID = uid
@@ -299,7 +299,7 @@ extension FeedBackMainViewController {
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
         
-        QuestionHelper.searchQuestions(tags: availableTags.map{ $0.id ?? 0 }.filter{ $0 != 0 }, string: "", limits: 10, page: 1) { (result) in
+        FBQuestionHelper.searchQuestions(tags: availableTags.map{ $0.id ?? 0 }.filter{ $0 != 0 }, string: "", limits: 10, page: 1) { (result) in
             switch result {
             case .success(let questions):
                 self.questions = questions

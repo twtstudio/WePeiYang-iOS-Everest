@@ -25,7 +25,7 @@ class FBQuestionTableViewCell: UITableViewCell {
      var imgView: UIImageView! // 图片
      
      let collectionViewCellId = "feedBackCollectionViewCellID"
-     var tags = [TagModel]() {
+     var tags = [FBTagModel]() {
           didSet {
                tagView.reloadData()
           }
@@ -191,7 +191,7 @@ class FBQuestionTableViewCell: UITableViewCell {
           fatalError("init(coder:) has not been implemented")
      }
      
-     func update(by question: QuestionModel) {
+     func update(by question: FBQuestionModel) {
           
           titleLabel.text = question.name
           titleLabel.sizeToFit()

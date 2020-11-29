@@ -1,5 +1,5 @@
 //
-//  UserHelper.swift
+//  FBUserHelper.swift
 //  WePeiYang
 //
 //  Created by 于隆祎 on 2020/9/20.
@@ -22,7 +22,7 @@ struct FBUserGet: Codable {
     }
 }
 
-// MARK: - Ds
+// MARK: - Users
 struct FBUserModel: Codable {
     var id: Int?
     var name, studentID: String?
@@ -38,7 +38,7 @@ struct FBUserModel: Codable {
     }
 }
 
-class UserHelper {
+class FBUserHelper {
      static func getDetail(completion: @escaping (Result<FBUserModel>) -> Void) {
           Alamofire.request(FB_BASE_USER_URL + "userData?user_id=\(TwTUser.shared.feedbackID ?? 1)")
                .validate().responseJSON { (response) in

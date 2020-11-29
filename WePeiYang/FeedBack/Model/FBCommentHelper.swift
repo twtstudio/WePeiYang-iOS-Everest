@@ -1,5 +1,5 @@
 //
-//  CommentHelper.swift
+//  FBCommentHelper.swift
 //  WePeiYang
 //
 //  Created by 于隆祎 on 2020/9/20.
@@ -9,11 +9,11 @@
 import Foundation
 import Alamofire
 
-// MARK: - CommentGet
-struct CommentGet: Codable {
+// MARK: - FBCommentGet
+struct FBCommentGet: Codable {
      var errorCode: Int?
      var msg: String?
-     var data: [CommentModel]?
+     var data: [FBCommentModel]?
      
      enum CodingKeys: String, CodingKey {
           case errorCode = "ErrorCode"
@@ -21,8 +21,9 @@ struct CommentGet: Codable {
      }
 }
 
-// MARK: - CommentModel
-struct CommentModel: Codable {
+// MARK: - FBCommentModel
+// 这个是问题回复和评论的杂合体
+struct FBCommentModel: Codable {
      var id: Int?
      var contain: String?
      var adminID: Int?
@@ -31,6 +32,7 @@ struct CommentModel: Codable {
      var userID, likes: Int?
      var createdAt, updatedAt, username: String?
      var isLiked: Bool?
+     var adminName: String?
      
      enum CodingKeys: String, CodingKey {
           case id, contain
@@ -39,18 +41,18 @@ struct CommentModel: Codable {
           case score, commit
           case createdAt = "created_at"
           case updatedAt = "updated_at"
-          case username
+          case username, adminName = "admin_name"
           case isLiked = "is_liked"
      }
 }
 
 
-class CommentHelper {
+class FBCommentHelper {
      enum type {
           case comment, answer
      }
      
-     static func commentGet(type: type = .comment, id: Int, completion: @escaping (Result<[CommentModel]>) -> Void) {
+     static func commentGet(type: type = .comment, id: Int, completion: @escaping (Result<[FBCommentModel]>) -> Void) {
           let url = FB_BASE_USER_URL + (type == .comment ?
                "question/get/commit?question_id=\(id)&user_id=\(FB_USER_ID)" :
                "question/get/answer?question_id=\(id)&user_id=\(FB_USER_ID)")
@@ -58,7 +60,7 @@ class CommentHelper {
           commentRequest.validate().responseJSON { response in
                if let data = response.data {
                     do {
-                         let commentGet = try JSONDecoder().decode(CommentGet.self, from: data)
+                         let commentGet = try JSONDecoder().decode(FBCommentGet.self, from: data)
                          completion(.success(commentGet.data ?? []))
                     } catch {
                          completion(.failure(error))

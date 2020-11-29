@@ -35,11 +35,11 @@ class FBNewQuestionViewController: UIViewController, UITextFieldDelegate, UIText
      let LEFT_PADDING: CGFloat = SCREEN.width / 12
      
      // Data
-     var availableTags: [TagModel] = [
-          TagModel(id: 0, name: "后保部", children: nil),
-          TagModel(id: 0, name: "后保部", children: nil),
-          TagModel(id: 0, name: "后保部", children: nil),
-          TagModel(id: 0, name: "后保部", children: nil),
+     var availableTags: [FBTagModel] = [
+          FBTagModel(id: 0, name: "后保部", children: nil),
+          FBTagModel(id: 0, name: "后保部", children: nil),
+          FBTagModel(id: 0, name: "后保部", children: nil),
+          FBTagModel(id: 0, name: "后保部", children: nil),
      ]
      let campus: [String] = ["卫津路", "北洋园"]
      
@@ -262,7 +262,7 @@ extension FBNewQuestionViewController {
                
                SwiftMessages.showLoading()
                
-               QuestionHelper.postQuestion(title: title, content: content, tagList: [availableTags[selectedTag].id ?? 0], campus: selectedCampus) { (result) in
+               FBQuestionHelper.postQuestion(title: title, content: content, tagList: [availableTags[selectedTag].id ?? 0], campus: selectedCampus) { (result) in
                     switch result {
                     case .success(let questionId):
                          if let imgs = self.photoCollectionView.images {
@@ -277,7 +277,7 @@ extension FBNewQuestionViewController {
                               
                               for i in 0..<cnt - 1 {
                                    group.enter()
-                                   QuestionHelper.postImg(img: imgs[i], question_id: questionId) { (result) in
+                                   FBQuestionHelper.postImg(img: imgs[i], question_id: questionId) { (result) in
                                         switch result {
                                         case .success(let str):
                                              print(str)

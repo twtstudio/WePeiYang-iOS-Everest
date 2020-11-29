@@ -115,7 +115,7 @@ class FBCommentTableViewCell: UITableViewCell {
      required init?(coder: NSCoder) {
           fatalError("init(coder:) has not been implemented")
      }
-     func update(comment: CommentModel) {
+     func update(comment: FBCommentModel) {
           
           userNameLabel.text = comment.username
           userNameLabel.sizeToFit()
@@ -136,7 +136,7 @@ class FBCommentTableViewCell: UITableViewCell {
      @objc func likeOrDislike() {
           if isLiked == false {
                likesBtn.setImage(UIImage(named: "feedback_thumb_up_fill"), for: .normal)
-               CommentHelper.likeComment(type: .comment, commentId: commentID) { (result) in
+               FBCommentHelper.likeComment(type: .comment, commentId: commentID) { (result) in
                     switch result {
                     case .success(let str):
                          SwiftMessages.showSuccessMessage(body: str)
@@ -149,7 +149,7 @@ class FBCommentTableViewCell: UITableViewCell {
                
           } else {
                likesBtn.setImage(UIImage(named: "feedback_thumb_up"), for: .normal)
-               CommentHelper.dislikeComment(type: .comment, commentId: commentID) { (result) in
+               FBCommentHelper.dislikeComment(type: .comment, commentId: commentID) { (result) in
                     switch result {
                     case .success(let str):
                          SwiftMessages.showSuccessMessage(body: str)
