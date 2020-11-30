@@ -26,7 +26,7 @@ class AllModulesViewController: UIViewController {
           (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self, needLogin: true),
 //          (title: "自习室查询", image: UIImage(named: "lfBtn")!, class: ClassroomCheckViewController.self, needLogin: true),
           (title: "活动签到", image: UIImage(named: "6")!, class: CLibraryMainViewController.self, needLogin: true),
-          (title: "校务反馈", image: UIImage(named: "studysearchBtn")!, class: FeedBackMainViewController.self, needLogin: true)
+          (title: "校务专区", image: UIImage(named: "studysearchBtn")!, class: FeedBackMainViewController.self, needLogin: true)
           
           
      ]
