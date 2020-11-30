@@ -116,7 +116,7 @@ class FBReplyDetailTableViewCell: UITableViewCell {
     }
     
     func update(comment: FBCommentModel) {
-        starRateView?.setScore(f: CGFloat(comment.score ?? 0))
+        starRateView?.setScore(f: CGFloat(comment.score ?? 0) / 2)
         
         userNameLabel.text = comment.adminName
         userNameLabel.sizeToFit()

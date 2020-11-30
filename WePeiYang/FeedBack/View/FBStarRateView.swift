@@ -127,10 +127,10 @@ public extension FBStarRateView{
           showStarRate()
      }
      
-     func show(type:StarType = .default, isInteractable:Bool = true, leastStar:CGFloat = 0, completion:@escaping (_ score:CGFloat)->()) {
+    func show(type: StarType = .default, isInteractable: Bool = true, leastStar: CGFloat = 0, completion: ((_ score:CGFloat)->())? = nil) {
           
           self.starType = type
-          
+
           self.isInteractable = isInteractable
           
           self.leastStar = leastStar

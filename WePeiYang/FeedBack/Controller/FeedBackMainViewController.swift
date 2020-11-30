@@ -135,7 +135,7 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
         let naviHeight = navigationController?.navigationBar.frame.maxY ?? 0
         let layout = UICollectionViewFlowLayout()
         
-        layout.estimatedItemSize = CGSize(width: 200, height: 25)
+        layout.estimatedItemSize = CGSize(width: 200, height: 30)
         layout.minimumInteritemSpacing = 10
         layout.scrollDirection = .horizontal
         tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -146,7 +146,7 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
         tagCollectionView.register(FBTagCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellId)
         view.addSubview(tagCollectionView)
         tagCollectionView.snp.makeConstraints { (make) in
-            make.height.equalTo(30)
+            make.height.equalTo(35)
             make.width.equalTo(SCREEN.width)
             make.centerX.equalToSuperview()
             make.top.equalTo(view).offset(naviHeight + 15)
@@ -233,9 +233,9 @@ extension FeedBackMainViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let lineCnt = ceilf(Float(questions[indexPath.row].tags!.reduce(0, { $0 + 3 + $1.name!.count })) / 18)
-        return 150
+        return 130
             + 25 * CGFloat(lineCnt)
-            + (questions[indexPath.row].datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 2)
+            + (questions[indexPath.row].datumDescription ?? "").getSuitableHeight(font: .systemFont(ofSize: 14), setWidth: SCREEN.width * 0.8, numbersOfLines: 3)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

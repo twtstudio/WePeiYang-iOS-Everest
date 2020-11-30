@@ -87,9 +87,7 @@ class FBReplyTableViewCell: UITableViewCell {
         }
         
         starRateView = FBStarRateView(frame: CGRect(origin: .zero, size: CGSize(width: 120, height: 20)), progressImg: UIImage(named: "feedback_star_fill"), trackImg: UIImage(named: "feedback_star"))!
-        starRateView.show(type: .half, isInteractable: true, leastStar: 0, completion: { (score) in
-            //               print(score)
-        })
+        starRateView.show(type: .half, isInteractable: true, leastStar: 0)
         bgView.addSubview(starRateView)
         
         starRateView.snp.makeConstraints { (make) in
@@ -146,7 +144,7 @@ class FBReplyTableViewCell: UITableViewCell {
     }
     
     func update(comment: FBCommentModel) {
-        starRateView?.setScore(f: CGFloat(comment.score ?? 0))
+        starRateView?.setScore(f: CGFloat(comment.score ?? 0) / 2)
         
         userNameLabel.text = comment.adminName
         userNameLabel.sizeToFit()

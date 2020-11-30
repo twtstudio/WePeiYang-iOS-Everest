@@ -27,7 +27,7 @@ struct FBCommentModel: Codable {
      var id: Int?
      var contain: String?
      var adminID: Int?
-     var score: Float?
+     var score: Int?
      var commit: String?
      var userID, likes: Int?
      var createdAt, updatedAt, username: String?
