@@ -139,6 +139,7 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
         layout.minimumInteritemSpacing = 10
         layout.scrollDirection = .horizontal
         tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        tagCollectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 2.5, right: 10)
         tagCollectionView.backgroundColor = .white
         tagCollectionView.delegate = self
         tagCollectionView.dataSource = self
@@ -147,6 +148,7 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
         tagCollectionView.snp.makeConstraints { (make) in
             make.height.equalTo(30)
             make.width.equalTo(SCREEN.width)
+            make.centerX.equalToSuperview()
             make.top.equalTo(view).offset(naviHeight + 15)
         }
         
@@ -157,6 +159,7 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
         tableView.register(FBQuestionTableViewCell.self, forCellReuseIdentifier: tableViewCellId)
         tableView.delegate = self
         tableView.dataSource = self
+        
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints{(make) in
             make.width.equalTo(SCREEN.width)
@@ -183,6 +186,10 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
         tableView.mj_header = header
         tableView.mj_footer = footer
         
+        view.bringSubviewToFront(tagCollectionView) // 不然阴影会被遮住
+        // 这里有一点，Floaty的阴影来自于在自己的视图下加上阴影层，如果把tagCollectionView放到下面
+        // 即放到`view.addSubview(floaty)`的后面，则在第一次点击时，tagCollectionView仍然是在上方的
+        
         // use floaty module
         let floaty = Floaty()
         floaty.buttonColor = UIColor(hex6: 0x00a1e9)
@@ -198,7 +205,7 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
         }
         view.addSubview(floaty)
         
-        view.bringSubviewToFront(tagCollectionView) // 不然阴影会被遮住
+        
         
     }
 }
@@ -206,6 +213,13 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
 // MARK: - TableView Delegate & cell
 
 extension FeedBackMainViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        10
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return questions.count
