@@ -90,7 +90,7 @@ class FBCommentHelper {
                }
      }
      
-     static func commentAnswer (answerId: Int, score: Float, commit: String, completion: @escaping (Result<String>) -> Void) {
+     static func commentAnswer (answerId: Int, score: Int, commit: String, completion: @escaping (Result<String>) -> Void) {
           let paras = ["user_id": FB_USER_ID, "answer_id": answerId, "score": score, "commit": commit] as [String: Any]
           Alamofire.request(FB_BASE_USER_URL + "answer/commit", method: .post, parameters: paras, encoding: JSONEncoding.default)
                .validate().responseJSON{(response) in

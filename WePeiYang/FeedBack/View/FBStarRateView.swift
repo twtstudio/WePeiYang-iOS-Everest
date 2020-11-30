@@ -71,8 +71,18 @@ public class FBStarRateView: UIView {
      
      // MARK: - 对象实例化
      public convenience init?(frame: CGRect, progressImg: UIImage?, trackImg: UIImage?) {
+          let width = frame.size.width
+          let height = frame.size.height
+          var computedSpace: CGFloat = 0
+          if height * 5 <= width {
+               computedSpace = (width - height * 5) / 4
+          } else {
+               // TODO: 这里还得等读完这个轮子才能写
+               computedSpace = 0
+          }
           
-          self.init(frame:frame, totalStarCount:5.0, currentStarCount:0.0, starSpace:5.0, progressImg: progressImg, trackImg: trackImg)
+          
+          self.init(frame:frame, totalStarCount:5.0, currentStarCount:0.0, starSpace: computedSpace, progressImg: progressImg, trackImg: trackImg)
      }
      
      public init?(frame:CGRect, totalStarCount:CGFloat, currentStarCount:CGFloat, starSpace:CGFloat, progressImg: UIImage?, trackImg: UIImage?) {
@@ -86,7 +96,7 @@ public class FBStarRateView: UIView {
           
           self.currentStarCount = currentStarCount
           
-          
+          self.starSpace = starSpace
           
           unStarView = setupStarView(trackImg!)
           

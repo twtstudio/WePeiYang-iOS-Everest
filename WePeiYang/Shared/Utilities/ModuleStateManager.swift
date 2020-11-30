@@ -9,12 +9,14 @@
 import Foundation
 
 enum Module: String, CaseIterable {
+    case feedback = "校务专区"
     case classtable = "课程表"
     case gpa = "GPA"
     case library = "图书馆"
     case ecard = "校园卡"
     case exam = "考表"
     case code = "活动"
+    
 }
 
 let ModuleArrangementKey = "ModuleArrangementKey"
@@ -26,7 +28,7 @@ struct ModuleStateManager {
             index += 1
             modules[module] = index
         }
-
+        
         if let dict = UserDefaults.standard.dictionary(forKey: ModuleArrangementKey) as? [String: Int] {
             for item in dict {
                 let module = Module(rawValue: item.key)!
@@ -41,33 +43,33 @@ struct ModuleStateManager {
                 }
             }
         }
-
+        
         return modules
     }
-
+    
     static func getModules() -> [Module] {
         let modules = getAllModule()
         return Array(modules).filter { item in
             return item.value > 0
-            }.sorted { a, b in
-                return a.value < b.value
-            }.map { item in
-                return item.key
+        }.sorted { a, b in
+            return a.value < b.value
+        }.map { item in
+            return item.key
         }
     }
-
+    
     static func setModules(dict: [String: Int]) {
-//        var dict: [Module: Int] = [:]
-//        var index = 0
-//        Module.allCases.forEach { module in
-//            index -= 1
-//            dict[module] = index
-//        }
-//
-//        for (idx, module) in modules.enumerated() {
-//            dict[module] = idx
-//        }
-
+        //        var dict: [Module: Int] = [:]
+        //        var index = 0
+        //        Module.allCases.forEach { module in
+        //            index -= 1
+        //            dict[module] = index
+        //        }
+        //
+        //        for (idx, module) in modules.enumerated() {
+        //            dict[module] = idx
+        //        }
+        
         UserDefaults.standard.set(dict, forKey: ModuleArrangementKey)
         print(UserDefaults.standard.dictionary(forKey: ModuleArrangementKey))
     }

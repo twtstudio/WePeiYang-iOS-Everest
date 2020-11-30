@@ -26,10 +26,10 @@ class FeedBackMainViewController: UIViewController {
     
     // MARK: - Data
     var availableTags = [
-     FBTagModel(id: 0, name: "教务处", children: nil),
-     FBTagModel(id: 0, name: "后保部", children: nil),
-     FBTagModel(id: 0, name: "场馆中心", children: nil),
-     FBTagModel(id: 0, name: "其他", children: nil),
+        FBTagModel(id: 0, name: "教务处", children: nil),
+        FBTagModel(id: 0, name: "后保部", children: nil),
+        FBTagModel(id: 0, name: "场馆中心", children: nil),
+        FBTagModel(id: 0, name: "其他", children: nil),
     ] {
         didSet {
             tagCollectionView.reloadData()
@@ -37,11 +37,11 @@ class FeedBackMainViewController: UIViewController {
         }
     }
     // means no tag is selected
-     var selectedTag: Int = -1 {
-          didSet {
-               self.tableView.mj_header.beginRefreshing()
-          }
-     }
+    var selectedTag: Int = -1 {
+        didSet {
+            self.tableView.mj_header.beginRefreshing()
+        }
+    }
     
     var questions = [FBQuestionModel]() {
         didSet {
@@ -58,14 +58,14 @@ class FeedBackMainViewController: UIViewController {
                 tableView.mj_footer.beginRefreshing()
                 FBQuestionHelper.searchQuestions(tags: availableTags.map{ $0.id ?? 0 }.filter{ $0 != 0 }, string: "", limits: 10, page: curPage) { (result) in
                     switch result {
-                    case .success(let questions):
-                        if questions.count != 0 {
-                            self.questions += questions
-                        } else {
-                            self.tableView.mj_footer.endRefreshingWithNoMoreData()
-                        }
-                    case .failure(let error):
-                        print(error)
+                        case .success(let questions):
+                            if questions.count != 0 {
+                                self.questions += questions
+                            } else {
+                                self.tableView.mj_footer.endRefreshingWithNoMoreData()
+                            }
+                        case .failure(let error):
+                            print(error)
                     }
                 }
             }
@@ -97,8 +97,8 @@ class FeedBackMainViewController: UIViewController {
 extension FeedBackMainViewController: UISearchControllerDelegate {
     private func setUp() {
         
-        //          navigationController?.isNavigationBarHidden = false
-        //          navigationController?.navigationBar.isTranslucent = false
+//        self.navigationController?.navigationBar.isTranslucent = false
+        hidesBottomBarWhenPushed = true
         view.backgroundColor = .white
         
         navigationItem.title = "校务平台"
@@ -192,9 +192,9 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
             self.navigationController?.pushViewController(vc, animated: true)
         }
         floaty.addItem("添加问题", icon: UIImage(named: "feedback_add_question")) { (_) in
-          let addVC = FBNewQuestionViewController()
-          addVC.availableTags = self.availableTags
-          self.present(addVC, animated: true, completion: nil)
+            let addVC = FBNewQuestionViewController()
+            addVC.availableTags = self.availableTags
+            self.present(addVC, animated: true, completion: nil)
         }
         view.addSubview(floaty)
         
@@ -265,22 +265,22 @@ extension FeedBackMainViewController {
     private func loadData() {
         FBTagsHelper.tagGet { (results) in
             switch results {
-            case .success(let tags):
-                if tags.count == 1 {
-                    self.availableTags = tags[0].children ?? []
-                }
-            case .failure(let error):
-                print(error)
+                case .success(let tags):
+                    if tags.count == 1 {
+                        self.availableTags = tags[0].children ?? []
+                    }
+                case .failure(let error):
+                    print(error)
             }
         }
         
         FBUserHelper.userIdGet { (result) in
             switch result {
-            case .success(let uid):
-                TwTUser.shared.feedbackID = uid
-                TwTUser.shared.save()
-            case .failure(let error):
-                print(error)
+                case .success(let uid):
+                    TwTUser.shared.feedbackID = uid
+                    TwTUser.shared.save()
+                case .failure(let error):
+                    print(error)
             }
         }
     }
@@ -301,14 +301,14 @@ extension FeedBackMainViewController {
         
         FBQuestionHelper.searchQuestions(tags: availableTags.map{ $0.id ?? 0 }.filter{ $0 != 0 }, string: "", limits: 10, page: 1) { (result) in
             switch result {
-            case .success(let questions):
-                self.questions = questions
-                self.curPage = 1
-                if self.tableView.mj_header.isRefreshing {
-                    self.tableView.mj_header.endRefreshing()
-                }
-            case .failure(let error):
-                print(error)
+                case .success(let questions):
+                    self.questions = questions
+                    self.curPage = 1
+                    if self.tableView.mj_header.isRefreshing {
+                        self.tableView.mj_header.endRefreshing()
+                    }
+                case .failure(let error):
+                    print(error)
             }
         }
     }

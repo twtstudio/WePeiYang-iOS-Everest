@@ -191,7 +191,7 @@ extension CardView {
                 detailVC.modalPresentationStyle = .fullScreen
                 superVC.present(detailVC, animated: true, completion: nil)
             } else if shouldPushDetail {
-                let detailVC = detailVC.init()
+                let detailVC = UINavigationController(rootViewController: detailVC.init())
                 detailVC.hidesBottomBarWhenPushed = true
                 superVC.navigationController?.delegate = self
                 superVC.navigationController?.pushViewController(detailVC, animated: true)

@@ -292,6 +292,7 @@
 		D31D395325224ABD0001137E /* FBUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31D395225224ABD0001137E /* FBUserViewController.swift */; };
 		D35DE90B25738CB8000F0215 /* FBReplyDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35DE90A25738CB8000F0215 /* FBReplyDetailTableViewCell.swift */; };
 		D35DE91D2573967F000F0215 /* FBRateCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35DE91C2573967F000F0215 /* FBRateCommentView.swift */; };
+		D364F7DB2574B99700815844 /* FeedBackCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D364F7DA2574B99700815844 /* FeedBackCard.swift */; };
 		D3849B2F251B6ABE00B49D6C /* FBTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3849B2E251B6ABE00B49D6C /* FBTagCollectionViewCell.swift */; };
 		D3849B35251B8B4E00B49D6C /* FBQuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3849B34251B8B4E00B49D6C /* FBQuestionTableViewCell.swift */; };
 		D3849B3F251BA84300B49D6C /* FBCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3849B3E251BA84300B49D6C /* FBCommentTableViewCell.swift */; };
@@ -429,7 +430,7 @@
 		3614D56B21D929FE0007B886 /* LibraryPageContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryPageContentView.swift; sourceTree = "<group>"; };
 		3614D56C21D929FE0007B886 /* BookCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCard.swift; sourceTree = "<group>"; };
 		3614D56D21D929FE0007B886 /* BookDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailTableViewCell.swift; sourceTree = "<group>"; };
-		3615A9C421AC80FC001D1522 /* ECardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECardView.swift; sourceTree = "<group>"; };
+		3615A9C421AC80FC001D1522 /* ECardView.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ECardView.swift; sourceTree = "<group>"; };
 		3615A9C621AC825E001D1522 /* ECardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECardModel.swift; sourceTree = "<group>"; };
 		3615A9C921ACEBDC001D1522 /* CardTransectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTransectionViewController.swift; sourceTree = "<group>"; };
 		361F884E204AF92100BCFA19 /* HomePageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageHelper.swift; sourceTree = "<group>"; };
@@ -516,7 +517,7 @@
 		365A8A1C1FB9BA8500B15443 /* ClasstableDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClasstableDataManager.swift; sourceTree = "<group>"; };
 		365A8A271FB9CA1700B15443 /* ClassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassModel.swift; sourceTree = "<group>"; };
 		365B5398216E5F4000A808EE /* ClassTableSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableSettingViewController.swift; sourceTree = "<group>"; };
-		366767F921BBD4A700EB2F2B /* ModuleStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleStateManager.swift; sourceTree = "<group>"; };
+		366767F921BBD4A700EB2F2B /* ModuleStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ModuleStateManager.swift; sourceTree = "<group>"; };
 		3667E1CF201CB98800E82241 /* DetailSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingViewController.swift; sourceTree = "<group>"; };
 		3668CE542159E121002673BE /* WPYTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYTextField.swift; sourceTree = "<group>"; };
 		36758FDC1FDA851C0023A99C /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -667,7 +668,7 @@
 		B10254141EC8547E0064373A /* TabVCTransitioningAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabVCTransitioningAnimator.swift; sourceTree = "<group>"; };
 		B10254181EC8547E0064373A /* WPYTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYTabBarController.swift; sourceTree = "<group>"; };
 		B13F3AE71F0CEE5C00F820A5 /* FAB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAB.swift; sourceTree = "<group>"; };
-		B181B9571EC5C21700B8198E /* FavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavViewController.swift; sourceTree = "<group>"; };
+		B181B9571EC5C21700B8198E /* FavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = FavViewController.swift; sourceTree = "<group>"; };
 		B19DAB861E6EF5C2004A50B5 /* WePeiYang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WePeiYang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B19DAB9A1E6EF5C2004A50B5 /* WePeiYangTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WePeiYangTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B19DAB9E1E6EF5C2004A50B5 /* WePeiYangTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WePeiYangTests.swift; sourceTree = "<group>"; };
@@ -679,15 +680,16 @@
 		D31D383E251FEAB90001137E /* FBPhotoCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBPhotoCollectionView.swift; sourceTree = "<group>"; };
 		D31D3844251FEC350001137E /* FBPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		D31D395225224ABD0001137E /* FBUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBUserViewController.swift; sourceTree = "<group>"; };
-		D35DE90A25738CB8000F0215 /* FBReplyDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBReplyDetailTableViewCell.swift; sourceTree = "<group>"; };
-		D35DE91C2573967F000F0215 /* FBRateCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBRateCommentView.swift; sourceTree = "<group>"; };
+		D35DE90A25738CB8000F0215 /* FBReplyDetailTableViewCell.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = FBReplyDetailTableViewCell.swift; sourceTree = "<group>"; };
+		D35DE91C2573967F000F0215 /* FBRateCommentView.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = FBRateCommentView.swift; sourceTree = "<group>"; wrapsLines = 0; };
+		D364F7DA2574B99700815844 /* FeedBackCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackCard.swift; sourceTree = "<group>"; };
 		D3849B2E251B6ABE00B49D6C /* FBTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		D3849B34251B8B4E00B49D6C /* FBQuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBQuestionTableViewCell.swift; sourceTree = "<group>"; };
 		D3849B3E251BA84300B49D6C /* FBCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBCommentTableViewCell.swift; sourceTree = "<group>"; };
 		D3849B44251BA97800B49D6C /* FBDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBDetailHeaderView.swift; sourceTree = "<group>"; };
 		D3849B5A251C5CDA00B49D6C /* FBDetailTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBDetailTabBarView.swift; sourceTree = "<group>"; };
-		D3959CC02567A9F700AF9035 /* FBReplyDetailTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBReplyDetailTVController.swift; sourceTree = "<group>"; };
-		D3959CC62567AB1600AF9035 /* FBReplyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBReplyTableViewCell.swift; sourceTree = "<group>"; };
+		D3959CC02567A9F700AF9035 /* FBReplyDetailTVController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = FBReplyDetailTVController.swift; sourceTree = "<group>"; };
+		D3959CC62567AB1600AF9035 /* FBReplyTableViewCell.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = FBReplyTableViewCell.swift; sourceTree = "<group>"; };
 		D39A291C25664A4F003EBAB3 /* FBStarRateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBStarRateView.swift; sourceTree = "<group>"; };
 		D39D3F6B2535FDA900D77173 /* GPAModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAModel.swift; sourceTree = "<group>"; };
 		D3AF3C7D2569117000EC72F5 /* TMP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMP.swift; sourceTree = "<group>"; };
@@ -1583,6 +1585,7 @@
 				3615A9C421AC80FC001D1522 /* ECardView.swift */,
 				364BDF711FDAE1EF00E61B65 /* GPACard.swift */,
 				36CAD44B201B9194006F85E3 /* ClassTableCard.swift */,
+				D364F7DA2574B99700815844 /* FeedBackCard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1600,7 +1603,7 @@
 				D33D5F603943FDFD415D167A /* Frameworks */,
 				3614D54C21D9282C0007B886 /* Recovered References */,
 			);
-			indentWidth = 5;
+			indentWidth = 4;
 			sourceTree = "<group>";
 			wrapsLines = 0;
 		};
@@ -2363,6 +2366,7 @@
 				2BAB12B0251729FD00FF6EEF /* FBUserHelper.swift in Sources */,
 				DD6A663421A59D260070C4B2 /* AuditCollegeCourseViewController.swift in Sources */,
 				A5E117BD1F99DCF300C86CA2 /* BicycleFitnessTrackerViewController.swift in Sources */,
+				D364F7DB2574B99700815844 /* FeedBackCard.swift in Sources */,
 				36449E8F1FA4BAD10036766B /* HandInDetailViewController.swift in Sources */,
 				3668CE552159E121002673BE /* WPYTextField.swift in Sources */,
 				4B622542245D782D005EFA6A /* GetQrCodeModel.swift in Sources */,
