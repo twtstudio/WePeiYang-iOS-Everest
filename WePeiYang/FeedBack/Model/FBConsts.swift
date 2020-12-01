@@ -10,6 +10,9 @@ import Foundation
 
 import Foundation
 // MARK: - 用户端基础URL
-let FB_BASE_USER_URL = "https://areas.twt.edu.cn/api/user/"
-let FB_USER_ID = TwTUser.shared.feedbackID ?? 0
+let FB_BASE_USER_URL: String = "https://areas.twt.edu.cn/api/user/"
+let FB_USER_ID: Int = TwTUser.shared.feedbackID ?? 0
 
+extension UIColor {
+    static var feedBackBlue: UIColor = UIColor(hex6: 0x3f54af)
+}

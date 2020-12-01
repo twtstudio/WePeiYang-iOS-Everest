@@ -302,7 +302,6 @@
 		D3959CC72567AB1600AF9035 /* FBReplyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3959CC62567AB1600AF9035 /* FBReplyTableViewCell.swift */; };
 		D39A291D25664A4F003EBAB3 /* FBStarRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A291C25664A4F003EBAB3 /* FBStarRateView.swift */; };
 		D39D3F6C2535FDA900D77173 /* GPAModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39D3F6B2535FDA900D77173 /* GPAModel.swift */; };
-		D3AF3C7E2569117000EC72F5 /* TMP.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AF3C7D2569117000EC72F5 /* TMP.swift */; };
 		D3B785B62532DD7200BB54DB /* WPYNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B785AA2532DD7200BB54DB /* WPYNetwork.swift */; };
 		D3B785B82532DD7200BB54DB /* Semester.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B785AD2532DD7200BB54DB /* Semester.swift */; };
 		D3B785B92532DD7200BB54DB /* WPYStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B785AE2532DD7200BB54DB /* WPYStorage.swift */; };
@@ -692,7 +691,6 @@
 		D3959CC62567AB1600AF9035 /* FBReplyTableViewCell.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = FBReplyTableViewCell.swift; sourceTree = "<group>"; };
 		D39A291C25664A4F003EBAB3 /* FBStarRateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBStarRateView.swift; sourceTree = "<group>"; };
 		D39D3F6B2535FDA900D77173 /* GPAModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAModel.swift; sourceTree = "<group>"; };
-		D3AF3C7D2569117000EC72F5 /* TMP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMP.swift; sourceTree = "<group>"; };
 		D3B785AA2532DD7200BB54DB /* WPYNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYNetwork.swift; sourceTree = "<group>"; };
 		D3B785AD2532DD7200BB54DB /* Semester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Semester.swift; sourceTree = "<group>"; };
 		D3B785AE2532DD7200BB54DB /* WPYStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPYStorage.swift; sourceTree = "<group>"; };
@@ -1511,7 +1509,6 @@
 			isa = PBXGroup;
 			children = (
 				B102540A1EC8520A0064373A /* AppDelegate.swift */,
-				D3AF3C7D2569117000EC72F5 /* TMP.swift */,
 				B102540B1EC8520A0064373A /* ClassExtensions.swift */,
 				3613DA212056F740000867AE /* UniversalExtension.swift */,
 				B102540C1EC8520A0064373A /* Info.plist */,
@@ -2304,7 +2301,6 @@
 				36449E8C1FA4BAD10036766B /* PartyHandInViewController.swift in Sources */,
 				DD41A83D21A5341100886BB4 /* AuditSearchViewController.swift in Sources */,
 				4B622520245D75D8005EFA6A /* ActivitiesViewController.swift in Sources */,
-				D3AF3C7E2569117000EC72F5 /* TMP.swift in Sources */,
 				78FB9E78217AEBE2001DE39A /* LFSearchCellOfHeight.swift in Sources */,
 				D3849B5B251C5CDB00B49D6C /* FBDetailTabBarView.swift in Sources */,
 				364922A3202620CC00DFDC35 /* CardButton.swift in Sources */,
@@ -2474,7 +2470,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202011302350;
+				CURRENT_PROJECT_VERSION = 202012011200;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
@@ -2510,7 +2506,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202011302350;
+				CURRENT_PROJECT_VERSION = 202012011200;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WePeiYangWidget/Info.plist;
@@ -2649,7 +2645,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202011302350;
+				CURRENT_PROJECT_VERSION = 202012011200;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				INFOPLIST_FILE = WePeiYang/main/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -2678,7 +2674,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202011302350;
+				CURRENT_PROJECT_VERSION = 202012011200;
 				DEVELOPMENT_TEAM = T5JB4K7FT9;
 				INFOPLIST_FILE = WePeiYang/main/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

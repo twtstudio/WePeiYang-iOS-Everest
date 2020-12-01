@@ -733,7 +733,5 @@ extension GPAViewController: ChartViewDelegate {
 }
 
 extension UIColor {
-     static var gpaPink: UIColor {
-          return UIColor(red: 0.99, green: 0.66, blue: 0.60, alpha: 1.00)
-     }
+     static var gpaPink: UIColor = UIColor(red: 0.99, green: 0.66, blue: 0.60, alpha: 1.00)
 }

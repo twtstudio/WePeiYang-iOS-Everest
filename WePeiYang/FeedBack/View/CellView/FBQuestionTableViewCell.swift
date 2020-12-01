@@ -136,6 +136,7 @@ class FBQuestionTableViewCell: UITableViewCell {
         stLabel.snp.makeConstraints { (make) in
             make.left.greaterThanOrEqualTo(bgView).offset(SCREEN.width * 0.24)
             make.left.equalTo(likesLabel.snp.right).offset(5)
+            make.width.equalTo(40)
             make.centerY.equalTo(msgImgView)
         }
         

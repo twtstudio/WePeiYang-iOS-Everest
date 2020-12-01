@@ -61,7 +61,7 @@ class FBNewQuestionViewController: UIViewController, UITextFieldDelegate, UIText
      
      override func viewDidLayoutSubviews() {
           super.viewDidLayoutSubviews()
-          confirmButton.addShadow(UIColor(hex6: 0x00a1e9), sRadius: 2, sOpacity: 0.2, offset: (3, 3))
+          confirmButton.addShadow(UIColor.feedBackBlue, sRadius: 2, sOpacity: 0.2, offset: (3, 3))
      }
 }
 
@@ -125,7 +125,7 @@ extension FBNewQuestionViewController {
           layout.minimumInteritemSpacing = 10
           layout.scrollDirection = .horizontal
           campusSelectionView = SelectionView(data: campus, collectionViewLayout: layout)
-          campusSelectionView.selectionCanCancel = true
+          campusSelectionView.allowsCancelSelection = true
           view.addSubview(campusSelectionView)
           campusSelectionView.snp.makeConstraints { (make) in
                make.centerX.equalTo(view)
@@ -215,7 +215,7 @@ extension FBNewQuestionViewController {
           }
           
           confirmButton = UIButton()
-          confirmButton.backgroundColor = UIColor(hex6: 0x00a1e9)
+          confirmButton.backgroundColor = UIColor.feedBackBlue
           confirmButton.addTarget(self, action: #selector(postQues), for: .touchUpInside)
           confirmButton.setTitle("确认提交", for: .normal)
           confirmButton.layer.cornerRadius = 15

@@ -41,7 +41,7 @@ class FeedBackCard: CardView {
 //            make.bottom.equalToSuperview().offset(-padding)
         }
         
-        self.backgroundColor = UIColor(hex6: 0x3f54af)
+        self.backgroundColor = UIColor.feedBackBlue
         layout(rect: self.frame)
     }
     

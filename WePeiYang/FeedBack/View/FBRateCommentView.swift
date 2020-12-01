@@ -85,7 +85,7 @@ class FBRateCommentView: MessageView {
         }
         
         button = UIButton()
-        button?.backgroundColor = UIColor(hex6: 0x00a1e9)
+        button?.backgroundColor = UIColor.feedBackBlue
         button?.addTarget(self, action: #selector(rateComment), for: .touchUpInside)
         button?.setTitle("确认提交", for: .normal)
         button?.layer.cornerRadius = 15

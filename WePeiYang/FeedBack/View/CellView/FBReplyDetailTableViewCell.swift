@@ -60,7 +60,7 @@ class FBReplyDetailTableViewCell: UITableViewCell {
         officialLabel.font = .systemFont(ofSize: 12)
         bgView.addSubview(officialLabel)
         officialLabel.text = "官方"
-        officialLabel.backgroundColor = UIColor(hex6: 0x00a1e9)
+        officialLabel.backgroundColor = UIColor.feedBackBlue
         officialLabel.layer.cornerRadius = 10
         officialLabel.layer.masksToBounds = true
         officialLabel.textColor = .white

@@ -22,7 +22,8 @@ class FeedBackMainViewController: UIViewController {
     
     var tableView: UITableView!
     
-    var tagCollectionView: UICollectionView!
+//    var tagCollectionView: UICollectionView!
+    var tagSelectionView: SelectionView!
     
     // MARK: - Data
     var availableTags = [
@@ -32,7 +33,7 @@ class FeedBackMainViewController: UIViewController {
         FBTagModel(id: 0, name: "其他", children: nil),
     ] {
         didSet {
-            tagCollectionView.reloadData()
+            tagSelectionView.reloadData()
             tableView.mj_header.beginRefreshing()
         }
     }
@@ -56,7 +57,10 @@ class FeedBackMainViewController: UIViewController {
         didSet {
             if curPage != 1 {
                 tableView.mj_footer.beginRefreshing()
-                FBQuestionHelper.searchQuestions(tags: availableTags.map{ $0.id ?? 0 }.filter{ $0 != 0 }, string: "", limits: 10, page: curPage) { (result) in
+                FBQuestionHelper.searchQuestions(tags: selectedTag == -1 ?
+                                                    availableTags.map{ $0.id ?? 0 }.filter{ $0 != 0 } :
+                                                    [availableTags[selectedTag].id ?? 0],
+                                                 string: "", limits: 10, page: curPage) { (result) in
                     switch result {
                         case .success(let questions):
                             if questions.count != 0 {
@@ -87,9 +91,20 @@ class FeedBackMainViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        tagCollectionView.addShadow(.black, sRadius: 5, sOpacity: 0.2, offset: (0, 4))
+        tagSelectionView.addShadow(.black, sRadius: 5, sOpacity: 0.2, offset: (0, 4))
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // 这里设置下顶部栏颜色
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor.feedBackBlue), for: UIBarMetrics.default)
+        //        self.navigationController?.navigationBar.barTintColor = UIColor.feedBackBlue
+        self.navigationController?.navigationBar.titleTextAttributes =
+            [NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        super.viewWillAppear(animated)
+    }
+    
 }
 
 
@@ -103,8 +118,8 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
         
         navigationItem.title = "校务平台"
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(hex6: 0x00a1e9)), for: UIBarMetrics.default)
-        //        self.navigationController?.navigationBar.barTintColor = UIColor(hex6: 0x00a1e9)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor.feedBackBlue), for: UIBarMetrics.default)
+        //        self.navigationController?.navigationBar.barTintColor = UIColor.feedBackBlue
         self.navigationController?.navigationBar.titleTextAttributes =
             [NSAttributedString.Key.foregroundColor: UIColor.white]
         self.navigationController?.navigationBar.tintColor = UIColor.white
@@ -120,7 +135,7 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
             textfield.attributedPlaceholder = NSAttributedString(string: "搜索问题", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
             if let leftView = textfield.leftView as? UIImageView {
                 leftView.image = leftView.image?.withRenderingMode(.alwaysTemplate)
-                //                    leftView.tintColor = UIColor(hex6: 0x00a1e9)
+                //                    leftView.tintColor = UIColor.feedBackBlue
                 leftView.tintColor = .white
             }
         }
@@ -138,14 +153,20 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
         layout.estimatedItemSize = CGSize(width: 200, height: 30)
         layout.minimumInteritemSpacing = 10
         layout.scrollDirection = .horizontal
-        tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        tagCollectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 2.5, right: 10)
-        tagCollectionView.backgroundColor = .white
-        tagCollectionView.delegate = self
-        tagCollectionView.dataSource = self
-        tagCollectionView.register(FBTagCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellId)
-        view.addSubview(tagCollectionView)
-        tagCollectionView.snp.makeConstraints { (make) in
+//        tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+//        tagCollectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 2.5, right: 10)
+//        tagCollectionView.backgroundColor = .white
+//        tagCollectionView.delegate = self
+//        tagCollectionView.dataSource = self
+//        tagCollectionView.register(FBTagCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellId)
+        tagSelectionView = SelectionView(data: availableTags.map{ $0.name ?? "" }, collectionViewLayout: layout)
+        tagSelectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 2.5, right: 10)
+        tagSelectionView.allowsCancelSelection = true
+        tagSelectionView.addCallBack { (idx) in
+            self.selectedTag = idx
+        }
+        view.addSubview(tagSelectionView)
+        tagSelectionView.snp.makeConstraints { (make) in
             make.height.equalTo(35)
             make.width.equalTo(SCREEN.width)
             make.centerX.equalToSuperview()
@@ -163,7 +184,7 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints{(make) in
             make.width.equalTo(SCREEN.width)
-            make.top.equalTo(tagCollectionView.snp.bottom)
+            make.top.equalTo(tagSelectionView.snp.bottom)
             make.bottom.equalTo(view)
         }
         
@@ -171,7 +192,7 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
         let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(headerRefresh))
         let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(footerLoadMore))
         
-        header?.setTitle("刷新中", for: .refreshing)
+        header?.setTitle("刷新中￣ω￣=", for: .refreshing)
         header?.setTitle("", for: .idle)
         header?.setTitle("松开以刷新", for: .pulling)
         header?.lastUpdatedTimeText = { date in
@@ -180,19 +201,21 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
             return df.string(from: header?.lastUpdatedTime ?? Date())
         }
         
-        footer?.setTitle("没有下文了", for: .noMoreData)
-        footer?.setTitle("加载中", for: .refreshing)
+        footer?.setTitle("没有更多问题了哦~", for: .noMoreData)
+        footer?.setTitle("加载中￣ω￣=", for: .refreshing)
+        footer?.setTitle("上滑以刷新更多☆´∀｀☆", for: .idle)
         
         tableView.mj_header = header
         tableView.mj_footer = footer
         
-        view.bringSubviewToFront(tagCollectionView) // 不然阴影会被遮住
+        view.bringSubviewToFront(tagSelectionView) // 不然阴影会被遮住
         // 这里有一点，Floaty的阴影来自于在自己的视图下加上阴影层，如果把tagCollectionView放到下面
         // 即放到`view.addSubview(floaty)`的后面，则在第一次点击时，tagCollectionView仍然是在上方的
         
         // use floaty module
         let floaty = Floaty()
-        floaty.buttonColor = UIColor(hex6: 0x00a1e9)
+//        floaty.buttonColor = UIColor(hex6: 0x00a1e9)
+        floaty.buttonColor = UIColor.feedBackBlue
         floaty.plusColor = .white
         floaty.addItem("个人中心", icon: UIImage(named: "feedback_user")) { (_) in
             let vc = FBUserViewController()
@@ -204,10 +227,9 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
             self.present(addVC, animated: true, completion: nil)
         }
         view.addSubview(floaty)
-        
-        
-        
     }
+    
+    
 }
 
 // MARK: - TableView Delegate & cell
@@ -265,6 +287,8 @@ extension FeedBackMainViewController: UICollectionViewDataSource, UICollectionVi
             selectedTag = indexPath.row
             (collectionView.cellForItem(at: indexPath) as! FBTagCollectionViewCell).toggle()
         } else if selectedTag == indexPath.row {
+            (collectionView.cellForItem(at: indexPath) as! FBTagCollectionViewCell).toggle()
+            selectedTag = -1
             return
         } else {
             (collectionView.cellForItem(at: IndexPath(row: selectedTag, section: indexPath.section)) as! FBTagCollectionViewCell).toggle()
@@ -313,7 +337,10 @@ extension FeedBackMainViewController {
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
         
-        FBQuestionHelper.searchQuestions(tags: availableTags.map{ $0.id ?? 0 }.filter{ $0 != 0 }, string: "", limits: 10, page: 1) { (result) in
+        FBQuestionHelper.searchQuestions(tags: selectedTag == -1 ?
+                                            availableTags.map{ $0.id ?? 0 }.filter{ $0 != 0 } :
+                                            [availableTags[selectedTag].id ?? 0],
+                                         string: "", limits: 10, page: 1) { (result) in
             switch result {
                 case .success(let questions):
                     self.questions = questions

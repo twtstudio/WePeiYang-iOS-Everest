@@ -20,7 +20,7 @@ class FBTagCollectionViewCell: UICollectionViewCell {
      
      var tagSelected: Bool? {
           didSet {
-               contentView.backgroundColor = tagSelected ?? false ? UIColor(hex6: 0x00a1e9) : .gray
+               contentView.backgroundColor = tagSelected ?? false ? UIColor.feedBackBlue : .gray
           }
      }
      
