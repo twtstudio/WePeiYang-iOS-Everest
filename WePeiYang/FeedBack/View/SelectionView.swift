@@ -9,11 +9,11 @@
 import UIKit
 
 class SelectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource {
-    private let cellId = "SELECTION_VIEW_CELL_ID"
-    private var selectedIdx: Int = -1
-    private var data: [String]!
-    private var callBack: ((Int)->Void)?
-    
+    private let cellId = "SELECTION_VIEW_CELL_ID" // Cell 注册ID
+    private var selectedIdx: Int = -1 // -1 则为不选择
+    private var data: [String] // 数据
+    private var callBack: ((Int)->Void)? // 回调函数
+    // 是否能够取消选择
     var allowsCancelSelection: Bool = false
     
     init(data: [String], collectionViewLayout: UICollectionViewFlowLayout, callBack: ((Int)->Void)? = nil) {
