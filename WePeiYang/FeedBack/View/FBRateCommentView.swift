@@ -110,7 +110,12 @@ class FBRateCommentView: MessageView {
             let alert = UIAlertController(title: "提示", message: "信息未补充完整", preferredStyle: .alert)
             let action1 = UIAlertAction(title: "好的", style: .default, handler: nil)
             alert.addAction(action1)
-            
+            // for iPad
+            if let popover = alert.popoverPresentationController {
+                popover.sourceView = button
+                popover.sourceRect = button?.frame ?? CGRect(x: 0, y: 0, width: 1, height: 1)
+                popover.permittedArrowDirections = .any
+            }
             var topVC = UIApplication.shared.keyWindow?.rootViewController
             while((topVC!.presentedViewController) != nil) {
                 topVC = topVC!.presentedViewController

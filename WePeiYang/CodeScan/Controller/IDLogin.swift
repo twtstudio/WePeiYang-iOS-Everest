@@ -145,7 +145,7 @@ class IdLoginViewController: UIViewController {
             loginButton.backgroundColor = MyColor.ColorHex("#54B9F1")
             loginButton.titleLabel?.textColor = .white
             //设置alertviewcontroller
-            let alertController = UIAlertController(title: "\n\n\n\n\n\n\n", message: nil, preferredStyle: .alert)
+            let alertController = UIAlertController(title: "\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
 
             let backgroundImage = AlertView()
 //            FIXME:改

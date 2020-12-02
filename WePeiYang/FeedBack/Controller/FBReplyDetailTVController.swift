@@ -64,7 +64,12 @@ class FBReplyDetailTVController: UITableViewController {
             let alert = UIAlertController(title: "提示", message: "你不是该问题的提出者，\n无法进行评分", preferredStyle: .alert)
             let action1 = UIAlertAction(title: "好的", style: .default, handler: nil)
             alert.addAction(action1)
-            
+            // for iPad
+            if let popover = alert.popoverPresentationController {
+                popover.sourceView = tableView.cellForRow(at: indexPath)
+                popover.sourceRect = tableView.cellForRow(at: indexPath)?.frame ?? CGRect(x: 0, y: 0, width: 1, height: 1)
+                popover.permittedArrowDirections = .any
+            }
             self.present(alert, animated: true)
         }
     }

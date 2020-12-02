@@ -20,7 +20,13 @@ struct FBTagsGet: Codable {
 struct FBTagModel: Codable {
     var id: Int?
     var name: String?
+    var description: String?
     var children: [FBTagModel]?
+    
+    enum CodingKeys: String, CodingKey {
+        case id, name, children
+        case description = "tag_description"
+    }
 }
 
 class FBTagsHelper {

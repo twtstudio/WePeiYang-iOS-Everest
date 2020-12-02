@@ -110,7 +110,12 @@ extension FBQuestionTableViewController {
             alert.addAction(action1)
             alert.addAction(action2)
             alert.addAction(action3)
-            
+            // for iPad
+            if let popover = alert.popoverPresentationController {
+                popover.sourceView = tableView.cellForRow(at: indexPath)
+                popover.sourceRect = tableView.cellForRow(at: indexPath)?.frame ?? CGRect(x: 0, y: 0, width: 1, height: 1)
+                popover.permittedArrowDirections = .any
+            }
             self.present(alert, animated: true)
         } else {
             let VC = FeedBackDetailViewController()

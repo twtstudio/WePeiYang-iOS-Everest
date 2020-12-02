@@ -120,6 +120,13 @@ extension FBPhotoCollectionView: UIImagePickerControllerDelegate, UINavigationCo
                     let alert = UIAlertController(title: "警告", message: "你最多可以添加三张图片", preferredStyle: .alert)
                     let action1 = UIAlertAction(title: "好", style: .default)
                     alert.addAction(action1)
+                    // for iPad
+                    if let popover = alert.popoverPresentationController {
+                        popover.sourceView = collectionView.cellForItem(at: indexPath)
+                        popover.sourceRect = collectionView.cellForItem(at: indexPath)?.frame ?? CGRect(x: 0, y: 0, width: 1, height: 1)
+                        popover.permittedArrowDirections = .any
+                    }
+                    
                     topVC?.present(alert, animated: true)
                     return
                 }
@@ -131,6 +138,7 @@ extension FBPhotoCollectionView: UIImagePickerControllerDelegate, UINavigationCo
                     if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
                         
                         let imagePicker = UIImagePickerController()
+                        imagePicker.accessibilityLanguage = "zh-Hans"
                         imagePicker.delegate = self
                         imagePicker.allowsEditing = true
                         imagePicker.sourceType = .photoLibrary
@@ -151,6 +159,12 @@ extension FBPhotoCollectionView: UIImagePickerControllerDelegate, UINavigationCo
                 alertVC.addAction(photoAction)
                 alertVC.addAction(pictureAction)
                 alertVC.addAction(cencelAction)
+                // for iPad
+                if let popover = alertVC.popoverPresentationController {
+                    popover.sourceView = collectionView.cellForItem(at: indexPath)
+                    popover.sourceRect = collectionView.cellForItem(at: indexPath)?.frame ?? CGRect(x: 0, y: 0, width: 1, height: 1)
+                    popover.permittedArrowDirections = .any
+                }
                 topVC?.present(alertVC, animated: true)
             } else {
                 let alert = UIAlertController(title: "警告", message: "你正在删除这张图片, 是否继续?", preferredStyle: .alert)
@@ -160,7 +174,12 @@ extension FBPhotoCollectionView: UIImagePickerControllerDelegate, UINavigationCo
                 }
                 alert.addAction(action1)
                 alert.addAction(action2)
-                
+                // for iPad
+                if let popover = alert.popoverPresentationController {
+                    popover.sourceView = collectionView.cellForItem(at: indexPath)
+                    popover.sourceRect = collectionView.cellForItem(at: indexPath)?.frame ?? CGRect(x: 0, y: 0, width: 1, height: 1)
+                    popover.permittedArrowDirections = .any
+                }
                 topVC?.present(alert, animated: true)
             }
         }
