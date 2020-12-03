@@ -41,6 +41,7 @@
 	<string>微北洋需要访问你的图库</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>audio</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

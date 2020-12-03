@@ -22,6 +22,7 @@ class SelectionView: UICollectionView, UICollectionViewDelegate, UICollectionVie
         
         super.init(frame: .zero, collectionViewLayout: collectionViewLayout)
         register(FBTagCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        showsHorizontalScrollIndicator = false
         backgroundColor = .white
         delegate = self
         dataSource = self
@@ -43,7 +44,7 @@ class SelectionView: UICollectionView, UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if callBack != nil {
-            callBack!(indexPath.row)
+            callBack!(allowsCancelSelection && selectedIdx == indexPath.row ? -1 : indexPath.row)
         }
         
         if selectedIdx == -1 {
@@ -56,7 +57,9 @@ class SelectionView: UICollectionView, UICollectionViewDelegate, UICollectionVie
             }
             return
         } else {
-            (collectionView.cellForItem(at: IndexPath(row: selectedIdx, section: indexPath.section)) as! FBTagCollectionViewCell).toggle()
+            if let cell = collectionView.cellForItem(at: IndexPath(item: selectedIdx, section: indexPath.section)) {
+                (cell as! FBTagCollectionViewCell).toggle()
+            }
             (collectionView.cellForItem(at: indexPath) as! FBTagCollectionViewCell).toggle()
             selectedIdx = indexPath.row
         }

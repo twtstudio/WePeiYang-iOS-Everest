@@ -19,7 +19,7 @@ class FBQuestionTableViewController: UITableViewController {
             FBQuestionHelper.getQuestions(type: (type == .thumbed ? .liked : .my)) { (result) in
                 switch result {
                     case .success(let questions):
-                        self.questions = questions
+                        self.questions = questions.sorted(by: { $0.solved! > $1.solved! })
                     case .failure(let err):
                         print(err)
                 }

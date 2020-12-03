@@ -238,7 +238,7 @@ extension FBNewQuestionViewController {
         
         tagSelectionView.addCallBack { (idx) in
             self.selectedTag = idx
-            self.tagDesLabel.text = self.availableTags[idx].description ?? "这个部门还没有介绍哦"
+            self.tagDesLabel.text = idx == -1 ? "我是一个部门介绍" : self.availableTags[idx].description ?? "这个部门还没有介绍哦"
         }
     }
 }
@@ -248,7 +248,7 @@ extension FBNewQuestionViewController {
     
     @objc func postQues() {
         if let title = titleField.text, let content = contentField.text {
-            guard title != "" && content != "" else {
+            guard title != "" && content != "不超过200字" && content != "" else {
                 let alert = UIAlertController(title: "提示", message: "请填写完整信息", preferredStyle: .alert)
                 let action1 = UIAlertAction(title: "好的", style: .cancel, handler: nil)
                 alert.addAction(action1)
@@ -282,6 +282,7 @@ extension FBNewQuestionViewController {
                 case .success(let questionId):
                     if let imgs = self.photoCollectionView.images {
                         guard imgs.count != 1 else {
+                            NotificationCenter.default.post(Notification(name: Notification.Name(FB_NOTIFICATIONFLAG_HAD_SEND_QUESTION)))
                             SwiftMessages.hideLoading()
                             self.dismiss(animated: true)
                             return
@@ -304,6 +305,7 @@ extension FBNewQuestionViewController {
                             }
                         }
                         group.notify(queue: .main) {
+                            NotificationCenter.default.post(Notification(name: Notification.Name(FB_NOTIFICATIONFLAG_HAD_SEND_QUESTION)))
                             SwiftMessages.hideLoading()
                             self.dismiss(animated: true)
                         }

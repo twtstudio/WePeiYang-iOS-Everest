@@ -33,7 +33,7 @@ class FeedBackMainViewController: UIViewController {
         FBTagModel(id: 0, name: "其他", children: nil),
     ] {
         didSet {
-            tagSelectionView.reloadData()
+            tagSelectionView.updateData(data: availableTags.map { $0.name ?? "" })
             tableView.mj_header.beginRefreshing()
         }
     }
@@ -58,7 +58,7 @@ class FeedBackMainViewController: UIViewController {
             if curPage != 1 {
                 tableView.mj_footer.beginRefreshing()
                 FBQuestionHelper.searchQuestions(tags: selectedTag == -1 ?
-                                                    availableTags.map{ $0.id ?? 0 }.filter{ $0 != 0 } :
+                                                    [] :
                                                     [availableTags[selectedTag].id ?? 0],
                                                  string: "", limits: 10, page: curPage) { (result) in
                     switch result {
@@ -87,6 +87,8 @@ class FeedBackMainViewController: UIViewController {
         
         tableView.mj_header.beginRefreshing()
         loadData()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(headerRefresh), name: Notification.Name(rawValue: FB_NOTIFICATIONFLAG_HAD_SEND_QUESTION), object: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -103,6 +105,10 @@ class FeedBackMainViewController: UIViewController {
             [NSAttributedString.Key.foregroundColor: UIColor.white]
         self.navigationController?.navigationBar.tintColor = UIColor.white
         super.viewWillAppear(animated)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
 }
@@ -269,35 +275,6 @@ extension FeedBackMainViewController: UITableViewDataSource, UITableViewDelegate
 }
 
 
-// MARK: - CollectionView Delegate&Datasource
-
-extension FeedBackMainViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return availableTags.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionViewCellId, for: indexPath) as! FBTagCollectionViewCell
-        cell.update(by: availableTags[indexPath.row], selected: selectedTag == indexPath.row)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if selectedTag == -1 {
-            selectedTag = indexPath.row
-            (collectionView.cellForItem(at: indexPath) as! FBTagCollectionViewCell).toggle()
-        } else if selectedTag == indexPath.row {
-            (collectionView.cellForItem(at: indexPath) as! FBTagCollectionViewCell).toggle()
-            selectedTag = -1
-            return
-        } else {
-            (collectionView.cellForItem(at: IndexPath(row: selectedTag, section: indexPath.section)) as! FBTagCollectionViewCell).toggle()
-            (collectionView.cellForItem(at: indexPath) as! FBTagCollectionViewCell).toggle()
-            selectedTag = indexPath.row
-        }
-    }
-}
-
 // MARK: - Data Control
 extension FeedBackMainViewController {
     private func loadData() {
@@ -338,7 +315,7 @@ extension FeedBackMainViewController {
         }
         
         FBQuestionHelper.searchQuestions(tags: selectedTag == -1 ?
-                                            availableTags.map{ $0.id ?? 0 }.filter{ $0 != 0 } :
+                                            [] :
                                             [availableTags[selectedTag].id ?? 0],
                                          string: "", limits: 10, page: 1) { (result) in
             switch result {
