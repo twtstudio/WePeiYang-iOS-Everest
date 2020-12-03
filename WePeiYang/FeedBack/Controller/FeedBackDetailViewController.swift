@@ -108,7 +108,11 @@ extension FeedBackDetailViewController {
     }
     
     @objc func likeOrDislike() {
+        NotificationCenter.default.post(Notification(name: Notification.Name(FB_NOTIFICATIONFLAG_NEED_RELOAD)))
         if self.isLiked ?? false {
+            if let count = (tableView.tableHeaderView as? FBDetailHeaderView)?.likesLabel.text {
+                (tableView.tableHeaderView as? FBDetailHeaderView)?.likesLabel.text = String((Int(count) ?? 0) - 1)
+            }
             FBQuestionHelper.dislikeQuestion(id: questionOfthisPage?.id ?? 0) { (result) in
                 switch result {
                     case .success(let str):
@@ -119,6 +123,9 @@ extension FeedBackDetailViewController {
                 }
             }
         } else {
+            if let count = (tableView.tableHeaderView as? FBDetailHeaderView)?.likesLabel.text {
+                (tableView.tableHeaderView as? FBDetailHeaderView)?.likesLabel.text = String((Int(count) ?? 0) + 1)
+            }
             FBQuestionHelper.likeQuestion(id: questionOfthisPage?.id ?? 0) { (result) in
                 switch result {
                     case .success(let str):
@@ -314,13 +321,14 @@ extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelega
             textView.textColor = .black
         }
         if (text ==  "\n") {
-            textView.resignFirstResponder()
-            guard textView.text! != "" else {
+            guard textView.text != "发表你的看法" && textView.text! != "" else {
                 return true
             }
+            textView.resignFirstResponder()
             textView.endEditing(true)
             FBCommentHelper.addComment(questionId: (questionOfthisPage?.id)!, contain: textView.text) { (string) in
                 SwiftMessages.showSuccessMessage(body: "评论发布成功!")
+                NotificationCenter.default.post(Notification(name: Notification.Name(FB_NOTIFICATIONFLAG_NEED_RELOAD)))
                 self.loadData()
                 textView.text = "发表你的看法"
                 textView.textColor = UIColor(hex6: 0xdbdbdb)

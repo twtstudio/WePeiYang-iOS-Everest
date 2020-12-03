@@ -22,7 +22,8 @@ class FBNewQuestionViewController: UIViewController, UITextFieldDelegate, UIText
     var tagSelectionView: SelectionView!
     var tagDesLabel: UILabel!
     // 问题描述
-    var contentsLabel: UILabel!
+    var contentCountLabel: UILabel!
+    var contentLabel: UILabel!
     var contentField: UITextView!
     // 插入图片
     var photoLabel: UILabel!
@@ -166,14 +167,24 @@ extension FBNewQuestionViewController {
         
         addSymmetryLine(y: 235, isDotted: true)
         
-        contentsLabel = UILabel()
-        contentsLabel.text = "问题描述:"
-        contentsLabel.textColor = UIColor.black
-        contentsLabel.font = .systemFont(ofSize: LABEL_FONT_SIZE)
-        view.addSubview(contentsLabel)
-        contentsLabel.snp.makeConstraints { (make) in
+        contentLabel = UILabel()
+        contentLabel.text = "问题描述:"
+        contentLabel.textColor = UIColor.black
+        contentLabel.font = .systemFont(ofSize: LABEL_FONT_SIZE)
+        view.addSubview(contentLabel)
+        contentLabel.snp.makeConstraints { (make) in
             make.top.equalTo(tagDesLabel.snp.bottom).offset(20)
             make.left.equalTo(LEFT_PADDING)
+        }
+        
+        contentCountLabel = UILabel()
+        contentCountLabel.text = "0/200"
+        contentCountLabel.textColor = .gray
+        contentCountLabel.font = .systemFont(ofSize: LABEL_FONT_SIZE - 2)
+        view.addSubview(contentCountLabel)
+        contentCountLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(contentLabel)
+            make.right.equalTo(view.snp.right).offset(-LEFT_PADDING)
         }
         
         contentField = UITextView()
@@ -188,7 +199,7 @@ extension FBNewQuestionViewController {
         contentField.font = .systemFont(ofSize: 14)
         view.addSubview(contentField)
         contentField.snp.makeConstraints{ (make) in
-            make.top.equalTo(contentsLabel.snp.bottom).offset(10)
+            make.top.equalTo(contentLabel.snp.bottom).offset(10)
             make.height.equalTo(100)
             make.left.equalTo(LEFT_PADDING)
             make.right.equalTo(-LEFT_PADDING)
@@ -282,8 +293,10 @@ extension FBNewQuestionViewController {
                 case .success(let questionId):
                     if let imgs = self.photoCollectionView.images {
                         guard imgs.count != 1 else {
-                            NotificationCenter.default.post(Notification(name: Notification.Name(FB_NOTIFICATIONFLAG_HAD_SEND_QUESTION)))
+                            NotificationCenter.default.post(Notification(name: Notification.Name(FB_NOTIFICATIONFLAG_NEED_RELOAD)))
+                            NotificationCenter.default.post(Notification(name: Notification.Name(FB_SHOULD_RELOAD_NEWQUESTIONVC)))
                             SwiftMessages.hideLoading()
+                            SwiftMessages.showSuccessMessage(body: "发布成功")
                             self.dismiss(animated: true)
                             return
                         }
@@ -305,8 +318,10 @@ extension FBNewQuestionViewController {
                             }
                         }
                         group.notify(queue: .main) {
-                            NotificationCenter.default.post(Notification(name: Notification.Name(FB_NOTIFICATIONFLAG_HAD_SEND_QUESTION)))
+                            NotificationCenter.default.post(Notification(name: Notification.Name(FB_NOTIFICATIONFLAG_NEED_RELOAD)))
+                            NotificationCenter.default.post(Notification(name: Notification.Name(FB_SHOULD_RELOAD_NEWQUESTIONVC)))
                             SwiftMessages.hideLoading()
+                            SwiftMessages.showSuccessMessage(body: "发布成功")
                             self.dismiss(animated: true)
                         }
                     }
@@ -345,6 +360,7 @@ extension FBNewQuestionViewController {
         let currentString: NSString = textView.text! as NSString
         let newString: NSString =
             currentString.replacingCharacters(in: range, with: text) as NSString
+        contentCountLabel.text = "\(newString.length)/200"
         return newString.length <= maxLength
     }
     

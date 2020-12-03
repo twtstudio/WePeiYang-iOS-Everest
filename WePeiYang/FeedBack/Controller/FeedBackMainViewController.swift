@@ -17,15 +17,13 @@ let SCREEN = UIScreen.main.bounds
 
 class FeedBackMainViewController: UIViewController {
     // MARK: - UI
-    
+    // 搜索框
     var searchController: UISearchController!
-    
+    // 问题列表
     var tableView: UITableView!
-    
-//    var tagCollectionView: UICollectionView!
+    // 标签视图
     var tagSelectionView: SelectionView!
-    
-    // MARK: - Data
+    // 可用标签
     var availableTags = [
         FBTagModel(id: 0, name: "教务处", children: nil),
         FBTagModel(id: 0, name: "后保部", children: nil),
@@ -37,13 +35,15 @@ class FeedBackMainViewController: UIViewController {
             tableView.mj_header.beginRefreshing()
         }
     }
-    // means no tag is selected
+    // 选择标签下标
     var selectedTag: Int = -1 {
         didSet {
             self.tableView.mj_header.beginRefreshing()
         }
     }
-    
+    //MARK: - DATA
+    var newQuestionController: FBNewQuestionViewController?
+    // 问题数据
     var questions = [FBQuestionModel]() {
         didSet {
             tableView.reloadData()
@@ -52,7 +52,7 @@ class FeedBackMainViewController: UIViewController {
             }
         }
     }
-    
+    // 当前Page数
     var curPage = 1 {
         didSet {
             if curPage != 1 {
@@ -75,7 +75,7 @@ class FeedBackMainViewController: UIViewController {
             }
         }
     }
-    
+    // CELL 注册ID
     private let collectionViewCellId = "feedBackCollectionViewCellID"
     private let tableViewCellId = "feedBackQuestionTableViewCellID"
     
@@ -85,10 +85,10 @@ class FeedBackMainViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
         setUp()
         
-        tableView.mj_header.beginRefreshing()
         loadData()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(headerRefresh), name: Notification.Name(rawValue: FB_NOTIFICATIONFLAG_HAD_SEND_QUESTION), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: Notification.Name(rawValue: FB_NOTIFICATIONFLAG_NEED_RELOAD), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadNewQuestionVC), name: Notification.Name(rawValue: FB_SHOULD_RELOAD_NEWQUESTIONVC), object: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -228,14 +228,14 @@ extension FeedBackMainViewController: UISearchControllerDelegate {
             self.navigationController?.pushViewController(vc, animated: true)
         }
         floaty.addItem("添加问题", icon: UIImage(named: "feedback_add_question")) { (_) in
-            let addVC = FBNewQuestionViewController()
-            addVC.availableTags = self.availableTags
-            self.present(addVC, animated: true, completion: nil)
+            if self.newQuestionController == nil {
+                self.newQuestionController = FBNewQuestionViewController()
+                self.newQuestionController?.availableTags = self.availableTags
+            }
+            self.present(self.newQuestionController!, animated: true, completion: nil)
         }
         view.addSubview(floaty)
     }
-    
-    
 }
 
 // MARK: - TableView Delegate & cell
@@ -277,7 +277,9 @@ extension FeedBackMainViewController: UITableViewDataSource, UITableViewDelegate
 
 // MARK: - Data Control
 extension FeedBackMainViewController {
-    private func loadData() {
+    @objc private func loadData() {
+        tableView.mj_header.beginRefreshing()
+        
         FBTagsHelper.tagGet { (results) in
             switch results {
                 case .success(let tags):
@@ -297,6 +299,13 @@ extension FeedBackMainViewController {
                 case .failure(let error):
                     print(error)
             }
+        }
+    }
+    
+    @objc private func reloadNewQuestionVC() {
+        if self.newQuestionController != nil {
+            self.newQuestionController = FBNewQuestionViewController()
+            self.newQuestionController?.availableTags = self.availableTags
         }
     }
 }
