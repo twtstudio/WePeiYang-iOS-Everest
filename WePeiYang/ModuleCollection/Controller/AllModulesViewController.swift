@@ -17,15 +17,15 @@ class AllModulesViewController: UIViewController {
           (title: "课程表", image: UIImage(named: "classtableBtn")!, class: ClassTableViewController.self, needLogin: true),
           //        (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self, needLogin: false),
           //        (title: "自行车", image: UIImage(named: "bicycleBtn")!, class: BicycleServiceViewController.self, needLogin: true),
-          (title: "党建", image: UIImage(named: "partyBtn")!, class: PartyMainViewController.self, needLogin: true),
-          (title: "商城", image: UIImage(named: "mallBtn")!, class: MallViewController.self, needLogin: false),
+//          (title: "党建", image: UIImage(named: "partyBtn")!, class: PartyMainViewController.self, needLogin: true),
+//          (title: "商城", image: UIImage(named: "mallBtn")!, class: MallViewController.self, needLogin: false),
           //        (title: "阅读", image: UIImage(named: "readBtn")!, class: ReadViewController.self, needLogin: true),
           (title: "黄页", image: UIImage(named: "yellowPageBtn")!, class: YellowPageMainViewController.self, needLogin: false),
 //          (title: "上网", image: UIImage(named: "networkBtn")!, class: WLANLoginViewController.self, needLogin: true),
 //          (title: "图书馆", image: UIImage(named: "libBtn")!, class: LibraryMainViewController.self, needLogin: true),
-          (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self, needLogin: true),
+//          (title: "失物招领", image: UIImage(named: "lfBtn")!, class: LostFoundPageViewController.self, needLogin: true),
 //          (title: "自习室查询", image: UIImage(named: "lfBtn")!, class: ClassroomCheckViewController.self, needLogin: true),
-          (title: "活动签到", image: UIImage(named: "6")!, class: CLibraryMainViewController.self, needLogin: true),
+//          (title: "活动签到", image: UIImage(named: "6")!, class: CLibraryMainViewController.self, needLogin: true),
           (title: "校务专区", image: UIImage(named: "studysearchBtn")!, class: FeedBackMainViewController.self, needLogin: true)
           
           
@@ -124,7 +124,7 @@ extension AllModulesViewController: UICollectionViewDelegate, UICollectionViewDa
      
      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
           // FIXME: 2020 9 5 some function need to be fixed
-          let faultIndexs:[Int] = [2,3,5,6] // [2, 3, 6]
+          let faultIndexs:[Int] = [] // [2, 3, 6]
           guard !faultIndexs.contains(indexPath.row) else {
                let title = "错误"
                let message = "功能正在维护中"
