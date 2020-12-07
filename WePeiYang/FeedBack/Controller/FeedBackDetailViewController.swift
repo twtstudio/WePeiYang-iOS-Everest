@@ -319,9 +319,10 @@ extension FeedBackDetailViewController: UITableViewDataSource, UITableViewDelega
         if textView.text == "发表你的看法" {
             textView.text = ""
             textView.textColor = .black
+            return true
         }
         if (text ==  "\n") {
-            guard textView.text != "发表你的看法" && textView.text! != "" else {
+            guard textView.text! != "" else {
                 return true
             }
             textView.resignFirstResponder()

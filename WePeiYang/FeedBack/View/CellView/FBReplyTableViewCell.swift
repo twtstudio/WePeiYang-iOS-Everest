@@ -151,7 +151,7 @@ class FBReplyTableViewCell: UITableViewCell {
         
         contentLabel.attributedText = comment.contain?.htmlToAttributedString
         contentLabel.font = .systemFont(ofSize: 14)
-        contentLabel.numberOfLines = 4
+        contentLabel.numberOfLines = 3
         contentLabel.sizeToFit()
         
         timeLabel.text = (comment.createdAt?[0..<10] ?? "") + " " + (comment.createdAt?[11..<16] ?? "")

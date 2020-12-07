@@ -53,7 +53,7 @@ class FBReplyDetailTVController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isOwner {
-            let rateView = FBRateCommentView()
+            let rateView = FBRateCommentView(questionID: replies[indexPath.row].id ?? 0)
             var config = SwiftMessages.defaultConfig
             config.presentationStyle = .center
             config.duration = .forever

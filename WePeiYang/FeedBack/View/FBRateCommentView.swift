@@ -12,12 +12,14 @@ class FBRateCommentView: MessageView {
     private var starRateView: FBStarRateView!
     private var commentTextView: UITextView!
     
+    private var questionID: Int
     private var score: Float = 0
     
     var successHandler: (() -> Void)?
     var failureHandler: (() -> Void)?
     
-    init() {
+    init(questionID: Int) {
+        self.questionID = questionID
         super.init(frame: CGRect(x: 30, y: UIScreen.main.bounds.height*0.2, width: UIScreen.main.bounds.width-60, height: 300))
         setup()
     }
@@ -59,7 +61,6 @@ class FBRateCommentView: MessageView {
         starRateView = FBStarRateView(frame: CGRect(origin: .zero, size: CGSize(width: 170, height: 30)), progressImg: UIImage(named: "feedback_star_fill"), trackImg: UIImage(named: "feedback_star"))
         starRateView.show(type: .half, isInteractable: true, leastStar: 0) { (score) in
             self.score = Float(score)
-            print(score)
         }
         contentView.addSubview(starRateView)
         starRateView.snp.makeConstraints { (make) in
@@ -123,15 +124,16 @@ class FBRateCommentView: MessageView {
             topVC?.present(alert, animated: true)
         } else {
             SwiftMessages.showLoading()
-            FBCommentHelper.commentAnswer(answerId: TwTUser.shared.feedbackID ?? 0, score: Int(score * 2), commit: commentTextView.text) { (result) in
+            FBCommentHelper.commentAnswer(answerId: questionID, score: Int(score * 2), commit: commentTextView.text) { (result) in
+                SwiftMessages.hideLoading()
+                SwiftMessages.hideAll()
                 switch result {
                     case .success(_):
                         SwiftMessages.showSuccessMessage(body: "评价成功！")
                     case .failure(let err):
+                        SwiftMessages.showErrorMessage(body: err.localizedDescription)
                         print("<FBRateCommentView>CommentAnswer ERROR!\n" + err.localizedDescription)
                 }
-                SwiftMessages.hideLoading()
-                SwiftMessages.hideAll()
             }
         }
     }

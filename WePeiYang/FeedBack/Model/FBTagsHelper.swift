@@ -25,7 +25,7 @@ struct FBTagModel: Codable {
     
     enum CodingKeys: String, CodingKey {
         case id, name, children
-        case description = "tag_description"
+        case description = "description"
     }
 }
 

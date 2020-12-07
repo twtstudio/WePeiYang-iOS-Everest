@@ -34,11 +34,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>微北洋需要访问你的相机</string>
+	<string>访问相机以上传图片</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>只有开启定位功能才能正常使用自行车功能</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>微北洋需要访问你的图库</string>
+	<string>访问图库以上传照片</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
