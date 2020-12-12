@@ -28,7 +28,6 @@ class AllModulesViewController: UIViewController {
 //          (title: "活动签到", image: UIImage(named: "6")!, class: CLibraryMainViewController.self, needLogin: true),
           (title: "校务专区", image: UIImage(named: "studysearchBtn")!, class: FeedBackMainViewController.self, needLogin: true)
           
-          
      ]
      
      
