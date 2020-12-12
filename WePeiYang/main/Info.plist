@@ -34,11 +34,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>访问相机以上传图片</string>
+	<string>我们需要得到相机权限以将拍摄的照片附加到问题中</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>只有开启定位功能才能正常使用自行车功能</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>访问图库以上传照片</string>
+	<string>我们需要得到图库权限以将拍摄的照片附加到问题中</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

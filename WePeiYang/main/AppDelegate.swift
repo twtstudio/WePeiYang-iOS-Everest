@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // FIXME: 20200905 只启用课程表GPA和考表
         UserDefaults.standard.set(false, forKey: "shakeWiFiEnabled")
         UserDefaults.standard.set(["活动": -6, "GPA": 3, "课程表": 2,
-                                   "图书馆": -3, "校园卡": -4, "考表": -5, "校务专区": 1], forKey: ModuleArrangementKey)
+                                   "图书馆": -3, "校园卡": -4, "考表": w5, "校务专区": 1], forKey: ModuleArrangementKey)
         
         let favoriteVC = FavViewController()
         favoriteVC.tabBarItem.image = #imageLiteral(resourceName: "Favored")
