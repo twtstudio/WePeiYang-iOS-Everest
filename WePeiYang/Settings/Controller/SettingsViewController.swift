@@ -189,7 +189,7 @@ class SettingsViewController: UIViewController {
         AccountManager.unbind(url: unbindURL, success: {
             switch indexPathAtRow {
                 case 0:
-                    TWTKeychain.erase(.tju)
+                    TWTKeychain.erase(.root)
                     TwTUser.shared.tjuBindingState = false
                 //               case 1:
                 //                    TWTKeychain.erase(.library)
@@ -387,7 +387,7 @@ func showLoginView(success: (() -> Void)? = nil) {
 }
 
 func showSpiderLoginView(success: (() -> Void)? = nil) {
-    SwiftMessages.hideAll()
+//    SwiftMessages.hideAll()
     let loginView = SpiderLoginView()
     loginView.successHandler = success
     var config = SwiftMessages.defaultConfig

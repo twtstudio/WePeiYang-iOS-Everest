@@ -9,9 +9,8 @@
 import Foundation
 
 struct WPYNetwork {
-    enum Failure: Error {
-        case urlError, requestFailed, loginFailed, unknownError, alreadyLogin
-        
+    enum Failure: Error{
+        case urlError, requestFailed, loginFailed, unknownError, alreadyLogin, usorpwWrong, captchaWrong
 //        private static let pair: [Failure: Localizable] = [
 //            .urlError: .urlError,
 //            .requestFailed: .requestFailed,

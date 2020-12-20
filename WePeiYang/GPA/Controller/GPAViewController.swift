@@ -319,11 +319,7 @@ class GPAViewController: UIViewController {
             self.isRefreshing = false
             self.stopRotating()
             SwiftMessages.hideLoading()
-            let msg = error.localizedDescription
-            guard let error = error as? WPYCustomError else {
-                SwiftMessages.showErrorMessage(body: msg)
-                return
-            }
+
             
             switch error {
                 case .custom(let msg):
