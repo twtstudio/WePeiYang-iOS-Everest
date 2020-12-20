@@ -117,13 +117,18 @@ struct GPASessionManager {
     }
     
     
-    static func getGPA(success: @escaping (GPAModel) -> Void, failure: @escaping (Error) -> Void) {
+    static func getGPA(success: @escaping (GPAModel) -> Void, failure: @escaping (WPYCustomError) -> Void) {
         SolaSessionManager.fetch(.post, urlString: "http://classes.tju.edu.cn/eams/teach/grade/course/person!historyCourseGrade.action?projectType=MAJOR") { (result) in
             switch result {
                 case .success(let html):
+                    if html.contains("过快") {
+                        failure(WPYCustomError.custom("点击过快"))
+                        return
+                    }
                     success(parseGPA(html))
                 case .failure(let error):
-                    failure(error)
+                    let cuserror = (error as! WPYCustomError)
+                    failure(cuserror)
             }
         }
         // OPEN 已弃用
