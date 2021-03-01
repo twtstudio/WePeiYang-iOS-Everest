@@ -355,12 +355,12 @@ struct ClasstableDataManager {
         courses.append(contentsOf: courseDict.values)
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
-        let date = dateFormater.date(from: "2020-8-31")
+        let date = dateFormater.date(from: "2021-03-01")
         let dateStamp: TimeInterval = date!.timeIntervalSince1970
         let dateSt:Int = Int(dateStamp)
         dateFormater.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        // TODO: 20211
-        return ClassTableModel(week: "1", updatedAt: dateFormater.string(from: Date()), termStart: dateSt, term: "20211", classes: courses)
+        // TODO: 学期自动化
+        return ClassTableModel(week: "1", updatedAt: dateFormater.string(from: Date()), termStart: dateSt, term: ClassHelper.term.description, classes: courses)
     }
     
     

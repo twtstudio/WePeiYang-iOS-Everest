@@ -166,7 +166,7 @@ struct DateHelper {
     static var day = 0
 }
 struct ClassHelper {
-    static var term = 19202
+    static var term = 20212
     static var week = 0
     static var day = 0
     static var courseList = [Int]()

@@ -42,9 +42,12 @@ class SettingsViewController: UIViewController {
         //            return TwTUser.shared.WLANBindingState}),
         //          ("校园卡", ECardBindingViewController.self, "", {
         //            return TwTUser.shared.ecardBindingState}),
-        ("二维码", QrCodeViewController.self, "", {
-            return TwTUser.shared.QRcodeBindingState
-        })
+//        ("二维码", QrCodeViewController.self, "", {
+//            return TwTUser.shared.QRcodeBindingState
+//        }),
+        ("账号信息", UserInfoViewController.self, "", {
+            return TwTUser.shared.UserInfoState
+        }),
     ]
     fileprivate let settingTitles: [(title: String, iconName: String)] = [("设置", "")]
     
@@ -347,7 +350,7 @@ extension SettingsViewController: UITableViewDelegate {
         if !services[indexPath.row].status() {
             
             // TODO: only classNet works
-            if  indexPath.row == 0, let vc = (services[indexPath.row].class as? UIViewController.Type)?.init() {
+            if  indexPath.row == 0 || indexPath.row == 1, let vc = (services[indexPath.row].class as? UIViewController.Type)?.init() {
                 vc.hidesBottomBarWhenPushed = true
                 self.present(vc, animated: true)
             } else {

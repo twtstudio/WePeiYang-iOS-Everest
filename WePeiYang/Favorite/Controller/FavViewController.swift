@@ -8,6 +8,7 @@
 import UIKit
 import ObjectMapper
 import SnapKit
+import Alamofire
 
 let MessageKey = "MessageKey"
 class FavViewController: UIViewController {
@@ -44,6 +45,9 @@ class FavViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // MARK: 版本相关操作：清理缓存、提示更新等等
+        testVersion()
         
         navigationController?.navigationBar.barStyle = .black
         //        navigationController?.navigationBar.barTintColor = Metadata.Color.WPYAccentColor
@@ -238,6 +242,55 @@ class FavViewController: UIViewController {
             }
         }
         cardTableView.reloadData()
+    }
+    
+    // 版本处理
+    func testVersion() {
+        struct LookUpResponse: Codable {
+            let results: [LookUpResult]?
+        }
+        struct LookUpResult: Codable {
+            let version: String?
+        }
+        
+        let appid = String(1542905353)
+        let localVersion:String = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+        // 3.6.8引入了新管理体系，更改了接口
+        if localVersion < "3.6.8" {
+            WPYStorage.removeAll()
+            UserDefaults.standard.set(false, forKey: "shakeWiFiEnabled")
+            UserDefaults.standard.set(false, forKey: "isOnline")
+            TwTUser.shared.delete()
+            ClassTableNotificationHelper.removeNotification()
+            NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
+        }
+        Alamofire.request("http://itunes.apple.com/lookup?id=" + appid).validate().responseJSON { (response) in
+            do {
+                if let data = response.data {
+                    let res = try JSONDecoder().decode(LookUpResponse.self, from: data)
+                    guard !(res.results ?? []).isEmpty else { return }
+                    let newVersion = res.results![0].version ?? ""
+                    if localVersion < newVersion {
+                        let alert = UIAlertController(title: "有新版本", message: "前去更新版本？", preferredStyle: .alert)
+                        let action1 = UIAlertAction(title: "下次一定", style: .cancel, handler: nil)
+                        let action2 = UIAlertAction(title: "好", style: .default) { (_) in
+                            let updateUrl:URL = URL.init(string: "https://itunes.apple.com/cn/app/%E8%8E%B1%E4%BB%98mpos/id"+appid+"?mt=8")!
+                            if #available(iOS 10.0, *) {
+                                UIApplication.shared.open(updateUrl, options: [:], completionHandler: nil)
+                            } else {
+                                UIApplication.shared.openURL(updateUrl)
+                            }
+                        }
+                        alert.addAction(action1)
+                        alert.addAction(action2)
+                        
+                        self.present(alert, animated: true)
+                    }
+                }
+            } catch {
+                print("查找更新失败", error)
+            }
+        }
     }
     
     deinit {

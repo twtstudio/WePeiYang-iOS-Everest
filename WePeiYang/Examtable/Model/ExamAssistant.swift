@@ -31,6 +31,10 @@ class ExamAssistant {
         for course in courses {
             var arr = course.findArray("<td>(.+?)</td>")
             arr = arr.map { $0.contains("color") ? $0.find(">(.+?)</font") : $0 }
+            // 当没有考试的时候
+            if arr.isEmpty {
+                return []
+            }
             let ext = arr[8] == "正常" ? "" : arr[9]
             exams.append(ExamModel(id: arr[0], name: arr[1],
                                    type: arr[2], date: arr[3],
