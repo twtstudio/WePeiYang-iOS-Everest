@@ -1,5 +1,5 @@
 //
-//  APIHelper.swift
+//  UserInfoAPIHelper.swift
 //  WePeiYang
 //
 //  Created by 安宇 on 2021/1/13.
@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import UIKit
 
-struct InfoAPI {
+struct UserInfoAPI {
     
     static let base = "https://api.twt.edu.cn"
     
@@ -29,7 +29,7 @@ struct InfoAPI {
     static let changeInfo = "/api/user/single" //PUT
 
 }
-struct InfoHelper {
+struct UserInfoHelper {
     static func dataManager(url: String, success: (([String: Any])->())? = nil, failure: ((Error)->())? = nil) {
         Alamofire.request(url).responseJSON { response in
             switch response.result {
@@ -57,7 +57,7 @@ struct InfoHelper {
 struct GetCodeHelper {
 
     static func getRegisterCode(success: @escaping (CodeModel)->(), failure: @escaping (Error)->()) {
-        Alamofire.request(InfoAPI.base + InfoAPI.getRegisterCode, method: .post, parameters: ["phone": PhoneInfo.num], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn"]).responseJSON { (response) in
+        Alamofire.request(UserInfoAPI.base + UserInfoAPI.getRegisterCode, method: .post, parameters: ["phone": PhoneInfo.num], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn"]).responseJSON { (response) in
             do {
                 if let data = response.data {
                     let code = try JSONDecoder().decode(CodeModel.self, from: data)
@@ -69,7 +69,7 @@ struct GetCodeHelper {
         }
     }
     static func getLoginCode(phone: String, success: @escaping (CodeModel)->(), failure: @escaping (Error)->()) {
-        Alamofire.request(InfoAPI.base + InfoAPI.getLoginCode, method: .post, parameters: ["phone": phone], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn"]).responseJSON { (response) in
+        Alamofire.request(UserInfoAPI.base + UserInfoAPI.getLoginCode, method: .post, parameters: ["phone": phone], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn"]).responseJSON { (response) in
             do {
                 if let data = response.data {
                     let code = try JSONDecoder().decode(CodeModel.self, from: data)
@@ -84,7 +84,7 @@ struct GetCodeHelper {
 
 struct GetUserInfoHelper {
     static func login(username: String, password: String, success: @escaping (UserInfo)->(), failure: @escaping (Error)->()) {
-        Alamofire.request(InfoAPI.base + InfoAPI.login, method: .post, parameters: ["account": username, "password": password], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn"]).responseJSON { (response) in
+        Alamofire.request(UserInfoAPI.base + UserInfoAPI.login, method: .post, parameters: ["account": username, "password": password], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn"]).responseJSON { (response) in
             switch response.result {
             case .success:
                 if let data = response.result.value  {
@@ -124,7 +124,7 @@ struct GetUserInfoHelper {
         
     }
     static func loginByPhone(phone: String, code: String, success: @escaping (UserInfo)->(), failure: @escaping (Error)->()) {
-        Alamofire.request(InfoAPI.base + InfoAPI.loginByPhone, method: .post, parameters: ["phone": phone, "code": code], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn"]).responseJSON { (response) in
+        Alamofire.request(UserInfoAPI.base + UserInfoAPI.loginByPhone, method: .post, parameters: ["phone": phone, "code": code], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn"]).responseJSON { (response) in
             switch response.result {
             case .success:
                 if let data = response.result.value  {
@@ -167,7 +167,7 @@ struct GetUserInfoHelper {
 
 struct ChangeUserInfoHelper {
     static func changeUserInfo(success: @escaping (CodeModel)->(), failure: @escaping (Error)->()) {
-        Alamofire.request(InfoAPI.base + InfoAPI.getUserInfo, method: .put, parameters: ["telephone": PhoneInfo.num, "email": PhoneInfo.email, "verifyCode": PhoneInfo.code], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn", "token": TwTUser.shared.newToken!]).responseJSON { (response) in
+        Alamofire.request(UserInfoAPI.base + UserInfoAPI.getUserInfo, method: .put, parameters: ["telephone": PhoneInfo.num, "email": PhoneInfo.email, "verifyCode": PhoneInfo.code], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn", "token": TwTUser.shared.newToken!]).responseJSON { (response) in
             switch response.result {
             case .success:
                 if let data = response.result.value  {

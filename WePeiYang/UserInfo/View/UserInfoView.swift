@@ -1,5 +1,5 @@
 //
-//  InfoView.swift
+//  UserInfoView.swift
 //  WePeiYang
 //
 //  Created by 安宇 on 2021/1/13.
@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class InfoView: UIView {
+class UserInfoView: UIView {
     let infoLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left

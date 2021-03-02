@@ -16,13 +16,13 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
     private var userInfo: UserInfo!
     private var avatarUrl: String!
     
-    private var idView: InfoView!
-    private var nameView: InfoView!
-    private var schoolView: InfoView!
-    private var majorView: InfoView!
-    private var phoneView: InfoView!
-    private var codeView: InfoView!
-    private var emailView: InfoView!
+    private var idView: UserInfoView!
+    private var nameView: UserInfoView!
+    private var schoolView: UserInfoView!
+    private var majorView: UserInfoView!
+    private var phoneView: UserInfoView!
+    private var codeView: UserInfoView!
+    private var emailView: UserInfoView!
     private var commitButton: UIButton!
     
     var sendCodeRemainTime = 0
@@ -44,18 +44,23 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.title = "个人信息"
         self.navigationItem.hidesBackButton = true
         addView()
-
         
     }
     
-    func addView() {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    private func addView() {
         
         let avatar = UIImageView()
         view.addSubview(avatar)
         avatar.frame = CGRect(x: UIScreen.main.bounds.width / 2 - 50, y: 100, width: 100, height: 100)
         avatar.addCornerRadius(50)
-//        avatar.backgroundColor = .black
-//        avatar.ima
         
         if TwTUser.shared.avatarURL == "https://i.twtstudio.com/img/avatar.png" || TwTUser.shared.avatarURL == nil {
             let imageGenerator = Identicon()
@@ -65,7 +70,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
             avatar.sd_setImage(with: URL(string: avatarUrl!), completed: nil)
         }
         
-        idView = InfoView()
+        idView = UserInfoView()
         view.addSubview(idView)
         idView.frame = CGRect(x: 30, y: 250, width: UIScreen.main.bounds.width - 60, height: 40)
         idView.isUserInteractionEnabled = true
@@ -75,7 +80,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         idView.detailTextField.isHidden = true
         idView.sureButton.addTarget(self, action: #selector(sendCode), for: .touchUpInside)
         
-        nameView = InfoView()
+        nameView = UserInfoView()
         view.addSubview(nameView)
         nameView.frame = CGRect(x: 30, y: 300, width: UIScreen.main.bounds.width - 60, height: 40)
         nameView.infoLabel.text = "姓名:"
@@ -83,7 +88,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         nameView.detailTextField.isHidden = true
         nameView.sureButton.addTarget(self, action: #selector(sendCode), for: .touchUpInside)
         
-        schoolView = InfoView()
+        schoolView = UserInfoView()
         view.addSubview(schoolView)
         schoolView.frame = CGRect(x: 30, y: 350, width: UIScreen.main.bounds.width - 60, height: 40)
         schoolView.infoLabel.text = "学院:"
@@ -92,7 +97,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         schoolView.detailTextField.isHidden = true
         schoolView.sureButton.addTarget(self, action: #selector(sendCode), for: .touchUpInside)
         
-        majorView = InfoView()
+        majorView = UserInfoView()
         view.addSubview(majorView)
         majorView.frame = CGRect(x: 30, y: 400, width: UIScreen.main.bounds.width - 60, height: 40)
         majorView.infoLabel.text = "专业:"
@@ -101,7 +106,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         majorView.detailTextField.isHidden = true
         majorView.sureButton.addTarget(self, action: #selector(sendCode), for: .touchUpInside)
         
-        phoneView = InfoView()
+        phoneView = UserInfoView()
         view.addSubview(phoneView)
         phoneView.frame = CGRect(x: 30, y: 450, width: UIScreen.main.bounds.width - 60, height: 40)
         phoneView.infoLabel.text = "手机号:"
@@ -119,7 +124,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         phoneView.sureButton.isHidden = false
         phoneView.sureButton.addTarget(self, action: #selector(sendCode), for: .touchUpInside)
         
-        codeView = InfoView()
+        codeView = UserInfoView()
         view.addSubview(codeView)
         codeView.frame = CGRect(x: 30, y: 500, width: UIScreen.main.bounds.width - 60, height: 40)
         codeView.infoLabel.text = "验证码:"
@@ -131,7 +136,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         codeView.detailLabel.isHidden = true
         codeView.sureButton.addTarget(self, action: #selector(sendCode), for: .touchUpInside)
         
-        emailView = InfoView()
+        emailView = UserInfoView()
         view.addSubview(emailView)
         emailView.frame = CGRect(x: 30, y: 550, width: UIScreen.main.bounds.width - 60, height: 40)
         emailView.infoLabel.text = "邮箱:"

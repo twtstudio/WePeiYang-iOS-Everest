@@ -74,12 +74,20 @@ struct ClasstableDataManager {
                             return course
                         }
                         // 辅修课表
-//                        if hasMinor {
-//                            getMinorTable(semesterId: semesterId) { (result) in
-//                                success(newModel)
-//                            }
-//                        }
-                        success(newModel)
+                        if hasMinor {
+                            getMinorTable(semesterId: semesterId) { (result) in
+                                switch result {
+                                case .success(let minorModel):
+                                    newModel.classes += minorModel.classes
+                                    success(newModel)
+                                case .failure(let err):
+                                    print("辅修课表获取失败", err)
+                                    success(newModel)
+                                }
+                            }
+                        } else {
+                            success(newModel)
+                        }
                         
                         
                     case .failure(let error):

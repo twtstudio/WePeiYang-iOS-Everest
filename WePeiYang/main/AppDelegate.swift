@@ -291,7 +291,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
         if let urlString = userInfo["url"] as? String,
            let url = URL(string: urlString) {
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
         completionHandler()
     }
@@ -307,7 +307,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             
             if let urlString = userInfo["url"] as? String,
                let url = URL(string: urlString) {
-                UIApplication.shared.openURL(url)
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
             }
         }
         completionHandler(.newData)
