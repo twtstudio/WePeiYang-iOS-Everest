@@ -148,11 +148,11 @@ class SettingsViewController: UIViewController {
     
     func unbind(indexPathAtRow: Int) {
         
-        var unbindURL: String
+//        var unbindURL: String
         
         switch indexPathAtRow {
             case 0:
-                unbindURL = BindingAPIs.unbindTJUAccount
+//                unbindURL = BindingAPIs.unbindTJUAccount
                 AccountManager.logoutAccount { (result) in
                     switch result {
                         case .success(_): break
@@ -189,31 +189,53 @@ class SettingsViewController: UIViewController {
                 return
         }
         
-        AccountManager.unbind(url: unbindURL, success: {
-            switch indexPathAtRow {
-                case 0:
-                    TWTKeychain.erase(.root)
-                    TwTUser.shared.tjuBindingState = false
-                //               case 1:
-                //                    TWTKeychain.erase(.library)
-                //                    TwTUser.shared.libBindingState = false
-                //               case 2:
-                //                    TWTKeychain.erase(.bicycle)
-                //                    TwTUser.shared.bicycleBindingState = false
-                //               case 3:
-                //                    TWTKeychain.erase(.network)
-                //                    TwTUser.shared.WLANBindingState = false
-                default:
-                    break
-            }
-            
-            TwTUser.shared.save()
-            // services[].status can't get renewed data each time user unbinds
-            // self.services[indexPathAtRow].status = false
-            self.tableView.reloadData()
-        }, failure: { error in
-            SwiftMessages.showErrorMessage(body: error.localizedDescription)
-        })
+        switch indexPathAtRow {
+        case 0:
+            TWTKeychain.erase(.tju)
+            TwTUser.shared.tjuBindingState = false
+//        case 1:
+//            TWTKeychain.erase(.library)
+//            TwTUser.shared.libBindingState = false
+//        case 2:
+//            TWTKeychain.erase(.bicycle)
+//            TwTUser.shared.bicycleBindingState = false
+//        case 3:
+//            TWTKeychain.erase(.network)
+//            TwTUser.shared.WLANBindingState = false
+        default:
+            break
+        }
+        
+        TwTUser.shared.save()
+        // services[].status can't get renewed data each time user unbinds
+//         self.services[indexPathAtRow].status = false
+        SwiftMessages.showSuccessMessage(body: "解绑成功.")
+        self.tableView.reloadData()
+//        AccountManager.unbind(url: unbindURL, success: {
+//            switch indexPathAtRow {
+//            case 0:
+//                TWTKeychain.erase(.tju)
+//                TwTUser.shared.tjuBindingState = false
+//            case 1:
+//                TWTKeychain.erase(.library)
+//                TwTUser.shared.libBindingState = false
+//            case 2:
+//                TWTKeychain.erase(.bicycle)
+//                TwTUser.shared.bicycleBindingState = false
+//            case 3:
+//                TWTKeychain.erase(.network)
+//                TwTUser.shared.WLANBindingState = false
+//            default:
+//                break
+//            }
+//
+//            TwTUser.shared.save()
+//            // services[].status can't get renewed data each time user unbinds
+//            // self.services[indexPathAtRow].status = false
+//            self.tableView.reloadData()
+//        }, failure: { error in
+//            SwiftMessages.showErrorMessage(body: error.localizedDescription)
+//        })
     }
     
     @objc func bindingStatusDidChange(notification: Notification) {

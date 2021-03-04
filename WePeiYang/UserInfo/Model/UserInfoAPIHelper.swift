@@ -102,7 +102,6 @@ struct GetUserInfoHelper {
                             let nickname = dic["nickname"] as? String ?? ""
                             let email = dic["email"] as? String ?? ""
                             let department = dic["department"] as? String ?? ""
-                            CurToken.token = token
                             let userInfo = UserInfo(userNumber: userNumber, nickname: nickname, telephone: telephone, email: email, token: token, role: role, realname: realname, gender: gender, department: department, major: major, stuType: stuType, avatar: avatar)
                             success(userInfo)
                         }
@@ -142,7 +141,6 @@ struct GetUserInfoHelper {
                             let nickname = dic["nickname"] as? String ?? ""
                             let email = dic["email"] as? String ?? ""
                             let department = dic["department"] as? String ?? ""
-                            CurToken.token = token
                             let userInfo = UserInfo(userNumber: userNumber, nickname: nickname, telephone: telephone, email: email, token: token, role: role, realname: realname, gender: gender, department: department, major: major, stuType: stuType, avatar: avatar)
                             success(userInfo)
                         }
@@ -191,9 +189,4 @@ struct ChangeUserInfoHelper {
             }
         }
     }
-}
-
-struct CurToken {
-    static var token = ""
-    static var flag = 0
 }

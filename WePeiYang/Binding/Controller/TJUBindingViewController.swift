@@ -143,10 +143,11 @@ class TJUBindingViewController: UIViewController {
                     NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("tju", true))
                     SwiftMessages.showSuccessMessage(body: "绑定成功！")
                     SwiftMessages.hideLoading()
-                    SwiftMessages.hideAll()
+                    self.completion?(true)
                     self.dismiss(animated: true, completion: nil)
                 //                    WPYStorage.defaults.setValue(self.isLogin, forKey: ClassesManager.isLoginKey)
                 case .failure(let error):
+                    self.completion?(false)
                     switch error {
                         case .alreadyLogin:
                             TwTUser.shared.tjuBindingState = true
@@ -154,7 +155,6 @@ class TJUBindingViewController: UIViewController {
                             NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("tju", true))
                             SwiftMessages.showSuccessMessage(body: "绑定成功！")
                             SwiftMessages.hideLoading()
-                            SwiftMessages.hideAll()
                             self.dismiss(animated: true, completion: nil)
                         default:
                             SwiftMessages.hideLoading()

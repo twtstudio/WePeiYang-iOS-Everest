@@ -318,15 +318,9 @@ extension LoginView {
                 TwTUser.shared.newToken = info.token
                 TwTUser.shared.save()
                 //                TwTUser.shared.major = info.major
-                CurToken.token = info.token
-                
-            } failure: { (_) in
-                
-            }
-            AccountManager.getToken(username: username, password: password, success: { token in
                 TwTUser.shared.username = username
                 TWTKeychain.set(username: username, password: password, of: .root)
-                TwTUser.shared.token = token
+                TwTUser.shared.token = info.token
                 
                 TwTUser.shared.save()
                 self.extraProcedures()
@@ -334,11 +328,27 @@ extension LoginView {
                 SwiftMessages.hideAll()
                 self.showSuccessMessage(title: "登录成功✨")
                 self.successHandler?()
-            }, failure: { errMsg in
+            } failure: { (err) in
                 SwiftMessages.hideLoading()
                 self.failureHandler?()
-                self.showErrorMessage(title: errMsg)
-            })
+                self.showErrorMessage(title: err.localizedDescription)
+            }
+//            AccountManager.getToken(username: username, password: password, success: { token in
+//                TwTUser.shared.username = username
+//                TWTKeychain.set(username: username, password: password, of: .root)
+//                TwTUser.shared.token = token
+//
+//                TwTUser.shared.save()
+//                self.extraProcedures()
+//                SwiftMessages.hideLoading()
+//                SwiftMessages.hideAll()
+//                self.showSuccessMessage(title: "登录成功✨")
+//                self.successHandler?()
+//            }, failure: { errMsg in
+//                SwiftMessages.hideLoading()
+//                self.failureHandler?()
+//                self.showErrorMessage(title: errMsg)
+//            })
             
             
         } else {
@@ -352,7 +362,6 @@ extension LoginView {
                 TwTUser.shared.telephone = info.telephone
                 TwTUser.shared.email = info.email
                 TwTUser.shared.save()
-                CurToken.token = info.token
                 self.extraProcedures()
                 SwiftMessages.hideLoading()
                 SwiftMessages.hideAll()
@@ -372,10 +381,10 @@ extension LoginView {
     
     func extraProcedures() {
         NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogin.name, object: nil)
-        AccountManager.getSelf(success: {
-            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
-            
-        }, failure: nil)
+//        AccountManager.getSelf(success: {
+//            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
+//            
+//        }, failure: nil)
         
         GPASessionManager.getGPA(success: { model in
             if let string = model.toJSONString() {

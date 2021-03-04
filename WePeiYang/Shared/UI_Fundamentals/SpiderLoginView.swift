@@ -235,8 +235,6 @@ extension SpiderLoginView {
                     //               self.extraProcedures()
                     TwTUser.shared.username = username
                     TWTKeychain.set(username: username, password: password, of: .tju)
-                    // tmp solution
-                    //                    TwTUser.shared.token = "xixiCrawl"
                     TwTUser.shared.tjuBindingState = true
                     TwTUser.shared.save()
                     self.extraProcedures()
@@ -251,8 +249,6 @@ extension SpiderLoginView {
                         case .alreadyLogin:
                             TwTUser.shared.username = username
                             TWTKeychain.set(username: username, password: password, of: .tju)
-                            // tmp solution
-                            //                         TwTUser.shared.token = "xixiCrawl"
                             TwTUser.shared.tjuBindingState = true
                             TwTUser.shared.save()
                             self.extraProcedures()

@@ -330,21 +330,17 @@ class GPAViewController: UIViewController {
                 case .errorCode(let code, _):
                     if code == 40010 {
                         SwiftMessages.showErrorMessage(body: "办公网密码错误，请重新绑定办公网")
-                        AccountManager.unbind(url: BindingAPIs.unbindTJUAccount, success: {
-                            TWTKeychain.erase(.tju)
-                            TwTUser.shared.tjuBindingState = false
-                            
-                            let bindVC = TJUBindingViewController()
-                            bindVC.hidesBottomBarWhenPushed = true
-                            bindVC.completion = { success in
-                                if success {
-                                    self.refresh()
-                                }
+                        TWTKeychain.erase(.tju)
+                        TwTUser.shared.tjuBindingState = false
+                        
+                        let bindVC = TJUBindingViewController()
+                        bindVC.hidesBottomBarWhenPushed = true
+                        bindVC.completion = { success in
+                            if success {
+                                self.refresh()
                             }
-                            UIViewController.top?.present(bindVC, animated: true, completion: nil)
-                        }, failure: { err in
-                            SwiftMessages.showErrorMessage(body: err.localizedDescription)
-                        })
+                        }
+                        UIViewController.top?.present(bindVC, animated: true, completion: nil)
                     }
             }
         })

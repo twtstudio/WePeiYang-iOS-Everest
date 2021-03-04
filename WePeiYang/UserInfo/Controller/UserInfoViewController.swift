@@ -14,6 +14,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
     
 //    var token = ""
     private var userInfo: UserInfo!
+    private var avatar: UIImageView!
     private var avatarUrl: String!
     
     private var idView: UserInfoView!
@@ -26,25 +27,20 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
     private var commitButton: UIButton!
     
     var sendCodeRemainTime = 0
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(color: UIColor(red: 0.42, green: 0.62, blue: 0.64, alpha: 1)), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.titleTextAttributes =
-            [NSAttributedString.Key.foregroundColor: UIColor.white]
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        super.viewWillAppear(animated)
 
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         
-        self.navigationItem.title = "个人信息"
-        self.navigationItem.hidesBackButton = true
         addView()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -57,10 +53,20 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
     
     private func addView() {
         
-        let avatar = UIImageView()
+        let full: CGFloat = SCREEN.height - 20
+        let seperateHeight: CGFloat = 10
+        let remainHeight: CGFloat = full - seperateHeight * 12
+        let oddHeight: CGFloat = remainHeight / 12
+        let viewWidth = SCREEN.width - 60
+        
+        avatar = UIImageView()
         view.addSubview(avatar)
-        avatar.frame = CGRect(x: UIScreen.main.bounds.width / 2 - 50, y: 100, width: 100, height: 100)
         avatar.addCornerRadius(50)
+        avatar.snp.makeConstraints { (make) in
+            make.centerX.equalTo(view)
+            make.width.height.equalTo(100)
+            make.top.equalTo(view).offset(seperateHeight * 2)
+        }
         
         if TwTUser.shared.avatarURL == "https://i.twtstudio.com/img/avatar.png" || TwTUser.shared.avatarURL == nil {
             let imageGenerator = Identicon()
@@ -72,43 +78,68 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         
         idView = UserInfoView()
         view.addSubview(idView)
-        idView.frame = CGRect(x: 30, y: 250, width: UIScreen.main.bounds.width - 60, height: 40)
         idView.isUserInteractionEnabled = true
         idView.sureButton.isUserInteractionEnabled = true
         idView.infoLabel.text = "学号:"
         idView.detailLabel.text = TwTUser.shared.schoolID
         idView.detailTextField.isHidden = true
         idView.sureButton.addTarget(self, action: #selector(sendCode), for: .touchUpInside)
+        idView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(avatar)
+            make.top.equalTo(avatar.snp.bottom).offset(seperateHeight)
+            make.width.equalTo(viewWidth)
+            make.height.equalTo(oddHeight)
+        }
         
         nameView = UserInfoView()
         view.addSubview(nameView)
-        nameView.frame = CGRect(x: 30, y: 300, width: UIScreen.main.bounds.width - 60, height: 40)
         nameView.infoLabel.text = "姓名:"
         nameView.detailLabel.text = TwTUser.shared.realname
         nameView.detailTextField.isHidden = true
         nameView.sureButton.addTarget(self, action: #selector(sendCode), for: .touchUpInside)
+        nameView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(avatar)
+            make.top.equalTo(idView.snp.bottom).offset(seperateHeight)
+            make.width.equalTo(viewWidth)
+            make.height.equalTo(oddHeight)
+        }
         
         schoolView = UserInfoView()
         view.addSubview(schoolView)
-        schoolView.frame = CGRect(x: 30, y: 350, width: UIScreen.main.bounds.width - 60, height: 40)
         schoolView.infoLabel.text = "学院:"
         schoolView.detailLabel.text = TwTUser.shared.department
         schoolView.isUserInteractionEnabled = true
         schoolView.detailTextField.isHidden = true
         schoolView.sureButton.addTarget(self, action: #selector(sendCode), for: .touchUpInside)
+        schoolView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(avatar)
+            make.top.equalTo(nameView.snp.bottom).offset(seperateHeight)
+            make.width.equalTo(viewWidth)
+            make.height.equalTo(oddHeight)
+        }
         
         majorView = UserInfoView()
         view.addSubview(majorView)
-        majorView.frame = CGRect(x: 30, y: 400, width: UIScreen.main.bounds.width - 60, height: 40)
         majorView.infoLabel.text = "专业:"
         majorView.detailLabel.text = TwTUser.shared.major
         majorView.isUserInteractionEnabled = true
         majorView.detailTextField.isHidden = true
         majorView.sureButton.addTarget(self, action: #selector(sendCode), for: .touchUpInside)
+        majorView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(avatar)
+            make.top.equalTo(schoolView.snp.bottom).offset(seperateHeight)
+            make.width.equalTo(viewWidth)
+            make.height.equalTo(oddHeight)
+        }
         
         phoneView = UserInfoView()
         view.addSubview(phoneView)
-        phoneView.frame = CGRect(x: 30, y: 450, width: UIScreen.main.bounds.width - 60, height: 40)
+        phoneView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(avatar)
+            make.top.equalTo(majorView.snp.bottom).offset(seperateHeight)
+            make.width.equalTo(viewWidth)
+            make.height.equalTo(oddHeight)
+        }
         phoneView.infoLabel.text = "手机号:"
         phoneView.isUserInteractionEnabled = true
         if TwTUser.shared.telephone != nil {
@@ -126,7 +157,12 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         
         codeView = UserInfoView()
         view.addSubview(codeView)
-        codeView.frame = CGRect(x: 30, y: 500, width: UIScreen.main.bounds.width - 60, height: 40)
+        codeView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(avatar)
+            make.top.equalTo(phoneView.snp.bottom).offset(seperateHeight)
+            make.width.equalTo(viewWidth)
+            make.height.equalTo(oddHeight)
+        }
         codeView.infoLabel.text = "验证码:"
         codeView.isUserInteractionEnabled = true
         codeView.detailTextField.placeholder = "请输入验证码"
@@ -138,7 +174,12 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         
         emailView = UserInfoView()
         view.addSubview(emailView)
-        emailView.frame = CGRect(x: 30, y: 550, width: UIScreen.main.bounds.width - 60, height: 40)
+        emailView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(avatar)
+            make.top.equalTo(codeView.snp.bottom).offset(seperateHeight)
+            make.width.equalTo(viewWidth)
+            make.height.equalTo(oddHeight)
+        }
         emailView.infoLabel.text = "邮箱:"
         emailView.isUserInteractionEnabled = true
         if TwTUser.shared.email != nil{
@@ -155,7 +196,12 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         
         commitButton = UIButton()
         view.addSubview(commitButton)
-        commitButton.frame = CGRect(x: UIScreen.main.bounds.width / 2 - 50, y: 630, width: 100, height: 30)
+        commitButton.snp.makeConstraints { (make) in
+            make.centerX.equalTo(avatar)
+            make.top.equalTo(emailView.snp.bottom).offset(seperateHeight)
+            make.width.equalTo(viewWidth)
+            make.height.equalTo(oddHeight)
+        }
         commitButton.setTitle("确认", for: .normal)
         commitButton.layer.cornerRadius = 5
         commitButton.backgroundColor = UIColor(red: 0.42, green: 0.62, blue: 0.64, alpha: 1)
@@ -219,15 +265,23 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
             
             
             
-        } failure: { (_) in
-
+        } failure: { (err) in
+            print(err)
         }
-        
-        
+    }
+}
+
+extension UserInfoViewController {
+    @objc func keyboardWillShow(notification: Notification) {
+        if isiPad {
+            return
+        }
+        view.frame.origin.y = -150
     }
     
-    
-
+    @objc func keyboardWillHide(notification: Notification) {
+        view.frame.origin.y = 0
+    }
 }
 
 struct PhoneInfo {
