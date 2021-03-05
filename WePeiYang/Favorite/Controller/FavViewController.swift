@@ -267,6 +267,7 @@ class FavViewController: UIViewController {
         Alamofire.request("http://itunes.apple.com/lookup?id=" + appid).validate().responseJSON { (response) in
             do {
                 if let data = response.data {
+                    print(String(data: data, encoding: .utf8))
                     let res = try JSONDecoder().decode(LookUpResponse.self, from: data)
                     guard !(res.results ?? []).isEmpty else { return }
                     let newVersion = res.results![0].version ?? ""
@@ -274,7 +275,7 @@ class FavViewController: UIViewController {
                         let alert = UIAlertController(title: "有新版本", message: "前去更新版本？", preferredStyle: .alert)
                         let action1 = UIAlertAction(title: "下次一定", style: .cancel, handler: nil)
                         let action2 = UIAlertAction(title: "好", style: .default) { (_) in
-                            let updateUrl:URL = URL.init(string: "https://itunes.apple.com/cn/app/%E8%8E%B1%E4%BB%98mpos/id"+appid+"?mt=8")!
+                            let updateUrl:URL = URL(string: "itms-apps://itunes.apple.com/app/id" + appid)!
                             if #available(iOS 10.0, *) {
                                 UIApplication.shared.open(updateUrl, options: [:], completionHandler: nil)
                             } else {

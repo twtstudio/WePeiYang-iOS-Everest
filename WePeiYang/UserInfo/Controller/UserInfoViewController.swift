@@ -57,7 +57,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
         let seperateHeight: CGFloat = 10
         let remainHeight: CGFloat = full - seperateHeight * 12
         let oddHeight: CGFloat = remainHeight / 12
-        let viewWidth = SCREEN.width - 60
+        let viewWidth = SCREEN.width * 0.8
         
         avatar = UIImageView()
         view.addSubview(avatar)

@@ -310,129 +310,133 @@ class ClassTableViewController: UIViewController {
             loadCache { (result) in
                 switch result {
                 case .success(_):
+                    self.isRefreshing = false
+                    self.stopRotating()
                     return
                 case .failure(_):
                     SwiftMessages.hideLoading()
                 }
             }
-        }
-        
-        var originTable: ClassTableModel?
-        var auditItems: [AuditDetailCourseItem]?
-        
-        let group = DispatchGroup()
-        group.enter()
-        
-        // 进行课表获取
-        ClasstableDataManager.getClassTable(success: { table in
-            if let oldTable = AuditUser.shared.mergedTable,
-               oldTable.updatedAt > table.updatedAt,
-               table.updatedAt.contains("2017-04-01") {
-                // 如果新的还不如旧的
-                // 那就不刷新
-                SwiftMessages.showWarningMessage(body: "服务器故障\n缓存时间: \(oldTable.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
+        } else {
+            var originTable: ClassTableModel?
+            var auditItems: [AuditDetailCourseItem]?
+            
+            let group = DispatchGroup()
+            group.enter()
+            
+            // 进行课表获取
+            ClasstableDataManager.getClassTable(success: { table in
+                //            if let oldTable = AuditUser.shared.mergedTable,
+                //               oldTable.updatedAt > table.updatedAt,
+                //               table.updatedAt.contains("2017-04-01") {
+                //                // 如果新的还不如旧的
+                //                // 那就不刷新
+                //                SwiftMessages.showWarningMessage(body: "服务器故障\n缓存时间: \(oldTable.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
+                //                group.leave()
+                //                return
+                //            }
+                originTable = table
                 group.leave()
-                return
-            }
-            originTable = table
-            group.leave()
-        }, failure: { error in
-//            let msg = error.localizedDescription
-//            guard error is WPYCustomError else {
-//                SwiftMessages.showErrorMessage(body: msg)
-//                return
-//            }
+            }, failure: { error in
+                //            let msg = error.localizedDescription
+                //            guard error is WPYCustomError else {
+                //                SwiftMessages.showErrorMessage(body: msg)
+                //                return
+                //            }
+                
+                SwiftMessages.showErrorMessage(body: "办公网状态过期")
+                sleep(UInt32(0.5))
+                SwiftMessages.hideAll()
+                let loginView = SpiderLoginView()
+                var config = SwiftMessages.defaultConfig
+                config.presentationStyle = .center
+                config.duration = .forever
+                config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
+                config.presentationContext  = .window(windowLevel: .normal)
+                SwiftMessages.show(config: config, view: loginView)
+                group.leave()
+                
+                //            switch error {
+                //            case .custom(let msg):
+                //                SwiftMessages.showErrorMessage(body: msg)
+                //
+                //            case .errorCode(let code, _):
+                //                if code == 40010 {
+                //                    SwiftMessages.showErrorMessage(body: "办公网密码错误，请重新绑定办公网")
+                //                    AccountManager.unbind(url: BindingAPIs.unbindTJUAccount, success: {
+                //                        TWTKeychain.erase(.tju)
+                //                        TwTUser.shared.tjuBindingState = false
+                //
+                //                        let bindVC = TJUBindingViewController()
+                //                        bindVC.hidesBottomBarWhenPushed = true
+                //                        bindVC.completion = { success in
+                //                            if success {
+                //                                self.load()
+                //                            }
+                //                        }
+                //                        UIViewController.top?.present(bindVC, animated: true, completion: nil)
+                //                    }, failure: { err in
+                //                        SwiftMessages.showErrorMessage(body: err.localizedDescription)
+                //                    })
+                //                }
+                //            }
+                //            group.leave()
+            })
             
-            SwiftMessages.showErrorMessage(body: "办公网状态过期")
-            sleep(UInt32(0.5))
-            SwiftMessages.hideAll()
-            let loginView = SpiderLoginView()
-            var config = SwiftMessages.defaultConfig
-            config.presentationStyle = .center
-            config.duration = .forever
-            config.dimMode = .blur(style: .dark, alpha: 1, interactive: true)
-            config.presentationContext  = .window(windowLevel: .normal)
-            SwiftMessages.show(config: config, view: loginView)
-            group.leave()
-            
-//            switch error {
-//            case .custom(let msg):
-//                SwiftMessages.showErrorMessage(body: msg)
-//
-//            case .errorCode(let code, _):
-//                if code == 40010 {
-//                    SwiftMessages.showErrorMessage(body: "办公网密码错误，请重新绑定办公网")
-//                    AccountManager.unbind(url: BindingAPIs.unbindTJUAccount, success: {
-//                        TWTKeychain.erase(.tju)
-//                        TwTUser.shared.tjuBindingState = false
-//
-//                        let bindVC = TJUBindingViewController()
-//                        bindVC.hidesBottomBarWhenPushed = true
-//                        bindVC.completion = { success in
-//                            if success {
-//                                self.load()
-//                            }
-//                        }
-//                        UIViewController.top?.present(bindVC, animated: true, completion: nil)
-//                    }, failure: { err in
-//                        SwiftMessages.showErrorMessage(body: err.localizedDescription)
-//                    })
-//                }
-//            }
-//            group.leave()
-        })
-        
-        // FIXME: 蹭课
-        group.enter()
-        ClasstableDataManager.getPersonalAuditList(success: { model in
-            auditItems = []
-            model.data.forEach { list in
-                let college = list.college
-                list.infos.forEach { item in
-                    var item = item
-                    item.courseCollege = college
-                    auditItems!.append(item)
+            // FIXME: 蹭课
+            group.enter()
+            ClasstableDataManager.getPersonalAuditList(success: { model in
+                auditItems = []
+                model.data.forEach { list in
+                    let college = list.college
+                    list.infos.forEach { item in
+                        var item = item
+                        item.courseCollege = college
+                        auditItems!.append(item)
+                    }
                 }
-            }
-            AuditCacheManager.load(model: model)
-            group.leave()
-        }, failure: { errStr in
-            SwiftMessages.showErrorMessage(body: errStr)
-            group.leave()
-        })
-        
-        group.notify(queue: DispatchQueue.main) {
-            self.isRefreshing = false
-            self.stopRotating()
+                AuditCacheManager.load(model: model)
+                group.leave()
+            }, failure: { errStr in
+                SwiftMessages.showErrorMessage(body: errStr)
+                group.leave()
+            })
             
-            guard let table = originTable, let auditItems = auditItems else {
-                return
+            group.notify(queue: DispatchQueue.main) {
+                self.isRefreshing = false
+                self.stopRotating()
+                
+                guard let table = originTable, let auditItems = auditItems else {
+                    return
+                }
+                
+                AuditUser.shared.updateCourses(originTable: table, auditCourses: auditItems, isStore: true)
+                
+                let now = Date()
+                let termStart = Date(timeIntervalSince1970: Double(table.termStart))
+                var week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
+                if week < 1 {
+                    week = 1
+                }
+                self.currentWeek = Int(week)
+                self.currentDisplayWeek = Int(week)
+                
+                var weekDic = [Int: [[ClassModel]]]()
+                //            for week in 1...22 {
+                for week in 1...30 {
+                    weekDic[week] = AuditUser.shared.getCourseListModel(week: week)
+                }
+                self.weekCourseDict = weekDic
+                
+                if let courses = self.weekCourseDict[self.currentWeek] {
+                    self.listView.load(courses: courses, weeks: self.currentWeek)
+                }
+                // 和本周的差距
+                SwiftMessages.showSuccessMessage(body: "刷新成功\n更新时间: \(table.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
             }
-            
-            AuditUser.shared.updateCourses(originTable: table, auditCourses: auditItems, isStore: true)
-            
-            let now = Date()
-            let termStart = Date(timeIntervalSince1970: Double(table.termStart))
-            var week = now.timeIntervalSince(termStart)/(7.0*24*60*60) + 1
-            if week < 1 {
-                week = 1
-            }
-            self.currentWeek = Int(week)
-            self.currentDisplayWeek = Int(week)
-            
-            var weekDic = [Int: [[ClassModel]]]()
-            //            for week in 1...22 {
-            for week in 1...30 {
-                weekDic[week] = AuditUser.shared.getCourseListModel(week: week)
-            }
-            self.weekCourseDict = weekDic
-            
-            if let courses = self.weekCourseDict[self.currentWeek] {
-                self.listView.load(courses: courses, weeks: self.currentWeek)
-            }
-            // 和本周的差距
-            SwiftMessages.showSuccessMessage(body: "刷新成功\n更新时间: \(table.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
         }
+        
+        
         
     }
     //     FIXME: 蹭课爬虫
