@@ -267,11 +267,13 @@ class FavViewController: UIViewController {
         Alamofire.request("http://itunes.apple.com/lookup?id=" + appid).validate().responseJSON { (response) in
             do {
                 if let data = response.data {
-                    print(String(data: data, encoding: .utf8))
                     let res = try JSONDecoder().decode(LookUpResponse.self, from: data)
                     guard !(res.results ?? []).isEmpty else { return }
                     let newVersion = res.results![0].version ?? ""
-                    if localVersion < newVersion {
+                    let lvArr = localVersion.split(separator: ".").map { s in Int(s) ?? 0 }
+                    let nvArr = newVersion.split(separator: ".").map { s in Int(s) ?? 0 }
+                    let shouldUpdate = zip(lvArr, nvArr).reduce(false) { (oldResult, tup) in oldResult || (tup.0 < tup.1) }
+                    if shouldUpdate {
                         let alert = UIAlertController(title: "有新版本", message: "前去更新版本？", preferredStyle: .alert)
                         let action1 = UIAlertAction(title: "下次一定", style: .cancel, handler: nil)
                         let action2 = UIAlertAction(title: "好", style: .default) { (_) in
