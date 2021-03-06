@@ -14,7 +14,7 @@ class ArrangeCell: UITableViewCell {
     let dateLabel = UILabel()
     let locationLabel = UILabel()
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         initialize()
     }
@@ -69,7 +69,7 @@ class ArrangeCell: UITableViewCell {
         if let arrange = model.arrange.first {
             let week = arrange.week == "单双周" ? "每周" : model.arrange.first!.week
             time = week
-            var mandarinWeek = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+            let mandarinWeek = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
             if arrange.day >= 1 && arrange.day <= 7 {
                 let day = mandarinWeek[arrange.day-1]
                 time += day

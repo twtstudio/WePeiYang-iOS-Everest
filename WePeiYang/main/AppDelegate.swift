@@ -12,117 +12,117 @@ import PopupDialog
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
     var mainTabVC: WPYTabBarController!
     var arWindow: UIWindow!
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         MTA.start(withAppkey: "IUY2I5P1Y3VI")
         UIApplication.beginSwizzling()
         UIViewController.beginSwizzling()
         UITableView.beginSwizzling()
         UICollectionView.beginSwizzling()
-
+        
         window = UIWindow(frame: UIScreen.main.bounds)
-
+        
         UIApplication.shared.applicationIconBadgeNumber = 0
-
-//        TwTUser.shared.load() // load token and so on
+        
+        //        TwTUser.shared.load() // load token and so on
         TwTUser.shared.load(success: {
             
             // 迁移旧缓存
             CacheManager.migrate()
-
+            
             NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
-
+            
             BicycleUser.sharedInstance.auth(success: {
                 NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: ("bike", TwTUser.shared.bicycleBindingState))
             })
-
+            
             WLANHelper.getStatus(success: { _ in
-
+                
             }, failure: { _ in
-
+                
             })
-            AccountManager.getSelf(success: {
-                if let deviceToken = UserDefaults.standard.string(forKey: "deviceToken"),
-                    let uid = TwTUser.shared.twtid,
-                    let uuid = UIDevice.current.identifierForVendor?.uuidString {
-                    let para = ["utoken": deviceToken, "uid": uid, "udid": uuid, "ua": DeviceStatus.userAgent]
-                    SolaSessionManager.solaSession(type: .post, url: "/push/token/ENcJ1ZYDBaCvC8aM76RnnrT25FPqQg", token: nil, parameters: para, success: nil, failure: nil)
-                }
-            }, failure: {
-
-            })
+            // FIXME: 暂用爬虫
+            //               AccountManager.getSelf(success: {
+            //                    if let deviceToken = UserDefaults.standard.string(forKey: "deviceToken"),
+            //                       let uid = TwTUser.shared.twtid,
+            //                       let uuid = UIDevice.current.identifierForVendor?.uuidString {
+            //                         let para = ["utoken": deviceToken, "uid": uid, "udid": uuid, "ua": DeviceStatus.userAgent]
+            //                         SolaSessionManager.solaSession(type: .post, url: "/push/token/ENcJ1ZYDBaCvC8aM76RnnrT25FPqQg", token: nil, parameters: para, success: nil, failure: nil)
+            //                    }
+            //               }, failure: {
+            //
+            //               })
         }, failure: {
             // 让他重新登录
         })
-
+        
         mainTabVC = WPYTabBarController()
-
+        
+        // FIXME: 20200905 只启用课程表GPA和考表
+        UserDefaults.standard.set(false, forKey: "shakeWiFiEnabled")
+        UserDefaults.standard.set(["活动": -6, "GPA": 3, "课程表": 2,
+                                   "图书馆": -3, "校园卡": -4, "考表": 5, "校务专区": 1], forKey: ModuleArrangementKey)
+        
         let favoriteVC = FavViewController()
         favoriteVC.tabBarItem.image = #imageLiteral(resourceName: "Favored")
         let favoriteNavigationController = UINavigationController(rootViewController: favoriteVC)
-
+        
         let newsVC = NewsViewController()
         newsVC.tabBarItem.image = #imageLiteral(resourceName: "News")
         let infoNavigationController = UINavigationController(rootViewController: newsVC)
-
+        
         let allModulesVC = AllModulesViewController()
         allModulesVC.tabBarItem.image = #imageLiteral(resourceName: "AllModules")
         let allModulesNavigationController = UINavigationController(rootViewController: allModulesVC)
-
+        
         let settingsVC = SettingsViewController()
         settingsVC.tabBarItem.image = #imageLiteral(resourceName: "Settings")
         let settingsNavigationController = UINavigationController(rootViewController: settingsVC)
-
+        
         if !isiPad {
             allModulesVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
             favoriteVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
             newsVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
             settingsVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         }
-
+        
         mainTabVC.setViewControllers([favoriteNavigationController, infoNavigationController, allModulesNavigationController, settingsNavigationController], animated: true)
-
+        
         UITabBar.appearance().backgroundColor = Metadata.Color.GlobalTabBarBackgroundColor
         UITabBar.appearance().tintColor = Metadata.Color.WPYAccentColor
-//        UITabBar.appearance().isOpaque = true
-
+        //        UITabBar.appearance().isOpaque = true
+        
         mainTabVC.selectedIndex = 0
         if #available(iOS 10.0, *) {
             mainTabVC.tabBar.unselectedItemTintColor = Metadata.Color.grayIconColor
         } else {
             // Fallback on earlier versions
         }
-//        window?.backgroundColor = .white
+        //        window?.backgroundColor = .white
         window?.rootViewController = mainTabVC
+        //          window?.rootViewController = FBNewQuestionViewController()
         window?.makeKeyAndVisible()
-
-        if #available(iOS 11.0, *) {
-            let ARModeEnabledKey = "ARModeEnabledKey"
-            if UserDefaults.standard.bool(forKey: ARModeEnabledKey) {
-                arWindow = ARKeyWindow()
-                arWindow.makeKeyAndVisible()
-            }
-        }
-
+        
+        
         registerAppNotification(launchOptions: launchOptions)
         registerShortcutItems()
         showMessage()
         showNewFeature()
-
+        
         return true
     }
-
+    
     func showMessage() {
         SolaSessionManager.solaSession(type: .get, url: "/app/message", token: nil, parameters: nil, success: { dict in
             if let data = dict["data"] as? [String: Any],
-                let version = data["version"] as? Int,
-                let title = data["title"] as? String,
-                let message = data["message"] as? String {
+               let version = data["version"] as? Int,
+               let title = data["title"] as? String,
+               let message = data["message"] as? String {
                 let prev = UserDefaults.standard.integer(forKey: MessageKey)
                 if version > prev {
                     // new message
@@ -134,33 +134,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         })
     }
-
+    
     func showNewFeature() {
         let NewFeatureVersionKey = "NewFeatureVersionKey"
         // plus one next version
-        let currentVersion = 2
-
+        let currentVersion = 5
+        
         let version = UserDefaults.standard.integer(forKey: NewFeatureVersionKey)
         if currentVersion > version {
-            let popup = PopupDialog(title: "新功能提醒", message: "微北洋支持校园卡查询啦！\n如果使用中发现有问题，请加入「设置」中的QQ群反馈问题，我们会积极解决的!", buttonAlignment: .vertical)
-//            let cancelButton = CancelButton(title: "取消", action: nil)
-            let goButton = DefaultButton(title: "好哒！", action: {
+            // FIXME: Dynamic Popup
+            let popup = PopupDialog(title: "公告", message: "天外天用户社区的各位同学：\n校务专区功能已经正式上线!", buttonAlignment: .vertical)
+            //            let cancelButton = CancelButton(title: "取消", action: nil)
+            let goButton = DefaultButton(title: "确认", action: {
                 UserDefaults.standard.set(currentVersion, forKey: NewFeatureVersionKey)
             })
             popup.addButton(goButton)
             window?.rootViewController?.present(popup, animated: true, completion: nil)
         }
     }
-
+    
     func registerShortcutItems() {
         // Create Dynamic quick actions using the icon
         let infos = [
             (title: "GPA 查询", iconName: "chart-line", type: "com.twtstudio.gpa"),
             (title: "课程表", iconName: "calendar-text", type: "com.twtstudio.classtable"),
-            (title: "自行车", iconName: "bike", type: "com.twtstudio.bike"),
-            (title: "黄页", iconName: "contact-mail", type: "com.twtstudio.yellowpage")
+            //               (title: "自行车", iconName: "bike", type: "com.twtstudio.bike"),
+            (title: "黄页", iconName: "contact-mail", type: "com.twtstudio.yellowpage"),
+            (title: "校务专区", iconName: "feedback", type: "com.twtstudio.feedback"),
         ]
-
+        
         var shortcutItems = [UIApplicationShortcutItem]()
         for info in infos {
             let item = UIApplicationShortcutItem(type: info.type, localizedTitle: info.title, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: info.iconName), userInfo: nil)
@@ -169,7 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Register the Dynamic quick actions to display on the home Screen
         UIApplication.shared.shortcutItems = shortcutItems
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -179,16 +181,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIApplication.shared.keyWindow?.addSubview(frostedView)
         }
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         if let subviews = UIApplication.shared.keyWindow?.subviews {
@@ -198,7 +200,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
@@ -210,7 +212,7 @@ extension AppDelegate {
             SwiftMessages.showWarningMessage(body: "请先登录")
             return
         }
-
+        
         let naviVC = (self.window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController
         switch shortcutItem.type {
         case "com.twtstudio.gpa":
@@ -221,10 +223,14 @@ extension AppDelegate {
             let classtableVC = ClassTableViewController()
             classtableVC.hidesBottomBarWhenPushed = true
             naviVC?.pushViewController(classtableVC, animated: true)
-        case "com.twtstudio.bike":
-            let bikeVC = BicycleServiceViewController()
-            bikeVC.hidesBottomBarWhenPushed = true
-            naviVC?.pushViewController(bikeVC, animated: true)
+        //          case "com.twtstudio.bike":
+        //               let bikeVC = BicycleServiceViewController()
+        //               bikeVC.hidesBottomBarWhenPushed = true
+        //               naviVC?.pushViewController(bikeVC, animated: true)
+        case "com.twtstudio.feedback":
+            let feedbackVC = FeedBackMainViewController()
+            feedbackVC.hidesBottomBarWhenPushed = true
+            naviVC?.pushViewController(feedbackVC, animated: true)
         case "com.twtstudio.yellowpage":
             let yellowpageVC = YellowPageMainViewController()
             yellowpageVC.hidesBottomBarWhenPushed = true
@@ -238,8 +244,8 @@ extension AppDelegate {
 
 // MARK: User Notification
 extension AppDelegate: UNUserNotificationCenterDelegate {
-
-    func registerAppNotification(launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+    
+    func registerAppNotification(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         // 注册通知
         if #available(iOS 10.0, *) {
             let center = UNUserNotificationCenter.current()
@@ -260,13 +266,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             UIApplication.shared.registerForRemoteNotifications()
         }
     }
-
+    
     // 收到推送token
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         log("------device token: \(deviceToken.hexString)")
         UserDefaults.standard.set(deviceToken.hexString, forKey: "deviceToken")
     }
-
+    
     // iOS 10: 处理前台收到通知的代理方法
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -278,18 +284,18 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         }
         completionHandler([.sound, .alert, .badge])
     }
-
+    
     // iOS 10: 处理后台点击通知的代理方法
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         if let urlString = userInfo["url"] as? String,
-            let url = URL(string: urlString) {
-            UIApplication.shared.openURL(url)
+           let url = URL(string: urlString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
         completionHandler()
     }
-
+    
     // iOS 9
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if application.applicationState == .active {
@@ -298,10 +304,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             // 后台接受消息进入 app
             // badge清零
             UIApplication.shared.applicationIconBadgeNumber = 0
-
+            
             if let urlString = userInfo["url"] as? String,
-                let url = URL(string: urlString) {
-                UIApplication.shared.openURL(url)
+               let url = URL(string: urlString) {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
             }
         }
         completionHandler(.newData)

@@ -15,10 +15,10 @@ enum SessionType {
     case duo
 }
 
-let TWT_ROOT_URL = "https://open.twtstudio.com/api/v1"
+let TWT_ROOT_URL = "https://open.twt.edu.cn/api/v1"
 
 struct SolaSessionManager {
-
+    
     /// A primary package of Alamofire, the foundation of network module of WePeiyang
     ///
     /// - Parameters:
@@ -30,102 +30,102 @@ struct SolaSessionManager {
     ///   - success: callback if request succeeds
     ///   - failure: callback if request fails
     static func solaSession(type: SessionType = .get, baseURL: String = TWT_ROOT_URL, url: String, token: String? = nil, parameters: [String: String]? = nil, success: (([String: Any]) -> Void)? = nil, failure: ((Error) -> Void)? = nil) {
-
+        
         let fullurl = baseURL + url
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
         var para = parameters ?? [String: String]()
         para["t"] = timeStamp
         var fooPara = para
-
+        
         if type == .duo, let token = token {
             fooPara["token"] = token
         }
-
+        
         let keys = fooPara.keys.sorted()
         // encrypt with sha1
         var tmpSign = ""
         for key in keys {
             tmpSign += (key + fooPara[key]!)
         }
-
+        
         let sign = (TWTKeychain.appKey + tmpSign + TWTKeychain.appSecret).sha1.uppercased()
         para["sign"] = sign
         para["app_key"] = TWTKeychain.appKey
-
+        
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent
-
+        
         if let twtToken = TwTUser.shared.token {
             headers["Authorization"] = "Bearer \(twtToken)"
         } else {
             log("can't load twtToken")
         }
-
+        
         var method: HTTPMethod!
         switch type {
-        case .get:
-            method = .get
-        case .post:
-            method = .post
-        case .duo:
-            method = .post
+            case .get:
+                method = .get
+            case .post:
+                method = .post
+            case .duo:
+                method = .post
         }
-
+        
         Alamofire.request(fullurl, method: method, parameters: para, headers: headers).responseJSON { response in
             switch response.result {
-            case .success:
-                if let data = response.result.value {
-                    if let dict = data as? [String: Any] {
-                        success?(dict)
-                        return
+                case .success:
+                    if let data = response.result.value {
+                        if let dict = data as? [String: Any] {
+                            success?(dict)
+                            return
+                        }
                     }
-                }
-                let error = response.error ?? WPYCustomError.errorCode(-2, "数据解析错误")
-                failure?(error)
-            case .failure(let error):
-                if let data = response.result.value {
-                    if let dict = data as? [String: Any],
-                    let errmsg = dict["message"] as? String {
-                        failure?(WPYCustomError.custom(errmsg))
-                        return
+                    let error = response.error ?? WPYCustomError.errorCode(-2, "数据解析错误")
+                    failure?(error)
+                case .failure(let error):
+                    if let data = response.result.value {
+                        if let dict = data as? [String: Any],
+                           let errmsg = dict["message"] as? String {
+                            failure?(WPYCustomError.custom(errmsg))
+                            return
+                        }
                     }
-                }
-                failure?(error)
+                    failure?(error)
             }
         }
     }
-
+    
     static func upload(dictionay: [String: Any], baseURL: String = TWT_ROOT_URL, url: String, method: HTTPMethod = .post, progressBlock: ((Progress) -> Void)? = nil, success: (([String: Any]) -> Void)?, failure: ((Error) -> Void)? = nil) {
-
+        
         var dataDict = [String: Data]()
         var paraDict = [String: String]()
         for item in dictionay {
             if let value = item.value as? UIImage {
-                let data = UIImageJPEGRepresentation(value, 1.0)!
+                let data = value.jpegData(compressionQuality: 1.0)
                 dataDict[item.key] = data
             } else if let value = item.value as? String {
                 paraDict[item.key] = value
             }
         }
-
+        
         let timeStamp = String(Int64(Date().timeIntervalSince1970))
         paraDict["t"] = timeStamp
-        var fooPara = paraDict
-
+        let fooPara = paraDict
+        
         let keys = fooPara.keys.sorted()
         // encrypt with sha1
         var tmpSign = ""
         for key in keys {
             tmpSign += (key + fooPara[key]!)
         }
-
+        
         let sign = (TWTKeychain.appKey + tmpSign + TWTKeychain.appSecret).sha1.uppercased()
         paraDict["sign"] = sign
         paraDict["app_key"] = TWTKeychain.appKey
-
+        
         var headers = HTTPHeaders()
         headers["User-Agent"] = DeviceStatus.userAgent
-
+        
         if let twtToken = TwTUser.shared.token {
             headers["Authorization"] = "Bearer \(twtToken)"
         } else {
@@ -143,20 +143,20 @@ struct SolaSessionManager {
                 }
             }, to: fullURL, method: method, headers: headers, encodingCompletion: { response in
                 switch response {
-                case .success(let upload, _, _):
-                    upload.responseJSON { response in
-                        if let data = response.result.value {
-                            if let dict = data as? [String: Any], (dict["error_code"] as? Int == 0 || dict["error_code"] as? Int == -1) {
-                                success?(dict)
-                            } else {
+                    case .success(let upload, _, _):
+                        upload.responseJSON { response in
+                            if let data = response.result.value {
+                                if let dict = data as? [String: Any], (dict["error_code"] as? Int == 0 || dict["error_code"] as? Int == -1) {
+                                    success?(dict)
+                                } else {
+                                }
                             }
                         }
-                    }
-                    upload.uploadProgress { progress in
-                        progressBlock?(progress)
-                    }
-                case .failure(let error):
-                    failure?(error)
+                        upload.uploadProgress { progress in
+                            progressBlock?(progress)
+                        }
+                    case .failure(let error):
+                        failure?(error)
                 }
             })
             return
@@ -165,17 +165,52 @@ struct SolaSessionManager {
         if method == .delete {
             Alamofire.request(fullURL, method: .delete, parameters: paraDict, headers: headers).responseJSON { response in
                 switch response.result {
-                case .success(let data):
-                    if let dict = data as? [String: Any], dict["error_code"] as? Int == -1 {
-                        success?(dict)
-                    } else {
-                        
-                    }
-                case .failure(let error):
-                    failure?(error)
+                    case .success(let data):
+                        if let dict = data as? [String: Any], dict["error_code"] as? Int == -1 {
+                            success?(dict)
+                        } else {
+                            
+                        }
+                    case .failure(let error):
+                        failure?(error)
                 }
             }
             return
         }
+    }
+    
+    // MARK: - Service
+    static func fetch(
+        _ method: HTTPMethod = .get,
+        urlString: String,
+        headers: [String: String] = [:],
+        parameters: [String: String] = [:],
+        async: Bool = true,
+        completion: @escaping (Result<String>) -> Void
+    ) {
+        Alamofire.request(urlString, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers).response { (response) in
+            if let data = response.data {
+                guard let html = String(data: data, encoding: .utf8) else {
+                    completion(.failure(WPYCustomError.custom("request failed")))
+                    return
+                }
+                if response.response?.statusCode == 200, let url = response.response?.url?.absoluteString {
+                    if url.contains("https://sso.tju.edu.cn/cas/login") {
+                        completion(.failure(WPYCustomError.custom("login failed")))
+                    } else {
+                        completion(.success(html))
+                    }
+                } else {
+                    completion(.failure(WPYCustomError.custom("unknownError")))
+                }
+            } else {
+                completion(.failure(WPYCustomError.custom("url fetch failed")))
+            }
+        }
+    }
+    
+    // MARK: - Check
+    static func checkLogin(completion: @escaping (Result<String>) -> Void) {
+        fetch(urlString: "http://classes.tju.edu.cn/eams/homeExt.action", completion: completion)
     }
 }

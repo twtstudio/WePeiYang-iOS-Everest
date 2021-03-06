@@ -8,10 +8,11 @@
 
 import Foundation
 import UIKit
+import WebKit
 
 class BicycleNotificationDetailViewController: UIViewController {
 
-    @IBOutlet var contentWebView: UIWebView!
+    @IBOutlet var contentWebView: WKWebView!
 
     var notificationTitle: String?
     var notificationContent: String?

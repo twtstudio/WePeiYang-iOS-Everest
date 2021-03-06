@@ -20,7 +20,7 @@ struct EcardProfile: Codable {
 }
 
 struct EcardTransaction: Codable {
-    let transaction: [Transaction]
+    let transaction: [Transaction] 
 }
 
 struct Transaction: Codable {

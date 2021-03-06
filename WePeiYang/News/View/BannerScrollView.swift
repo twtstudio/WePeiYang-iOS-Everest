@@ -35,7 +35,7 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
     var descLabelHeight: CGFloat?
     var descLabelTextColor: UIColor?
     var bottomViewBackgroundColor: UIColor?
-    var imageContentModel: UIViewContentMode?
+    var imageContentModel: UIView.ContentMode?
     var descLabelTextAlignment: NSTextAlignment?
 
     var isAutoScroll: Bool = true {
@@ -226,7 +226,7 @@ class BannerScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoco
 extension BannerScrollView {
     func setupTimer() {
         timer = Timer(timeInterval: autoScrollInterval, target: self, selector: #selector(autoChangeBannerCell), userInfo: nil, repeats: true)
-        RunLoop.main.add(timer!, forMode: .commonModes)
+        RunLoop.main.add(timer!, forMode: RunLoop.Mode.common)
     }
 
     @objc func autoChangeBannerCell() {

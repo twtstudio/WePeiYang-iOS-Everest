@@ -19,7 +19,7 @@ class DetailSettingViewController: UIViewController {
         case modules = "模块设置"
         case accounts = "关联账号设置"
         case shakeWiFi = "摇一摇登录校园网"
-        case armode = "AR模式"
+        
 
         case join = "加入我们"
         case EULA = "用户协议"
@@ -67,7 +67,7 @@ class DetailSettingViewController: UIViewController {
 
         self.view.addSubview(tableView)
 //        tableView.backgroundColor = .white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         title = "设置"
 
         // 据说可以移除转场阴影
@@ -140,84 +140,78 @@ extension DetailSettingViewController: UITableViewDelegate {
             self.navigationController?.pushViewController(notificationVC, animated: true)
             return
         case (0, .shakeWiFi):
-            let status = UserDefaults.standard.bool(forKey: "shakeWiFiEnabled")
-            let popup: PopupDialog
-            if status {
-                // 开启状态
-                popup = PopupDialog(title: "摇一摇上网", message: "要关闭摇一摇联网吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+            let popup = PopupDialog(title: "暂时不可用", message: "本模块当前正在维护中", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
 
-                let cancelButton = DefaultButton(title: "取消", action: nil)
-
-                let defaultButton = DestructiveButton(title: "关闭", dismissOnTap: true) {
-                    UserDefaults.standard.set(false, forKey: "shakeWiFiEnabled")
-                }
-                popup.addButtons([cancelButton, defaultButton])
-            } else {
-                // 开启状态
-                popup = PopupDialog(title: "摇一摇上网", message: "要开启摇一摇联网吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
-
-                let cancelButton = CancelButton(title: "取消", action: nil)
-
-                let defaultButton = DefaultButton(title: "开启", dismissOnTap: true) {
-                    UserDefaults.standard.set(true, forKey: "shakeWiFiEnabled")
-                }
-                popup.addButtons([cancelButton, defaultButton])
-            }
+            let defaultButton = CancelButton(title: "好", action: nil)
+            popup.addButton(defaultButton)
             self.present(popup, animated: true, completion: nil)
-            return
-        case (0, .armode):
-            guard let version = Double(UIDevice.current.systemVersion.split(separator: ".")[0]),
-            version > 11 else {
-                SwiftMessages.showErrorMessage(body: "由于版本限制，暂不支持iOS 11以下x的系统")
-                return
-            }
+//            let status = UserDefaults.standard.bool(forKey: "shakeWiFiEnabled")
+//            let popup: PopupDialog
+//            if status {
+//                // 开启状态
+//                popup = PopupDialog(title: "摇一摇上网", message: "要关闭摇一摇联网吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+//
+//                let cancelButton = DefaultButton(title: "取消", action: nil)
+//
+//                let defaultButton = DestructiveButton(title: "关闭", dismissOnTap: true) {
+//                    UserDefaults.standard.set(false, forKey: "shakeWiFiEnabled")
+//                }
+//                popup.addButtons([cancelButton, defaultButton])
+//            } else {
+//                // 开启状态
+//                popup = PopupDialog(title: "摇一摇上网", message: "要开启摇一摇联网吗？", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+//
+//                let cancelButton = CancelButton(title: "取消", action: nil)
+//
+//                let defaultButton = DefaultButton(title: "开启", dismissOnTap: true) {
+//                    UserDefaults.standard.set(true, forKey: "shakeWiFiEnabled")
+//                }
+//                popup.addButtons([cancelButton, defaultButton])
+//            }
+//            self.present(popup, animated: true, completion: nil)
+//            return
 
-            let ARModeEnabledKey = "ARModeEnabledKey"
-            let status = UserDefaults.standard.bool(forKey: ARModeEnabledKey)
-            let action = status ? "关闭" : "开启"
-            let message = "要" + action + "AR模式吗？"
-            let popup: PopupDialog = PopupDialog(title: "ARMode", message: message, buttonAlignment: .horizontal, transitionStyle: .zoomIn)
-
-            let cancelButton = DefaultButton(title: "取消", action: nil)
-
-            let defaultButton = DestructiveButton(title: action, dismissOnTap: true) {
-                UserDefaults.standard.set(!status, forKey: ARModeEnabledKey)
-                if (!status) {
-                    if #available(iOS 11.0, *) {
-                        let arWindow = ARKeyWindow()
-                        (UIApplication.shared.delegate as? AppDelegate)?.arWindow = arWindow
-                        arWindow.makeKeyAndVisible()
-                    }
-                } else {
-                    SwiftMessages.showSuccessMessage(body: action + "成功，请手动重启应用")
-                    return
-                }
-                SwiftMessages.showSuccessMessage(body: action + "成功")
-            }
-            popup.addButtons([cancelButton, defaultButton])
-            self.present(popup, animated: true, completion: nil)
-            return
         case (0, .modules):
-            let settingsVC = ModulesSettingsViewController()
-            self.navigationController?.pushViewController(settingsVC, animated: true)
+            let popup = PopupDialog(title: "暂时不可用", message: "本模块当前正在维护中", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+
+            let defaultButton = CancelButton(title: "好", action: nil)
+            popup.addButton(defaultButton)
+            self.present(popup, animated: true, completion: nil)
+//            let settingsVC = ModulesSettingsViewController()
+//            self.navigationController?.pushViewController(settingsVC, animated: true)
         case (0, .accounts):
             return
 
         case (1, .join):
-            let webVC = SupportWebViewController(url: URL(string: "https://coder.twtstudio.com/")!)
-            self.navigationController?.pushViewController(webVC, animated: true)
+            let popup = PopupDialog(title: "暂时不可用", message: "本模块当前正在维护中", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+
+            let defaultButton = CancelButton(title: "好", action: nil)
+            popup.addButton(defaultButton)
+            self.present(popup, animated: true, completion: nil)
+//            let webVC = SupportWebViewController(url: URL(string: "https://coder.twtstudio.com/")!)
+//            self.navigationController?.pushViewController(webVC, animated: true)
         case (1, .EULA):
-            let webVC = SupportWebViewController(url: URL(string: "https://support.twtstudio.com/category/1/%E5%85%AC%E5%91%8A")!)
-            self.navigationController?.pushViewController(webVC, animated: true)
+            let popup = PopupDialog(title: "暂时不可用", message: "本模块当前正在维护中", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+
+            let defaultButton = CancelButton(title: "好", action: nil)
+            popup.addButton(defaultButton)
+            self.present(popup, animated: true, completion: nil)
+//            let webVC = SupportWebViewController(url: URL(string: "https://support.twtstudio.com/category/1/%E5%85%AC%E5%91%8A")!)
+//            self.navigationController?.pushViewController(webVC, animated: true)
         case (1, .feedback):
-            let webVC = SupportWebViewController(url: URL(string: "https://support.twtstudio.com/category/6/%E7%A7%BB%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF")!)
-            self.navigationController?.pushViewController(webVC, animated: true)
+            let popup = PopupDialog(title: "暂时不可用", message: "本模块当前正在维护中", buttonAlignment: .horizontal, transitionStyle: .zoomIn)
+
+            let defaultButton = CancelButton(title: "好", action: nil)
+            popup.addButton(defaultButton)
+            self.present(popup, animated: true, completion: nil)
+//            let webVC = SupportWebViewController(url: URL(string: "https://support.twtstudio.com/category/6/%E7%A7%BB%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF")!)
+//            self.navigationController?.pushViewController(webVC, animated: true)
         case (1, .qqGroup):
             let urlString = "mqqapi://card/show_pslcard?src_type=internal&version=1&uin=738068756&card_type=group&source=qrcode&jump_from=&auth="
             if UIApplication.shared.openURL(URL(string: urlString)!) == false {
                 SwiftMessages.showWarningMessage(body: "没有找到QQ")
             }
-            //break
+//            break
         case (2, .share):
             let shareVC = UIActivityViewController(activityItems: [UIImage(named: "AppIcon40x40")!, "我发现「微北洋」超好用！一起来吧！", URL(string: "https://mobile.twt.edu.cn/wpy/index.html")!], applicationActivities: [])
             // TODO: iPad
@@ -247,13 +241,21 @@ extension DetailSettingViewController: UITableViewDelegate {
             let cancelButton = CancelButton(title: "不了", action: nil)
 
             let defaultButton = DestructiveButton(title: "退出", dismissOnTap: true) {
-                UserDefaults.standard.set(true, forKey: "shakeWiFiEnabled")
-                UserDefaults.standard.set(false, forKey: "isOnline")
-                TwTUser.shared.delete()
-                tableView.reloadData()
-                ClassTableNotificationHelper.removeNotification()
-                NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
-                self.navigationController?.popViewController(animated: true)
+               AccountManager.logoutAccount { (result) in
+                    switch result {
+                    case .success(_):
+                         WPYStorage.removeAll()
+                         UserDefaults.standard.set(false, forKey: "shakeWiFiEnabled")
+                         UserDefaults.standard.set(false, forKey: "isOnline")
+                         TwTUser.shared.delete()
+                         tableView.reloadData()
+                         ClassTableNotificationHelper.removeNotification()
+                         NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
+                         self.navigationController?.popViewController(animated: true)
+                    case .failure(let error):
+                         SwiftMessages.showErrorMessage(body: error.localizedDescription)
+                    }
+               }
             }
             popup.addButtons([cancelButton, defaultButton])
             self.present(popup, animated: true, completion: nil)

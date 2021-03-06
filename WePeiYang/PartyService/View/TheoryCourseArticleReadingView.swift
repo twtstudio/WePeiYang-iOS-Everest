@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import WebKit
 
-class TheoryCourseArticleReadingView: UIView, UIWebViewDelegate {
+class TheoryCourseArticleReadingView: UIView {
 
     /*
      // Only override drawRect: if you perform custom drawing.
@@ -93,7 +94,7 @@ private extension TheoryCourseArticleReadingView {
 
 }
 
-private extension UIWebView {
+private extension WKWebView {
     convenience init(htmlString: String) {
         self.init()
         backgroundColor = .clear

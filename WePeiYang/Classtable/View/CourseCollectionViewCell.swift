@@ -36,8 +36,8 @@ class CourseCollectionViewCell: UICollectionViewCell {
         self.contentView.layer.cornerRadius = 15
         self.contentView.tag = 10086
 
-        self.nameLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: UILayoutConstraintAxis.vertical)
-        self.nameLabel.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: UILayoutConstraintAxis.vertical)
+        self.nameLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.vertical)
+        self.nameLabel.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: NSLayoutConstraint.Axis.vertical)
 
         self.contentView.addSubview(nameLabel)
         self.contentView.addSubview(locationLabel)

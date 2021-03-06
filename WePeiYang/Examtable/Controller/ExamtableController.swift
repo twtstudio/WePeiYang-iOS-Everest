@@ -54,6 +54,9 @@ class ExamtableController: UIViewController {
         }, failure: { err in
             self.tableView.mj_header.endRefreshing()
             SwiftMessages.showErrorMessage(body: err.localizedDescription)
+            showSpiderLoginView {
+                self.refresh()
+            }
         })
     }
 

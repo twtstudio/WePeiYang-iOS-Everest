@@ -57,7 +57,7 @@ struct ClassTableNotificationHelper {
             let content = UNMutableNotificationContent()
             content.title = "要上课啦"
             content.body = body
-            content.sound = UNNotificationSound.default()
+            content.sound = UNNotificationSound.default
             content.threadIdentifier = "classtable-notification"
             // TODO: url scheme
             // content.userInfo = ["url": ""]

@@ -9,6 +9,7 @@
 import Foundation
 
 // MARK: API
+
 struct LostFoundAPI {
     
     static let root = "https://open-lostfound.twtstudio.com/api/v1/lostfound"

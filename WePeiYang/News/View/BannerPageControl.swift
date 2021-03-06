@@ -30,7 +30,7 @@ class PageControl: UIPageControl {
 
     override var currentPage: Int {
         didSet {
-            updatePageControl()
+//            updatePageControl()
         }
     }
 

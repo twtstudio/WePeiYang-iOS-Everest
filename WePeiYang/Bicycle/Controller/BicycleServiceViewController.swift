@@ -147,7 +147,7 @@ class BicycleServiceViewController: WMPageController {
 
             if TwTUser.shared.bicycleBindingState == false {
                 // FIXME: 从“好的”进入 bindingVC 后“暂不绑定” tabBar 会消失
-                let popup = PopupDialog(title: "请先绑定自行车账号", message: "没有绑定账号，请先绑定账号。", image: nil, buttonAlignment: .horizontal, gestureDismissal: false, hideStatusBar: false, completion: {
+               let popup = PopupDialog(title: "请先绑定自行车账号", message: "没有绑定账号，请先绑定账号。", image: nil, buttonAlignment: .horizontal, tapGestureDismissal: false, hideStatusBar: false, completion: {
                     self.navigationController?.popViewController(animated: true)
                 })
                 let cancelButton = CancelButton(title: "取消", action: {

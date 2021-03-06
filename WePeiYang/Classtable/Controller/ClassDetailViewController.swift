@@ -33,7 +33,7 @@ class ClassDetailViewController: UIViewController {
         tableView.contentInset.top = 10
         tableView.contentInset.bottom = 30
         tableView.estimatedRowHeight = 70
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         self.view.addSubview(tableView)
         initAccessoryView()
     }
@@ -91,7 +91,7 @@ class ClassDetailViewController: UIViewController {
 
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 10
-        let attributedString = NSAttributedString(string: detailString, attributes: [NSAttributedStringKey.paragraphStyle: paragraphStyle])
+        let attributedString = NSAttributedString(string: detailString, attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
 
         detailLabel.textColor = UIColor(red: 0.75, green: 0.75, blue: 0.75, alpha: 1.00)
         detailLabel.font = UIFont.systemFont(ofSize: 15)

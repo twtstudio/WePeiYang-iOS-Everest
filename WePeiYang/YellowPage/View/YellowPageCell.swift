@@ -139,7 +139,7 @@ class YellowPageCell: UITableViewCell {
         }
         
         phoneLabel = UILabel()
-        let attributedString = NSAttributedString(string: model.itemPhone, attributes: [NSAttributedStringKey.foregroundColor: YellowPageMainViewController.mainColor])
+        let attributedString = NSAttributedString(string: model.itemPhone, attributes: [NSAttributedString.Key.foregroundColor: YellowPageMainViewController.mainColor])
         //        let attributedString = NSAttributedString(string: model.itemPhone, attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
         
         likeView = ExtendedButton()
@@ -202,7 +202,11 @@ class YellowPageCell: UITableViewCell {
     
     @objc func phoneTapped(button: UIButton) {
         if let url = URL(string: "telprompt://\(self.detailedModel.itemPhone)") {
-            UIApplication.shared.openURL(url)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
         }
     }
     

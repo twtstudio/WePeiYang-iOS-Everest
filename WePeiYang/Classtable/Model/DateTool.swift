@@ -32,7 +32,7 @@ struct DateTool {
         }
 
         let mondayDate = now.addingTimeInterval(TimeInterval(mondayOffset*24*60*60))
-        var mondayComp = cal.dateComponents(Set([.year, .month, .day]), from: mondayDate)
+        let mondayComp = cal.dateComponents(Set([.year, .month, .day]), from: mondayDate)
 
         let month = "\(mondayComp.month!)\n月"
         var array: [String] = []

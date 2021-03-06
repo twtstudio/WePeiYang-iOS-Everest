@@ -67,7 +67,7 @@ class PublishLostViewController: UIViewController, UITextFieldDelegate {
         self.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
         
         self.tableView.estimatedRowHeight = 500
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         self.view.addSubview(tableView)
         
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = UIColor(hex6: 0x00a1e9)
@@ -142,7 +142,7 @@ extension PublishLostViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "UpLoadingCell" + "\(indexPath)") as? UploadingPicCell {
-                cell.selectionStyle = UITableViewCellSelectionStyle.none
+                cell.selectionStyle = UITableViewCell.SelectionStyle.none
                 return cell
             } else {
                 let cell = UploadingPicCell(style: .default, reuseIdentifier: "UpLoadingCell" + "\(indexPath)")
@@ -154,7 +154,7 @@ extension PublishLostViewController: UITableViewDataSource {
                 let text = function[indexPath.section][indexPath.row]
                 if text.last == "*" {
                     let attributedString = NSMutableAttributedString(string: text)
-                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSRange(location: text.count - 1, length: 1))
+                    attributedString.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.red], range: NSRange(location: text.count - 1, length: 1))
                     cell.textLabel?.attributedText = attributedString
                 } else {
                     cell.textLabel?.text = text
@@ -168,7 +168,7 @@ extension PublishLostViewController: UITableViewDataSource {
                 let text = function[indexPath.section][indexPath.row]
                 if text.last == "*" {
                     let attributedString = NSMutableAttributedString(string: text)
-                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSRange(location: text.count - 1, length: 1))
+                    attributedString.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.red], range: NSRange(location: text.count - 1, length: 1))
                     cell.textLabel?.attributedText = attributedString
                 } else {
                     cell.textLabel?.text = text
@@ -195,7 +195,7 @@ extension PublishLostViewController: UITableViewDataSource {
                 let string = function[indexPath.section][indexPath.row]
                 if string.last == "*" {
                     let attributedString = NSMutableAttributedString(string: string)
-                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSRange(location: string.count-1, length: 1))
+                    attributedString.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.red], range: NSRange(location: string.count-1, length: 1))
                     cell.textLabel?.attributedText = attributedString
                 } else {
                     cell.textLabel?.text = string
@@ -222,7 +222,7 @@ extension PublishLostViewController: UITableViewDataSource {
                 let string = function[indexPath.section][indexPath.row]
                 if string.last == "*" {
                     let attributedString = NSMutableAttributedString(string: string)
-                    attributedString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.red], range: NSRange(location: string.count-1, length: 1))
+                    attributedString.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.red], range: NSRange(location: string.count-1, length: 1))
                     cell.textLabel?.attributedText = attributedString
                 } else {
                     cell.textLabel?.text = string
@@ -368,9 +368,9 @@ extension PublishLostViewController: UITableViewDelegate {
 // Mark -- ImagePickerControllerDelegate
 extension PublishLostViewController: UIImagePickerControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         
-        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+        if let image = info[UIImagePickerController.InfoKey.editedImage.rawValue] as? UIImage {
             
             if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? UploadingPicCell {
                 markDict["pic[]"] = image

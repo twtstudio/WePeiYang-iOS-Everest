@@ -50,7 +50,7 @@ class LostFoundSearchViewController: UIViewController, UISearchBarDelegate, UITa
         self.view.addSubview(self.tableView)
         self.tableView.estimatedRowHeight = 300
         // 估算高度
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         
         self.searchController = UISearchController(searchResultsController: nil)
         self.searchController.searchBar.delegate = self

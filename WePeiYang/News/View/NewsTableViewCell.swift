@@ -19,7 +19,7 @@ class NewsTableViewCell: UITableViewCell {
     let imgView = UIImageView()
     var imageStyle: ImageStyle
 
-    init(style: UITableViewCellStyle, reuseIdentifier: String?, imageStyle: ImageStyle) {
+    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, imageStyle: ImageStyle) {
         self.imageStyle = imageStyle
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layout()
@@ -28,6 +28,7 @@ class NewsTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+     
 
     func layout() {
         var screenWidth = UIScreen.main.bounds.width

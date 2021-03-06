@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 typealias ExamTopModel = BaseResponse<[ExamModel]>
 class ExamAssistant {
@@ -22,22 +23,58 @@ class ExamAssistant {
         }
     }
     private init() {}
-
-    static func getTable(success: @escaping () -> (), failure: @escaping (Error) -> ()) {
-        SolaSessionManager.solaSession(type: .get, url: "/examtable", token: nil, parameters: nil, success: { dic in
-            if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)),
-                let res = try? ExamTopModel(data: data) {
-                ExamAssistant.exams = res.data.sorted { a, b in
-                    return (a.date + a.arrange) < (b.date + b.arrange)
-                }
-                saveCache()
-                success()
-            } else {
-                failure(WPYCustomError.custom("数据解析错误"))
+    
+    private static func parseHtml(_ html: String) -> [ExamModel] {
+        var exams: [ExamModel] = []
+        let tbody = html.find("<tbody(.+?)</tbody>")
+        let courses = tbody.findArray("<tr>(.+?)</tr>")
+        for course in courses {
+            var arr = course.findArray("<td>(.+?)</td>")
+            arr = arr.map { $0.contains("color") ? $0.find(">(.+?)</font") : $0 }
+            // 当没有考试的时候
+            if arr.isEmpty {
+                return []
             }
-        }, failure: { err in
-            failure(err)
-        })
+            let ext = arr[8] == "正常" ? "" : arr[9]
+            exams.append(ExamModel(id: arr[0], name: arr[1],
+                                   type: arr[2], date: arr[3],
+                                   arrange: arr[5], location: arr[6],
+                                   seat: arr[7], state: arr[8],
+                                   ext: ext))
+        }
+        return exams
+    }
+    //OPEN被弃用
+//    static func getTable(success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+//        SolaSessionManager.solaSession(type: .get, url: "/examtable", token: nil, parameters: nil, success: { dic in
+//            if let data = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions.init(rawValue: 0)),
+//                let res = try? ExamTopModel(data: data) {
+//                ExamAssistant.exams = res.data.sorted { a, b in
+//                    return (a.date + a.arrange) < (b.date + b.arrange)
+//                }
+//                saveCache()
+//                success()
+//            } else {
+//                failure(WPYCustomError.custom("数据解析错误"))
+//            }
+//        }, failure: { err in
+//            failure(err)
+//        })
+//    }
+    static func getTable(success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        let urlString = "http://classes.tju.edu.cn/eams/stdExamTable!examTable.action"
+        SolaSessionManager.fetch(.post, urlString: urlString) { (result) in
+            switch result {
+                case .success(let html):
+                    ExamAssistant.exams = parseHtml(html).sorted { a, b in
+                        return (a.date + a.arrange) < (b.date + b.arrange)
+                    }
+                    saveCache()
+                    success()
+                case .failure(let error):
+                    failure(error)
+            }
+        }
     }
 
     static func loadCache(success: @escaping () -> (), failure: @escaping (String) -> ()) {

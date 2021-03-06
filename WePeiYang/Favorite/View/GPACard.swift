@@ -77,7 +77,7 @@ class GPACard: CardView {
             return ChartDataEntry(x: Double(tuple.offset), y: tuple.element.stat.score)
         }
 
-        let dataSet = LineChartDataSet(values: entrys, label: nil)
+     let dataSet = LineChartDataSet(entries: entrys, label: nil)
         dataSet.mode = .cubicBezier
         dataSet.drawCirclesEnabled = false
         dataSet.drawValuesEnabled = false
