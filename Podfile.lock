@@ -7,14 +7,14 @@ PODS:
   - Floaty (4.2.0)
   - IGIdenticon (0.7)
   - JBChartView (3.0.13)
+  - JCore (2.4.0)
+  - JMessage (3.8.1):
+    - JCore (< 3.0.0, >= 1.0.0)
   - KeychainAccess (3.1.2)
   - MJRefresh (3.1.15.7)
   - ObjectMapper (3.3.0)
   - PopupDialog (1.1.1):
     - DynamicBlurView (~> 4.0)
-  - QQ_MTA (2.7.0):
-    - QQ_MTA/BasicAnalysis (= 2.7.0)
-  - QQ_MTA/BasicAnalysis (2.7.0)
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
@@ -32,11 +32,11 @@ DEPENDENCIES:
   - Floaty (= 4.2.0)
   - IGIdenticon (= 0.7)
   - JBChartView (= 3.0.13)
+  - JMessage (~> 3.8.1)
   - KeychainAccess (= 3.1.2)
   - MJRefresh (= 3.1.15.7)
   - ObjectMapper (= 3.3.0)
   - PopupDialog (= 1.1.1)
-  - QQ_MTA
   - SDWebImage (= 4.4.2)
   - SKPhotoBrowser (= 6.1.0)
   - SnapKit (= 4.0.1)
@@ -52,11 +52,12 @@ SPEC REPOS:
     - Floaty
     - IGIdenticon
     - JBChartView
+    - JCore
+    - JMessage
     - KeychainAccess
     - MJRefresh
     - ObjectMapper
     - PopupDialog
-    - QQ_MTA
     - SDWebImage
     - SKPhotoBrowser
     - SnapKit
@@ -71,11 +72,12 @@ SPEC CHECKSUMS:
   Floaty: e2bd5a0f6f7f70899e26ff2da31081c8bee8d1b0
   IGIdenticon: bf5e07ad687e45afda224ac273b950becec17852
   JBChartView: ea240dca7b83a92f47d4ae766beb3714753988a1
+  JCore: a29e4b0ee54e1301446dc02d8e1c350404108b34
+  JMessage: 2f1612060a3dfe362cf642898553ad8e49b5919f
   KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
   PopupDialog: 720c92befd8bc23c13442254945213db5612f149
-  QQ_MTA: cf80cb9de50717bd3fa19bf681808def9c221496
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   SKPhotoBrowser: 343de95d89dc7913763c5dda243cc6e606e4a168
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
@@ -83,6 +85,6 @@ SPEC CHECKSUMS:
   SwiftMessages: 633304165351b8e3dcbb81a71f8efcd86f9c1669
   WMPageController: 9f219bb8912a1a1f51af11fde61e2682a7b7e7f2
 
-PODFILE CHECKSUM: 1d520428d1efb6ce0c7b1af45183110e40bb6819
+PODFILE CHECKSUM: 8cd5b5ddf2fae21fab5901b653338f28d332d63b
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

@@ -15,7 +15,6 @@ def shared_pods
   pod 'Alamofire', '4.7.3'
   pod 'SwiftLint', '0.27.0'
   pod 'KeychainAccess', '3.1.2'
-  pod 'QQ_MTA'
 end
 
 #'3.2.0'
@@ -36,7 +35,7 @@ target 'WePeiYang' do
   pod 'PopupDialog', '1.1.1'
   pod 'Floaty', '4.2.0'
   pod 'SKPhotoBrowser', '6.1.0'
- # pod 'lottie-ios'
+  pod 'JMessage','~> 3.8.1'
 end
 
   
