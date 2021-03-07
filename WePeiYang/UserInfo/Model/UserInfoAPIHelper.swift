@@ -27,7 +27,7 @@ struct UserInfoAPI {
     static let getUserInfo = "/api/user/single"
     
     static let changeInfo = "/api/user/single" //PUT
-
+    
 }
 struct UserInfoHelper {
     static func dataManager(url: String, success: (([String: Any])->())? = nil, failure: ((Error)->())? = nil) {
@@ -43,7 +43,7 @@ struct UserInfoHelper {
                 failure?(error)
                 if let data = response.result.value  {
                     if let dict = data as? [String: Any],
-                        let errmsg = dict["message"] as? String {
+                       let errmsg = dict["message"] as? String {
                         print(errmsg)
                     }
                 } else {
@@ -55,7 +55,7 @@ struct UserInfoHelper {
 }
 //
 struct GetCodeHelper {
-
+    
     static func getRegisterCode(success: @escaping (CodeModel)->(), failure: @escaping (Error)->()) {
         Alamofire.request(UserInfoAPI.base + UserInfoAPI.getRegisterCode, method: .post, parameters: ["phone": PhoneInfo.num], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn"]).responseJSON { (response) in
             do {
@@ -87,102 +87,96 @@ struct GetUserInfoHelper {
         Alamofire.request(UserInfoAPI.base + UserInfoAPI.login, method: .post, parameters: ["account": username, "password": password], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn"]).responseJSON { (response) in
             switch response.result {
             case .success:
-                if let data = response.result.value  {
-                    if let dict = data as? [String: Any] {
-                        if let dic = dict["result"] as? [String: Any] {
-                            let telephone = dic["telephone"] as? String ?? ""
-                            let gender = dic["gender"] as? String ?? ""
-                            let realname = dic["realname"] as? String ?? ""
-                            let major = dic["major"] as? String ?? ""
-                            let userNumber = dic["userNumber"] as? String ?? ""
-                            let avatar = dic["avatar"] as? String ?? ""
-                            let stuType = dic["stuType"] as? String ?? ""
-                            let role = dic["role"] as? String ?? ""
-                            let token = dic["token"] as? String ?? ""
-                            let nickname = dic["nickname"] as? String ?? ""
-                            let email = dic["email"] as? String ?? ""
-                            let department = dic["department"] as? String ?? ""
-                            let userInfo = UserInfo(userNumber: userNumber, nickname: nickname, telephone: telephone, email: email, token: token, role: role, realname: realname, gender: gender, department: department, major: major, stuType: stuType, avatar: avatar)
-                            success(userInfo)
-                        }
-                       
-                    }
+                if let data = response.result.value,
+                   let dict = data as? [String: Any],
+                   let dic = dict["result"] as? [String: Any] {
+                    let telephone = dic["telephone"] as? String ?? ""
+                    let gender = dic["gender"] as? String ?? ""
+                    let realname = dic["realname"] as? String ?? ""
+                    let major = dic["major"] as? String ?? ""
+                    let userNumber = dic["userNumber"] as? String ?? ""
+                    let avatar = dic["avatar"] as? String ?? ""
+                    let stuType = dic["stuType"] as? String ?? ""
+                    let role = dic["role"] as? String ?? ""
+                    let token = dic["token"] as? String ?? ""
+                    let nickname = dic["nickname"] as? String ?? ""
+                    let email = dic["email"] as? String ?? ""
+                    let department = dic["department"] as? String ?? ""
+                    let userInfo = UserInfo(userNumber: userNumber, nickname: nickname, telephone: telephone, email: email, token: token, role: role, realname: realname, gender: gender, department: department, major: major, stuType: stuType, avatar: avatar)
+                    success(userInfo)
+                } else {
+                    failure(WPYCustomError.custom("账号密码错误"))
                 }
             case .failure(let error):
                 failure(error)
-                if let data = response.result.value  {
-                    if let dict = data as? [String: Any],
-                        let errmsg = dict["message"] as? String {
-                        print(errmsg)
-                    }
-                } else {
+                if let data = response.result.value,
+                   let dict = data as? [String: Any],
+                   let errmsg = dict["message"] as? String {
+                    print(errmsg)
+                }
+                else {
                     print(error)
                 }
             }
         }
-        
     }
     static func loginByPhone(phone: String, code: String, success: @escaping (UserInfo)->(), failure: @escaping (Error)->()) {
         Alamofire.request(UserInfoAPI.base + UserInfoAPI.loginByPhone, method: .post, parameters: ["phone": phone, "code": code], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn"]).responseJSON { (response) in
             switch response.result {
             case .success:
-                if let data = response.result.value  {
-                    if let dict = data as? [String: Any] {
-                        if let dic = dict["result"] as? [String: Any] {
-                            let telephone = dic["telephone"] as? String ?? ""
-                            let gender = dic["gender"] as? String ?? ""
-                            let realname = dic["realname"] as? String ?? ""
-                            let major = dic["major"] as? String ?? ""
-                            let userNumber = dic["userNumber"] as? String ?? ""
-                            let avatar = dic["avatar"] as? String ?? ""
-                            let stuType = dic["stuType"] as? String ?? ""
-                            let role = dic["role"] as? String ?? ""
-                            let token = dic["token"] as? String ?? ""
-                            let nickname = dic["nickname"] as? String ?? ""
-                            let email = dic["email"] as? String ?? ""
-                            let department = dic["department"] as? String ?? ""
-                            let userInfo = UserInfo(userNumber: userNumber, nickname: nickname, telephone: telephone, email: email, token: token, role: role, realname: realname, gender: gender, department: department, major: major, stuType: stuType, avatar: avatar)
-                            success(userInfo)
-                        }
-                       
-                    }
+                if let data = response.result.value,
+                   let dict = data as? [String: Any],
+                   let dic = dict["result"] as? [String: Any] {
+                    let telephone = dic["telephone"] as? String ?? ""
+                    let gender = dic["gender"] as? String ?? ""
+                    let realname = dic["realname"] as? String ?? ""
+                    let major = dic["major"] as? String ?? ""
+                    let userNumber = dic["userNumber"] as? String ?? ""
+                    let avatar = dic["avatar"] as? String ?? ""
+                    let stuType = dic["stuType"] as? String ?? ""
+                    let role = dic["role"] as? String ?? ""
+                    let token = dic["token"] as? String ?? ""
+                    let nickname = dic["nickname"] as? String ?? ""
+                    let email = dic["email"] as? String ?? ""
+                    let department = dic["department"] as? String ?? ""
+                    let userInfo = UserInfo(userNumber: userNumber, nickname: nickname, telephone: telephone, email: email, token: token, role: role, realname: realname, gender: gender, department: department, major: major, stuType: stuType, avatar: avatar)
+                    success(userInfo)
+                } else {
+                    failure(WPYCustomError.custom("账户密码错误"))
                 }
             case .failure(let error):
                 failure(error)
-                if let data = response.result.value  {
-                    if let dict = data as? [String: Any],
-                        let errmsg = dict["message"] as? String {
-                        print(errmsg)
-                    }
-                } else {
+                if let data = response.result.value,
+                   let dict = data as? [String: Any],
+                   let errmsg = dict["message"] as? String {
+                    print(errmsg)
+                }
+                else {
                     print(error)
                 }
             }
         }
-        
     }
 }
-
 struct ChangeUserInfoHelper {
     static func changeUserInfo(success: @escaping (CodeModel)->(), failure: @escaping (Error)->()) {
         Alamofire.request(UserInfoAPI.base + UserInfoAPI.getUserInfo, method: .put, parameters: ["telephone": PhoneInfo.num, "email": PhoneInfo.email, "verifyCode": PhoneInfo.code], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn", "token": TwTUser.shared.newToken!]).responseJSON { (response) in
             switch response.result {
             case .success:
-                if let data = response.result.value  {
-                    if let dict = data as? [String: Any] {
-                        if let finalData = try? JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let tmp = try? CodeModel(data:finalData) {
-                            success(tmp)
-                        }
-                    }
+                if let data = response.result.value,
+                   let dict = data as? [String: Any],
+                   let finalData = try? JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions.init(rawValue: 0)), let tmp = try? CodeModel(data:finalData) {
+                    success(tmp)
+                } else {
+                    failure(WPYCustomError.custom("更改用户信息失败"))
                 }
                 
             case .failure(let error):
                 failure(error)
-                if let data = response.result.value  {
-                    if let dict = data as? [String: Any],
-                        let errmsg = dict["message"] as? String {
-                        print(errmsg)
-                    }
+                if let data = response.result.value,
+                   let dict = data as? [String: Any],
+                   let errmsg = dict["message"] as? String {
+                    print(errmsg)
                 } else {
                     print(error)
                 }
@@ -190,3 +184,4 @@ struct ChangeUserInfoHelper {
         }
     }
 }
+
