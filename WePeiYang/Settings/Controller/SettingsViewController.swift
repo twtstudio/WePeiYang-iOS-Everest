@@ -337,14 +337,14 @@ extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch (indexPath.section, indexPath.row) {
-            case (1, 1):
-                // delete user info and request for unbind after click logout button
-                tableView.deselectRow(at: indexPath, animated: true)
-                for index in 0...(services.count - 1) {
-                    self.unbind(indexPathAtRow: index)
-                }
-                TwTUser.shared.delete()
-                tableView.reloadData()
+//            case (1, 1):
+//                // delete user info and request for unbind after click logout button
+//                tableView.deselectRow(at: indexPath, animated: true)
+//                for index in 0...(services.count - 1) {
+//                    self.unbind(indexPathAtRow: index)
+//                }
+//                TwTUser.shared.delete()
+//                tableView.reloadData()
             case (1, 0):
                 let detailVC = DetailSettingViewController()
                 detailVC.hidesBottomBarWhenPushed = true

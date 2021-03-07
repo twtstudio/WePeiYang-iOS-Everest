@@ -256,14 +256,14 @@ class FavViewController: UIViewController {
         let appid = String(1542905353)
         let localVersion:String = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
         // 3.6.8引入了新管理体系，更改了接口
-        if localVersion < "3.6.8" {
-            WPYStorage.removeAll()
-            UserDefaults.standard.set(false, forKey: "shakeWiFiEnabled")
-            UserDefaults.standard.set(false, forKey: "isOnline")
-            TwTUser.shared.delete()
-            ClassTableNotificationHelper.removeNotification()
-            NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
-        }
+//        if localVersion < "3.6.8" {
+//            WPYStorage.removeAll()
+//            UserDefaults.standard.set(false, forKey: "shakeWiFiEnabled")
+//            UserDefaults.standard.set(false, forKey: "isOnline")
+//            TwTUser.shared.delete()
+//            ClassTableNotificationHelper.removeNotification()
+//            NotificationCenter.default.post(name: NotificationName.NotificationUserDidLogout.name, object: nil)
+//        }
         Alamofire.request("http://itunes.apple.com/lookup?id=" + appid).validate().responseJSON { (response) in
             do {
                 if let data = response.data {

@@ -12,7 +12,8 @@ import Alamofire
 struct GPASessionManager {
     static let termNameList: [String] = ["大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下", "大五上", "大五下"]
     
-    static func parseGPA(_ html: String) -> GPAModel {
+    // 0 为本科生 1 为研究生 2 为博士生
+    static func parseGPA(_ html: String, type: Int) -> GPAModel {
         var courseList = [GPAClassModel]()
         var termList = [GPATermModel]()
         let tables = html.replacingOccurrences(of: "\r", with: "").findArray("class=\"gridtable\">(.+?)</table>")
@@ -36,13 +37,13 @@ struct GPASessionManager {
             }
             
             if (currentTermStr == term) {
-                parseCourses(tds, courseList: &courseList)
+                parseCourses(tds, courseList: &courseList, type: type)
             } else {
                 //计算上学期的数据
                 calculateScore(currentTermStr, courseList: &courseList, termList: &termList)
                 //更新当前学期
                 currentTermStr = term
-                parseCourses(tds, courseList: &courseList)
+                parseCourses(tds, courseList: &courseList, type: type)
             }
             
             //计算最后一学期的数据
@@ -76,59 +77,116 @@ struct GPASessionManager {
         courseList.removeAll()
     }
     
-    static func parseCourses(_ tds: [String], courseList: inout [GPAClassModel]) {
+    static func parseCourses(_ tds: [String], courseList: inout [GPAClassModel], type: Int) {
         //          String(tds[0][3..<5]) + " " + String(tds[0][8..<10]) + " " + String(tds[0][11..<12]))
-        let termStart = String(tds[0])[3..<5] ?? ""
-        let termEnd = String(tds[0])[8..<10] ?? ""
-        let termIdx = String(tds[0])[11..<12] ?? ""
-        let course = GPAClassModel(no: Int(tds[1]) ?? 0,
-                                   name: {
-                                    let ret = tds[2].trimmingCharacters(in: CharacterSet(["\r", "\n", "\t", ">"]))
-                                    if ret.contains("\t") {
-                                        return ret.find("(.+?)\t") + " " + ret.find(">(.+?)<")
-                                    } else {
-                                        return ret
-                                    }
-                                   }(),
-                                   type: tds[4] == ">必修" ? 1 : 0,
-                                   credit: Double(tds[5].find("([0-9]*\\.?[0-9]+)")) ?? 0,
-                                   score: {
-                                    //                                        let score = tds[6].find("([0-9]*\\.?[0-9]+)")
-                                    let score = tds[6].find("\t\t\t(.+?)\n")
-                                    //                                print(score)
-                                    switch score {
-                                        case "P":
-                                            return 100
-                                        case "--", "F", "A", "B", "C", "D", "E":
-                                            return 999
-                                        default:
-                                            return Double(score) ?? 0
-                                    }
-                                   }(),
-                                   gpa: Double(tds[8].find("([0-9]*\\.?[0-9]+)")) ?? 0,
-                                   reset: 0,
-                                   lessonID: "",
-                                   unionID: "",
-                                   courseID: "",
-                                   term: termStart + " " + termEnd + " " + termIdx)// term sub
-        if course.score != 999 {
-            courseList.append(course)
+        if type == 0 {
+            let termStart = String(tds[0])[3..<5] ?? ""
+            let termEnd = String(tds[0])[8..<10] ?? ""
+            let termIdx = String(tds[0])[11..<12] ?? ""
+            let course = GPAClassModel(no: Int(tds[1].trimmingCharacters(in: CharacterSet(["\r", "\n", "\t", ">"]))) ?? 0,
+                                       name: {
+                                        let ret = tds[2].trimmingCharacters(in: CharacterSet(["\r", "\n", "\t", ">"]))
+                                        if ret.contains("\t") {
+                                            return ret.find("(.+?)\t") + " " + ret.find(">(.+?)<")
+                                        } else {
+                                            return ret
+                                        }
+                                       }(),
+                                       type: tds[4] == ">必修" ? 1 : 0,
+                                       credit: Double(tds[5].find("([0-9]*\\.?[0-9]+)")) ?? 0,
+                                       score: {
+                                        //                                        let score = tds[6].find("([0-9]*\\.?[0-9]+)")
+                                        let score = tds[6].find("\t\t\t(.+?)\n")
+                                        //                                print(score)
+                                        switch score {
+                                            case "P":
+                                                return 100
+                                            case "--", "F", "A", "B", "C", "D", "E":
+                                                return 999
+                                            default:
+                                                return Double(score) ?? 0
+                                        }
+                                       }(),
+                                       gpa: Double(tds[8].find("([0-9]*\\.?[0-9]+)")) ?? 0,
+                                       reset: 0,
+                                       lessonID: "",
+                                       unionID: "",
+                                       courseID: "",
+                                       term: termStart + " " + termEnd + " " + termIdx)// term sub
+            if course.score != 999 {
+                courseList.append(course)
+            }
+        } else if type == 1 {
+            let termStart = String(tds[0])[3..<5] ?? ""
+            let termEnd = String(tds[0])[8..<10] ?? ""
+            let termIdx = String(tds[0])[11..<12] ?? ""
+            let course = GPAClassModel(no: Int(tds[1].trimmingCharacters(in: CharacterSet(["\r", "\n", "\t", ">", "S"]))) ?? 0,
+                                       name: {
+                                        let ret = tds[3].trimmingCharacters(in: CharacterSet(["\r", "\n", "\t", ">"]))
+                                        if ret.contains("\t") {
+                                            return ret.find("(.+?)\t") + " " + ret.find(">(.+?)<")
+                                        } else {
+                                            return ret
+                                        }
+                                       }(),
+                                       type: tds[4].contains("必修") ? 1 : 0,
+                                       credit: Double(tds[5].find("([0-9]*\\.?[0-9]+)")) ?? 0,
+                                       score: {
+                                        //                                        let score = tds[6].find("([0-9]*\\.?[0-9]+)")
+                                        let score = tds[10].find("\t\t\t(.+?)\n")
+                                        //                                print(score)
+                                        switch score {
+                                            case "P":
+                                                return 100
+                                            case "--", "F", "A", "B", "C", "D", "E":
+                                                return 999
+                                            default:
+                                                return Double(score) ?? 0
+                                        }
+                                       }(),
+                                       gpa: Double(tds[11].find("([0-9]*\\.?[0-9]+)")) ?? 0,
+                                       reset: 0,
+                                       lessonID: "",
+                                       unionID: "",
+                                       courseID: "",
+                                       term: termStart + " " + termEnd + " " + termIdx)// term sub
+            if course.score != 999 {
+                courseList.append(course)
+            }
         }
     }
     
     
     static func getGPA(success: @escaping (GPAModel) -> Void, failure: @escaping (WPYCustomError) -> Void) {
-        SolaSessionManager.fetch(.post, urlString: "http://classes.tju.edu.cn/eams/teach/grade/course/person!historyCourseGrade.action?projectType=MAJOR") { (result) in
+        // 0 为本科生 1 为研究生 2 为博士生
+        var type: Int = 0
+        // 搜索类别
+        SolaSessionManager.fetch(.post, urlString: "http://classes.tju.edu.cn/eams/stdDetail.action") { (result) in
             switch result {
-                case .success(let html):
-                    if html.contains("过快") {
-                        failure(WPYCustomError.custom("点击过快"))
-                        return
+                case.success(let s):
+                    if s.contains("本科生") {
+                        type = 0
+                    } else if s.contains("研究生") {
+                        type = 1
+                    } else {
+                        type = 2
                     }
-                    success(parseGPA(html))
-                case .failure(let error):
-                    let cuserror = (error as! WPYCustomError)
-                    failure(cuserror)
+                    // 获取课表
+                    SolaSessionManager.fetch(.post, urlString: "http://classes.tju.edu.cn/eams/teach/grade/course/person!historyCourseGrade.action?projectType=MAJOR") { (result) in
+                        switch result {
+                            case .success(let html):
+                                if html.contains("过快") {
+                                    failure(WPYCustomError.custom("点击过快"))
+                                    return
+                                }
+                                success(parseGPA(html, type: type))
+                            case .failure(let error):
+                                let cuserror = (error as! WPYCustomError)
+                                failure(cuserror)
+                        }
+                    }
+                case .failure(let err):
+                    failure(err as! WPYCustomError)
             }
         }
         // OPEN 已弃用

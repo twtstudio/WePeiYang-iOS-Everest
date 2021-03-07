@@ -315,14 +315,12 @@ extension LoginView {
                 TwTUser.shared.schoolID = info.userNumber
                 TwTUser.shared.realname = info.realname
                 TwTUser.shared.department = info.department
-                TwTUser.shared.newToken = info.token
+                TwTUser.shared.token = info.token
                 TwTUser.shared.save()
                 //                TwTUser.shared.major = info.major
                 TwTUser.shared.username = username
                 TWTKeychain.set(username: username, password: password, of: .root)
-                TwTUser.shared.token = info.token
                 
-                TwTUser.shared.save()
                 self.extraProcedures()
                 SwiftMessages.hideLoading()
                 SwiftMessages.hideAll()
