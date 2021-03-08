@@ -10,4 +10,5 @@
 #import "PartyScoreViewController.h"
 #import "PartyCoursesViewController.h"
 @import SwiftMessages;
-#import "MTA.h"
+//#import "MTA.h"
+#import "JPUSHService.h"

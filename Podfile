@@ -35,7 +35,8 @@ target 'WePeiYang' do
   pod 'PopupDialog', '1.1.1'
   pod 'Floaty', '4.2.0'
   pod 'SKPhotoBrowser', '6.1.0'
-  pod 'JMessage','~> 3.8.1'
+  pod 'JCore', '2.1.4-noidfa'
+  pod 'JPush', '3.2.6'
 end
 
   

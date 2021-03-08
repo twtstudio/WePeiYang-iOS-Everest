@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        MTA.start(withAppkey: "IUY2I5P1Y3VI")
         UIApplication.beginSwizzling()
         UIViewController.beginSwizzling()
         UITableView.beginSwizzling()

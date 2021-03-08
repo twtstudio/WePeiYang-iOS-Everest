@@ -41,6 +41,7 @@
 	<string>我们需要得到图库权限以将拍摄的照片附加到问题中</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>processing</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
