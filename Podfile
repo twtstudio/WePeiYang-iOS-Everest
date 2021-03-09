@@ -35,10 +35,13 @@ target 'WePeiYang' do
   pod 'PopupDialog', '1.1.1'
   pod 'Floaty', '4.2.0'
   pod 'SKPhotoBrowser', '6.1.0'
-  pod 'JCore', '2.1.4-noidfa'
-  pod 'JPush', '3.2.6'
+  pod 'GTSDK', '2.5.4.0'
 end
 
+target 'NotificationService' do
+    platform :ios, "10.0"
+    pod 'GTExtensionSDK'
+end
   
 target 'WePeiYangWidget' do
   shared_pods

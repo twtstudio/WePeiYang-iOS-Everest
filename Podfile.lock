@@ -5,11 +5,10 @@ PODS:
   - Charts/Core (3.6.0)
   - DynamicBlurView (4.1.0)
   - Floaty (4.2.0)
+  - GTExtensionSDK (2.2.4)
+  - GTSDK (2.5.4.0)
   - IGIdenticon (0.7)
   - JBChartView (3.0.13)
-  - JCore (2.1.4-noidfa)
-  - JPush (3.2.6):
-    - JCore (< 3.0.0, >= 2.0.0)
   - KeychainAccess (3.1.2)
   - MJRefresh (3.1.15.7)
   - ObjectMapper (3.3.0)
@@ -30,10 +29,10 @@ DEPENDENCIES:
   - Alamofire (= 4.7.3)
   - Charts (= 3.6.0)
   - Floaty (= 4.2.0)
+  - GTExtensionSDK
+  - GTSDK (= 2.5.4.0)
   - IGIdenticon (= 0.7)
   - JBChartView (= 3.0.13)
-  - JCore (= 2.1.4-noidfa)
-  - JPush (= 3.2.6)
   - KeychainAccess (= 3.1.2)
   - MJRefresh (= 3.1.15.7)
   - ObjectMapper (= 3.3.0)
@@ -51,10 +50,10 @@ SPEC REPOS:
     - Charts
     - DynamicBlurView
     - Floaty
+    - GTExtensionSDK
+    - GTSDK
     - IGIdenticon
     - JBChartView
-    - JCore
-    - JPush
     - KeychainAccess
     - MJRefresh
     - ObjectMapper
@@ -71,10 +70,10 @@ SPEC CHECKSUMS:
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   DynamicBlurView: 58e18fae80bb614e34681a4486870e7d257b62e8
   Floaty: e2bd5a0f6f7f70899e26ff2da31081c8bee8d1b0
+  GTExtensionSDK: e8a788b267b25251d764349c28a80e3320f94af6
+  GTSDK: 9ee5e20cd1087eb6f035a49f9cfd12530f6f57f8
   IGIdenticon: bf5e07ad687e45afda224ac273b950becec17852
   JBChartView: ea240dca7b83a92f47d4ae766beb3714753988a1
-  JCore: 2f15311e6889ab43ed5d629802ef793cac566465
-  JPush: 41dd48a69bd8c08abc692dc7f2b23c0fb281471f
   KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
@@ -86,6 +85,6 @@ SPEC CHECKSUMS:
   SwiftMessages: 633304165351b8e3dcbb81a71f8efcd86f9c1669
   WMPageController: 9f219bb8912a1a1f51af11fde61e2682a7b7e7f2
 
-PODFILE CHECKSUM: 9226efd5b31ca9b1d06f4dfc72ebf941f5ba2fee
+PODFILE CHECKSUM: c106b5e5f4eea612b4d1532cf3c1ab86bd026db6
 
 COCOAPODS: 1.10.1
