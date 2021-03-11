@@ -111,78 +111,7 @@ struct GPASessionManager {
     }
     
     private static func parseCourses(_ tds: [String], attributesDict: [String: Int], courseList: inout [GPAClassModel]) {
-        //          String(tds[0][3..<5]) + " " + String(tds[0][8..<10]) + " " + String(tds[0][11..<12]))
-//        if type == 0 {
-//            let termStart = String(tds[0])[3..<5] ?? ""
-//            let termEnd = String(tds[0])[8..<10] ?? ""
-//            let termIdx = String(tds[0])[11..<12] ?? ""
-//            let course = GPAClassModel(no: Int(tds[1].trimmingCharacters(in: CharacterSet(["\r", "\n", "\t", ">"]))) ?? 0,
-//                                       name: {
-//                                        let ret = tds[2].trimmingCharacters(in: CharacterSet(["\r", "\n", "\t", ">"]))
-//                                        if ret.contains("\t") {
-//                                            return ret.find("(.+?)\t") + " " + ret.find(">(.+?)<")
-//                                        } else {
-//                                            return ret
-//                                        }
-//                                       }(),
-//                                       type: tds[4] == ">必修" ? 1 : 0,
-//                                       credit: Double(tds[5].find("([0-9]*\\.?[0-9]+)")) ?? 0,
-//                                       score: {
-//                                        //                                        let score = tds[6].find("([0-9]*\\.?[0-9]+)")
-//                                        let score = tds[6].find("\t\t\t(.+?)\n")
-//                                        //                                print(score)
-//                                        switch score {
-//                                            case "P":
-//                                                return 100
-//                                            case "--", "F", "A", "B", "C", "D", "E":
-//                                                return 999
-//                                            default:
-//                                                return Double(score) ?? 0
-//                                        }
-//                                       }(),
-//                                       gpa: Double(tds[8].find("([0-9]*\\.?[0-9]+)")) ?? 0,
-//                                       reset: 0,
-//                                       lessonID: "",
-//                                       unionID: "",
-//                                       courseID: "",
-//                                       term: termStart + " " + termEnd + " " + termIdx)// term sub
-//            if course.score != 999 {
-//                courseList.append(course)
-//            }
-//        } else if type == 1 {
-//            let termStart = String(tds[0])[3..<5] ?? ""
-//            let termEnd = String(tds[0])[8..<10] ?? ""
-//            let termIdx = String(tds[0])[11..<12] ?? ""
-//            let course = GPAClassModel(no: Int(tds[1].trimmingCharacters(in: CharacterSet(["\r", "\n", "\t", ">", "S"]))) ?? 0,
-//                                       name: {
-//                                        let ret = tds[3].trimmingCharacters(in: CharacterSet(["\r", "\n", "\t", ">"]))
-//                                        if ret.contains("\t") {
-//                                            return ret.find("(.+?)\t") + " " + ret.find(">(.+?)<")
-//                                        } else {
-//                                            return ret
-//                                        }
-//                                       }(),
-//                                       type: tds[4].contains("必修") ? 1 : 0,
-//                                       credit: Double(tds[5].find("([0-9]*\\.?[0-9]+)")) ?? 0,
-//                                       score: {
-//                                        //                                        let score = tds[6].find("([0-9]*\\.?[0-9]+)")
-//                                        let score = tds[10].find("\t\t\t(.+?)\n")
-//                                        //                                print(score)
-//                                        switch score {
-//                                            case "P":
-//                                                return 100
-//                                            case "--", "F", "A", "B", "C", "D", "E":
-//                                                return 999
-//                                            default:
-//                                                return Double(score) ?? 0
-//                                        }
-//                                       }(),
-//                                       gpa: Double(tds[11].find("([0-9]*\\.?[0-9]+)")) ?? 0,
-//                                       reset: 0,
-//                                       lessonID: "",
-//                                       unionID: "",
-//                                       courseID: "",
-//                                       term: termStart + " " + termEnd + " " + termIdx)// term sub
+        // 直接用Dict来获取值
         func getAttribute(_ key: String) -> String {
             if let idx = attributesDict[key] {
                 return tds[idx]
