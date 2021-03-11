@@ -10,10 +10,12 @@ import ObjectMapper
 import Alamofire
 
 struct GPASessionManager {
+    // 0 为本科生 1 为研究生
+    private var type: Int = 0
     static let termNameList: [String] = ["大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下", "大五上", "大五下"]
     
-    // 0 为本科生 1 为研究生 2 为博士生
-    static func parseGPA(_ html: String, type: Int) -> GPAModel {
+    
+    static func parseGPA(_ html: String) -> GPAModel {
         var courseList = [GPAClassModel]()
         var termList = [GPATermModel]()
         let tables = html.replacingOccurrences(of: "\r", with: "").findArray("class=\"gridtable\">(.+?)</table>")
@@ -77,7 +79,7 @@ struct GPASessionManager {
         courseList.removeAll()
     }
     
-    static func parseCourses(_ tds: [String], courseList: inout [GPAClassModel], type: Int) {
+    static func parseCourses(_ tds: [String], courseList: inout [GPAClassModel]) {
         //          String(tds[0][3..<5]) + " " + String(tds[0][8..<10]) + " " + String(tds[0][11..<12]))
         if type == 0 {
             let termStart = String(tds[0])[3..<5] ?? ""
@@ -158,18 +160,15 @@ struct GPASessionManager {
     
     
     static func getGPA(success: @escaping (GPAModel) -> Void, failure: @escaping (WPYCustomError) -> Void) {
-        // 0 为本科生 1 为研究生 2 为博士生
-        var type: Int = 0
         // 搜索类别
         SolaSessionManager.fetch(.post, urlString: "http://classes.tju.edu.cn/eams/stdDetail.action") { (result) in
             switch result {
                 case.success(let s):
-                    if s.contains("本科生") {
+                    if s.contains("本科") {
                         type = 0
-                    } else if s.contains("研究生") {
+                    }
+                    if s.contains("研究") {
                         type = 1
-                    } else {
-                        type = 2
                     }
                     // 获取课表
                     SolaSessionManager.fetch(.post, urlString: "http://classes.tju.edu.cn/eams/teach/grade/course/person!historyCourseGrade.action?projectType=MAJOR") { (result) in

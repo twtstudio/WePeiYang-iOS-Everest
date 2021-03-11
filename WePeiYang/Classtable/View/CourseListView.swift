@@ -104,7 +104,7 @@ class CourseListView: UIView {
         }
 
         // 进行周几标签的布局
-        var dayTitles = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+        let dayTitles = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
         for i in 0..<C.dayCount {
             let label = UILabel(frame: .zero)
             label.backgroundColor = UIColor(red: 0.96, green: 0.98, blue: 0.98, alpha: 1.00)
@@ -263,8 +263,8 @@ class CourseListView: UIView {
         }
     }
 
-    func load(courses: [[ClassModel]], weeks: Int) {
-        let dayInMonth = DateTool.getWeekDayAfter(weeks: weeks)
+    func load(courses: [[ClassModel]], weeksAfter: Int) {
+        let dayInMonth = DateTool.getWeekDayAfter(weeks: weeksAfter)
         let dayTitles = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
         for i in 0..<C.dayCount {
             dayNumberLabels[i].text = dayTitles[i] + "\n" + dayInMonth[i+1]

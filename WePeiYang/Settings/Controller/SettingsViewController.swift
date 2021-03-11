@@ -155,7 +155,8 @@ class SettingsViewController: UIViewController {
 //                unbindURL = BindingAPIs.unbindTJUAccount
                 AccountManager.logoutAccount { (result) in
                     switch result {
-                        case .success(_): break
+                        case .success(_):
+                            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
                         case .failure(_):
                             SwiftMessages.showErrorMessage(body: "解绑失败.")
                             return

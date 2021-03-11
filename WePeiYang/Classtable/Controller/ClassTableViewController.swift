@@ -219,7 +219,7 @@ class ClassTableViewController: UIViewController {
         let week = Int(point.x / 50) + 1
         
         if let courses = self.weekCourseDict[week] {
-            listView.load(courses: courses, weeks: week - self.currentWeek)
+            listView.load(courses: courses, weeksAfter: week - self.currentWeek)
         }
         self.currentDisplayWeek = week
     }
@@ -243,7 +243,7 @@ class ClassTableViewController: UIViewController {
                 currentDisplayWeek = currentWeek
                 // 跳回当前周
                 if let course = self.weekCourseDict[currentWeek] {
-                    self.listView.load(courses: course, weeks: 0)
+                    self.listView.load(courses: course, weeksAfter: 0)
                 }
             }
             self.view.setNeedsUpdateConstraints()
@@ -284,7 +284,7 @@ class ClassTableViewController: UIViewController {
                 self.weekCourseDict = weekDic
                 
                 if let courses = self.weekCourseDict[self.currentWeek] {
-                    self.listView.load(courses: courses, weeks: self.currentWeek)
+                    self.listView.load(courses: courses, weeksAfter: 0)
                 }
                 
                 completion(.success("缓存读取成功"))
@@ -429,7 +429,7 @@ class ClassTableViewController: UIViewController {
                 self.weekCourseDict = weekDic
                 
                 if let courses = self.weekCourseDict[self.currentWeek] {
-                    self.listView.load(courses: courses, weeks: self.currentWeek)
+                    self.listView.load(courses: courses, weeksAfter: 0)
                 }
                 // 和本周的差距
                 SwiftMessages.showSuccessMessage(body: "刷新成功\n更新时间: \(table.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
