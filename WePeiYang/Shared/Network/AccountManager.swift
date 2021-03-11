@@ -93,8 +93,6 @@ struct AccountManager {
                     
                     switch response.statusCode {
                         case 200:
-                            TWTKeychain.erase(.tju)
-                            WPYStorage.removeAll()
                             completion(.success("退出成功"))
                         case 401:
                             completion(.failure(.requestFailed))

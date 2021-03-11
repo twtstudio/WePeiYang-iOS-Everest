@@ -156,7 +156,7 @@ class SettingsViewController: UIViewController {
                 AccountManager.logoutAccount { (result) in
                     switch result {
                         case .success(_):
-                            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
+                            break
                         case .failure(_):
                             SwiftMessages.showErrorMessage(body: "解绑失败.")
                             return
@@ -194,6 +194,9 @@ class SettingsViewController: UIViewController {
         case 0:
             TWTKeychain.erase(.tju)
             TwTUser.shared.tjuBindingState = false
+            CacheManager.delete(filename: "gpa/gpa.json", in: .group)
+            CacheManager.delete(filename: "classtable/classtable.json", in: .group)
+            NotificationCenter.default.post(name: NotificationName.NotificationBindingStatusDidChange.name, object: nil)
 //        case 1:
 //            TWTKeychain.erase(.library)
 //            TwTUser.shared.libBindingState = false

@@ -9,6 +9,9 @@
 import ObjectMapper
 
 struct ClasstableDataManager {
+    // 0为本科生 1为研究生
+    private static var type: Int = 0
+    
     // MARK: - Service
     static func fetch(
         _ method: WPYNetwork.Method = .get,
@@ -46,99 +49,137 @@ struct ClasstableDataManager {
     ///   - success: 成功回调
     ///   - failure: 失败回调
     static func getClassTable(success: @escaping (ClassTableModel) -> Void, failure: @escaping (Error) -> Void) {
-        dataQuery { (result) in
-            switch result {
-            case .success(let (semesterId, hasMinor)):
-                // 主修课表
-                getDetailTable(type: .major, semesterId: semesterId, completion: { (result) in
-                    switch result {
-                    case .success(let model):
-                        var colorConfig = [String: Int]()
-                            var newModel = model
-                        // 辅修课表
-                        if hasMinor {
-                            // 防止过快点击
-                            sleep(UInt32(1))
-                            getDetailTable(type: .minor, semesterId: semesterId) { (result) in
-                                switch result {
-                                case .success(let minorModel):
-                                    newModel.classes += minorModel.classes
-                                    newModel.classes = newModel.classes.map { course in
-                                        var course = course
-                                        if let colorIndex = colorConfig[course.courseName] {
-                                            course.setColorIndex(index: colorIndex)
-                                        } else {
-                                            var index = 0
-                                            repeat {
-                                                index = Int(arc4random()) % Metadata.Color.fluentColors.count
-                                                // 如果全都被选了，那也没办法
-                                                if colorConfig.values.count >= Metadata.Color.fluentColors.count {
-                                                    break
-                                                }
-                                            } while colorConfig.values.contains(index)
-                                            course.setColorIndex(index: index)
-                                            colorConfig[course.courseName] = index
-                                        }
-                                        return course
-                                    }
-                                    success(newModel)
-                                    return
-                                case .failure(let err):
-                                    print("辅修课表获取失败", err)
-                                    newModel.classes = newModel.classes.map { course in
-                                        var course = course
-                                        if let colorIndex = colorConfig[course.courseName] {
-                                            course.setColorIndex(index: colorIndex)
-                                        } else {
-                                            var index = 0
-                                            repeat {
-                                                index = Int(arc4random()) % Metadata.Color.fluentColors.count
-                                                // 如果全都被选了，那也没办法
-                                                if colorConfig.values.count >= Metadata.Color.fluentColors.count {
-                                                    break
-                                                }
-                                            } while colorConfig.values.contains(index)
-                                            course.setColorIndex(index: index)
-                                            colorConfig[course.courseName] = index
-                                        }
-                                        return course
-                                    }
-                                    success(newModel)
-                                    return
-                                }
-                            }
-                        } else {
-                            newModel.classes = newModel.classes.map { course in
-                                var course = course
-                                if let colorIndex = colorConfig[course.courseName] {
-                                    course.setColorIndex(index: colorIndex)
-                                } else {
-                                    var index = 0
-                                    repeat {
-                                        index = Int(arc4random()) % Metadata.Color.fluentColors.count
-                                        // 如果全都被选了，那也没办法
-                                        if colorConfig.values.count >= Metadata.Color.fluentColors.count {
-                                            break
-                                        }
-                                    } while colorConfig.values.contains(index)
-                                    course.setColorIndex(index: index)
-                                    colorConfig[course.courseName] = index
-                                }
-                                return course
-                            }
-                            success(newModel)
-                            return
+        let queue = DispatchQueue(label: "ClassTableGET")
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        var _semesterId = ""
+        var _hasMinor = false
+        
+        queue.async {
+            fetch(urlString: "http://classes.tju.edu.cn/eams/stdDetail.action") { (result) in
+                switch result {
+                    case .success(let s):
+                        if s.contains("本科") {
+                            type = 0
                         }
-                        
-                        
-                    case .failure(let error):
-                        failure(error)
-                    }
-                })
-            case .failure(let error):
-                print("ClasstableDataManager get classTable FAILED!", error)
+                        if s.contains("研究") {
+                            type = 1
+                        }
+                        semaphore.signal()
+                    case .failure(let err):
+                        failure(err)
+                        return
+                }
             }
         }
+        
+        queue.async {
+            semaphore.wait()
+            dataQuery { (result) in
+                switch result {
+                case .success(let (semesterId, hasMinor)):
+                    _semesterId = semesterId
+                    _hasMinor = hasMinor
+                    semaphore.signal()
+                case .failure(let error):
+                    print("ClasstableDataManager get classTable FAILED!", error)
+                    failure(error)
+                    return
+                }
+            }
+        }
+        
+        queue.async {
+            semaphore.wait()
+            // 主修课表
+            getDetailTable(type: .major, semesterId: _semesterId, completion: { (result) in
+                switch result {
+                case .success(let model):
+                    var colorConfig = [String: Int]()
+                    var newModel = model
+                    newModel = model
+                    // 辅修课表
+                    if _hasMinor {
+                        // 防止过快点击
+                        sleep(UInt32(1))
+                        getDetailTable(type: .minor, semesterId: _semesterId) { (result) in
+                            switch result {
+                            case .success(let minorModel):
+                                newModel.classes += minorModel.classes
+                                newModel.classes = newModel.classes.map { course in
+                                    var course = course
+                                    if let colorIndex = colorConfig[course.courseName] {
+                                        course.setColorIndex(index: colorIndex)
+                                    } else {
+                                        var index = 0
+                                        repeat {
+                                            index = Int(arc4random()) % Metadata.Color.fluentColors.count
+                                            // 如果全都被选了，那也没办法
+                                            if colorConfig.values.count >= Metadata.Color.fluentColors.count {
+                                                break
+                                            }
+                                        } while colorConfig.values.contains(index)
+                                        course.setColorIndex(index: index)
+                                        colorConfig[course.courseName] = index
+                                    }
+                                    return course
+                                }
+                                success(newModel)
+                                return
+                            case .failure(let err):
+                                print("辅修课表获取失败", err)
+                                newModel.classes = newModel.classes.map { course in
+                                    var course = course
+                                    if let colorIndex = colorConfig[course.courseName] {
+                                        course.setColorIndex(index: colorIndex)
+                                    } else {
+                                        var index = 0
+                                        repeat {
+                                            index = Int(arc4random()) % Metadata.Color.fluentColors.count
+                                            // 如果全都被选了，那也没办法
+                                            if colorConfig.values.count >= Metadata.Color.fluentColors.count {
+                                                break
+                                            }
+                                        } while colorConfig.values.contains(index)
+                                        course.setColorIndex(index: index)
+                                        colorConfig[course.courseName] = index
+                                    }
+                                    return course
+                                }
+                                success(newModel)
+                                return
+                            }
+                        }
+                    } else {
+                        newModel.classes = newModel.classes.map { course in
+                            var course = course
+                            if let colorIndex = colorConfig[course.courseName] {
+                                course.setColorIndex(index: colorIndex)
+                            } else {
+                                var index = 0
+                                repeat {
+                                    index = Int(arc4random()) % Metadata.Color.fluentColors.count
+                                    // 如果全都被选了，那也没办法
+                                    if colorConfig.values.count >= Metadata.Color.fluentColors.count {
+                                        break
+                                    }
+                                } while colorConfig.values.contains(index)
+                                course.setColorIndex(index: index)
+                                colorConfig[course.courseName] = index
+                            }
+                            return course
+                        }
+                        success(newModel)
+                        return
+                    }
+                case .failure(let error):
+                    failure(error)
+                    return
+                }
+            })
+        }
+        
+        
     }
     
     static func dataQuery(completion: @escaping (Result<(String, Bool), WPYNetwork.Failure>) -> Void) {
@@ -236,34 +277,46 @@ struct ClasstableDataManager {
         let queue = DispatchQueue(label: "ClassTableGet")
         let semaphore = DispatchSemaphore(value: 0)
         
-        // 切换projectId
-        queue.async {
-            fetch(urlString: "http://classes.tju.edu.cn/eams/courseTableForStd!index.action?projectId=\(projectId)") { result in
-                switch result {
-                case .success(_):
-                    semaphore.signal()
-                case .failure(let error):
-                    semaphore.signal()
-                    completion(.failure(error))
+        if self.type == 0 {
+            // 切换projectId
+            queue.async {
+                fetch(urlString: "http://classes.tju.edu.cn/eams/courseTableForStd!index.action?projectId=\(projectId)") { result in
+                    switch result {
+                    case .success(_):
+                        semaphore.signal()
+                    case .failure(let error):
+                        completion(.failure(error))
+                        return
+                    }
                 }
             }
-        }
-        
-        // 获取ids
-        queue.async {
-            semaphore.wait()
-            fetch(urlString: "http://classes.tju.edu.cn/eams/courseTableForStd!innerIndex.action?projectId=\(projectId)") { result in
+
+            // 获取ids
+            queue.async {
+                semaphore.wait()
+                fetch(urlString: "http://classes.tju.edu.cn/eams/courseTableForStd!innerIndex.action?projectId=\(projectId)") { result in
+                    switch result {
+                    case .success(let html):
+                        ids = html.find("\"ids\",\"([^\"]+)\"")
+                        semaphore.signal()
+                    case .failure(let error):
+                        completion(.failure(error))
+                        return
+                    }
+                }
+            }
+        } else {
+            fetch(urlString: "http://classes.tju.edu.cn/eams/courseTableForStd!innerIndex.action") { result in
                 switch result {
                 case .success(let html):
                     ids = html.find("\"ids\",\"([^\"]+)\"")
                     semaphore.signal()
                 case .failure(let error):
-                    semaphore.signal()
                     completion(.failure(error))
+                    return
                 }
             }
         }
-        
         // 获取课表
         queue.async {
             semaphore.wait()
@@ -279,11 +332,11 @@ struct ClasstableDataManager {
             ) { result in
                 switch result {
                 case .success(let h):
-                    semaphore.signal()
                     html = h
-                case .failure(let error):
                     semaphore.signal()
+                case .failure(let error):
                     completion(.failure(error))
+                    return
                 }
             }
         }
@@ -314,7 +367,7 @@ struct ClasstableDataManager {
         for tr in trs {
             guard tr.count > 1 else { break }
             // 一节课
-            let tds = tr.findArray("<td>(.+?)</td>")
+            let tds = tr.findArray("<td>(.*?)</td>")
             let weeks = tds[6].split(separator: "-").map { $0.description }
             let weekStart = weeks[0]
             let weekEnd = weeks[1]

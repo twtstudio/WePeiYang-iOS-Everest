@@ -290,7 +290,6 @@ class ClassTableViewController: UIViewController {
                 completion(.success("缓存读取成功"))
             }
         }, failure: {
-            SwiftMessages.showLoading()
             completion(.failure(WPYCustomError.custom("缓存读取失败")))
         })
     }
@@ -308,13 +307,16 @@ class ClassTableViewController: UIViewController {
         // 不是手动刷新
         if auto {
             loadCache { (result) in
+                self.isRefreshing = false
                 switch result {
                 case .success(_):
-                    self.isRefreshing = false
                     self.stopRotating()
                     return
                 case .failure(_):
-                    SwiftMessages.hideLoading()
+                    self.stopRotating()
+                    self.load()
+
+                    return
                 }
             }
         } else {
@@ -326,24 +328,9 @@ class ClassTableViewController: UIViewController {
             
             // 进行课表获取
             ClasstableDataManager.getClassTable(success: { table in
-                //            if let oldTable = AuditUser.shared.mergedTable,
-                //               oldTable.updatedAt > table.updatedAt,
-                //               table.updatedAt.contains("2017-04-01") {
-                //                // 如果新的还不如旧的
-                //                // 那就不刷新
-                //                SwiftMessages.showWarningMessage(body: "服务器故障\n缓存时间: \(oldTable.updatedAt)", context: SwiftMessages.PresentationContext.view(self.view))
-                //                group.leave()
-                //                return
-                //            }
                 originTable = table
                 group.leave()
             }, failure: { error in
-                //            let msg = error.localizedDescription
-                //            guard error is WPYCustomError else {
-                //                SwiftMessages.showErrorMessage(body: msg)
-                //                return
-                //            }
-                
                 SwiftMessages.showErrorMessage(body: "办公网状态过期")
                 sleep(UInt32(0.5))
                 SwiftMessages.hideAll()
@@ -355,32 +342,6 @@ class ClassTableViewController: UIViewController {
                 config.presentationContext  = .window(windowLevel: .normal)
                 SwiftMessages.show(config: config, view: loginView)
                 group.leave()
-                
-                //            switch error {
-                //            case .custom(let msg):
-                //                SwiftMessages.showErrorMessage(body: msg)
-                //
-                //            case .errorCode(let code, _):
-                //                if code == 40010 {
-                //                    SwiftMessages.showErrorMessage(body: "办公网密码错误，请重新绑定办公网")
-                //                    AccountManager.unbind(url: BindingAPIs.unbindTJUAccount, success: {
-                //                        TWTKeychain.erase(.tju)
-                //                        TwTUser.shared.tjuBindingState = false
-                //
-                //                        let bindVC = TJUBindingViewController()
-                //                        bindVC.hidesBottomBarWhenPushed = true
-                //                        bindVC.completion = { success in
-                //                            if success {
-                //                                self.load()
-                //                            }
-                //                        }
-                //                        UIViewController.top?.present(bindVC, animated: true, completion: nil)
-                //                    }, failure: { err in
-                //                        SwiftMessages.showErrorMessage(body: err.localizedDescription)
-                //                    })
-                //                }
-                //            }
-                //            group.leave()
             })
             
             // FIXME: 蹭课
