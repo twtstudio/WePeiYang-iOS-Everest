@@ -160,7 +160,7 @@ struct GetUserInfoHelper {
 }
 struct ChangeUserInfoHelper {
     static func changeUserInfo(success: @escaping (CodeModel)->(), failure: @escaping (Error)->()) {
-        Alamofire.request(UserInfoAPI.base + UserInfoAPI.getUserInfo, method: .put, parameters: ["telephone": PhoneInfo.num, "email": PhoneInfo.email, "verifyCode": PhoneInfo.code], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn", "token": TwTUser.shared.newToken!]).responseJSON { (response) in
+        Alamofire.request(UserInfoAPI.base + UserInfoAPI.getUserInfo, method: .put, parameters: ["telephone": PhoneInfo.num, "email": PhoneInfo.email, "verifyCode": PhoneInfo.code], headers: ["ticket": "YmFuYW5hLjM3YjU5MDA2M2Q1OTM3MTY0MDVhMmM1YTM4MmIxMTMwYjI4YmY4YTc=", "domain": "weipeiyang.twt.edu.cn", "token": TwTUser.shared.token ?? ""]).responseJSON { (response) in
             switch response.result {
             case .success:
                 if let data = response.result.value,
