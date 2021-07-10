@@ -125,6 +125,8 @@ struct ClasstableDataManager {
                                     return course
                                 }
                                 success(newModel)
+                                // 本科生请求完辅修查询GPA会导致只能查询主修 修复一下
+                                getDetailTable(type: .major, semesterId: _semesterId) { _ in }
                                 return
                             case .failure(let err):
                                 print("辅修课表获取失败", err)
